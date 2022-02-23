@@ -64,6 +64,18 @@
                 <a href="/prayer_app/subscribe/" role="button" class="btn smoothscroll pb_outline-dark btn-xl pb_font-13 p-4 rounded-0 pb_letter-spacing-2">Current Lap Stats</a>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md text-center pb_sm_py_cover">
+                <h2 class=" mb-3 heading" style="color:#212529">Previous Lap</h2>
+                <h3 class="mt-0 heading-border-top pb_font-30">36 days, 3 hours, 50 min</h3>
+                <br>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md text-center">
+                <a href="/prayer_app/stats/" role="button" class="btn smoothscroll pb_outline-dark btn-xl pb_font-13 p-4 rounded-0 pb_letter-spacing-2">All Previous Stats</a>
+            </div>
+        </div>
     </div>
 </section>
 <!-- END section -->
