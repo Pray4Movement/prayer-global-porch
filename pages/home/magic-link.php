@@ -61,11 +61,7 @@ class Prayer_Global_Porch_Home_2 extends DT_Magic_Url_Base
             add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
             add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
         }
-
-        if ( dt_is_rest() ) {
-            require_once( 'rest.php' );
-            add_filter( 'dt_allow_rest_access', [ $this, 'authorize_url' ], 10, 1 );
-        }
+        
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
