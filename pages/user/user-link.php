@@ -326,6 +326,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 return false;
             case 'update_user':
                 return $this->update_user( $params['data'] );
+            case 'delete_user':
+                return $this->delete_user( $params['data'] );
             case 'activity':
                 return $this->get_user_activity( $params['data'] );
             case 'stats':
@@ -421,6 +423,58 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 return $response;
             }
         }
+    }
+
+    public function delete_user( $data ) {
+        $user_id = get_current_user_id();
+
+        if ( !$user_id ) {
+            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
+        }
+
+        /* Delete user_id from all prayers with this user_id */
+        global $wpdb;
+        $update_reports = $wpdb->update( $wpdb->dt_reports, [ 'user_id' => null ], [ 'user_id' => $user_id ] );
+
+        /* Unassign user_id from all laps that they have started */
+        $unassign_laps = $wpdb->query( $wpdb->prepare( "
+            DELETE FROM $wpdb->postmeta
+            WHERE meta_id IN (
+                SELECT meta_id FROM (
+                    SELECT pm.meta_id FROM $wpdb->posts p
+                    JOIN $wpdb->postmeta pm
+                    ON p.ID = pm.post_id
+                    WHERE p.post_type = 'laps'
+                    AND pm.meta_key = 'assigned_to'
+                    AND pm.meta_value = %s
+                ) x
+            )
+        ", "user-$user_id" ) );
+
+        $contact_id = Disciple_Tools_Users::get_contact_for_user( $user_id );
+        /* remove contact assosciation from all feedback that they submitted */
+        $unassign_feedback = $wpdb->query( $wpdb->prepare( "
+            DELETE FROM $wpdb->p2p
+            WHERE p2p_id IN (
+                SELECT p2p_id FROM (
+                    SELECT p2p_id FROM $wpdb->p2p pp
+                    WHERE pp.p2p_from = %d
+                    AND pp.p2p_type = 'feedback_to_contacts'
+                ) x
+            )
+        ", $contact_id ) );
+
+        /* Delete user's contact record */
+        $delete_contact = $wpdb->query( $wpdb->prepare( "
+            DELETE FROM $wpdb->posts
+            WHERE ID = %d
+        ", $user_id ) );
+
+        /* Delete user */
+        require_once( ABSPATH . 'wp-admin/includes/user.php' );
+        wp_delete_user( $user_id );
+
+        return true;
     }
 
     public function get_user_activity( $data ) {
