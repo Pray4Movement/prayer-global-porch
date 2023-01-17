@@ -43,7 +43,7 @@ jQuery(document).ready(function(){
         get_user_app('delete_user')
             .done((confirmed) => {
                 if (confirmed) {
-                    window.location = ''
+                    window.location = '/'
                 }
             })
     })
@@ -902,7 +902,7 @@ jQuery(document).ready(function(){
 
     /**
      * Creates markup for a button to trigger a modal
-     * 
+     *
      * @param string text The text to show in the button
      * @param string modalId The id of the modal to trigger
      * @param string buttonType The classtype of the button e.g. primary, outline-success etc. (see bootstrap)

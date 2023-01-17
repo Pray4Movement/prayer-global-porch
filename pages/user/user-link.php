@@ -452,23 +452,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         ", "user-$user_id" ) );
 
         $contact_id = Disciple_Tools_Users::get_contact_for_user( $user_id );
-        /* remove contact assosciation from all feedback that they submitted */
-        $unassign_feedback = $wpdb->query( $wpdb->prepare( "
-            DELETE FROM $wpdb->p2p
-            WHERE p2p_id IN (
-                SELECT p2p_id FROM (
-                    SELECT p2p_id FROM $wpdb->p2p pp
-                    WHERE pp.p2p_from = %d
-                    AND pp.p2p_type = 'feedback_to_contacts'
-                ) x
-            )
-        ", $contact_id ) );
-
-        /* Delete user's contact record */
-        $delete_contact = $wpdb->query( $wpdb->prepare( "
-            DELETE FROM $wpdb->posts
-            WHERE ID = %d
-        ", $user_id ) );
+        DT_Contacts_Utils::erase_data( $contact_id, 'this-user@no.op' );
 
         /* Delete user */
         require_once( ABSPATH . 'wp-admin/includes/user.php' );
