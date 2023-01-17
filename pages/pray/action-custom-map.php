@@ -94,10 +94,15 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
             ]) ?>][0]
         </script>
         <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/bootstrap/bootstrap5.2.2.css">
         <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/ionicons/css/ionicons.min.css">
         <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/basic.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ) ) ?>" type="text/css" media="all">
         <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>heatmap.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'heatmap.css' ) ) ?>" type="text/css" media="all">
+        <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+        <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/js/global-functions.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/js/global-functions.js' ) ) ?>"></script>
         <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>report.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'report.js' ) ) ?>"></script>
         <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/js/share.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/js/share.js' ) ) ?>"></script>
         <?php
@@ -106,6 +111,8 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
     public function body(){
         $parts = $this->parts;
         $lap_stats = pg_custom_lap_stats_by_post_id( $parts['post_id'] );
+        $now = time();
+        $has_challenge_started = $lap_stats['start_time'] < $now;
         DT_Mapbox_API::geocoder_scripts();
         ?>
         <style id="custom-style"></style>
@@ -124,8 +131,13 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                 <div id="head_block">
                     <div class="d-flex align-items-center justify-content-between">
                         <span class="two-em"><?php echo esc_html( $lap_stats['title'] ) ?></span>
-                        <a class="btn btn-outline-dark py-2" href="/prayer_app/custom/<?php echo esc_attr( $parts['public_key'] ) ?>">Start Praying</a>
+                        <a class="btn btn-outline-dark py-2" <?php echo esc_attr( $has_challenge_started ) ? '' : "style='display: none'" ?> href="/prayer_app/custom/<?php echo esc_attr( $parts['public_key'] ) ?>">Start Praying</a>
                     </div>
+                </div>
+                <div class="holding-page flow-small">
+                    <span class="six-em center">Starts on <span class="starts-on-date"></span></span>
+                    <span class="six-em center time-remaining text-secondary"></span>
+                    <button class="btn btn-outline-dark btn-lg pray-button"></button>
                 </div>
                 <span class="loading-spinner active"></span>
                 <div id='map'></div>
@@ -133,24 +145,16 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                     <div class="map-overlay" id="map-legend"></div>
                     <div class="row">
                         <div class="col col-12 center"><button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_stats" aria-controls="offcanvas_stats"><i class="ion-chevron-up two-em"></i></button></div>
-
-                        <div class="col col-sm-6 col-md-3 center d-none d-md-block"><strong>Places Remaining</strong><br><strong><span class="one-em red-bg stats-figure remaining"></span></strong></div>
-                        <div class="col col-sm-6 col-md-3 center d-none d-md-block"><strong>Places Covered</strong><br><strong><span class="one-em green-bg stats-figure completed"></span></strong></div>
-                         <div class="col col-sm-6 col-md-3 center">
-                            <strong>Prayer Warriors</strong>
-                            <br>
-                            <div class="map-toggle active" data-layer-id="participants">
-                                <img class="foot__icon" src="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/praying-hand-up-20.png' ) ?>" />
-                            </div>
+                        <div class="col col-sm-6 col-md-3 center "><strong>Places Remaining</strong><br><strong><span class="one-em red-bg stats-figure remaining"></span></strong></div>
+                        <div class="col col-sm-6 col-md-3 center"><strong>Places Covered</strong><br><strong><span class="one-em green-bg stats-figure completed"></span></strong></div>
+                        <div class="col col-sm-6 col-md-3 center d-none d-md-block">
+                            <strong>Warriors</strong><br>
+                            <strong><span class="stats-figure warriors"></span></strong>
                         </div>
-                        <div class="col col-sm-6 col-md-3 center">
-                            <strong>Your Recent Prayers</strong>
-                            <br>
-                            <div class="map-toggle active" data-layer-id="user_locations">
-                                <img class="foot__icon" src="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/black-check-50.png' ) ?>" />
-                            </div>
+                        <div class="col col-sm-6 col-md-3 center d-none d-md-block">
+                            <strong>Minutes Prayed</strong><br>
+                            <strong><span class="stats-figure minutes_prayed"></span></strong>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -205,22 +209,34 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                     <hr>
                 </div>
                 <div class="col col-6 col-sm-3">
-                    <p class="stats-title">Warriors</p>
-                    <p class="stats-figure warriors">0</p>
-                </div>
-                <div class="col col-6 col-sm-3">
-                    <p class="stats-title">Minutes Prayed</p>
-                    <p class="stats-figure minutes_prayed">0</p>
-                </div>
-
-
-                <div class="col col-6 col-sm-3">
                     <p class="stats-title">Places Remaining</p>
                     <p class="stats-figure red-bg remaining">0</p>
                 </div>
                 <div class="col col-6 col-sm-3">
                     <p class="stats-title">Places Covered</p>
                     <p class="stats-figure green-bg completed">0</p>
+                </div>
+                <div class="col col-6 col-sm-3 center">
+                    <strong>Prayer Warriors</strong>
+                    <br>
+                    <div class="map-toggle active" data-layer-id="participants">
+                        <img class="foot__icon" src="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/avatar1.png' ) ?>" />
+                    </div>
+                </div>
+                <div class="col col-6 col-sm-3 center">
+                    <strong>Your Recent Prayers</strong>
+                    <br>
+                    <div class="map-toggle active" data-layer-id="user_locations">
+                        <img class="foot__icon" src="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/black-check-50.png' ) ?>" />
+                    </div>
+                </div>
+                <div class="col col-6 col-sm-3">
+                    <p class="stats-title">Warriors</p>
+                    <p class="stats-figure warriors">0</p>
+                </div>
+                <div class="col col-6 col-sm-3">
+                    <p class="stats-title">Minutes Prayed</p>
+                    <p class="stats-figure minutes_prayed">0</p>
                 </div>
                 <div class="col col-6 col-sm-3">
                     <p class="stats-title">World Coverage</p>
@@ -294,7 +310,10 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                     'participants' => $this->get_participants( $params['parts'] ),
                 ];
             case 'get_grid_details':
-                return $this->get_grid_details( $params['data'] );
+                if ( isset( $params['data']['grid_id'] ) ) {
+                    return PG_Stacker::build_location_stack( $params['data']['grid_id'] );
+                }
+                return false;
             case 'get_participants':
                 return $this->get_participants( $params['parts'] );
             case 'get_user_locations':
@@ -404,11 +423,6 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
         }
 
         return $user_locations;
-    }
-
-    public function get_grid_details( $data ) {
-        $details = PG_Stacker::build_location_stack( $data['grid_id'] );
-        return $details;
     }
 
 }

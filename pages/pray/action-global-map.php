@@ -134,23 +134,16 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
                     <div class="map-overlay" id="map-legend"></div>
                     <div class="row">
                         <div class="col col-12 center"><button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_stats"><i class="ion-chevron-up two-em"></i></button></div>
-                        <div class="col col-sm-6 col-md-3 center d-none d-md-block"><strong>Places Remaining</strong><br><strong><span class="one-em red-bg stats-figure remaining"></span></strong></div>
-                        <div class="col col-sm-6 col-md-3 center d-none d-md-block"><strong>Places Covered</strong><br><strong><span class="one-em green-bg stats-figure completed"></span></strong></div>
-                        <div class="col col-sm-6 col-md-3 center">
-                            <strong>Prayer Warriors</strong>
-                            <br>
-                            <div class="map-toggle active" data-layer-id="participants">
-                                <img class="foot__icon" src="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/praying-hand-up-20.png' ) ?>" />
-                            </div>
+                        <div class="col col-sm-6 col-md-3 center "><strong>Places Remaining</strong><br><strong><span class="one-em red-bg stats-figure remaining"></span></strong></div>
+                        <div class="col col-sm-6 col-md-3 center"><strong>Places Covered</strong><br><strong><span class="one-em green-bg stats-figure completed"></span></strong></div>
+                        <div class="col col-sm-6 col-md-3 center d-none d-md-block">
+                            <strong>Warriors</strong><br>
+                            <strong><span class="stats-figure warriors"></span></strong>
                         </div>
-                        <div class="col col-sm-6 col-md-3 center">
-                            <strong>Your Recent Prayers</strong>
-                            <br>
-                            <div class="map-toggle active" data-layer-id="user_locations">
-                                <img class="foot__icon" src="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/black-check-50.png' ) ?>" />
-                            </div>
+                        <div class="col col-sm-6 col-md-3 center d-none d-md-block">
+                            <strong>Minutes Prayed</strong><br>
+                            <strong><span class="stats-figure minutes_prayed"></span></strong>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -207,20 +200,27 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
                     <hr>
                 </div>
                 <div class="col col-6 col-sm-3">
-                    <p class="stats-title">Warriors</p>
-                    <p class="stats-figure warriors">0</p>
-                </div>
-                <div class="col col-6 col-sm-3">
-                    <p class="stats-title">Minutes Prayed</p>
-                    <p class="stats-figure minutes_prayed">0</p>
-                </div>
-                <div class="col col-6 col-sm-3">
                     <p class="stats-title">Places Remaining</p>
                     <p class="stats-figure red-bg remaining">0</p>
                 </div>
                 <div class="col col-6 col-sm-3">
                     <p class="stats-title">Places Covered</p>
                     <p class="stats-figure green-bg completed">0</p>
+                </div>
+
+                <div class="col col-6 col-sm-3 center">
+                    <strong>Prayer Warriors</strong>
+                    <br>
+                    <div class="map-toggle active" data-layer-id="participants">
+                        <img class="foot__icon" src="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/avatar1.png' ) ?>" />
+                    </div>
+                </div>
+                <div class="col col-6 col-sm-3 center">
+                    <strong>Your Recent Prayers</strong>
+                    <br>
+                    <div class="map-toggle active" data-layer-id="user_locations">
+                        <img class="foot__icon" src="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/black-check-50.png' ) ?>" />
+                    </div>
                 </div>
                 <div class="col col-6 col-sm-3">
                     <p class="stats-title">World Coverage</p>
@@ -274,7 +274,10 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
                     'participants' => $this->get_participants( $params['parts'] ),
                 ];
             case 'get_grid_details':
-                return $this->get_grid_details( $params['data'] );
+                if ( isset( $params['data']['grid_id'] ) ) {
+                    return PG_Stacker::build_location_stack( $params['data']['grid_id'] );
+                }
+                return false;
             case 'get_participants':
                 return $this->get_participants( $params['parts'] );
             case 'get_user_locations':
@@ -386,11 +389,6 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
         }
 
         return $user_locations;
-    }
-
-    public function get_grid_details( $data ) {
-        $details = PG_Stacker::build_location_stack( $data['grid_id'] );
-        return $details;
     }
 
 }

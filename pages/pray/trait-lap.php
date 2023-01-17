@@ -409,14 +409,14 @@ trait PG_Lap_Trait {
         }
 
         if ( empty( $list_4770 ) ) {
-             dt_write_log( __METHOD__ . ' : generated a new prayer lap' );
+            dt_write_log( __METHOD__ . ' : generated a new prayer lap' );
             $list_4770 = pg_generate_new_global_prayer_lap();
         }
 
         shuffle( $list_4770 );
         $grid_id = $list_4770[0];
 
-        return PG_Stacker::build_location_stack_v2( $grid_id );
+        return PG_Stacker::build_location_stack( $grid_id );
     }
 
     public static function _query_prayed_list() {
