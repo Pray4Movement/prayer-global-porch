@@ -48,18 +48,12 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
         return [
-            'porch-user-style-css',
-            'jquery-ui-site-css',
-            'foundations-css',
         ];
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
         return array_merge( $allowed_js, [
             'jquery',
-            'jquery-ui',
-            'foundations-js',
-            'porch-user-site-js',
         ]);
     }
 
@@ -90,6 +84,57 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
     }
 
     public function footer_javascript(){
+
+        ?>
+        <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
+        <script>
+            const firebaseConfig = {
+                // The details of this will come from the php
+            };
+
+            const firebaseApp = firebase.initializeApp(firebaseConfig);
+            const auth = firebaseApp.auth();
+        </script>
+        <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
+
+        <script>
+            const ui = new firebaseui.auth.AuthUI(firebase.auth());
+            const config = {
+                callbacks: {
+                    signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+                        // User successfully signed in.
+                        // Return type determines whether we continue the redirect automatically
+                        // or whether we leave that to developer to handle.
+                        //
+                        // and can perform the handshake with the PG API to
+
+                        window.location = '/'
+                        return false;
+                    },
+                    uiShown: function() {
+                        // The widget is rendered.
+                        // Hide the loader.
+                        document.getElementById('loader').style.display = 'none';
+                    }
+                },
+                // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+                signInFlow: 'popup',
+                // signInSuccessUrl: 'https://prayer.global',
+                signInOptions: [
+                    firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+                    firebase.auth.FacebookAuthProvider.PROVIDER_ID,
+                    firebase.auth.EmailAuthProvider.PROVIDER_ID,
+                ],
+                tosUrl: '/content_app/tos',
+                privacyPolicyUrl: '/content_app/privacy'
+            }
+
+            ui.start('#firebaseui-auth-container', config);
+        </script>
+
+        <?php
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/footer.php' );
     }
 
@@ -99,13 +144,16 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
 
         ?>
 
+        <style>
+
+        </style>
+
         <section class="page-section" data-section="login" id="section-login">
             <div class="container">
                 <div class="row justify-content-md-center text-center">
                     <div class="col-lg-7 flow" id="pg_content">
                         <form id="login_form">
-                            <p>
-                                <h2 class="header-border-top">Login</h2>
+                            <h2 class="header-border-top">Login</h2>
                             </p>
                             <p>
                                 Email<br>
@@ -119,6 +167,11 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                                 <button class="btn btn-outline-dark" type="button" id="submit_button">Submit</button>
                             </p>
                             <span class="loading-spinner"></span>
+
+                            <div id="firebaseui-auth-container"></div>
+                            <div id="loader">
+                                <span class="loading-spinner active"></span>
+                            </div>
                         </form>
                     </div>
                 </div>
