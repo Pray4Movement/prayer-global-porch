@@ -54,7 +54,7 @@ class PG_User_API {
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['action'] ) {
-           case 'ip_location':
+            case 'ip_location':
                 return $this->get_ip_location();
             default:
                 return new WP_Error( __METHOD__, "Incorrect action", [ 'status' => 400 ] );
