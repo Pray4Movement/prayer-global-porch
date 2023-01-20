@@ -55,6 +55,21 @@ jQuery(document).ready(function($){
         jQuery('#error').html(e)
       })
   }
+  window.api_post_global = ( type, action, data ) => {
+    return jQuery.ajax({
+      type: "POST",
+      data: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      url: jsObject.root + 'pg-api/v1/' + type,
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader('X-WP-Nonce', jsObject.nonce )
+      }
+    })
+      .fail(function(e) {
+        console.log(e)
+      })
+  }
 
   jQuery('#custom-style').empty().append(`
       #wrapper {
@@ -219,28 +234,48 @@ jQuery(document).ready(function($){
         loop++
       })
   })
+  function pan_to_user_location() {
+    window.api_post_global( 'user', 'ip_location', [] )
+      .done(function(location) {
+        window.user_location = []
+        if ( location ) {
+          window.user_location = location
+
+          const lng = Math.round( Number( location.lng ) )
+          window.map.flyTo({
+            center: [ lng, 30 ],
+          })
+
+        }
+      })
+  }
 
   function load_map() {
     jQuery('#initialize-screen').hide()
     jQuery('.loading-spinner').removeClass('active')
 
-    let center = [0, 30]
-    let zoom = 2
+    let options = {
+      container: 'map',
+      style: 'mapbox://styles/discipletools/cl2ksnvie001i15qm1h5ahqea',
+      center: [0, 30],
+      minZoom: 0,
+      maxZoom: 12,
+      zoom: 2,
+      maxBounds: [ [-170, -75], [180, 85] ]
+    }
     if ( isMobile ) {
-      center = [-90, 30]
-      zoom = 1
+      options = {
+        container: 'map',
+        style: 'mapbox://styles/discipletools/cl2ksnvie001i15qm1h5ahqea',
+        center: [-90, 30],
+        minZoom: 0,
+        maxZoom: 12,
+        zoom: 1
+      }
     }
 
     mapboxgl.accessToken = jsObject.map_key;
-    map = new mapboxgl.Map({
-      container: 'map',
-      style: 'mapbox://styles/discipletools/cl2ksnvie001i15qm1h5ahqea',
-      center: center,
-      minZoom: 0,
-      maxZoom: 12,
-      zoom: zoom,
-      maxBounds: [ [-170, -75], [180, 85] ]
-    });
+    map = new mapboxgl.Map(options);
     map.dragRotate.disable();
     map.touchZoomRotate.disableRotation();
 
@@ -257,6 +292,10 @@ jQuery(document).ready(function($){
       ]);
     }
     window.map = map
+
+    if ( isMobile ) {
+      pan_to_user_location()
+    }
 
     load_grid()
   }
