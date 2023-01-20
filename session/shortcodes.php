@@ -43,7 +43,15 @@ function dt_firebase_login_ui( $attr ) {
                     //
                     // and can perform the handshake with the PG API to
 
-                    window.location = '/'
+                    console.log(authResult)
+
+                    fetch( `${window.location.origin}/wp-json/pg-api/v1/session/verify_firebase_token`, {
+                        method: 'POST',
+                        body: JSON.stringify(authResult)
+                    })
+                    .then((result) => console.log(result))
+                    .catch(console.error)
+
                     return false;
                 },
                 uiShown: function() {
