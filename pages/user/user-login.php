@@ -168,28 +168,14 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
         <section class="page-section" data-section="login" id="section-login">
             <div class="container">
                 <div class="row justify-content-md-center text-center">
-                    <div class="col-lg-7 flow" id="pg_content">
-                        <form id="login_form">
-                            <h2 class="header-border-top">Login</h2>
-                            </p>
-                            <p>
-                                Email<br>
-                                <input type="text" id="pg_input_email"  />
-                            </p>
-                            <p>
-                                Password<br>
-                                <input type="password" id="pg_input_password" />
-                            </p>
-                            <p>
-                                <button class="btn btn-outline-dark" type="button" id="submit_button">Submit</button>
-                            </p>
-                            <span class="loading-spinner"></span>
+                    <div class="col-lg-7" id="pg_content">
+                        <h2 class="header-border-top">Login</h2>
 
-                            <div id="firebaseui-auth-container"></div>
-                            <div id="loader">
-                                <span class="loading-spinner active"></span>
-                            </div>
-                        </form>
+                        <div id="firebaseui-auth-container"></div>
+
+                        <div id="loader">
+                            <span class="loading-spinner active"></span>
+                        </div>
                     </div>
                 </div>
             </div>
