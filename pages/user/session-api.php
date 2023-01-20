@@ -2,24 +2,12 @@
 
 class PG_Session_API {
 
-    public function register()
-    {
-        # code...
-    }
+    public function register() {}
 
-    public function login()
-    {
-        # code...
-    }
+    public function login() {}
 
-    public function verify_firebase_token()
-    {
-        # code...
-    }
+    public function verify_firebase_token() {}
 
-    public function forgot_password()
-    {
-        # code...
-    }
+    public function forgot_password() {}
 }
 new PG_Session_API();
