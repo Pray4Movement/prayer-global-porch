@@ -85,9 +85,9 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
     public function footer_javascript(){
 
         $fields = get_option( 'dt_custom_login_fields' );
-        $invalid_settings = empty($fields['firebase_api_key']['value']) ||
-                            empty($fields['firebase_project_id']['value']) ||
-                            empty($fields['firebase_app_id']['value']) ? 1 : 0;
+        $invalid_settings = empty( $fields['firebase_api_key']['value'] ) ||
+                            empty( $fields['firebase_project_id']['value'] ) ||
+                            empty( $fields['firebase_app_id']['value'] ) ? 1 : 0;
 
         ?>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>

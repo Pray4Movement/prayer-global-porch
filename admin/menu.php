@@ -1,7 +1,7 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly
 
-if( is_admin() ) {
+if ( is_admin() ) {
     DT_Custom_Login_JWT_Menu::instance();
 }
 class DT_Custom_Login_JWT_Menu {
@@ -75,7 +75,7 @@ class DT_Custom_Login_JWT_Menu {
         $vars = $this->process_postback();
         $is_dt = class_exists( 'Disciple_Tools' );
         $tabs = [];
-        foreach( $vars as $val ) {
+        foreach ( $vars as $val ) {
             if ( $is_dt === $val['requires_dt'] ) {
                 $tabs[$val['tab']] = ucwords( $val['tab'] );
             }
@@ -88,7 +88,7 @@ class DT_Custom_Login_JWT_Menu {
             <h2><?php echo esc_html( $this->tab_title ) ?></h2>
             <h2 class="nav-tab-wrapper">
                 <?php
-                foreach( $tabs as $key => $value ) {
+                foreach ( $tabs as $key => $value ) {
                     ?>
                     <a href="<?php echo esc_attr( $link ) . $key ?>"
                        class="nav-tab <?php echo esc_html( ( $tab == $key ) ? 'nav-tab-active' : '' ); ?>"><?php echo esc_html( $value ) ?></a>
@@ -107,7 +107,7 @@ class DT_Custom_Login_JWT_Menu {
                                     <tbody>
                                     <?php
                                     if ( ! empty( $vars ) ) {
-                                        foreach( $vars as $key => $value ) {
+                                        foreach ( $vars as $key => $value ) {
                                             if ( $tab === $value['tab'] ) {
                                                 if ( $is_dt === $value['requires_dt'] ) {
                                                     $this->template( $value );
@@ -138,7 +138,7 @@ class DT_Custom_Login_JWT_Menu {
     }
 
     public function template( $args ) {
-        switch( $args['type'] ) {
+        switch ( $args['type'] ) {
             case 'text':
                 ?>
                 <tr>
@@ -146,7 +146,7 @@ class DT_Custom_Login_JWT_Menu {
                        <strong><?php echo esc_html( $args['label'] ) ?></strong>
                     </td>
                     <td>
-                        <input type="text" name="<?php echo $args['key'] ?>" value="<?php echo $args['value'] ?>" /> <?php echo $args['description'] ?>
+                        <input type="text" name="<?php echo esc_attr( $args['key'] ) ?>" value="<?php echo esc_attr( $args['value'] ) ?>" /> <?php echo esc_attr($args['description']) ?>
                     </td>
                 </tr>
                 <?php
@@ -158,17 +158,17 @@ class DT_Custom_Login_JWT_Menu {
                        <strong><?php echo esc_html( $args['label'] ) ?></strong>
                     </td>
                     <td>
-                        <select name="<?php echo $args['key'] ?>">
+                        <select name="<?php echo esc_attr( $args['key'] ) ?>">
                             <option></option>
                             <?php
-                            foreach( $args['default'] as $item_key => $item_value ) {
+                            foreach ( $args['default'] as $item_key => $item_value ) {
                                 ?>
-                                <option value="<?php echo $item_key ?>" <?php echo ( $item_key === $args['value'] ) ? 'selected' : '' ?>><?php echo $item_value ?></option>
+                                <option value="<?php echo esc_attr( $item_key ) ?>" <?php echo ( $item_key === $args['value'] ) ? 'selected' : '' ?>><?php echo $item_value ?></option>
                                 <?php
                             }
                             ?>
                         </select>
-                        <?php echo $args['description'] ?>
+                        <?php echo esc_html( $args['description'] ) ?>
                     </td>
                 </tr>
                 <?php
@@ -180,8 +180,8 @@ class DT_Custom_Login_JWT_Menu {
                        <strong><?php echo esc_html( $args['label'] ) ?></strong>
                     </td>
                     <td>
-                        <?php echo $args['description'] ?>
-                        <?php echo ( isset( $args['description_2'] ) && ! empty($args['description_2']) ) ? '<p>' . $args['description_2'] . '</p>' : '' ?>
+                        <?php echo esc_html( $args['description'] ) ?>
+                        <?php echo ( isset( $args['description_2'] ) && ! empty( $args['description_2'] ) ) ? '<p>' . esc_html( $args['description_2'] ) . '</p>' : '' ?>
                     </td>
                 </tr>
                 <?php
@@ -199,14 +199,14 @@ class DT_Custom_Login_JWT_Menu {
             && wp_verify_nonce( sanitize_key( wp_unslash( $_POST[$this->token.'_nonce'] ) ), $this->token . get_current_user_id() ) ) {
             $params = $_POST;
 
-            foreach( $params as $key => $param ) {
+            foreach ( $params as $key => $param ) {
                 if ( isset( $vars[$key]['value'] ) ) {
                     $vars[$key]['value'] = $param;
                 }
             }
 
             if ( isset( $params['delete'] ) ) {
-                delete_option('dt_custom_login_fields' );
+                delete_option( 'dt_custom_login_fields' );
             } else {
                 update_option( 'dt_custom_login_fields', $vars, true );
             }
@@ -379,12 +379,12 @@ function dt_custom_login_fields() {
         ],
     ];
 
-    $defaults_count = count($defaults);
+    $defaults_count = count( $defaults );
 
-    $saved_fields = get_option('dt_custom_login_fields', [] );
-    $saved_count = count($saved_fields);
+    $saved_fields = get_option( 'dt_custom_login_fields', [] );
+    $saved_count = count( $saved_fields );
 
-    $fields = wp_parse_args($saved_fields, $defaults);
+    $fields = wp_parse_args( $saved_fields, $defaults );
 
     if ( $defaults_count !== $saved_count ) {
         update_option( 'dt_custom_login_fields', $fields, true );
