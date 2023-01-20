@@ -84,16 +84,28 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
 
     public function footer_javascript(){
 
+        $fields = get_option( 'dt_custom_login_fields' );
+        $invalid_settings = empty($fields['firebase_api_key']['value']) ||
+                            empty($fields['firebase_project_id']['value']) ||
+                            empty($fields['firebase_app_id']['value']) ? 1 : 0;
+
         ?>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.15.0/firebase-auth-compat.js"></script>
         <script>
             const firebaseConfig = {
-                // The details of this will come from the php
+                apiKey: "<?php echo esc_js( $fields['firebase_api_key']['value'] ) ?>",
+                authDomain: "<?php echo esc_js( $fields['firebase_project_id']['value'] ) ?>.firebaseapp.com",
+                projectId: "<?php echo esc_js( $fields['firebase_project_id']['value'] ) ?>",
+                appId: "<?php echo esc_js( $fields['firebase_app_id']['value'] ) ?>",
             };
 
-            const firebaseApp = firebase.initializeApp(firebaseConfig);
-            const auth = firebaseApp.auth();
+            try {
+                const firebaseApp = firebase.initializeApp(firebaseConfig);
+                const auth = firebaseApp.auth();
+            } catch (error) {
+                console.log(error)
+            }
         </script>
         <script src="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.js"></script>
         <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/6.0.1/firebase-ui-auth.css" />
@@ -130,7 +142,13 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                 privacyPolicyUrl: '/content_app/privacy'
             }
 
-            ui.start('#firebaseui-auth-container', config);
+            if ( <?php echo esc_js( $invalid_settings ) ?> === 1 ) {
+                document.getElementById('loader').style.display = 'none'
+                console.error('Missing firebase settings in the admin section')
+            } else {
+                ui.start('#firebaseui-auth-container', config);
+            }
+
         </script>
 
         <?php
