@@ -14,17 +14,17 @@ class FirebaseToken {
     /**
      * Verifies the token according to the firebase project id
      * @param string $project_id
-     * @throws Error
+     * @throws Error Firebase token payload is invalid
      * @return array
      */
     public function verify( string $project_id ) : array {
-        $keys = $this->getPublicKeys();
+        $keys = $this->get_public_keys();
 
         $payload = JWT::decode( $this->token, $keys );
 
-        $isValid = $this->validatePayload( $payload, $project_id );
+        $is_valid = $this->validate_payload( $payload, $project_id );
 
-        if ( !$isValid ) {
+        if ( !$is_valid ) {
             throw new Error( 'firebase token payload is invalid' );
         }
 
@@ -35,7 +35,7 @@ class FirebaseToken {
      * Returns googles current public keys. Caches them until they need refetching.
      * @return array
      */
-    private function getPublicKeys() : array {
+    private function get_public_keys() : array {
 
         $public_key_url = 'https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com';
 
@@ -58,7 +58,7 @@ class FirebaseToken {
      * @param string $project_id
      * @return bool
      */
-    private function validatePayload( object $payload, string $project_id ) : bool {
+    private function validate_payload( object $payload, string $project_id ) : bool {
 
         /* Expiry must be in the future */
         if ( $payload->exp < time() ) {

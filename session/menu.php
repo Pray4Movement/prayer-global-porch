@@ -90,7 +90,7 @@ class DT_Custom_Login_JWT_Menu {
                 <?php
                 foreach ( $tabs as $key => $value ) {
                     ?>
-                    <a href="<?php echo esc_attr( $link ) . $key ?>"
+                    <a href="<?php echo esc_attr( $link . $key ) ?>"
                        class="nav-tab <?php echo esc_html( ( $tab == $key ) ? 'nav-tab-active' : '' ); ?>"><?php echo esc_html( $value ) ?></a>
                     <?php
                 }
@@ -146,7 +146,7 @@ class DT_Custom_Login_JWT_Menu {
                        <strong><?php echo esc_html( $args['label'] ) ?></strong>
                     </td>
                     <td>
-                        <input type="text" name="<?php echo esc_attr( $args['key'] ) ?>" value="<?php echo esc_attr( $args['value'] ) ?>" /> <?php echo esc_attr($args['description']) ?>
+                        <input type="text" name="<?php echo esc_attr( $args['key'] ) ?>" value="<?php echo esc_attr( $args['value'] ) ?>" /> <?php echo esc_attr( $args['description'] ) ?>
                     </td>
                 </tr>
                 <?php
@@ -163,7 +163,7 @@ class DT_Custom_Login_JWT_Menu {
                             <?php
                             foreach ( $args['default'] as $item_key => $item_value ) {
                                 ?>
-                                <option value="<?php echo esc_attr( $item_key ) ?>" <?php echo ( $item_key === $args['value'] ) ? 'selected' : '' ?>><?php echo $item_value ?></option>
+                                <option value="<?php echo esc_attr( $item_key ) ?>" <?php echo ( $item_key === $args['value'] ) ? 'selected' : '' ?>><?php echo esc_html( $item_value ) ?></option>
                                 <?php
                             }
                             ?>

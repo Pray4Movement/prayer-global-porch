@@ -37,7 +37,7 @@ class PG_Session_API {
         $namespace = $this->root . '/v' . $this->version;
 
         Route::post( $namespace, "/$this->type/verify_firebase_token", [ $this, 'verify_firebase_token' ] );
-   }
+    }
 
     public function authorize_url( $authorized ){
 
