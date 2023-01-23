@@ -2,7 +2,7 @@
 
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-add_shortcode( 'dt_firebase_login_ui', 'dt_firebase_login_ui');
+add_shortcode( 'dt_firebase_login_ui', 'dt_firebase_login_ui' );
 
 function dt_firebase_login_ui( $attr ) {
         $fields = get_option( 'dt_custom_login_fields' );

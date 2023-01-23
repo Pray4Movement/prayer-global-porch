@@ -7,6 +7,8 @@ class FirebaseToken {
 
     private string $token;
 
+    const PUBLIC_KEYS_CACHE = 'dt_custom_login_public_keys';
+
     public function __construct( string $token ) {
         $this->token = $token;
     }
@@ -14,7 +16,7 @@ class FirebaseToken {
     /**
      * Verifies the token according to the firebase project id
      * @param string $project_id
-     * @throws Error Firebase token payload is invalid
+     * @throws Error Firebase token payload is invalid.
      * @return array
      */
     public function verify( string $project_id ) : array {
