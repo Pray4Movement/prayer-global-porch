@@ -1,6 +1,9 @@
 <?php
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
+require_once( __DIR__ . '/vendor/autoload.php' );
+
+require_once( __DIR__ . '/firebase-token.php' );
 require_once( __DIR__ . '/route.php' );
 
 require_once( __DIR__ . '/menu.php' );

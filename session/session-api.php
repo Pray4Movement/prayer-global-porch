@@ -51,7 +51,20 @@ class PG_Session_API {
     }
 
     public function verify_firebase_token( WP_REST_Request $request ) {
-        return 'hello';
+        $body = $request->get_body();
+        $body = json_decode( $body );
+
+        $token = $body->user->stsTokenManager->accessToken;
+
+        $fields = dt_custom_login_fields();
+        $project_id = $fields['firebase_project_id']['value'];
+
+        $payload = ( new FirebaseToken( $token ) )->verify( $project_id );
+
+        return new WP_REST_Response( [
+            'status' => 200,
+            'response' => $payload,
+        ] );
     }
 
 }
