@@ -39,10 +39,14 @@ class FirebaseToken {
      */
     private function get_public_keys() : array {
 
+        $public_keys = get_transient( static::PUBLIC_KEYS_CACHE );
+        if ( $public_keys ) {
+            return $public_keys;
+        }
+
         $public_key_url = 'https://www.googleapis.com/robot/v1/metadata/x509/securetoken@system.gserviceaccount.com';
 
         $response = wp_remote_get( $public_key_url );
-
         $body = wp_remote_retrieve_body( $response );
 
         $keys = json_decode( $body, true );
@@ -50,6 +54,14 @@ class FirebaseToken {
         foreach ($keys as $kid => $cert) {
             $keys[$kid] = new Key( $cert, 'RS256' );
         }
+
+        $cache_control = wp_remote_retrieve_header( $response, 'Cache-Control' );
+        $matches = [];
+        preg_match( '/max-age=(\d*),/', $cache_control, $matches );
+
+        $max_age = (int) $matches[1];
+
+        set_transient( static::PUBLIC_KEYS_CACHE, $keys, $max_age );
 
         return $keys;
     }
