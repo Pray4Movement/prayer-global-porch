@@ -8,7 +8,7 @@ class PG_Session_API {
     public $type = 'session';
 
     public $actions = [
-        'verify_firebase_token',
+        'login',
     ];
 
     public $version = 1;
@@ -36,7 +36,7 @@ class PG_Session_API {
     public function add_endpoints() {
         $namespace = $this->root . '/v' . $this->version;
 
-        Route::post( $namespace, "/$this->type/verify_firebase_token", [ $this, 'verify_firebase_token' ] );
+        Route::post( $namespace, "/$this->type/login", [ $this, 'login' ] );
     }
 
     public function authorize_url( $authorized ){
@@ -50,21 +50,52 @@ class PG_Session_API {
         return $authorized;
     }
 
-    public function verify_firebase_token( WP_REST_Request $request ) {
+    /**
+     * Login the user using a firebase access token
+     * @param WP_REST_Request $request
+     * @return WP_REST_Response|WP_Error
+     */
+    public function login( WP_REST_Request $request ) {
         $body = $request->get_body();
         $body = json_decode( $body );
 
         $token = $body->user->stsTokenManager->accessToken;
 
-        $fields = dt_custom_login_fields();
-        $project_id = $fields['firebase_project_id']['value'];
+        try {
+            $payload = $this->verify_firebase_token( $token );
+        } catch (\Throwable $th) {
+            return new WP_Error( 'bad_token', 'Unauthorised. Bad Token', [ 'status' => 401 ] );
+        }
 
-        $payload = ( new FirebaseToken( $token ) )->verify( $project_id );
+        $user_manager = new DTFirebaseUserManager( $payload );
+
+        try {
+            $user = $user_manager->login();
+        } catch (\Throwable $th) {
+            return new WP_Error( $th->getCode(), $th->getMessage(), [ 'status' => 401 ] );
+        }
+
+        if ( !$user ) {
+            return new WP_Error( 'login_error', 'Something went wrong with the login', [ 'status' => 401 ] );
+        }
 
         return new WP_REST_Response( [
             'status' => 200,
-            'response' => $payload,
+            'body' => $user,
         ] );
+    }
+
+    /**
+     * Verify the firebase token against the project id
+     * @param string $token
+     * @return array
+     */
+    private function verify_firebase_token( string $token ) {
+        $project_id = dt_custom_login_field( 'firebase_project_id' );
+
+        $payload = ( new DTFirebaseToken( $token ) )->verify( $project_id );
+
+        return $payload;
     }
 
 }

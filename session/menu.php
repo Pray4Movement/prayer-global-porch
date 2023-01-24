@@ -228,6 +228,19 @@ function dt_custom_login_fields() {
             'type' => 'label',
             'requires_dt' => false
         ],
+        'login_method' => [
+            'tab' => 'general',
+            'key' => 'login_method',
+            'label' => 'Login Method',
+            'description' => 'Login like Wordpress normally does or like a mobile app',
+            'default' => [
+                'wordpress' => DTLoginMethods::WORDPRESS,
+                'mobile' => DTLoginMethods::MOBILE,
+            ],
+            'value' => 'wordpress',
+            'type' => 'select',
+            'requires_dt' => true,
+        ],
 
 
         // pages
@@ -337,6 +350,17 @@ function dt_custom_login_fields() {
             'type' => 'label',
             'requires_dt' => false
         ],
+        'shortcode_firebase_logon_buttons' => [
+            'tab' => 'shortcodes',
+            'key' => 'shortcode_firebase_logon_buttons',
+            'label' => 'Firebase Logon Buttons',
+            'description' => '[dt_firebase_login_ui]',
+            'description_2' => '',
+            'value' => '',
+            'type' => 'label',
+            'requires_dt' => false
+        ],
+
 
         // firebase
         'firebase_api_key' => [
@@ -391,4 +415,21 @@ function dt_custom_login_fields() {
     }
 
     return $fields;
+}
+
+/**
+ * Get the value from the fields array
+ * @param string $field_name
+ * @return mixed
+ */
+function dt_custom_login_field( string $field_name ) {
+    $fields = dt_custom_login_fields();
+
+    if ( !isset( $fields[$field_name] ) ) {
+        return false;
+    }
+
+    $value = $fields[$field_name]['value'];
+
+    return $value;
 }

@@ -45,11 +45,19 @@ function dt_firebase_login_ui( $attr ) {
 
                     console.log(authResult)
 
-                    fetch( `${window.location.origin}/wp-json/pg-api/v1/session/verify_firebase_token`, {
+                    fetch( `${window.location.origin}/wp-json/pg-api/v1/session/login`, {
                         method: 'POST',
                         body: JSON.stringify(authResult)
                     })
-                    .then((result) => console.log(result))
+                    .then((result) => result.text())
+                    .then((text) => {
+                        const response = JSON.parse(text)
+                        if ( response.status === 200 ) {
+                            window.location = '/user_app/profile'
+                        } else {
+                            throw new Error(response.body)
+                        }
+                    })
                     .catch(console.error)
 
                     return false;

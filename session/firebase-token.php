@@ -3,7 +3,7 @@
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
-class FirebaseToken {
+class DTFirebaseToken {
 
     private string $token;
 
