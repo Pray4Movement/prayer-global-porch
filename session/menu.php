@@ -241,7 +241,16 @@ function dt_custom_login_fields() {
             'type' => 'select',
             'requires_dt' => true,
         ],
+        'login_redirect_to' => [
+            'tab' => 'general',
+            'key' => 'login_redirect_to',
+            'label' => 'Login Redirect',
+            'description' => 'Url to redirect the user to after successful login',
+            'value' => '/',
+            'type' => 'text',
+            'requires_dt' => true,
 
+        ],
 
         // pages
         'pages_label' => [

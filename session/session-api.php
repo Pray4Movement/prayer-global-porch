@@ -64,7 +64,7 @@ class PG_Session_API {
         try {
             $payload = $this->verify_firebase_token( $token );
         } catch (\Throwable $th) {
-            return new WP_Error( 'bad_token', 'Unauthorised. Bad Token', [ 'status' => 401 ] );
+            return new WP_Error( 'bad_token', $th->getMessage(), [ 'status' => 401 ] );
         }
 
         $user_manager = new DTFirebaseUserManager( $payload );

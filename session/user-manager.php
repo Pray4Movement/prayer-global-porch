@@ -48,8 +48,7 @@ class DTFirebaseUserManager {
         $display_name = $this->firebase_auth['name'];
         $password = wp_generate_password();
 
-        /* If the user logged in with a social link, they won't be logging in here with their email */
-        $sign_in_provider = $this->firebase_auth['firebase']->identities->sign_in_provider;
+        $identities = (array) $this->firebase_auth['firebase']->identities;
 
         $userdata = [
             'user_email' => $email,
@@ -64,7 +63,7 @@ class DTFirebaseUserManager {
         $user_id = wp_insert_user( $userdata );
 
         add_user_meta( $user_id, 'firebase_uid', $uid );
-        add_user_meta( $user_id, 'firebase_sign_in_providers', [ $sign_in_provider ] );
+        add_user_meta( $user_id, 'firebase_identities', $identities );
     }
 
     /**
@@ -107,7 +106,8 @@ class DTFirebaseUserManager {
      * @return bool|WP_User a WP_User object if the username matched an existing user, or false if it didn't
      */
     public function allow_programmatic_login( $user, $username, $password ) {
-        return get_user_by( 'login', $username );
+        $user = get_user_by( 'login', $username );
+        return $user;
     }
 
 

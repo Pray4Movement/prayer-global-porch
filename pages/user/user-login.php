@@ -90,6 +90,16 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
     public function body() {
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' );
 
+        if ( is_user_logged_in() ) {
+            if ( isset( $_GET['redirect_to'] ) ) {
+                $redirect_to = urldecode( wp_sanitize_redirect( wp_unslash( $_GET['redirect_to'] ) ) );
+            } else {
+                $redirect_to = dt_custom_login_field( 'login_redirect_to' );
+            }
+
+            header( "Location: $redirect_to" );
+        }
+
         ?>
 
         <section class="page-section" data-section="login" id="section-login">
@@ -103,9 +113,6 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                     </div>
                 </div>
             </div>
-
-
-
 
         <?php
 
