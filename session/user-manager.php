@@ -9,8 +9,20 @@ class DTFirebaseUserManager {
 
     private array $firebase_auth;
 
+    const DEFAULT_AUTH_SERVICE_ENDPOINT = 'wp-json/jwt-auth/v1/token';
+
     public function __construct( array $firebase_auth ) {
         $this->firebase_auth = $firebase_auth;
+        add_filter( 'dt_allow_rest_access', [ $this, 'authorize_url' ], 10, 1 );
+    }
+
+    public function authorize_url( $authorized ){
+
+        if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), static::DEFAULT_AUTH_SERVICE_ENDPOINT ) !== false ) {
+            $authorized = true;
+        }
+
+        return $authorized;
     }
 
     /**
@@ -23,17 +35,17 @@ class DTFirebaseUserManager {
         }
 
         /* Login the user using the desired method. */
-        $login_method = dt_custom_login_field( 'login_method' );
+        $login_method = pg_login_field( 'login_method' );
 
         if ( DTLoginMethods::MOBILE === $login_method ) {
             /* If mobile app, then do a login using the mobile app plugin */
-            $user = $this->mobile_login();
+            $response = $this->mobile_login();
         } else {
             /* Default to normal Wordpress login */
-            $user = $this->wordpress_login();
+            $response = $this->wordpress_login();
         }
 
-        return $user;
+        return $response;
     }
 
     private function user_exists() {
@@ -85,14 +97,39 @@ class DTFirebaseUserManager {
             wp_set_current_user( $user->ID, $user->user_login );
 
             if ( is_user_logged_in() ) {
-                return $user;
+                return [
+                    'user' => $user
+                ];
             }
         }
 
         return false;
     }
 
-    private function mobile_login() : WP_User {}
+    private function mobile_login() {
+
+        add_filter( 'authenticate', [ $this, 'allow_programmatic_login' ], 10, 3 );    // hook in earlier than other callbacks to short-circuit them
+
+        $auth_service_endpoint = pg_login_field( 'auth_service_endpoint' );
+
+        if ( !$auth_service_endpoint || empty( $auth_service_endpoint ) ) {
+            $auth_service_endpoint = 'http://localhost:8000/' . static::DEFAULT_AUTH_SERVICE_ENDPOINT;
+        }
+
+        require_once( get_template_directory() . '/dt-core/libraries/wp-api-jwt-auth/public/class-jwt-auth-public.php' );
+        //$token = Jwt_Auth_Public::generate_token_static( $this->firebase_auth['user_id'], 'logging-in-programmatically' );
+        $token = Jwt_Auth_Public::generate_token_static( $this->firebase_auth['user_id'], 'dummy-password' );
+
+        remove_filter( 'authenticate', [ $this, 'allow_programmatic_login' ], 10, 3 );
+
+        if ( $token ) {
+            return [
+                'jwt' => $token,
+            ];
+        }
+
+        return false;
+    }
 
     /**
      * An 'authenticate' filter callback that authenticates the user using only     the username.

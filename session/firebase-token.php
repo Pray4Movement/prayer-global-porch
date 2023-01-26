@@ -7,7 +7,7 @@ class DTFirebaseToken {
 
     private string $token;
 
-    const PUBLIC_KEYS_CACHE = 'dt_custom_login_public_keys';
+    const PUBLIC_KEYS_CACHE = 'pg_login_public_keys';
 
     public function __construct( string $token ) {
         $this->token = $token;

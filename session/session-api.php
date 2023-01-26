@@ -7,10 +7,6 @@ class PG_Session_API {
 
     public $type = 'session';
 
-    public $actions = [
-        'login',
-    ];
-
     public $version = 1;
 
     private static $_instance = null;
@@ -41,10 +37,8 @@ class PG_Session_API {
 
     public function authorize_url( $authorized ){
 
-        foreach ( $this->actions as $action ) {
-            if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), $this->root . '/v' . $this->version . '/'.$this->type . '/' . $action ) !== false ) {
-                $authorized = true;
-            }
+        if ( isset( $_SERVER['REQUEST_URI'] ) && strpos( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), $this->root . '/v' . $this->version . '/'.$this->type ) !== false ) {
+            $authorized = true;
         }
 
         return $authorized;
@@ -70,18 +64,21 @@ class PG_Session_API {
         $user_manager = new DTFirebaseUserManager( $payload );
 
         try {
-            $user = $user_manager->login();
+            $response = $user_manager->login();
         } catch (\Throwable $th) {
             return new WP_Error( $th->getCode(), $th->getMessage(), [ 'status' => 401 ] );
         }
 
-        if ( !$user ) {
+        if ( is_wp_error( $response ) ) {
+            return $response;
+        }
+        if ( !$response ) {
             return new WP_Error( 'login_error', 'Something went wrong with the login', [ 'status' => 401 ] );
         }
 
         return new WP_REST_Response( [
             'status' => 200,
-            'body' => $user,
+            'body' => $response,
         ] );
     }
 
@@ -91,7 +88,7 @@ class PG_Session_API {
      * @return array
      */
     private function verify_firebase_token( string $token ) {
-        $project_id = dt_custom_login_field( 'firebase_project_id' );
+        $project_id = pg_login_field( 'firebase_project_id' );
 
         $payload = ( new DTFirebaseToken( $token ) )->verify( $project_id );
 

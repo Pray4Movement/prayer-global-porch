@@ -25,6 +25,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'PG_TOTAL_STATES', 4770 );
 define( 'PG_NAMESPACE', 'pg_' );
 
+
+
 /**
  * Gets the instance of the `Prayer_Global_Porch` class.
  *

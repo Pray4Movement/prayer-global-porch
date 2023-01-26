@@ -2,9 +2,9 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly
 
 if ( is_admin() ) {
-    DT_Custom_Login_JWT_Menu::instance();
+    PG_Login_JWT_Menu::instance();
 }
-class DT_Custom_Login_JWT_Menu {
+class PG_Login_JWT_Menu {
 
     public $token = 'disciple_tools_custom_login_jwt';
     public $tab_title = 'Custom Login';
@@ -22,19 +22,19 @@ class DT_Custom_Login_JWT_Menu {
         add_action( "admin_menu", array( $this, "register_menu" ) );
         $this->tabs = [
             'general' => [
-                'class' => 'DT_Custom_Login_JWT_Tab_General',
+                'class' => 'PG_Login_JWT_Tab_General',
                 'label' => 'General'
             ],
             'firebase' => [
-                'class' => 'DT_Custom_Login_JWT_Tab_Firebase',
+                'class' => 'PG_Login_JWT_Tab_Firebase',
                 'label' => 'Firebase'
             ],
             'captcha' => [
-                'class' => 'DT_Custom_Login_JWT_Tab_Captcha',
+                'class' => 'PG_Login_JWT_Tab_Captcha',
                 'label' => 'Captcha'
             ],
             'help' => [
-                'class' => 'DT_Custom_Login_JWT_Tab_Help',
+                'class' => 'PG_Login_JWT_Tab_Help',
                 'label' => 'Help'
             ]
         ];
@@ -192,7 +192,7 @@ class DT_Custom_Login_JWT_Menu {
     }
 
     public function process_postback(){
-        $vars = dt_custom_login_fields();
+        $vars = pg_login_fields();
 
         // process POST
         if ( isset( $_POST[$this->token.'_nonce'] )
@@ -206,16 +206,16 @@ class DT_Custom_Login_JWT_Menu {
             }
 
             if ( isset( $params['delete'] ) ) {
-                delete_option( 'dt_custom_login_fields' );
+                delete_option( 'pg_login_fields' );
             } else {
-                update_option( 'dt_custom_login_fields', $vars, true );
+                update_option( 'pg_login_fields', $vars, true );
             }
         }
 
         return $vars;
     }
 }
-function dt_custom_login_fields() {
+function pg_login_fields() {
     $defaults = [
 
         // general
@@ -414,13 +414,13 @@ function dt_custom_login_fields() {
 
     $defaults_count = count( $defaults );
 
-    $saved_fields = get_option( 'dt_custom_login_fields', [] );
+    $saved_fields = get_option( 'pg_login_fields', [] );
     $saved_count = count( $saved_fields );
 
     $fields = wp_parse_args( $saved_fields, $defaults );
 
     if ( $defaults_count !== $saved_count ) {
-        update_option( 'dt_custom_login_fields', $fields, true );
+        update_option( 'pg_login_fields', $fields, true );
     }
 
     return $fields;
@@ -431,8 +431,8 @@ function dt_custom_login_fields() {
  * @param string $field_name
  * @return mixed
  */
-function dt_custom_login_field( string $field_name ) {
-    $fields = dt_custom_login_fields();
+function pg_login_field( string $field_name ) {
+    $fields = pg_login_fields();
 
     if ( !isset( $fields[$field_name] ) ) {
         return false;

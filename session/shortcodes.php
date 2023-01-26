@@ -5,7 +5,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 add_shortcode( 'dt_firebase_login_ui', 'dt_firebase_login_ui' );
 
 function dt_firebase_login_ui( $attr ) {
-        $fields = get_option( 'dt_custom_login_fields' );
+        $fields = get_option( 'pg_login_fields' );
         $invalid_settings = empty( $fields['firebase_api_key']['value'] ) ||
                             empty( $fields['firebase_project_id']['value'] ) ||
                             empty( $fields['firebase_app_id']['value'] ) ? 1 : 0;
@@ -50,10 +50,11 @@ function dt_firebase_login_ui( $attr ) {
                         body: JSON.stringify(authResult)
                     })
                     .then((result) => result.text())
-                    .then((text) => {
-                        const response = JSON.parse(text)
+                    .then((json) => {
+                        const response = JSON.parse(json)
                         if ( response.status === 200 ) {
-                            window.location = '/user_app/profile'
+                            console.log(response);
+                            // window.location = '/user_app/profile'
                         } else {
                             throw new Error(response.body)
                         }
