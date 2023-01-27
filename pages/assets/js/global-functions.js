@@ -121,4 +121,39 @@ $(document).ready(function($) {
     return false
   }
 
+  window.checkAuthOrRedirect = function(callback) {
+    /* Check if the user has a valid token */
+    const token = localStorage.getItem( 'login_token' ) || '';
+
+    fetch( '/wp-json/pg-api/v1/session/check_auth', {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+        }
+    } )
+    .then((result) => result.text())
+    .then((text) => {
+        const json = JSON.parse(text)
+
+        const { data } = json
+        const { status } = data
+
+        if ( status !== 200 ) {
+            redirect()
+        }
+
+        if (callback) {
+          callback()
+        }
+    })
+    .catch((error) => {
+        redirect()
+    })
+
+    function redirect() {
+        const redirect_to = encodeURIComponent( window.location.href )
+        window.location.href = `/user_app/login?redirect_to=${redirect_to}`
+    }
+  }
+
 })

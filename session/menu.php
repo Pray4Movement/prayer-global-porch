@@ -234,8 +234,8 @@ function pg_login_fields() {
             'label' => 'Login Method',
             'description' => 'Login like Wordpress normally does or like a mobile app',
             'default' => [
-                'wordpress' => DTLoginMethods::WORDPRESS,
-                'mobile' => DTLoginMethods::MOBILE,
+                'wordpress' => DT_Login_Methods::WORDPRESS,
+                'mobile' => DT_Login_Methods::MOBILE,
             ],
             'value' => 'wordpress',
             'type' => 'select',

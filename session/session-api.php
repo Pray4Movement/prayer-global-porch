@@ -33,6 +33,7 @@ class PG_Session_API {
         $namespace = $this->root . '/v' . $this->version;
 
         Route::post( $namespace, "/$this->type/login", [ $this, 'login' ] );
+        Route::post( $namespace, "/$this->type/check_auth", [ $this, 'check_auth' ] );
     }
 
     public function authorize_url( $authorized ){
@@ -80,6 +81,37 @@ class PG_Session_API {
             'status' => 200,
             'body' => $response,
         ] );
+    }
+
+    /**
+     * Check whether the user is authenticated either via wordpress cookie or by JWT token
+     * @param WP_REST_Request $request
+     * @return WP_Error|WP_REST_Response
+     */
+    public function check_auth( WP_REST_Request $request ) {
+
+        $login_method = pg_login_field( 'login_method' );
+
+        if ( DT_Login_Methods::WORDPRESS === $login_method && is_user_logged_in() ) {
+            return new WP_REST_Response( [
+                'status' => 200,
+            ] );
+        }
+
+        if ( DT_Login_Methods::MOBILE === $login_method ) {
+            require_once( get_template_directory() . '/dt-core/libraries/wp-api-jwt-auth/public/class-jwt-auth-public.php' );
+            $response = Jwt_Auth_Public::validate_token( $request );
+
+            return $response;
+        }
+
+        return new WP_Error(
+            'pg_login_not_logged_in',
+            'User is not authenticated',
+            [
+                'status' => 401,
+            ]
+        );
     }
 
     /**

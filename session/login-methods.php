@@ -1,6 +1,6 @@
 <?php
 
-class DTLoginMethods {
+class DT_Login_Methods {
     const WORDPRESS = 'wordpress';
     const MOBILE = 'mobile';
 }

@@ -37,7 +37,7 @@ class DTFirebaseUserManager {
         /* Login the user using the desired method. */
         $login_method = pg_login_field( 'login_method' );
 
-        if ( DTLoginMethods::MOBILE === $login_method ) {
+        if ( DT_Login_Methods::MOBILE === $login_method ) {
             /* If mobile app, then do a login using the mobile app plugin */
             $response = $this->mobile_login();
         } else {

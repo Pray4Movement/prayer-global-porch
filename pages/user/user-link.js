@@ -26,11 +26,10 @@ jQuery(document).ready(function(){
     let isSavingLocation = false
     let isSavingChallenge = false
 
-    if ( jsObject.is_logged_in ) {
+
+    window.checkAuthOrRedirect(() => {
         write_main( jsObject.user )
-    } else {
-        write_login()
-    }
+    })
 
     jQuery('#delete-confirmation').on('keyup', (e) => {
         if (e.target.value === 'delete') {
