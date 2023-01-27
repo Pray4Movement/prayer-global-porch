@@ -82,6 +82,9 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         if ( is_user_logged_in() ) {
             $userdata['stats'] = $this->get_user_stats();
         }
+
+        pg_login_redirect_if_no_auth();
+
         ?>
         <script>
             let jsObject = [<?php echo json_encode([

@@ -52,9 +52,20 @@ function dt_firebase_login_ui( $attr ) {
                     .then((result) => result.text())
                     .then((json) => {
                         const response = JSON.parse(json)
+
                         if ( response.status === 200 ) {
                             console.log(response);
-                            // window.location = '/user_app/profile'
+                            const { jwt } = response.body
+
+                            if ( !Object.prototype.hasOwnProperty.call( jwt, 'token' ) ) {
+                                throw new Error('token missing from response', jwt.error)
+                            }
+
+                            const { token } = jwt
+
+                            localStorage.setItem( 'login_token', token )
+
+                            window.location = '/user_app/profile'
                         } else {
                             throw new Error(response.body)
                         }
