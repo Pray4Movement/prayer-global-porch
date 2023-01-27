@@ -123,13 +123,15 @@ $(document).ready(function($) {
 
   window.checkAuthOrRedirect = function(callback) {
     /* Check if the user has a valid token */
-    const token = localStorage.getItem( 'login_token' ) || '';
+    const token = localStorage.getItem( 'login_token' );
+
+    const headers = token ? {
+      'Authorization': `Bearer ${token}`,
+    } : {}
 
     fetch( '/wp-json/pg-api/v1/session/check_auth', {
         method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${token}`,
-        }
+        headers,
     } )
     .then((result) => result.text())
     .then((text) => {

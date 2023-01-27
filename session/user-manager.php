@@ -98,7 +98,8 @@ class DTFirebaseUserManager {
 
             if ( is_user_logged_in() ) {
                 return [
-                    'user' => $user
+                    'login_method' => DT_Login_Methods::WORDPRESS,
+                    'jwt' => null,
                 ];
             }
         }
@@ -123,6 +124,7 @@ class DTFirebaseUserManager {
 
         if ( $token ) {
             return [
+                'login_method' => DT_Login_Methods::MOBILE,
                 'jwt' => $token,
             ];
         }

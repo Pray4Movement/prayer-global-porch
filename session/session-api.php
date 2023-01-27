@@ -94,7 +94,9 @@ class PG_Session_API {
 
         if ( DT_Login_Methods::WORDPRESS === $login_method && is_user_logged_in() ) {
             return new WP_REST_Response( [
-                'status' => 200,
+                'data' => [
+                    'status' => 200,
+                ],
             ] );
         }
 

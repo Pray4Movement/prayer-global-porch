@@ -55,15 +55,19 @@ function dt_firebase_login_ui( $attr ) {
 
                         if ( response.status === 200 ) {
                             console.log(response);
-                            const { jwt } = response.body
+                            const { login_method, jwt } = response.body
 
-                            if ( !Object.prototype.hasOwnProperty.call( jwt, 'token' ) ) {
-                                throw new Error('token missing from response', jwt.error)
+                            if ( login_method === 'mobile' ) {
+                                if ( !Object.prototype.hasOwnProperty.call( jwt, 'token' ) ) {
+                                    throw new Error('token missing from response', jwt.error)
+                                }
+
+                                const { token } = jwt
+
+                                localStorage.setItem( 'login_token', token )
+                                localStorage.setItem( 'login_method', 'mobile' )
                             }
 
-                            const { token } = jwt
-
-                            localStorage.setItem( 'login_token', token )
 
                             window.location = '/user_app/profile'
                         } else {
