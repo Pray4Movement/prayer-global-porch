@@ -117,7 +117,6 @@ class DTFirebaseUserManager {
         }
 
         require_once( get_template_directory() . '/dt-core/libraries/wp-api-jwt-auth/public/class-jwt-auth-public.php' );
-        //$token = Jwt_Auth_Public::generate_token_static( $this->firebase_auth['user_id'], 'logging-in-programmatically' );
         $token = Jwt_Auth_Public::generate_token_static( $this->firebase_auth['user_id'], 'dummy-password' );
 
         remove_filter( 'authenticate', [ $this, 'allow_programmatic_login' ], 10, 3 );
