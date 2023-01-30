@@ -32,6 +32,8 @@ class PG_Session_API {
     public function add_endpoints() {
         $namespace = $this->root . '/v' . $this->version;
 
+        Route::get( $namespace, "/$this->type/user", [ $this, 'get_user' ] );
+
         Route::post( $namespace, "/$this->type/login", [ $this, 'login' ] );
         Route::post( $namespace, "/$this->type/check_auth", [ $this, 'check_auth' ] );
     }
@@ -114,6 +116,31 @@ class PG_Session_API {
                 'status' => 401,
             ]
         );
+    }
+
+    public function get_user( WP_REST_Request $request ) {
+        $login_method = pg_login_field( 'login_method' );
+
+        if ( DT_Login_Methods::WORDPRESS === $login_method && is_user_logged_in() ) {
+            $user_id = get_current_user_id();
+        } else {
+            $auth_header = Jwt_Auth_Public::get_auth_header();
+
+            if ( !$auth_header ) {
+                return;
+            }
+
+            $token = Jwt_Auth_Public::validate_token( $request, $auth_header );
+
+            if ( !$token ) {
+                return;
+            }
+
+            $user_id = $token->data->user->id;
+        }
+
+        $user = pg_get_user( $user_id, [] );
+        return $user;
     }
 
     /**

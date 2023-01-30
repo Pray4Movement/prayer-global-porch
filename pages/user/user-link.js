@@ -27,8 +27,8 @@ jQuery(document).ready(function(){
     let isSavingChallenge = false
 
 
-    window.checkAuthOrRedirect(() => {
-        write_main( jsObject.user )
+    window.checkAuthOrRedirect((user) => {
+        write_main( user )
     })
 
     jQuery('#delete-confirmation').on('keyup', (e) => {
@@ -108,15 +108,30 @@ jQuery(document).ready(function(){
     })
 
     function get_user_app (action, data ) {
+        return fetch_ajax( jsObject.root + jsObject.parts.root + '/v1/' + jsObject.parts.type, {
+            method: 'POST',
+            body: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
+        } )
+    }
+
+    function fetch_ajax( url, options ) {
+        const { body, method } = options
+
+        const token = localStorage.getItem('login_token')
+        const login_method = localStorage.getItem('login_method')
         return jQuery.ajax({
-            type: "POST",
-            data: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
+            type: method || 'GET',
+            data: body || '',
             contentType: "application/json; charset=utf-8",
             dataType: "json",
-            url: jsObject.root + jsObject.parts.root + '/v1/' + jsObject.parts.type,
+            url: url,
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('Http-X-Wp-Nonce', jsObject.nonce )
-                xhr.setRequestHeader('X-Wp-Nonce', jsObject.nonce )
+                if ( login_method === 'mobile' ) {
+                    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
+                } else {
+                    xhr.setRequestHeader('Http-X-Wp-Nonce', jsObject.nonce )
+                    xhr.setRequestHeader('X-Wp-Nonce', jsObject.nonce )
+                }
             }
         })
             .fail(function(e) {

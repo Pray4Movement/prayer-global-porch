@@ -125,32 +125,43 @@ $(document).ready(function($) {
     /* Check if the user has a valid token */
     const token = localStorage.getItem( 'login_token' );
 
-    const headers = token ? {
-      'Authorization': `Bearer ${token}`,
-    } : {}
+    const headers = { 'Content-Type': 'application/json' }
 
-    fetch( '/wp-json/pg-api/v1/session/check_auth', {
-        method: 'POST',
-        headers,
-    } )
-    .then((result) => result.text())
-    .then((text) => {
-        const json = JSON.parse(text)
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`
+    }
 
-        const { data } = json
-        const { status } = data
+    checkAuth(callback).catch(redirect)
 
-        if ( status !== 200 ) {
-            redirect()
-        }
+    function checkAuth(callback) {
+      return fetch( '/wp-json/pg-api/v1/session/check_auth', {
+          method: 'POST',
 
-        if (callback) {
-          callback()
-        }
-    })
-    .catch((error) => {
-        redirect()
-    })
+          headers,
+      } )
+      .then((result) => result.json())
+      .then((json) => {
+          const { data } = json
+          const { status } = data
+
+          if ( status !== 200 ) {
+              throw new Error()
+          }
+
+          return fetch( '/wp-json/pg-api/v1/session/user', {
+            method: 'GET',
+            headers,
+          } )
+          .then((result) => result.json())
+          .then((user) => {
+            jsObject.user = user
+
+            if(callback) {
+              callback(user)
+            }
+          })
+        })
+    }
 
     function redirect() {
         const redirect_to = encodeURIComponent( window.location.href )

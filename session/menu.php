@@ -232,7 +232,7 @@ function pg_login_fields() {
             'tab' => 'general',
             'key' => 'login_method',
             'label' => 'Login Method',
-            'description' => 'Login like Wordpress normally does or like a mobile app',
+            'description' => 'Login like Wordpress normally does or like a mobile app.',
             'default' => [
                 'wordpress' => DT_Login_Methods::WORDPRESS,
                 'mobile' => DT_Login_Methods::MOBILE,
