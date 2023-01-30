@@ -121,7 +121,16 @@ $(document).ready(function($) {
     return false
   }
 
-  window.checkAuthOrRedirect = function(callback) {
+  window.getAuthUserOrRedirect = function(callback) {
+   window.getAuthUser(callback).catch(redirect)
+
+    function redirect() {
+        const redirect_to = encodeURIComponent( window.location.href )
+        window.location.href = `/user_app/login?redirect_to=${redirect_to}`
+    }
+  }
+
+  window.getAuthUser = function(callback) {
     /* Check if the user has a valid token */
     const token = localStorage.getItem( 'login_token' );
 
@@ -131,42 +140,32 @@ $(document).ready(function($) {
       headers['Authorization'] = `Bearer ${token}`
     }
 
-    checkAuth(callback).catch(redirect)
+    return fetch( '/wp-json/pg-api/v1/session/check_auth', {
+        method: 'POST',
 
-    function checkAuth(callback) {
-      return fetch( '/wp-json/pg-api/v1/session/check_auth', {
-          method: 'POST',
+        headers,
+    } )
+    .then((result) => result.json())
+    .then((json) => {
+      const { data } = json
+      const { status } = data
 
-          headers,
+      if ( status !== 200 ) {
+          throw new Error()
+      }
+
+      return fetch( '/wp-json/pg-api/v1/session/user', {
+        method: 'GET',
+        headers,
       } )
       .then((result) => result.json())
-      .then((json) => {
-          const { data } = json
-          const { status } = data
+      .then((user) => {
+        jsObject.user = user
 
-          if ( status !== 200 ) {
-              throw new Error()
-          }
-
-          return fetch( '/wp-json/pg-api/v1/session/user', {
-            method: 'GET',
-            headers,
-          } )
-          .then((result) => result.json())
-          .then((user) => {
-            jsObject.user = user
-
-            if(callback) {
-              callback(user)
-            }
-          })
-        })
-    }
-
-    function redirect() {
-        const redirect_to = encodeURIComponent( window.location.href )
-        window.location.href = `/user_app/login?redirect_to=${redirect_to}`
-    }
+        if(callback) {
+          callback(user)
+        }
+      })
+    })
   }
-
 })

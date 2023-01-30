@@ -27,7 +27,7 @@ jQuery(document).ready(function(){
     let isSavingChallenge = false
 
 
-    window.checkAuthOrRedirect((user) => {
+    window.getAuthUserOrRedirect((user) => {
         write_main( user )
     })
 
