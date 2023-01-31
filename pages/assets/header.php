@@ -40,6 +40,21 @@ pg_google_analytics();
 
 <script>
 $(document).ready(function($) {
-    window.onGetAuthUser()
+    window.onGetAuthUser(
+        () => {
+            showElements('[data-pg-is-logged-in]', true)
+            showElements('[data-pg-is-logged-out]', false)
+        },
+        () => {
+            showElements('[data-pg-is-logged-in]', false)
+            showElements('[data-pg-is-logged-out]', true)
+        }
+    )
+
+    function showElements(selector, show) {
+        document
+            .querySelectorAll(selector)
+            .forEach((element) => element.style.display = show ? 'block' : 'none')
+    }
 })
 </script>
