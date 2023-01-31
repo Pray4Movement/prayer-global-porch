@@ -40,6 +40,6 @@ pg_google_analytics();
 
 <script>
 $(document).ready(function($) {
-    window.getAuthUser()
+    window.onGetAuthUser()
 })
 </script>

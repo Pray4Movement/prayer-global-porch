@@ -70,7 +70,8 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                 'nonce' => wp_create_nonce( 'wp_rest' ),
                 'parts' => $this->parts,
                 'is_logged_in' => is_user_logged_in() ? 1 : 0,
-                'logout_url' => esc_url( wp_logout_url( '/' ) )
+                'logout_url' => esc_url( wp_logout_url( '/' ) ),
+                'login_redirect_to' => pg_login_field( 'login_redirect_to' ),
             ]) ?>][0]
         </script>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3"></script>
@@ -102,13 +103,37 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
 
         ?>
 
+        <script>
+
+            $(document).ready(function($) {
+                window.onGetAuthUser(
+                    () => {
+                        const url = new URL(location.href)
+                        const redirectTo = url.searchParams.get('redirect_to') || encodeURIComponent('/user_app/profile')
+
+                        location.href = decodeURIComponent(redirectTo)
+                    },
+                    () => {
+                        document.getElementById('login-ui').style.display = 'block'
+                        document.getElementById('login-ui-loader').style.display = 'none'
+                    }
+                )
+            })
+
+        </script>
+
         <section class="page-section" data-section="login" id="section-login">
             <div class="container">
                 <div class="row justify-content-md-center text-center">
                     <div class="col-lg-7" id="pg_content">
                         <h2 class="header-border-top">Login</h2>
 
-                        <?php echo do_shortcode( '[dt_firebase_login_ui]' ) ?>
+                        <div id="login-ui" style="display: none;">
+                            <?php echo do_shortcode( '[dt_firebase_login_ui]' ) ?>
+                        </div>
+                        <div id="login-ui-loader">
+                            <span class="loading-spinner active"></span>
+                        </div>
 
                     </div>
                 </div>

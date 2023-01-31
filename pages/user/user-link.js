@@ -27,9 +27,10 @@ jQuery(document).ready(function(){
     let isSavingChallenge = false
 
 
-    window.getAuthUserOrRedirect((user) => {
-        write_main( user )
-    })
+    window.onGetAuthUser(
+        (user) => write_main( user ),
+        () => window.loginRedirect()
+    )
 
     jQuery('#delete-confirmation').on('keyup', (e) => {
         if (e.target.value === 'delete') {
@@ -40,7 +41,7 @@ jQuery(document).ready(function(){
     })
     jQuery('#confirm-user-account-delete').on('click', () => {
         get_user_app('delete_user')
-            .done((confirmed) => {
+            .then((confirmed) => {
                 if (confirmed) {
                     window.location = '/'
                 }
@@ -84,7 +85,7 @@ jQuery(document).ready(function(){
             jQuery('.mapbox-error-message').html('')
 
             get_user_app('save_location', location)
-                .done((location) => {
+                .then((location) => {
                     jsObject.user.location = location
                     jQuery('#location-modal').modal('hide')
                     jQuery('#mapbox-spinner-button').hide()
@@ -108,36 +109,10 @@ jQuery(document).ready(function(){
     })
 
     function get_user_app (action, data ) {
-        return fetch_ajax( jsObject.root + jsObject.parts.root + '/v1/' + jsObject.parts.type, {
+        return window.api_fetch( jsObject.root + jsObject.parts.root + '/v1/' + jsObject.parts.type, {
             method: 'POST',
             body: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
         } )
-    }
-
-    function fetch_ajax( url, options ) {
-        const { body, method } = options
-
-        const token = localStorage.getItem('login_token')
-        const login_method = localStorage.getItem('login_method')
-        return jQuery.ajax({
-            type: method || 'GET',
-            data: body || '',
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            url: url,
-            beforeSend: function (xhr) {
-                if ( login_method === 'mobile' ) {
-                    xhr.setRequestHeader('Authorization', `Bearer ${token}`)
-                } else {
-                    xhr.setRequestHeader('Http-X-Wp-Nonce', jsObject.nonce )
-                    xhr.setRequestHeader('X-Wp-Nonce', jsObject.nonce )
-                }
-            }
-        })
-            .fail(function(e) {
-                console.log(e)
-                jQuery('#error').html(e)
-            })
     }
 
     function send_login () {
@@ -146,7 +121,7 @@ jQuery(document).ready(function(){
         jQuery('.loading-spinner').addClass('active')
 
         get_user_app('login', { email: email, pass: pass } )
-            .done(function(data){
+            .then(function(data){
                 jQuery('.loading-spinner').removeClass('active')
                 if ( data ) {
                     show_user_nav()
@@ -252,7 +227,7 @@ jQuery(document).ready(function(){
 
         if ( !data.stats ) {
             get_user_app('stats')
-                .done((stats) => {
+                .then((stats) => {
                     if (!stats || stats.length === 0) {
                         return
                     }
@@ -262,7 +237,7 @@ jQuery(document).ready(function(){
         }
 
         get_user_app('activity')
-            .done((activity) => {
+            .then((activity) => {
                 if (!activity || activity.length === 0) {
                     return
                 }
@@ -277,7 +252,7 @@ jQuery(document).ready(function(){
             const pg_user_hash = localStorage.getItem('pg_user_hash')
 
             get_user_app('ip_location', { hash: pg_user_hash })
-                .done((data) => {
+                .then((data) => {
                     if (!data || !data.location ) {
                         jQuery('.user__location-label').html('Please select your location')
                         return
@@ -432,7 +407,7 @@ jQuery(document).ready(function(){
                 const getMoreActivity = () => {
                     const { offset, limit } = jsObject.user.activity
                     get_user_app('activity', { offset: offset + limit, limit })
-                        .done((newActivity) => {
+                        .then((newActivity) => {
                             const activity = {
                                 offset: newActivity.offset,
                                 limit: newActivity.limit,
@@ -570,7 +545,7 @@ jQuery(document).ready(function(){
             }
 
             get_user_app( actions[modalAction], data)
-                .done((challenge) => {
+                .then((challenge) => {
                     challengeModal.modal('hide')
 
                     getChallenges(visibility, () => {
@@ -658,7 +633,7 @@ jQuery(document).ready(function(){
 
     function getChallenges( visibility, callback ) {
         get_user_app( 'get_challenges', { visibility } )
-            .done((challenges) => {
+            .then((challenges) => {
                 jsObject.user[visibility + '_challenges'] = challenges
 
                 if ( callback ) {

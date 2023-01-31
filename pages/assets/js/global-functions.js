@@ -121,51 +121,68 @@ $(document).ready(function($) {
     return false
   }
 
-  window.getAuthUserOrRedirect = function(callback) {
-   window.getAuthUser(callback).catch(redirect)
-
-    function redirect() {
-        const redirect_to = encodeURIComponent( window.location.href )
-        window.location.href = `/user_app/login?redirect_to=${redirect_to}`
-    }
+  window.loginRedirect = function () {
+    const redirect_to = encodeURIComponent( window.location.href )
+    window.location.href = `/user_app/login?redirect_to=${redirect_to}`
   }
 
-  window.getAuthUser = function(callback) {
-    /* Check if the user has a valid token */
-    const token = localStorage.getItem( 'login_token' );
 
-    const headers = { 'Content-Type': 'application/json' }
-
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`
-    }
-
-    return fetch( '/wp-json/pg-api/v1/session/check_auth', {
-        method: 'POST',
-
-        headers,
+  window.onGetAuthUser = function(successCallback, failureCallback) {
+    return window.api_fetch( '/wp-json/pg-api/v1/session/check_auth', {
+      method: 'POST'
     } )
-    .then((result) => result.json())
     .then((json) => {
+      if ( !json ) {
+        throw new Error('not logged in')
+      }
+
       const { data } = json
       const { status } = data
 
       if ( status !== 200 ) {
           throw new Error()
       }
-
-      return fetch( '/wp-json/pg-api/v1/session/user', {
-        method: 'GET',
-        headers,
-      } )
-      .then((result) => result.json())
-      .then((user) => {
-        jsObject.user = user
-
-        if(callback) {
-          callback(user)
-        }
-      })
     })
+    .then(() => window.api_fetch( '/wp-json/pg-api/v1/session/user', {
+        method: 'GET',
+      } )
+    )
+    .then((user) => {
+      jsObject.user = user
+
+      if(successCallback) {
+        successCallback(user)
+      }
+    })
+    .catch((error) => {
+      if (failureCallback) {
+        failureCallback(error)
+      }
+    })
+  }
+
+  window.api_fetch = function( url, options = {} ) {
+    const opts = {
+      method: 'GET',
+      ...options,
+    }
+
+    if ( !Object.prototype.hasOwnProperty.call( options, 'headers' ) ) {
+      opts.headers = {}
+    }
+
+    opts.headers['Content-Type'] = 'application/json'
+
+    /* Check if the user has a valid token */
+    const token = localStorage.getItem( 'login_token' );
+    if (token) {
+      opts.headers['Authorization'] = `Bearer ${token}`
+    }
+
+    return fetch( url, opts )
+      .then((result) => {
+        return result
+      })
+      .then((result) => result.json())
   }
 })
