@@ -114,3 +114,30 @@ function dt_firebase_login_ui( $attr ) {
 
     <?php
 }
+
+add_shortcode( 'dt_firebase_logout_script', 'dt_firebase_logout_script' );
+
+function dt_firebase_logout_script( $atts ) {
+
+    $atts = shortcode_atts( [
+        'redirect_to' => '/',
+    ], $atts );
+
+    $redirect_to = $atts['redirect_to'];
+
+    ?>
+
+    <script>
+
+        console.log('hello there')
+
+
+        localStorage.removeItem( 'login_token' )
+        localStorage.removeItem( 'login_method' )
+
+        location.href = decodeURIComponent( "<?php echo esc_url( $redirect_to ) ?>" )
+
+    </script>
+
+    <?php
+}

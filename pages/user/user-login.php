@@ -70,7 +70,7 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                 'nonce' => wp_create_nonce( 'wp_rest' ),
                 'parts' => $this->parts,
                 'is_logged_in' => is_user_logged_in() ? 1 : 0,
-                'logout_url' => esc_url( wp_logout_url( '/' ) ),
+                'logout_url' => esc_url( '/user_app/logout' ),
                 'login_redirect_to' => pg_login_field( 'login_redirect_to' ),
             ]) ?>][0]
         </script>

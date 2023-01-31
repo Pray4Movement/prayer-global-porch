@@ -95,7 +95,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'add' => __( 'Add Magic', 'disciple-tools-porch-template' ),
                 ],
                 'is_logged_in' => is_user_logged_in() ? 1 : 0,
-                'logout_url' => esc_url( wp_logout_url( '/' ) )
+                'logout_url' => esc_url( '/user_app/logout' )
             ]) ?>][0]
         </script>
         <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/js/components.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/js/components.js' ) ) ?>"></script>

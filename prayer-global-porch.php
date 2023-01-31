@@ -128,7 +128,7 @@ class Prayer_Global_Porch {
         // user
         require_once( 'pages/user/user-link.php' );
         require_once( 'pages/user/user-login.php' );
-
+        require_once( 'pages/user/user-logout.php' );
 
         // Global API
         require_once( 'api/loader.php' );
