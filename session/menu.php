@@ -29,14 +29,14 @@ class PG_Login_JWT_Menu {
                 'class' => 'PG_Login_JWT_Tab_Firebase',
                 'label' => 'Firebase'
             ],
-            'captcha' => [
+            /* 'captcha' => [
                 'class' => 'PG_Login_JWT_Tab_Captcha',
                 'label' => 'Captcha'
-            ],
-            'help' => [
+            ], */
+            /* 'help' => [
                 'class' => 'PG_Login_JWT_Tab_Help',
                 'label' => 'Help'
-            ]
+            ] */
         ];
     }
 
@@ -253,7 +253,7 @@ function pg_login_fields() {
         ],
 
         // pages
-        'pages_label' => [
+        /* 'pages_label' => [
             'tab' => 'pages',
             'key' => 'pages_label',
             'label' => 'PAGES',
@@ -326,10 +326,10 @@ function pg_login_fields() {
             'value' => 'enabled',
             'type' => 'select',
             'requires_dt' => true
-        ],
+        ], */
 
         // shortcode
-        'shortcode_modal' => [
+        /* 'shortcode_modal' => [
             'tab' => 'shortcodes',
             'key' => 'shortcode_modal',
             'label' => 'Modal Shortcode',
@@ -358,7 +358,7 @@ function pg_login_fields() {
             'value' => '',
             'type' => 'label',
             'requires_dt' => false
-        ],
+        ], */
         'shortcode_firebase_logon_buttons' => [
             'tab' => 'shortcodes',
             'key' => 'shortcode_firebase_logon_buttons',
@@ -370,8 +370,29 @@ function pg_login_fields() {
             'requires_dt' => false
         ],
 
+        'shortcode_firebase_logout_script' => [
+            'tab' => 'shortcodes',
+            'key' => 'shortcode_firebase_logout_script',
+            'label' => 'shortcode to add on your logout screen to log the user out if using the mobile login',
+            'description' => '[dt_firebase_logout_script]',
+            'description_2' => '',
+            'value' => '',
+            'type' => 'label',
+            'requires_dt' => false
+        ],
+
 
         // firebase
+        'firebase_config_label' => [
+            'tab' => 'firebase',
+            'key' => 'firebase_config_label',
+            'label' => 'Where to find the config details',
+            'description' => 'Go to your firebase console and in the project settings get the config details from your webapp https://console.firebase.google.com/',
+            'description_2' => '',
+            'value' => '',
+            'type' => 'label',
+            'requires_dt' => false
+        ],
         'firebase_api_key' => [
             'tab' => 'firebase',
             'key' => 'firebase_api_key',
@@ -385,7 +406,7 @@ function pg_login_fields() {
             'tab' => 'firebase',
             'key' => 'firebase_project_id',
             'label' => 'Firebase Project ID',
-            'description' => 'firebase description',
+            'description' => '',
             'value' => '',
             'type' => 'text',
             'requires_dt' => false
@@ -394,14 +415,14 @@ function pg_login_fields() {
             'tab' => 'firebase',
             'key' => 'firebase_app_id',
             'label' => 'Firebase App ID',
-            'description' => 'firebase description',
+            'description' => '',
             'value' => '',
             'type' => 'text',
             'requires_dt' => false
         ],
 
         // captcha
-        'captcha_key' => [
+        /* 'captcha_key' => [
             'tab' => 'captcha',
             'key' => 'captcha_key',
             'label' => 'Captcha Key',
@@ -409,7 +430,7 @@ function pg_login_fields() {
             'value' => '',
             'type' => 'text',
             'requires_dt' => false
-        ],
+        ], */
     ];
 
     $defaults_count = count( $defaults );

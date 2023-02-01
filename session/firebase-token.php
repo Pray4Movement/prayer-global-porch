@@ -3,6 +3,9 @@
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
+/**
+ * Verifies Firebase tokens according to their public keys
+ */
 class DTFirebaseToken {
 
     private string $token;

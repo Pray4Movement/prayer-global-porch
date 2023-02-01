@@ -1,6 +1,9 @@
 <?php
 
-class Route {
+/**
+ * Utility Class to wrap around WP register_rest_route
+ */
+class PG_Route {
 
     public static function get( string $namespace, string $route, array $callback) {
         self::endpoint( WP_REST_Server::READABLE, $namespace, $route, $callback );

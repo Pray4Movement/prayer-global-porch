@@ -4,6 +4,11 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 add_shortcode( 'dt_firebase_login_ui', 'dt_firebase_login_ui' );
 
+/**
+ * Output the necessary script and html to render the Firebase Authentication UI
+ * @param mixed $attr
+ * @return void
+ */
 function dt_firebase_login_ui( $attr ) {
         $fields = get_option( 'pg_login_fields' );
         $invalid_settings = empty( $fields['firebase_api_key']['value'] ) ||
@@ -117,6 +122,11 @@ function dt_firebase_login_ui( $attr ) {
 
 add_shortcode( 'dt_firebase_logout_script', 'dt_firebase_logout_script' );
 
+/**
+ * Output a script to remove the user's auth token, and redirect the user
+ * @param mixed $atts
+ * @return void
+ */
 function dt_firebase_logout_script( $atts ) {
 
     $atts = shortcode_atts( [
@@ -128,9 +138,6 @@ function dt_firebase_logout_script( $atts ) {
     ?>
 
     <script>
-
-        console.log('hello there')
-
 
         localStorage.removeItem( 'login_token' )
         localStorage.removeItem( 'login_method' )

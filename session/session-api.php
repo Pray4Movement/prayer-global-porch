@@ -2,6 +2,9 @@
 
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
+/**
+ * Provide the necessary API endpoints to manage the user auth session
+ */
 class PG_Session_API {
     public $root = 'pg-api';
 
@@ -32,10 +35,10 @@ class PG_Session_API {
     public function add_endpoints() {
         $namespace = $this->root . '/v' . $this->version;
 
-        Route::get( $namespace, "/$this->type/user", [ $this, 'get_user' ] );
+        PG_Route::get( $namespace, "/$this->type/user", [ $this, 'get_user' ] );
 
-        Route::post( $namespace, "/$this->type/login", [ $this, 'login' ] );
-        Route::post( $namespace, "/$this->type/check_auth", [ $this, 'check_auth' ] );
+        PG_Route::post( $namespace, "/$this->type/login", [ $this, 'login' ] );
+        PG_Route::post( $namespace, "/$this->type/check_auth", [ $this, 'check_auth' ] );
     }
 
     public function authorize_url( $authorized ){
@@ -118,6 +121,11 @@ class PG_Session_API {
         );
     }
 
+    /**
+     * Get the currently logged in user
+     * @param WP_REST_Request $request
+     * @return mixed
+     */
     public function get_user( WP_REST_Request $request ) {
         $login_method = pg_login_field( 'login_method' );
 
