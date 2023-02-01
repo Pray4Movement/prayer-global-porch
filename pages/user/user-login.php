@@ -91,7 +91,7 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
     public function body() {
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' );
 
-        if ( is_user_logged_in() ) {
+        /* if ( is_user_logged_in() ) {
             if ( isset( $_GET['redirect_to'] ) ) {
                 $redirect_to = urldecode( wp_sanitize_redirect( wp_unslash( $_GET['redirect_to'] ) ) );
             } else {
@@ -99,7 +99,7 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
             }
 
             header( "Location: $redirect_to" );
-        }
+        } */
 
         ?>
 
