@@ -39,6 +39,11 @@ function dt_firebase_login_ui( $attr ) {
 
     <script>
         const ui = new firebaseui.auth.AuthUI(firebase.auth());
+        function showLoader( show = true ) {
+            const loaderElement = document.getElementById('loader')
+
+            loaderElement.style.display = show ? 'block' : 'none'
+        }
         const config = {
             callbacks: {
                 signInSuccessWithAuthResult: function(authResult, redirectUrl) {
@@ -48,7 +53,7 @@ function dt_firebase_login_ui( $attr ) {
                     //
                     // and can perform the handshake with the PG API to
 
-                    console.log(authResult)
+                    showLoader()
 
                     fetch( `${window.location.origin}/wp-json/pg-api/v1/session/login`, {
                         method: 'POST',
@@ -59,7 +64,6 @@ function dt_firebase_login_ui( $attr ) {
                         const response = JSON.parse(json)
 
                         if ( response.status === 200 ) {
-                            console.log(response);
                             const { login_method, jwt } = response.body
 
                             if ( login_method === 'mobile' ) {
@@ -86,7 +90,7 @@ function dt_firebase_login_ui( $attr ) {
                 uiShown: function() {
                     // The widget is rendered.
                     // Hide the loader.
-                    document.getElementById('loader').style.display = 'none';
+                    showLoader(false)
                 }
             },
             // Will use popup for IDP Providers sign-in flow instead of the default, redirect.

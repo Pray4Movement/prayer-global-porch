@@ -124,7 +124,9 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         <section class="page-section" data-section="login" id="section-login">
             <div class="container">
                 <div class="row justify-content-md-center text-center">
-                    <div class="col-lg-7 flow" id="pg_content"></div>
+                    <div class="col-lg-7 flow" id="pg_content">
+                        <span class="loading-spinner active"></span>
+                    </div>
                 </div>
             </div>
             <div class="offcanvas offcanvas-end" id="user-profile-details" data-bs-backdrop="true" data-bs-scroll="false">
