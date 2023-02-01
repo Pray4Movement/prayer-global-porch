@@ -155,6 +155,9 @@ $(document).ready(function($) {
       }
     })
     .catch((error) => {
+      localStorage.removeItem( 'login_token' )
+      localStorage.removeItem( 'login_method' )
+
       if (failureCallback) {
         failureCallback(error)
       }
