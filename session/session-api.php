@@ -159,7 +159,7 @@ class PG_Session_API {
     private function verify_firebase_token( string $token ) {
         $project_id = pg_login_field( 'firebase_project_id' );
 
-        $payload = ( new DTFirebaseToken( $token ) )->verify( $project_id );
+        $payload = ( new DT_Firebase_Token( $token ) )->verify( $project_id );
 
         return $payload;
     }
