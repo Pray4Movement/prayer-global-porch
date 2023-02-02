@@ -55,6 +55,12 @@ function dt_firebase_login_ui( $attr ) {
 
                     showLoader()
 
+                    const user = authResult.user
+
+                    if (authResult.additionalUserInfo.isNewUser && authResult.user.emailVerified === false) {
+                        user.sendEmailVerification()
+                    }
+
                     fetch( `${window.location.origin}/wp-json/pg-api/v1/session/login`, {
                         method: 'POST',
                         body: JSON.stringify(authResult)
