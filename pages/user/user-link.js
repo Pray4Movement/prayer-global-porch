@@ -655,9 +655,10 @@ jQuery(document).ready(function(){
         const challenges = jsObject.user[visibility + '_challenges']
 
         if (challenges && challenges.length === 0) {
-            container.html('No' + visibility + 'challenges found')
+            container.html('No ' + visibility + ' challenges found')
+        } else {
+            container.html( buildChallengeListHTML( challenges ) )
         }
-        container.html( buildChallengeListHTML( challenges ) )
 
         jQuery( containerSelector + ' .edit-challenge-button').on('click', function() {
             const challengeId = Number(this.dataset.challengeId)
