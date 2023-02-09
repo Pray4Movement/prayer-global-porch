@@ -268,13 +268,14 @@ nav {
     margin-left: 20px;
     margin-bottom: 30px;
     font-size: 2em;
-    background-color: #DDDDDDEE;
-    border-radius: 25px;
+    background-color: #07111d;
+    border-radius: 10px;
     padding: 10px;
     line-height: 1;
     opacity: 1;
+    color: #f7fbff;
 }
 
-.prayer-odometer i {
+.prayer-odometer span {
     margin-left: 10px;
 }
