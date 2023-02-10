@@ -60,7 +60,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 'for',
             ];
 
-            $filtered_title_words = array_filter( $title_words, function( $word ) use ( $little_words )  {
+            $filtered_title_words = array_filter( $title_words, function( $word ) use ( $little_words ) {
                 return !in_array( $word, $little_words );
             });
             $title_initials = implode( array_map( function( $word ) {
