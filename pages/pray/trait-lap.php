@@ -163,6 +163,9 @@ trait PG_Lap_Trait {
         <div class="prayer-odometer">
             <div>
                 <i class="ion-location"></i><span class="location-count">0</span>
+                <p class="fs-6 mt-2 mb-0 text-center">
+                    <?php echo esc_html( $this->lap_title ) ?>
+                </p>
             </div>
         </div>
 
