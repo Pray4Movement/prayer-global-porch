@@ -252,7 +252,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         <div class="prayer-odometer">
             <div>
                 <i class="ion-location"></i><span class="location-count">0</span>
-                <p class="fs-6 mt-2 mb-0 text-center">
+                <p class="mt-1 mb-0 text-center">
                     <?php echo esc_html( $this->lap_title ) ?>
                 </p>
             </div>
