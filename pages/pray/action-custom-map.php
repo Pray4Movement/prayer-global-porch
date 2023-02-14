@@ -108,6 +108,13 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
         <?php
     }
 
+    public function footer_javascript() {
+        ?>
+        <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+        <?php
+    }
+
     public function body(){
         $parts = $this->parts;
         $lap_stats = pg_custom_lap_stats_by_post_id( $parts['post_id'] );
@@ -133,18 +140,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                         <span class="two-em"><?php echo esc_html( $lap_stats['title'] ) ?></span>
                         <a class="btn btn-outline-dark py-2" <?php echo esc_attr( $has_challenge_started ) ? '' : "style='display: none'" ?> href="/prayer_app/custom/<?php echo esc_attr( $parts['public_key'] ) ?>">Start Praying</a>
                     </div>
-                    <div class="" id="map-settings">
-                        <div class="dropdown">
-                            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
-                                <i class="ion-ios-settings"></i>
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
-                                <li><a class="dropdown-item" href="#">Something else here</a></li>
-                            </ul>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="holding-page flow-small">
                     <span class="six-em center">Starts on <span class="starts-on-date"></span></span>
