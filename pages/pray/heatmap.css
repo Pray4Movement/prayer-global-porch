@@ -333,6 +333,12 @@ progress {
     border-radius: 5px;
 }
 
+#map-settings {
+    bottom: 0;
+    left: 0;
+    transform: translateY(220%);
+}
+
 @media ( max-width: 576px ) {
     #map-legend[data-map-type="heatmap"] {
         flex-direction: column;

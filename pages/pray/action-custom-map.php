@@ -133,6 +133,18 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                         <span class="two-em"><?php echo esc_html( $lap_stats['title'] ) ?></span>
                         <a class="btn btn-outline-dark py-2" <?php echo esc_attr( $has_challenge_started ) ? '' : "style='display: none'" ?> href="/prayer_app/custom/<?php echo esc_attr( $parts['public_key'] ) ?>">Start Praying</a>
                     </div>
+                    <div class="" id="map-settings">
+                        <div class="dropdown">
+                            <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="10,20">
+                                <i class="ion-ios-settings"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="holding-page flow-small">
                     <span class="six-em center">Starts on <span class="starts-on-date"></span></span>
@@ -143,6 +155,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                 <div id='map'></div>
                 <div id="foot_block">
                     <div class="map-overlay" id="map-legend"></div>
+
                     <div class="row">
                         <div class="col col-12 center"><button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_stats" aria-controls="offcanvas_stats"><i class="ion-chevron-up two-em"></i></button></div>
                         <div class="col col-sm-6 col-md-3 center "><strong>Places Remaining</strong><br><strong><span class="one-em red-bg stats-figure remaining"></span></strong></div>
@@ -259,7 +272,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                     <p class="stats-figure time_remaining">0</p>
                 </div>
 
-                
+
                 <div class="col col-6 col-sm-3 center">
                     <strong>Prayer Warriors</strong>
                     <br>
