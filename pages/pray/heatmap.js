@@ -423,12 +423,7 @@ jQuery(document).ready(function($){
       { src: jsObject.image_folder + 'avatar-d10.png', id: 'avatar0' },
     ]
 
-    const groupImage = { src: jsObject.image_folder + 'avatar-group.png', id: 'avatar-group' }
-
-    const allImages = [
-      ...images,
-      groupImage,
-    ]
+    const allImages = images
 
     /* load prayer warriors layer */
     map.on('load', function() {
@@ -459,10 +454,6 @@ jQuery(document).ready(function($){
         'cluster': false,
         'clusterMaxZoom': 10,
         'clusterRadius': 30,
-        'clusterProperties': {
-          'iSum': [ '+', [ 'get', 'i' ] ],
-          'imagesLength': [ 'min', [ 'get', 'imagesLength' ] ],
-        }
       })
 
       Promise.all(
@@ -479,22 +470,46 @@ jQuery(document).ready(function($){
       .then(() => {
           map.addLayer({
             'id': participantsClusterLayerId,
-            'type': 'symbol',
+            'type': 'circle',
             'source': 'participants',
             'filter': [ 'has', 'point_count' ],
-            'layout': {
-              'icon-image': 'avatar-group',
-              "icon-size": [
-                'interpolate',
-                ['linear', 1],
-                ['zoom'],
-                1, 0.3,
-                18, 1,
+            paint: {
+              // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
+              // with three steps to implement three types of circles:
+              //   * Blue, 20px circles when point count is less than 100
+              //   * Yellow, 30px circles when point count is between 100 and 750
+              //   * Pink, 40px circles when point count is greater than or equal to 750
+              'circle-color': [
+              'step',
+              ['get', 'point_count'],
+              '#51bbd6',
+              100,
+              '#f1f075',
+              750,
+              '#f28cb1'
               ],
-              'icon-padding': 0,
-              "icon-allow-overlap": true,
-            }
+              'circle-radius': [
+              'step',
+              ['get', 'point_count'],
+              20,
+              100,
+              30,
+              750,
+              40
+              ]
+            },
           })
+          map.addLayer({
+            id: 'participants-cluster-count',
+            type: 'symbol',
+            source: 'participants',
+            filter: ['has', 'point_count'],
+            layout: {
+            'text-field': ['get', 'point_count_abbreviated'],
+            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+            'text-size': 12
+            }
+          });
           map.addLayer({
             'id': participantsLayerId,
             'type': 'symbol',
@@ -514,42 +529,6 @@ jQuery(document).ready(function($){
             }
           })
         })
-
-//      map.loadImage(
-//        //jsObject.image_folder + 'praying-hands-emoji64.png',
-//        //jsObject.image_folder + 'light-emoji64.png',
-//        //jsObject.image_folder + 'running-shoe-emoji64.png',
-//        //jsObject.image_folder + 'running-shoe-purple-emoji64.png',
-//        //jsObject.image_folder + 'fire-emoji64.png',
-//        jsObject.image_folder + 'praying-hand-up-40.png',
-//        (error, image) => {
-//          if (error) throw error;
-//          map.addImage('custom-marker', image);
-//          map.addLayer({
-//            'id': 'points',
-//            'type': 'symbol',
-//            'source': 'participants',
-//            'layout': {
-//              'icon-image': 'custom-marker',
-//              "icon-size": [
-//                'interpolate',
-//                ['linear', 1],
-//                ['zoom'],
-//                1, 0.15,
-//                15, 0.5
-//              ],
-//              'icon-padding': 0,
-//              "icon-allow-overlap": true,
-//              'text-font': [
-//                'Open Sans Semibold',
-//                'Arial Unicode MS Bold'
-//              ],
-//              'text-offset': [0, 1.25],
-//              'text-anchor': 'top'
-//            }
-//        })
-//    })
-
   })
 
     /* load user locations layer */
