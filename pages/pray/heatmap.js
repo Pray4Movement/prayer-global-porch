@@ -631,6 +631,27 @@ jQuery(document).ready(function($){
           }
         }
       }
+
+      const toggleClusteringElement = document.getElementById('cluster_participants')
+
+      toggleClusteringElement.onclick = function(e) {
+        e.preventDefault()
+        e.stopPropagation()
+
+        const style = map.getStyle()
+
+        const clustered = style.sources.participants.cluster
+
+        if ( clustered ) {
+          style.sources.participants.cluster = false
+          this.classList.remove('active')
+        } else {
+          style.sources.participants.cluster = true
+          this.classList.add('active')
+        }
+
+        map.setStyle(style)
+      }
     })
 
     // add stats
