@@ -149,6 +149,18 @@ jQuery(document).ready(function($){
     pray_for_area_content.innerHTML = ''
   })
 
+  const settings_toggle = document.querySelector('#map-settings .dropdown')
+  settings_toggle.addEventListener('hide.bs.dropdown', (e) => {
+    const cluster_participants_element = document.getElementById('cluster_participants')
+    const clustered = cluster_participants_element.classList.contains('active')
+
+    if (clustered) {
+      gtag( 'event', 'chose_clustering' )
+    } else {
+      gtag( 'event', 'chose_nonclustering' )
+    }
+  })
+
   let initialize_screen = jQuery('.initialize-progress')
   let grid_details_content = jQuery('#grid-details-content')
 
@@ -474,28 +486,23 @@ jQuery(document).ready(function($){
             'source': 'participants',
             'filter': [ 'has', 'point_count' ],
             paint: {
-              // Use step expressions (https://docs.mapbox.com/mapbox-gl-js/style-spec/#expressions-step)
-              // with three steps to implement three types of circles:
-              //   * Blue, 20px circles when point count is less than 100
-              //   * Yellow, 30px circles when point count is between 100 and 750
-              //   * Pink, 40px circles when point count is greater than or equal to 750
               'circle-color': [
-              'step',
-              ['get', 'point_count'],
-              '#51bbd6',
-              100,
-              '#f1f075',
-              750,
-              '#f28cb1'
+                'step',
+                ['get', 'point_count'],
+                '#51bbd6',
+                100,
+                '#f1f075',
+                750,
+                '#f28cb1'
               ],
               'circle-radius': [
-              'step',
-              ['get', 'point_count'],
-              20,
-              100,
-              30,
-              750,
-              40
+                'step',
+                ['get', 'point_count'],
+                20,
+                100,
+                30,
+                750,
+                40
               ]
             },
           })
@@ -505,9 +512,9 @@ jQuery(document).ready(function($){
             source: 'participants',
             filter: ['has', 'point_count'],
             layout: {
-            'text-field': ['get', 'point_count_abbreviated'],
-            'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
-            'text-size': 12
+              'text-field': ['get', 'point_count_abbreviated'],
+              'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
+              'text-size': 12
             }
           });
           map.addLayer({
