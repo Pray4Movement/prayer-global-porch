@@ -102,7 +102,7 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
     }
 
     public function dt_custom_fields_settings( $fields, $post_type ){
-        if ( $post_type === $this->post_type ){
+        if ( $post_type === $this->post_type ) {
 
 
             $fields['type'] = [
@@ -267,6 +267,28 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
                 'icon' => get_template_directory_uri() . "/dt-assets/images/group-type.svg",
                 'create-icon' => get_template_directory_uri() . "/dt-assets/images/add-contact.svg",
                 "show_in_table" => 35
+            ];
+            $fields['parent_lap'] = [
+                "name" => __( 'Parent Lap', 'prayer-global' ),
+                "description" => 'Which lap came before this one',
+                "type" => "connection",
+                "post_type" => $this->post_type,
+                "p2p_direction" => "to",
+                "p2p_key" => "parent-lap_to_child-lap",
+                "tile" => "other",
+                'icon' => get_template_directory_uri() . "/dt-assets/images/group-type.svg",
+                'create-icon' => get_template_directory_uri() . "/dt-assets/images/add-contact.svg",
+            ];
+            $fields['child_lap'] = [
+                "name" => __( 'Child Lap', 'prayer-global' ),
+                "description" => 'Which lap came after this one',
+                "type" => "connection",
+                "post_type" => $this->post_type,
+                "p2p_direction" => "from",
+                "p2p_key" => "parent-lap_to_child-lap",
+                "tile" => "other",
+                'icon' => get_template_directory_uri() . "/dt-assets/images/group-type.svg",
+                'create-icon' => get_template_directory_uri() . "/dt-assets/images/add-contact.svg",
             ];
         }
 

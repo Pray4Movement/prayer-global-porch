@@ -659,6 +659,8 @@ function pg_generate_new_global_prayer_lap() {
     }
 
     // build new lap number
+    /* TODO: get the next lap number by counting how many laps are in the lap tree */
+
     $completed_prayer_lap_number = $wpdb->get_var(
         "SELECT COUNT(*) as laps
                     FROM $wpdb->posts p
@@ -668,8 +670,11 @@ function pg_generate_new_global_prayer_lap() {
     );
     $next_global_lap_number = $completed_prayer_lap_number + 1;
 
+    $current_lap = pg_current_global_lap();
+    $current_lap_key = $current_lap['key'];
+
     // create key
-    $key = pg_generate_key();
+    $new_key = pg_generate_key();
     $date = gmdate( 'Y-m-d H:m:s', time() );
 
     $fields = [];
@@ -679,7 +684,8 @@ function pg_generate_new_global_prayer_lap() {
     $fields['start_date'] = $date;
     $fields['start_time'] = $time;
     $fields['global_lap_number'] = $next_global_lap_number;
-    $fields['prayer_app_global_magic_key'] = $key;
+    $fields['prayer_app_global_magic_key'] = $current_lap_key;
+    $fields['parent_lap'] = $current_lap['post_id'];
     $new_post = DT_Posts::create_post( 'laps', $fields, true, false );
     if ( is_wp_error( $new_post ) ) {
         // @handle error
@@ -694,13 +700,19 @@ function pg_generate_new_global_prayer_lap() {
     $lap = [
         'lap_number' => $next_global_lap_number,
         'post_id' => $new_post['ID'],
-        'key' => $key,
+        'key' => $current_lap_key,
         'start_time' => $time,
     ];
     update_option( 'pg_current_global_lap', $lap, true );
 
     // close previous lap
-    DT_Posts::update_post( 'laps', $previous_lap['post_id'], [ 'status' => 'complete', 'end_date' => $date, 'end_time' => $time ], true, false );
+    DT_Posts::update_post( 'laps', $previous_lap['post_id'], [
+        'status' => 'complete',
+        'end_date' => $date,
+        'end_time' => $time,
+        'prayer_app_global_magic_key' => $new_key,
+        'child_lap' => $new_post['ID'],
+    ], true, false );
 
     delete_option( 'pg_generate_new_lap_in_progress' );
 
