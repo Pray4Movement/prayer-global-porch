@@ -7,7 +7,7 @@
         <div class="dropdown-menu center p-2">
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <strong>Participants</strong>
-                <div class="map-toggle mx-0 ms-2 active" data-layer-id="participants">
+                <div class="map-toggle mx-0 ms-2 active" data-source-id="participants">
                     <img class="foot__icon h-100" src="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/avatar1.png' ) ?>" />
                 </div>
             </div>

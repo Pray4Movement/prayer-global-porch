@@ -592,8 +592,8 @@ jQuery(document).ready(function($){
         return
       }
 
-      for ( const id of toggleableLayerIds ) {
-        const toggleElement = document.querySelector(`.map-toggle[data-layer-id=${id}]`)
+      const toggleElements = document.querySelectorAll(`.map-toggle[data-layer-id], .map-toggle[data-source-id]`)
+      for ( const toggleElement of toggleElements ) {
 
         if (!toggleElement) {
           continue
@@ -603,16 +603,36 @@ jQuery(document).ready(function($){
           e.preventDefault()
           e.stopPropagation()
 
-          const clickedLayer = this.dataset.layerId
+          const layerId = this.dataset.layerId
+          const sourceId = this.dataset.sourceId
 
-          const visibility = map.getLayoutProperty(clickedLayer, "visibility");
+          let layerIds = []
+          if ( sourceId ) {
+            const style = map.getStyle()
 
-          // Toggle layer visibility by changing the layout object's visibility property.
+            layerIds = style.layers
+                          .filter(({ source }) => source === sourceId)
+                          .map(({id}) => id)
+
+          } else {
+            layerIds = [ layerId ]
+          }
+
+          if ( layerIds.length === 0 ) {
+            return
+          }
+
+          const visibility = map.getLayoutProperty(layerIds[0], "visibility");
+
           if (visibility === "visible" || typeof visibility === 'undefined') {
-            map.setLayoutProperty(clickedLayer, "visibility", "none");
+            layerIds.forEach((layerId) => {
+              map.setLayoutProperty(layerId, "visibility", "none");
+            })
             this.classList.remove('active')
           } else {
-            map.setLayoutProperty(clickedLayer, "visibility", "visible");
+            layerIds.forEach((layerId) => {
+              map.setLayoutProperty(layerId, "visibility", "visible");
+            })
             this.classList.add('active')
           }
         }
