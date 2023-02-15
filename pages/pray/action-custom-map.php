@@ -141,6 +141,8 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                         <a class="btn btn-outline-dark py-2" <?php echo esc_attr( $has_challenge_started ) ? '' : "style='display: none'" ?> href="/prayer_app/custom/<?php echo esc_attr( $parts['public_key'] ) ?>">Start Praying</a>
                     </div>
 
+                    <?php require( __DIR__ . '/map-settings.php' ) ?>
+
                 </div>
                 <div class="holding-page flow-small">
                     <span class="six-em center">Starts on <span class="starts-on-date"></span></span>
