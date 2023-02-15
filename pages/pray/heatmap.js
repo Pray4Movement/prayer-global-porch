@@ -19,7 +19,7 @@ jQuery(document).ready(function($){
   const participantsLayerId = 'participants'
   const participantsClusterLayerId = 'participants-clustered'
   const userLocationsLayerId = 'user_locations'
-  const toggleableLayerIds = [participantsLayerId, userLocationsLayerId]
+  const toggleClusteringElement = document.getElementById('cluster_participants')
 
   let countdownInterval
 
@@ -624,21 +624,28 @@ jQuery(document).ready(function($){
 
           const visibility = map.getLayoutProperty(layerIds[0], "visibility");
 
+          const isParticipantsToggle = this.id === 'toggle_participants'
+
           if (visibility === "visible" || typeof visibility === 'undefined') {
             layerIds.forEach((layerId) => {
               map.setLayoutProperty(layerId, "visibility", "none");
             })
             this.classList.remove('active')
+            if ( isParticipantsToggle ) {
+              toggleClusteringElement.setAttribute('disabled', true)
+            }
           } else {
             layerIds.forEach((layerId) => {
               map.setLayoutProperty(layerId, "visibility", "visible");
             })
             this.classList.add('active')
+            if ( isParticipantsToggle ) {
+              toggleClusteringElement.removeAttribute('disabled')
+            }
           }
         }
       }
 
-      const toggleClusteringElement = document.getElementById('cluster_participants')
 
       toggleClusteringElement.onclick = function(e) {
         e.preventDefault()
