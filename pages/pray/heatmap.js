@@ -19,7 +19,39 @@ jQuery(document).ready(function($){
   const participantsLayerId = 'participants'
   const participantsClusterLayerId = 'participants-clustered'
   const userLocationsLayerId = 'user_locations'
-  const toggleClusteringElement = document.getElementById('cluster_participants')
+  const setting_prefix = 'pg_'
+  const toggleParticipantsId = 'toggle_participants'
+  const toggleUserLocationsId = 'toggle_user_locations'
+  const clusterToggleId = 'cluster_participants'
+  const toggleClusteringElement = document.getElementById(clusterToggleId)
+  const toggleParticipantsElement = document.getElementById(toggleParticipantsId)
+  const toggleUserLocationsElement = document.getElementById(toggleUserLocationsId)
+
+  const mapSettingsKey = 'map_settings'
+  let mapSettings = load_setting(mapSettingsKey)
+
+  if (mapSettings === null) {
+    const mapSettingsDefaults = {
+      toggle_participants: true,
+      toggle_user_locations: true,
+      cluster_participants: false,
+    };
+    save_setting(mapSettingsKey, mapSettingsDefaults)
+
+    mapSettings = mapSettingsDefaults
+  }
+
+  if ( mapSettings.toggle_participants ) {
+    toggleParticipantsElement.classList.add('active')
+  } else {
+    toggleClusteringElement.setAttribute('disabled', true)
+  }
+  if ( mapSettings.toggle_user_locations ) {
+    toggleUserLocationsElement.classList.add('active')
+  }
+  if ( mapSettings.cluster_participants ) {
+    toggleClusteringElement.classList.add('active')
+  }
 
   let countdownInterval
 
@@ -463,7 +495,7 @@ jQuery(document).ready(function($){
           "type": "FeatureCollection",
           "features": features
         },
-        'cluster': false,
+        'cluster': mapSettings.cluster_participants,
         'clusterMaxZoom': 10,
         'clusterRadius': 30,
       })
@@ -485,6 +517,9 @@ jQuery(document).ready(function($){
             'type': 'circle',
             'source': 'participants',
             'filter': [ 'has', 'point_count' ],
+            'layout': {
+              'visibility': mapSettings.toggle_participants ? 'visible' : 'none',
+            },
             paint: {
               'circle-color': [
                 'step',
@@ -512,6 +547,7 @@ jQuery(document).ready(function($){
             source: 'participants',
             filter: ['has', 'point_count'],
             layout: {
+              'visibility': mapSettings.toggle_participants ? 'visible' : 'none',
               'text-field': ['get', 'point_count_abbreviated'],
               'text-font': ['DIN Offc Pro Medium', 'Arial Unicode MS Bold'],
               'text-size': 12
@@ -523,6 +559,7 @@ jQuery(document).ready(function($){
             'source': 'participants',
             'filter': [ '!', [ 'has', 'point_count' ] ],
             'layout': {
+              'visibility': mapSettings.toggle_participants ? 'visible' : 'none',
               'icon-image': [ 'get', 'imageId' ],
               "icon-size": [
                 'interpolate',
@@ -572,6 +609,7 @@ jQuery(document).ready(function($){
             'type': 'symbol',
             'source': 'user_locations',
             'layout': {
+              'visibility': mapSettings.toggle_user_locations ? 'visible' : 'none',
               'icon-image': 'custom-marker-user',
               "icon-size": .5,
               'icon-padding': 0,
@@ -624,13 +662,14 @@ jQuery(document).ready(function($){
 
           const visibility = map.getLayoutProperty(layerIds[0], "visibility");
 
-          const isParticipantsToggle = this.id === 'toggle_participants'
+          const isParticipantsToggle = this.id === toggleParticipantsId
 
           if (visibility === "visible" || typeof visibility === 'undefined') {
             layerIds.forEach((layerId) => {
               map.setLayoutProperty(layerId, "visibility", "none");
             })
             this.classList.remove('active')
+            save_map_setting( this.id, false )
             if ( isParticipantsToggle ) {
               toggleClusteringElement.setAttribute('disabled', true)
             }
@@ -639,13 +678,13 @@ jQuery(document).ready(function($){
               map.setLayoutProperty(layerId, "visibility", "visible");
             })
             this.classList.add('active')
+            save_map_setting( this.id, true )
             if ( isParticipantsToggle ) {
               toggleClusteringElement.removeAttribute('disabled')
             }
           }
         }
       }
-
 
       toggleClusteringElement.onclick = function(e) {
         e.preventDefault()
@@ -658,9 +697,11 @@ jQuery(document).ready(function($){
         if ( clustered ) {
           style.sources.participants.cluster = false
           this.classList.remove('active')
+          save_map_setting( clusterToggleId, false )
         } else {
           style.sources.participants.cluster = true
           this.classList.add('active')
+          save_map_setting( clusterToggleId, true )
         }
 
         map.setStyle(style)
@@ -1108,5 +1149,28 @@ jQuery(document).ready(function($){
 
     }) /* for each loop */
 
+  }
+
+  function save_map_setting(name, value) {
+    const mapSettings = load_setting(mapSettingsKey)
+
+    const newSettings = { ...mapSettings, [name]: value }
+
+    save_setting(mapSettingsKey, newSettings)
+  }
+  function save_setting(name, value) {
+    const settingName = setting_prefix + name
+    localStorage.setItem( settingName, JSON.stringify(value) )
+  }
+  function load_setting(name) {
+    const settingName = setting_prefix + name
+    const setting = localStorage.getItem(settingName)
+
+    try {
+      const unpackedSetting = JSON.parse(setting)
+      return unpackedSetting
+    } catch (e) {
+      return setting
+    }
   }
 })
