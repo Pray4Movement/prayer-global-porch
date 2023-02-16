@@ -71,7 +71,7 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                 'parts' => $this->parts,
                 'is_logged_in' => is_user_logged_in() ? 1 : 0,
                 'logout_url' => esc_url( '/user_app/logout' ),
-                'success_redirect' => DT_Login_Fields::get( 'success_redirect' ),
+                'redirect_url' => DT_Login_Fields::get( 'redirect_url' ),
             ]) ?>][0]
         </script>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3"></script>
@@ -95,7 +95,7 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
             if ( isset( $_GET['redirect_to'] ) ) {
                 $redirect_to = urldecode( wp_sanitize_redirect( wp_unslash( $_GET['redirect_to'] ) ) );
             } else {
-                $redirect_to = DT_Login_Fields::get( 'success_redirect' );
+                $redirect_to = DT_Login_Fields::get( 'redirect_url' );
             }
 
             header( "Location: $redirect_to" );
