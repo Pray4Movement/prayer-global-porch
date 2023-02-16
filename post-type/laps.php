@@ -92,6 +92,7 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
         if ( isset( $expected_roles["administrator"] ) ){
             $expected_roles["administrator"]["permissions"]['view_any_'.$this->post_type ] = true;
             $expected_roles["administrator"]["permissions"]['update_any_'.$this->post_type ] = true;
+            $expected_roles["administrator"]["permissions"]['dt_all_admin_'.$this->post_type] = true;
         }
         if ( isset( $expected_roles["dt_admin"] ) ){
             $expected_roles["dt_admin"]["permissions"]['view_any_'.$this->post_type ] = true;

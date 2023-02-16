@@ -177,7 +177,7 @@ class Prayer_Global_Test_Load extends DT_Magic_Url_Base
                 function send_log( grid_id, post_id ) {
                     window.api_post( 'log', { grid_id: grid_id, pace: 1, user: {country:"United States",grid_id:"100364522",hash:"3ba4f83cfbd24b4be862536cfd9babe2025a2e027b69e2defbf2e62edcf3efa5",
                             label:"Golden, Colorado, United States",lat:39.828250885009766, level:"district",lng:-105.06230163574219,source:"ip"}
-                        }, jsObject.posts[post_id].parts, 'https://prayer.global/wp-json/prayer_app/v1/custom' )
+                        }, jsObject.posts[post_id].parts, '/wp-json/prayer_app/v1/custom' )
                         .done(function(x) {
                             console.log(x)
                             if ( x ) {
@@ -202,7 +202,7 @@ class Prayer_Global_Test_Load extends DT_Magic_Url_Base
                 function send_log_global( parts, grid_id ) {
                     window.api_post( 'log', { grid_id: grid_id, pace: 1, user: {country:"United States",grid_id:"100364522",hash:"3ba4f83cfbd24b4be862536cfd9babe2025a2e027b69e2defbf2e62edcf3efa5",
                             label:"Golden, Colorado, United States",lat:39.828250885009766, level:"district",lng:-105.06230163574219,source:"ip"}
-                    }, parts, 'https://prayer.global/wp-json/prayer_app/v1/global' )
+                    }, parts, '/wp-json/prayer_app/v1/global' )
                         .done(function(x) {
                             console.log(x)
                             if ( x ) {
