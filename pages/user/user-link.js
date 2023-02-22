@@ -654,7 +654,7 @@ jQuery(document).ready(function(){
 
         const challenges = jsObject.user[visibility + '_challenges']
 
-        if (challenges && challenges.length === 0) {
+        if (!challenges || !Array.isArray(challenges) || challenges.length === 0) {
             container.html('No ' + visibility + ' challenges found')
         } else {
             container.html( buildChallengeListHTML( challenges ) )
