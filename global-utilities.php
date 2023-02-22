@@ -726,3 +726,105 @@ function pg_generate_new_global_prayer_lap() {
 
     return pg_query_4770_locations();
 }
+
+/**
+ * @return array|false|mixed
+ */
+function pg_generate_new_custom_prayer_lap( $post_id ) {
+    // hold generation while being created
+    if ( get_option( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id ) ) {
+        sleep( 25 );
+        return pg_query_4770_locations();
+    } else {
+        update_option( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id, true );
+    }
+    global $wpdb;
+
+    // dup check, instant dup generation
+    $time = time();
+    $start_time_dup = $wpdb->get_var($wpdb->prepare(
+        "SELECT count(*)
+                FROM $wpdb->postmeta pm
+                JOIN $wpdb->posts p ON p.ID=pm.post_id
+                WHERE pm.meta_key = 'start_time'
+                    AND pm.meta_value = %d
+                    AND p.post_type = 'laps'
+                    ", $time )
+    );
+    if ( $start_time_dup ) {
+        delete_option( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
+        sleep( 5 );
+        return pg_query_4770_locations();
+    }
+
+    $current_lap = pg_get_custom_lap_by_post_id( $post_id );
+    $current_lap_key = $current_lap['key'];
+
+    // create key
+    $new_key = pg_generate_key();
+    $date = gmdate( 'Y-m-d H:m:s', time() );
+
+    // build new lap number
+    $next_custom_lap_number = pg_calculate_lap_number( $post_id );
+
+    $fields = [];
+    $fields['title'] = $current_lap['title'] . ' #' . $next_custom_lap_number;
+    $fields['status'] = 'active';
+    $fields['type'] = 'custom';
+    $fields['start_date'] = $date;
+    $fields['start_time'] = $time;
+    $fields['prayer_app_custom_magic_key'] = $current_lap_key;
+    $fields['parent_lap'] = [
+        'values' => [
+            [ 'value' => $current_lap['post_id'] ]
+        ],
+    ];
+    $new_post = DT_Posts::create_post( 'laps', $fields, true, false );
+    if ( is_wp_error( $new_post ) ) {
+        // @handle error
+        dt_write_log( 'failed to create new custom lap' );
+        dt_write_log( $new_post );
+        delete_option( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
+        return pg_query_4770_locations();
+    }
+
+    // close previous lap
+    DT_Posts::update_post( 'laps', $current_lap['post_id'], [
+        'status' => 'complete',
+        'end_date' => $date,
+        'end_time' => $time,
+        'prayer_app_custom_magic_key' => $new_key,
+        'child_lap' => [
+            'values' => [
+                [ 'value' => $new_post['ID'] ]
+            ],
+        ],
+    ], true, false );
+
+    delete_option( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
+
+    return pg_query_4770_locations();
+}
+
+function pg_calculate_lap_number( $post_id ) {
+    /* implement recursive mysql query finding all of the parents of the lap given */
+    /* e.g.
+with recursive cte (id, name, parent_id) as (
+  select     id,
+             name,
+             parent_id
+  from       products
+  where      parent_id = 19
+  union all
+  select     p.id,
+             p.name,
+             p.parent_id
+  from       products p
+  inner join cte
+          on p.parent_id = cte.id
+)
+select * from cte;
+    */
+
+    return 1;
+}
