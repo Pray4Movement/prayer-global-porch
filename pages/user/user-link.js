@@ -155,8 +155,32 @@ jQuery(document).ready(function(){
         logoutLink.show()
     }
 
+    function write_login () {
+        jQuery('#pg_content').html(`
+                <form id="login_form">
+                    <p>
+                        <h2 class="header-border-top">Login</h2>
+                    </p>
+                    <p>
+                        Email<br>
+                        <input type="text" id="pg_input_email"  />
+                    </p>
+                    <p>
+                        Password<br>
+                        <input type="password" id="pg_input_password" />
+                    </p>
+                    <p>
+                        <button class="btn btn-outline-dark"  type="button" id="submit_button">Submit</button> <span class="loading-spinner"></span>
+                    </p>
+                </form>`
+        )
+        jQuery('#submit_button').on('click', function(){
+            send_login()
+        })
+    }
+
     function write_main (data) {
-        jQuery('#pg_content').html(/*html*/`
+        jQuery('#pg_content').html(`
 
             <div class="flow">
                 <section class="user__summary flow-small mt-5">
@@ -199,7 +223,8 @@ jQuery(document).ready(function(){
                 </section>
                 <a class="btn btn-outline-dark" href="${jsObject.logout_url}">Logout</a><br>
             </div>
-        `);
+`
+        );
 
         if ( !data.stats ) {
             get_user_app('stats')
@@ -262,7 +287,7 @@ jQuery(document).ready(function(){
         send_lap_emails = false,
         send_general_emails = false,
     }) {
-        jQuery('#user-details-content').html(/*html*/`
+        jQuery('#user-details-content').html(`
             <h2 class="header-border-bottom">Profile</h2>
             <table class="table">
                 <tbody>
@@ -317,7 +342,8 @@ jQuery(document).ready(function(){
                     classes: "small btn-outline-danger d-block mt-3",
                 })}
             </section>
-        `)
+`
+        )
 
         jQuery('.user-check-preferences').on('change', (e) => {
             get_user_app('update_user', {
@@ -329,7 +355,7 @@ jQuery(document).ready(function(){
     }
 
     function write_prayers() {
-        userProfileDetails.html(/*html*/`
+        userProfileDetails.html(`
             <h2 class="header-border-bottom">Prayers</h2>
             <section class="user-stats flow">
 
@@ -359,7 +385,8 @@ jQuery(document).ready(function(){
                 </section>
 
             </section>
-        `)
+`
+        )
 
         if (jsObject.user.activity && jsObject.user.stats) {
             const { offset, limit, logs } = jsObject.user.activity
@@ -413,7 +440,7 @@ jQuery(document).ready(function(){
 
     function write_challenges() {
 
-        userProfileDetails.html(/*html*/`
+        userProfileDetails.html(`
             <section class="private-challenges flow-small">
                 <h3 class="header-border-bottom">Private Challenges</h3>
 
@@ -432,7 +459,8 @@ jQuery(document).ready(function(){
                     <span class="loading-spinner active"></span>
                 </div>
             </section>
-        `)
+`
+        )
 
         buildChallengeList( 'public' )
         buildChallengeList( 'private' )
@@ -661,7 +689,7 @@ jQuery(document).ready(function(){
                     <th></th>
                 </tr>
             </thead>
-        `
+`
 
         let tableBody = ''
         challenges.forEach((challenge) => {
@@ -682,7 +710,8 @@ jQuery(document).ready(function(){
                         </div>
                     </td>
                 </tr>
-        `})
+`
+        })
 
         const html = `
         <table class="table">
@@ -831,7 +860,7 @@ jQuery(document).ready(function(){
                     </div>
                 </div>
             </div>
-        `
+`
     }
 
     function LoadingSpinner(active = true) {
@@ -885,9 +914,8 @@ jQuery(document).ready(function(){
         const dataAttributesHTML = attributes.join(' ')
 
         return `
-            <button id="${id}" class="btn btn-${buttonType} ${classes}" data-bs-toggle="modal" data-bs-target="#${modalId}" ${dataAttributesHTML}>
-                ${text}
-            </button>
-        `
+        <button id="${id}" class="btn btn-${buttonType} ${classes}" data-bs-toggle="modal" data-bs-target="#${modalId}" ${dataAttributesHTML}>
+            ${text}
+        </button>`
     }
 })
