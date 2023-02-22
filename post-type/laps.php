@@ -255,12 +255,6 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
                 'select_cannot_be_empty' => true,
                 'font-icon' => 'mdi mdi-arm-flex-outline',
             ];
-            $fields['single_lap'] = [
-                'name' => __( 'Single lap', 'prayer-global' ),
-                'type' => 'boolean',
-                'tile' => 'details',
-                'default' => false,
-            ];
 
             $fields['contacts'] = [
                 "name" => __( 'Contacts', 'prayer-global' ),
