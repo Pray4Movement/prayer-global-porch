@@ -268,7 +268,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             '/'.$this->type,
             [
                 [
-                    'methods'  => WP_REST_Server::CREATABLE,
+                    'methods' => WP_REST_Server::CREATABLE,
                     'callback' => [ $this, 'endpoint' ],
                     'permission_callback' => '__return_true'
                 ],
@@ -491,14 +491,13 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
          * HANDLE COMPLETED LAP
          */
         if ( empty( $remaining_custom ) ) {
-
             if ( $this->_is_single_lap( $parts['post_id'] ) ) {
                 $time = time();
                 update_post_meta( $parts['post_id'], 'status', 'complete' );
                 update_post_meta( $parts['post_id'], 'end_time', $time );
                 update_post_meta( $parts['post_id'], 'end_date', $time );
 
-                if ( dt_is_rest()  ) { // signal new lap to rest request
+                if ( dt_is_rest() ) { // signal new lap to rest request
                     return [];
                 } else { // if first load on finished lap, redirect to new lap
                     wp_redirect( '/prayer_app/custom/'. $this->parts['public_key'] .'/map' );
