@@ -30,7 +30,7 @@ jQuery(document).ready(function() {
               if ( v.status === 'active' ){
                 html_content_active += `<tr>
                                 <td>${v.start_time}</td>
-                                <th><a href="/prayer_app/custom/${v.lap_key}">${v.post_title}</a></th>
+                                <th><a href="/prayer_app/custom/${v.lap_key}">${v.post_title} #${v.lap_number}</a></th>
                                 <td style="text-align:right;">
                                   <a href="/prayer_app/custom/${v.lap_key}">Pray</a> |
                                   <a href="/prayer_app/custom/${v.lap_key}/map">Map</a> |
@@ -41,7 +41,7 @@ jQuery(document).ready(function() {
               } else if ( v.status === 'complete' ) {
                 html_content_completed += `<tr>
                                 <td>${v.start_time}</td>
-                                <th><a href="/prayer_app/custom/${v.lap_key}/map">${v.post_title}</a></th>
+                                <th><a href="/prayer_app/custom/${v.lap_key}/map">${v.post_title} #${v.lap_number}</a></th>
                                 <td>${v.stats.participants}</td>
                                 <td>${v.stats.time_elapsed_small}</td>
                                 <td style="text-align:right;">
