@@ -538,10 +538,10 @@ jQuery(document).ready(function(){
                         buildChallengeList(visibility)
                     })
                 })
-                .catch(() => {
+                .fail(() => {
                     isSavingChallenge = false
                 })
-                .finally(() => {
+                .always(() => {
                     challengeLoadingSpinner.removeClass('active')
                 })
         })

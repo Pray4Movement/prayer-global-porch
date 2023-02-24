@@ -708,8 +708,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         $user_meta_value = "user-$user_id";
 
         $results = $wpdb->get_results( $wpdb->prepare(
-            "
-                SELECT pm.post_id, p.post_title, pm3.meta_value as lap_key, pm4.meta_value as start_time, pm5.meta_value as visibility, pm7.meta_value as end_time, pm8.meta_value as challenge_type, pm9.meta_value as single_lap
+            "SELECT pm.post_id, p.post_title, pm3.meta_value as lap_key, pm4.meta_value as start_time, pm5.meta_value as visibility, pm7.meta_value as end_time, pm8.meta_value as challenge_type, pm9.meta_value as single_lap
                 FROM $wpdb->posts p
                 JOIN $wpdb->postmeta pm ON pm.post_id=p.ID AND pm.meta_key = 'type' AND pm.meta_value = 'custom'
                 JOIN $wpdb->postmeta pm2 ON pm2.post_id=p.ID AND pm2.meta_key = 'status' AND pm2.meta_value = 'active'
@@ -721,7 +720,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 LEFT JOIN $wpdb->postmeta pm8 ON pm8.post_id=p.ID AND pm8.meta_key = 'challenge_type'
                 LEFT JOIN $wpdb->postmeta pm9 ON pm9.post_id=p.ID AND pm9.meta_key = 'single_lap'
                 WHERE p.post_type = 'laps'
-                AND pm5.meta_value = %s OR pm5.meta_value IS NULL OR pm5.meta_value = 'none'
+                AND pm5.meta_value = %s
                 ORDER BY p.post_title
              ", $user_meta_value, $visibility ), ARRAY_A );
 

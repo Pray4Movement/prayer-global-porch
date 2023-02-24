@@ -290,7 +290,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 $stack = $this->save_log( $params['parts'], $params['data'] );
                 $current_lap = pg_current_custom_lap( $params['parts']['post_id'] );
                 $params['parts']['post_id'] = $current_lap['post_id'];
-                $params['parts']['public_key'] = $current_lap['lap_key'];
+                $params['parts']['public_key'] = $current_lap['key'];
                 $stack['parts'] = $params['parts'];
                 return $stack;
             case 'correction':
@@ -299,7 +299,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 $stack = $this->get_new_location( $params['parts'] );
                 $current_lap = pg_current_custom_lap( $params['parts']['post_id'] );
                 $params['parts']['post_id'] = $current_lap['post_id'];
-                $params['parts']['public_key'] = $current_lap["lap_key"];
+                $params['parts']['public_key'] = $current_lap['key'];
                 $stack['parts'] = $params['parts'];
                 return $stack;
             case 'ip_location':
@@ -499,7 +499,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 update_post_meta( $parts['post_id'], 'end_date', $time );
 
                 if ( dt_is_rest()  ) { // signal new lap to rest request
-                    return false;
+                    return [];
                 } else { // if first load on finished lap, redirect to new lap
                     wp_redirect( '/prayer_app/custom/'. $this->parts['public_key'] .'/map' );
                     exit;
