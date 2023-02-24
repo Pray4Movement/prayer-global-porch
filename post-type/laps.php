@@ -258,9 +258,12 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
             ];
             $fields['single_lap'] = [
                 'name' => __( 'Single lap', 'prayer-global' ),
+                'description' => __( 'Is this lap only to run once and then stop', 'prayer-global' ),
                 'type' => 'boolean',
                 'tile' => 'details',
                 'default' => false,
+                'in_create_form' => true,
+                'hidden' => false,
             ];
 
             $fields['contacts'] = [

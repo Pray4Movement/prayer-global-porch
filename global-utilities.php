@@ -26,6 +26,41 @@ function pg_current_global_lap() : array {
     $lap = get_option( 'pg_current_global_lap' );
     return $lap;
 }
+function pg_current_custom_lap( $post_id ) : array {
+    /* Search down the child lap tree to find the last lap that is active. That is the current custom lap. */
+    global $wpdb;
+
+    $results = $wpdb->get_results( $wpdb->prepare(
+        "WITH RECURSIVE cte ( p2p_from_, p2p_to_ ) AS (
+            SELECT p2p_from, p2p_to FROM wp_p2p WHERE p2p_from = %d AND p2p_type = 'parent-lap_to_child-lap'
+            UNION ALL
+            SELECT
+                c.p2p_to_, p.p2p_to
+            FROM
+                cte c
+            JOIN
+                wp_p2p p
+            ON
+                c.p2p_to_ = p.p2p_from
+            AND
+                p.p2p_type = 'parent-lap_to_child-lap'
+        )
+        SELECT c.p2p_to_ as post_id, pm.meta_value as lap_key, pm2.meta_value as lap_number, pm3.meta_value as start_time FROM cte c
+        JOIN wp_postmeta pm ON c.p2p_to_ = pm.post_id AND pm.meta_key = 'prayer_app_custom_magic_key'
+        JOIN wp_postmeta pm2 ON c.p2p_to_ = pm2.post_id AND pm2.meta_key = 'global_lap_number'
+        JOIN wp_postmeta pm3 ON c.p2p_to_ = pm3.post_id AND pm3.meta_key = 'start_time'
+    ", [ $post_id ] ), ARRAY_A );
+
+    if ( is_wp_error( $results ) ) {
+        return [];
+    }
+
+    if ( empty( $results ) ) {
+        return pg_get_custom_lap_by_post_id( $post_id );
+    }
+
+    return $results[ count( $results ) - 1 ];
+}
 
 /**
  * @param $key
@@ -757,7 +792,7 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
         return pg_query_4770_locations();
     }
 
-    $current_lap = pg_get_custom_lap_by_post_id( $post_id );
+    $current_lap = pg_current_custom_lap( $post_id );
     $current_lap_key = $current_lap['key'];
 
     // create key
@@ -765,14 +800,16 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
     $date = gmdate( 'Y-m-d H:m:s', time() );
 
     // build new lap number
-    $next_custom_lap_number = pg_calculate_lap_number( $post_id );
+    $current_lap_number = pg_calculate_lap_number( $post_id );
+    $next_custom_lap_number = $current_lap_number + 1;
 
     $fields = [];
-    $fields['title'] = $current_lap['title'] . ' #' . $next_custom_lap_number;
+    $fields['title'] = $current_lap['title'];
     $fields['status'] = 'active';
     $fields['type'] = 'custom';
     $fields['start_date'] = $date;
     $fields['start_time'] = $time;
+    $fields['global_lap_number'] = $next_custom_lap_number;
     $fields['prayer_app_custom_magic_key'] = $current_lap_key;
     $fields['parent_lap'] = [
         'values' => [
@@ -807,24 +844,26 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
 }
 
 function pg_calculate_lap_number( $post_id ) {
-    /* implement recursive mysql query finding all of the parents of the lap given */
-    /* e.g.
-with recursive cte (id, name, parent_id) as (
-  select     id,
-             name,
-             parent_id
-  from       products
-  where      parent_id = 19
-  union all
-  select     p.id,
-             p.name,
-             p.parent_id
-  from       products p
-  inner join cte
-          on p.parent_id = cte.id
-)
-select * from cte;
-    */
+    global $wpdb;
 
-    return 1;
+    /* Search up the laps parentage to get a count of how many laps came before this one. */
+    $results = $wpdb->get_results( $wpdb->prepare(
+        "WITH RECURSIVE cte ( p2p_from_, p2p_to_ ) AS (
+            SELECT p2p_from, p2p_to from wp_p2p where p2p_to = %d and p2p_type = 'parent-lap_to_child-lap'
+            UNION ALL
+            SELECT
+                p.p2p_from, c.p2p_from_
+            FROM
+                cte c
+            JOIN
+                wp_p2p p
+            ON
+                c.p2p_from_ = p.p2p_to
+            AND
+                p.p2p_type = 'parent-lap_to_child-lap'
+        )
+        SELECT * FROM cte
+    ", [ $post_id ] ), ARRAY_A );
+
+    return count( $results ) + 1;
 }

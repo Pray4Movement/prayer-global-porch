@@ -174,17 +174,17 @@ class Prayer_Global_Test_Load extends DT_Magic_Url_Base
                 window.counter = 0
                 window.globalcounter = 0
 
-                function send_log( grid_id, post_id ) {
+                function send_log( parts, grid_id ) {
                     window.api_post( 'log', { grid_id: grid_id, pace: 1, user: {country:"United States",grid_id:"100364522",hash:"3ba4f83cfbd24b4be862536cfd9babe2025a2e027b69e2defbf2e62edcf3efa5",
                             label:"Golden, Colorado, United States",lat:39.828250885009766, level:"district",lng:-105.06230163574219,source:"ip"}
-                        }, jsObject.posts[post_id].parts, '/wp-json/prayer_app/v1/custom' )
+                        }, parts, '/wp-json/prayer_app/v1/custom' )
                         .done(function(x) {
                             console.log(x)
                             if ( x ) {
-                                jQuery('#results').prepend(post_id + ' - ' + grid_id + '<br>')
+                                jQuery('#results').prepend(x.parts.post_id + ' - ' + grid_id + '<br>')
                                 window.counter++
                                 jQuery('#counter').html(window.counter)
-                                send_log( x.location.grid_id, post_id )
+                                send_log( x.parts, x.location.grid_id )
                             }
                         })
                 }
@@ -195,7 +195,9 @@ class Prayer_Global_Test_Load extends DT_Magic_Url_Base
 
                 jQuery('.start').on('click', function() {
                         let gval = jQuery(this).data('value')
-                        send_log( jsObject.posts[gval].grid_id, jsObject.posts[gval].post_id )
+                        const post_id = jsObject.posts[gval].post_id
+                        const parts = jsObject.posts[post_id].parts
+                        send_log( parts, jsObject.posts[gval].grid_id )
                     }
                 )
 

@@ -288,12 +288,18 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         switch ( $params['action'] ) {
             case 'log':
                 $stack = $this->save_log( $params['parts'], $params['data'] );
+                $current_lap = pg_current_custom_lap( $params['parts']['post_id'] );
+                $params['parts']['post_id'] = $current_lap['post_id'];
+                $params['parts']['public_key'] = $current_lap['lap_key'];
                 $stack['parts'] = $params['parts'];
                 return $stack;
             case 'correction':
                 return $this->save_correction( $params['parts'], $params['data'] );
             case 'refresh':
                 $stack = $this->get_new_location( $params['parts'] );
+                $current_lap = pg_current_custom_lap( $params['parts']['post_id'] );
+                $params['parts']['post_id'] = $current_lap['post_id'];
+                $params['parts']['public_key'] = $current_lap["lap_key"];
                 $stack['parts'] = $params['parts'];
                 return $stack;
             case 'ip_location':
@@ -485,15 +491,21 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
          * HANDLE COMPLETED LAP
          */
         if ( empty( $remaining_custom ) ) {
-            $time = time();
-            update_post_meta( $parts['post_id'], 'status', 'complete' );
-            update_post_meta( $parts['post_id'], 'end_time', $time );
-            update_post_meta( $parts['post_id'], 'end_date', $time );
-            if ( dt_is_rest() ) { // signal new lap to rest request
-                return false;
-            } else { // if first load on finished lap, redirect to new lap
-                wp_redirect( '/prayer_app/custom/'. $this->parts['public_key'] .'/map' );
-                exit;
+
+            if ( $this->_is_single_lap( $parts['post_id'] ) ) {
+                $time = time();
+                update_post_meta( $parts['post_id'], 'status', 'complete' );
+                update_post_meta( $parts['post_id'], 'end_time', $time );
+                update_post_meta( $parts['post_id'], 'end_date', $time );
+
+                if ( dt_is_rest()  ) { // signal new lap to rest request
+                    return false;
+                } else { // if first load on finished lap, redirect to new lap
+                    wp_redirect( '/prayer_app/custom/'. $this->parts['public_key'] .'/map' );
+                    exit;
+                }
+            } else {
+                $remaining_custom = pg_generate_new_custom_prayer_lap( $parts['post_id'] );
             }
         }
 
@@ -577,6 +589,14 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         } else {
             return [];
         }
+    }
+
+    private function _is_single_lap( $post_id ) {
+        $lap = pg_get_custom_lap_by_post_id( $post_id );
+
+        $single_lap = isset( $lap['single_lap'] ) ? $lap['single_lap'] : false;
+
+        return $single_lap === '1';
     }
 
     public function _log_promise( $parts, $grid_id ) {
