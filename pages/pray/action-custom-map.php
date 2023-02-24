@@ -131,6 +131,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                 <div id="head_block">
                     <div class="d-flex align-items-center justify-content-between">
                         <span class="two-em"><?php echo esc_html( $lap_stats['title'] ) ?></span>
+                        <span class="two-em">Lap <?php echo esc_html( $lap_stats['lap_number'] ) ?></span>
                         <a class="btn btn-outline-dark py-2" <?php echo esc_attr( $has_challenge_started ) ? '' : "style='display: none'" ?> href="/prayer_app/custom/<?php echo esc_attr( $parts['public_key'] ) ?>">Start Praying</a>
                     </div>
                 </div>
@@ -259,7 +260,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                     <p class="stats-figure time_remaining">0</p>
                 </div>
 
-                
+
                 <div class="col col-6 col-sm-3 center">
                     <strong>Prayer Warriors</strong>
                     <br>

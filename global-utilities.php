@@ -32,23 +32,38 @@ function pg_current_custom_lap( $post_id ) : array {
 
     $results = $wpdb->get_results( $wpdb->prepare(
         "WITH RECURSIVE cte ( p2p_from_, p2p_to_ ) AS (
-            SELECT p2p_from, p2p_to FROM wp_p2p WHERE p2p_from = %d AND p2p_type = 'parent-lap_to_child-lap'
+            SELECT p2p_from, p2p_to FROM $wpdb->p2p WHERE p2p_from = %d AND p2p_type = 'parent-lap_to_child-lap'
             UNION ALL
             SELECT
                 c.p2p_to_, p.p2p_to
             FROM
                 cte c
             JOIN
-                wp_p2p p
+                $wpdb->p2p p
             ON
                 c.p2p_to_ = p.p2p_from
             AND
                 p.p2p_type = 'parent-lap_to_child-lap'
         )
-        SELECT c.p2p_to_ as post_id, pm.meta_value as lap_key, pm2.meta_value as lap_number, pm3.meta_value as start_time FROM cte c
-        JOIN wp_postmeta pm ON c.p2p_to_ = pm.post_id AND pm.meta_key = 'prayer_app_custom_magic_key'
-        JOIN wp_postmeta pm2 ON c.p2p_to_ = pm2.post_id AND pm2.meta_key = 'global_lap_number'
-        JOIN wp_postmeta pm3 ON c.p2p_to_ = pm3.post_id AND pm3.meta_key = 'start_time'
+        SELECT p2p_to_, p2p_from_, c.p2p_to_ as post_id,
+            pm.meta_value as lap_key,
+            pm2.meta_value as lap_number,
+            pm3.meta_value as start_time,
+            pm4.meta_value as end_time,
+            pm5.meta_value as visibility,
+            pm6.meta_value as challenge_type,
+            pm7.meta_value as single_lap,
+            pm8.meta_value as assigned_to
+        FROM cte c
+        LEFT JOIN $wpdb->postmeta pm ON c.p2p_to_=pm.post_id AND pm.meta_key = 'prayer_app_custom_magic_key'
+        LEFT JOIN $wpdb->postmeta pm2 ON c.p2p_to_=pm2.post_id AND pm2.meta_key = 'global_lap_number'
+        LEFT JOIN $wpdb->postmeta pm3 ON c.p2p_to_=pm3.post_id AND pm3.meta_key = 'start_time'
+        LEFT JOIN $wpdb->postmeta pm4 ON c.p2p_to_=pm4.post_id AND pm4.meta_key = 'end_time'
+        LEFT JOIN $wpdb->postmeta pm5 ON c.p2p_to_=pm5.post_id AND pm5.meta_key = 'visibility'
+        LEFT JOIN $wpdb->postmeta pm6 ON c.p2p_to_=pm6.post_id AND pm6.meta_key = 'challenge_type'
+        LEFT JOIN $wpdb->postmeta pm7 ON c.p2p_to_=pm7.post_id AND pm7.meta_key = 'single_lap'
+        LEFT JOIN $wpdb->postmeta pm8 ON c.p2p_to_=pm8.post_id AND pm8.meta_key = 'assigned_to'
+
     ", [ $post_id ] ), ARRAY_A );
 
     if ( is_wp_error( $results ) ) {
@@ -59,7 +74,13 @@ function pg_current_custom_lap( $post_id ) : array {
         return pg_get_custom_lap_by_post_id( $post_id );
     }
 
-    return $results[ count( $results ) - 1 ];
+    $current_lap = $results[ count( $results ) - 1 ];
+
+    $current_lap['key'] = $current_lap['lap_key'];
+
+    unset( $current_lap['lap_key'] );
+
+    return $current_lap;
 }
 
 /**
@@ -115,17 +136,28 @@ function pg_get_custom_lap_by_post_id( $post_id ) {
 
     global $wpdb;
     $result = $wpdb->get_row( $wpdb->prepare(
-        "SELECT pm4.meta_value as lap_key, pm1.meta_value as lap_number, pm.post_id, pm3.meta_value as start_time, pm3.meta_value as end_time, p.post_title as title, pm5.meta_value as visibility, pm6.meta_value as challenge_type, pm7.meta_value as single_lap
-                    FROM $wpdb->postmeta pm
-                    LEFT JOIN $wpdb->postmeta pm1 ON pm.post_id=pm1.post_id AND pm1.meta_key = 'global_lap_number'
-                    LEFT JOIN $wpdb->postmeta pm2 ON pm.post_id=pm2.post_id AND pm2.meta_key = 'start_time'
-                    LEFT JOIN $wpdb->postmeta pm3 ON pm.post_id=pm3.post_id AND pm3.meta_key = 'end_time'
-                    LEFT JOIN $wpdb->postmeta pm4 ON pm.post_id=pm4.post_id AND pm4.meta_key = 'prayer_app_custom_magic_key'
-                    LEFT JOIN $wpdb->postmeta pm5 ON pm.post_id=pm5.post_id AND pm5.meta_key = 'visibility'
-                    LEFT JOIN $wpdb->postmeta pm6 ON pm.post_id=pm6.post_id AND pm6.meta_key = 'challenge_type'
-                    LEFT JOIN $wpdb->postmeta pm7 ON pm.post_id=pm7.post_id AND pm7.meta_key = 'single_lap'
-                    LEFT JOIN $wpdb->posts p ON pm.post_id=p.ID
-                    WHERE pm.post_id = %d",
+        "SELECT
+            pm.post_id,
+            p.post_title as title,
+            pm1.meta_value as lap_number,
+            pm2.meta_value as start_time,
+            pm3.meta_value as end_time,
+            pm4.meta_value as lap_key,
+            pm5.meta_value as visibility,
+            pm6.meta_value as challenge_type,
+            pm7.meta_value as single_lap,
+            pm8.meta_value as assigned_to
+        FROM $wpdb->postmeta pm
+        LEFT JOIN $wpdb->postmeta pm1 ON pm.post_id=pm1.post_id AND pm1.meta_key = 'global_lap_number'
+        LEFT JOIN $wpdb->postmeta pm2 ON pm.post_id=pm2.post_id AND pm2.meta_key = 'start_time'
+        LEFT JOIN $wpdb->postmeta pm3 ON pm.post_id=pm3.post_id AND pm3.meta_key = 'end_time'
+        LEFT JOIN $wpdb->postmeta pm4 ON pm.post_id=pm4.post_id AND pm4.meta_key = 'prayer_app_custom_magic_key'
+        LEFT JOIN $wpdb->postmeta pm5 ON pm.post_id=pm5.post_id AND pm5.meta_key = 'visibility'
+        LEFT JOIN $wpdb->postmeta pm6 ON pm.post_id=pm6.post_id AND pm6.meta_key = 'challenge_type'
+        LEFT JOIN $wpdb->postmeta pm7 ON pm.post_id=pm7.post_id AND pm7.meta_key = 'single_lap'
+        LEFT JOIN $wpdb->postmeta pm8 ON pm.post_id=pm8.post_id AND pm8.meta_key = 'assigned_to'
+        LEFT JOIN $wpdb->posts p ON pm.post_id=p.ID
+        WHERE pm.post_id = %d",
         $post_id
     ), ARRAY_A);
 
@@ -148,6 +180,7 @@ function pg_get_custom_lap_by_post_id( $post_id ) {
             'visibility' => $result['visibility'],
             'challenge_type' => $result['challenge_type'],
             'single_lap' => $result['single_lap'],
+            'assigned_to' => $result['assigned_to'],
         ];
     }
 
@@ -815,6 +848,7 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
     $fields['type'] = 'custom';
     $fields['visibility'] = $current_lap['visibility'];
     $fields['challenge_type'] = $current_lap['challenge_type'];
+    $fields['assigned_to'] = $current_lap['assigned_to'];
     $fields['start_date'] = $date;
     $fields['start_time'] = $time;
     $fields['global_lap_number'] = $next_custom_lap_number;

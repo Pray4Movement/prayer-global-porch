@@ -204,7 +204,7 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
                 'name'        => __( 'Global Lap Number', 'prayer-global' ),
                 'description' => '',
                 'type'        => 'text',
-                'default'     => '',
+                'default'     => '1',
                 'tile' => 'details',
                 "hidden" => false,
             ];
