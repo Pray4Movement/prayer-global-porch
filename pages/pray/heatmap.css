@@ -341,6 +341,11 @@ progress {
 }
 
 @media ( max-width: 576px ) {
+    #map-settings {
+        margin-left: 1em;
+        transform: translateY(50%);
+    }
+
     #map-legend[data-map-type="heatmap"] {
         flex-direction: column;
     }

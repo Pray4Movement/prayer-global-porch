@@ -23,6 +23,7 @@ jQuery(document).ready(function($){
   const toggleParticipantsId = 'toggle_participants'
   const toggleUserLocationsId = 'toggle_user_locations'
   const clusterToggleId = 'cluster_participants'
+  const settings_toggle = document.querySelector('#map-settings .dropdown')
   const toggleClusteringElement = document.getElementById(clusterToggleId)
   const toggleParticipantsElement = document.getElementById(toggleParticipantsId)
   const toggleUserLocationsElement = document.getElementById(toggleUserLocationsId)
@@ -41,16 +42,18 @@ jQuery(document).ready(function($){
     mapSettings = mapSettingsDefaults
   }
 
-  if ( mapSettings.toggle_participants ) {
-    toggleParticipantsElement.classList.add('active')
-  } else {
-    toggleClusteringElement.setAttribute('disabled', true)
-  }
-  if ( mapSettings.toggle_user_locations ) {
-    toggleUserLocationsElement.classList.add('active')
-  }
-  if ( mapSettings.cluster_participants ) {
-    toggleClusteringElement.classList.add('active')
+  if ( settings_toggle ) {
+    if ( mapSettings.toggle_participants ) {
+      toggleParticipantsElement.classList.add('active')
+    } else {
+      toggleClusteringElement.setAttribute('disabled', true)
+    }
+    if ( mapSettings.toggle_user_locations ) {
+      toggleUserLocationsElement.classList.add('active')
+    }
+    if ( mapSettings.cluster_participants ) {
+      toggleClusteringElement.classList.add('active')
+    }
   }
 
   let countdownInterval
@@ -181,8 +184,7 @@ jQuery(document).ready(function($){
     pray_for_area_content.innerHTML = ''
   })
 
-  const settings_toggle = document.querySelector('#map-settings .dropdown')
-  settings_toggle.addEventListener('hide.bs.dropdown', (e) => {
+  settings_toggle && settings_toggle.addEventListener('hide.bs.dropdown', (e) => {
     const cluster_participants_element = document.getElementById('cluster_participants')
     const clustered = cluster_participants_element.classList.contains('active')
 
