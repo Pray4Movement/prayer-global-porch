@@ -862,11 +862,12 @@ function pg_generate_new_global_prayer_lap() {
  */
 function pg_generate_new_custom_prayer_lap( $post_id ) {
     // hold generation while being created
-    if ( get_option( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id ) ) {
+
+    $lock = pg_create_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
+    if ( !$lock ) {
+        pg_log( 'lock exists, sleeping for 25' );
         sleep( 25 );
         return pg_query_4770_locations();
-    } else {
-        update_option( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id, true );
     }
     global $wpdb;
 
@@ -881,8 +882,9 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
                     AND p.post_type = 'laps'
                     ", $time )
     );
+    pg_log( 'checking for start time dup' );
     if ( $start_time_dup ) {
-        delete_option( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
+        pg_release_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
         sleep( 5 );
         return pg_query_4770_locations();
     }
@@ -919,7 +921,7 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
         // @handle error
         dt_write_log( 'failed to create new custom lap' );
         dt_write_log( $new_post );
-        delete_option( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
+        pg_release_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
         return pg_query_4770_locations();
     }
 
@@ -936,7 +938,8 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
         ],
     ], true, false );
 
-    delete_option( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
+    pg_log( 'finished creating custom lap post_id=' . $post_id );
+    pg_release_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
 
     return pg_query_4770_locations();
 }
