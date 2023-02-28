@@ -702,17 +702,69 @@ function pg_get_user( int $user_id, array $allowed_meta ) {
     return $userdata;
 }
 
+function pg_log( $message ) {
+
+    $prefix = isset( $_SERVER['REQUEST_TIME_FLOAT'] ) ? '=== ' . _sanitize_text_fields( wp_unslash( $_SERVER['REQUEST_TIME_FLOAT'] ) ) . ' === ' : '=== ';
+
+    dt_write_log( $prefix . $message );
+}
+function pg_create_lock( $lock_name, $release_timeout = null ) {
+    global $wpdb;
+    if ( ! $release_timeout ) {
+        $release_timeout = HOUR_IN_SECONDS;
+    }
+    $lock_option = $lock_name . '.lock';
+
+    // Try to lock.
+    $lock_result = $wpdb->query( $wpdb->prepare( "INSERT IGNORE INTO `$wpdb->options` ( `option_name`, `option_value`, `autoload` ) VALUES (%s, %s, 'no') /* LOCK */", $lock_option, time() ) );
+
+    if ( ! $lock_result ) {
+        $lock_result = get_option( $lock_option );
+
+        // If a lock couldn't be created, and there isn't a lock, bail.
+        if ( ! $lock_result ) {
+            return false;
+        }
+
+        // Check to see if the lock is still valid. If it is, bail.
+        if ( $lock_result > ( time() - $release_timeout ) ) {
+            return false;
+        }
+
+        // There must exist an expired lock, clear it and re-gain it.
+        pg_release_lock( $lock_name );
+
+        return pg_create_lock( $lock_name, $release_timeout );
+    }
+
+    // Update the lock, as by this point we've definitely got a lock, just need to fire the actions.
+    update_option( $lock_option, time() );
+
+    return true;
+}
+function pg_release_lock( $lock_name ) {
+    return delete_option( $lock_name . '.lock' );
+}
 /**
  * @return array|false|mixed
  */
 function pg_generate_new_global_prayer_lap() {
     // hold generation while being created
-    if ( get_option( 'pg_generate_new_lap_in_progress' ) ) {
+    $lock = pg_create_lock( 'pg_generate_new_lap_in_progress', 30 );
+    if ( ! $lock ) {
+        pg_log( 'lock exists, sleeping for 25' );
+        sleep( 25 );
+        return pg_query_4770_locations();
+    }
+
+    /* if ( get_option( 'pg_generate_new_lap_in_progress' ) ) {
+        pg_log( 'lock exists, sleeping for 25' );
         sleep( 25 );
         return pg_query_4770_locations();
     } else {
+        pg_log( 'creating lock' );
         update_option( 'pg_generate_new_lap_in_progress', true );
-    }
+    } */
     global $wpdb;
 
     // dup check, instant dup generation
@@ -726,8 +778,11 @@ function pg_generate_new_global_prayer_lap() {
                     AND p.post_type = 'laps'
                     ", $time )
     );
+    pg_log( 'check time dup ' . $start_time_dup );
+
     if ( $start_time_dup ) {
-        delete_option( 'pg_generate_new_lap_in_progress' );
+        pg_log( 'duplicate time detected ' . $start_time_dup );
+        pg_release_lock( 'pg_generate_new_lap_in_progress' );
         sleep( 5 );
         return pg_query_4770_locations();
     }
@@ -767,9 +822,9 @@ function pg_generate_new_global_prayer_lap() {
     $new_post = DT_Posts::create_post( 'laps', $fields, true, false );
     if ( is_wp_error( $new_post ) ) {
         // @handle error
-        dt_write_log( 'failed to create' );
-        dt_write_log( $new_post );
-        delete_option( 'pg_generate_new_lap_in_progress' );
+        pg_log( 'failed to create' );
+        pg_log( $new_post );
+        pg_release_lock( 'pg_generate_new_lap_in_progress' );
         return pg_query_4770_locations();
     }
 
@@ -796,7 +851,8 @@ function pg_generate_new_global_prayer_lap() {
         ],
     ], true, false );
 
-    delete_option( 'pg_generate_new_lap_in_progress' );
+    pg_log( 'finished generating lap ' . $next_global_lap_number );
+    pg_release_lock( 'pg_generate_new_lap_in_progress' );
 
     return pg_query_4770_locations();
 }
