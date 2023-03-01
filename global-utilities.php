@@ -46,6 +46,7 @@ function pg_current_custom_lap( $post_id ) : array {
                 p.p2p_type = 'parent-lap_to_child-lap'
         )
         SELECT p2p_to_, p2p_from_, c.p2p_to_ as post_id,
+            p.post_title as title,
             pm.meta_value as lap_key,
             pm2.meta_value as lap_number,
             pm3.meta_value as start_time,
@@ -55,6 +56,7 @@ function pg_current_custom_lap( $post_id ) : array {
             pm7.meta_value as single_lap,
             pm8.meta_value as assigned_to
         FROM cte c
+        LEFT JOIN $wpdb->posts p ON c.p2p_to_=p.ID
         LEFT JOIN $wpdb->postmeta pm ON c.p2p_to_=pm.post_id AND pm.meta_key = 'prayer_app_custom_magic_key'
         LEFT JOIN $wpdb->postmeta pm2 ON c.p2p_to_=pm2.post_id AND pm2.meta_key = 'global_lap_number'
         LEFT JOIN $wpdb->postmeta pm3 ON c.p2p_to_=pm3.post_id AND pm3.meta_key = 'start_time'
@@ -704,7 +706,7 @@ function pg_get_user( int $user_id, array $allowed_meta ) {
 
 function pg_log( $message ) {
 
-    $prefix = isset( $_SERVER['REQUEST_TIME_FLOAT'] ) ? '=== ' . _sanitize_text_fields( wp_unslash( $_SERVER['REQUEST_TIME_FLOAT'] ) ) . ' === ' : '=== ';
+    $prefix = isset( $_SERVER['REQUEST_TIME_FLOAT'] ) ? '=== ' . sanitize_text_field( wp_unslash( $_SERVER['REQUEST_TIME_FLOAT'] ) ) . ' === ' : '=== ';
 
     dt_write_log( $prefix . $message );
 }
@@ -750,21 +752,13 @@ function pg_release_lock( $lock_name ) {
  */
 function pg_generate_new_global_prayer_lap() {
     // hold generation while being created
-    $lock = pg_create_lock( 'pg_generate_new_lap_in_progress', 30 );
-    if ( ! $lock ) {
+    $lock_created = pg_create_lock( 'pg_generate_new_lap_in_progress', 30 );
+    if ( ! $lock_created ) {
         pg_log( 'lock exists, sleeping for 25' );
         sleep( 25 );
         return pg_query_4770_locations();
     }
 
-    /* if ( get_option( 'pg_generate_new_lap_in_progress' ) ) {
-        pg_log( 'lock exists, sleeping for 25' );
-        sleep( 25 );
-        return pg_query_4770_locations();
-    } else {
-        pg_log( 'creating lock' );
-        update_option( 'pg_generate_new_lap_in_progress', true );
-    } */
     global $wpdb;
 
     // dup check, instant dup generation
@@ -863,8 +857,8 @@ function pg_generate_new_global_prayer_lap() {
 function pg_generate_new_custom_prayer_lap( $post_id ) {
     // hold generation while being created
 
-    $lock = pg_create_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
-    if ( !$lock ) {
+    $lock_created = pg_create_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
+    if ( !$lock_created ) {
         pg_log( 'lock exists, sleeping for 25' );
         sleep( 25 );
         return pg_query_4770_locations();
