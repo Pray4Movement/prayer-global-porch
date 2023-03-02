@@ -331,7 +331,6 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
         if ( $post_type === $this->post_type && $section === "other" ) {
             // hide opposite key app
             $post = DT_Posts::get_post( $this->post_type, get_the_ID() );
-                dt_write_log( $post );
             if ( isset( $post['type']['key'] ) && $post['type']['key'] === 'global' ) {
                 ?>
                 <script>

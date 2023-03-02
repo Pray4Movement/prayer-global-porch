@@ -748,9 +748,10 @@ function pg_release_lock( $lock_name ) {
     return delete_option( $lock_name . '.lock' );
 }
 /**
+ * @param string $post_id
  * @return array|false|mixed
  */
-function pg_generate_new_global_prayer_lap() {
+function pg_generate_new_global_prayer_lap( $post_id ) {
     // hold generation while being created
     $lock_created = pg_create_lock( 'pg_generate_new_lap_in_progress', 30 );
     if ( ! $lock_created ) {
@@ -759,38 +760,24 @@ function pg_generate_new_global_prayer_lap() {
         return pg_query_4770_locations();
     }
 
+    pg_log( '*** creating new lap' );
+
     global $wpdb;
 
-    // dup check, instant dup generation
-    $time = time();
-    $start_time_dup = $wpdb->get_var($wpdb->prepare(
-        "SELECT count(*)
-                FROM $wpdb->postmeta pm
-                JOIN $wpdb->posts p ON p.ID=pm.post_id
-                WHERE pm.meta_key = 'start_time'
-                    AND pm.meta_value = %d
-                    AND p.post_type = 'laps'
-                    ", $time )
+    $lap_status = $wpdb->get_var($wpdb->prepare(
+        "SELECT meta_value as status FROM $wpdb->postmeta
+        WHERE
+            meta_key = 'status'
+            AND post_id = %d
+        ", $post_id, ARRAY_A )
     );
-    pg_log( 'check time dup ' . $start_time_dup );
-
-    if ( $start_time_dup ) {
-        pg_log( 'duplicate time detected ' . $start_time_dup );
+    if ( $lap_status !== 'active' ) {
+        pg_log( '!!! lap has already been generated' );
         pg_release_lock( 'pg_generate_new_lap_in_progress' );
-        sleep( 5 );
         return pg_query_4770_locations();
     }
 
-    // build new lap number
-    /* TODO: get the next lap number by counting how many laps are in the lap tree */
-
-    $completed_prayer_lap_number = $wpdb->get_var(
-        "SELECT COUNT(*) as laps
-                    FROM $wpdb->posts p
-                    JOIN $wpdb->postmeta pm ON p.ID=pm.post_id AND pm.meta_key = 'type' AND pm.meta_value = 'global'
-                    JOIN $wpdb->postmeta pm2 ON p.ID=pm2.post_id AND pm2.meta_key = 'status' AND pm2.meta_value IN ('complete', 'active')
-                    WHERE p.post_type = 'laps';"
-    );
+    $completed_prayer_lap_number = pg_calculate_lap_number( $post_id );
     $next_global_lap_number = $completed_prayer_lap_number + 1;
 
     $current_lap = pg_current_global_lap();
@@ -798,6 +785,7 @@ function pg_generate_new_global_prayer_lap() {
 
     // create key
     $new_key = pg_generate_key();
+    $time = time();
     $date = gmdate( 'Y-m-d H:m:s', time() );
 
     $fields = [];
@@ -816,7 +804,7 @@ function pg_generate_new_global_prayer_lap() {
     $new_post = DT_Posts::create_post( 'laps', $fields, true, false );
     if ( is_wp_error( $new_post ) ) {
         // @handle error
-        pg_log( 'failed to create' );
+        pg_log( '!!! failed to create' );
         pg_log( $new_post );
         pg_release_lock( 'pg_generate_new_lap_in_progress' );
         return pg_query_4770_locations();
@@ -845,7 +833,7 @@ function pg_generate_new_global_prayer_lap() {
         ],
     ], true, false );
 
-    pg_log( 'finished generating lap ' . $next_global_lap_number );
+    pg_log( '*** finished generating lap ' . $next_global_lap_number );
     pg_release_lock( 'pg_generate_new_lap_in_progress' );
 
     return pg_query_4770_locations();
@@ -859,27 +847,23 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
 
     $lock_created = pg_create_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
     if ( !$lock_created ) {
-        pg_log( 'lock exists, sleeping for 25' );
+        pg_log( '!!! lock exists, sleeping for 25' );
         sleep( 25 );
         return pg_query_4770_locations();
     }
     global $wpdb;
+    pg_log( '*** generating new lap' );
 
-    // dup check, instant dup generation
-    $time = time();
-    $start_time_dup = $wpdb->get_var($wpdb->prepare(
-        "SELECT count(*)
-                FROM $wpdb->postmeta pm
-                JOIN $wpdb->posts p ON p.ID=pm.post_id
-                WHERE pm.meta_key = 'start_time'
-                    AND pm.meta_value = %d
-                    AND p.post_type = 'laps'
-                    ", $time )
+    $lap_status = $wpdb->get_var($wpdb->prepare(
+        "SELECT meta_value as status FROM $wpdb->postmeta
+        WHERE
+            meta_key = 'status'
+            AND post_id = %d
+        ", $post_id, ARRAY_A )
     );
-    pg_log( 'checking for start time dup' );
-    if ( $start_time_dup ) {
+    if ( $lap_status !== 'active' ) {
+        pg_log( '!!! lap has already been generated' );
         pg_release_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
-        sleep( 5 );
         return pg_query_4770_locations();
     }
 
@@ -888,6 +872,7 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
 
     // create key
     $new_key = pg_generate_key();
+    $time = time();
     $date = gmdate( 'Y-m-d H:m:s', time() );
 
     // build new lap number
@@ -898,8 +883,8 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
     $fields['title'] = $current_lap['title'];
     $fields['status'] = 'active';
     $fields['type'] = 'custom';
-    $fields['visibility'] = $current_lap['visibility'];
-    $fields['challenge_type'] = $current_lap['challenge_type'];
+    $fields['visibility'] = $current_lap['visibility'] ? $current_lap['visibility'] : 'public';
+    $fields['challenge_type'] = $current_lap['challenge_type'] ? $current_lap['challenge_type'] : 'ongoing';
     $fields['assigned_to'] = $current_lap['assigned_to'];
     $fields['start_date'] = $date;
     $fields['start_time'] = $time;
@@ -913,8 +898,8 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
     $new_post = DT_Posts::create_post( 'laps', $fields, true, false );
     if ( is_wp_error( $new_post ) ) {
         // @handle error
-        dt_write_log( 'failed to create new custom lap' );
-        dt_write_log( $new_post );
+        pg_log( '!!! failed to create new custom lap' );
+        pg_log( $new_post );
         pg_release_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
         return pg_query_4770_locations();
     }
@@ -932,7 +917,7 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
         ],
     ], true, false );
 
-    pg_log( 'finished creating custom lap post_id=' . $post_id );
+    pg_log( '*** finished creating custom lap post_id=' . $post_id );
     pg_release_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
 
     return pg_query_4770_locations();
@@ -944,10 +929,17 @@ function pg_calculate_lap_number( $post_id ) {
     /* Search up the laps parentage to get a count of how many laps came before this one. */
     $results = $wpdb->get_results( $wpdb->prepare(
         "WITH RECURSIVE cte ( p2p_from_, p2p_to_ ) AS (
-            SELECT p2p_from, p2p_to from wp_p2p where p2p_to = %d and p2p_type = 'parent-lap_to_child-lap'
+            SELECT
+                p2p_from, p2p_to
+            FROM
+                wp_p2p
+            WHERE
+                p2p_to = %d
+            AND
+                p2p_type = 'parent-lap_to_child-lap'
             UNION ALL
             SELECT
-                p.p2p_from, c.p2p_from_
+                p.p2p_from, p.p2p_to
             FROM
                 cte c
             JOIN
