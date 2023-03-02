@@ -30,7 +30,38 @@ function pg_current_custom_lap( $post_id ) : array {
     /* Search down the child lap tree to find the last lap that is active. That is the current custom lap. */
     global $wpdb;
 
+    /* === THIS QUERY WORKS UP TO MYSQL 5.7 AND SHOULD BE REMOVED IN FAVOR OF BELOW QUERY WHEN MYSQL IS UPGRADED TO 8 === */
     $results = $wpdb->get_results( $wpdb->prepare(
+        "SELECT
+            t.p2p_from,
+            @pv:= t.p2p_to p2p_to,
+            t.p2p_to as post_id,
+            p.post_title as title,
+            pm.meta_value as lap_key,
+            pm2.meta_value as lap_number,
+            pm3.meta_value as start_time,
+            pm4.meta_value as end_time,
+            pm5.meta_value as visibility,
+            pm6.meta_value as challenge_type,
+            pm7.meta_value as single_lap,
+            pm8.meta_value as assigned_to
+        FROM ( SELECT * FROM wp_p2p ORDER BY p2p_from ASC ) t
+        LEFT JOIN $wpdb->posts p ON p2p_to=p.ID
+        LEFT JOIN $wpdb->postmeta pm ON p2p_to=pm.post_id AND pm.meta_key = 'prayer_app_custom_magic_key'
+        LEFT JOIN $wpdb->postmeta pm2 ON p2p_to=pm2.post_id AND pm2.meta_key = 'global_lap_number'
+        LEFT JOIN $wpdb->postmeta pm3 ON p2p_to=pm3.post_id AND pm3.meta_key = 'start_time'
+        LEFT JOIN $wpdb->postmeta pm4 ON p2p_to=pm4.post_id AND pm4.meta_key = 'end_time'
+        LEFT JOIN $wpdb->postmeta pm5 ON p2p_to=pm5.post_id AND pm5.meta_key = 'visibility'
+        LEFT JOIN $wpdb->postmeta pm6 ON p2p_to=pm6.post_id AND pm6.meta_key = 'challenge_type'
+        LEFT JOIN $wpdb->postmeta pm7 ON p2p_to=pm7.post_id AND pm7.meta_key = 'single_lap'
+        LEFT JOIN $wpdb->postmeta pm8 ON p2p_to=pm8.post_id AND pm8.meta_key = 'assigned_to'
+        JOIN ( SELECT @pv := %d ) tmp
+        WHERE p2p_type = 'parent-lap_to_child-lap'
+        AND t.p2p_from = @pv;",
+    $post_id ), ARRAY_A );
+
+    /* === THIS QUERY SHOULD BE USED WHEN THE MYSQL DB IS UPGRADED TO 8 IN FAVOR OF THE ABOVE ONE === */
+    /*$results = $wpdb->get_results( $wpdb->prepare(
         "WITH RECURSIVE cte ( p2p_from_, p2p_to_ ) AS (
             SELECT p2p_from, p2p_to FROM $wpdb->p2p WHERE p2p_from = %d AND p2p_type = 'parent-lap_to_child-lap'
             UNION ALL
@@ -67,7 +98,7 @@ function pg_current_custom_lap( $post_id ) : array {
         LEFT JOIN $wpdb->postmeta pm8 ON c.p2p_to_=pm8.post_id AND pm8.meta_key = 'assigned_to'
 
     ", [ $post_id ] ), ARRAY_A );
-
+    */
     if ( is_wp_error( $results ) ) {
         return [];
     }
@@ -926,8 +957,16 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
 function pg_calculate_lap_number( $post_id ) {
     global $wpdb;
 
-    /* Search up the laps parentage to get a count of how many laps came before this one. */
+    /* === THIS QUERY WORKS UP TO MYSQL 5.7 AND SHOULD BE REMOVED IN FAVOR OF BELOW QUERY WHEN MYSQL IS UPGRADED TO 8 === */
     $results = $wpdb->get_results( $wpdb->prepare(
+        "SELECT  @pv:= t.p2p_from, t.p2p_to
+        FROM (SELECT * FROM wp_p2p ORDER BY p2p_to DESC) t
+        JOIN (SELECT @pv := %d) tmp
+        WHERE p2p_type = 'parent-lap_to_child-lap'
+        AND t.p2p_to = @pv",
+    $post_id ), ARRAY_A );
+    /* === THIS QUERY ONLY WORKS ON MYQSL 8+ === */
+    /*$results = $wpdb->get_results( $wpdb->prepare(
         "WITH RECURSIVE cte ( p2p_from_, p2p_to_ ) AS (
             SELECT
                 p2p_from, p2p_to
@@ -951,6 +990,7 @@ function pg_calculate_lap_number( $post_id ) {
         )
         SELECT * FROM cte
     ", [ $post_id ] ), ARRAY_A );
+    */
 
     return count( $results ) + 1;
 }
