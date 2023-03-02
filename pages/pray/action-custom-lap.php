@@ -717,7 +717,8 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
         if ( empty( $remaining_4770 ) ) {
             dt_write_log( __METHOD__ . ' :: new global lap generated' );
-            $remaining_4770 = pg_generate_new_global_prayer_lap();
+            $post_id = $current_lap['post_id'];
+            $remaining_4770 = pg_generate_new_global_prayer_lap( $post_id );
         }
 
         return $remaining_4770;
