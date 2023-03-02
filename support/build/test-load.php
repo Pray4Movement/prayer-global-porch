@@ -143,7 +143,6 @@ class Prayer_Global_Test_Load extends DT_Magic_Url_Base
     }
 
     public function body(){
-        require_once( WP_CONTENT_DIR . '/plugins/prayer-global-porch/pages/assets/nav.php' )
         ?>
 
         <section class="page-section mt-5" >
