@@ -26,7 +26,8 @@ function pg_current_global_lap() : array {
     $lap = get_option( 'pg_current_global_lap' );
     return $lap;
 }
-function pg_current_custom_lap( $post_id ) : array {
+
+function pg_current_custom_lap( int $post_id ) : array {
     /* Search down the child lap tree to find the last lap that is active. That is the current custom lap. */
     global $wpdb;
 
@@ -35,26 +36,8 @@ function pg_current_custom_lap( $post_id ) : array {
         "SELECT
             t.p2p_from,
             @pv:= t.p2p_to p2p_to,
-            t.p2p_to as post_id,
-            p.post_title as title,
-            pm.meta_value as lap_key,
-            pm2.meta_value as lap_number,
-            pm3.meta_value as start_time,
-            pm4.meta_value as end_time,
-            pm5.meta_value as visibility,
-            pm6.meta_value as challenge_type,
-            pm7.meta_value as single_lap,
-            pm8.meta_value as assigned_to
+            t.p2p_to as post_id
         FROM ( SELECT * FROM wp_p2p ORDER BY p2p_from ASC ) t
-        LEFT JOIN $wpdb->posts p ON p2p_to=p.ID
-        LEFT JOIN $wpdb->postmeta pm ON p2p_to=pm.post_id AND pm.meta_key = 'prayer_app_custom_magic_key'
-        LEFT JOIN $wpdb->postmeta pm2 ON p2p_to=pm2.post_id AND pm2.meta_key = 'global_lap_number'
-        LEFT JOIN $wpdb->postmeta pm3 ON p2p_to=pm3.post_id AND pm3.meta_key = 'start_time'
-        LEFT JOIN $wpdb->postmeta pm4 ON p2p_to=pm4.post_id AND pm4.meta_key = 'end_time'
-        LEFT JOIN $wpdb->postmeta pm5 ON p2p_to=pm5.post_id AND pm5.meta_key = 'visibility'
-        LEFT JOIN $wpdb->postmeta pm6 ON p2p_to=pm6.post_id AND pm6.meta_key = 'challenge_type'
-        LEFT JOIN $wpdb->postmeta pm7 ON p2p_to=pm7.post_id AND pm7.meta_key = 'single_lap'
-        LEFT JOIN $wpdb->postmeta pm8 ON p2p_to=pm8.post_id AND pm8.meta_key = 'assigned_to'
         JOIN ( SELECT @pv := %d ) tmp
         WHERE p2p_type = 'parent-lap_to_child-lap'
         AND t.p2p_from = @pv;",
@@ -76,26 +59,8 @@ function pg_current_custom_lap( $post_id ) : array {
             AND
                 p.p2p_type = 'parent-lap_to_child-lap'
         )
-        SELECT p2p_to_, p2p_from_, c.p2p_to_ as post_id,
-            p.post_title as title,
-            pm.meta_value as lap_key,
-            pm2.meta_value as lap_number,
-            pm3.meta_value as start_time,
-            pm4.meta_value as end_time,
-            pm5.meta_value as visibility,
-            pm6.meta_value as challenge_type,
-            pm7.meta_value as single_lap,
-            pm8.meta_value as assigned_to
+        SELECT p2p_to_, p2p_from_, c.p2p_to_ as post_id
         FROM cte c
-        LEFT JOIN $wpdb->posts p ON c.p2p_to_=p.ID
-        LEFT JOIN $wpdb->postmeta pm ON c.p2p_to_=pm.post_id AND pm.meta_key = 'prayer_app_custom_magic_key'
-        LEFT JOIN $wpdb->postmeta pm2 ON c.p2p_to_=pm2.post_id AND pm2.meta_key = 'global_lap_number'
-        LEFT JOIN $wpdb->postmeta pm3 ON c.p2p_to_=pm3.post_id AND pm3.meta_key = 'start_time'
-        LEFT JOIN $wpdb->postmeta pm4 ON c.p2p_to_=pm4.post_id AND pm4.meta_key = 'end_time'
-        LEFT JOIN $wpdb->postmeta pm5 ON c.p2p_to_=pm5.post_id AND pm5.meta_key = 'visibility'
-        LEFT JOIN $wpdb->postmeta pm6 ON c.p2p_to_=pm6.post_id AND pm6.meta_key = 'challenge_type'
-        LEFT JOIN $wpdb->postmeta pm7 ON c.p2p_to_=pm7.post_id AND pm7.meta_key = 'single_lap'
-        LEFT JOIN $wpdb->postmeta pm8 ON c.p2p_to_=pm8.post_id AND pm8.meta_key = 'assigned_to'
 
     ", [ $post_id ] ), ARRAY_A );
     */
@@ -104,14 +69,15 @@ function pg_current_custom_lap( $post_id ) : array {
     }
 
     if ( empty( $results ) ) {
-        return pg_get_custom_lap_by_post_id( $post_id );
+        $current_lap_post_id = $post_id;
+    } else {
+        $current_lap_details = $results[ count( $results ) - 1 ];
+        $current_lap_post_id = $current_lap_details['post_id'];
     }
 
-    $current_lap = $results[ count( $results ) - 1 ];
 
-    $current_lap['key'] = $current_lap['lap_key'];
 
-    unset( $current_lap['lap_key'] );
+    $current_lap = pg_get_custom_lap_by_post_id( $current_lap_post_id );
 
     return $current_lap;
 }
@@ -161,38 +127,19 @@ function pg_get_global_lap_by_key( $key ) {
 
     return $lap;
 }
+
+/**
+ * @param int|string $post_id
+ *
+ * @return array
+ */
 function pg_get_custom_lap_by_post_id( $post_id ) {
 
 //    if ( wp_cache_get( __METHOD__. $post_id ) ) {
 //        return wp_cache_get( __METHOD__. $post_id );
 //    }
 
-    global $wpdb;
-    $result = $wpdb->get_row( $wpdb->prepare(
-        "SELECT
-            pm.post_id,
-            p.post_title as title,
-            pm1.meta_value as lap_number,
-            pm2.meta_value as start_time,
-            pm3.meta_value as end_time,
-            pm4.meta_value as lap_key,
-            pm5.meta_value as visibility,
-            pm6.meta_value as challenge_type,
-            pm7.meta_value as single_lap,
-            pm8.meta_value as assigned_to
-        FROM $wpdb->postmeta pm
-        LEFT JOIN $wpdb->postmeta pm1 ON pm.post_id=pm1.post_id AND pm1.meta_key = 'global_lap_number'
-        LEFT JOIN $wpdb->postmeta pm2 ON pm.post_id=pm2.post_id AND pm2.meta_key = 'start_time'
-        LEFT JOIN $wpdb->postmeta pm3 ON pm.post_id=pm3.post_id AND pm3.meta_key = 'end_time'
-        LEFT JOIN $wpdb->postmeta pm4 ON pm.post_id=pm4.post_id AND pm4.meta_key = 'prayer_app_custom_magic_key'
-        LEFT JOIN $wpdb->postmeta pm5 ON pm.post_id=pm5.post_id AND pm5.meta_key = 'visibility'
-        LEFT JOIN $wpdb->postmeta pm6 ON pm.post_id=pm6.post_id AND pm6.meta_key = 'challenge_type'
-        LEFT JOIN $wpdb->postmeta pm7 ON pm.post_id=pm7.post_id AND pm7.meta_key = 'single_lap'
-        LEFT JOIN $wpdb->postmeta pm8 ON pm.post_id=pm8.post_id AND pm8.meta_key = 'assigned_to'
-        LEFT JOIN $wpdb->posts p ON pm.post_id=p.ID
-        WHERE pm.post_id = %d",
-        $post_id
-    ), ARRAY_A);
+    $result = DT_Posts::get_post( 'laps', $post_id );
 
     if ( empty( $result ) ) {
         $lap = false;
@@ -202,18 +149,26 @@ function pg_get_custom_lap_by_post_id( $post_id ) {
             $result['end_time'] = time();
             $ongoing = true;
         }
+        $contacts = [];
+        if ( !empty( $result['contacts'] ) ) {
+            foreach ( $result['contacts'] as $contact ) {
+                $contacts[] = $contact['ID'];
+            }
+        }
+
         $lap = [
             'title' => $result['title'],
-            'lap_number' => (int) $result['lap_number'],
-            'post_id' => (int) $result['post_id'],
-            'key' => $result['lap_key'],
+            'lap_number' => (int) isset( $result['global_lap_number'] ) ? $result['global_lap_number'] : 1,
+            'post_id' => (int) $post_id,
+            'key' => $result['prayer_app_custom_magic_key'],
             'start_time' => (int) $result['start_time'],
-            'end_time' => (int) $result['end_time'],
+            'end_time' => (int) isset( $result['end_time'] ),
             'on_going' => $ongoing,
-            'visibility' => $result['visibility'],
-            'challenge_type' => $result['challenge_type'],
-            'single_lap' => $result['single_lap'],
-            'assigned_to' => $result['assigned_to'],
+            'visibility' => isset( $result['visibility'] ) ? $result['visibility']['key'] : 'public',
+            'challenge_type' => isset( $result['challenge_type'] ) ? $result['challenge_type']['key'] : 'ongoing',
+            'single_lap' => isset( $result['single_lap'] ) ? $result['single_lap'] : false,
+            'assigned_to' => isset( $result['assigned_to'] ) ? $result['assigned_to'] : null,
+            'contacts' => $contacts,
         ];
     }
 
@@ -803,8 +758,8 @@ function pg_generate_new_global_prayer_lap( $post_id ) {
         ", $post_id, ARRAY_A )
     );
     if ( $lap_status !== 'active' ) {
-        pg_log( '!!! lap has already been generated' );
         pg_release_lock( 'pg_generate_new_lap_in_progress' );
+        pg_log( '!!! lap has already been generated' );
         return pg_query_4770_locations();
     }
 
@@ -835,9 +790,9 @@ function pg_generate_new_global_prayer_lap( $post_id ) {
     $new_post = DT_Posts::create_post( 'laps', $fields, true, false );
     if ( is_wp_error( $new_post ) ) {
         // @handle error
+        pg_release_lock( 'pg_generate_new_lap_in_progress' );
         pg_log( '!!! failed to create' );
         pg_log( $new_post );
-        pg_release_lock( 'pg_generate_new_lap_in_progress' );
         return pg_query_4770_locations();
     }
 
@@ -910,6 +865,11 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
     $current_lap_number = pg_calculate_lap_number( $post_id );
     $next_custom_lap_number = $current_lap_number + 1;
 
+    $contacts = [];
+    foreach ( $current_lap['contacts'] as $contact_id ) {
+        $contacts[] = [ 'value' => $contact_id, ];
+    }
+
     $fields = [];
     $fields['title'] = $current_lap['title'];
     $fields['status'] = 'active';
@@ -926,12 +886,15 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
             [ 'value' => $current_lap['post_id'] ]
         ],
     ];
+    $fields['contacts'] = [
+        'values' => $contacts,
+    ];
+
     $new_post = DT_Posts::create_post( 'laps', $fields, true, false );
     if ( is_wp_error( $new_post ) ) {
         // @handle error
-        pg_log( '!!! failed to create new custom lap' );
-        pg_log( $new_post );
         pg_release_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
+        pg_log( '!!! failed to create new custom lap' );
         return pg_query_4770_locations();
     }
 
@@ -948,8 +911,8 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
         ],
     ], true, false );
 
-    pg_log( '*** finished creating custom lap post_id=' . $post_id );
     pg_release_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
+    pg_log( '*** finished creating custom lap post_id=' . $post_id );
 
     return pg_query_4770_locations();
 }

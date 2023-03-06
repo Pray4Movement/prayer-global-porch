@@ -384,8 +384,10 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
                 if ( isset( $fields["start_date"] ) ){
                     $fields["start_time"] = $fields["start_date"];
                 }
-                if ( isset( $fields["end_date"] ) ){
-                    $fields["end_time"] = $fields["end_date"];
+                if ( isset( $fields['status'] ) && $fields['status'] !== 'complete' ) {
+                    if ( isset( $fields["end_date"] ) ){
+                        $fields["end_time"] = $fields["end_date"];
+                    }
                 }
             }
         }
