@@ -72,9 +72,17 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
     }
 
     public function header_javascript(){
+        pg_google_analytics();
+        $details = [];
+        $url = dt_get_url_path( false, true );
+        if ( $url ) {
+            $details['url'] = $url;
+        }
+        $lap = pg_get_custom_lap_by_post_id( $this->parts['post_id'] );
+        $details['title'] = 'Prayer.Global '.$lap['title'].' Map';
+        pg_og_tags( $details );
+
         ?>
-        <?php pg_google_analytics() ?>
-        <?php pg_og_tags() ?>
         <script>
             let jsObject = [<?php echo json_encode([
                 'map_key' => DT_Mapbox_API::get_key(),
