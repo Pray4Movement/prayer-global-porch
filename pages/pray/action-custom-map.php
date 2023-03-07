@@ -147,7 +147,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="d-flex align-items-center me-5">
                             <span class="two-em"><?php echo esc_html( $lap_stats['title'] ) ?></span>
-                            <button class="icon-button share-button ms-3 w-50" data-toggle="modal" data-target="#exampleModal">
+                            <button class="icon-button share-button ms-3" data-toggle="modal" data-target="#exampleModal">
                                 <img src="<?php echo esc_html( plugin_dir_url( __DIR__ ) ) ?>assets/images/share.svg" alt="Share">
                             </button>
                         </div>
