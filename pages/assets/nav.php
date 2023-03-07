@@ -28,7 +28,8 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
                 <a class="nav-link" href="<?php echo ( $url !== '' ) ? esc_url( trailingslashit( site_url() ) ) : '' ?>#section-lap">Status</a>
                 <a class="nav-link" href="/newest/map/">Map</a>
                 <a class="nav-link" href="/challenges/active/">Groups</a>
-                <a href="/user_app/login" class="nav-link" id="login-register-link" data-pg-is-logged-out>Login</a>
+                <a class="nav-link" href="/content_app/give_page">Give</a>
+                <!-- <a href="/user_app/login" class="nav-link" id="login-register-link" data-pg-is-logged-out>Login</a> -->
                 <a href="/user_app/profile" class="nav-link" id="user-profile-link" style="display: none" data-pg-is-logged-in>User Profile</a>
                 <a href="<?php echo esc_url( '/user_app/logout' )?>" class="nav-link" id="logout-link" style="display: none" data-pg-is-logged-in>Logout</a>
             </div>
