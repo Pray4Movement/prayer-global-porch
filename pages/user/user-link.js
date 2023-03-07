@@ -327,11 +327,11 @@ jQuery(document).ready(function(){
             </section>
             <section class="user-actions">
                 <hr />
-                ${ModalButton({
+                <!--${ModalButton({
                     text: "Data report for my account",
                     modalId: "user-data-report",
                     classes: 'btn-outline-dark small d-block',
-                })}
+                })}-->
                 ${ModalButton({
                     text: "Erase my account",
                     modalId: "erase-user-account-modal",
