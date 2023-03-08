@@ -50,6 +50,7 @@ progress {
 }
 #head_block .share-button {
     width: 1.5em;
+    min-width: 1.5em;
 }
 #head_block_wrapper {
     position: absolute;
