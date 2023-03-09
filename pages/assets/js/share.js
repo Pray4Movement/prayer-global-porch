@@ -11,28 +11,33 @@ $(document).ready(function($) {
     const pageToShare = document.URL.includes('localhost') ? 'https://prayer.global' :  encodeURIComponent(document.URL)
     const textToShare = encodeURIComponent("Join us in covering the world in prayer")
 
+    function shareAction() {
+        if ( isGoNativeApp ) {
+            window.location.href = 'gonative://share/sharePage?url=' + pageToShare
+        } else if ( isWebAPIShareAvailable ) {
+            const data = {
+                url: pageToShare
+            }
+            navigator.share(data)
+        } else {
+            const navToggler = $('.navbar-toggler')
+            const navBar = $('.pg-navmenu')
+            if ( navBar.hasClass('show') ) {
+                navToggler.click();
+            }
+            const myModal = new bootstrap.Modal(shareModal)
+            myModal.show()
+        }
+    }
+
     window.pg_set_up_share_buttons = function() {
         // stop button opening modal
         const shareButtons = document.querySelectorAll('.share-button')
-        shareButtons.forEach((shareButton) => shareButton.addEventListener('click', () => {
-            if ( isGoNativeApp ) {
-                window.location.href = 'gonative://share/sharePage?url=' + pageToShare
-            } else if ( isWebAPIShareAvailable ) {
-                const data = {
-                    url: pageToShare
-                }
-                navigator.share(data)
-            } else {
-                const navToggler = $('.navbar-toggler')
-                const navBar = $('.pg-navmenu')
-                if ( navBar.hasClass('show') ) {
-                    navToggler.click();
-                }
-                const myModal = new bootstrap.Modal(shareModal)
-                myModal.show()
-                console.log(navToggler, myModal)
-            }
-        }))
+        shareButtons.forEach((shareButton) => {
+            let button = $(shareButton)
+            button.off('click')
+            button.on('click', shareAction)
+        })
 
         shareFacebook.addEventListener('click', () => {
             const url = `https://www.facebook.com/sharer.php?u=${pageToShare}`
