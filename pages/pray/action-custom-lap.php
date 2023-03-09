@@ -154,7 +154,6 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     <button type="button" class="btn btn-secondary question question__yes" id="question__yes_next">Next</button>
                 </div>
             </div>
-            <div class="container celebrate text-center" id="celebrate-panel"></div>
             <div class="w-100" ></div>
             <div class="container decision" id="decision-panel">
                 <div class="btn-group decision_button_group" role="group" aria-label="Decision Button">
@@ -163,6 +162,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     <button type="button" class="btn btn-secondary decision" id="decision__next">Next</button>
                 </div>
             </div>
+            <div class="container celebrate text-center" id="celebrate-panel"></div>
             <div class="w-100" ></div>
             <div class="container justify-content-center mt-3">
                 <h3 class="mt-0 font-weight-normal text-center tutorial" id="tutorial-location">Start praying for</h3>
@@ -282,6 +282,8 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 </div>
             </div>
         </section>
+
+        <?php require( plugin_dir_path( __DIR__ ) . 'assets/cta-footer.php' ) ?>
 
         <?php
     }

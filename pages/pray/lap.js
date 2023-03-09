@@ -57,6 +57,7 @@ jQuery(document).ready(function(){
   let question_panel = jQuery('#question-panel')
   let celebrate_panel = jQuery('#celebrate-panel')
   let location_name = jQuery('#location-name')
+  let footer = jQuery('.pg-footer')
 
   let praying_button = jQuery('#praying_button')
   let button_progress = jQuery('.praying__progress')
@@ -104,6 +105,8 @@ jQuery(document).ready(function(){
     location_count: 0,
   }
   window.report_content = []
+
+  footer.hide()
 
   /**
    * INITIALIZE
@@ -242,6 +245,7 @@ jQuery(document).ready(function(){
           decision_panel.show()
           prayer_odometer.hide()
           show_CTA()
+          footer.show()
         }, celebrationDuration);
     })
     question_yes_next.off('click')
