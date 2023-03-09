@@ -86,7 +86,6 @@ trait PG_Lap_Trait {
 
                 </div>
             </div>
-            <div class="container celebrate text-center" id="celebrate-panel"></div>
             <div class="w-100" ></div>
             <div class="container decision" id="decision-panel">
                 <div class="btn-group decision_button_group" role="group" aria-label="Decision Button">
@@ -95,6 +94,7 @@ trait PG_Lap_Trait {
 
                 </div>
             </div>
+            <div class="container celebrate text-center" id="celebrate-panel"></div>
             <div class="w-100" ></div>
             <div class="container justify-content-center mt-3">
                 <h3 class="mt-0 font-weight-normal text-center tutorial" id="tutorial-location">Start praying for</h3>
@@ -477,8 +477,17 @@ trait PG_Lap_Trait {
     }
 
     public function get_ctas() {
+        global $wpdb;
         $ctas = get_posts( [
             'post_type' => 'ctas',
+            'tax_query' => [
+                [
+                    'taxonomy' => 'category',
+                    'field' => 'slug',
+                    'terms' => [ 'disabled' ],
+                    'operator' => 'NOT IN',
+                ]
+            ],
         ] );
 
         return array_map( function( $cta ) {

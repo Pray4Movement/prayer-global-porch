@@ -79,6 +79,12 @@ section {
 #celebrate-panel {
     display: none;
 }
+.cta-section {
+    margin: 10em 0;
+}
+.cta-section .share-button {
+    width: 50px;
+}
 .decision_button_group .btn  {
     width:100%;
 }

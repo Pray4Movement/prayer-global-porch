@@ -56,6 +56,7 @@ jQuery(document).ready(function(){
   let decision_panel = jQuery('#decision-panel')
   let question_panel = jQuery('#question-panel')
   let celebrate_panel = jQuery('#celebrate-panel')
+  let location_name = jQuery('#location-name')
 
   let praying_button = jQuery('#praying_button')
   let button_progress = jQuery('.praying__progress')
@@ -141,10 +142,6 @@ jQuery(document).ready(function(){
           }, 5000);
         }
 
-        /* TODO: remove me */
-        //celebrate()
-        //window.celebrationFireworks(10000)
-
       })
 
     // load ip tracking
@@ -165,7 +162,11 @@ jQuery(document).ready(function(){
 
   window.api_post( 'get_ctas', {} )
     .then( function(ctas) {
-      window.pg_ctas = ctas
+      if (ctas) {
+        window.pg_ctas = ctas
+      } else {
+        window.pg_ctas = []
+      }
     })
 
   function test_for_redundant_grid( content ) {
@@ -236,9 +237,11 @@ jQuery(document).ready(function(){
       window.celebrationFireworks(celebrationDuration)
       update_odometer({ location_count: window.odometer.location_count + 1})
       setTimeout(
-        function()
-        {
-          window.location = jsObject.map_url
+        function() {
+          decision_next.remove()
+          decision_panel.show()
+          prayer_odometer.hide()
+          show_CTA()
         }, celebrationDuration);
     })
     question_yes_next.off('click')
@@ -372,7 +375,7 @@ jQuery(document).ready(function(){
     question_panel.hide()
     celebrate_panel.hide()
 
-    jQuery('#location-name').html( content.location.admin_level_name_cap + ' of ' + content.location.full_name)
+    location_name.html( content.location.admin_level_name_cap + ' of ' + content.location.full_name)
     div.empty()
 
     location_map_wrapper.show()
@@ -470,9 +473,6 @@ jQuery(document).ready(function(){
 
     let rint = Math.floor(Math.random() * 4 ) + 1
 
-    const ctaInt = Math.floor( Math.random() * window.pg_ctas.length )
-    const cta = window.pg_ctas[ctaInt]
-
     const celebrateHTML = `
       <p style="padding-top:2em;">
         <div class="flow">
@@ -482,17 +482,33 @@ jQuery(document).ready(function(){
             Prayer Added!
           </h1>
 
-          <div>
-            <h2>${cta.post_title && cta.post_title || ''}</h2>
-            ${cta.post_content && cta.post_content || ''}
-          </div>
-          <!--<img width="400px" src="${jsObject.image_folder}celebrate${rint}.gif" class="img-fluid celebrate-image" alt="photo" /> -->
+          <img width="400px" src="${jsObject.image_folder}celebrate${rint}.gif" class="img-fluid celebrate-image" alt="photo" />
 
         </div>
       </p>
         `
     celebrate_panel.html(celebrateHTML).show()
     window.pg_set_up_share_buttons()
+  }
+
+  function show_CTA() {
+    div.empty()
+    location_map_wrapper.hide()
+    more_prayer_fuel.hide()
+    location_name.hide()
+
+    const ctaInt = Math.floor( Math.random() * window.pg_ctas.length )
+    const cta = window.pg_ctas[ctaInt]
+
+    const celebrateHTML = `
+      <section class="cta-section">
+        <h2>${cta.post_title && cta.post_title || ''}</h2>
+        ${cta.post_content && cta.post_content || ''}
+      </section>
+        `
+    celebrate_panel.html(celebrateHTML).show()
+    window.pg_set_up_share_buttons()
+
   }
 
   /**
