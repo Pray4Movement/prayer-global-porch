@@ -25,6 +25,7 @@ class Prayer_Global_CTA_Post_Type {
         add_action( 'init', [ $this, 'register_p2p_connections' ], 50, 0 );
         add_filter( 'dt_capabilities', [ $this, 'dt_capabilities' ], 100, 1 );
         add_filter( 'dt_set_roles_and_permissions', [ $this, 'dt_set_roles_and_permissions' ], 20, 1 ); //after contacts
+        add_filter( 'allowed_wp_v2_paths', [ $this, 'allowed_wp_v2_paths' ], 10, 1 );
     }
 
     public function register_post_type(){
@@ -52,27 +53,29 @@ class Prayer_Global_CTA_Post_Type {
             'publish_posts'       => 'dt_all_admin_' . $this->post_type,
             'read_private_posts'  => 'do_not_allow',
         ];
+
+        $menu_icon = file_get_contents( plugin_dir_path( __FILE__ ) . 'megaphone.svg' );
         $defaults = [
             'label'                 => $this->singular,
             'labels'                => $labels,
             'public'                => false,
             'publicly_queryable'    => true,
             'show_ui'               => true,
-            'show_in_menu'          => 'dt_post_types',
+            'show_in_menu'          => true,
             'query_var'             => false,
-            'show_in_admin_bar'     => false,
+            'show_in_admin_bar'     => true,
             'rewrite'               => $rewrite,
             'capabilities'          => $capabilities,
             'capability_type'       => $this->post_type,
             'has_archive'           => true, //$archive_slug,
             'hierarchical'          => false,
-            'supports'              => [ 'title' ],
+            'supports'              => array( 'title', 'editor', 'thumbnail', 'excerpt' ),
             'menu_position'         => 5,
-            'menu_icon'             => 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48ZyBjbGFzcz0ibmMtaWNvbi13cmFwcGVyIiBmaWxsPSIjZmZmZmZmIj48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNOSwxMmMyLjc1NywwLDUtMi4yNDMsNS01VjVjMC0yLjc1Ny0yLjI0My01LTUtNVM0LDIuMjQzLDQsNXYyQzQsOS43NTcsNi4yNDMsMTIsOSwxMnoiPjwvcGF0aD4gPHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTTE1LjQyMywxNS4xNDVDMTQuMDQyLDE0LjYyMiwxMS44MDYsMTQsOSwxNHMtNS4wNDIsMC42MjItNi40MjQsMS4xNDZDMS4wMzUsMTUuNzI5LDAsMTcuMjMzLDAsMTguODg2VjI0IGgxOHYtNS4xMTRDMTgsMTcuMjMzLDE2Ljk2NSwxNS43MjksMTUuNDIzLDE1LjE0NXoiPjwvcGF0aD4gPHJlY3QgZGF0YS1jb2xvcj0iY29sb3ItMiIgeD0iMTYiIHk9IjMiIGZpbGw9IiNmZmZmZmYiIHdpZHRoPSI4IiBoZWlnaHQ9IjIiPjwvcmVjdD4gPHJlY3QgZGF0YS1jb2xvcj0iY29sb3ItMiIgeD0iMTYiIHk9IjgiIGZpbGw9IiNmZmZmZmYiIHdpZHRoPSI4IiBoZWlnaHQ9IjIiPjwvcmVjdD4gPHJlY3QgZGF0YS1jb2xvcj0iY29sb3ItMiIgeD0iMTkiIHk9IjEzIiBmaWxsPSIjZmZmZmZmIiB3aWR0aD0iNSIgaGVpZ2h0PSIyIj48L3JlY3Q+PC9nPjwvc3ZnPg==',
-            'show_in_nav_menus'     => false,
+            'menu_icon'             => 'data:image/svg+xml;base64,' . base64_encode( $menu_icon ),
+            'show_in_nav_menus'     => true,
             'can_export'            => false,
             'exclude_from_search'   => true,
-            'show_in_rest'          => false
+            'show_in_rest'          => true,
         ];
 
         // Adjust defaults accordingly, prior to registration.
@@ -359,13 +362,73 @@ class Prayer_Global_CTA_Post_Type {
 
         if ( isset( $expected_roles["administrator"] ) ){
             $expected_roles["administrator"]["permissions"]['dt_all_admin_'.$this->post_type ] = true;
+            $expected_roles["administrator"]["permissions"]['wp_api_allowed_user'] = true;
         }
         if ( isset( $expected_roles["dt_admin"] ) ){
             $expected_roles["administrator"]["permissions"]['dt_all_admin_'.$this->post_type ] = true;
+            $expected_roles["administrator"]["permissions"]['wp_api_allowed_user'] = true;
         }
 
         return $expected_roles;
     }
 
+    /*public function allowed_wp_v2_paths( $paths ) {
+        $paths[] = '/wp/v2/types/ctas?context=edit&_locale=user';
+        $paths[] = '/wp/v2/types/ctas?context=view&_locale=user';
+        $paths[] = '/wp/v2/types?context=view&_locale=user';
+        $paths[] = '/wp/v2/types?context=edit&_locale=user';
 
+        return $paths;
+    }*/
+
+    public function allowed_wp_v2_paths( $allowed_wp_v2_paths ) {
+        if ( user_can( get_current_user_id(), 'wp_api_allowed_user' ) ) {
+
+            $allowed_wp_v2_paths[] = '/wp/v2/'.$this->post_type;
+            $allowed_wp_v2_paths[] = '/wp/v2/'.$this->post_type.'/(?P<id>[\d]+)';
+            $allowed_wp_v2_paths[] = '/wp/v2/'.$this->post_type.'/(?P<parent>[\d]+)/revisions';
+            $allowed_wp_v2_paths[] = '/wp/v2/'.$this->post_type.'/(?P<parent>[\d]+)/revisions/(?P<id>[\d]+)';
+            $allowed_wp_v2_paths[] = '/wp/v2/'.$this->post_type.'/(?P<id>[\d]+)/autosaves';
+            $allowed_wp_v2_paths[] = '/wp/v2/'.$this->post_type.'/(?P<parent>[\d]+)/autosaves/(?P<id>[\d]+)';
+
+            $allowed_wp_v2_paths[] = '/wp/v2/types';
+            $allowed_wp_v2_paths[] = '/wp/v2/types/(?P<type>[\w-]+)';
+
+            $allowed_wp_v2_paths[] = '/wp/v2/blocks';
+            $allowed_wp_v2_paths[] = '/wp/v2/blocks/(?P<id>[\d]+)';
+            $allowed_wp_v2_paths[] = '/wp/v2/blocks/(?P<parent>[\d]+)/revisions';
+            $allowed_wp_v2_paths[] = '/wp/v2/blocks/(?P<parent>[\d]+)/revisions/(?P<id>[\d]+)';
+            $allowed_wp_v2_paths[] = '/wp/v2/blocks/(?P<id>[\d]+)/autosaves';
+            $allowed_wp_v2_paths[] = '/wp/v2/blocks/(?P<parent>[\d]+)/autosaves/(?P<id>[\d]+)';
+            $allowed_wp_v2_paths[] = '/wp/v2/block-directory/search';
+            $allowed_wp_v2_paths[] = '/wp/v2/block-patterns';
+            $allowed_wp_v2_paths[] = '/wp/v2/block-patterns/categories?_locale=user';
+            $allowed_wp_v2_paths[] = '/wp/v2/block-patterns/patterns?_locale=user';
+
+
+            $allowed_wp_v2_paths[] = '/wp/v2/media';
+            $allowed_wp_v2_paths[] = '/wp/v2/media/(?P<id>[\d]+)';
+            $allowed_wp_v2_paths[] = '/wp/v2/media/(?P<id>[\d]+)/post-process';
+            $allowed_wp_v2_paths[] = '/wp/v2/media/(?P<id>[\d]+)/edit';
+
+            $allowed_wp_v2_paths[] = '/wp/v2/taxonomies';
+            $allowed_wp_v2_paths[] = '/wp/v2/taxonomies/(?P<taxonomy>[\w-]+)';
+
+            $allowed_wp_v2_paths[] = '/wp/v2/themes';
+            $allowed_wp_v2_paths[] = '/wp/v2/themes/(?P<stylesheet>[\w-]+)';
+
+            $allowed_wp_v2_paths[] = '/wp/v2/templates';
+            $allowed_wp_v2_paths[] = '/wp/v2/templates/(?P<id>[\/\w-]+)';
+            $allowed_wp_v2_paths[] = '/wp/v2/templates/(?P<parent>[\d]+)/revisions';
+            $allowed_wp_v2_paths[] = '/wp/v2/templates/(?P<parent>[\d]+)/revisions/(?P<id>[\d]+)';
+            $allowed_wp_v2_paths[] = '/wp/v2/templates/(?P<id>[\d]+)/autosaves';
+            $allowed_wp_v2_paths[] = '/wp/v2/templates/(?P<parent>[\d]+)/autosaves/(?P<id>[\d]+)';
+
+            $allowed_wp_v2_paths[] = '/wp/v2/users/me';
+            $allowed_wp_v2_paths[] = '/wp/v2/users/me?_locale=user';
+            $allowed_wp_v2_paths[] = '/wp/v2/users';
+
+        }
+        return $allowed_wp_v2_paths;
+    }
 }
