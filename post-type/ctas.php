@@ -9,11 +9,15 @@ class Prayer_Global_CTA_Post_Type {
     public $post_type = 'ctas';
     public $singular = 'CTA';
     public $plural = 'CTAs';
+    public $category = 'category';
+    public $cat_singular = 'Category';
+    public $cat_plural = 'Categories';
     public $search_items;
 
     public function __construct() {
         $this->search_items = sprintf( _x( 'Search %s', "Search 'something'", 'disciple_tools' ), $this->plural );
         add_action( 'init', [ $this, 'register_post_type' ] );
+        add_action( 'init', [ $this, 'register_taxonomy' ], 0 );
         add_action( 'init', [ $this, 'rewrite_init' ] );
         add_filter( 'post_type_link', [ $this, 'permalink' ], 1, 3 );
         add_filter( 'desktop_navbar_menu_options', [ $this, 'add_navigation_links' ], 20 );
@@ -85,6 +89,40 @@ class Prayer_Global_CTA_Post_Type {
 
     public function rewrite_init(){
         add_rewrite_rule( $this->post_type . '/([0-9]+)?$', 'index.php?post_type=' . $this->post_type . '&p=$matches[1]', 'top' );
+    }
+
+
+
+    public function register_taxonomy() {
+
+    // Add new taxonomy, make it hierarchical like categories
+    //first do the translations part for GUI
+
+      $labels = array(
+        'name' => $this->cat_singular,
+        'singular_name' => $this->cat_singular,
+        'search_items' =>  "Search $this->cat_plural" ,
+        'all_items' => "All $this->cat_plural",
+        'parent_item' => "Parent $this->cat_singular",
+        'parent_item_colon' => "Parent $this->cat_singular:",
+        'edit_item' => "Edit $this->cat_singular",
+        'update_item' => "Update $this->cat_singular",
+        'add_new_item' => "Add New $this->cat_singular",
+        'new_item_name' => "New $this->cat_singular Name",
+        'menu_name' => $this->cat_singular,
+      );
+
+    // Now register the taxonomy
+      register_taxonomy( $this->category, array( $this->post_type ), array(
+        'hierarchical' => true,
+        'labels' => $labels,
+        'show_ui' => true,
+        'show_in_rest' => true,
+        'show_admin_column' => true,
+        'query_var' => true,
+        'rewrite' => array( 'slug' => $this->category ),
+      ));
+
     }
 
 
