@@ -98,7 +98,7 @@ class Prayer_Global_CTA_Post_Type {
         $labels = array(
             'name' => $this->cat_singular,
             'singular_name' => $this->cat_singular,
-            'search_items' =>  "Search $this->cat_plural" ,
+            'search_items' => "Search $this->cat_plural" ,
             'all_items' => "All $this->cat_plural",
             'parent_item' => "Parent $this->cat_singular",
             'parent_item_colon' => "Parent $this->cat_singular:",
