@@ -95,9 +95,6 @@ class Prayer_Global_CTA_Post_Type {
 
     public function register_taxonomy() {
 
-    // Add new taxonomy, make it hierarchical like categories
-    //first do the translations part for GUI
-
       $labels = array(
         'name' => $this->cat_singular,
         'singular_name' => $this->cat_singular,
@@ -112,7 +109,6 @@ class Prayer_Global_CTA_Post_Type {
         'menu_name' => $this->cat_singular,
       );
 
-    // Now register the taxonomy
       register_taxonomy( $this->category, array( $this->post_type ), array(
         'hierarchical' => true,
         'labels' => $labels,
@@ -451,6 +447,8 @@ class Prayer_Global_CTA_Post_Type {
 
             $allowed_wp_v2_paths[] = '/wp/v2/taxonomies';
             $allowed_wp_v2_paths[] = '/wp/v2/taxonomies/(?P<taxonomy>[\w-]+)';
+            $allowed_wp_v2_paths[] = '/wp/v2/category';
+            $allowed_wp_v2_paths[] = '/wp/v2/category/(?P<id>[\\d]+)';
 
             $allowed_wp_v2_paths[] = '/wp/v2/themes';
             $allowed_wp_v2_paths[] = '/wp/v2/themes/(?P<stylesheet>[\w-]+)';

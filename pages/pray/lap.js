@@ -142,8 +142,8 @@ jQuery(document).ready(function(){
         }
 
         /* TODO: remove me */
-        celebrate()
-        window.celebrationFireworks(10000)
+        //celebrate()
+        //window.celebrationFireworks(10000)
 
       })
 
@@ -475,18 +475,17 @@ jQuery(document).ready(function(){
 
     const celebrateHTML = `
       <p style="padding-top:2em;">
-        <div>
+        <div class="flow">
           <h1>
             Great Job!
             <br>
             Prayer Added!
           </h1>
 
-          <br />
-
-          <h2>${cta.post_title && cta.post_title || ''}</h2>
-
-          ${cta.post_content && cta.post_content || ''}
+          <div>
+            <h2>${cta.post_title && cta.post_title || ''}</h2>
+            ${cta.post_content && cta.post_content || ''}
+          </div>
           <!--<img width="400px" src="${jsObject.image_folder}celebrate${rint}.gif" class="img-fluid celebrate-image" alt="photo" /> -->
 
         </div>
