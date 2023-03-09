@@ -95,29 +95,29 @@ class Prayer_Global_CTA_Post_Type {
 
     public function register_taxonomy() {
 
-      $labels = array(
-        'name' => $this->cat_singular,
-        'singular_name' => $this->cat_singular,
-        'search_items' =>  "Search $this->cat_plural" ,
-        'all_items' => "All $this->cat_plural",
-        'parent_item' => "Parent $this->cat_singular",
-        'parent_item_colon' => "Parent $this->cat_singular:",
-        'edit_item' => "Edit $this->cat_singular",
-        'update_item' => "Update $this->cat_singular",
-        'add_new_item' => "Add New $this->cat_singular",
-        'new_item_name' => "New $this->cat_singular Name",
-        'menu_name' => $this->cat_singular,
-      );
+        $labels = array(
+            'name' => $this->cat_singular,
+            'singular_name' => $this->cat_singular,
+            'search_items' =>  "Search $this->cat_plural" ,
+            'all_items' => "All $this->cat_plural",
+            'parent_item' => "Parent $this->cat_singular",
+            'parent_item_colon' => "Parent $this->cat_singular:",
+            'edit_item' => "Edit $this->cat_singular",
+            'update_item' => "Update $this->cat_singular",
+            'add_new_item' => "Add New $this->cat_singular",
+            'new_item_name' => "New $this->cat_singular Name",
+            'menu_name' => $this->cat_singular,
+        );
 
-      register_taxonomy( $this->category, array( $this->post_type ), array(
-        'hierarchical' => true,
-        'labels' => $labels,
-        'show_ui' => true,
-        'show_in_rest' => true,
-        'show_admin_column' => true,
-        'query_var' => true,
-        'rewrite' => array( 'slug' => $this->category ),
-      ));
+        register_taxonomy( $this->category, array( $this->post_type ), array(
+            'hierarchical' => true,
+            'labels' => $labels,
+            'show_ui' => true,
+            'show_in_rest' => true,
+            'show_admin_column' => true,
+            'query_var' => true,
+            'rewrite' => array( 'slug' => $this->category ),
+        ));
 
     }
 

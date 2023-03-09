@@ -501,7 +501,7 @@ jQuery(document).ready(function(){
     const cta = window.pg_ctas[ctaInt]
 
     const celebrateHTML = `
-      <section class="cta-section">
+      <section class="cta-section flow-small">
         <h2>${cta.post_title && cta.post_title || ''}</h2>
         ${cta.post_content && cta.post_content || ''}
       </section>
