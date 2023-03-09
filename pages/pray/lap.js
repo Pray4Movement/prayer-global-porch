@@ -140,6 +140,11 @@ jQuery(document).ready(function(){
             })
           }, 5000);
         }
+
+        /* TODO: remove me */
+        celebrate()
+        window.celebrationFireworks(10000)
+
       })
 
     // load ip tracking
@@ -157,6 +162,12 @@ jQuery(document).ready(function(){
     })
   }
   initialize_location() // initialize prayer framework
+
+  window.api_post( 'get_ctas', {} )
+    .then( function(ctas) {
+      window.pg_ctas = ctas
+    })
+
   function test_for_redundant_grid( content ) {
     if ( typeof content === 'undefined' || typeof content.location === 'undefined' || typeof content.location.grid_id === 'undefined' ){
       return content
@@ -458,8 +469,31 @@ jQuery(document).ready(function(){
     more_prayer_fuel.show()
 
     let rint = Math.floor(Math.random() * 4 ) + 1
-    celebrate_panel.html(`<p style="padding-top:2em;"><h1>Great Job!<br>Prayer Added!</h1></p>
-    <p><img width="400px" src="${jsObject.image_folder}celebrate${rint}.gif" class="img-fluid celebrate-image" alt="photo" /></p>`).show()
+
+    const ctaInt = Math.floor( Math.random() * window.pg_ctas.length )
+    const cta = window.pg_ctas[ctaInt]
+
+    const celebrateHTML = `
+      <p style="padding-top:2em;">
+        <div>
+          <h1>
+            Great Job!
+            <br>
+            Prayer Added!
+          </h1>
+
+          <br />
+
+          <h2>${cta.post_title && cta.post_title || ''}</h2>
+
+          ${cta.post_content && cta.post_content || ''}
+          <!--<img width="400px" src="${jsObject.image_folder}celebrate${rint}.gif" class="img-fluid celebrate-image" alt="photo" /> -->
+
+        </div>
+      </p>
+        `
+    celebrate_panel.html(celebrateHTML).show()
+    window.pg_set_up_share_buttons()
   }
 
   /**

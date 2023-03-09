@@ -51,12 +51,14 @@ trait PG_Lap_Trait {
             <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/js/global-functions.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/js/global-functions.js' ) ) ?>"></script>
             <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>lap.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap.js' ) ) ?>"></script>
             <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>report.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'report.js' ) ) ?>"></script>
+            <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/js/share.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/js/share.js' ) ) ?>"></script>
             <?php
         }
     }
 
     public function footer_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/footer.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/share-modal.php' );
     }
 
     public function body(){
@@ -472,6 +474,26 @@ trait PG_Lap_Trait {
             }
             return $response;
         }
+    }
+
+    public function get_ctas() {
+        $ctas = get_posts( [
+            'post_type' => 'ctas',
+        ] );
+
+        return array_map( function( $cta ) {
+
+            if ( strpos( $cta->post_content, 'share-button' ) > 0 ) {
+                $post_content = str_replace( 'src=""', 'src="'.esc_html( plugin_dir_url( __DIR__ ) ).'assets/images/share.svg"', $cta->post_content );
+            } else {
+                $post_content = $cta->post_content;
+            }
+
+            return [
+                'post_title' => $cta->post_title,
+                'post_content' => $post_content,
+            ];
+        }, $ctas );
     }
 
     public function _recently_promised_locations() {
