@@ -241,11 +241,13 @@ jQuery(document).ready(function(){
       update_odometer({ location_count: window.odometer.location_count + 1})
       setTimeout(
         function() {
-          decision_next.remove()
+          window.location = jsObject.map_url
+
+          /*decision_next.remove()
           decision_panel.show()
           prayer_odometer.hide()
           show_CTA()
-          footer.show()
+          footer.show()*/
         }, celebrationDuration);
     })
     question_yes_next.off('click')
