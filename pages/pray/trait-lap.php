@@ -476,36 +476,6 @@ trait PG_Lap_Trait {
             return $response;
         }
     }
-
-    public function get_ctas() {
-        global $wpdb;
-        $ctas = get_posts( [
-            'post_type' => 'ctas',
-            'tax_query' => [
-                [
-                    'taxonomy' => 'category',
-                    'field' => 'slug',
-                    'terms' => [ 'disabled' ],
-                    'operator' => 'NOT IN',
-                ]
-            ],
-        ] );
-
-        return array_map( function( $cta ) {
-
-            if ( strpos( $cta->post_content, 'share-button' ) > 0 ) {
-                $post_content = str_replace( 'src=""', 'src="'.esc_html( plugin_dir_url( __DIR__ ) ).'assets/images/share.svg"', $cta->post_content );
-            } else {
-                $post_content = $cta->post_content;
-            }
-
-            return [
-                'post_title' => $cta->post_title,
-                'post_content' => $post_content,
-            ];
-        }, $ctas );
-    }
-
     public function _recently_promised_locations() {
         global $wpdb;
         $current_lap = pg_current_global_lap();

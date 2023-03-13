@@ -332,8 +332,6 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 return $this->get_ip_location();
             case 'increment_log':
                 return $this->increment_log( $params['parts'], $params['data'] );
-            case 'get_ctas':
-                return $this->get_ctas();
             default:
                 return new WP_Error( __METHOD__, "Incorrect action", [ 'status' => 400 ] );
         }
@@ -746,36 +744,5 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             return $response;
         }
     }
-
-    public function get_ctas() {
-        global $wpdb;
-        $ctas = get_posts( [
-            'post_type' => 'ctas',
-            'tax_query' => [
-                [
-                    'taxonomy' => 'category',
-                    'field' => 'slug',
-                    'terms' => [ 'disabled' ],
-                    'operator' => 'NOT IN',
-                ]
-            ],
-        ] );
-
-        return array_map( function( $cta ) {
-
-            if ( strpos( $cta->post_content, 'share-button' ) > 0 ) {
-                $post_content = str_replace( 'src=""', 'src="'.esc_html( plugin_dir_url( __DIR__ ) ).'assets/images/share.svg"', $cta->post_content );
-            } else {
-                $post_content = $cta->post_content;
-            }
-
-            return [
-                'post_title' => $cta->post_title,
-                'post_content' => $post_content,
-            ];
-        }, $ctas );
-    }
-
-
 }
 PG_Custom_Prayer_App_Lap::instance();

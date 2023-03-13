@@ -90,7 +90,7 @@ jQuery(document).ready(function($){
         jQuery('#error').html(e)
       })
   }
-  window.api_post_global = ( type, action, data ) => {
+  window.api_post_global = ( type, action, data = [] ) => {
     return jQuery.ajax({
       type: "POST",
       data: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
@@ -129,6 +129,9 @@ jQuery(document).ready(function($){
   const pray_for_area_modal = document.getElementById('pray-for-area-modal')
   const pray_for_area_content = pray_for_area_modal && pray_for_area_modal.querySelector('.modal-content')
   const pray_for_area_button = jQuery('#pray-for-area-button')
+  const cta_modal = document.getElementById('cta_modal')
+  const cta_modal_title = cta_modal.querySelector('.modal-title')
+  const cta_modal_post_content = cta_modal.querySelector('.modal-post-content')
 
   pray_for_area_button && pray_for_area_button.on('click', () => {
     if ( !window.selected_grid_id ) {
@@ -281,7 +284,7 @@ jQuery(document).ready(function($){
       })
   })
   function pan_to_user_location() {
-    window.api_post_global( 'user', 'ip_location', [] )
+    window.api_post_global( 'user', 'ip_location' )
       .done(function(location) {
         window.user_location = []
         if ( location ) {
@@ -338,6 +341,8 @@ jQuery(document).ready(function($){
       ]);
     }
     window.map = map
+
+    show_cta()
 
     if ( isMobile ) {
       pan_to_user_location()
@@ -1173,6 +1178,21 @@ jQuery(document).ready(function($){
       return unpackedSetting
     } catch (e) {
       return setting
+    }
+  }
+
+  function show_cta() {
+    const url = new URL(window.location.href)
+
+    const show_cta = url.searchParams.get('show_cta') !== null
+
+    if ( show_cta ) {
+      window.api_post_global( 'ctas', 'get_cta' )
+        .done((cta) => {
+          cta_modal_title.innerHTML = cta.post_title
+          cta_modal_post_content.innerHTML = cta.post_content
+          jQuery(cta_modal).modal('show')
+        })
     }
   }
 })

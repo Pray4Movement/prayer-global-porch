@@ -119,8 +119,6 @@ class PG_Global_Prayer_App_Lap extends PG_Global_Prayer_App {
                 return $stack;
             case 'ip_location':
                 return $this->get_ip_location();
-            case 'get_ctas':
-                return $this->get_ctas();
             default:
                 return new WP_Error( __METHOD__, "Incorrect action", [ 'status' => 400 ] );
         }
