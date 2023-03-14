@@ -163,15 +163,6 @@ jQuery(document).ready(function(){
   }
   initialize_location() // initialize prayer framework
 
-  window.api_post( 'get_ctas', {} )
-    .then( function(ctas) {
-      if (ctas) {
-        window.pg_ctas = ctas
-      } else {
-        window.pg_ctas = []
-      }
-    })
-
   function test_for_redundant_grid( content ) {
     if ( typeof content === 'undefined' || typeof content.location === 'undefined' || typeof content.location.grid_id === 'undefined' ){
       return content
