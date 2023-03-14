@@ -8,12 +8,20 @@ $(document).ready(function($) {
     const isGoNativeApp = navigator.userAgent.indexOf('gonative') > -1
     const isWebAPIShareAvailable = Object.prototype.hasOwnProperty.call(navigator, 'share')
 
-    const pageToShare = document.URL
+    const metaUrlElement = document.querySelector('meta[property="og:url"]')
+
+    const pageToShare = metaUrlElement ? metaUrlElement.getAttribute('content') : document.URL
     const encodedPageToShare = encodeURIComponent(pageToShare)
     const textToShare = "Join us in covering the world in prayer"
     const encodedTextToShare = encodeURIComponent(textToShare)
 
+
     function shareAction() {
+
+        const ctaModal = document.getElementById('cta_modal')
+        if ( ctaModal ) {
+            $(ctaModal).modal('hide')
+        }
         if ( isGoNativeApp ) {
             window.location.href = 'gonative://share/sharePage?url=' + encodedPageToShare
         } else if ( isWebAPIShareAvailable ) {
@@ -27,6 +35,7 @@ $(document).ready(function($) {
             if ( navBar.hasClass('show') ) {
                 navToggler.click();
             }
+
             const myModal = new bootstrap.Modal(shareModal)
             myModal.show()
         }

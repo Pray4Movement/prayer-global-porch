@@ -130,8 +130,7 @@ jQuery(document).ready(function($){
   const pray_for_area_content = pray_for_area_modal && pray_for_area_modal.querySelector('.modal-content')
   const pray_for_area_button = jQuery('#pray-for-area-button')
   const cta_modal = document.getElementById('cta_modal')
-  const cta_modal_title = cta_modal.querySelector('.modal-title')
-  const cta_modal_post_content = cta_modal.querySelector('.modal-post-content')
+  const cta_modal_body = cta_modal.querySelector('.modal-body')
 
   pray_for_area_button && pray_for_area_button.on('click', () => {
     if ( !window.selected_grid_id ) {
@@ -1189,8 +1188,12 @@ jQuery(document).ready(function($){
     if ( show_cta ) {
       window.api_post_global( 'ctas', 'get_cta' )
         .done((cta) => {
-          cta_modal_title.innerHTML = cta.post_title
-          cta_modal_post_content.innerHTML = cta.post_content
+          const content = `
+            <h3 class="modal-title">${cta.post_title}</h3>
+            ${cta.post_content}
+          `
+          cta_modal_body.innerHTML = content
+          window.pg_set_up_share_buttons()
           jQuery(cta_modal).modal('show')
         })
     }

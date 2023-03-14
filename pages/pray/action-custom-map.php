@@ -74,7 +74,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
     public function header_javascript(){
         pg_google_analytics();
         $details = [];
-        $url = dt_get_url_path( false, true );
+        $url = dt_get_url_path( true, true );
         if ( $url ) {
             $details['url'] = $url;
         }
@@ -204,9 +204,9 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                     <div class="modal-header border-bottom-0">
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body flow-small text-center">
-                        <h3 class="modal-title" id="cta-modal-header">Prayer Idea</h3>
-                        <div class="modal-post-content">Set aside time each day to pray with family or friends</div>
+                    <div class="modal-body flow-small text-center pb-5">
+                        <h3 class="modal-title">Prayer Idea</h3>
+                        Set aside time each day to pray with family or friends
                     </div>
                 </div>
             </div>
