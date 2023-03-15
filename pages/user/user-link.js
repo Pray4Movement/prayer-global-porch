@@ -116,6 +116,7 @@ jQuery(document).ready(function(){
     }
 
     function write_main (data) {
+        console.log(data)
         const pgContentHTML = `
 
         <div class="flow">
