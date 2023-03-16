@@ -108,7 +108,7 @@ jQuery(document).ready(function(){
         challengeStartTime.val(toTimeInputFormat(now))
     })
 
-    function get_user_app (action, data ) {
+    function get_user_app (action, data = {} ) {
         return window.api_fetch( jsObject.root + jsObject.parts.root + '/v1/' + jsObject.parts.type, {
             method: 'POST',
             body: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
@@ -553,7 +553,7 @@ jQuery(document).ready(function(){
     }
 
     function getChallenges( visibility, callback ) {
-        get_user_app( 'get_challenges', { visibility } )
+        return get_user_app( 'get_challenges', { visibility } )
             .then((challenges) => {
                 jsObject.user[visibility + '_challenges'] = challenges
 
