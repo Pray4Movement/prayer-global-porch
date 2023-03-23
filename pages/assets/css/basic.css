@@ -610,8 +610,12 @@ button {
     background: lightgrey;
 }
 
+.icon-button {
+    cursor: pointer;
+}
 .share-button {
-    width: 40px;
+    width: 1.5rem;
+    padding: 0;
 }
 .share-button img {
     width: 100%;
@@ -620,14 +624,12 @@ button {
     filter: invert(90%) sepia(100%) saturate(0%) hue-rotate(9deg) brightness(103%) contrast(102%);
 }
 
-.icon-button {
-    cursor: pointer;
-}
 .nav-buttons {
     height: 30px;
-    padding-top: 1.5em;
-    padding-bottom: 1.5em;
-    padding-left: 2em;
+    display: flex;
+    justify-content: space-between;
+    padding: 2.5em 2em;
+    align-items: center;
 }
 
 .modal-footer {
