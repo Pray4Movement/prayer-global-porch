@@ -3,10 +3,6 @@
 function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
 
     $url = dt_get_url_path();
-    $is_logged_in = is_user_logged_in();
-
-    $hide_if_logged_in = $is_logged_in ? 'display: none' : '';
-    $hide_if_logged_out = $is_logged_in ? '' : 'display: none';
 
     if ( $is_custom_lap ) {
         $start_praying_href = "/prayer_app/custom/$key";
@@ -42,9 +38,9 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
 
                 <?php endif; ?>
 
-                <!-- <a href="/user_app/profile" class="nav-link" id="login-register-link" style="<?php echo esc_attr( $hide_if_logged_in ) ?>" data-pg-is-logged-out>Login / Register</a> -->
-                <a href="/user_app/profile" class="nav-link" id="user-profile-link" style="<?php echo esc_attr( $hide_if_logged_out ) ?>" data-pg-is-logged-in>User Profile</a>
-                <a href="<?php echo esc_url( '/user_app/logout' )?>" class="nav-link" id="logout-link" style="<?php echo esc_attr( $hide_if_logged_out ) ?>" data-pg-is-logged-in>Logout</a>
+                <!-- <a href="/user_app/profile" class="nav-link" id="login-register-link" style="display: none" data-pg-is-logged-out>Login / Register</a> -->
+                <a href="/user_app/profile" class="nav-link" id="user-profile-link" style="display: none" data-pg-is-logged-in>User Profile</a>
+                <a href="<?php echo esc_url( '/user_app/logout' )?>" class="nav-link" id="logout-link" style="display: none" data-pg-is-logged-in>Logout</a>
             </div>
             <div class="nav-buttons">
                 <button class="icon-button share-button" data-toggle="modal" data-target="#exampleModal">
