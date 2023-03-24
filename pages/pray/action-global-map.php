@@ -68,7 +68,8 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
     public function _footer(){
         $this->footer_javascript();
         wp_footer();
-        require_once( __DIR__ . '/../assets/share-modal.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/share-modal.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/cta-modal.php' );
     }
 
     public function header_javascript(){
@@ -181,21 +182,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
                 </div>
             </div>
         </div>
-        <!-- cta modal -->
-        <div class="modal fade" id="cta_modal" data-v-offset="10px;"  tabindex="-1" aria-labelledby="cta-modal-header" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header border-bottom-0">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body flow-small text-center pb-5">
-                        <h3 class="modal-title">Prayer Idea</h3>
-                        Set aside time each day to pray with family or friends
-                    </div>
-                </div>
-            </div>
-        </div>
-         <!-- report modal -->
+        <!-- report modal -->
         <div class="reveal " id="correction_modal" data-v-offset="10px;" data-reveal>
             <div class="modal-content">
                 <div class="modal-header">
