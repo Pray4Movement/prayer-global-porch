@@ -615,14 +615,7 @@ button {
     cursor: pointer;
 }
 .share-button {
-    width: 1.5rem;
     padding: 0;
-}
-.share-button img {
-    width: 100%;
-}
-.navbar-dark .share-button {
-    filter: invert(90%) sepia(100%) saturate(0%) hue-rotate(9deg) brightness(103%) contrast(102%);
 }
 
 .nav-buttons {
@@ -635,6 +628,14 @@ button {
     bottom: 0;
     left: 2em;
     right: 2em;
+}
+
+.nav-buttons * {
+    color: black;
+}
+
+.navbar-dark .nav-buttons * {
+    color: white;
 }
 
 .modal-footer {
