@@ -90,6 +90,7 @@ jQuery(document).ready(function($){
         jQuery('#error').html(e)
       })
   }
+<<<<<<< HEAD
   window.api_post_global = ( type, action, data = [] ) => {
     return jQuery.ajax({
       type: "POST",
@@ -100,12 +101,14 @@ jQuery(document).ready(function($){
       beforeSend: function (xhr) {
         xhr.setRequestHeader('X-WP-Nonce', jsObject.nonce )
       }
+=======
+  window.api_post_global = ( type, action, data = null ) => {
+    return window.api_fetch( `${jsObject.root}pg-api/v1/${type}/${action}`, {
+      method: "POST",
+      body: data !== null ? JSON.stringify(data) : null,
+>>>>>>> master
     })
-      .fail(function(e) {
-        console.log(e)
-      })
   }
-
   jQuery('#custom-style').empty().append(`
       #wrapper {
           height: ${window.innerHeight}px !important;
@@ -283,8 +286,13 @@ jQuery(document).ready(function($){
       })
   })
   function pan_to_user_location() {
+<<<<<<< HEAD
     window.api_post_global( 'user', 'ip_location' )
       .done(function(location) {
+=======
+    window.api_post_global( 'user', 'ip_location', [] )
+      .then(function(location) {
+>>>>>>> master
         window.user_location = []
         if ( location ) {
           window.user_location = location
@@ -920,7 +928,6 @@ jQuery(document).ready(function($){
     window.get_data_page( 'get_grid_stats', {grid_id: grid_id} )
       .done(function(response){
         window.report_content = response
-        console.log(response)
 
         const communityStats = response.stats
 
