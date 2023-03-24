@@ -157,7 +157,6 @@ $(document).ready(function ($) {
         }
       })
       .catch((error) => {
-        console.log('logging out because of', error)
         localStorage.removeItem("login_token");
         localStorage.removeItem("login_method");
 
