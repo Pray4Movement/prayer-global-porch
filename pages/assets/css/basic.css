@@ -582,10 +582,11 @@ button {
     --nav-link-primary-color: white;
     --nav-link-secondary-color: black;
     border-bottom: 1px solid var(--nav-link-secondary-color);
+    margin-bottom: 3em;
 }
 .nav-link {
     --bs-nav-link-font-size: 16px;
-    --bs-nav-link-padding-y: 1.5em;
+    --bs-nav-link-padding-y: 1.2em;
     border-top: 1px solid var(--nav-link-secondary-color);
     padding-left: 2em;
 }
@@ -628,8 +629,12 @@ button {
     height: 30px;
     display: flex;
     justify-content: space-between;
-    padding: 2.5em 2em;
+    padding: 2.5em 0em;
     align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 2em;
+    right: 2em;
 }
 
 .modal-footer {
