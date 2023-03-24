@@ -90,23 +90,10 @@ jQuery(document).ready(function($){
         jQuery('#error').html(e)
       })
   }
-<<<<<<< HEAD
   window.api_post_global = ( type, action, data = [] ) => {
-    return jQuery.ajax({
-      type: "POST",
-      data: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      url: jsObject.root + 'pg-api/v1/' + type,
-      beforeSend: function (xhr) {
-        xhr.setRequestHeader('X-WP-Nonce', jsObject.nonce )
-      }
-=======
-  window.api_post_global = ( type, action, data = null ) => {
     return window.api_fetch( `${jsObject.root}pg-api/v1/${type}/${action}`, {
       method: "POST",
-      body: data !== null ? JSON.stringify(data) : null,
->>>>>>> master
+      body: JSON.stringify(data),
     })
   }
   jQuery('#custom-style').empty().append(`
@@ -286,13 +273,8 @@ jQuery(document).ready(function($){
       })
   })
   function pan_to_user_location() {
-<<<<<<< HEAD
     window.api_post_global( 'user', 'ip_location' )
       .done(function(location) {
-=======
-    window.api_post_global( 'user', 'ip_location', [] )
-      .then(function(location) {
->>>>>>> master
         window.user_location = []
         if ( location ) {
           window.user_location = location
