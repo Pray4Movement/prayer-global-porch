@@ -84,16 +84,9 @@ class PG_CTAs_API {
         ] );
 
         return array_map( function( $cta ) {
-
-            if ( strpos( $cta->post_content, 'share-button' ) > 0 ) {
-                $post_content = str_replace( 'src=""', 'src="'.esc_html( plugin_dir_url( __DIR__ ) ).'pages/assets/images/share.svg"', $cta->post_content );
-            } else {
-                $post_content = $cta->post_content;
-            }
-
             return [
                 'post_title' => $cta->post_title,
-                'post_content' => $post_content,
+                'post_content' => $cta->post_content,
             ];
         }, $ctas );
     }
