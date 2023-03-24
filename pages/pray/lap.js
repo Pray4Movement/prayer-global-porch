@@ -466,10 +466,10 @@ jQuery(document).ready(function(){
 
     const celebrateHTML = `
       <p style="padding-top:2em;">
-        <div class="flow">
+        <div>
           <h1>
             Great Job!
-            <br>
+            <br />
             Prayer Added!
           </h1>
 
@@ -480,26 +480,6 @@ jQuery(document).ready(function(){
         `
     celebrate_panel.html(celebrateHTML).show()
     window.pg_set_up_share_buttons()
-  }
-
-  function show_CTA() {
-    div.empty()
-    location_map_wrapper.hide()
-    more_prayer_fuel.hide()
-    location_name.hide()
-
-    const ctaInt = Math.floor( Math.random() * window.pg_ctas.length )
-    const cta = window.pg_ctas[ctaInt]
-
-    const celebrateHTML = `
-      <section class="cta-section flow-small">
-        <h2>${cta.post_title && cta.post_title || ''}</h2>
-        ${cta.post_content && cta.post_content || ''}
-      </section>
-        `
-    celebrate_panel.html(celebrateHTML).show()
-    window.pg_set_up_share_buttons()
-
   }
 
   /**
