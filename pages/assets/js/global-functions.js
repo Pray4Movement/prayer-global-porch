@@ -148,13 +148,16 @@ $(document).ready(function ($) {
         })
       )
       .then((user) => {
-        jsObject.user = user;
+        if (typeof jsObject !== 'undefined') {
+          jsObject.user = user;
+        }
 
         if (successCallback) {
           successCallback(user);
         }
       })
       .catch((error) => {
+        console.log('logging out because of', error)
         localStorage.removeItem("login_token");
         localStorage.removeItem("login_method");
 
