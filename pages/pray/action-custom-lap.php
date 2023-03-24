@@ -283,8 +283,6 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             </div>
         </section>
 
-        <?php require( plugin_dir_path( __DIR__ ) . 'assets/cta-footer.php' ) ?>
-
         <?php
     }
 

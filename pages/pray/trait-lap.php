@@ -213,8 +213,6 @@ trait PG_Lap_Trait {
             </div>
         </section>
 
-        <?php require( plugin_dir_path( __DIR__ ) . 'assets/cta-footer.php' ) ?>
-
         <?php
     }
 
