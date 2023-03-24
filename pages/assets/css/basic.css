@@ -71,6 +71,9 @@ strong {
 .two-em {
     font-size: 2em;
 }
+.two-rem {
+    font-size: 2rem;
+}
 .one-em {
     font-size: 1.5em;
 }
@@ -613,9 +616,6 @@ button {
 
 .icon-button {
     cursor: pointer;
-}
-.share-button {
-    padding: 0;
 }
 
 .nav-buttons {

@@ -43,21 +43,21 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
 
                     <?php if ( ! $is_custom_lap ) : ?>
 
-                        <a href="/" class="col icon-button three-em"><i class="ion-home"></i></a>
+                        <a href="/" class="col icon-button two-rem"><i class="ion-home"></i></a>
 
                     <?php endif; ?>
 
-                    <a href="/user_app/profile" class="col icon-button three-em" id="user-profile-link" style="display: none" data-pg-is-logged-in>
+                    <a href="/user_app/profile" class="col icon-button two-rem" id="user-profile-link" style="display: none" data-pg-is-logged-in>
                         <i class="ion-person"></i>
                     </a>
 
-                    <button class="col icon-button three-em" data-toggle="modal" data-target="#exampleModal">
+                    <button class="col icon-button share-button two-rem" data-toggle="modal" data-target="#exampleModal">
                         <i class="ion-android-share-alt"></i>
                     </button>
 
                 </div>
 
-                <a href="<?php echo esc_url( '/user_app/logout' )?>" class="icon-button three-em" id="logout-link" style="display: none" data-pg-is-logged-in>
+                <a href="<?php echo esc_url( '/user_app/logout' )?>" class="icon-button two-rem" id="logout-link" style="display: none" data-pg-is-logged-in>
                     <i class="ion-log-out"></i>
                 </a>
             </div>
