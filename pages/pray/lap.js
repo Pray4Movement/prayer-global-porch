@@ -479,7 +479,6 @@ jQuery(document).ready(function(){
       </p>
         `
     celebrate_panel.html(celebrateHTML).show()
-    window.pg_set_up_share_buttons()
   }
 
   /**
