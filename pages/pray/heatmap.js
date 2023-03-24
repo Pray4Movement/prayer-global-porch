@@ -906,7 +906,6 @@ jQuery(document).ready(function($){
     window.get_data_page( 'get_grid_stats', {grid_id: grid_id} )
       .done(function(response){
         window.report_content = response
-        console.log(response)
 
         const communityStats = response.stats
 
