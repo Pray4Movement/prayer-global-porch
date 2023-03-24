@@ -274,7 +274,7 @@ jQuery(document).ready(function($){
   })
   function pan_to_user_location() {
     window.api_post_global( 'user', 'ip_location' )
-      .done(function(location) {
+      .then(function(location) {
         window.user_location = []
         if ( location ) {
           window.user_location = location
@@ -1176,7 +1176,7 @@ jQuery(document).ready(function($){
 
     if ( show_cta ) {
       window.api_post_global( 'ctas', 'get_cta' )
-        .done((cta) => {
+        .then((cta) => {
           const content = `
             <h3 class="modal-title">${cta.post_title}</h3>
             ${cta.post_content}

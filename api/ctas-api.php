@@ -28,8 +28,8 @@ class PG_CTAs_API {
      * @link https://github.com/DiscipleTools/disciple-tools-theme/wiki/Site-to-Site-Link for outside of wordpress authentication
      */
     public function add_endpoints() {
-        $namespace = $this->root . '/v1';
-        DT_Route::post( $namespace, '/'.$this->type, [ $this, 'endpoint' ] );
+        $namespace = $this->root . "/v1/$this->type";
+        DT_Route::post( $namespace, 'get_cta', [ $this, 'get_cta' ] );
     }
 
     public function authorize_url( $authorized ){
