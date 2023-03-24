@@ -29,17 +29,7 @@ class PG_CTAs_API {
      */
     public function add_endpoints() {
         $namespace = $this->root . '/v1';
-        register_rest_route(
-            $namespace,
-            '/'.$this->type,
-            [
-                [
-                    'methods'  => WP_REST_Server::CREATABLE,
-                    'callback' => [ $this, 'endpoint' ],
-                    'permission_callback' => '__return_true'
-                ],
-            ]
-        );
+        DT_Route::post( $namespace, '/'.$this->type, [ $this, 'endpoint' ] );
     }
 
     public function authorize_url( $authorized ){
