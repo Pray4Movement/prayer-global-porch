@@ -222,34 +222,6 @@ jQuery(document).ready(function(){
         send_lap_emails = false,
         send_general_emails = false,
     }) {
-<<<<<<< HEAD
-        jQuery('#user-details-content').html(/*html*/`
-            <h2 class="header-border-bottom">Profile</h2>
-            <table class="table">
-                <tbody>
-                    <tr>
-                        <td>Name:</td>
-                        <td>${name}</td>
-                    </tr>
-                    <tr>
-                        <td>Email:</td>
-                        <td>${email}</td>
-                    </tr>
-                    <tr>
-                        <td>Location:</td>
-                        <td>
-                            <span class="user__location-label">${location && location.label || 'Please set your location'}</span>
-                            ${LocationChangeButton()}
-                            <span class="iplocation-message small d-block text-secondary">
-                                ${location && location.source === 'ip' ? '(This is your estimated location)' : ''}
-                            </span>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <section class="communication-preferences flow-small">
-                <h2 class="header-border-bottom">Communication Preferences</h2>
-=======
         const userDetailsContentHTML = `
         <h2 class="header-border-bottom">Profile</h2>
         <table class="table">
@@ -276,7 +248,6 @@ jQuery(document).ready(function(){
         </table>
         <section class="communication-preferences flow-small">
             <h2 class="header-border-bottom">Communication Preferences</h2>
->>>>>>> master
 
             <div>
                 <div class="form-check small">
@@ -285,23 +256,6 @@ jQuery(document).ready(function(){
                         Send me lap challenges via email
                     </label>
                 </div>
-<<<<<<< HEAD
-            </section>
-            <section class="user-actions">
-                <hr />
-                ${ModalButton({
-                    text: "Data report for my account",
-                    modalId: "user-data-report",
-                    classes: 'btn-outline-dark small d-block',
-                })}
-                ${ModalButton({
-                    text: "Erase my account",
-                    modalId: "erase-user-account-modal",
-                    classes: "small btn-outline-danger d-block mt-3",
-                })}
-            </section>
-        `)
-=======
                 <div class="form-check small">
                     <input class="form-check-input user-check-preferences" type="checkbox" id="send_general_emails" ${send_general_emails && 'checked'}>
                     <label class="form-check-label" for="send_general_emails">
@@ -324,7 +278,6 @@ jQuery(document).ready(function(){
             })}
         </section>`
         jQuery('#user-details-content').html(userDetailsContentHTML)
->>>>>>> master
 
         jQuery('.user-check-preferences').on('change', (e) => {
             get_user_app('update_user', {
@@ -336,15 +289,9 @@ jQuery(document).ready(function(){
     }
 
     function write_prayers() {
-<<<<<<< HEAD
-        userProfileDetails.html(/*html*/`
-            <h2 class="header-border-bottom">Prayers</h2>
-            <section class="user-stats flow">
-=======
         const prayersHTML = `
         <h2 class="header-border-bottom">Prayers</h2>
         <section class="user-stats flow">
->>>>>>> master
 
             <div class="center">
 
@@ -370,13 +317,9 @@ jQuery(document).ready(function(){
                 <div class="user-activity__list"></div>
                 <button class="btn btn-outline-dark mt-5 mx-auto d-block" id="load-more-user-activity" style="display: none">Load more</button>
             </section>
-<<<<<<< HEAD
-        `)
-=======
 
         </section>`
         userProfileDetails.html(prayersHTML)
->>>>>>> master
 
         if (jsObject.user.activity && jsObject.user.stats) {
             const { offset, limit, logs } = jsObject.user.activity
@@ -433,13 +376,7 @@ jQuery(document).ready(function(){
         <section class="private-challenges flow-small">
             <h3 class="header-border-bottom">Private Challenges</h3>
 
-<<<<<<< HEAD
-        userProfileDetails.html(/*html*/`
-            <section class="private-challenges flow-small">
-                <h3 class="header-border-bottom">Private Challenges</h3>
-=======
             ${CreateChallengeButton( 'Private', 'private-challenge-button' )}
->>>>>>> master
 
             <div class="d-flex justify-content-center private-challenges__list">
                 <span class="loading-spinner active"></span>
@@ -450,21 +387,11 @@ jQuery(document).ready(function(){
 
             ${CreateChallengeButton( 'Public', 'public-challenge-button' )}
 
-<<<<<<< HEAD
-                ${CreateChallengeButton( 'Public', 'public-challenge-button' )}
-
-                <div class="d-flex justify-content-center public-challenges__list">
-                    <span class="loading-spinner active"></span>
-                </div>
-            </section>
-        `)
-=======
             <div class="d-flex justify-content-center public-challenges__list">
                 <span class="loading-spinner active"></span>
             </div>
         </section>`
         userProfileDetails.html(challengesHTML)
->>>>>>> master
 
         buildChallengeList( 'public' )
         buildChallengeList( 'private' )
@@ -663,13 +590,8 @@ jQuery(document).ready(function(){
 
         const challenges = jsObject.user[visibility + '_challenges']
 
-<<<<<<< HEAD
-        if (!challenges || !Array.isArray(challenges) || !challenges.length === 0) {
-            container.html('No' + visibility + 'challenges found')
-=======
         if (!challenges || !Array.isArray(challenges) || challenges.length === 0) {
             container.html('No ' + visibility + ' challenges found')
->>>>>>> master
         } else {
             container.html( buildChallengeListHTML( challenges ) )
         }

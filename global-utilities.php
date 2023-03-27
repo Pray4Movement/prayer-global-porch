@@ -956,6 +956,9 @@ function pg_calculate_lap_number( $post_id ) {
     */
 
     return count( $results ) + 1;
+
+}
+
 function pg_toggle_user_elements() {
 
     ?>
