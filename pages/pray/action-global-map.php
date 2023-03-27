@@ -68,13 +68,21 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
     public function _footer(){
         $this->footer_javascript();
         wp_footer();
-        require_once( __DIR__ . '/../assets/share-modal.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/share-modal.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/cta-modal.php' );
     }
 
     public function header_javascript(){
+        pg_google_analytics();
+        $details = [];
+        $url = dt_get_url_path( true, true );
+        if ( $url ) {
+             $details['url'] = $url;
+        }
+        $details['title'] = 'Prayer.Global Map';
+        pg_og_tags( $details );
+
         ?>
-        <?php pg_google_analytics() ?>
-        <?php pg_og_tags() ?>
         <script>
             let jsObject = [<?php echo json_encode([
                 'map_key' => DT_Mapbox_API::get_key(),
@@ -102,8 +110,10 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
         <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
         <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/js/global-functions.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/js/global-functions.js' ) ) ?>"></script>
         <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>report.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'report.js' ) ) ?>"></script>
-        <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/js/share.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) ) . 'assets/js/share.js' ) ?>"></script>
+        <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/js/share.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/js/share.js' ) ) ?>"></script>
         <?php
+
+        pg_toggle_user_elements();
     }
 
     public function footer_javascript() {

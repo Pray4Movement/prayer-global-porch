@@ -956,4 +956,31 @@ function pg_calculate_lap_number( $post_id ) {
     */
 
     return count( $results ) + 1;
+function pg_toggle_user_elements() {
+
+    ?>
+
+    <script>
+        $(document).ready(function($) {
+            window.getAuthUser(
+                () => {
+                    showElements('[data-pg-is-logged-in]', true)
+                    showElements('[data-pg-is-logged-out]', false)
+                },
+                () => {
+                    showElements('[data-pg-is-logged-in]', false)
+                    showElements('[data-pg-is-logged-out]', true)
+                }
+            )
+
+            function showElements(selector, show) {
+                document
+                    .querySelectorAll(selector)
+                    .forEach((element) => element.style.display = show ? 'block' : 'none')
+            }
+        })
+    </script>
+
+    <?php
+
 }

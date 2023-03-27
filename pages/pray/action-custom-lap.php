@@ -50,7 +50,9 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         $lap = pg_get_custom_lap_by_post_id( $this->parts['post_id'] );
         $title_words = preg_split( "/[\s\-_]+/", $lap['title'] );
 
-        if ( $title_words !== false ) {
+        if ( strlen( $lap['title'] ) < 6 ) {
+            $this->lap_title = $lap['title'];
+        } else if ( $title_words !== false ) {
             $little_words = [
                 'of',
                 'in',
@@ -100,13 +102,14 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'translations' => [
                         'add' => __( 'Add Magic', 'prayer-global' ),
                     ],
-                    'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/nope.jpg',
+                    'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
                     'images_url' => pg_grid_image_url(),
                     'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                     'current_url' => $current_url,
                     'stats_url' => $current_url . 'stats',
                     'map_url' => $current_url . 'map',
-                    'is_custom' => ( 'custom' === $this->parts['type'] )
+                    'is_custom' => ( 'custom' === $this->parts['type'] ),
+                    'is_cta_feature_on' => ( new PG_Feature_Flag( 'cta_feature' ) )->is_on(),
                 ]) ?>][0]
             </script>
             <script type="text/javascript" src="<?php echo esc_url( DT_Mapbox_API::$mapbox_gl_js ) ?>"></script>
@@ -119,12 +122,14 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/js/global-functions.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/js/global-functions.js' ) ) ?>"></script>
             <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>lap.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap.js' ) ) ?>"></script>
             <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>report.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'report.js' ) ) ?>"></script>
+            <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/js/share.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/js/share.js' ) ) ?>"></script>
             <?php
         }
     }
 
     public function footer_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/footer.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/share-modal.php' );
     }
 
     public function body(){
@@ -150,7 +155,6 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     <button type="button" class="btn btn-secondary question question__yes" id="question__yes_next">Next</button>
                 </div>
             </div>
-            <div class="container celebrate text-center" id="celebrate-panel"></div>
             <div class="w-100" ></div>
             <div class="container decision" id="decision-panel">
                 <div class="btn-group decision_button_group" role="group" aria-label="Decision Button">
@@ -159,6 +163,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     <button type="button" class="btn btn-secondary decision" id="decision__next">Next</button>
                 </div>
             </div>
+            <div class="container celebrate text-center" id="celebrate-panel"></div>
             <div class="w-100" ></div>
             <div class="container justify-content-center mt-3">
                 <h3 class="mt-0 font-weight-normal text-center tutorial" id="tutorial-location">Start praying for</h3>

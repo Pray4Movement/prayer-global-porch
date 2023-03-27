@@ -90,22 +90,12 @@ jQuery(document).ready(function($){
         jQuery('#error').html(e)
       })
   }
-  window.api_post_global = ( type, action, data ) => {
-    return jQuery.ajax({
-      type: "POST",
-      data: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      url: jsObject.root + 'pg-api/v1/' + type,
-      beforeSend: function (xhr) {
-        xhr.setRequestHeader('X-WP-Nonce', jsObject.nonce )
-      }
+  window.api_post_global = ( type, action, data = [] ) => {
+    return window.api_fetch( `${jsObject.root}pg-api/v1/${type}/${action}`, {
+      method: "POST",
+      body: JSON.stringify(data),
     })
-      .fail(function(e) {
-        console.log(e)
-      })
   }
-
   jQuery('#custom-style').empty().append(`
       #wrapper {
           height: ${window.innerHeight}px !important;
@@ -129,6 +119,8 @@ jQuery(document).ready(function($){
   const pray_for_area_modal = document.getElementById('pray-for-area-modal')
   const pray_for_area_content = pray_for_area_modal && pray_for_area_modal.querySelector('.modal-content')
   const pray_for_area_button = jQuery('#pray-for-area-button')
+  const cta_modal = document.getElementById('cta_modal')
+  const cta_modal_body = cta_modal.querySelector('.modal-body')
 
   pray_for_area_button && pray_for_area_button.on('click', () => {
     if ( !window.selected_grid_id ) {
@@ -281,8 +273,8 @@ jQuery(document).ready(function($){
       })
   })
   function pan_to_user_location() {
-    window.api_post_global( 'user', 'ip_location', [] )
-      .done(function(location) {
+    window.api_post_global( 'user', 'ip_location' )
+      .then(function(location) {
         window.user_location = []
         if ( location ) {
           window.user_location = location
@@ -338,6 +330,8 @@ jQuery(document).ready(function($){
       ]);
     }
     window.map = map
+
+    show_cta()
 
     if ( isMobile ) {
       pan_to_user_location()
@@ -916,7 +910,6 @@ jQuery(document).ready(function($){
     window.get_data_page( 'get_grid_stats', {grid_id: grid_id} )
       .done(function(response){
         window.report_content = response
-        console.log(response)
 
         const communityStats = response.stats
 
@@ -1173,6 +1166,25 @@ jQuery(document).ready(function($){
       return unpackedSetting
     } catch (e) {
       return setting
+    }
+  }
+
+  function show_cta() {
+    const url = new URL(window.location.href)
+
+    const show_cta = url.searchParams.get('show_cta') !== null
+
+    if ( show_cta ) {
+      window.api_post_global( 'ctas', 'get_cta' )
+        .then((cta) => {
+          const content = `
+            <h3 class="modal-title">${cta.post_title}</h3>
+            ${cta.post_content}
+          `
+          cta_modal_body.innerHTML = content
+          window.pg_set_up_share_buttons()
+          jQuery(cta_modal).modal('show')
+        })
     }
   }
 })

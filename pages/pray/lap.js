@@ -3,38 +3,20 @@ jQuery(document).ready(function(){
    * API HANDLERS
    */
   window.api_post = ( action, data ) => {
-    return jQuery.ajax({
-      type: "POST",
-      data: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      url: jsObject.root + jsObject.parts.root + '/v1/' + jsObject.parts.type,
-      beforeSend: function (xhr) {
-        xhr.setRequestHeader('X-WP-Nonce', jsObject.nonce )
-      }
+    return window.api_fetch( jsObject.root + jsObject.parts.root + '/v1/' + jsObject.parts.type, {
+      method: "POST",
+      body: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
     })
-      .fail(function(e) {
-        console.log(e)
-      })
   }
-  window.api_post_global = ( type, action, data ) => {
-    return jQuery.ajax({
-      type: "POST",
-      data: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      url: jsObject.root + 'pg-api/v1/' + type,
-      beforeSend: function (xhr) {
-        xhr.setRequestHeader('X-WP-Nonce', jsObject.nonce )
-      }
+  window.api_post_global = ( type, action, data = null ) => {
+    return window.api_fetch( `${jsObject.root}pg-api/v1/${type}/${action}`, {
+      method: "POST",
+      body: data !== null ? JSON.stringify(data) : null,
     })
-      .fail(function(e) {
-        console.log(e)
-      })
   }
   function load_next_content() {
     window.api_post( 'refresh', { grid_id: window.current_content.location.grid_id } )
-      .done(function(location) {
+      .then(function(location) {
         if ( location === false ) {
           window.location = '/'+jsObject.parts.root+'/'+jsObject.parts.type+'/'+jsObject.parts.public_key
         }
@@ -49,8 +31,8 @@ jQuery(document).ready(function(){
     load_location()
   }
   function ip_location() {
-    window.api_post_global( 'user', 'ip_location', [] )
-      .done(function(location) {
+    window.api_post_global( 'user', 'ip_location' )
+      .then(function(location) {
         window.user_location = []
         if ( location ) {
           let pg_user_hash = localStorage.getItem('pg_user_hash')
@@ -74,6 +56,8 @@ jQuery(document).ready(function(){
   let decision_panel = jQuery('#decision-panel')
   let question_panel = jQuery('#question-panel')
   let celebrate_panel = jQuery('#celebrate-panel')
+  let location_name = jQuery('#location-name')
+  let footer = jQuery('.pg-footer')
 
   let praying_button = jQuery('#praying_button')
   let button_progress = jQuery('.praying__progress')
@@ -122,6 +106,8 @@ jQuery(document).ready(function(){
   }
   window.report_content = []
 
+  footer.hide()
+
   /**
    * INITIALIZE
    */
@@ -136,7 +122,7 @@ jQuery(document).ready(function(){
     const grid_id = new URL(window.location.href).searchParams.get('grid_id')
     // load current location
     window.api_post( 'refresh', { grid_id } )
-      .done( function(l1) {
+      .then( function(l1) {
         // no remaining locations, send to map
         if ( ! l1 ) {
           window.location.href = jsObject.map_url
@@ -158,6 +144,7 @@ jQuery(document).ready(function(){
             })
           }, 5000);
         }
+
       })
 
     // load ip tracking
@@ -165,7 +152,7 @@ jQuery(document).ready(function(){
 
     // load next location
     window.api_post('refresh', {} )
-      .done( function(l2) {
+      .then( function(l2) {
         window.next_content = test_for_redundant_grid( l2 )
       })
 
@@ -175,13 +162,14 @@ jQuery(document).ready(function(){
     })
   }
   initialize_location() // initialize prayer framework
+
   function test_for_redundant_grid( content ) {
     if ( typeof content === 'undefined' || typeof content.location === 'undefined' || typeof content.location.grid_id === 'undefined' ){
       return content
     }
     if ( window.previous_grids.includes( content.location.grid_id ) ) {
       window.api_post('refresh', {} )
-        .done( function(new_content) {
+        .then( function(new_content) {
           // return test_for_redundant_grid( new_content )
           if ( typeof window.test_for_redundant === 'undefined' ) {
             window.test_for_redundant = 0
@@ -228,7 +216,7 @@ jQuery(document).ready(function(){
     decision_next.off('click')
     decision_next.on('click', function( e ) {
       window.api_post( 'refresh', {} )
-        .done( function(l1) {
+        .then( function(l1) {
           window.report_content = window.current_content = test_for_redundant_grid( l1 )
           load_next_content()
           advance_to_next_location()
@@ -243,9 +231,12 @@ jQuery(document).ready(function(){
       window.celebrationFireworks(celebrationDuration)
       update_odometer({ location_count: window.odometer.location_count + 1})
       setTimeout(
-        function()
-        {
-          window.location = jsObject.map_url
+        function() {
+          if ( jsObject.is_cta_feature_on ) {
+            window.location = jsObject.map_url + '?show_cta'
+          } else {
+            window.location = jsObject.map_url
+          }
         }, celebrationDuration);
     })
     question_yes_next.off('click')
@@ -379,7 +370,7 @@ jQuery(document).ready(function(){
     question_panel.hide()
     celebrate_panel.hide()
 
-    jQuery('#location-name').html( content.location.admin_level_name_cap + ' of ' + content.location.full_name)
+    location_name.html( content.location.admin_level_name_cap + ' of ' + content.location.full_name)
     div.empty()
 
     location_map_wrapper.show()
@@ -435,7 +426,7 @@ jQuery(document).ready(function(){
       }
       else if (!window.time_finished) {
         window.api_post( 'log', { grid_id: window.current_content.location.grid_id, pace: window.pace, user: window.user_location } )
-          .done(function(x) {
+          .then(function(x) {
             if ( ! x ) {
               window.location.href = jsObject.map_url
               return
@@ -459,7 +450,7 @@ jQuery(document).ready(function(){
 
       if (window.tick > 60) {
         window.api_post( 'increment_log', { report_id: window.next_content['report_id'] } )
-          .done(function(x) {
+          .then(function(x) {
             console.log('incremented log', x)
           })
         window.tick = 0
@@ -476,8 +467,22 @@ jQuery(document).ready(function(){
     more_prayer_fuel.show()
 
     let rint = Math.floor(Math.random() * 4 ) + 1
-    celebrate_panel.html(`<p style="padding-top:2em;"><h1>Great Job!<br>Prayer Added!</h1></p>
-    <p><img width="400px" src="${jsObject.image_folder}celebrate${rint}.gif" class="img-fluid celebrate-image" alt="photo" /></p>`).show()
+
+    const celebrateHTML = `
+      <p style="padding-top:2em;">
+        <div>
+          <h1>
+            Great Job!
+            <br />
+            Prayer Added!
+          </h1>
+
+          <img width="400px" src="${jsObject.image_folder}celebrate${rint}.gif" class="img-fluid celebrate-image" alt="photo" />
+
+        </div>
+      </p>
+        `
+    celebrate_panel.html(celebrateHTML).show()
   }
 
   /**
