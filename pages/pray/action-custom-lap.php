@@ -518,11 +518,12 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
          */
         $remaining_custom = $this->_query_custom_prayed_list( $parts['post_id'], $list_4770 );
 
+        $rolling_laps_feature = new PG_Feature_Flag( 'rolling_laps' );
         /**
          * HANDLE COMPLETED LAP
          */
         if ( empty( $remaining_custom ) ) {
-            if ( $this->_is_single_lap( $parts['post_id'] ) ) {
+            if ( !$rolling_laps_feature->is_on() || $this->_is_single_lap( $parts['post_id'] ) ) {
                 $time = time();
                 update_post_meta( $parts['post_id'], 'status', 'complete' );
                 update_post_meta( $parts['post_id'], 'end_time', $time );
