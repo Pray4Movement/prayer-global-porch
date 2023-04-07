@@ -437,9 +437,9 @@ class PG_Stacker {
             foreach ( $people_groups as $i => $pg ) {
                 if ( 'Y' === $pg['LeastReached'] ) {
                     $pg['diaspora_label'] = '';
-                    if ( 'N' === $pg['IndigenousCode'] ) {
+                    if ( isset( $pg['IndigenousCode'] ) && 'N' === $pg['IndigenousCode'] ) {
                         $pg['diaspora_label'] = __( 'Diaspora', 'prayer-global' );
-                    } else if ( '?' === $pg['IndigenousCode'] ) {
+                    } else if ( isset( $pg['IndigenousCode'] ) && '?' === $pg['IndigenousCode'] ) {
                         $pg['diaspora_label'] = __( 'Possibly Diaspora', 'prayer-global' );
                     }
                     $least_reached = $pg; // get first least reached group
