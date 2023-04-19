@@ -312,6 +312,10 @@ jQuery(document).ready(function($){
       }
     }
 
+    if (jsObject.is_dark_map_on) {
+      options.style = 'mapbox://styles/discipletools/clgnfebwy00en01mj3buqgxyo'
+    }
+
     mapboxgl.accessToken = jsObject.map_key;
     map = new mapboxgl.Map(options);
     map.dragRotate.disable();
