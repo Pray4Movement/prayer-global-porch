@@ -339,7 +339,7 @@ class PG_Stacker_Text {
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => 'Jesus, your are the great high priest, please make the '.$stack['location']['believers'].' believers in '.$stack['location']['full_name'].' a worthy priesthood under you.',
+                'prayer' => 'Jesus, you are the great high priest, please make the '.$stack['location']['believers'].' believers in '.$stack['location']['full_name'].' a worthy priesthood under you.',
                 'reference' => 'Hebrews 4:14-16',
                 'verse' => 'Since then we have a great high priest who has passed through the heavens, Jesus, the Son of God, let us hold fast our confession.',
             ],
