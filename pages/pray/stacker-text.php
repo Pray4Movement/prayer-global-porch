@@ -818,7 +818,7 @@ class PG_Stacker_Text {
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => 'Father, let the threatened of '.$stack['location']['full_name'].' know that is better to trust in you than to trust in humans.',
+                'prayer' => 'Father, let the threatened of '.$stack['location']['full_name'].' know that it is better to trust in you than to trust in humans.',
                 'reference' => 'Psalm 118:8',
                 'verse' => 'It is better to take refuge in the Lord than to trust in humans.',
             ],
