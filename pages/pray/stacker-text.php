@@ -704,7 +704,7 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => 'Father, please help good, online teachers get the gospel on Youtube and into '.$stack['location']['admin_level_name'].' of '. $stack['location']['admin_level_name'].'.',
+                'prayer' => 'Father, please help good, online teachers get the gospel on Youtube and into '.$stack['location']['admin_level_name'].' of '. $stack['location']['name'].'.',
                 'reference' => 'Matthew 24:14',
                 'verse' => 'And this gospel of the kingdom will be preached in the whole world as a testimony to all nations, and then the end will come.',
             ],
