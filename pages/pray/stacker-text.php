@@ -586,7 +586,7 @@ class PG_Stacker_Text {
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => 'Father, your word can be a lamp to the feet of the '.$stack['location']['christian_adherents'].' people in the '.$stack['location']['admin_level_name'].' of '.$stack['location']['name'].' who claim to know you, if they open it an read it today.',
+                'prayer' => 'Father, your word can be a lamp to the feet of the '.$stack['location']['christian_adherents'].' people in the '.$stack['location']['admin_level_name'].' of '.$stack['location']['name'].' who claim to know you, if they open it and read it today.',
                 'reference' => 'Psalm 119:105',
                 'verse' => 'your word is a lamp to my feet and a light to my path.',
             ],
