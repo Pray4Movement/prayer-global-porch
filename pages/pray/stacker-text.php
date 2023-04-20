@@ -1046,7 +1046,7 @@ class PG_Stacker_Text {
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => 'Father, you desire to blot out the sins of the people of '.$stack['location']['full_name'].'. you said, if they turn to you, you will dissolve their sins like mist.',
+                'prayer' => 'Father, you desire to blot out the sins of the people of '.$stack['location']['full_name'].'. You said, if they turn to you, you will dissolve their sins like mist.',
                 'reference' => 'Isaiah 44:22',
                 'verse' => 'I have blotted out, as a thick cloud, your transgressions, and, as a cloud, your sins. Return to me, for I have redeemed you.',
             ],
