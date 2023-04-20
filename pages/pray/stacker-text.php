@@ -267,7 +267,7 @@ class PG_Stacker_Text {
             ],
             [
                 'section_label' => 'Person of Peace',
-                'prayer' => 'Jesus, like with the centurion who came to you for his sick servant, please call into you house those who have great faith but are not yet yours in the '.$stack['location']['admin_level_name'].' of '.$stack['location']['name'] . '.',
+                'prayer' => 'Jesus, like with the centurion who came to you for his sick servant, please call into your house those who have great faith but are not yet yours in the '.$stack['location']['admin_level_name'].' of '.$stack['location']['name'] . '.',
                 'reference' => 'Luke 7:1–10',
                 'verse' => 'When Jesus heard these things, he marveled at (the centurion), and turning to the crowd that followed him, said, “I tell you, not even in Israel have I found such faith.” And when those who had been sent returned to the house, they found the servant well.',
             ],
