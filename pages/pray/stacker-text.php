@@ -1964,7 +1964,7 @@ class PG_Stacker_Text {
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => 'Lord, please provide elders whose heart is completely yours in every town in the '.$stack['location']['admin_level_name'].' of '.$stack['location']['name'].'.',
+                'prayer' => 'Lord, please provide elders whose hearts are completely yours in every town in the '.$stack['location']['admin_level_name'].' of '.$stack['location']['name'].'.',
                 'reference' => 'Titus 1:5',
                 'verse' => 'The reason I left you in Crete was that you might put in order what was left unfinished and appoint elders in every town, as I directed you.',
             ],
