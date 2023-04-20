@@ -194,9 +194,10 @@ jQuery(document).ready(function(){
         getChallenges('public')
         getChallenges('private')
 
+        const pg_user_hash = localStorage.getItem('pg_user_hash')
+
         if ( !data.location || data.location === '' ) {
             // const pg_user_hash = Cookies.get('pg_user_hash')
-            const pg_user_hash = localStorage.getItem('pg_user_hash')
 
             get_user_app('ip_location', { hash: pg_user_hash })
                 .then((data) => {
@@ -210,7 +211,12 @@ jQuery(document).ready(function(){
                     jQuery('.user__location-label').html(data.location.label)
                     jQuery('.iplocation-message').html('(This is your estimated location)')
                 })
+                .then(() => get_user_app('link_anonymous_prayers', { hash: pg_user_hash, user_id: jsObject.user.ID }))
+        } else {
+            get_user_app('link_anonymous_prayers', { hash: pg_user_hash, user_id: jsObject.user.ID })
         }
+
+
 
         jQuery('.user-profile-link').on('click', () => write_profile({
             name: data.display_name,

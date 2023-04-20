@@ -315,6 +315,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 return $this->get_ip_location( $params['data'] );
             case 'save_location':
                 return $this->save_location( $params['data'] );
+            case 'link_anonymous_prayers':
+                return $this->link_anonymous_prayers( $params['data'] );
             case 'create_challenge':
                 return $this->create_challenge( $params['data'] );
             case 'edit_challenge':
@@ -383,7 +385,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
         }
 
-        foreach ($data as $meta_key => $meta_value) {
+        foreach ( $data as $meta_key => $meta_value ) {
             if ( !in_array( $meta_key, PG_User_API::$allowed_user_meta, true ) ) {
                 continue;
             }
@@ -519,6 +521,26 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         ] );
 
         return $data;
+    }
+
+    public function link_anonymous_prayers( $data ) {
+
+        if ( ! isset( $data['user_id'], $data['hash'] ) ) {
+            return new WP_Error( __METHOD__, 'user_id or hash missing', [ 'status' => 400, ] );
+        }
+
+        // search for dt_reports that match this hash but don't have a user id.
+        global $wpdb;
+
+        $wpdb->query( $wpdb->prepare( "
+            UPDATE $wpdb->dt_reports
+            SET user_id = %d
+            WHERE hash = %s
+            AND type = 'prayer_app'
+            AND user_id IS NULL
+        ", $data['user_id'], $data['hash'] ) );
+
+        return '';
     }
 
     /**
