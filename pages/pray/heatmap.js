@@ -516,6 +516,28 @@ jQuery(document).ready(function($){
         }))
       )
       .then(() => {
+
+          let circleColor = [
+                'step',
+                ['get', 'point_count'],
+                '#51bbd6',
+                100,
+                '#f1f075',
+                750,
+                '#f28cb1'
+              ]
+
+          if ( jsObject.is_dark_map_on ) {
+            circleColor = [
+              'step',
+              ['get', 'point_count'],
+              '#F48224',
+              100,
+              '#FAAF1B',
+              750,
+              '#fcc639'
+            ]
+          }
           map.addLayer({
             'id': participantsClusterLayerId,
             'type': 'circle',
@@ -525,15 +547,7 @@ jQuery(document).ready(function($){
               'visibility': mapSettings.toggle_participants ? 'visible' : 'none',
             },
             paint: {
-              'circle-color': [
-                'step',
-                ['get', 'point_count'],
-                '#51bbd6',
-                100,
-                '#f1f075',
-                750,
-                '#f28cb1'
-              ],
+              'circle-color': circleColor,
               'circle-radius': [
                 'step',
                 ['get', 'point_count'],
