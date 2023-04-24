@@ -529,18 +529,30 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             return new WP_Error( __METHOD__, 'user_id or hash missing', [ 'status' => 400, ] );
         }
 
-        // search for dt_reports that match this hash but don't have a user id.
         global $wpdb;
 
-        $wpdb->query( $wpdb->prepare( "
-            UPDATE $wpdb->dt_reports
-            SET user_id = %d
+        $updates = $wpdb->get_var( $wpdb->prepare( "
+            SELECT COUNT(*) FROM $wpdb->dt_reports
             WHERE hash = %s
             AND type = 'prayer_app'
             AND user_id IS NULL
-        ", $data['user_id'], $data['hash'] ) );
+        ", $data['hash'] ) );
 
-        return '';
+        $has_updates = $updates > 0;
+        if ( $has_updates ) {
+            $wpdb->query( $wpdb->prepare( "
+                UPDATE $wpdb->dt_reports
+                SET user_id = %d
+                WHERE hash = %s
+                AND type = 'prayer_app'
+                AND user_id IS NULL
+            ", $data['user_id'], $data['hash'] ) );
+        }
+
+        return [
+            'has_updates' => $has_updates,
+            'number_of_updates' => $updates,
+        ];
     }
 
     /**

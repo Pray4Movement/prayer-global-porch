@@ -109,11 +109,18 @@ jQuery(document).ready(function(){
         challengeStartTime.val(toTimeInputFormat(now))
     })
 
-    function get_user_app (action, data = {} ) {
+    function get_user_app(action, data = {} ) {
         return window.api_fetch( jsObject.root + jsObject.parts.root + '/v1/' + jsObject.parts.type, {
             method: 'POST',
             body: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
         } )
+    }
+
+    function get_user_api(endpoint, data = {}) {
+        return window.api_fetch( `/wp-json/pg-api/v1/user/${endpoint}`, {
+            method: 'POST',
+            body: JSON.stringify({ parts: jsObject.parts, data: data }),
+        })
     }
 
     function write_main (data) {
@@ -173,50 +180,42 @@ jQuery(document).ready(function(){
         jQuery('#pg_content').html(pgContentHTML);
 
         if ( !data.stats ) {
-            get_user_app('stats')
-                .done((stats) => {
-                    if (!stats || stats.length === 0) {
-                        return
-                    }
-                    jsObject.user.stats = stats
-                    jQuery('.user__avatar').html(LocationBadge(stats.total_locations || 0))
-                })
+            getStats()
         }
 
-        get_user_app('activity')
-            .then((activity) => {
-                if (!activity || activity.length === 0) {
-                    return
-                }
-                jsObject.user.activity = activity
-            })
+        getActivity()
 
         getChallenges('public')
         getChallenges('private')
 
         const pg_user_hash = localStorage.getItem('pg_user_hash')
 
-        if ( !data.location || data.location === '' ) {
-            // const pg_user_hash = Cookies.get('pg_user_hash')
+        Promise.resolve()
+            .then(() => {
+                if ( !data.location || data.location === '' ) {
+                    return get_user_app('ip_location', { hash: pg_user_hash })
+                }
+            })
+            .then((data) => {
+                if (!data || !data.location ) {
+                    jQuery('.user__location-label').html('Please select your location')
+                    return
+                }
+                jsObject.user.location = data.location
+                jsObject.user.location_hash = data.location_hash
 
-            get_user_app('ip_location', { hash: pg_user_hash })
-                .then((data) => {
-                    if (!data || !data.location ) {
-                        jQuery('.user__location-label').html('Please select your location')
-                        return
-                    }
-                    jsObject.user.location = data.location
-                    jsObject.user.location_hash = data.location_hash
-
-                    jQuery('.user__location-label').html(data.location.label)
-                    jQuery('.iplocation-message').html('(This is your estimated location)')
-                })
-                .then(() => get_user_app('link_anonymous_prayers', { hash: pg_user_hash, user_id: jsObject.user.ID }))
-        } else {
-            get_user_app('link_anonymous_prayers', { hash: pg_user_hash, user_id: jsObject.user.ID })
-        }
-
-
+                jQuery('.user__location-label').html(data.location.label)
+                jQuery('.iplocation-message').html('(This is your estimated location)')
+            })
+            .then(() => get_user_app('link_anonymous_prayers', { hash: pg_user_hash, user_id: jsObject.user.ID }))
+            .then(({ has_updates }) => {
+                if (has_updates) {
+                    return Promise.all([
+                        getStats(),
+                        getActivity()]
+                    )
+                }
+            })
 
         jQuery('.user-profile-link').on('click', () => write_profile({
             name: data.display_name,
@@ -582,6 +581,27 @@ jQuery(document).ready(function(){
             timeString = ''
         }
         return timeString
+    }
+
+    function getStats() {
+        return get_user_api('stats')
+            .then((stats) => {
+                if (!stats || stats.length === 0) {
+                    return
+                }
+                jsObject.user.stats = stats
+                jQuery('.user__avatar').html(LocationBadge(stats.total_locations || 0))
+            })
+    }
+
+    function getActivity() {
+        return get_user_app('activity')
+            .then((activity) => {
+                if (!activity || activity.length === 0) {
+                    return
+                }
+                jsObject.user.activity = activity
+            })
     }
 
     function getChallenges( visibility, callback ) {
