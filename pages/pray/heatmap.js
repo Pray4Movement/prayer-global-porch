@@ -473,8 +473,8 @@ jQuery(document).ready(function($){
 
     if ( jsObject.is_dark_map_on ) {
       images = [
-        { src: jsObject.image_folder + 'l-orange-shadow.png', id: 'avatar1' },
-        { src: jsObject.image_folder + 'd-orange-shadow.png', id: 'avatar2' },
+        { src: jsObject.image_folder + 'l-orange-shadow32.png', id: 'avatar1' },
+        { src: jsObject.image_folder + 'd-orange-shadow32.png', id: 'avatar2' },
       ]
     }
 
@@ -590,8 +590,8 @@ jQuery(document).ready(function($){
                 'interpolate',
                 ['linear', 1],
                 ['zoom'],
-                1, 0.25,
-                18, 1
+                1, 1,
+                18, 2
               ],
               'icon-padding': 0,
               "icon-allow-overlap": true,
