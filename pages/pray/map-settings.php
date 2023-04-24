@@ -1,4 +1,3 @@
-
 <?php $is_dark_map_on = ( new PG_Feature_Flag( PG_Flags::DARK_MAP_FEATURE ) )->is_on() ?>
 
 <div class="" id="map-settings">
