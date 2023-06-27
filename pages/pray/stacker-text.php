@@ -704,13 +704,13 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => 'Father, please help good, online teachers get the gospel on Youtube and into '.$stack['location']['admin_level_name'].' of '. $stack['location']['name'].'.',
+                'prayer' => 'Father, please help good, online teachers get the gospel on YouTube and into '.$stack['location']['admin_level_name'].' of '. $stack['location']['name'].'.',
                 'reference' => 'Matthew 24:14',
                 'verse' => 'And this gospel of the kingdom will be preached in the whole world as a testimony to all nations, and then the end will come.',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => 'Spirit, guide seekers in '.$stack['location']['full_name'].' to the gospel through searching Youtube or Tiktok today.',
+                'prayer' => 'Spirit, guide seekers in '.$stack['location']['full_name'].' to the gospel through searching YouTube or TikTok today.',
                 'reference' => 'Proverbs 8:17',
                 'verse' => 'I love those who love me, and those who diligently seek me will find me.',
             ],
