@@ -87,7 +87,7 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => 'Jesus, you taught Paul to train Timothy to train faithful men who would train others. Please, teach the church of '.$stack['location']['full_name'].' to do that same.',
+                'prayer' => 'Jesus, you taught Paul to train Timothy to train faithful men who would train others. Please, teach the church of '.$stack['location']['full_name'].' to do the same.',
                 'reference' => '2 Timothy 2:2',
                 'verse' => 'And the things you have heard me say in the presence of many witnesses entrust to reliable people who will also be qualified to teach others.',
             ],
