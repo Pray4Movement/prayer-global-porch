@@ -245,7 +245,7 @@ class PG_Stacker_Text {
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Father, like with the Ethiopian Eunuch, set up a meeting today between a faithful believer in %1$s and a person seeking to understand the truth.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
                 'reference' => __( 'Acts 8:26–40', 'prayer-global-porch' ),
-                'verse' => _x( 'And the eunuch said to Philip, “About whom, I ask you, does the prophet say this, about himself or about someone else?” Then Philip opened his mouth, and beginning with this Scripture xhe told him the good news about Jesus.', 'Acts 8:26–40', 'prayer-global-porch' ),
+                'verse' => _x( 'And the eunuch said to Philip, “About whom, I ask you, does the prophet say this, about himself or about someone else?” Then Philip opened his mouth, and beginning with this Scripture he told him the good news about Jesus.', 'Acts 8:26–40', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
