@@ -261,7 +261,7 @@ class PG_Stacker_Text {
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, help the disciples in the %1$s of %2$s to find a person of peace today, like the Phillipian jailor, who heard and was immediately baptized with his whole family.', 'prayer-global-porch' ), $stack['location']['admin_level_name'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, help the disciples in the %1$s of %2$s to find a person of peace today, like the Philippian jailor, who heard and was immediately baptized with his whole family.', 'prayer-global-porch' ), $stack['location']['admin_level_name'], $stack['location']['name'] ),
                 'reference' => __( 'Acts 16:22–38', 'prayer-global-porch' ),
                 'verse' => _x( 'And they spoke the word of the Lord to the jailor and to all who were in his house. And the jailor took them the same hour of the night and washed their wounds; and he was baptized at once, he and all his family.', 'Acts 16:22–38', 'prayer-global-porch' ),
             ],
