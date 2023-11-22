@@ -1,7 +1,8 @@
 #!/bin/bash
 
-TEMP=`getopt -o Mmf --long major,minor,fix -- "$@"`
+TEMP=`getopt -o Mmfd --long major,minor,fix,debug -- "$@"`
 eval set -- "$TEMP"
+debug=0
 
 while true; do
     case "$1" in
@@ -11,6 +12,8 @@ while true; do
             type='minor'; shift;;
         -f|--fix)
             type='fix'; shift;;
+        -d|--debug)
+            debug=1; shift;;
         --)
             shift; break;;
     esac
@@ -18,10 +21,19 @@ done
 
 currentVersion=$(grep version package.json | grep -oP '\d*\.\d*\.\d*')
 
+echo currentVersion is $currentVersion
+
 IFS='.' read -ra ADDR <<< "$currentVersion"
 major=${ADDR[0]}
 minor=${ADDR[1]}
 fix=${ADDR[2]}
+
+if [[ $debug = 0 ]]; then
+    echo major is $major
+    echo minor is $minor
+    echo fix is $fix
+    echo type is $type
+fi
 
 if [[ "$type" = "" ]]; then
     version=$1
