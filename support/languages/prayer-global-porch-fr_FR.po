@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Prayer.Global Porch 2.0.26\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/prayer-global-"
 "porch\n"
-"POT-Creation-Date: 2024-01-19T10:45:34+00:00\n"
-"PO-Revision-Date: 2024-02-08 13:48+0000\n"
+"POT-Creation-Date: 2024-02-08T15:57:39+00:00\n"
+"PO-Revision-Date: 2024-02-08 17:20+0100\n"
 "Last-Translator: Corsacca <corsacca@gmail.com>\n"
 "Language-Team: French <https://translate.disciple.tools/projects/"
 "pray4movement/prayer-global/fr_FR/>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.3.1\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Domain: prayer-global-porch\n"
 
 #: pages/404/404.php:98 pages/home/magic-home.php:95
@@ -56,9 +56,10 @@ msgstr "Course autour du monde"
 msgid "Moravian Prayer Challenge"
 msgstr "Défi pour la prière morave"
 
-#: pages/about/about.php:116 pages/assets/menu.php:74 pages/home/body.php:12
-#: pages/home/body.php:277 pages/pray/action-custom-map.php:164
-#: pages/pray/nav-global-map.php:8 pages/race/nav-race-map.php:15
+#: pages/about/about.php:116 pages/assets/menu.php:74 pages/home/body.php:17
+#: pages/home/body.php:99 pages/home/body.php:191 pages/home/body.php:282
+#: pages/pray/action-custom-map.php:164 pages/pray/nav-global-map.php:8
+#: pages/race/nav-race-map.php:15
 msgid "Start Praying"
 msgstr "Commencez à prier"
 
@@ -129,7 +130,7 @@ msgstr ""
 "Un tour de prière consiste à couvrir les 4770 états géographiques du monde "
 "en prière."
 
-#: pages/about/about.php:184 pages/home/body.php:233
+#: pages/about/about.php:184 pages/home/body.php:238
 #: pages/race/nav-race-map.php:12 pages/race/nav-race-map.php:13
 msgid "Race Map"
 msgstr "Carte de course"
@@ -142,7 +143,7 @@ msgstr ""
 "La carte de course indique le nombre de tours, le nombre de minutes et le "
 "nombre d'intercesseurs de prière pour l'ensemble du défi."
 
-#: pages/about/about.php:190 pages/home/body.php:234
+#: pages/about/about.php:190 pages/home/body.php:239
 msgid "Race List"
 msgstr "Liste de courses"
 
@@ -166,7 +167,7 @@ msgstr ""
 "Le tour actuel dans la couverture de prière en temps réel des 4770 états du "
 "monde."
 
-#: pages/about/about.php:202 pages/home/body.php:272
+#: pages/about/about.php:202 pages/home/body.php:277
 msgid "Current Map"
 msgstr "Carte actuelle"
 
@@ -232,9 +233,9 @@ msgid ""
 "the prayer map resets, and we try to pray over the world again ... maybe "
 "faster."
 msgstr ""
-"Une fois que chaque endroit du monde a été prié pour (nous terminons un tour)"
-", la carte de prière se réinitialise et nous essayons de prier à nouveau sur "
-"le monde ... peut-être plus rapidement."
+"Une fois que chaque endroit du monde a été prié pour (nous terminons un "
+"tour), la carte de prière se réinitialise et nous essayons de prier à "
+"nouveau sur le monde ... peut-être plus rapidement."
 
 #: pages/about/about.php:248
 msgid ""
@@ -330,16 +331,17 @@ msgstr "Afficher"
 msgid "Name"
 msgstr "Nom"
 
-#: pages/challenges/active-list.php:88 pages/home/body.php:249
+#: pages/challenges/active-list.php:88 pages/home/body.php:254
 #: pages/pray/action-custom-map-display.php:156
 #: pages/pray/action-custom-map.php:203 pages/pray/action-custom-map.php:290
 #: pages/pray/action-global-map.php:180 pages/pray/action-global-map.php:268
-#: pages/race/race-map.php:178
+#: pages/race/race-map.php:178 pages/race/race-map.php:219
 msgid "Intercessors"
 msgstr "Intercesseurs"
 
 #: pages/challenges/active-list.php:89 pages/pray/action-custom-map.php:303
 #: pages/pray/action-global-map.php:281 pages/race/race-map.php:196
+#: pages/race/race-map.php:224
 msgid "Time Elapsed"
 msgstr "Temps écoulé"
 
@@ -436,8 +438,8 @@ msgid ""
 "saturation efforts."
 msgstr ""
 "%1$s est construit sur le logiciel open source %2$s, et le système de "
-"cartographie et de géolocalisation %2$s est un projet open source appelé %3$"
-"s. Le %3$s est un cadre géographique des emplacements du monde et des "
+"cartographie et de géolocalisation %2$s est un projet open source appelé "
+"%3$s. Le %3$s est un cadre géographique des emplacements du monde et des "
 "polygones pour les disciples faisant des efforts de saturation de mouvement."
 
 #: pages/data-sources/magic-data-sources.php:114
@@ -508,12 +510,12 @@ msgid ""
 "countries required significant research to get population data."
 msgstr ""
 "De nombreux pays occidentaux ont organisé des sites Web de recensement "
-"ouverts et la population des emplacements des comtés (niveau administratif 2)"
-" est facilement disponible. Il existe un certain nombre de gouvernements qui "
-"soit délibérément ne publient pas facilement leurs données démographiques, "
-"soit ne sont pas organisés pour les diffuser facilement. Ces pays ont "
-"nécessité des recherches importantes pour obtenir des données sur la "
-"population."
+"ouverts et la population des emplacements des comtés (niveau administratif "
+"2) est facilement disponible. Il existe un certain nombre de gouvernements "
+"qui soit délibérément ne publient pas facilement leurs données "
+"démographiques, soit ne sont pas organisés pour les diffuser facilement. Ces "
+"pays ont nécessité des recherches importantes pour obtenir des données sur "
+"la population."
 
 #: pages/data-sources/magic-data-sources.php:140
 msgid "GeoNames"
@@ -926,15 +928,19 @@ msgstr ""
 "L'encyclopédie gratuite fournit de nombreux faits sur les pays et les "
 "villes, mais de qualité variable."
 
-#: pages/home/body.php:8
+#: pages/home/body.php:13 pages/home/body.php:105
 msgid "Cover the World in Prayer"
 msgstr "Couvrir le monde en prière"
 
-#: pages/home/body.php:15 pages/home/body.php:22
+#: pages/home/body.php:20 pages/home/body.php:27
 msgid "Learn more"
 msgstr "Apprendre encore plus"
 
-#: pages/home/body.php:40 pages/home/body.php:118
+#: pages/home/body.php:43 pages/home/body.php:121
+msgid "The Goal"
+msgstr "Le but"
+
+#: pages/home/body.php:45 pages/home/body.php:123
 msgid ""
 "The clock is ticking. %sPrayer.Global seeks to encourage extraordinary "
 "prayer for the fulﬁllment of the Great Commission in our generation."
@@ -943,11 +949,15 @@ msgstr ""
 "extraordinaire pour l'accomplissement de la Grande Commission dans notre "
 "génération."
 
-#: pages/home/body.php:43 pages/home/body.php:120
+#: pages/home/body.php:48 pages/home/body.php:125
 msgid "But how?"
 msgstr "Mais comment?"
 
-#: pages/home/body.php:52 pages/home/body.php:133
+#: pages/home/body.php:55 pages/home/body.php:136
+msgid "The Race"
+msgstr "La course"
+
+#: pages/home/body.php:57 pages/home/body.php:138
 msgid ""
 "Like a race, we pray with urgency and focus as we seek to complete laps by "
 "covering the entire world in prayer. An interactive map gives us real time "
@@ -960,7 +970,11 @@ msgstr ""
 "personnes pour lesquelles nous avons prié et des statistiques sur l'état de "
 "notre tour de prière collectif."
 
-#: pages/home/body.php:61 pages/home/body.php:146
+#: pages/home/body.php:64 pages/home/body.php:149
+msgid "Our Strategy"
+msgstr "Notre stratégie"
+
+#: pages/home/body.php:66 pages/home/body.php:151
 msgid ""
 "Prayer.Global has broken the world down into 4,770 states based on "
 "geographical and governmental boundaries. %1$sWhen you press the Start "
@@ -974,12 +988,21 @@ msgstr ""
 "aidera à guider vos prières pour chacune de ces régions. %2$sEnsuite, "
 "regardez sur la carte pendant que nos prières unies illuminent les ténèbres."
 
-#: pages/home/body.php:71 pages/home/body.php:162
+#: pages/home/body.php:73 pages/home/body.php:162
+msgid "Current Status"
+msgstr "Tour actuel"
+
+#: pages/home/body.php:76
+msgctxt "Prayer Laps Completed"
+msgid "Prayer%1$sLaps %2$s"
+msgstr "Tours%1$sde%1$sprière %2$s"
+
+#: pages/home/body.php:76 pages/home/body.php:167
 msgctxt "Laps Completed"
 msgid "Completed"
 msgstr "Complété"
 
-#: pages/home/body.php:75
+#: pages/home/body.php:80
 msgid ""
 "Our ﬁrst global race started %1$s year and %2$s days ago and we’ve completed "
 "%3$s laps together so far."
@@ -987,7 +1010,11 @@ msgstr ""
 "Notre première course mondiale a commencé il y a %1$s an et %2$s jours et "
 "nous avons parcouru %3$s tours ensemble jusqu'à présent."
 
-#: pages/home/body.php:90 pages/home/body.php:182
+#: pages/home/body.php:84 pages/home/body.php:171
+msgid "Lap %s Time Elapsed"
+msgstr "Tours %s temps écoulé"
+
+#: pages/home/body.php:95 pages/home/body.php:187
 msgid ""
 "With each prayer lap we complete, we are that much closer to ushering in "
 "God’s Kingdom and the return of Jesus Christ! %sClick Start Praying to start "
@@ -995,10 +1022,14 @@ msgid ""
 msgstr ""
 "Avec chaque tour de prière que nous accomplissons, nous sommes d'autant plus "
 "proches de l'introduction du Royaume de Dieu et du retour de Jésus-Christ ! "
-"%sCliquez sur Démarrer la prière pour commencer votre expérience "
-"Prayer.Global dès aujourd'hui !"
+"%sCliquez sur Démarrer la prière pour commencer votre expérience Prayer."
+"Global dès aujourd'hui !"
 
-#: pages/home/body.php:159
+#: pages/home/body.php:98
+msgid "Ready. Set."
+msgstr "Prêt?"
+
+#: pages/home/body.php:164
 msgid ""
 "Our ﬁrst global race started %1$s days ago and we’ve completed %2$s laps "
 "together so far."
@@ -1006,41 +1037,65 @@ msgstr ""
 "Notre première course mondiale a commencé il y a %1$s jours et nous avons "
 "parcouru %2$s tours ensemble jusqu'à présent."
 
-#: pages/home/body.php:211
+#: pages/home/body.php:167
+msgctxt "Laps Completed"
+msgid "Laps %s"
+msgstr "Tours %s"
+
+#: pages/home/body.php:185
+msgid "The Finish Line"
+msgstr "La ligne d’arrivée"
+
+#: pages/home/body.php:199
+msgid "Previous"
+msgstr "Précédent"
+
+#: pages/home/body.php:203 pages/pray/action-custom-lap.php:166
+#: pages/pray/action-custom-lap.php:176 pages/pray/trait-lap.php:268
+#: pages/pray/trait-lap.php:280
+msgid "Next"
+msgstr "Continuer"
+
+#: pages/home/body.php:216
 msgid "Global Race Stats"
 msgstr "Statistiques de course mondiales"
 
-#: pages/home/body.php:214
+#: pages/home/body.php:219
 msgid "Total Elapsed Time"
 msgstr "Temps écoulé total"
 
-#: pages/home/body.php:221
+#: pages/home/body.php:226
 msgid "Laps Completed"
 msgstr "Tours effectués"
 
-#: pages/home/body.php:226
+#: pages/home/body.php:231
 msgid "Total Intercessors"
 msgstr "Intercesseurs totaux"
 
-#: pages/home/body.php:239 pages/pray/action-custom-map.php:180
+#: pages/home/body.php:244 pages/pray/action-custom-map.php:180
 msgid "Lap %s"
 msgstr "Tour %s"
 
-#: pages/home/body.php:243
+#: pages/home/body.php:248
 msgid "Current Lap Elapsed Time"
 msgstr "Temps écoulé du tour actuel"
 
-#: pages/home/body.php:256 pages/pray/action-custom-map-display.php:142
+#: pages/home/body.php:261 pages/pray/action-custom-map-display.php:142
 #: pages/pray/action-custom-map.php:195 pages/pray/action-custom-map.php:281
 #: pages/pray/action-global-map.php:172 pages/pray/action-global-map.php:259
 msgid "Places Covered"
 msgstr "Lieux couverts"
 
-#: pages/home/body.php:306
+#: pages/home/body.php:274
+msgctxt "10 of 4770"
+msgid "%1$s of %2$s"
+msgstr "%1$s de %2$s"
+
+#: pages/home/body.php:311
 msgid "Get the Mobile App"
 msgstr "Obtenir l'application mobile"
 
-#: pages/home/body.php:310 pages/home/body.php:316
+#: pages/home/body.php:315 pages/home/body.php:321
 msgid "%s App"
 msgstr "Application %s"
 
@@ -1088,11 +1143,6 @@ msgstr "Télécharger"
 #: pages/pray/action-custom-lap.php:165 pages/pray/trait-lap.php:267
 msgid "Done"
 msgstr "Fait"
-
-#: pages/pray/action-custom-lap.php:166 pages/pray/action-custom-lap.php:176
-#: pages/pray/trait-lap.php:268 pages/pray/trait-lap.php:280
-msgid "Next"
-msgstr "Continuer"
 
 #: pages/pray/action-custom-lap.php:182 pages/pray/trait-lap.php:109
 msgid "Pray for"
@@ -1241,6 +1291,7 @@ msgstr "Places restantes"
 #: pages/pray/action-custom-map-display.php:149
 #: pages/pray/action-custom-map.php:210 pages/pray/action-custom-map.php:297
 #: pages/pray/action-global-map.php:187 pages/pray/action-global-map.php:275
+#: pages/race/race-map.php:214
 msgid "World Coverage"
 msgstr "Couverture mondiale"
 
@@ -1785,8 +1836,8 @@ msgid ""
 "Father, please, raise up a generation of disciples in the %1$s of %2$s who "
 "will make disciples who make disciples."
 msgstr ""
-"Père, s'il te plaît, suscite une génération de disciples dans le %1$s de %2$"
-"s qui fera des disciples qui feront des disciples."
+"Père, s'il te plaît, suscite une génération de disciples dans le %1$s de "
+"%2$s qui fera des disciples qui feront des disciples."
 
 #: pages/pray/stacker-text.php:108
 msgid ""
@@ -2588,8 +2639,8 @@ msgstr ""
 "Comment, alors, peuvent-ils faire appel à celui en qui ils n'ont pas cru ? "
 "Et comment peuvent-ils croire en celui dont ils n'ont pas entendu parler ? "
 "Et comment peuvent-ils entendre sans que quelqu'un leur prêche ? Et comment "
-"quelqu'un peut-il prêcher s'il n'est pas envoyé ? Comme il est écrit : \"Qu"
-"'ils sont beaux les pieds de ceux qui apportent de bonnes nouvelles !\""
+"quelqu'un peut-il prêcher s'il n'est pas envoyé ? Comme il est écrit : "
+"\"Qu'ils sont beaux les pieds de ceux qui apportent de bonnes nouvelles !\""
 
 #: pages/pray/stacker-text.php:515
 msgid ""
@@ -2812,7 +2863,8 @@ msgstr ""
 #: pages/pray/stacker-text.php:643
 msgid ""
 "Father, let your Word be a lamp to the feet of the %1$s believers in %2$s."
-msgstr "Père, que ta Parole soit une lampe aux pieds des %1$s croyants en %2$s."
+msgstr ""
+"Père, que ta Parole soit une lampe aux pieds des %1$s croyants en %2$s."
 
 #: pages/pray/stacker-text.php:649
 msgid ""
@@ -3595,8 +3647,8 @@ msgid ""
 "God, we ask you to raise up elders and deacons from the %1$s believers in "
 "%2$s, who will serve the church and equip it to do your work."
 msgstr ""
-"Dieu, nous te demandons de susciter des anciens et des diacres parmi les %1$"
-"s croyants en %2$s, qui serviront l'église et l'équiperont pour faire ton "
+"Dieu, nous te demandons de susciter des anciens et des diacres parmi les "
+"%1$s croyants en %2$s, qui serviront l'église et l'équiperont pour faire ton "
 "travail."
 
 #: pages/pray/stacker-text.php:1687 pages/pray/stacker-text.php:1753
@@ -4015,8 +4067,9 @@ msgid ""
 "Father, send out evangelists who will challenge people like Peter who said, "
 "\"Repent and be baptized, every one of you\" in the %1$s of %2$s."
 msgstr ""
-"Père, envoie des évangélistes qui défieront des gens comme Pierre qui a dit :"
-" « Repentez-vous et soyez baptisés, chacun de vous » dans le %1$s de %2$s."
+"Père, envoie des évangélistes qui défieront des gens comme Pierre qui a "
+"dit : « Repentez-vous et soyez baptisés, chacun de vous » dans le %1$s de "
+"%2$s."
 
 #: pages/pray/stacker-text.php:1861
 msgid "Acts 2:38"
@@ -4065,8 +4118,8 @@ msgid ""
 "%1$s. Please, raise them up and give them the courage to speak your truth to "
 "your church."
 msgstr ""
-"Seigneur, tu connais déjà les noms des prophètes que tu veux susciter en %1$"
-"s. S'il vous plaît, élevez-les et donnez-leur le courage de dire votre "
+"Seigneur, tu connais déjà les noms des prophètes que tu veux susciter en "
+"%1$s. S'il vous plaît, élevez-les et donnez-leur le courage de dire votre "
 "vérité à votre église."
 
 #: pages/pray/stacker-text.php:1903
@@ -4741,9 +4794,9 @@ msgid ""
 "\"Father, if you are willing, take this cup from me; yet not my will, but "
 "yours be done.\""
 msgstr ""
-"Il se retira à un jet de pierre au-delà d'eux, s'agenouilla et pria : \"Père"
-", si tu le veux, ôte-moi cette coupe ; que ma volonté ne soit pas faite, "
-"mais la tienne.\""
+"Il se retira à un jet de pierre au-delà d'eux, s'agenouilla et pria : "
+"\"Père, si tu le veux, ôte-moi cette coupe ; que ma volonté ne soit pas "
+"faite, mais la tienne.\""
 
 #: pages/pray/stacker-text.php:2281 pages/pray/stacker-text.php:2417
 msgid "Suffering"
@@ -5645,8 +5698,8 @@ msgid ""
 "Holy Spirit, have mercy on the simple who turned from you in the %1$s of "
 "%2$s. Warn them again against their complacency."
 msgstr ""
-"Saint-Esprit, aie pitié des simples qui se sont détournés de toi dans le %1$"
-"s de %2$s. Avertissez-les encore contre leur complaisance."
+"Saint-Esprit, aie pitié des simples qui se sont détournés de toi dans le "
+"%1$s de %2$s. Avertissez-les encore contre leur complaisance."
 
 #: pages/pray/stacker-text.php:2638
 msgid "Proverbs 1:32"
@@ -5862,9 +5915,9 @@ msgid ""
 "We estimate %1$s has %2$s people who might know Jesus, %3$s people who might "
 "know about Jesus culturally, and %4$s people who do not know Jesus."
 msgstr ""
-"Nous estimons que %1$s a %2$s personnes susceptibles de connaître Jésus, %3$"
-"s personnes susceptibles de connaître Jésus culturellement et %4$s personnes "
-"qui ne connaissent pas Jésus."
+"Nous estimons que %1$s a %2$s personnes susceptibles de connaître Jésus, "
+"%3$s personnes susceptibles de connaître Jésus culturellement et %4$s "
+"personnes qui ne connaissent pas Jésus."
 
 #: pages/pray/stacker-text.php:2871 pages/pray/stacker-text.php:2883
 #: pages/pray/stacker-text.php:2895
@@ -5883,11 +5936,11 @@ msgstr "%d minutes"
 
 #: pages/pray/stacker.php:296
 msgid "state"
-msgstr "État"
+msgstr "état"
 
 #: pages/pray/stacker.php:297
 msgid "states"
-msgstr "États"
+msgstr "états"
 
 #: pages/pray/stacker.php:299
 msgid "country"
@@ -5953,7 +6006,7 @@ msgstr "Bouton de décision"
 msgid "%s Race Map"
 msgstr "%s Carte de course"
 
-#: pages/race/race-map.php:169
+#: pages/race/race-map.php:169 pages/race/race-map.php:210
 msgid "Race Map Stats"
 msgstr "Statistiques de la carte de course"
 
@@ -6036,8 +6089,8 @@ msgstr "Envoyez-moi des défis de tour par e-mail"
 msgid ""
 "Send information about %1$s, %2$s, %3$s and other %4$s projects via email"
 msgstr ""
-"Envoyer des informations sur %1$s, %2$s, %3$s et d'autres projets %4$s par "
-"e-mail"
+"Envoyer des informations sur %1$s, %2$s, %3$s et d'autres projets %4$s par e-"
+"mail"
 
 #: pages/user/user-profile.php:97
 msgid "Erase my account"
@@ -6293,8 +6346,8 @@ msgstr "Assigné à"
 #: post-type/feedback.php:164 post-type/laps.php:167
 msgid "Select the main person who is responsible for reporting on this record."
 msgstr ""
-"Sélectionnez la personne principale chargée de faire rapport sur ce groupe. ("
-"un utilisateur pas un contact)."
+"Sélectionnez la personne principale chargée de faire rapport sur ce groupe. "
+"(un utilisateur pas un contact)."
 
 #: post-type/feedback.php:172
 msgid "Reporter"
