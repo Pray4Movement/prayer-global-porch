@@ -23,7 +23,7 @@ function pg_current_global_lap() : array {
      *  [key] => d7dcd4
      *  [start_time] => 1651269768
      */
-    $lap = get_option( 'pg_current_global_lap' );
+    $lap = get_option( 'pg_current_global_lap', [] );
     return $lap;
 }
 

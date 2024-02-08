@@ -207,21 +207,21 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
             <div class="center offcanvas__header"><button type="button" data-bs-toggle="offcanvas"><i class="icon pg-chevron-down three-em"></i></button></div>
             <div class="row center uppercase offcanvas__content">
                 <div class="col col-12">
-                    <div class="two-em font-weight-bold"><?php echo esc_html__( 'Race Map Stats', 'prayer-global' ) ?></div>
+                    <div class="two-em font-weight-bold"><?php echo esc_html__( 'Race Map Stats', 'prayer-global-porch' ) ?></div>
                 </div>
                 <div class="align-items-center d-flex flex-dir-column mt-3">
                     <i class="icon pg-world-arrow blue four-em"></i>
-                    <span class="stats-title"><?php echo esc_html__( 'World Coverage', 'prayer-global' ) ?></span>
+                    <span class="stats-title"><?php echo esc_html__( 'World Coverage', 'prayer-global-porch' ) ?></span>
                     <div class="blue-bg rounded stats-figure-lg px-3 white"><?php echo esc_html( sprintf( __( '%s times', 'prayer-global-porch' ), $finished_laps ) ) ?></div>
                 </div>
                 <div class="align-items-center d-flex flex-dir-column mt-3">
                     <i class="icon pg-prayer blue four-em"></i>
-                    <span class="stats-title"><?php echo esc_html__( 'Intercessors', 'prayer-global' ) ?></span>
+                    <span class="stats-title"><?php echo esc_html__( 'Intercessors', 'prayer-global-porch' ) ?></span>
                     <div class="orange-bg rounded stats-figure-lg px-3 warriors white"><?php echo esc_html( $lap_stats['participants'] ) ?></div>
                 </div>
                 <hr class="mt-3">
                 <div class="">
-                    <p class="two-em mb-0"><?php echo esc_html__( 'Time Elapsed', 'prayer-global' ) ?></p>
+                    <p class="two-em mb-0"><?php echo esc_html__( 'Time Elapsed', 'prayer-global-porch' ) ?></p>
                     <p class="stats-figure time_elapsed">0</p>
                 </div>
                 <hr class="mt-3">
