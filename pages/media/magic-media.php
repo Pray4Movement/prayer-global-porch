@@ -87,7 +87,7 @@ class Prayer_Global_Porch_Media extends DT_Magic_Url_Base
                         <h2 class="mt-0 font-weight-normal"><?php echo esc_html( __( 'Media & Promotion', 'prayer-global-porch' ) ) ?></h2>
                     </div>
                 </div>
-                <div class="row justify-content-md-center text-center mb-5">
+                <div class="row justify-content-md-center text-center mb-5" style="display: none">
                     <div class="col-12 mb-3">
                        <hr>
                     </div>
