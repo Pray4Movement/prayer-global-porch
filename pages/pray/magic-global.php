@@ -126,6 +126,9 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
             return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
         }
 
+        $lang = pg_get_current_lang();
+        pg_set_translation( $lang );
+
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['parts']['action'] ) {

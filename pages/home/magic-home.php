@@ -21,7 +21,7 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
     public function __construct() {
         parent::__construct();
 
-        $url = dt_get_url_path();
+        $url = dt_get_url_path( true );
         if ( empty( $url ) && ! dt_is_rest() ) {
 
 

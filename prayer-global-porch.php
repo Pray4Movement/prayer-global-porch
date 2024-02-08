@@ -150,7 +150,8 @@ class Prayer_Global_Porch {
             return DT_Login_Methods::MOBILE;
         } );
 
-        $this->i18n();
+        $lang = pg_get_current_lang();
+        pg_set_translation( $lang );
     }
 
     /**
