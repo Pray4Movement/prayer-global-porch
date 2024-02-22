@@ -92,7 +92,11 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
                 ],
                 'current_lap' => pg_current_global_lap(),
                 'translations' => [
-                    'add' => __( 'Add Magic', 'prayer-global-porch' ),
+                    'years' => __( 'Years', 'prayer-global-porch' ),
+                    'days' => __( 'Days', 'prayer-global-porch' ),
+                    'hours' => __( 'Hours', 'prayer-global-porch' ),
+                    'minutes' => __( 'Minutes', 'prayer-global-porch' ),
+                    'seconds' => __( 'Seconds', 'prayer-global-porch' ),
                 ],
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
             ]) ?>][0]

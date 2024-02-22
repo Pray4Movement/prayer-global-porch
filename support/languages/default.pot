@@ -9,13 +9,12 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-08T15:57:39+00:00\n"
+"POT-Creation-Date: 2024-02-22T17:38:22+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: prayer-global-porch\n"
 
 #: pages/404/404.php:98
-#: pages/home/magic-home.php:95
 #: pages/pray/action-custom-lap.php:105
 #: pages/pray/action-custom-map-display.php:88
 #: pages/pray/action-custom-map.php:101
@@ -839,6 +838,27 @@ msgstr ""
 #: pages/home/body.php:315
 #: pages/home/body.php:321
 msgid "%s App"
+msgstr ""
+
+#: pages/home/magic-home.php:95
+msgid "Years"
+msgstr ""
+
+#: pages/home/magic-home.php:96
+msgid "Days"
+msgstr ""
+
+#: pages/home/magic-home.php:97
+msgid "Hours"
+msgstr ""
+
+#: pages/home/magic-home.php:98
+#: pages/user/user-profile.php:98
+msgid "Minutes"
+msgstr ""
+
+#: pages/home/magic-home.php:99
+msgid "Seconds"
 msgstr ""
 
 #: pages/media/magic-media.php:95
@@ -4200,10 +4220,6 @@ msgstr ""
 
 #: pages/user/user-profile.php:97
 msgid "Erase my account"
-msgstr ""
-
-#: pages/user/user-profile.php:98
-msgid "Minutes"
 msgstr ""
 
 #: pages/user/user-profile.php:99
