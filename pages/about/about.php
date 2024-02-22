@@ -157,7 +157,7 @@ class Prayer_Global_About extends DT_Magic_Url_Base
                             3. <?php echo esc_html( __( 'Pray for one minute (or longer) as the Spirit leads.', 'prayer-global-porch' ) ) ?>
                         </p>
                         <p class="left-align">
-                            4. <?php echo esc_html__( 'When the timer finishes' ) ?>
+                            4. <?php echo esc_html__( 'When the timer finishes', 'prayer-global-porch' ) ?>
                             <br>
                             <?php echo sprintf( esc_html( __( 'Click Done to see your impact on the map or %sclick Next to pray for another location', 'prayer-global-porch' ) ), '' ) ?>
                         </p>

@@ -1,3 +1,19 @@
+let escapeObject = function (obj) {
+  return Object.fromEntries(Object.entries(obj).map(([key, value]) => {
+    return [ key, escapeHTML(value)]
+  }))
+};
+let escapeHTML = function (str) {
+  if (typeof str === "undefined") return '';
+  if (typeof str !== "string") return str;
+  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
+};
+const translations = escapeObject(jsObject.translations)
+let translate = function ( string ){
+  return translations[string] ? translations[string] : string
+}
+
+
 jQuery(document).ready(function(){
   /**
    * API HANDLERS
@@ -154,7 +170,6 @@ jQuery(document).ready(function(){
         window.report_content = window.current_content = test_for_redundant_grid( l1 )
         load_location()
 
-        console.log(window.viewed)
         // modal logic
         if ( window.viewed === '0' ) {
           toggle_timer( true )
@@ -355,7 +370,7 @@ jQuery(document).ready(function(){
 
       decision_panel.show()
 
-      button_text.html('Praying Paused')
+      button_text.html(translate('Praying Paused'))
       clearInterval(window.interval)
       window.paused = true
     } else {
@@ -367,7 +382,7 @@ jQuery(document).ready(function(){
       decision_panel.hide()
       question_panel.hide()
 
-      button_text.html('Keep Praying...')
+      button_text.html(translate('Keep Praying...'))
       prayer_progress_indicator( window.time )
       window.paused = ''
     }
@@ -398,7 +413,7 @@ jQuery(document).ready(function(){
       }
     }
 
-    button_text.html('Keep Praying...')
+    button_text.html(translate('Keep Praying...'))
     button_progress.css('width', '0' )
 
     praying_panel.show()
@@ -406,7 +421,7 @@ jQuery(document).ready(function(){
     question_panel.hide()
     celebrate_panel.hide()
 
-    location_name.html( content.location.admin_level_name_cap + ' of ' + content.location.full_name)
+    location_name.html( translations.state_of_location.replace('%1$s', content.location.admin_level_name_cap).replace('%2$s', content.location.full_name) )
     div.empty()
 
     location_map_wrapper.show()
@@ -433,15 +448,15 @@ jQuery(document).ready(function(){
       trigger: 'focus',
     }
     redBodyIcons.forEach((element) => {
-      new bootstrap.Popover(element, { ...config, content: "Don't know Jesus"})
+      new bootstrap.Popover(element, { ...config, content: translate("Don't know Jesus")})
     })
     const orangeBodyIcons = document.querySelectorAll('.ion-ios-body.brand-lighter')
     orangeBodyIcons.forEach((element) => {
-      new bootstrap.Popover(element, { ...config, content: "Know about Jesus"})
+      new bootstrap.Popover(element, { ...config, content: translate("Know about Jesus")})
     })
     const greenBodyIcons = document.querySelectorAll('.ion-ios-body.secondary')
     greenBodyIcons.forEach((element) => {
-      new bootstrap.Popover(element, { ...config, content: "Know Jesus"})
+      new bootstrap.Popover(element, { ...config, content: translate("Know Jesus")})
     })
   }
   function prayer_progress_indicator( time_start ) {
@@ -476,7 +491,7 @@ jQuery(document).ready(function(){
         praying_panel.hide()
         question_panel.show()
         button_progress.css('width', '0' )
-        button_text.html('Keep Praying...')
+        button_text.html(translate('Keep Praying...'))
         /* Set a variable so that we know that the timer has stopped running and that we've logged it once*/
         window.time_finished = true
       }
@@ -509,9 +524,9 @@ jQuery(document).ready(function(){
       <p style="padding-top:2em;">
         <div>
           <h2>
-            Great Job!
+            ${translate('Great Job!')}
             <br />
-            Prayer Added!
+            ${translate('Prayer Added!')}
           </h2>
 
           <img width="400px" src="${jsObject.image_folder}celebrate${rint}.gif" class="rounded-3 img-fluid celebrate-image" alt="photo" />
@@ -528,7 +543,6 @@ jQuery(document).ready(function(){
   function mapbox_border_map() {
     let content = jQuery('#location-map')
     let grid_row = window.current_content.location
-    console.log(grid_row)
 
     content.empty().html(`
         <div id="map-wrapper">
@@ -543,6 +557,9 @@ jQuery(document).ready(function(){
       )
 
     window.load_map_with_style = ( ) => {
+      if ( typeof mapboxgl === 'undefined' ){
+        return;
+      }
       let center = [grid_row.p_longitude, grid_row.p_latitude]
       mapboxgl.accessToken = jsObject.map_key;
       let map = new mapboxgl.Map({

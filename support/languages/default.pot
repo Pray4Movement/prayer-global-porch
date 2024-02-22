@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-02-22T17:38:22+00:00\n"
+"POT-Creation-Date: 2024-02-22T18:17:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: prayer-global-porch\n"
@@ -20,7 +20,6 @@ msgstr ""
 #: pages/pray/action-custom-map.php:101
 #: pages/pray/action-global-map.php:101
 #: pages/pray/action-global-stats.php:138
-#: pages/pray/trait-lap.php:33
 #: pages/race/race-list.php:92
 #: pages/race/race-map.php:118
 msgid "Add Magic"
@@ -88,19 +87,23 @@ msgstr ""
 
 #: pages/about/about.php:154
 #: pages/pray/action-custom-lap.php:247
-#: pages/pray/trait-lap.php:171
+#: pages/pray/trait-lap.php:181
 msgid "Pray over the location provided using the maps, photos, prayers, people group info, and facts."
 msgstr ""
 
 #: pages/about/about.php:157
 #: pages/pray/action-custom-lap.php:252
-#: pages/pray/trait-lap.php:176
+#: pages/pray/trait-lap.php:186
 msgid "Pray for one minute (or longer) as the Spirit leads."
+msgstr ""
+
+#: pages/about/about.php:160
+msgid "When the timer finishes"
 msgstr ""
 
 #: pages/about/about.php:162
 #: pages/pray/action-custom-lap.php:259
-#: pages/pray/trait-lap.php:183
+#: pages/pray/trait-lap.php:193
 msgid "Click Done to see your impact on the map or %sclick Next to pray for another location"
 msgstr ""
 
@@ -169,6 +172,7 @@ msgstr ""
 #: pages/about/about.php:217
 #: pages/pray/stacker-positions.php:52
 #: pages/pray/stacker-positions.php:86
+#: pages/pray/trait-lap.php:37
 msgid "Know Jesus"
 msgstr ""
 
@@ -217,7 +221,7 @@ msgstr ""
 #: pages/challenges/active-list.php:84
 #: pages/pray/action-custom-lap.php:175
 #: pages/pray/action-custom-map.php:84
-#: pages/pray/trait-lap.php:279
+#: pages/pray/trait-lap.php:289
 msgid "Map"
 msgstr ""
 
@@ -787,8 +791,8 @@ msgstr ""
 #: pages/home/body.php:203
 #: pages/pray/action-custom-lap.php:166
 #: pages/pray/action-custom-lap.php:176
-#: pages/pray/trait-lap.php:268
-#: pages/pray/trait-lap.php:280
+#: pages/pray/trait-lap.php:278
+#: pages/pray/trait-lap.php:290
 msgid "Next"
 msgstr ""
 
@@ -904,12 +908,12 @@ msgid "Download"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:165
-#: pages/pray/trait-lap.php:267
+#: pages/pray/trait-lap.php:277
 msgid "Done"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:182
-#: pages/pray/trait-lap.php:109
+#: pages/pray/trait-lap.php:119
 msgid "Pray for"
 msgstr ""
 
@@ -918,27 +922,27 @@ msgid "In Prayer Relay %s"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:195
-#: pages/pray/trait-lap.php:119
+#: pages/pray/trait-lap.php:129
 msgid "Set Your Prayer Experience"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:196
 #: pages/pray/action-custom-lap.php:224
-#: pages/pray/trait-lap.php:120
-#: pages/pray/trait-lap.php:148
-#: pages/pray/trait-lap.php:200
+#: pages/pray/trait-lap.php:130
+#: pages/pray/trait-lap.php:158
+#: pages/pray/trait-lap.php:210
 #: pages/user/user-profile.php:192
 #: pages/user/user-profile.php:265
 msgid "Close"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:202
-#: pages/pray/trait-lap.php:126
+#: pages/pray/trait-lap.php:136
 msgid "Prayer pace per place"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:205
-#: pages/pray/trait-lap.php:129
+#: pages/pray/trait-lap.php:139
 msgid "%d Minute"
 msgstr ""
 
@@ -947,96 +951,96 @@ msgstr ""
 #: pages/pray/action-custom-lap.php:208
 #: pages/pray/action-custom-lap.php:209
 #: pages/pray/action-custom-lap.php:210
-#: pages/pray/trait-lap.php:130
-#: pages/pray/trait-lap.php:131
-#: pages/pray/trait-lap.php:132
-#: pages/pray/trait-lap.php:133
-#: pages/pray/trait-lap.php:134
+#: pages/pray/trait-lap.php:140
+#: pages/pray/trait-lap.php:141
+#: pages/pray/trait-lap.php:142
+#: pages/pray/trait-lap.php:143
+#: pages/pray/trait-lap.php:144
 msgid "%d Minutes"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:214
 #: pages/pray/action-custom-lap.php:266
-#: pages/pray/trait-lap.php:138
-#: pages/pray/trait-lap.php:190
+#: pages/pray/trait-lap.php:148
+#: pages/pray/trait-lap.php:200
 msgid "Let's Go!"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:223
-#: pages/pray/trait-lap.php:147
+#: pages/pray/trait-lap.php:157
 msgid "Are you sure you want to leave?"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:234
-#: pages/pray/trait-lap.php:158
+#: pages/pray/trait-lap.php:168
 msgid "Keep Praying"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:235
-#: pages/pray/trait-lap.php:159
+#: pages/pray/trait-lap.php:169
 msgid "Leave"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:244
-#: pages/pray/trait-lap.php:168
+#: pages/pray/trait-lap.php:178
 msgid "How %s works"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:245
-#: pages/pray/trait-lap.php:169
+#: pages/pray/trait-lap.php:179
 msgid "Step 1"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:250
-#: pages/pray/trait-lap.php:174
+#: pages/pray/trait-lap.php:184
 msgid "Step 2"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:257
-#: pages/pray/trait-lap.php:181
+#: pages/pray/trait-lap.php:191
 msgid "Step 3"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:275
 #: pages/pray/action-custom-map.php:235
 #: pages/pray/action-global-map.php:213
-#: pages/pray/trait-lap.php:199
+#: pages/pray/trait-lap.php:209
 msgid "Thank you! Leave us a correction below."
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:283
 #: pages/pray/action-custom-map.php:241
 #: pages/pray/action-global-map.php:219
-#: pages/pray/trait-lap.php:207
+#: pages/pray/trait-lap.php:217
 msgid "Section:"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:287
 #: pages/pray/action-custom-map.php:245
 #: pages/pray/action-global-map.php:223
-#: pages/pray/trait-lap.php:211
+#: pages/pray/trait-lap.php:221
 msgid "Correction Requested:"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:291
 #: pages/pray/action-custom-map.php:249
 #: pages/pray/action-global-map.php:227
-#: pages/pray/trait-lap.php:215
+#: pages/pray/trait-lap.php:225
 msgid "Submit"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:313
-#: pages/pray/trait-lap.php:241
+#: pages/pray/trait-lap.php:251
 msgid "See more"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:322
-#: pages/pray/trait-lap.php:250
+#: pages/pray/trait-lap.php:260
 msgid "Show More Guided Prayers"
 msgstr ""
 
 #: pages/pray/action-custom-lap.php:327
-#: pages/pray/trait-lap.php:255
+#: pages/pray/trait-lap.php:265
 msgid "Correction Needed?"
 msgstr ""
 
@@ -1237,10 +1241,12 @@ msgid "Non-Christians - %1$s | Cultural Christians - %2$s | Believers - %3$s"
 msgstr ""
 
 #: pages/pray/stacker-positions.php:80
+#: pages/pray/trait-lap.php:35
 msgid "Don't know Jesus"
 msgstr ""
 
 #: pages/pray/stacker-positions.php:83
+#: pages/pray/trait-lap.php:36
 msgid "Know about Jesus"
 msgstr ""
 
@@ -4122,12 +4128,33 @@ msgstr ""
 msgid "Fastest Declining in the World"
 msgstr ""
 
-#: pages/pray/trait-lap.php:71
-#: pages/pray/trait-lap.php:92
+#: pages/pray/trait-lap.php:33
+msgctxt "state of California"
+msgid "%1$s of %2$s"
+msgstr ""
+
+#: pages/pray/trait-lap.php:34
+msgid "Keep Praying..."
+msgstr ""
+
+#: pages/pray/trait-lap.php:38
+msgid "Praying Paused"
+msgstr ""
+
+#: pages/pray/trait-lap.php:39
+msgid "Great Job!"
+msgstr ""
+
+#: pages/pray/trait-lap.php:40
+msgid "Prayer Added!"
+msgstr ""
+
+#: pages/pray/trait-lap.php:81
+#: pages/pray/trait-lap.php:102
 msgid "Praying Button"
 msgstr ""
 
-#: pages/pray/trait-lap.php:100
+#: pages/pray/trait-lap.php:110
 msgid "Decision Button"
 msgstr ""
 
