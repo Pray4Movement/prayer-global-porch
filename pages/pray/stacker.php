@@ -293,14 +293,14 @@ class PG_Stacker {
 
         // build the description
         if ( 'admin1' === $grid_record['level_name'] ) {
-            $admin_level_name = esc_html( __( 'state', 'prayer-global-porch' ) );
-            $admin_level_name_plural = esc_html( __( 'states', 'prayer-global-porch' ) );
+            $admin_level_name = esc_html( __( 'the state', 'prayer-global-porch' ) );
+            $admin_level_name_plural = esc_html( __( 'the states', 'prayer-global-porch' ) );
         } else if ( 'admin0' === $grid_record['level_name'] ) {
-            $admin_level_name = esc_html( __( 'country', 'prayer-global-porch' ) );
-            $admin_level_name_plural = esc_html( __( 'countries', 'prayer-global-porch' ) );
+            $admin_level_name = esc_html( __( 'the country', 'prayer-global-porch' ) );
+            $admin_level_name_plural = esc_html( __( 'the countries', 'prayer-global-porch' ) );
         } else {
-            $admin_level_name = esc_html( __( 'county', 'prayer-global-porch' ) );
-            $admin_level_name_plural = esc_html( __( 'counties', 'prayer-global-porch' ) );
+            $admin_level_name = esc_html( __( 'the county', 'prayer-global-porch' ) );
+            $admin_level_name_plural = esc_html( __( 'the counties', 'prayer-global-porch' ) );
         }
         $grid_record = array_merge( $grid_record, [ 'admin_level_name' => $admin_level_name, 'admin_level_name_cap' => ucwords( $admin_level_name ), 'admin_level_name_plural' => $admin_level_name_plural ] );
 
