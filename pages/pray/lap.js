@@ -448,11 +448,11 @@ jQuery(document).ready(function(){
       trigger: 'focus',
     }
     redBodyIcons.forEach((element) => {
-      new bootstrap.Popover(element, { ...config, content: translate("Don't know Jesus")})
+      new bootstrap.Popover(element, { ...config, content: translate("Don't Know Jesus")})
     })
     const orangeBodyIcons = document.querySelectorAll('.ion-ios-body.brand-lighter')
     orangeBodyIcons.forEach((element) => {
-      new bootstrap.Popover(element, { ...config, content: translate("Know about Jesus")})
+      new bootstrap.Popover(element, { ...config, content: translate("Know About Jesus")})
     })
     const greenBodyIcons = document.querySelectorAll('.ion-ios-body.secondary')
     greenBodyIcons.forEach((element) => {

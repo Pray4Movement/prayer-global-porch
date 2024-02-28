@@ -5,8 +5,8 @@ msgstr ""
 "Project-Id-Version: Prayer.Global Porch 2.0.26\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/prayer-global-"
 "porch\n"
-"POT-Creation-Date: 2024-02-22T18:17:11+00:00\n"
-"PO-Revision-Date: 2024-02-22 19:19+0100\n"
+"POT-Creation-Date: 2024-02-22T19:04:09+00:00\n"
+"PO-Revision-Date: 2024-02-22 20:07+0100\n"
 "Last-Translator: Corsacca <corsacca@gmail.com>\n"
 "Language-Team: French <https://translate.disciple.tools/projects/"
 "pray4movement/prayer-global/fr_FR/>\n"
@@ -71,8 +71,6 @@ msgid ""
 "(1) Never before in history have we been able to coordinate global prayer "
 "for the kingdom IN REALTIME!"
 msgstr ""
-"(1) Jamais auparavant dans l'histoire n'avons-nous été en mesure de "
-"mobiliser un réseau mondial de prière pour le royaume EN TEMPS RÉEL !"
 
 #: pages/about/about.php:137
 msgid ""
@@ -91,7 +89,7 @@ msgid "Click on %1$sStart Praying%2$s."
 msgstr "Cliquez sur %1$s Commencer à prier %2$s."
 
 #: pages/about/about.php:154 pages/pray/action-custom-lap.php:247
-#: pages/pray/trait-lap.php:181
+#: pages/pray/trait-lap.php:178
 msgid ""
 "Pray over the location provided using the maps, photos, prayers, people "
 "group info, and facts."
@@ -100,7 +98,7 @@ msgstr ""
 "prières, les informations sur les groupes de personnes et les faits."
 
 #: pages/about/about.php:157 pages/pray/action-custom-lap.php:252
-#: pages/pray/trait-lap.php:186
+#: pages/pray/trait-lap.php:183
 msgid "Pray for one minute (or longer) as the Spirit leads."
 msgstr "Priez pendant une minute (ou plus) sous la conduite de l'Esprit."
 
@@ -109,7 +107,7 @@ msgid "When the timer finishes"
 msgstr "Quand le compteur se termine"
 
 #: pages/about/about.php:162 pages/pray/action-custom-lap.php:259
-#: pages/pray/trait-lap.php:193
+#: pages/pray/trait-lap.php:190
 msgid ""
 "Click Done to see your impact on the map or %sclick Next to pray for another "
 "location"
@@ -200,19 +198,21 @@ msgstr "Statut de foi"
 #: pages/about/about.php:217 pages/pray/stacker-positions.php:52
 #: pages/pray/stacker-positions.php:86 pages/pray/trait-lap.php:37
 msgid "Know Jesus"
-msgstr "Connaître Jésus"
+msgstr "Connaissent Jésus"
 
 #: pages/about/about.php:221 pages/pray/stacker-positions.php:49
+#: pages/pray/stacker-positions.php:83 pages/pray/trait-lap.php:36
 msgid "Know About Jesus"
-msgstr "Connaître Jésus"
+msgstr "Connaissent à propos Jésus"
 
 #: pages/about/about.php:225 pages/pray/stacker-positions.php:46
+#: pages/pray/stacker-positions.php:80 pages/pray/trait-lap.php:35
 msgid "Don't Know Jesus"
-msgstr "Je ne connais pas Jésus"
+msgstr "Ne connaissent pas Jésus"
 
 #: pages/about/about.php:239
 msgid "Moravian"
-msgstr "morave"
+msgstr "Morave"
 
 #: pages/about/about.php:240
 msgid "Prayer Challenge"
@@ -256,14 +256,13 @@ msgstr ""
 msgid "Top"
 msgstr "Haut"
 
-#: pages/assets/menu.php:38 post-type/feedback.php:126 post-type/laps.php:139
-#: post-type/laps.php:243
+#: pages/assets/menu.php:38
 msgid "Status"
 msgstr "Statut"
 
 #: pages/assets/menu.php:44 pages/challenges/active-list.php:84
 #: pages/pray/action-custom-lap.php:175 pages/pray/action-custom-map.php:84
-#: pages/pray/trait-lap.php:289
+#: pages/pray/trait-lap.php:286
 msgid "Map"
 msgstr "Carte"
 
@@ -1054,8 +1053,8 @@ msgid "Previous"
 msgstr "Précédent"
 
 #: pages/home/body.php:203 pages/pray/action-custom-lap.php:166
-#: pages/pray/action-custom-lap.php:176 pages/pray/trait-lap.php:278
-#: pages/pray/trait-lap.php:290
+#: pages/pray/action-custom-lap.php:176 pages/pray/trait-lap.php:275
+#: pages/pray/trait-lap.php:287
 msgid "Next"
 msgstr "Continuer"
 
@@ -1163,11 +1162,11 @@ msgstr "firestarters-wanted.jpg\">Télécharger"
 msgid "Download"
 msgstr "Télécharger"
 
-#: pages/pray/action-custom-lap.php:165 pages/pray/trait-lap.php:277
+#: pages/pray/action-custom-lap.php:165 pages/pray/trait-lap.php:274
 msgid "Done"
 msgstr "Fait"
 
-#: pages/pray/action-custom-lap.php:182 pages/pray/trait-lap.php:119
+#: pages/pray/action-custom-lap.php:182 pages/pray/trait-lap.php:116
 msgid "Pray for"
 msgstr "Prier pour"
 
@@ -1175,95 +1174,95 @@ msgstr "Prier pour"
 msgid "In Prayer Relay %s"
 msgstr "En relais de prière %s"
 
-#: pages/pray/action-custom-lap.php:195 pages/pray/trait-lap.php:129
+#: pages/pray/action-custom-lap.php:195 pages/pray/trait-lap.php:126
 msgid "Set Your Prayer Experience"
 msgstr "Définissez votre expérience de prière"
 
 #: pages/pray/action-custom-lap.php:196 pages/pray/action-custom-lap.php:224
-#: pages/pray/trait-lap.php:130 pages/pray/trait-lap.php:158
-#: pages/pray/trait-lap.php:210 pages/user/user-profile.php:192
+#: pages/pray/trait-lap.php:127 pages/pray/trait-lap.php:155
+#: pages/pray/trait-lap.php:207 pages/user/user-profile.php:192
 #: pages/user/user-profile.php:265
 msgid "Close"
 msgstr "Fermer"
 
-#: pages/pray/action-custom-lap.php:202 pages/pray/trait-lap.php:136
+#: pages/pray/action-custom-lap.php:202 pages/pray/trait-lap.php:133
 msgid "Prayer pace per place"
 msgstr "Rythme de prière par lieu"
 
-#: pages/pray/action-custom-lap.php:205 pages/pray/trait-lap.php:139
+#: pages/pray/action-custom-lap.php:205 pages/pray/trait-lap.php:136
 msgid "%d Minute"
 msgstr "%d Minutes"
 
 #: pages/pray/action-custom-lap.php:206 pages/pray/action-custom-lap.php:207
 #: pages/pray/action-custom-lap.php:208 pages/pray/action-custom-lap.php:209
-#: pages/pray/action-custom-lap.php:210 pages/pray/trait-lap.php:140
-#: pages/pray/trait-lap.php:141 pages/pray/trait-lap.php:142
-#: pages/pray/trait-lap.php:143 pages/pray/trait-lap.php:144
+#: pages/pray/action-custom-lap.php:210 pages/pray/trait-lap.php:137
+#: pages/pray/trait-lap.php:138 pages/pray/trait-lap.php:139
+#: pages/pray/trait-lap.php:140 pages/pray/trait-lap.php:141
 msgid "%d Minutes"
 msgstr "%d minutes"
 
 #: pages/pray/action-custom-lap.php:214 pages/pray/action-custom-lap.php:266
-#: pages/pray/trait-lap.php:148 pages/pray/trait-lap.php:200
+#: pages/pray/trait-lap.php:145 pages/pray/trait-lap.php:197
 msgid "Let's Go!"
 msgstr "Allons-y!"
 
-#: pages/pray/action-custom-lap.php:223 pages/pray/trait-lap.php:157
+#: pages/pray/action-custom-lap.php:223 pages/pray/trait-lap.php:154
 msgid "Are you sure you want to leave?"
 msgstr "Êtes-vous sûr de vouloir quitter?"
 
-#: pages/pray/action-custom-lap.php:234 pages/pray/trait-lap.php:168
+#: pages/pray/action-custom-lap.php:234 pages/pray/trait-lap.php:165
 msgid "Keep Praying"
 msgstr "Continue de prier"
 
-#: pages/pray/action-custom-lap.php:235 pages/pray/trait-lap.php:169
+#: pages/pray/action-custom-lap.php:235 pages/pray/trait-lap.php:166
 msgid "Leave"
 msgstr "Partir"
 
-#: pages/pray/action-custom-lap.php:244 pages/pray/trait-lap.php:178
+#: pages/pray/action-custom-lap.php:244 pages/pray/trait-lap.php:175
 msgid "How %s works"
 msgstr "Comment fonctionne %s"
 
-#: pages/pray/action-custom-lap.php:245 pages/pray/trait-lap.php:179
+#: pages/pray/action-custom-lap.php:245 pages/pray/trait-lap.php:176
 msgid "Step 1"
 msgstr "Étape 1"
 
-#: pages/pray/action-custom-lap.php:250 pages/pray/trait-lap.php:184
+#: pages/pray/action-custom-lap.php:250 pages/pray/trait-lap.php:181
 msgid "Step 2"
 msgstr "Étape 2"
 
-#: pages/pray/action-custom-lap.php:257 pages/pray/trait-lap.php:191
+#: pages/pray/action-custom-lap.php:257 pages/pray/trait-lap.php:188
 msgid "Step 3"
 msgstr "Étape 3"
 
 #: pages/pray/action-custom-lap.php:275 pages/pray/action-custom-map.php:235
-#: pages/pray/action-global-map.php:213 pages/pray/trait-lap.php:209
+#: pages/pray/action-global-map.php:213 pages/pray/trait-lap.php:206
 msgid "Thank you! Leave us a correction below."
 msgstr "Merci! Laissez-nous une correction ci-dessous."
 
 #: pages/pray/action-custom-lap.php:283 pages/pray/action-custom-map.php:241
-#: pages/pray/action-global-map.php:219 pages/pray/trait-lap.php:217
+#: pages/pray/action-global-map.php:219 pages/pray/trait-lap.php:214
 msgid "Section:"
 msgstr "Section:"
 
 #: pages/pray/action-custom-lap.php:287 pages/pray/action-custom-map.php:245
-#: pages/pray/action-global-map.php:223 pages/pray/trait-lap.php:221
+#: pages/pray/action-global-map.php:223 pages/pray/trait-lap.php:218
 msgid "Correction Requested:"
 msgstr "Correction demandée :"
 
 #: pages/pray/action-custom-lap.php:291 pages/pray/action-custom-map.php:249
-#: pages/pray/action-global-map.php:227 pages/pray/trait-lap.php:225
+#: pages/pray/action-global-map.php:227 pages/pray/trait-lap.php:222
 msgid "Submit"
 msgstr "Soumettre"
 
-#: pages/pray/action-custom-lap.php:313 pages/pray/trait-lap.php:251
+#: pages/pray/action-custom-lap.php:313 pages/pray/trait-lap.php:248
 msgid "See more"
 msgstr "Voir plus"
 
-#: pages/pray/action-custom-lap.php:322 pages/pray/trait-lap.php:260
+#: pages/pray/action-custom-lap.php:322 pages/pray/trait-lap.php:257
 msgid "Show More Guided Prayers"
 msgstr "Afficher plus de prières guidées"
 
-#: pages/pray/action-custom-lap.php:327 pages/pray/trait-lap.php:265
+#: pages/pray/action-custom-lap.php:327 pages/pray/trait-lap.php:262
 msgid "Correction Needed?"
 msgstr "Correction nécessaire ?"
 
@@ -1341,7 +1340,7 @@ msgid "Start Time"
 msgstr "Heure de début"
 
 #: pages/pray/action-custom-map.php:312 pages/pray/action-global-map.php:291
-#: pages/user/user-profile.php:226 post-type/laps.php:212
+#: pages/user/user-profile.php:226
 msgid "End Time"
 msgstr "Heure de fin"
 
@@ -1423,7 +1422,7 @@ msgstr "Marche de prière en un coup"
 
 #: pages/pray/stacker-positions.php:19
 msgid "Photo from the %1$s of %2$s"
-msgstr "Photo du %1$s de %2$s"
+msgstr "Photo de %1$s de %2$s"
 
 #: pages/pray/stacker-positions.php:69 pages/pray/stacker-positions.php:526
 #: pages/pray/stacker-text.php:1011
@@ -1443,14 +1442,6 @@ msgstr "Croyants"
 #: pages/pray/stacker-positions.php:72
 msgid "Non-Christians - %1$s | Cultural Christians - %2$s | Believers - %3$s"
 msgstr "Non-chrétiens - %1$s | Chrétiens culturels - %2$s | Croyants - %3$s"
-
-#: pages/pray/stacker-positions.php:80 pages/pray/trait-lap.php:35
-msgid "Don't know Jesus"
-msgstr "Je ne connais pas Jésus"
-
-#: pages/pray/stacker-positions.php:83 pages/pray/trait-lap.php:36
-msgid "Know about Jesus"
-msgstr "Connaître Jésus"
 
 #: pages/pray/stacker-positions.php:97
 msgid "One disciple of Jesus for every %1$s lost neighbors"
@@ -1674,17 +1665,17 @@ msgstr "Langue"
 
 #: pages/pray/stacker-text.php:14 pages/pray/stacker-text.php:1388
 #: pages/pray/stacker-text.php:1460 pages/pray/stacker-text.php:1532
-#: pages/pray/stacker-text.php:2344
+#: pages/pray/stacker-text.php:2348
 msgid "Prayer Movement"
 msgstr "Mouvement de prière"
 
 #: pages/pray/stacker-text.php:18
 msgid ""
-"Father, we cry out for a prayer movement in the %1$s of %2$s. Please, stir "
-"the %3$s believers here to pray for awakening."
+"Father, we cry out for a prayer movement in %1$s of %2$s. Please, stir the "
+"%3$s believers here to pray for awakening."
 msgstr ""
-"Père, nous crions pour un mouvement de prière dans le %1$s de %2$s. S'il "
-"vous plaît, remuez les croyants %3$s ici pour prier pour l'éveil."
+"Père, nous crions pour un mouvement de prière dans %1$s de %2$s. S'il vous "
+"plaît, remuez les croyants %3$s ici pour prier pour l'éveil."
 
 #: pages/pray/stacker-text.php:24
 msgid "Lord, cause a passion for prayer among the people of %1$s."
@@ -1707,19 +1698,19 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:30
 msgid ""
-"Lord, stir the hearts of your people in the %1$s of %2$s to agree with you "
-"in prayer."
+"Lord, stir the hearts of your people in %1$s of %2$s to agree with you in "
+"prayer."
 msgstr ""
-"Seigneur, remue les cœurs de ton peuple dans le %1$s de %2$s pour être "
-"d'accord avec toi dans la prière."
+"Seigneur, remue les cœurs de ton peuple dans %1$s de %2$s pour être d'accord "
+"avec toi dans la prière."
 
 #: pages/pray/stacker-text.php:36
 msgid ""
-"Spirit, teach the church in the %1$s of %2$s to increase their prayer for "
-"your kingdom to come."
+"Spirit, teach the church in %1$s of %2$s to increase their prayer for your "
+"kingdom to come."
 msgstr ""
-"Esprit, enseigne à l'église dans le %1$s de %2$s à augmenter sa prière pour "
-"que ton royaume vienne."
+"Esprit, enseigne à l'église dans %1$s de %2$s à augmenter sa prière pour que "
+"ton royaume vienne."
 
 #: pages/pray/stacker-text.php:37
 msgid "Daniel 6:10"
@@ -1739,19 +1730,19 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:42
 msgid ""
-"Spirit, teach the children in the %1$s of %2$s to pray with passion and "
-"pleading for your presence."
+"Spirit, teach the children in %1$s of %2$s to pray with passion and pleading "
+"for your presence."
 msgstr ""
-"Esprit, enseigne aux enfants du %1$s de %2$s à prier avec passion et à "
+"Esprit, enseigne aux enfants de %1$s de %2$s à prier avec passion et à "
 "implorer ta présence."
 
 #: pages/pray/stacker-text.php:48
 msgid ""
 "Spirit, awaken a burning desire for your presence and intimacy among the "
-"%1$s people living in the %2$s of %3$s."
+"%1$s people living in %2$s de %3$s."
 msgstr ""
 "Esprit, éveillez un désir ardent pour votre présence et votre intimité parmi "
-"les %1$s personnes vivant dans le %2$s de %3$s."
+"les %1$s personnes vivant dans %2$s de %3$s."
 
 #: pages/pray/stacker-text.php:54
 msgid ""
@@ -1803,8 +1794,8 @@ msgid "My sheep listen to my voice; I know them, and they follow me."
 msgstr "Mes brebis écoutent ma voix; Je les connais, et ils me suivent."
 
 #: pages/pray/stacker-text.php:72
-msgid "Father, answer the requests of your people in the %1$s of %2$s."
-msgstr "Père, réponds aux demandes de ton peuple dans le %1$s de %2$s."
+msgid "Father, answer the requests of your people in %1$s of %2$s."
+msgstr "Père, réponds aux demandes de ton peuple dans %1$s de %2$s."
 
 #: pages/pray/stacker-text.php:73
 msgid "1 John 5:14"
@@ -1849,32 +1840,30 @@ msgstr ""
 #: pages/pray/stacker-text.php:96
 msgid ""
 "Spirit, please equip every disciple to make disciples who make disciples in "
-"the %1$s of %2$s."
+"%1$s of %2$s."
 msgstr ""
 "Esprit, s'il vous plaît, équipez chaque disciple pour faire des disciples "
-"qui font des disciples dans le %1$s de %2$s."
+"qui font des disciples dans %1$s de %2$s."
 
 #: pages/pray/stacker-text.php:102
 msgid ""
-"Father, please, raise up a generation of disciples in the %1$s of %2$s who "
-"will make disciples who make disciples."
+"Father, please, raise up a generation of disciples in %1$s of %2$s who will "
+"make disciples who make disciples."
 msgstr ""
 "Père, s'il te plaît, suscite une génération de disciples dans le %1$s de "
 "%2$s qui fera des disciples qui feront des disciples."
 
 #: pages/pray/stacker-text.php:108
 msgid ""
-"Spirit, help the church in the %1$s of %2$s to exponentially multiply "
-"disciples."
+"Spirit, help the church in %1$s of %2$s to exponentially multiply disciples."
 msgstr ""
-"Esprit, aidez l'église dans le %1$s de %2$s à multiplier de manière "
+"Esprit, aidez l'église dans %1$s de %2$s à multiplier de manière "
 "exponentielle les disciples."
 
 #: pages/pray/stacker-text.php:114
 msgid ""
 "Father, please make every disciple be a disciple maker, every home a "
-"training center, and every church a church planting movement in the %1$s of "
-"%2$s."
+"training center, and every church a church planting movement in %1$s of %2$s."
 msgstr ""
 "Père, s'il te plaît, fais de chaque disciple un faiseur de disciples, de "
 "chaque maison un centre de formation et de chaque église un mouvement "
@@ -1882,10 +1871,10 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:120
 msgid ""
-"Spirit, help the church in the %1$s of %2$s do things that will multiply "
-"their numbers, not just add to them."
+"Spirit, help the church in %1$s of %2$s do things that will multiply their "
+"numbers, not just add to them."
 msgstr ""
-"Esprit, aidez l'église dans le %1$s de %2$s à faire des choses qui "
+"Esprit, aidez l'église dans %1$s de %2$s à faire des choses qui "
 "multiplieront leur nombre, pas seulement en ajouter."
 
 #: pages/pray/stacker-text.php:121
@@ -1904,16 +1893,14 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:126
 msgid ""
-"Jesus, help the church in the %1$s of %2$s to not rely on buildings or "
-"programs, but on your Spirit and the simple faithfulness of every believer."
+"Jesus, help the church in %1$s of %2$s to not rely on buildings or programs, "
+"but on your Spirit and the simple faithfulness of every believer."
 msgstr ""
-"Jésus, aide l'église dans le %1$s de %2$s à ne pas compter sur des bâtiments "
-"ou des programmes, mais sur ton Esprit et la simple fidélité de chaque "
-"croyant."
+"Jésus, aide l'église dans %1$s de %2$s à ne pas compter sur des bâtiments ou "
+"des programmes, mais sur ton Esprit et la simple fidélité de chaque croyant."
 
 #: pages/pray/stacker-text.php:132
-msgid ""
-"Spirit, reveal best practices for sharing the gospel in the %1$s of %2$s."
+msgid "Spirit, reveal best practices for sharing the gospel in %1$s of %2$s."
 msgstr ""
 "Spirit, révèlent les meilleures pratiques pour partager l'évangile dans le "
 "%1$s de %2$s."
@@ -2138,11 +2125,11 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:258
 msgid ""
-"Spirit, guide someone in the church in the %1$s of %2$s to a person ready to "
+"Spirit, guide someone in the church in %1$s of %2$s to a person ready to "
 "receive the message of the gospel, like Lydia, and who will then open her "
 "home to faith."
 msgstr ""
-"Esprit, guide quelqu'un dans l'église dans le %1$s de %2$s vers une personne "
+"Esprit, guide quelqu'un dans l'église dans %1$s de %2$s vers une personne "
 "prête à recevoir le message de l'évangile, comme Lydia, et qui ouvrira alors "
 "sa maison à la foi."
 
@@ -2163,12 +2150,12 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:264
 msgid ""
-"Spirit, help the disciples in the %1$s of %2$s to find a person of peace "
-"today, like the Philippian jailor, who heard and was immediately baptized "
-"with his whole family."
+"Spirit, help the disciples in %1$s of %2$s to find a person of peace today, "
+"like the Philippian jailor, who heard and was immediately baptized with his "
+"whole family."
 msgstr ""
-"Esprit, aidez les disciples dans le %1$s de %2$s à trouver une personne de "
-"paix aujourd'hui, comme le geôlier philippien, qui a entendu et a été "
+"Esprit, aidez les disciples dans %1$s de %2$s à trouver une personne de paix "
+"aujourd'hui, comme le geôlier philippien, qui a entendu et a été "
 "immédiatement baptisé avec toute sa famille."
 
 #: pages/pray/stacker-text.php:265
@@ -2189,12 +2176,12 @@ msgstr ""
 #: pages/pray/stacker-text.php:270
 msgid ""
 "Jesus, like with the centurion who came to you for his sick servant, please "
-"call into your house those who have great faith but are not yet yours in the "
+"call into your house those who have great faith but are not yet yours in "
 "%1$s of %2$s"
 msgstr ""
 "Jésus, comme avec le centurion qui est venu vers vous pour son serviteur "
 "malade, veuillez appeler dans votre maison ceux qui ont une grande foi mais "
-"qui ne sont pas encore à vous dans le %1$s de %2$s"
+"qui ne sont pas encore à vous dans %1$s de %2$s"
 
 #: pages/pray/stacker-text.php:271
 msgid "Luke 7:1–10"
@@ -2344,7 +2331,7 @@ msgstr ""
 msgid "Unleashing Simple Churches"
 msgstr "Libérer des églises simples"
 
-#: pages/pray/stacker-text.php:375 pages/pray/stacker-text.php:2516
+#: pages/pray/stacker-text.php:375 pages/pray/stacker-text.php:2520
 msgid "The Church"
 msgstr "L'église"
 
@@ -2391,10 +2378,10 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:398
 msgid ""
-"Father, we ask for %1$s new simple churches in the %2$s of %3$s. Place a "
-"simple church in every community of the %4$s people living here."
+"Father, we ask for %1$s new simple churches in %2$s de %3$s. Place a simple "
+"church in every community of the %4$s people living here."
 msgstr ""
-"Père, nous demandons %1$s de nouvelles églises simples dans le %2$s de %3$s. "
+"Père, nous demandons %1$s de nouvelles églises simples dans %2$s de %3$s. "
 "Placez une église simple dans chaque communauté des %4$s personnes vivant "
 "ici."
 
@@ -2413,10 +2400,10 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:404
 msgid ""
-"Spirit, teach the %1$s believers in the %2$s of %3$s the wisdom of how to "
-"form simple, reproducible churches of 12-30 in every neighborhood."
+"Spirit, teach the %1$s believers in %2$s de %3$s the wisdom of how to form "
+"simple, reproducible churches of 12-30 in every neighborhood."
 msgstr ""
-"Esprit, enseignez aux %1$s croyants du %2$s de %3$s la sagesse de former des "
+"Esprit, enseignez aux %1$s croyants de %2$s de %3$s la sagesse de former des "
 "églises simples et reproductibles de 12 à 30 dans chaque quartier."
 
 #: pages/pray/stacker-text.php:410
@@ -2549,11 +2536,11 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:452
 msgid ""
-"Spirit, please give every church in the %1$s of %2$s a passion to plant "
-"another simple church."
+"Spirit, please give every church in %1$s of %2$s a passion to plant another "
+"simple church."
 msgstr ""
-"Esprit, s'il vous plaît, donnez à chaque église dans le %1$s de %2$s la "
-"passion d'implanter une autre église simple."
+"Esprit, s'il vous plaît, donnez à chaque église dans %1$s de %2$s la passion "
+"d'implanter une autre église simple."
 
 #: pages/pray/stacker-text.php:458
 msgid ""
@@ -2565,10 +2552,10 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:464
 msgid ""
-"Father, we agree with your desire that the people in the %1$s of %2$s hear "
-"about you."
+"Father, we agree with your desire that the people in %1$s of %2$s hear about "
+"you."
 msgstr ""
-"Père, nous sommes d'accord avec ton désir que les gens du %1$s de %2$s "
+"Père, nous sommes d'accord avec ton désir que les gens de %1$s de %2$s "
 "entendent parler de toi."
 
 #: pages/pray/stacker-text.php:465 pages/pray/stacker-text.php:944
@@ -2587,15 +2574,15 @@ msgstr ""
 #: pages/pray/stacker-text.php:470
 msgid ""
 "Father, let every disciple be a disciple maker, every home a training "
-"center, and every church a church planting movement in the %1$s of %2$s."
+"center, and every church a church planting movement in %1$s of %2$s."
 msgstr ""
 "Père, que chaque disciple soit un faiseur de disciples, chaque foyer un "
 "centre de formation et chaque église un mouvement d'implantation d'églises "
-"dans le %1$s de %2$s."
+"dans %1$s de %2$s."
 
 #: pages/pray/stacker-text.php:476
 msgid ""
-"Father, we ask for networks of simple churches in every city in the %1$s of "
+"Father, we ask for networks of simple churches in every city in %1$s of "
 "%2$s, like Paul planted in Corinth and Ephesus."
 msgstr ""
 "Père, nous demandons des réseaux d'églises simples dans chaque ville dans le "
@@ -2618,11 +2605,11 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:482
 msgid ""
-"Jesus, %1$s people live in the %2$s of %3$s. Please, give them %4$s new "
-"simple churches this year."
+"Jesus, %1$s people live in %2$s de %3$s. Please, give them %4$s new simple "
+"churches this year."
 msgstr ""
-"Jésus, %1$s personnes vivent dans le %2$s de %3$s. S'il vous plaît, donnez-"
-"leur %4$s de nouvelles églises simples cette année."
+"Jésus, %1$s personnes vivent dans %2$s de %3$s. S'il vous plaît, donnez-leur "
+"%4$s de nouvelles églises simples cette année."
 
 #: pages/pray/stacker-text.php:496
 msgid "Bible Access"
@@ -2630,20 +2617,20 @@ msgstr "Accès biblique"
 
 #: pages/pray/stacker-text.php:503
 msgid ""
-"Father, please give the people in the %1$s of %2$s access to a Bible in "
-"their own language."
+"Father, please give the people in %1$s of %2$s access to a Bible in their "
+"own language."
 msgstr ""
-"Père, s'il vous plaît, donnez aux gens du %1$s de %2$s accès à une Bible "
+"Père, s'il vous plaît, donnez aux gens de %1$s de %2$s accès à une Bible "
 "dans leur propre langue."
 
 #: pages/pray/stacker-text.php:509
 msgid ""
 "Spirit, how will they hear without a preacher? How will they preach unless "
-"they have a Bible? Please give the people in the %1$s of %2$s access to a "
-"Bible in their own language."
+"they have a Bible? Please give the people in %1$s of %2$s access to a Bible "
+"in their own language."
 msgstr ""
 "Esprit, comment entendront-ils sans prédicateur ? Comment vont-ils prêcher "
-"s'ils n'ont pas de Bible ? Veuillez donner aux personnes du %1$s de %2$s "
+"s'ils n'ont pas de Bible ? Veuillez donner aux personnes de %1$s de %2$s "
 "accès à une Bible dans leur propre langue."
 
 #: pages/pray/stacker-text.php:510
@@ -2733,11 +2720,11 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:567
 msgid ""
-"Lord, there are %1$s people in the %2$s of %3$s who claim Christianity, but "
-"may have never read the Bible. Please challenge them today to read the Bible "
-"for themselves."
+"Lord, there are %1$s people in %2$s de %3$s who claim Christianity, but may "
+"have never read the Bible. Please challenge them today to read the Bible for "
+"themselves."
 msgstr ""
-"Seigneur, il y a %1$s personnes dans le %2$s de %3$s qui se réclament du "
+"Seigneur, il y a %1$s personnes dans %2$s de %3$s qui se réclament du "
 "christianisme, mais qui n'ont peut-être jamais lu la Bible. S'il vous plaît, "
 "défiez-les aujourd'hui de lire la Bible par eux-mêmes."
 
@@ -2756,10 +2743,10 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:573
 msgid ""
-"Spirit, of the %1$s people in the %2$s of %3$s who claim Christianity, "
-"challenge some of them to pick up your Word and read it for themselves today."
+"Spirit, of the %1$s people in %2$s de %3$s who claim Christianity, challenge "
+"some of them to pick up your Word and read it for themselves today."
 msgstr ""
-"Esprit, parmi les %1$s personnes dans le %2$s de %3$s qui revendiquent le "
+"Esprit, parmi les %1$s personnes dans %2$s de %3$s qui revendiquent le "
 "christianisme, défiez certains d'entre eux de prendre votre Parole et de la "
 "lire par eux-mêmes aujourd'hui."
 
@@ -2775,12 +2762,12 @@ msgstr "et vous connaîtrez la vérité, et la vérité vous affranchira."
 #: pages/pray/stacker-text.php:579
 msgid ""
 "Father, your Word is essential for life and growth. Please challenge the "
-"%1$s cultural Christians in the %2$s of %3$s to read your Word for "
-"themselves today."
+"%1$s cultural Christians in %2$s de %3$s to read your Word for themselves "
+"today."
 msgstr ""
 "Père, ta Parole est essentielle pour la vie et la croissance. S'il vous "
-"plaît, défiez les %1$s chrétiens culturels dans le %2$s de %3$s de lire "
-"votre Parole par eux-mêmes aujourd'hui."
+"plaît, défiez les %1$s chrétiens culturels dans %2$s de %3$s de lire votre "
+"Parole par eux-mêmes aujourd'hui."
 
 #: pages/pray/stacker-text.php:580
 msgid "Matthew 4:4"
@@ -2817,14 +2804,14 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:591
 msgid ""
-"Father, your Word can be a lamp to the feet of the %1$s people in the %2$s "
-"of %3$s who claim to know you, if they open it and read it today."
+"Father, your Word can be a lamp to the feet of the %1$s people in %2$s de "
+"%3$s who claim to know you, if they open it and read it today."
 msgstr ""
 "Père, ta Parole peut être une lampe aux pieds des gens %1$s dans le %2$s de "
 "%3$s qui prétendent te connaître, s'ils l'ouvrent et le lisent aujourd'hui."
 
 #: pages/pray/stacker-text.php:592 pages/pray/stacker-text.php:644
-#: pages/pray/stacker-text.php:2139
+#: pages/pray/stacker-text.php:2143
 msgid "Psalm 119:105"
 msgstr "Psaume 119:105"
 
@@ -2835,14 +2822,14 @@ msgstr "ta Parole est une lampe à mes pieds et une lumière sur mon sentier."
 
 #: pages/pray/stacker-text.php:597
 msgid ""
-"Jesus, make the %1$s people in the %2$s of %3$s who claim to know you, brave "
+"Jesus, make the %1$s people in %2$s de %3$s who claim to know you, brave "
 "enough to let the Bible weigh their thoughts and intentions today."
 msgstr ""
-"Jésus, rends les %1$s personnes dans le %2$s de %3$s qui prétendent te "
+"Jésus, rends les %1$s personnes dans %2$s de %3$s qui prétendent te "
 "connaître, assez courageuses pour laisser la Bible peser leurs pensées et "
 "leurs intentions aujourd'hui."
 
-#: pages/pray/stacker-text.php:598 pages/pray/stacker-text.php:2175
+#: pages/pray/stacker-text.php:598 pages/pray/stacker-text.php:2179
 msgid "Hebrews 4:12"
 msgstr "Hébreux 4:12"
 
@@ -2961,7 +2948,7 @@ msgid ""
 "the %1$s of %2$s."
 msgstr ""
 "Père, s'il vous plaît, aidez les bons enseignants en ligne à diffuser "
-"l'évangile sur YouTube et dans le %1$s de %2$s."
+"l'évangile sur YouTube et dans %1$s de %2$s."
 
 #: pages/pray/stacker-text.php:715
 msgid ""
@@ -3108,11 +3095,11 @@ msgstr "Sécurité"
 
 #: pages/pray/stacker-text.php:787
 msgid ""
-"Father, for those in trouble in the %1$s of %2$s prompt them to call on you "
-"for rescue today."
+"Father, for those in trouble in %1$s of %2$s prompt them to call on you for "
+"rescue today."
 msgstr ""
-"Père, pour ceux qui ont des problèmes dans le %1$s de %2$s, incitez-les à "
-"faire appel à vous pour les secourir aujourd'hui."
+"Père, pour ceux qui ont des problèmes dans %1$s de %2$s, incitez-les à faire "
+"appel à vous pour les secourir aujourd'hui."
 
 #: pages/pray/stacker-text.php:788
 msgid "Psalm 91:15"
@@ -3287,18 +3274,18 @@ msgstr "Loin de Dieu"
 
 #: pages/pray/stacker-text.php:943
 msgid ""
-"Father, you desire the people in the %1$s of %2$s who are far from you to "
-"hear about you."
+"Father, you desire the people in %1$s of %2$s who are far from you to hear "
+"about you."
 msgstr ""
-"Père, tu désires que les gens du %1$s de %2$s qui sont loin de toi entendent "
+"Père, tu désires que les gens de %1$s de %2$s qui sont loin de toi entendent "
 "parler de toi."
 
 #: pages/pray/stacker-text.php:949
 msgid ""
-"There are %1$s people living in the %2$s of %3$s. Only about %4$s might be "
+"There are %1$s people living in %2$s de %3$s. Only about %4$s might be "
 "believers."
 msgstr ""
-"Il y a %1$s personnes vivant dans le %2$s de %3$s. Seuls environ %4$s "
+"Il y a %1$s personnes vivant dans %2$s de %3$s. Seuls environ %4$s "
 "pourraient être des croyants."
 
 #: pages/pray/stacker-text.php:955
@@ -3487,7 +3474,7 @@ msgstr ""
 #: pages/pray/stacker-text.php:1045
 msgid ""
 "Lord, please make the same Spirit that raised Jesus from the dead give life "
-"to those who are called by his name in the %1$s of %2$s."
+"to those who are called by his name in %1$s of %2$s."
 msgstr ""
 "Seigneur, s'il te plaît, fais que le même Esprit qui a ressuscité Jésus "
 "d'entre les morts donne la vie à ceux qui sont appelés par son nom dans le "
@@ -3703,8 +3690,8 @@ msgstr "Direction du mouvement"
 
 #: pages/pray/stacker-text.php:1692
 msgid ""
-"Father, we pray for every movement leader and disciple in the %1$s of %2$s "
-"that they would have deepening intimacy with you."
+"Father, we pray for every movement leader and disciple in %1$s of %2$s that "
+"they would have deepening intimacy with you."
 msgstr ""
 "Père, nous prions pour chaque leader de mouvement et disciple dans le %1$s "
 "de %2$s afin qu'ils aient une intimité plus profonde avec toi."
@@ -3878,17 +3865,17 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:1758
 msgid ""
-"Lord, raise up apostolic workers to plant churches in every town in the %1$s "
-"of %2$s."
+"Lord, raise up apostolic workers to plant churches in every town in %1$s of "
+"%2$s."
 msgstr ""
 "Seigneur, suscite des ouvriers apostoliques pour implanter des églises dans "
-"chaque ville du %1$s de %2$s."
+"chaque ville de %1$s de %2$s."
 
-#: pages/pray/stacker-text.php:1759 pages/pray/stacker-text.php:1970
+#: pages/pray/stacker-text.php:1759 pages/pray/stacker-text.php:1974
 msgid "Titus 1:5"
 msgstr "Tite 1:5"
 
-#: pages/pray/stacker-text.php:1760 pages/pray/stacker-text.php:1971
+#: pages/pray/stacker-text.php:1760 pages/pray/stacker-text.php:1975
 msgctxt "Titus 1:5"
 msgid ""
 "The reason I left you in Crete was that you might put in order what was left "
@@ -3901,18 +3888,18 @@ msgstr ""
 #: pages/pray/stacker-text.php:1764
 msgid ""
 "Father, please send new apostles into the harvest, who can open up new "
-"communities for the gospel in the %1$s of %2$s."
+"communities for the gospel in %1$s of %2$s."
 msgstr ""
 "Père, s'il vous plaît, envoyez de nouveaux apôtres dans la moisson, qui "
-"peuvent ouvrir de nouvelles communautés pour l'évangile dans le %1$s de %2$s."
+"peuvent ouvrir de nouvelles communautés pour l'évangile dans %1$s de %2$s."
 
 #: pages/pray/stacker-text.php:1765 pages/pray/stacker-text.php:1831
-#: pages/pray/stacker-text.php:2054
+#: pages/pray/stacker-text.php:2058
 msgid "Matthew 9:38"
 msgstr "Matthieu 9:38"
 
 #: pages/pray/stacker-text.php:1766 pages/pray/stacker-text.php:1832
-#: pages/pray/stacker-text.php:2055
+#: pages/pray/stacker-text.php:2059
 msgctxt "Matthew 9:38"
 msgid ""
 "Ask the Lord of the harvest, therefore, to send out workers into his harvest "
@@ -3933,7 +3920,7 @@ msgstr ""
 #: pages/pray/stacker-text.php:1776
 msgid "Lord of the Harvest, please send out workers into the %1$s of %2$s."
 msgstr ""
-"Seigneur de la moisson, veuillez envoyer des ouvriers dans le %1$s de %2$s."
+"Seigneur de la moisson, veuillez envoyer des ouvriers dans %1$s de %2$s."
 
 #: pages/pray/stacker-text.php:1777
 msgid "Matthew 9:37-38"
@@ -3958,7 +3945,7 @@ msgstr ""
 "Seigneur, s'il vous plaît, donnez des apôtres pour étendre l'église dans "
 "chaque quartier de %1$s."
 
-#: pages/pray/stacker-text.php:1783 pages/pray/stacker-text.php:2660
+#: pages/pray/stacker-text.php:1783 pages/pray/stacker-text.php:2664
 msgid "Matthew 28:19-20"
 msgstr "Matthieu 28:18-20"
 
@@ -3999,8 +3986,7 @@ msgstr ""
 "service, afin que le corps de Christ puisse être édifié."
 
 #: pages/pray/stacker-text.php:1830
-msgid ""
-"Father, please send new evangelists into the harvest in the %1$s of %2$s."
+msgid "Father, please send new evangelists into the harvest in %1$s of %2$s."
 msgstr ""
 "Père, veuillez envoyer de nouveaux évangélistes dans la moisson dans le %1$s "
 "de %2$s."
@@ -4088,7 +4074,7 @@ msgstr ""
 #: pages/pray/stacker-text.php:1860
 msgid ""
 "Father, send out evangelists who will challenge people like Peter who said, "
-"\"Repent and be baptized, every one of you\" in the %1$s of %2$s."
+"\"Repent and be baptized, every one of you\" in %1$s of %2$s."
 msgstr ""
 "Père, envoie des évangélistes qui défieront des gens comme Pierre qui a "
 "dit : « Repentez-vous et soyez baptisés, chacun de vous » dans le %1$s de "
@@ -4129,7 +4115,7 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:1896
 msgid ""
-"Father, please give the church in the %1$s of %2$s prophets who can build up "
+"Father, please give the church in %1$s of %2$s prophets who can build up "
 "holiness and faithfulness to you."
 msgstr ""
 "Père, s'il vous plaît, donnez à l'église dans le %1$s des %2$s prophètes qui "
@@ -4161,11 +4147,11 @@ msgstr ""
 #: pages/pray/stacker-text.php:1908
 msgid ""
 "Lord, like in the church of Antioch, where you gathered many prophets and "
-"teachers, please gather many prophets and teachers in the %1$s of %2$s."
+"teachers, please gather many prophets and teachers in %1$s of %2$s."
 msgstr ""
 "Seigneur, comme dans l'église d'Antioche, où vous avez rassemblé de nombreux "
 "prophètes et enseignants, veuillez rassembler de nombreux prophètes et "
-"enseignants dans le %1$s de %2$s."
+"enseignants dans %1$s de %2$s."
 
 #: pages/pray/stacker-text.php:1909
 msgid "Acts 13:1"
@@ -4259,11 +4245,11 @@ msgstr "Bergers et pasteurs"
 
 #: pages/pray/stacker-text.php:1963
 msgid ""
-"Lord, give grace to the local leaders who shepherd the %1$s believers in the "
-"%2$s of %3$s."
+"Lord, give grace to the local leaders who shepherd the %1$s believers in "
+"%2$s de %3$s."
 msgstr ""
 "Seigneur, donne grâce aux dirigeants locaux qui dirigent les %1$s croyants "
-"dans le %2$s de %3$s."
+"dans %2$s de %3$s."
 
 #: pages/pray/stacker-text.php:1964
 msgid "John 10:11"
@@ -4275,15 +4261,15 @@ msgid ""
 "I am the good shepherd. The good shepherd lays down his life for the sheep."
 msgstr "Je suis le bon berger. Le bon berger donne sa vie pour les brebis."
 
-#: pages/pray/stacker-text.php:1969
+#: pages/pray/stacker-text.php:1973
 msgid ""
 "Lord, please provide elders whose hearts are completely yours in every town "
-"in the %1$s of %2$s."
+"in %1$s of %2$s."
 msgstr ""
 "Seigneur, s'il vous plaît, fournissez des anciens dont le cœur est "
-"entièrement à vous dans chaque ville du %1$s de %2$s."
+"entièrement à vous dans chaque ville de %1$s de %2$s."
 
-#: pages/pray/stacker-text.php:1975
+#: pages/pray/stacker-text.php:1979
 msgid ""
 "Jesus, please bless the leaders of the %1$s of %2$s who work hard at "
 "shepherding and guiding your people."
@@ -4291,17 +4277,17 @@ msgstr ""
 "Jésus, bénis s'il te plaît les dirigeants des %1$s de %2$s qui travaillent "
 "dur pour guider et guider ton peuple."
 
-#: pages/pray/stacker-text.php:1976
+#: pages/pray/stacker-text.php:1980
 msgid "Psalm 78:72"
 msgstr "Psaume 78:72"
 
-#: pages/pray/stacker-text.php:1977
+#: pages/pray/stacker-text.php:1981
 msgctxt "Psalm 78:72"
 msgid ""
 "With upright heart he shepherded them and guided them with his skillful hand."
 msgstr "Avec un cœur droit, il les guida et les guida de sa main habile."
 
-#: pages/pray/stacker-text.php:1981
+#: pages/pray/stacker-text.php:1985
 msgid ""
 "Spirit, encourage every one of the %1$s ordinary believers here to care for "
 "others, like a shepherd cares for his sheep."
@@ -4309,7 +4295,7 @@ msgstr ""
 "Esprit, encourage chacun des %1$s croyants ordinaires ici à prendre soin des "
 "autres, comme un berger prend soin de ses brebis."
 
-#: pages/pray/stacker-text.php:1987
+#: pages/pray/stacker-text.php:1991
 msgid ""
 "Father, you gave the church of %1$s the greatest shepherd of all time, "
 "Jesus. Please, help them listen to him."
@@ -4317,20 +4303,20 @@ msgstr ""
 "Père, tu as donné à l'église de %1$s le plus grand berger de tous les temps, "
 "Jésus. S'il vous plaît, aidez-les à l'écouter."
 
-#: pages/pray/stacker-text.php:1988
+#: pages/pray/stacker-text.php:1992
 msgid "Ezekiel 34:23"
 msgstr "Ézéchiel 34:23"
 
-#: pages/pray/stacker-text.php:1989
+#: pages/pray/stacker-text.php:1993
 msgctxt "Ezekiel 34:23"
 msgid ""
 "I will place over them one shepherd, my servant David, and he will tend "
 "them; he will tend them and be their shepherd."
 msgstr ""
-"je mettrai sur eux un seul berger, mon serviteur David, et il les paîtra; il "
+"Je mettrai sur eux un seul berger, mon serviteur David, et il les paîtra; il "
 "les soignera et sera leur berger."
 
-#: pages/pray/stacker-text.php:1993
+#: pages/pray/stacker-text.php:1997
 msgid ""
 "Father, for all those you call to look after your flock from the %1$s "
 "believers in %2$s, please, make them passionate about hearing your Word."
@@ -4339,37 +4325,37 @@ msgstr ""
 "les %1$s croyants en %2$s, s'il te plaît, rends-les passionnés par l'écoute "
 "de ta Parole."
 
-#: pages/pray/stacker-text.php:1994
+#: pages/pray/stacker-text.php:1998
 msgid "Ezekiel 34:7"
 msgstr "Ézéchiel 34:7"
 
-#: pages/pray/stacker-text.php:1995
+#: pages/pray/stacker-text.php:1999
 msgctxt "Ezekiel 34:7"
 msgid "Therefore, you shepherds, hear the word of the LORD."
 msgstr "C'est pourquoi, bergers, écoutez la parole de l'Éternel."
 
-#: pages/pray/stacker-text.php:1999
+#: pages/pray/stacker-text.php:2003
 msgid ""
 "Good Shepherd, thank you that you know the name of each of the %1$s "
 "believers in %2$s."
 msgstr ""
 "Bon Pasteur, merci de connaître le nom de chacun des croyants %1$s en %2$s."
 
-#: pages/pray/stacker-text.php:2000
+#: pages/pray/stacker-text.php:2004
 msgid "John 10:14"
 msgstr "Jean 10:14"
 
-#: pages/pray/stacker-text.php:2001
+#: pages/pray/stacker-text.php:2005
 msgctxt "John 10:14"
 msgid "I am the good shepherd; I know my sheep and my sheep know me"
 msgstr ""
-"je suis le bon berger; Je connais mes moutons et mes moutons me connaissent"
+"Je suis le bon berger; Je connais mes moutons et mes moutons me connaissent"
 
-#: pages/pray/stacker-text.php:2031
+#: pages/pray/stacker-text.php:2035
 msgid "Teachers"
 msgstr "Enseignants"
 
-#: pages/pray/stacker-text.php:2035
+#: pages/pray/stacker-text.php:2039
 msgid ""
 "Father, please send teachers of your Word in %1$s who can speak your gospel "
 "boldly and clearly."
@@ -4377,7 +4363,7 @@ msgstr ""
 "Père, s'il vous plaît, envoyez des enseignants de votre Parole en %1$s qui "
 "peuvent annoncer votre évangile avec audace et clarté."
 
-#: pages/pray/stacker-text.php:2041
+#: pages/pray/stacker-text.php:2045
 msgid ""
 "Spirit, build the strength and maturity of the local leaders in %1$s. Show "
 "them that faithfulness is more important than knowledge. Show them that the "
@@ -4388,20 +4374,20 @@ msgstr ""
 "Montrez-leur que l'Esprit, la Parole et la prière suffisent pour grandir et "
 "diriger. "
 
-#: pages/pray/stacker-text.php:2047
+#: pages/pray/stacker-text.php:2051
 msgid ""
-"Lord, for the leaders in the %1$s of %2$s, let the eyes of their hearts be "
+"Lord, for the leaders in %1$s of %2$s, let the eyes of their hearts be "
 "enlightened in order that they may know the hope to which they are called."
 msgstr ""
-"Seigneur, pour les dirigeants du %1$s de %2$s, que les yeux de leur cœur "
+"Seigneur, pour les dirigeants de %1$s de %2$s, que les yeux de leur cœur "
 "soient illuminés afin qu'ils puissent connaître l'espérance à laquelle ils "
 "sont appelés."
 
-#: pages/pray/stacker-text.php:2048
+#: pages/pray/stacker-text.php:2052
 msgid "Ephesians 1:18"
 msgstr "Ephésiens 1:18"
 
-#: pages/pray/stacker-text.php:2049
+#: pages/pray/stacker-text.php:2053
 msgctxt "Ephesians 1:18"
 msgid ""
 "I pray that the eyes of your heart may be enlightened in order that you may "
@@ -4414,27 +4400,27 @@ msgstr ""
 "glorieux héritage dans son saint peuple, et sa puissance incomparablement "
 "grande pour nous qui croyons. "
 
-#: pages/pray/stacker-text.php:2053
+#: pages/pray/stacker-text.php:2057
 msgid ""
 "Father, please send new teachers into the harvest, who can correct the lies "
-"of our enemy in the %1$s of %2$s."
+"of our enemy in %1$s of %2$s."
 msgstr ""
 "Père, veuillez envoyer de nouveaux enseignants dans la moisson, qui peuvent "
-"corriger les mensonges de notre ennemi dans le %1$s de %2$s."
+"corriger les mensonges de notre ennemi dans %1$s de %2$s."
 
-#: pages/pray/stacker-text.php:2059
+#: pages/pray/stacker-text.php:2063
 msgid ""
-"Lord, the believers in the %1$s of %2$s need teachers who can feed them with "
+"Lord, the believers in %1$s of %2$s need teachers who can feed them with "
 "knowledge and understanding. Please raise them up."
 msgstr ""
 "Seigneur, les croyants en %1$s de %2$s ont besoin d'enseignants qui peuvent "
 "les nourrir de connaissances et de compréhension. Veuillez les relever."
 
-#: pages/pray/stacker-text.php:2060
+#: pages/pray/stacker-text.php:2064
 msgid "Jeremiah 3:15"
 msgstr "Jérémie 3:15"
 
-#: pages/pray/stacker-text.php:2061
+#: pages/pray/stacker-text.php:2065
 msgctxt "Jeremiah 3:15"
 msgid ""
 "Then I will give you shepherds after My own heart, who will feed you with "
@@ -4443,11 +4429,11 @@ msgstr ""
 "Alors je vous donnerai des bergers selon mon cœur, qui vous nourriront de "
 "connaissance et d'intelligence."
 
-#: pages/pray/stacker-text.php:2110
+#: pages/pray/stacker-text.php:2114
 msgid "Biblical Authority"
 msgstr "Autorité biblique"
 
-#: pages/pray/stacker-text.php:2114
+#: pages/pray/stacker-text.php:2118
 msgid ""
 "Spirit, make the Word of God a delight to the people of %1$s, like it was to "
 "David."
@@ -4455,62 +4441,62 @@ msgstr ""
 "Esprit, fais de la Parole de Dieu un délice pour le peuple de %1$s, comme "
 "elle l'était pour David."
 
-#: pages/pray/stacker-text.php:2115
+#: pages/pray/stacker-text.php:2119
 msgid "Psalm 119:16"
 msgstr "Psaume 119:16"
 
-#: pages/pray/stacker-text.php:2116
+#: pages/pray/stacker-text.php:2120
 msgctxt "Psalm 119:16"
 msgid "I delight in your decrees, I will not neglect your Word."
 msgstr "Je prends plaisir à tes décrets, je ne négligerai pas ta Parole."
 
-#: pages/pray/stacker-text.php:2120
+#: pages/pray/stacker-text.php:2124
 msgid ""
 "Spirit, instill a desire within the people of the %1$s of %2$s to hide your "
 "Word in their heart."
 msgstr ""
-"Esprit, instille le désir chez les gens du %1$s de %2$s de cacher ta Parole "
+"Esprit, instille le désir chez les gens de %1$s de %2$s de cacher ta Parole "
 "dans leur cœur."
 
-#: pages/pray/stacker-text.php:2121
+#: pages/pray/stacker-text.php:2125
 msgid "Psalm 119:11"
 msgstr "Psaume 119:11"
 
-#: pages/pray/stacker-text.php:2122
+#: pages/pray/stacker-text.php:2126
 msgctxt "Psalm 119:11"
 msgid "I have hidden your Word in my heart that I might not sin against you."
 msgstr "J'ai caché ta Parole dans mon cœur afin de ne pas pécher contre toi."
 
-#: pages/pray/stacker-text.php:2126
+#: pages/pray/stacker-text.php:2130
 msgid ""
 "Spirit, help the people of the %1$s of %2$s to be consumed with longing for "
 "your Word at all times, like David."
 msgstr ""
-"Esprit, aide les gens du %1$s de %2$s à être consumés par le désir de ta "
+"Esprit, aide les gens de %1$s de %2$s à être consumés par le désir de ta "
 "Parole en tout temps, comme David."
 
-#: pages/pray/stacker-text.php:2127
+#: pages/pray/stacker-text.php:2131
 msgid "Psalm 119:20"
 msgstr "Psaume 119:20"
 
-#: pages/pray/stacker-text.php:2128
+#: pages/pray/stacker-text.php:2132
 msgctxt "Psalm 119:20"
 msgid "My soul is consumed with longing for your laws at all times."
 msgstr "Mon âme est consumée par le désir ardent de tes lois à tout moment."
 
-#: pages/pray/stacker-text.php:2132
+#: pages/pray/stacker-text.php:2136
 msgid ""
 "Lord, teach your Word to the people of the %1$s of %2$s, so that they can "
 "follow your ways all their life."
 msgstr ""
-"Seigneur, enseigne ta Parole aux gens du %1$s de %2$s, afin qu'ils puissent "
+"Seigneur, enseigne ta Parole aux gens de %1$s de %2$s, afin qu'ils puissent "
 "suivre tes voies toute leur vie."
 
-#: pages/pray/stacker-text.php:2133
+#: pages/pray/stacker-text.php:2137
 msgid "Psalm 119:33"
 msgstr "Psaume 119:33"
 
-#: pages/pray/stacker-text.php:2134
+#: pages/pray/stacker-text.php:2138
 msgctxt "Psalm 119:33"
 msgid ""
 "Teach me, Lord, the way of your decrees, that I may follow it to the end."
@@ -4518,32 +4504,32 @@ msgstr ""
 "Enseigne-moi, Seigneur, la voie de tes décrets, afin que je la suive "
 "jusqu'au bout."
 
-#: pages/pray/stacker-text.php:2138
+#: pages/pray/stacker-text.php:2142
 msgid ""
-"Lord, teach the disciples in the %1$s of %2$s to trust your Word, like a "
-"lamp, in the darkness around them."
+"Lord, teach the disciples in %1$s of %2$s to trust your Word, like a lamp, "
+"in the darkness around them."
 msgstr ""
-"Seigneur, enseigne aux disciples dans le %1$s de %2$s à faire confiance à ta "
+"Seigneur, enseigne aux disciples dans %1$s de %2$s à faire confiance à ta "
 "Parole, comme une lampe, dans les ténèbres qui les entourent."
 
-#: pages/pray/stacker-text.php:2140
+#: pages/pray/stacker-text.php:2144
 msgctxt "Psalm 119:105"
 msgid "your Word is a lamp for my feet, a light on my path."
 msgstr "ta Parole est une lampe à mes pieds, une lumière sur mon chemin."
 
-#: pages/pray/stacker-text.php:2144
+#: pages/pray/stacker-text.php:2148
 msgid ""
-"Lord, teach the young people in the %1$s of %2$s to trust your Word and find "
-"the path of purity."
+"Lord, teach the young people in %1$s of %2$s to trust your Word and find the "
+"path of purity."
 msgstr ""
-"Seigneur, apprends aux jeunes du %1$s de %2$s à faire confiance à ta Parole "
+"Seigneur, apprends aux jeunes de %1$s de %2$s à faire confiance à ta Parole "
 "et à trouver le chemin de la pureté."
 
-#: pages/pray/stacker-text.php:2145
+#: pages/pray/stacker-text.php:2149
 msgid "Psalm 119:9"
 msgstr "Psaume 119:9"
 
-#: pages/pray/stacker-text.php:2146
+#: pages/pray/stacker-text.php:2150
 msgctxt "Psalm 119:9"
 msgid ""
 "How can a young person stay on the path of purity? By living according to "
@@ -4552,88 +4538,88 @@ msgstr ""
 "Comment un jeune peut-il rester sur le chemin de la pureté ? En vivant selon "
 "ta Parole."
 
-#: pages/pray/stacker-text.php:2150
+#: pages/pray/stacker-text.php:2154
 msgid ""
-"Spirit, we know that cultures come and go, even in the %1$s of %2$s, but the "
+"Spirit, we know that cultures come and go, even in %1$s of %2$s, but the "
 "truth of your Word endures generations."
 msgstr ""
 "Esprit, nous savons que les cultures vont et viennent, même dans le %1$s de "
 "%2$s, mais la vérité de ta Parole perdure des générations."
 
-#: pages/pray/stacker-text.php:2151
+#: pages/pray/stacker-text.php:2155
 msgid "Psalm 119:89"
 msgstr "Psaume 119:89"
 
-#: pages/pray/stacker-text.php:2152
+#: pages/pray/stacker-text.php:2156
 msgctxt "Psalm 119:89"
 msgid "your Word, Lord, is eternal; it stands firm in the heavens."
 msgstr ""
 "ta Parole, Seigneur, est éternelle; il se tient fermement dans les cieux."
 
-#: pages/pray/stacker-text.php:2156
+#: pages/pray/stacker-text.php:2160
 msgid ""
-"Father, defend those who are loyal to your Word in the %1$s of %2$s, even "
+"Father, defend those who are loyal to your Word in %1$s of %2$s, even "
 "against fierce enemies."
 msgstr ""
-"Père, défends ceux qui sont fidèles à ta Parole dans le %1$s de %2$s, même "
+"Père, défends ceux qui sont fidèles à ta Parole dans %1$s de %2$s, même "
 "contre des ennemis féroces."
 
-#: pages/pray/stacker-text.php:2157
+#: pages/pray/stacker-text.php:2161
 msgid "Psalm 119:61"
 msgstr "Psaume 119:61"
 
-#: pages/pray/stacker-text.php:2158
+#: pages/pray/stacker-text.php:2162
 msgctxt "Psalm 119:61"
 msgid "Though the wicked bind me with ropes, I will not forget your law."
 msgstr ""
 "Même si les méchants me lient avec des cordes, je n'oublierai pas ta loi."
 
-#: pages/pray/stacker-text.php:2162
+#: pages/pray/stacker-text.php:2166
 msgid ""
-"Spirit, fill the %1$s souls living in the %2$s of %3$s with a taste for your "
+"Spirit, fill the %1$s souls living in %2$s de %3$s with a taste for your "
 "Word. Make it sweet as honey in their mouth."
 msgstr ""
-"Esprit, remplis les %1$s âmes vivant dans le %2$s de %3$s du goût de ta "
-"Parole. Rendez-le doux comme du miel dans leur bouche."
+"Esprit, remplis les %1$s âmes vivant dans %2$s de %3$s du goût de ta Parole. "
+"Rendez-le doux comme du miel dans leur bouche."
 
-#: pages/pray/stacker-text.php:2163
+#: pages/pray/stacker-text.php:2167
 msgid "Psalm 119:103"
 msgstr "Psaume 119:103"
 
-#: pages/pray/stacker-text.php:2164
+#: pages/pray/stacker-text.php:2168
 msgctxt "Psalm 119:103"
 msgid "How sweet are your Words to my taste, sweeter than honey to my mouth!"
 msgstr ""
 "Comme tes Paroles sont douces à mon goût, plus douces que le miel à ma "
 "bouche !"
 
-#: pages/pray/stacker-text.php:2168
+#: pages/pray/stacker-text.php:2172
 msgid ""
-"Spirit, fill the %1$s believers in the %2$s of %3$s with tears, because God "
-"is not obeyed by those around them."
+"Spirit, fill the %1$s believers in %2$s de %3$s with tears, because God is "
+"not obeyed by those around them."
 msgstr ""
-"Esprit, remplis de larmes les %1$s croyants du %2$s de %3$s, car Dieu n'est "
+"Esprit, remplis de larmes les %1$s croyants de %2$s de %3$s, car Dieu n'est "
 "pas obéi par ceux qui les entourent."
 
-#: pages/pray/stacker-text.php:2169
+#: pages/pray/stacker-text.php:2173
 msgid "Psalm 119:136"
 msgstr "Psaume 119:136"
 
-#: pages/pray/stacker-text.php:2170
+#: pages/pray/stacker-text.php:2174
 msgctxt "Psalm 119:136"
 msgid "Streams of tears flow from my eyes, for your law is not obeyed."
 msgstr ""
 "Des torrents de larmes coulent de mes yeux, car ta loi n'est pas respectée."
 
-#: pages/pray/stacker-text.php:2174
+#: pages/pray/stacker-text.php:2178
 msgid ""
-"Spirit, guide the %1$s believers in the %2$s of %3$s into all truth as they "
+"Spirit, guide the %1$s believers in %2$s de %3$s into all truth as they "
 "interpret Scriptures."
 msgstr ""
-"Esprit, guide les %1$s croyants dans le %2$s de %3$s dans toute la vérité "
-"alors qu'ils interprètent les Écritures."
+"Esprit, guide les %1$s croyants dans %2$s de %3$s dans toute la vérité alors "
+"qu'ils interprètent les Écritures."
 
-#: pages/pray/stacker-text.php:2176
+#: pages/pray/stacker-text.php:2180
 msgctxt "Hebrews 4:12"
 msgid ""
 "For the Word of God is alive and active. Sharper than any two-edged sword, "
@@ -4643,7 +4629,7 @@ msgstr ""
 "quelle épée à double tranchant, elle pénètre jusqu'à diviser l'âme et "
 "l'esprit, les jointures et la moelle."
 
-#: pages/pray/stacker-text.php:2180
+#: pages/pray/stacker-text.php:2184
 msgid ""
 "Father, we pray that the people of %1$s will learn to study the Bible, "
 "understand it, obey it, and share it."
@@ -4651,7 +4637,7 @@ msgstr ""
 "Père, nous prions pour que les habitants de %1$s apprennent à étudier la "
 "Bible, à la comprendre, à lui obéir et à la partager."
 
-#: pages/pray/stacker-text.php:2186
+#: pages/pray/stacker-text.php:2190
 msgid ""
 "Father, let knowledge and depth of insight abound more and more in the "
 "church of %1$s."
@@ -4659,11 +4645,11 @@ msgstr ""
 "Père, que la connaissance et la profondeur de la perspicacité abondent de "
 "plus en plus dans l'église de %1$s."
 
-#: pages/pray/stacker-text.php:2187 pages/pray/stacker-text.php:2518
+#: pages/pray/stacker-text.php:2191 pages/pray/stacker-text.php:2522
 msgid "Philippians 1:9"
 msgstr "Philippiens 1:9"
 
-#: pages/pray/stacker-text.php:2188 pages/pray/stacker-text.php:2519
+#: pages/pray/stacker-text.php:2192 pages/pray/stacker-text.php:2523
 msgctxt "Philippians 1:9"
 msgid ""
 "And this is my prayer: that your love may abound more and more in knowledge "
@@ -4672,11 +4658,11 @@ msgstr ""
 "Et voici ma prière : que ton amour regorge de plus en plus de connaissance "
 "et de profondeur de perspicacité"
 
-#: pages/pray/stacker-text.php:2200
+#: pages/pray/stacker-text.php:2204
 msgid "Obedience"
 msgstr "Obéissance"
 
-#: pages/pray/stacker-text.php:2204
+#: pages/pray/stacker-text.php:2208
 msgid ""
 "Spirit, cause the %1$s believers in %2$s to obey with immediate, radical, "
 "costly obedience, like Abraham."
@@ -4684,11 +4670,11 @@ msgstr ""
 "Esprit, fais obéir les %1$s croyants en %2$s avec une obéissance immédiate, "
 "radicale, coûteuse, comme Abraham."
 
-#: pages/pray/stacker-text.php:2205
+#: pages/pray/stacker-text.php:2209
 msgid "Genesis 22:2-3"
 msgstr "Genèse 22:2-3"
 
-#: pages/pray/stacker-text.php:2206
+#: pages/pray/stacker-text.php:2210
 msgctxt "Genesis 22:2-3"
 msgid ""
 "Then God said, “Take your son, your only son, whom you love — Isaac — and go "
@@ -4705,37 +4691,37 @@ msgstr ""
 "Quand il eut coupé assez de bois pour l'holocauste, il partit pour le lieu "
 "que Dieu lui avait indiqué."
 
-#: pages/pray/stacker-text.php:2210
+#: pages/pray/stacker-text.php:2214
 msgid ""
-"Jesus, teach the believers in the %1$s of %2$s that love for you and "
-"obedience to you are connected."
+"Jesus, teach the believers in %1$s of %2$s that love for you and obedience "
+"to you are connected."
 msgstr ""
-"Jésus, enseignez aux croyants dans le %1$s de %2$s que l'amour pour vous et "
+"Jésus, enseignez aux croyants dans %1$s de %2$s que l'amour pour vous et "
 "l'obéissance envers vous sont liés."
 
-#: pages/pray/stacker-text.php:2211
+#: pages/pray/stacker-text.php:2215
 msgid "John 14:15"
 msgstr "Jean 14:15"
 
-#: pages/pray/stacker-text.php:2212
+#: pages/pray/stacker-text.php:2216
 msgctxt "John 14:15"
 msgid "If you love me, keep my commands."
 msgstr "Si vous m'aimez, gardez mes commandes."
 
-#: pages/pray/stacker-text.php:2216
+#: pages/pray/stacker-text.php:2220
 msgid ""
-"Jesus, remind the disciples in the %1$s of %2$s to train each other to obey "
-"all that you commanded, and that you will be with them as they do it."
+"Jesus, remind the disciples in %1$s of %2$s to train each other to obey all "
+"that you commanded, and that you will be with them as they do it."
 msgstr ""
-"Jésus, rappelle aux disciples dans le %1$s de %2$s de s'entraîner "
-"mutuellement à obéir à tout ce que tu as commandé, et que tu seras avec eux "
-"pendant qu'ils le font."
+"Jésus, rappelle aux disciples dans %1$s de %2$s de s'entraîner mutuellement "
+"à obéir à tout ce que tu as commandé, et que tu seras avec eux pendant "
+"qu'ils le font."
 
-#: pages/pray/stacker-text.php:2217
+#: pages/pray/stacker-text.php:2221
 msgid "Matthew 28:20"
 msgstr "Matthieu 28:20"
 
-#: pages/pray/stacker-text.php:2218
+#: pages/pray/stacker-text.php:2222
 msgctxt "Matthew 28:20"
 msgid ""
 "...teaching them to obey everything I have commanded you. And surely I am "
@@ -4744,16 +4730,16 @@ msgstr ""
 "...leur apprenant à obéir à tout ce que je vous ai commandé. Et sûrement Je "
 "suis toujours avec vous, jusqu'à la toute fin de l'âge."
 
-#: pages/pray/stacker-text.php:2222
+#: pages/pray/stacker-text.php:2226
 msgid ""
-"Jesus, please help the %1$s believers in the %2$s of %3$s to be filled with "
+"Jesus, please help the %1$s believers in %2$s de %3$s to be filled with "
 "joyful obedience at all times, as you modeled for us all."
 msgstr ""
-"Jésus, s'il vous plaît, aidez les %1$s croyants dans le %2$s de %3$s à être "
+"Jésus, s'il vous plaît, aidez les %1$s croyants dans %2$s de %3$s à être "
 "remplis d'une obéissance joyeuse à tout moment, comme vous l'avez modelé "
 "pour nous tous."
 
-#: pages/pray/stacker-text.php:2228
+#: pages/pray/stacker-text.php:2232
 msgid ""
 "Father, help the %1$s believers in %2$s to know that you can make a big "
 "impact through their simple obedience today."
@@ -4761,27 +4747,27 @@ msgstr ""
 "Père, aidez les %1$s croyants en %2$s à savoir que vous pouvez avoir un "
 "grand impact grâce à leur simple obéissance aujourd'hui."
 
-#: pages/pray/stacker-text.php:2229
+#: pages/pray/stacker-text.php:2233
 msgid "Exodus 19:6"
 msgstr "Exode 19:6"
 
-#: pages/pray/stacker-text.php:2230
+#: pages/pray/stacker-text.php:2234
 msgctxt "Exodus 19:6"
 msgid "... you will be for me a kingdom of priests ..."
 msgstr "... tu seras pour moi un royaume de prêtres ..."
 
-#: pages/pray/stacker-text.php:2234
+#: pages/pray/stacker-text.php:2238
 msgid ""
 "Father, help the %1$s believers in %2$s to know your commands and to do them."
 msgstr ""
 "Père, aide les %1$s croyants en %2$s à connaître tes commandements et à les "
 "mettre en pratique."
 
-#: pages/pray/stacker-text.php:2235
+#: pages/pray/stacker-text.php:2239
 msgid "Ezra 7:10,25"
 msgstr "Esdras 7:10,25"
 
-#: pages/pray/stacker-text.php:2236
+#: pages/pray/stacker-text.php:2240
 msgctxt "Ezra 7:10,25"
 msgid ""
 "For Ezra had prepared his heart to seek the law of the LORD, and to do it, "
@@ -4790,27 +4776,27 @@ msgstr ""
 "Car Esdras avait préparé son coeur à rechercher la loi de l'Éternel, et à la "
 "mettre en pratique, et à enseigner en Israël les statuts et les ordonnances."
 
-#: pages/pray/stacker-text.php:2272
+#: pages/pray/stacker-text.php:2276
 msgid "Reliance on God"
 msgstr "Dépendance à Dieu"
 
-#: pages/pray/stacker-text.php:2275 pages/pray/stacker-text.php:2287
+#: pages/pray/stacker-text.php:2279 pages/pray/stacker-text.php:2291
 msgid "Trust"
 msgstr "Confiance"
 
-#: pages/pray/stacker-text.php:2276
+#: pages/pray/stacker-text.php:2280
 msgid ""
-"Father, move the %1$s believers in the %2$s of %3$s to say \"Not our will, "
-"but yours be done\", like Jesus."
+"Father, move the %1$s believers in %2$s de %3$s to say \"Not our will, but "
+"yours be done\", like Jesus."
 msgstr ""
-"Père, pousse les %1$s croyants dans le %2$s de %3$s à dire \"Pas notre "
-"volonté, mais la tienne soit faite\", comme Jésus."
+"Père, pousse les %1$s croyants dans %2$s de %3$s à dire \"Pas notre volonté, "
+"mais la tienne soit faite\", comme Jésus."
 
-#: pages/pray/stacker-text.php:2277
+#: pages/pray/stacker-text.php:2281
 msgid "Luke 22:41-42"
 msgstr "Luc 22:41-42"
 
-#: pages/pray/stacker-text.php:2278
+#: pages/pray/stacker-text.php:2282
 msgctxt "Luke 22:41-42"
 msgid ""
 "He withdrew about a stone’s throw beyond them, knelt down and prayed, "
@@ -4821,11 +4807,11 @@ msgstr ""
 "\"Père, si tu le veux, ôte-moi cette coupe ; que ma volonté ne soit pas "
 "faite, mais la tienne.\""
 
-#: pages/pray/stacker-text.php:2281 pages/pray/stacker-text.php:2417
+#: pages/pray/stacker-text.php:2285 pages/pray/stacker-text.php:2421
 msgid "Suffering"
 msgstr "Souffrance"
 
-#: pages/pray/stacker-text.php:2282
+#: pages/pray/stacker-text.php:2286
 msgid ""
 "Spirit, please defend the %1$s believers in %2$s against an unwillingness to "
 "suffer. Give them courage to face social rejection."
@@ -4833,7 +4819,7 @@ msgstr ""
 "Esprit, veuillez défendre les %1$s croyants en %2$s contre une réticence à "
 "souffrir. Donnez-leur le courage d'affronter le rejet social."
 
-#: pages/pray/stacker-text.php:2288
+#: pages/pray/stacker-text.php:2292
 msgid ""
 "Please, convict the %1$s believers in %2$s to look to you as their only hope "
 "for strength and fruitfulness and life."
@@ -4841,20 +4827,20 @@ msgstr ""
 "S'il vous plaît, convainquez les %1$s croyants en %2$s de vous considérer "
 "comme leur seul espoir de force, de fécondité et de vie."
 
-#: pages/pray/stacker-text.php:2289
+#: pages/pray/stacker-text.php:2293
 msgid "John 15:5"
 msgstr "Jean 15:5"
 
-#: pages/pray/stacker-text.php:2290
+#: pages/pray/stacker-text.php:2294
 msgctxt "John 15:5"
 msgid ""
 "I am the vine; you are the branches. If you remain in me and I in you, you "
 "will bear much fruit; apart from me you can do nothing."
 msgstr ""
-"je suis la vigne; vous êtes les branches. Si vous demeurez en moi et moi en "
+"Je suis la vigne; vous êtes les branches. Si vous demeurez en moi et moi en "
 "vous, vous porterez beaucoup de fruit ; à part moi tu ne peux rien faire."
 
-#: pages/pray/stacker-text.php:2294
+#: pages/pray/stacker-text.php:2298
 msgid ""
 "Father, look after and teach the way that is best for the %1$s believers "
 "living in %2$s."
@@ -4862,11 +4848,11 @@ msgstr ""
 "Père, prends soin et enseigne la meilleure voie pour les croyants %1$s "
 "vivant en %2$s."
 
-#: pages/pray/stacker-text.php:2295
+#: pages/pray/stacker-text.php:2299
 msgid "Psalm 32:8"
 msgstr "Psaume 32:8"
 
-#: pages/pray/stacker-text.php:2296
+#: pages/pray/stacker-text.php:2300
 msgctxt "Psalm 32:8"
 msgid ""
 "I will instruct you and teach you in the way which you shall go. I will "
@@ -4875,7 +4861,7 @@ msgstr ""
 "Je t'instruirai et t'enseignerai le chemin que tu dois suivre. Je vais vous "
 "conseiller avec mon œil sur vous."
 
-#: pages/pray/stacker-text.php:2300
+#: pages/pray/stacker-text.php:2304
 msgid ""
 "Spirit, train the church of %1$s to trust with all their hearts, and you "
 "will make their paths straight."
@@ -4883,11 +4869,11 @@ msgstr ""
 "Esprit, entraîne l'église de %1$s à faire confiance de tout son cœur, et tu "
 "aplaniras leurs sentiers."
 
-#: pages/pray/stacker-text.php:2301
+#: pages/pray/stacker-text.php:2305
 msgid "Proverbs 3:5-6"
 msgstr "Proverbes 3:5-6"
 
-#: pages/pray/stacker-text.php:2302
+#: pages/pray/stacker-text.php:2306
 msgctxt "Proverbs 3:5-6"
 msgid ""
 "Trust in Yahweh with all your heart, and don’t lean on your own "
@@ -4898,7 +4884,7 @@ msgstr ""
 "propre intelligence. Dans toutes vos voies, reconnaissez-le, et il aplanira "
 "vos sentiers."
 
-#: pages/pray/stacker-text.php:2306
+#: pages/pray/stacker-text.php:2310
 msgid ""
 "Father, remind your church in %1$s that they can know and depend on the love "
 "you have for them."
@@ -4906,11 +4892,11 @@ msgstr ""
 "Père, rappelle à ton église en %1$s qu'elle peut savoir et dépendre de "
 "l'amour que tu as pour elle."
 
-#: pages/pray/stacker-text.php:2307
+#: pages/pray/stacker-text.php:2311
 msgid "1 John 4:16"
 msgstr "1 Jean 4:16"
 
-#: pages/pray/stacker-text.php:2308
+#: pages/pray/stacker-text.php:2312
 msgctxt "1 John 4:16"
 msgid ""
 "We know and have believed the love which God has for us. God is love, and he "
@@ -4919,15 +4905,15 @@ msgstr ""
 "Nous connaissons et avons cru l'amour que Dieu a pour nous. Dieu est amour, "
 "et celui qui demeure amoureux demeure en Dieu, et Dieu demeure en lui."
 
-#: pages/pray/stacker-text.php:2312
+#: pages/pray/stacker-text.php:2316
 msgid "Father, encourage your church in %1$s that you never forsake them."
 msgstr "Père, encourage ton église en %1$s à ne jamais les abandonner."
 
-#: pages/pray/stacker-text.php:2313
+#: pages/pray/stacker-text.php:2317
 msgid "Psalm 9:10"
 msgstr "Psaume 9:10"
 
-#: pages/pray/stacker-text.php:2314
+#: pages/pray/stacker-text.php:2318
 msgctxt "Psalm 9:10"
 msgid ""
 "Those who know your name will put their trust in you, for you, Yahweh, have "
@@ -4936,19 +4922,18 @@ msgstr ""
 "Ceux qui connaissent ton nom mettront leur confiance en toi, car toi, "
 "Yahweh, tu n'as pas abandonné ceux qui te cherchent."
 
-#: pages/pray/stacker-text.php:2318
+#: pages/pray/stacker-text.php:2322
 msgid ""
-"Father, reveal your kingdom to those with a childlike heart in the %1$s of "
-"%2$s."
+"Father, reveal your kingdom to those with a childlike heart in %1$s of %2$s."
 msgstr ""
 "Père, révèle ton royaume à ceux qui ont un cœur d'enfant dans le %1$s de "
 "%2$s."
 
-#: pages/pray/stacker-text.php:2319
+#: pages/pray/stacker-text.php:2323
 msgid "Matthew 11:25-26"
 msgstr "Matthieu 11:25-26"
 
-#: pages/pray/stacker-text.php:2320
+#: pages/pray/stacker-text.php:2324
 msgctxt "Matthew 11:25-26"
 msgid ""
 "At that time, Jesus answered, “I thank you, Father, Lord of heaven and "
@@ -4960,7 +4945,7 @@ msgstr ""
 "de la terre, d'avoir caché ces choses aux sages et aux intelligents, et de "
 "les avoir révélées aux enfants. Oui, Père, car ainsi cela te plaisait."
 
-#: pages/pray/stacker-text.php:2324
+#: pages/pray/stacker-text.php:2328
 msgid ""
 "Spirit, teach the %1$s believers that their old life is dead and their new "
 "life is hid with Christ."
@@ -4968,16 +4953,16 @@ msgstr ""
 "Esprit, enseigne aux %1$s croyants que leur ancienne vie est morte et que "
 "leur nouvelle vie est cachée avec Christ."
 
-#: pages/pray/stacker-text.php:2325
+#: pages/pray/stacker-text.php:2329
 msgid "Colossians 3:3"
 msgstr "Colossiens 3:3"
 
-#: pages/pray/stacker-text.php:2326
+#: pages/pray/stacker-text.php:2330
 msgctxt "Colossians 3:3"
 msgid "For you died, and your life is hidden with Christ in God."
 msgstr "Car tu es mort, et ta vie est cachée avec Christ en Dieu."
 
-#: pages/pray/stacker-text.php:2330
+#: pages/pray/stacker-text.php:2334
 msgid ""
 "Lord, to the people of %1$s you say, \"If you wait for Me, I will work on "
 "your behalf.\""
@@ -4985,11 +4970,11 @@ msgstr ""
 "Seigneur, au peuple de %1$s tu dis: \"Si vous m'attendez, je travaillerai "
 "pour vous.\""
 
-#: pages/pray/stacker-text.php:2331
+#: pages/pray/stacker-text.php:2335
 msgid "Isaiah 64:4"
 msgstr "Esaïe 64:4"
 
-#: pages/pray/stacker-text.php:2332
+#: pages/pray/stacker-text.php:2336
 msgctxt "Isaiah 64:4"
 msgid ""
 "For from of old men have not heard, nor perceived by the ear, neither has "
@@ -4999,12 +4984,12 @@ msgstr ""
 "ni l'œil n'a vu un Dieu en dehors de toi, qui travaille pour celui qui "
 "l'attend."
 
-#: pages/pray/stacker-text.php:2347 pages/pray/stacker-text.php:2353
-#: pages/pray/stacker-text.php:2360
+#: pages/pray/stacker-text.php:2351 pages/pray/stacker-text.php:2357
+#: pages/pray/stacker-text.php:2364
 msgid "Faith"
 msgstr "Foi"
 
-#: pages/pray/stacker-text.php:2348
+#: pages/pray/stacker-text.php:2352
 msgid ""
 "Spirit, teach the %1$s believers in %2$s that when they seek first your "
 "Kingdom and your righteousness, you will abundantly provide all they need."
@@ -5013,11 +4998,11 @@ msgstr ""
 "d'abord ton Royaume et ta justice, tu leur fourniras abondamment tout ce "
 "dont ils ont besoin."
 
-#: pages/pray/stacker-text.php:2349
+#: pages/pray/stacker-text.php:2353
 msgid "2 Corinthians 9:8"
 msgstr "2 Corinthiens 9:8"
 
-#: pages/pray/stacker-text.php:2350
+#: pages/pray/stacker-text.php:2354
 msgctxt "2 Corinthians 9:8"
 msgid ""
 "And God is able to bless you abundantly, so that in all things at all times, "
@@ -5026,19 +5011,19 @@ msgstr ""
 "Et Dieu est capable de te bénir abondamment, afin qu'en toutes choses et en "
 "tout temps, ayant tout ce dont tu as besoin, tu abondes en toute bonne œuvre."
 
-#: pages/pray/stacker-text.php:2354
+#: pages/pray/stacker-text.php:2358
 msgid ""
-"Lord, please give the %1$s believers in the %2$s of %3$s the Spirit of "
-"wisdom and revelation, so that they might know you better."
+"Lord, please give the %1$s believers in %2$s de %3$s the Spirit of wisdom "
+"and revelation, so that they might know you better."
 msgstr ""
 "Seigneur, donne aux %1$s croyants en %2$s de %3$s l'Esprit de sagesse et de "
 "révélation, afin qu'ils te connaissent mieux."
 
-#: pages/pray/stacker-text.php:2355
+#: pages/pray/stacker-text.php:2359
 msgid "Ephesians 1:17"
 msgstr "Ephésiens 1:17"
 
-#: pages/pray/stacker-text.php:2356
+#: pages/pray/stacker-text.php:2360
 msgctxt "Ephesians 1:17"
 msgid ""
 "I keep asking that the God of our Lord Jesus Christ, the glorious Father, "
@@ -5049,7 +5034,7 @@ msgstr ""
 "glorieux, vous donne l'Esprit de sagesse et de révélation, afin que vous le "
 "connaissiez mieux."
 
-#: pages/pray/stacker-text.php:2361
+#: pages/pray/stacker-text.php:2365
 msgid ""
 "Spirit, please defend the %1$s believers in %2$s against self-centered "
 "spirituality. Open their eyes to the fields ripe for harvest around them."
@@ -5058,11 +5043,11 @@ msgstr ""
 "égocentrique. Ouvrez leurs yeux sur les champs mûrs pour la récolte autour "
 "d'eux."
 
-#: pages/pray/stacker-text.php:2366 pages/pray/stacker-text.php:2372
+#: pages/pray/stacker-text.php:2370 pages/pray/stacker-text.php:2376
 msgid "Faithfulness"
 msgstr "Fidélité"
 
-#: pages/pray/stacker-text.php:2367
+#: pages/pray/stacker-text.php:2371
 msgid ""
 "Father, convict the %1$s believers in %2$s to be holy and righteous. Inspire "
 "them to gather in small groups for accountability and spiritual growth."
@@ -5071,7 +5056,7 @@ msgstr ""
 "Inspirez-les à se rassembler en petits groupes pour la responsabilité et la "
 "croissance spirituelle."
 
-#: pages/pray/stacker-text.php:2373
+#: pages/pray/stacker-text.php:2377
 msgid ""
 "Lord, we know that you invest more in those who have been faithful with what "
 "they have been given. Please, richly bless each faithful believer in %1$s "
@@ -5082,11 +5067,11 @@ msgstr ""
 "croyant fidèle en %1$s avec plus de perspicacité spirituelle, de sagesse, de "
 "courage et de vision."
 
-#: pages/pray/stacker-text.php:2374
+#: pages/pray/stacker-text.php:2378
 msgid "Matthew 25:28"
 msgstr "Matthieu 25:28"
 
-#: pages/pray/stacker-text.php:2375
+#: pages/pray/stacker-text.php:2379
 msgctxt "Matthew 25:28"
 msgid ""
 "So take the bag of gold from him and give it to the one who has ten bags. "
@@ -5097,19 +5082,19 @@ msgstr ""
 "qui a recevra plus, et il sera dans l'abondance. A celui qui n'a pas, même "
 "ce qu'il a lui sera enlevé."
 
-#: pages/pray/stacker-text.php:2379
+#: pages/pray/stacker-text.php:2383
 msgid ""
 "Father, please reward those who diligently seek you with a heart of faith in "
-"the %1$s of %2$s."
+"%1$s of %2$s."
 msgstr ""
 "Père, s'il vous plaît, récompensez ceux qui vous cherchent avec diligence "
-"avec un cœur de foi dans le %1$s de %2$s."
+"avec un cœur de foi dans %1$s de %2$s."
 
-#: pages/pray/stacker-text.php:2380
+#: pages/pray/stacker-text.php:2384
 msgid "Hebrews 11:6"
 msgstr "Hébreux 11:6"
 
-#: pages/pray/stacker-text.php:2381
+#: pages/pray/stacker-text.php:2385
 msgctxt "Hebrews 11:6"
 msgid ""
 "Without faith it is impossible to be well pleasing to him, for he who comes "
@@ -5120,7 +5105,7 @@ msgstr ""
 "Dieu doit croire qu'il existe et qu'il est le rémunérateur de ceux qui le "
 "cherchent."
 
-#: pages/pray/stacker-text.php:2385
+#: pages/pray/stacker-text.php:2389
 msgid ""
 "Spirit, sanctify the %1$s believers in %2$s and keep them blameless until "
 "Jesus returns."
@@ -5128,11 +5113,11 @@ msgstr ""
 "Esprit, sanctifie les %1$s croyants en %2$s et garde-les irréprochables "
 "jusqu'au retour de Jésus."
 
-#: pages/pray/stacker-text.php:2386
+#: pages/pray/stacker-text.php:2390
 msgid "1 Thessalonians 5:23-24"
 msgstr "1 Thessaloniciens 5:23-24"
 
-#: pages/pray/stacker-text.php:2387
+#: pages/pray/stacker-text.php:2391
 msgctxt "1 Thessalonians 5:23-24"
 msgid ""
 "May the God of peace himself sanctify you completely. May your whole spirit, "
@@ -5144,7 +5129,7 @@ msgstr ""
 "venue de notre Seigneur Jésus-Christ. Celui qui vous appelle est fidèle, qui "
 "le fera aussi."
 
-#: pages/pray/stacker-text.php:2421
+#: pages/pray/stacker-text.php:2425
 msgid ""
 "Father, let those from the %1$s believers who are shaken and weak remember "
 "that your love will never fail them."
@@ -5152,11 +5137,11 @@ msgstr ""
 "Père, que ceux des %1$s croyants qui sont ébranlés et faibles se souviennent "
 "que ton amour ne leur fera jamais défaut."
 
-#: pages/pray/stacker-text.php:2422
+#: pages/pray/stacker-text.php:2426
 msgid "1 Corinthians 13:8"
 msgstr "1 Corinthiens 13:8"
 
-#: pages/pray/stacker-text.php:2423
+#: pages/pray/stacker-text.php:2427
 msgctxt "1 Corinthians 13:8"
 msgid ""
 "Love never fails. But where there are prophecies, they will be done away "
@@ -5167,17 +5152,15 @@ msgstr ""
 "supprimées. Là où il y a plusieurs langues, elles cesseront. Là où il y a de "
 "la connaissance, elle sera abolie."
 
-#: pages/pray/stacker-text.php:2427
-msgid ""
-"Father, put the people who are lonely into families in the %1$s of %2$s."
-msgstr ""
-"Père, mettez les personnes seules dans des familles dans le %1$s de %2$s."
+#: pages/pray/stacker-text.php:2431
+msgid "Father, put the people who are lonely into families in %1$s of %2$s."
+msgstr "Père, mettez les personnes seules dans des familles dans %1$s de %2$s."
 
-#: pages/pray/stacker-text.php:2428
+#: pages/pray/stacker-text.php:2432
 msgid "Psalm 68:6"
 msgstr "Psaume 68:6"
 
-#: pages/pray/stacker-text.php:2429
+#: pages/pray/stacker-text.php:2433
 msgctxt "Psalm 68:6"
 msgid ""
 "God sets the lonely in families. He brings out the prisoners with singing, "
@@ -5186,7 +5169,7 @@ msgstr ""
 "Dieu place les solitaires dans les familles. Il fait sortir les prisonniers "
 "en chantant, mais les rebelles habitent une terre brûlée par le soleil."
 
-#: pages/pray/stacker-text.php:2433
+#: pages/pray/stacker-text.php:2437
 msgid ""
 "Spirit, protect the overcomers in %1$s, so that they will one day sit with "
 "Jesus on His throne."
@@ -5194,11 +5177,11 @@ msgstr ""
 "Esprit, protège les vainqueurs en %1$s, afin qu'ils s'assoient un jour avec "
 "Jésus sur son trône."
 
-#: pages/pray/stacker-text.php:2434
+#: pages/pray/stacker-text.php:2438
 msgid "Revelation 3:21"
 msgstr "Apocalypse 3:21"
 
-#: pages/pray/stacker-text.php:2435
+#: pages/pray/stacker-text.php:2439
 msgctxt "Revelation 3:21"
 msgid ""
 "He who overcomes, I will give to him to sit down with me on my throne, as I "
@@ -5207,21 +5190,21 @@ msgstr ""
 "Celui qui vaincra, je lui donnerai de s'asseoir avec moi sur mon trône, "
 "comme moi aussi j'ai vaincu et je me suis assis avec mon Père sur son trône."
 
-#: pages/pray/stacker-text.php:2439
+#: pages/pray/stacker-text.php:2443
 msgid ""
 "Father, you have chosen the weak things of this world to confound the "
-"strong. Make the poor and outcast in the %1$s of %2$s a testimony of your "
+"strong. Make the poor and outcast in %1$s of %2$s a testimony of your "
 "strength."
 msgstr ""
 "Père, tu as choisi les choses faibles de ce monde pour confondre les fortes. "
-"Faites des pauvres et des parias dans le %1$s de %2$s un témoignage de votre "
+"Faites des pauvres et des parias dans %1$s de %2$s un témoignage de votre "
 "force."
 
-#: pages/pray/stacker-text.php:2440
+#: pages/pray/stacker-text.php:2444
 msgid "1 Corinthians 1:27"
 msgstr "1 Corinthiens 1:27"
 
-#: pages/pray/stacker-text.php:2441
+#: pages/pray/stacker-text.php:2445
 msgctxt "1 Corinthians 1:27"
 msgid ""
 "God chose the foolish things of the world that he might put to shame those "
@@ -5231,7 +5214,7 @@ msgstr ""
 "Dieu a choisi les choses folles du monde pour faire honte aux sages. Dieu a "
 "choisi les choses faibles du monde, afin de confondre les choses fortes ;"
 
-#: pages/pray/stacker-text.php:2445
+#: pages/pray/stacker-text.php:2449
 msgid ""
 "Spirit, encourage the church of %1$s that they are blessed with every "
 "heavenly blessing."
@@ -5239,11 +5222,11 @@ msgstr ""
 "Esprit, encourage l'église de %1$s à être bénie de toutes les bénédictions "
 "célestes."
 
-#: pages/pray/stacker-text.php:2446
+#: pages/pray/stacker-text.php:2450
 msgid "Ephesians 1:3"
 msgstr "Ephésiens 1:3"
 
-#: pages/pray/stacker-text.php:2447
+#: pages/pray/stacker-text.php:2451
 msgctxt "Ephesians 1:3"
 msgid ""
 "Blessed be the God and Father of our Lord Jesus Christ, who has blessed us "
@@ -5252,15 +5235,15 @@ msgstr ""
 "Béni soit le Dieu et Père de notre Seigneur Jésus-Christ, qui nous a bénis "
 "de toute bénédiction spirituelle dans les lieux célestes en Christ"
 
-#: pages/pray/stacker-text.php:2451
+#: pages/pray/stacker-text.php:2455
 msgid "Father, thank you that you will never abandon the church of %1$s."
 msgstr "Père, merci de ne jamais abandonner l'église de %1$s."
 
-#: pages/pray/stacker-text.php:2452
+#: pages/pray/stacker-text.php:2456
 msgid "Hebrews 13:5 "
 msgstr "Hébreux 13:5 "
 
-#: pages/pray/stacker-text.php:2453
+#: pages/pray/stacker-text.php:2457
 msgctxt "Hebrews 13:5 "
 msgid ""
 "Be free from the love of money, content with such things as you have, for he "
@@ -5270,7 +5253,7 @@ msgstr ""
 "il a dit : « Je ne vous abandonnerai en aucune façon, et je ne vous "
 "abandonnerai en aucune façon."
 
-#: pages/pray/stacker-text.php:2457
+#: pages/pray/stacker-text.php:2461
 msgid ""
 "Jesus, for those distressed and afraid in %1$s, show them today that you "
 "give peace at all times and in every situation."
@@ -5278,11 +5261,11 @@ msgstr ""
 "Jésus, pour ceux qui sont affligés et effrayés en %1$s, montre-leur "
 "aujourd'hui que tu donnes la paix en tout temps et en toute situation."
 
-#: pages/pray/stacker-text.php:2458
+#: pages/pray/stacker-text.php:2462
 msgid "2 Thessalonians 3:16"
 msgstr "2 Thessaloniciens 3:16"
 
-#: pages/pray/stacker-text.php:2459
+#: pages/pray/stacker-text.php:2463
 msgctxt "2 Thessalonians 3:16"
 msgid ""
 "Now may the Lord of peace himself give you peace at all times in all ways. "
@@ -5291,7 +5274,7 @@ msgstr ""
 "Maintenant, que le Seigneur de la paix lui-même vous donne la paix en tout "
 "temps et de toutes les manières. Le Seigneur soit avec vous tous."
 
-#: pages/pray/stacker-text.php:2463
+#: pages/pray/stacker-text.php:2467
 msgid ""
 "Jesus, please find the broken hearted among the %1$s souls in %2$s and mend "
 "their wounds."
@@ -5299,59 +5282,59 @@ msgstr ""
 "Jésus, s'il te plaît, trouve les cœurs brisés parmi les %1$s âmes en %2$s et "
 "répare leurs blessures."
 
-#: pages/pray/stacker-text.php:2464
+#: pages/pray/stacker-text.php:2468
 msgid "Psalm 147:3"
 msgstr "Psaume 147:3"
 
-#: pages/pray/stacker-text.php:2465
+#: pages/pray/stacker-text.php:2469
 msgctxt "Psalm 147:3"
 msgid "He heals the broken in heart, and binds up their wounds."
 msgstr "Il guérit ceux qui ont le cœur brisé et panse leurs blessures."
 
-#: pages/pray/stacker-text.php:2469
+#: pages/pray/stacker-text.php:2473
 msgid "Father, comfort those who mourn in %1$s."
 msgstr "Père, console ceux qui pleurent en %1$s."
 
-#: pages/pray/stacker-text.php:2470
+#: pages/pray/stacker-text.php:2474
 msgid "Matthew 5:4"
 msgstr "Matthieu 5:4"
 
-#: pages/pray/stacker-text.php:2471
+#: pages/pray/stacker-text.php:2475
 msgctxt "Matthew 5:4"
 msgid "Blessed are those who mourn, for they shall be comforted."
 msgstr "Heureux ceux qui pleurent, car ils seront consolés."
 
-#: pages/pray/stacker-text.php:2475
+#: pages/pray/stacker-text.php:2479
 msgid ""
-"Father, see the suffering of your people in the %1$s of %2$s. Deliver all "
-"those who have not forgotten your Word."
+"Father, see the suffering of your people in %1$s of %2$s. Deliver all those "
+"who have not forgotten your Word."
 msgstr ""
-"Père, vois la souffrance de ton peuple dans le %1$s de %2$s. Délivre tous "
-"ceux qui n'ont pas oublié ta Parole."
+"Père, vois la souffrance de ton peuple dans %1$s de %2$s. Délivre tous ceux "
+"qui n'ont pas oublié ta Parole."
 
-#: pages/pray/stacker-text.php:2476
+#: pages/pray/stacker-text.php:2480
 msgid "Psalm 119:153"
 msgstr "Psaume 119:153"
 
-#: pages/pray/stacker-text.php:2477
+#: pages/pray/stacker-text.php:2481
 msgctxt "Psalm 119:153"
 msgid "Look on my suffering and deliver me, for I have not forgotten your law."
 msgstr "Regarde ma souffrance et délivre-moi, car je n'ai pas oublié ta loi."
 
-#: pages/pray/stacker-text.php:2489
+#: pages/pray/stacker-text.php:2493
 msgid "Love"
 msgstr "Amour"
 
-#: pages/pray/stacker-text.php:2493
+#: pages/pray/stacker-text.php:2497
 msgid ""
 "Spirit, give the believers of the %1$s of %2$s unity and humility as they "
 "work to bring the kingdom to new people and places."
 msgstr ""
-"Esprit, donne aux croyants du %1$s de %2$s l'unité et l'humilité alors "
+"Esprit, donne aux croyants de %1$s de %2$s l'unité et l'humilité alors "
 "qu'ils travaillent pour apporter le royaume à de nouvelles personnes et de "
 "nouveaux lieux."
 
-#: pages/pray/stacker-text.php:2499
+#: pages/pray/stacker-text.php:2503
 msgid ""
 "Lord, stir the hearts of your people in %1$s to agree with you and with one "
 "another."
@@ -5359,19 +5342,19 @@ msgstr ""
 "Seigneur, remue les cœurs de ton peuple en %1$s pour qu'ils soient d'accord "
 "avec toi et les uns avec les autres."
 
-#: pages/pray/stacker-text.php:2505
+#: pages/pray/stacker-text.php:2509
 msgid ""
-"Lord, stir the hearts of your people in the %1$s of %2$s to agree with you "
-"and with one another in love."
+"Lord, stir the hearts of your people in %1$s of %2$s to agree with you and "
+"with one another in love."
 msgstr ""
-"Seigneur, remue les cœurs de ton peuple dans le %1$s de %2$s pour être "
-"d'accord avec toi et les uns avec les autres dans l'amour."
+"Seigneur, remue les cœurs de ton peuple dans %1$s de %2$s pour être d'accord "
+"avec toi et les uns avec les autres dans l'amour."
 
-#: pages/pray/stacker-text.php:2506
+#: pages/pray/stacker-text.php:2510
 msgid "John 17:21"
 msgstr "Jean 17:21"
 
-#: pages/pray/stacker-text.php:2507
+#: pages/pray/stacker-text.php:2511
 msgctxt "John 17:21"
 msgid ""
 "that all of them may be one, Father, just as you are in me and I am in you. "
@@ -5380,7 +5363,7 @@ msgstr ""
 "afin que tous soient un, Père, comme tu es en moi et moi en toi. Qu'ils "
 "soient aussi en nous afin que le monde croie que tu m'as envoyé."
 
-#: pages/pray/stacker-text.php:2511
+#: pages/pray/stacker-text.php:2515
 msgid ""
 "Lord, we pray for the believers in %1$s to be more like Jesus in their love "
 "for friends and enemies."
@@ -5388,26 +5371,26 @@ msgstr ""
 "Seigneur, nous prions pour que les croyants en %1$s ressemblent davantage à "
 "Jésus dans leur amour pour leurs amis et leurs ennemis."
 
-#: pages/pray/stacker-text.php:2512
+#: pages/pray/stacker-text.php:2516
 msgid "Matthew 5:44"
 msgstr "Matthieu 5:44"
 
-#: pages/pray/stacker-text.php:2513
+#: pages/pray/stacker-text.php:2517
 msgctxt "Matthew 5:44"
 msgid "But I tell you, love your enemies and pray for those who persecute you."
 msgstr ""
 "Mais je vous le dis, aimez vos ennemis et priez pour ceux qui vous "
 "persécutent."
 
-#: pages/pray/stacker-text.php:2517
+#: pages/pray/stacker-text.php:2521
 msgid "Father, let love abound more and more in the church of %1$s."
 msgstr "Père, que l'amour abonde de plus en plus dans l'église de %1$s."
 
-#: pages/pray/stacker-text.php:2522
+#: pages/pray/stacker-text.php:2526
 msgid "Generosity"
 msgstr "Générosité"
 
-#: pages/pray/stacker-text.php:2523
+#: pages/pray/stacker-text.php:2527
 msgid ""
 "God, we pray for the believers in %1$s to be generous so that they would be "
 "worthy of greater investment by you."
@@ -5415,7 +5398,7 @@ msgstr ""
 "Dieu, nous prions pour que les croyants en %1$s soient généreux afin qu'ils "
 "soient dignes d'un plus grand investissement de votre part."
 
-#: pages/pray/stacker-text.php:2529
+#: pages/pray/stacker-text.php:2533
 msgid ""
 "Father, encourage the %1$s believers in %2$s to not just be consumers of "
 "knowledge but be producers of love, mercy, kindness, and justice."
@@ -5424,30 +5407,30 @@ msgstr ""
 "consommateurs de connaissances, mais à être des producteurs d'amour, de "
 "miséricorde, de gentillesse et de justice."
 
-#: pages/pray/stacker-text.php:2530
+#: pages/pray/stacker-text.php:2534
 msgid "1 John 3:18"
 msgstr "1 Jean 3:18"
 
-#: pages/pray/stacker-text.php:2531
+#: pages/pray/stacker-text.php:2535
 msgctxt "1 John 3:18"
 msgid "...let us not love with words or speech but with actions and in truth."
 msgstr ""
 "... n'aimons pas avec des mots ou des paroles mais avec des actions et en "
 "vérité."
 
-#: pages/pray/stacker-text.php:2535
+#: pages/pray/stacker-text.php:2539
 msgid ""
-"Oh Lord, show the fatherless in the %1$s of %2$s that you can be their real "
+"Oh Lord, show the fatherless in %1$s of %2$s that you can be their real "
 "Father."
 msgstr ""
-"Oh Seigneur, montre aux orphelins dans le %1$s de %2$s que tu peux être leur "
+"Oh Seigneur, montre aux orphelins dans %1$s de %2$s que tu peux être leur "
 "vrai Père."
 
-#: pages/pray/stacker-text.php:2536
+#: pages/pray/stacker-text.php:2540
 msgid "2 Corinthians 6:18"
 msgstr "2 Corinthiens 6:18"
 
-#: pages/pray/stacker-text.php:2537
+#: pages/pray/stacker-text.php:2541
 msgctxt "2 Corinthians 6:18"
 msgid ""
 "I will be to you a Father. you will be to me sons and daughters,’ says the "
@@ -5456,23 +5439,23 @@ msgstr ""
 "Je serai pour vous un Père. vous serez pour moi des fils et des filles, dit "
 "le Seigneur tout-puissant."
 
-#: pages/pray/stacker-text.php:2561
+#: pages/pray/stacker-text.php:2565
 msgid "Urgency"
 msgstr "Urgence"
 
-#: pages/pray/stacker-text.php:2565
+#: pages/pray/stacker-text.php:2569
 msgid ""
 "Father, give the disciples of the %1$s of %2$s an urgency of seeing every "
 "people and place reached for the gospel."
 msgstr ""
-"Père, donne aux disciples du %1$s du %2$s l'urgence de voir chaque peuple et "
+"Père, donne aux disciples de %1$s de %2$s l'urgence de voir chaque peuple et "
 "lieu atteint pour l'évangile."
 
-#: pages/pray/stacker-text.php:2566
+#: pages/pray/stacker-text.php:2570
 msgid "John 9:4"
 msgstr "Jean 9:4"
 
-#: pages/pray/stacker-text.php:2567
+#: pages/pray/stacker-text.php:2571
 msgctxt "John 9:4"
 msgid ""
 "As long as it is day, we must do the works of him who sent me. Night is "
@@ -5481,7 +5464,7 @@ msgstr ""
 "Tant qu'il fait jour, nous devons faire les oeuvres de celui qui m'a envoyé. "
 "La nuit vient, où personne ne peut travailler."
 
-#: pages/pray/stacker-text.php:2571
+#: pages/pray/stacker-text.php:2575
 msgid ""
 "Spirit, encourage the disciples in %1$s to live with urgency and a passion "
 "for making more disciples."
@@ -5489,11 +5472,11 @@ msgstr ""
 "Esprit, encourage les disciples dans %1$s à vivre avec urgence et passion "
 "pour faire plus de disciples."
 
-#: pages/pray/stacker-text.php:2572
+#: pages/pray/stacker-text.php:2576
 msgid "James 4:14"
 msgstr "Jacques 4:14"
 
-#: pages/pray/stacker-text.php:2573
+#: pages/pray/stacker-text.php:2577
 msgctxt "James 4:14"
 msgid ""
 "Yet you do not know what your life will be like tomorrow. you are just a "
@@ -5502,18 +5485,17 @@ msgstr ""
 "Pourtant, vous ne savez pas à quoi ressemblera votre vie demain. vous n'êtes "
 "qu'une vapeur qui apparaît un petit moment puis s'évanouit."
 
-#: pages/pray/stacker-text.php:2577
-msgid ""
-"Spirit, defend the church in the %1$s of %2$s against being inward-focused."
+#: pages/pray/stacker-text.php:2581
+msgid "Spirit, defend the church in %1$s of %2$s against being inward-focused."
 msgstr ""
-"Esprit, défends l'église dans le %1$s de %2$s contre la focalisation vers "
+"Esprit, défends l'église dans %1$s de %2$s contre la focalisation vers "
 "l'intérieur."
 
-#: pages/pray/stacker-text.php:2578
+#: pages/pray/stacker-text.php:2582
 msgid "Isaiah 61:1"
 msgstr "Esaïe 61:1"
 
-#: pages/pray/stacker-text.php:2579
+#: pages/pray/stacker-text.php:2583
 msgctxt "Isaiah 61:1"
 msgid ""
 "The Spirit of the Sovereign LORD is on me, because the LORD has anointed me "
@@ -5526,18 +5508,18 @@ msgstr ""
 "brisés, proclamer la liberté pour les captifs et la libération des ténèbres "
 "pour les prisonniers."
 
-#: pages/pray/stacker-text.php:2583
+#: pages/pray/stacker-text.php:2587
 msgid ""
 "Spirit, encourage the church in %1$s to make the most of every opportunity."
 msgstr ""
 "Esprit, encourage l'église de %1$s à tirer le meilleur parti de chaque "
 "opportunité."
 
-#: pages/pray/stacker-text.php:2584
+#: pages/pray/stacker-text.php:2588
 msgid "Ephesians 5:15"
 msgstr "Ephésiens 5:15"
 
-#: pages/pray/stacker-text.php:2585
+#: pages/pray/stacker-text.php:2589
 msgctxt "Ephesians 5:15"
 msgid ""
 "Be very careful, then, how you live—not as unwise but as wise, making the "
@@ -5547,20 +5529,20 @@ msgstr ""
 "mais comme sage, profitant au maximum de chaque opportunité, car les jours "
 "sont mauvais."
 
-#: pages/pray/stacker-text.php:2589
+#: pages/pray/stacker-text.php:2593
 msgid ""
 "Jesus, your return is closer than when we first believed. Please, set "
-"urgency in the hearts of the people living in the %1$s of %2$s."
+"urgency in the hearts of the people living in %1$s of %2$s."
 msgstr ""
 "Jésus, ton retour est plus proche que lorsque nous avons cru pour la "
 "première fois. S'il vous plaît, placez l'urgence dans le cœur des personnes "
-"vivant dans le %1$s de %2$s."
+"vivant dans %1$s de %2$s."
 
-#: pages/pray/stacker-text.php:2590
+#: pages/pray/stacker-text.php:2594
 msgid "Romans 13:11"
 msgstr "Romains 13:11"
 
-#: pages/pray/stacker-text.php:2591
+#: pages/pray/stacker-text.php:2595
 msgctxt "Romans 13:11"
 msgid ""
 "Besides this you know the time, that the hour has come for you to wake from "
@@ -5570,19 +5552,19 @@ msgstr ""
 "réveiller. Car le salut est plus proche de nous maintenant que lorsque nous "
 "avons cru pour la première fois."
 
-#: pages/pray/stacker-text.php:2595
+#: pages/pray/stacker-text.php:2599
 msgid ""
-"Spirit, disrupt complacency in the %1$s believers living in the %2$s of "
-"%3$s. Remind them you are coming soon."
+"Spirit, disrupt complacency in the %1$s believers living in %2$s de %3$s. "
+"Remind them you are coming soon."
 msgstr ""
 "Esprit, perturbe la complaisance chez les croyants %1$s vivant dans le %2$s "
 "de %3$s. Rappelez-leur que vous venez bientôt."
 
-#: pages/pray/stacker-text.php:2596
+#: pages/pray/stacker-text.php:2600
 msgid "Matthew 24:42"
 msgstr "Matthieu 24:42"
 
-#: pages/pray/stacker-text.php:2597
+#: pages/pray/stacker-text.php:2601
 msgctxt "Matthew 24:42"
 msgid ""
 "Therefore, stay awake, for you do not know on what day your Lord is coming."
@@ -5590,71 +5572,70 @@ msgstr ""
 "Par conséquent, veillez, car vous ne savez pas quel jour votre Seigneur "
 "viendra."
 
-#: pages/pray/stacker-text.php:2601
+#: pages/pray/stacker-text.php:2605
 msgid ""
 "Spirit, give faith and responsive hearts to the %1$s citizens of the %2$s of "
 "%3$s."
 msgstr ""
-"Esprit, donne la foi et des cœurs réactifs aux %1$s citoyens du %2$s de %3$s."
+"Esprit, donne la foi et des cœurs réactifs aux %1$s citoyens de %2$s de %3$s."
 
-#: pages/pray/stacker-text.php:2602
+#: pages/pray/stacker-text.php:2606
 msgid "Isaiah 55:6"
 msgstr "Esaïe 55:6"
 
-#: pages/pray/stacker-text.php:2603
+#: pages/pray/stacker-text.php:2607
 msgctxt "Isaiah 55:6"
 msgid "Seek the Lord while he may be found; call upon him while he is near;"
 msgstr ""
 "Cherchez le Seigneur pendant qu'il se trouve ; invoquez-le pendant qu'il est "
 "près de vous;"
 
-#: pages/pray/stacker-text.php:2607
+#: pages/pray/stacker-text.php:2611
 msgid ""
-"Spirit, renew the call of John the Baptist in the %1$s of %2$s. Send out "
-"bold servants who will call all to repent."
+"Spirit, renew the call of John the Baptist in %1$s of %2$s. Send out bold "
+"servants who will call all to repent."
 msgstr ""
-"Esprit, renouvelle l'appel de Jean-Baptiste dans le %1$s de %2$s. Envoyez "
-"des serviteurs audacieux qui appelleront tous à se repentir."
+"Esprit, renouvelle l'appel de Jean-Baptiste dans %1$s de %2$s. Envoyez des "
+"serviteurs audacieux qui appelleront tous à se repentir."
 
-#: pages/pray/stacker-text.php:2608
+#: pages/pray/stacker-text.php:2612
 msgid "Matthew 3:2"
 msgstr "Matthieu 3:2"
 
-#: pages/pray/stacker-text.php:2609
+#: pages/pray/stacker-text.php:2613
 msgctxt "Matthew 3:2"
 msgid "Repent, for the kingdom of heaven is at hand."
 msgstr "Repentez-vous, car le royaume des cieux est proche."
 
-#: pages/pray/stacker-text.php:2613
+#: pages/pray/stacker-text.php:2617
 msgid ""
-"Father, set on fire the hearts and passion of your church in the %1$s of "
-"%2$s."
+"Father, set on fire the hearts and passion of your church in %1$s of %2$s."
 msgstr ""
-"Père, enflamme les cœurs et la passion de ton église dans le %1$s de %2$s."
+"Père, enflamme les cœurs et la passion de ton église dans %1$s de %2$s."
 
-#: pages/pray/stacker-text.php:2614
+#: pages/pray/stacker-text.php:2618
 msgid "Romans 12:11"
 msgstr "Romains 12:11"
 
-#: pages/pray/stacker-text.php:2615
+#: pages/pray/stacker-text.php:2619
 msgctxt "Romans 12:11"
 msgid "Do not be slothful in zeal, be fervent in spirit, serve the Lord."
 msgstr ""
 "Ne soyez pas paresseux de zèle, soyez fervents d'esprit, servez le Seigneur."
 
-#: pages/pray/stacker-text.php:2619
+#: pages/pray/stacker-text.php:2623
 msgid ""
-"Spirit, awaken the sleepers and call them to repent and be baptized in the "
-"%1$s of %2$s. Set an urgency in their hearts."
+"Spirit, awaken the sleepers and call them to repent and be baptized in %1$s "
+"of %2$s. Set an urgency in their hearts."
 msgstr ""
 "Esprit, réveille les dormeurs et appelle-les à se repentir et à se faire "
-"baptiser dans le %1$s de %2$s. Mettez une urgence dans leur cœur."
+"baptiser dans %1$s de %2$s. Mettez une urgence dans leur cœur."
 
-#: pages/pray/stacker-text.php:2620
+#: pages/pray/stacker-text.php:2624
 msgid "Acts 22:16"
 msgstr "Actes 22:16"
 
-#: pages/pray/stacker-text.php:2621
+#: pages/pray/stacker-text.php:2625
 msgctxt "Acts 22:16"
 msgid ""
 "And now why do you wait? Rise and be baptized and wash away your sins, "
@@ -5663,19 +5644,19 @@ msgstr ""
 "Et maintenant pourquoi attends-tu ? Lève-toi, sois baptisé et lave tes "
 "péchés en invoquant son nom.’"
 
-#: pages/pray/stacker-text.php:2625
+#: pages/pray/stacker-text.php:2629
 msgid ""
-"Jesus, defend your people in the %1$s of %2$s against the difficulty of "
-"these last days."
+"Jesus, defend your people in %1$s of %2$s against the difficulty of these "
+"last days."
 msgstr ""
-"Jésus, défends ton peuple dans le %1$s de %2$s contre la difficulté de ces "
+"Jésus, défends ton peuple dans %1$s de %2$s contre la difficulté de ces "
 "derniers jours."
 
-#: pages/pray/stacker-text.php:2626
+#: pages/pray/stacker-text.php:2630
 msgid "2 Timothy 3:1-4"
 msgstr "2 Timothée 3:1-4"
 
-#: pages/pray/stacker-text.php:2627
+#: pages/pray/stacker-text.php:2631
 msgctxt "2 Timothy 3:1-4"
 msgid ""
 "But understand this, that in the last days there will come times of "
@@ -5694,19 +5675,19 @@ msgstr ""
 "plaisir plutôt qu'amant de Dieu, ayant l'apparence de la piété, mais niant "
 "sa puissance."
 
-#: pages/pray/stacker-text.php:2631
+#: pages/pray/stacker-text.php:2635
 msgid ""
-"Jesus, purify the %1$s believers in the %2$s of %3$s to not just be hearers, "
-"but doers of your Word."
+"Jesus, purify the %1$s believers in %2$s de %3$s to not just be hearers, but "
+"doers of your Word."
 msgstr ""
-"Jésus, purifie les %1$s croyants dans le %2$s de %3$s pour qu'ils ne soient "
-"pas seulement des auditeurs, mais des exécuteurs de ta Parole."
+"Jésus, purifie les %1$s croyants dans %2$s de %3$s pour qu'ils ne soient pas "
+"seulement des auditeurs, mais des exécuteurs de ta Parole."
 
-#: pages/pray/stacker-text.php:2632
+#: pages/pray/stacker-text.php:2636
 msgid "Revelation 1:3"
 msgstr "Apocalypse 1:3"
 
-#: pages/pray/stacker-text.php:2633
+#: pages/pray/stacker-text.php:2637
 msgctxt "Revelation 1:3"
 msgid ""
 "Blessed is the one who reads aloud the words of this prophecy, and blessed "
@@ -5716,19 +5697,19 @@ msgstr ""
 "heureux ceux qui entendent et qui gardent ce qui y est écrit, car le temps "
 "est proche."
 
-#: pages/pray/stacker-text.php:2637
+#: pages/pray/stacker-text.php:2641
 msgid ""
-"Holy Spirit, have mercy on the simple who turned from you in the %1$s of "
-"%2$s. Warn them again against their complacency."
+"Holy Spirit, have mercy on the simple who turned from you in %1$s of %2$s. "
+"Warn them again against their complacency."
 msgstr ""
 "Saint-Esprit, aie pitié des simples qui se sont détournés de toi dans le "
 "%1$s de %2$s. Avertissez-les encore contre leur complaisance."
 
-#: pages/pray/stacker-text.php:2638
+#: pages/pray/stacker-text.php:2642
 msgid "Proverbs 1:32"
 msgstr "Proverbes 1:32"
 
-#: pages/pray/stacker-text.php:2639
+#: pages/pray/stacker-text.php:2643
 msgctxt "Proverbs 1:32"
 msgid ""
 "For the simple are killed by their turning away, and the complacency of "
@@ -5737,15 +5718,15 @@ msgstr ""
 "Car les simples sont tués en se détournant, et la complaisance des insensés "
 "les détruit ;"
 
-#: pages/pray/stacker-text.php:2658
+#: pages/pray/stacker-text.php:2662
 msgid "Cities in %s"
 msgstr "Villes en %s"
 
-#: pages/pray/stacker-text.php:2659
+#: pages/pray/stacker-text.php:2663
 msgid "Jesus, bring your gospel to the people living in %1$s."
 msgstr "Jésus, apporte ton évangile aux habitants de %1$s."
 
-#: pages/pray/stacker-text.php:2661
+#: pages/pray/stacker-text.php:2665
 msgctxt "Matthew 28:19-20"
 msgid ""
 "Go therefore and make disciples of all nations, baptizing them in the name "
@@ -5756,7 +5737,7 @@ msgstr ""
 "du Père, du Fils et du Saint-Esprit, et enseignez-leur à observer tout ce "
 "que je vous ai prescrit."
 
-#: pages/pray/stacker-text.php:2737
+#: pages/pray/stacker-text.php:2741
 msgid ""
 "Lord we ask you on behalf of the %1$s people. %2$s%% are known to be "
 "believers. Oh God, please share with them the great gift of your son Jesus "
@@ -5766,7 +5747,7 @@ msgstr ""
 "être des croyants. Oh Dieu, s'il te plaît, partage avec eux le grand cadeau "
 "de ton fils Jésus et de ton royaume."
 
-#: pages/pray/stacker-text.php:2741
+#: pages/pray/stacker-text.php:2745
 msgid ""
 "Lord, please remember the %1$s people. you said you wanted worshippers of "
 "every tongue and tribe and nation, yet we know of no worshippers among them."
@@ -5775,7 +5756,7 @@ msgstr ""
 "voulais des adorateurs de toute langue, de toute tribu et de toute nation, "
 "mais nous ne connaissons aucun adorateur parmi eux."
 
-#: pages/pray/stacker-text.php:2745
+#: pages/pray/stacker-text.php:2749
 msgid ""
 "Lord, you sent Jesus as a witness to testify about the light so that all the "
 "%1$s people might believe through him."
@@ -5783,7 +5764,7 @@ msgstr ""
 "Seigneur, tu as envoyé Jésus comme témoin pour témoigner de la lumière afin "
 "que tout le peuple %1$s puisse croire par lui."
 
-#: pages/pray/stacker-text.php:2749
+#: pages/pray/stacker-text.php:2753
 msgid ""
 "Lord, bring the blind by a way that they don’t know. Lead the %1$s people in "
 "paths that they don’t know. Make darkness light before them and crooked "
@@ -5794,7 +5775,7 @@ msgstr ""
 "lumière des ténèbres devant eux et redressez les endroits tortueux. "
 "N'abandonnez pas le peuple %2$s."
 
-#: pages/pray/stacker-text.php:2753
+#: pages/pray/stacker-text.php:2757
 msgid ""
 "Lord, I thank you that you will bring health and a cure to the %1$s people. "
 "Reveal to them abundance of peace and truth."
@@ -5802,7 +5783,7 @@ msgstr ""
 "Seigneur, je te remercie d'apporter la santé et un remède au peuple %1$s. "
 "Révèle-leur l'abondance de paix et de vérité."
 
-#: pages/pray/stacker-text.php:2757
+#: pages/pray/stacker-text.php:2761
 msgid ""
 "Father, open to your people a door for the word, to speak the mystery of "
 "Christ to the %1$s people."
@@ -5810,7 +5791,7 @@ msgstr ""
 "Père, ouvre à ton peuple une porte pour la parole, pour annoncer le mystère "
 "du Christ au peuple %1$s."
 
-#: pages/pray/stacker-text.php:2761
+#: pages/pray/stacker-text.php:2765
 msgid ""
 "Father, I pray against the principalities, against the powers, against the "
 "world’s rulers of darkness of this age, and against the spiritual forces of "
@@ -5822,7 +5803,7 @@ msgstr ""
 "spirituelles de la méchanceté dans les lieux célestes qui font la guerre "
 "contre le peuple %1$s."
 
-#: pages/pray/stacker-text.php:2765
+#: pages/pray/stacker-text.php:2769
 msgid ""
 "Jesus, I pray that all the %1$s people will remember and turn to you, Lord "
 "God. May all the %2$s people worship before you. For the kingdom of the %3$s "
@@ -5832,7 +5813,7 @@ msgstr ""
 "toi, Seigneur Dieu. Que tous les gens %2$s adorent devant vous. Car le "
 "royaume du peuple %3$s est à vous."
 
-#: pages/pray/stacker-text.php:2769
+#: pages/pray/stacker-text.php:2773
 msgid ""
 "Lord God, I thank you that the blood of Christ, who through the eternal "
 "Spirit offered himself without defect to God, can cleanse the %1$s people "
@@ -5842,7 +5823,7 @@ msgstr ""
 "éternel s'est offert sans défaut à Dieu, peut purifier %1$s la conscience du "
 "peuple des œuvres mortes pour servir le Dieu vivant."
 
-#: pages/pray/stacker-text.php:2773
+#: pages/pray/stacker-text.php:2777
 msgid ""
 "Spirit, I pray that the %1$s people will come and worship before you, Lord. "
 "May they glorify your name for you are great."
@@ -5850,7 +5831,7 @@ msgstr ""
 "Esprit, je prie pour que le peuple %1$s vienne adorer devant toi, Seigneur. "
 "Puissent-ils glorifier ton nom car tu es grand."
 
-#: pages/pray/stacker-text.php:2777
+#: pages/pray/stacker-text.php:2781
 msgid ""
 "Lord, Let your Kingdom come among the %1$s people. Let your will be done, as "
 "in heaven, so on earth."
@@ -5858,7 +5839,7 @@ msgstr ""
 "Seigneur, que ton royaume vienne parmi le peuple %1$s. Que ta volonté soit "
 "faite, comme au ciel, ainsi sur la terre."
 
-#: pages/pray/stacker-text.php:2781
+#: pages/pray/stacker-text.php:2785
 msgid ""
 "Lord, remember the %1$s people. Make the %2$s people a chosen race, a royal "
 "priesthood, a holy nation, a people for your own possession."
@@ -5867,7 +5848,7 @@ msgstr ""
 "un sacerdoce royal, une nation sainte, un peuple pour votre propre "
 "possession."
 
-#: pages/pray/stacker-text.php:2785
+#: pages/pray/stacker-text.php:2789
 msgid ""
 "Father, I pray that the %1$s people will not be afraid or ashamed. Prevent "
 "them from being confounded or disappointed in their search for you. May the "
@@ -5877,63 +5858,63 @@ msgstr ""
 "d'être confondus ou déçus dans leur recherche de vous. Que les gens %2$s "
 "vous connaissent."
 
-#: pages/pray/stacker-text.php:2789
+#: pages/pray/stacker-text.php:2793
 msgid "Father, %1$s%% are known to be believers. Please, Lord call more today."
 msgstr ""
 "Père, %1$s%% sont connus pour être des croyants. S'il vous plaît, Seigneur, "
 "appelez plus aujourd'hui."
 
-#: pages/pray/stacker-text.php:2801
+#: pages/pray/stacker-text.php:2805
 msgid "What people or activities could you pray for in this photo?"
 msgstr ""
 "Pour quelles personnes ou activités pourriez-vous prier sur cette photo ?"
 
-#: pages/pray/stacker-text.php:2805
+#: pages/pray/stacker-text.php:2809
 msgid "What people or resources could you pray for in this photo?"
 msgstr ""
 "Pour quelles personnes ou ressources pourriez-vous prier sur cette photo ?"
 
-#: pages/pray/stacker-text.php:2809
+#: pages/pray/stacker-text.php:2813
 msgid "What needs would people have here?"
 msgstr "Quels besoins les gens auraient-ils ici?"
 
-#: pages/pray/stacker-text.php:2813
+#: pages/pray/stacker-text.php:2817
 msgid "What blessing is needed here?"
 msgstr "Quelle bénédiction est nécessaire ici ?"
 
-#: pages/pray/stacker-text.php:2817
+#: pages/pray/stacker-text.php:2821
 msgid "What conditions of religion or environment could you pray for here?"
 msgstr ""
 "Pour quelles conditions de religion ou d'environnement pourriez-vous prier "
 "ici ?"
 
-#: pages/pray/stacker-text.php:2821
+#: pages/pray/stacker-text.php:2825
 msgid "What challenges do people here face?"
 msgstr "À quels défis les gens sont-ils confrontés ici?"
 
-#: pages/pray/stacker-text.php:2825
+#: pages/pray/stacker-text.php:2829
 msgid "What beauty can God be thanked for in this photo?"
 msgstr "De quelle beauté Dieu peut-il être remercié sur cette photo ?"
 
-#: pages/pray/stacker-text.php:2838
+#: pages/pray/stacker-text.php:2842
 msgid "Pray that God raises up new churches in the city of %s."
 msgstr "Priez que Dieu suscite de nouvelles églises dans la ville de %s."
 
-#: pages/pray/stacker-text.php:2850
+#: pages/pray/stacker-text.php:2854
 msgid "Pray that God encourage his people in all these cities."
 msgstr "Priez que Dieu encourage son peuple dans toutes ces villes."
 
-#: pages/pray/stacker-text.php:2853
+#: pages/pray/stacker-text.php:2857
 msgid "Pray that new churches are planted in these cities."
 msgstr "Priez que de nouvelles églises soient implantées dans ces villes."
 
-#: pages/pray/stacker-text.php:2867 pages/pray/stacker-text.php:2879
-#: pages/pray/stacker-text.php:2891
+#: pages/pray/stacker-text.php:2871 pages/pray/stacker-text.php:2883
+#: pages/pray/stacker-text.php:2895
 msgid "The %1$s of %2$s has a population of %3$s."
 msgstr "Le %1$s de %2$s a une population de %3$s."
 
-#: pages/pray/stacker-text.php:2869 pages/pray/stacker-text.php:2881
-#: pages/pray/stacker-text.php:2893
+#: pages/pray/stacker-text.php:2873 pages/pray/stacker-text.php:2885
+#: pages/pray/stacker-text.php:2897
 msgid ""
 "We estimate %1$s has %2$s people who might know Jesus, %3$s people who might "
 "know about Jesus culturally, and %4$s people who do not know Jesus."
@@ -5942,8 +5923,8 @@ msgstr ""
 "%3$s personnes susceptibles de connaître Jésus culturellement et %4$s "
 "personnes qui ne connaissent pas Jésus."
 
-#: pages/pray/stacker-text.php:2871 pages/pray/stacker-text.php:2883
-#: pages/pray/stacker-text.php:2895
+#: pages/pray/stacker-text.php:2875 pages/pray/stacker-text.php:2887
+#: pages/pray/stacker-text.php:2899
 msgid "This is %1$s believer for every %2$s neighbors who need Jesus."
 msgstr "C'est %1$s croyant pour chaque %2$s voisins qui ont besoin de Jésus."
 
@@ -5958,28 +5939,28 @@ msgid "%d mins"
 msgstr "%d minutes"
 
 #: pages/pray/stacker.php:296
-msgid "state"
-msgstr "état"
+msgid "the state"
+msgstr "l’état"
 
 #: pages/pray/stacker.php:297
-msgid "states"
-msgstr "états"
+msgid "the states"
+msgstr "les états"
 
 #: pages/pray/stacker.php:299
-msgid "country"
-msgstr "pays"
+msgid "the country"
+msgstr "le pays"
 
 #: pages/pray/stacker.php:300
-msgid "countries"
-msgstr "des pays"
+msgid "the countries"
+msgstr "les pays"
 
 #: pages/pray/stacker.php:302
-msgid "county"
-msgstr "comté"
+msgid "the county"
+msgstr "le comté"
 
 #: pages/pray/stacker.php:303
-msgid "counties"
-msgstr "comtés"
+msgid "the counties"
+msgstr "les comtés"
 
 #: pages/pray/stacker.php:447
 msgid "Diaspora"
@@ -6036,13 +6017,13 @@ msgstr "Bon Travail!"
 
 #: pages/pray/trait-lap.php:40
 msgid "Prayer Added!"
-msgstr "Prière ajoutée"
+msgstr "Prière ajoutée!"
 
-#: pages/pray/trait-lap.php:81 pages/pray/trait-lap.php:102
+#: pages/pray/trait-lap.php:78 pages/pray/trait-lap.php:99
 msgid "Praying Button"
 msgstr "Bouton de prière"
 
-#: pages/pray/trait-lap.php:110
+#: pages/pray/trait-lap.php:107
 msgid "Decision Button"
 msgstr "Bouton de décision"
 
@@ -6113,7 +6094,7 @@ msgstr ""
 msgid "Logout"
 msgstr "Se déconnecter"
 
-#: pages/user/user-profile.php:92 post-type/feedback.php:112
+#: pages/user/user-profile.php:92
 msgid "Location"
 msgstr "Lieu"
 
@@ -6159,11 +6140,11 @@ msgctxt "New public Relay"
 msgid "New %s Relay"
 msgstr "Nouveau relais %s"
 
-#: pages/user/user-profile.php:103 post-type/laps.php:248
+#: pages/user/user-profile.php:103
 msgid "Public"
 msgstr "Publique"
 
-#: pages/user/user-profile.php:104 post-type/laps.php:252
+#: pages/user/user-profile.php:104
 msgid "Private"
 msgstr "Privé"
 
@@ -6244,7 +6225,7 @@ msgstr "Date de début du défi"
 msgid "Now"
 msgstr "Maintenant"
 
-#: pages/user/user-profile.php:218 post-type/laps.php:188
+#: pages/user/user-profile.php:218
 msgid "Start Date"
 msgstr "Date de début"
 
@@ -6252,7 +6233,7 @@ msgstr "Date de début"
 msgid "Challenge End Date"
 msgstr "Date de fin du défi"
 
-#: pages/user/user-profile.php:225 post-type/laps.php:196
+#: pages/user/user-profile.php:225
 msgid "End Date"
 msgstr "Date de fin"
 
@@ -6303,210 +6284,7 @@ msgstr "Supprimer"
 
 #: pages/user/user-profile.php:286
 msgid "I am sure"
-msgstr "je suis sûr"
-
-#: post-type/ctas.php:382 post-type/feedback.php:67 post-type/laps.php:77
-msgid "Multiplier"
-msgstr "Multiplicateur"
-
-#: post-type/feedback.php:76 post-type/laps.php:86
-msgid "Prayer Intercessor"
-msgstr "Intercesseur de prière"
-
-#: post-type/feedback.php:107 post-type/laps.php:119
-msgid "Type"
-msgstr "Taper"
-
-#: post-type/feedback.php:108 post-type/laps.php:120
-msgid "Type of Lap"
-msgstr "Type de tour"
-
-#: post-type/feedback.php:113 post-type/laps.php:125
-msgid "Custom laps"
-msgstr "Tours personnalisés"
-
-#: post-type/feedback.php:116
-msgid "General"
-msgstr "Général"
-
-#: post-type/feedback.php:117 post-type/laps.php:129
-msgid "Do not manually create! System creates new laps when ready."
-msgstr ""
-"Ne créez pas manuellement ! Le système crée de nouveaux tours lorsqu'il est "
-"prêt."
-
-#: post-type/feedback.php:127 post-type/laps.php:140
-msgid "Set the current status."
-msgstr "Choisissez le statut"
-
-#: post-type/feedback.php:131
-msgid "New"
-msgstr "Nouveau"
-
-#: post-type/feedback.php:132
-msgid "Is new"
-msgstr "Est nouveau"
-
-#: post-type/feedback.php:136
-msgid "Accepted"
-msgstr "Accepté"
-
-#: post-type/feedback.php:137
-msgid "Accepted as valid feedback"
-msgstr "Accepté comme commentaire valide"
-
-#: post-type/feedback.php:141
-msgid "In Progress"
-msgstr "En cours"
-
-#: post-type/feedback.php:142
-msgid "Active and assigned"
-msgstr "Actif et assigné"
-
-#: post-type/feedback.php:146
-msgid "Closed (Fixed)"
-msgstr "Fermé (fixe)"
-
-#: post-type/feedback.php:147
-msgid "Closed and feedback implemented."
-msgstr "Clôturé et commentaires mis en œuvre."
-
-#: post-type/feedback.php:151
-msgid "Closed (Denied)"
-msgstr "Fermé (refusé)"
-
-#: post-type/feedback.php:152
-msgid "Closed and feedback not implemented."
-msgstr "Fermé et commentaires non mis en œuvre."
-
-#: post-type/feedback.php:163 post-type/laps.php:166
-msgid "Assigned To"
-msgstr "Assigné à"
-
-#: post-type/feedback.php:164 post-type/laps.php:167
-msgid "Select the main person who is responsible for reporting on this record."
-msgstr ""
-"Sélectionnez la personne principale chargée de faire rapport sur ce groupe. "
-"(un utilisateur pas un contact)."
-
-#: post-type/feedback.php:172
-msgid "Reporter"
-msgstr "Journaliste"
-
-#: post-type/feedback.php:268 post-type/laps.php:342
-msgid "Other"
-msgstr "Autre"
-
-#: post-type/feedback.php:441 post-type/laps.php:551
-msgid "Assigned to me"
-msgstr "Assigné à moi"
-
-#: post-type/feedback.php:449 post-type/feedback.php:506
-#: post-type/feedback.php:514 post-type/laps.php:559 post-type/laps.php:616
-#: post-type/laps.php:624
-msgid "All"
-msgstr "Tout"
-
-#: post-type/laps.php:124
-msgid "Custom"
-msgstr "Personnalisé"
-
-#: post-type/laps.php:128
-msgid "Global (Auto)"
-msgstr "Global (Auto)"
-
-#: post-type/laps.php:144
-msgid "Active"
-msgstr "actif"
-
-#: post-type/laps.php:145
-msgid "Is active."
-msgstr "C'est actif."
-
-#: post-type/laps.php:149
-msgid "Complete"
-msgstr "Achevée"
-
-#: post-type/laps.php:150 post-type/laps.php:155
-msgid "No longer active."
-msgstr "N'est plus actif."
-
-#: post-type/laps.php:154
-msgid "Inactive"
-msgstr "Inactif"
-
-#: post-type/laps.php:175
-msgid "Turn the CTAs off"
-msgstr "Désactiver les CTA"
-
-#: post-type/laps.php:176
-msgid "Tick this box to turn the Call to Actions (CTAs) off for this lap"
-msgstr ""
-"Cochez cette case pour désactiver les appels à l'action (CTA) pour ce tour"
-
-#: post-type/laps.php:204
-msgid "Start time"
-msgstr "Heure de début"
-
-#: post-type/laps.php:221
-msgid "Global Lap Number"
-msgstr "Numéro de tour mondial"
-
-#: post-type/laps.php:229
-msgid "Global Key"
-msgstr "Clé globale"
-
-#: post-type/laps.php:236
-msgid "Custom Key"
-msgstr "Clé personnalisée"
-
-#: post-type/laps.php:249
-msgid "This lap is public and will show up on the public list of challenges"
-msgstr "Ce tour est public et apparaîtra sur la liste publique des défis"
-
-#: post-type/laps.php:253
-msgid "This lap is private and won't show up on the public list of challenges"
-msgstr "Ce tour est privé et n'apparaîtra pas sur la liste publique des défis"
-
-#: post-type/laps.php:260
-msgid "Challenge Type"
-msgstr "Type de défi"
-
-#: post-type/laps.php:265
-msgid "Ongoing Challenge"
-msgstr "Défi permanent"
-
-#: post-type/laps.php:266
-msgid "This challenge has no end date/time"
-msgstr "Ce défi n'a pas de date/heure de fin"
-
-#: post-type/laps.php:269
-msgid "Timed Challenge"
-msgstr "Défi chronométré"
-
-#: post-type/laps.php:270
-msgid "This challenge is a race to pray for the world by a certain time"
-msgstr "Ce défi est une course pour prier pour le monde d'ici un certain temps"
-
-#: post-type/laps.php:277
-msgid "Single lap"
-msgstr "Tour unique"
-
-#: post-type/laps.php:278
-msgid "Is this lap only to run once and then stop"
-msgstr "Est-ce que ce tour ne doit courir qu'une seule fois puis s'arrêter"
-
-#: post-type/laps.php:287
-msgid "Contacts"
-msgstr "Contacts"
-
-#: post-type/laps.php:299
-msgid "Parent Lap"
-msgstr "Tour des parents"
-
-#: post-type/laps.php:310
-msgid "Child Lap"
-msgstr "Tour de l'enfant"
+msgstr "Je suis sûr"
 
 #: utilities/global-utilities.php:663
 msgid "seconds"
@@ -6562,6 +6340,168 @@ msgstr "mois"
 #: utilities/global-utilities.php:680
 msgid "month"
 msgstr "mois"
+
+#~ msgid "Don't know Jesus"
+#~ msgstr "Je ne connais pas Jésus"
+
+#~ msgid "Know about Jesus"
+#~ msgstr "Connaître Jésus"
+
+#~ msgid "Multiplier"
+#~ msgstr "Multiplicateur"
+
+#~ msgid "Prayer Intercessor"
+#~ msgstr "Intercesseur de prière"
+
+#~ msgid "Type"
+#~ msgstr "Taper"
+
+#~ msgid "Type of Lap"
+#~ msgstr "Type de tour"
+
+#~ msgid "Custom laps"
+#~ msgstr "Tours personnalisés"
+
+#~ msgid "General"
+#~ msgstr "Général"
+
+#~ msgid "Do not manually create! System creates new laps when ready."
+#~ msgstr ""
+#~ "Ne créez pas manuellement ! Le système crée de nouveaux tours lorsqu'il "
+#~ "est prêt."
+
+#~ msgid "Set the current status."
+#~ msgstr "Choisissez le statut"
+
+#~ msgid "New"
+#~ msgstr "Nouveau"
+
+#~ msgid "Is new"
+#~ msgstr "Est nouveau"
+
+#~ msgid "Accepted"
+#~ msgstr "Accepté"
+
+#~ msgid "Accepted as valid feedback"
+#~ msgstr "Accepté comme commentaire valide"
+
+#~ msgid "In Progress"
+#~ msgstr "En cours"
+
+#~ msgid "Active and assigned"
+#~ msgstr "Actif et assigné"
+
+#~ msgid "Closed (Fixed)"
+#~ msgstr "Fermé (fixe)"
+
+#~ msgid "Closed and feedback implemented."
+#~ msgstr "Clôturé et commentaires mis en œuvre."
+
+#~ msgid "Closed (Denied)"
+#~ msgstr "Fermé (refusé)"
+
+#~ msgid "Closed and feedback not implemented."
+#~ msgstr "Fermé et commentaires non mis en œuvre."
+
+#~ msgid "Assigned To"
+#~ msgstr "Assigné à"
+
+#~ msgid ""
+#~ "Select the main person who is responsible for reporting on this record."
+#~ msgstr ""
+#~ "Sélectionnez la personne principale chargée de faire rapport sur ce "
+#~ "groupe. (un utilisateur pas un contact)."
+
+#~ msgid "Reporter"
+#~ msgstr "Journaliste"
+
+#~ msgid "Other"
+#~ msgstr "Autre"
+
+#~ msgid "Assigned to me"
+#~ msgstr "Assigné à moi"
+
+#~ msgid "All"
+#~ msgstr "Tout"
+
+#~ msgid "Custom"
+#~ msgstr "Personnalisé"
+
+#~ msgid "Global (Auto)"
+#~ msgstr "Global (Auto)"
+
+#~ msgid "Active"
+#~ msgstr "Actif"
+
+#~ msgid "Is active."
+#~ msgstr "C'est actif."
+
+#~ msgid "Complete"
+#~ msgstr "Achevée"
+
+#~ msgid "No longer active."
+#~ msgstr "N'est plus actif."
+
+#~ msgid "Inactive"
+#~ msgstr "Inactif"
+
+#~ msgid "Turn the CTAs off"
+#~ msgstr "Désactiver les CTA"
+
+#~ msgid "Tick this box to turn the Call to Actions (CTAs) off for this lap"
+#~ msgstr ""
+#~ "Cochez cette case pour désactiver les appels à l'action (CTA) pour ce tour"
+
+#~ msgid "Start time"
+#~ msgstr "Heure de début"
+
+#~ msgid "Global Lap Number"
+#~ msgstr "Numéro de tour mondial"
+
+#~ msgid "Global Key"
+#~ msgstr "Clé globale"
+
+#~ msgid "Custom Key"
+#~ msgstr "Clé personnalisée"
+
+#~ msgid "This lap is public and will show up on the public list of challenges"
+#~ msgstr "Ce tour est public et apparaîtra sur la liste publique des défis"
+
+#~ msgid ""
+#~ "This lap is private and won't show up on the public list of challenges"
+#~ msgstr ""
+#~ "Ce tour est privé et n'apparaîtra pas sur la liste publique des défis"
+
+#~ msgid "Challenge Type"
+#~ msgstr "Type de défi"
+
+#~ msgid "Ongoing Challenge"
+#~ msgstr "Défi permanent"
+
+#~ msgid "This challenge has no end date/time"
+#~ msgstr "Ce défi n'a pas de date/heure de fin"
+
+#~ msgid "Timed Challenge"
+#~ msgstr "Défi chronométré"
+
+#~ msgid "This challenge is a race to pray for the world by a certain time"
+#~ msgstr ""
+#~ "Ce défi est une course pour prier pour le monde d'ici un certain temps"
+
+#~ msgid "Single lap"
+#~ msgstr "Tour unique"
+
+#~ msgid "Is this lap only to run once and then stop"
+#~ msgstr "Est-ce que ce tour ne doit courir qu'une seule fois puis s'arrêter"
+
+#~ msgid "Contacts"
+#~ msgstr "Contacts"
+
+#~ msgid "Parent Lap"
+#~ msgstr "Tour des parents"
+
+#~ msgid "Child Lap"
+#~ msgstr "Tour de l'enfant"
 
 #, fuzzy
 #~ msgid "To Prayer.Global"

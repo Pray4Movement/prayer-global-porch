@@ -32,8 +32,8 @@ trait PG_Lap_Trait {
                     'translations' => [
                         'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
                         'Keep Praying...' => __( 'Keep Praying...', 'prayer-global-porch' ),
-                        "Don't know Jesus" => __( "Don't know Jesus", 'prayer-global-porch' ),
-                        'Know about Jesus' => __( 'Know about Jesus', 'prayer-global-porch' ),
+                        "Don't Know Jesus" => __( "Don't Know Jesus", 'prayer-global-porch' ),
+                        'Know About Jesus' => __( 'Know About Jesus', 'prayer-global-porch' ),
                         'Know Jesus' => __( 'Know Jesus', 'prayer-global-porch' ),
                         'Praying Paused' => __( 'Praying Paused', 'prayer-global-porch' ),
                         'Great Job!' => __( 'Great Job!', 'prayer-global-porch' ),
