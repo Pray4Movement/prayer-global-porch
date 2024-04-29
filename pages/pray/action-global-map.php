@@ -299,10 +299,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
 
     public static function _wp_enqueue_scripts(){
         DT_Mapbox_API::load_mapbox_header_scripts();
-        wp_enqueue_script( 'components-js', trailingslashit( plugin_dir_url( __DIR__ ) ) . 'assets/js/components.js', [
-            'jquery',
-            'mapbox-gl'
-        ], filemtime( plugin_dir_path( __DIR__ ) .'assets/js/components.js' ), true );
+        pg_enqueue_components();
         wp_enqueue_script( 'heatmap-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'heatmap.js', [
             'jquery',
             'mapbox-gl'

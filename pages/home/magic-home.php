@@ -19,6 +19,7 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
     } // End instance()
 
     public function __construct() {
+        add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
         parent::__construct();
 
         $url = dt_get_url_path( true );
@@ -57,8 +58,12 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
 
     }
 
+    public function wp_enqueue_scripts() {
+        pg_enqueue_components();
+    }
+
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        return [];
+        return [ 'components-js' ];
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
@@ -66,6 +71,7 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
     }
 
     public function _header() {
+        wp_head();
         $this->header_style();
         $this->header_javascript();
     }
@@ -78,7 +84,6 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
 
         ?>
 
-        <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/js/components.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/js/components.js' ) ) ?>"></script>
         <script>
             let jsObject = [<?php echo json_encode([
                 'map_key' => DT_Mapbox_API::get_key(),
@@ -91,13 +96,6 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
                     'root' => $this->root,
                 ],
                 'current_lap' => pg_current_global_lap(),
-                'translations' => [
-                    'years' => __( 'Years', 'prayer-global-porch' ),
-                    'days' => __( 'Days', 'prayer-global-porch' ),
-                    'hours' => __( 'Hours', 'prayer-global-porch' ),
-                    'minutes' => __( 'Minutes', 'prayer-global-porch' ),
-                    'seconds' => __( 'Seconds', 'prayer-global-porch' ),
-                ],
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
             ]) ?>][0]
 
@@ -151,7 +149,6 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
 
                 window.api_post( 'get_stats', {} )
                     .done(function(stats) {
-                        console.log(stats)
                         jQuery('.current-time-elapsed').html(PG.DisplayTime(stats.current_time_elapsed_data) )
                         jQuery('.current-participants').html(stats.current_participants )
                         jQuery('.current-completed').html(stats.current_completed )
