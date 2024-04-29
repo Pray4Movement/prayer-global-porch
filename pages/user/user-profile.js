@@ -28,6 +28,7 @@ jQuery(document).ready(function(){
     let isSavingChallenge = false
 
     const {
+        change,
         select_a_location,
         estimated_location,
         prayers,
@@ -186,8 +187,6 @@ jQuery(document).ready(function(){
     }
 
     function write_main (data) {
-        console.log(data)
-
         setup_details_modal()
         const pgContentHTML = `
 
@@ -929,7 +928,7 @@ jQuery(document).ready(function(){
 
     function DetailsChangeButton() {
         return ModalButton({
-            text: 'Change',
+            text: change,
             modalId: 'details-modal',
             classes: 'brand-lightest change-details',
             id: 'change-details',

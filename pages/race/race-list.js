@@ -24,7 +24,6 @@ jQuery(document).ready(function() {
 
   window.api_post( 'get_global_list', {} )
     .done(function(data) {
-      console.log(data)
       let html_content = ''
       jQuery.each( data, function(i,v){
         end_time = v.stats.end_time_formatted
