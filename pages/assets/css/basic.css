@@ -159,6 +159,16 @@ input[type="radio"]:checked {
 .navbar a {
     text-decoration: none;
 }
+.navbar .dt-magic-link-language-selector {
+    background: transparent;
+    color: var(--pg-brand-color-light);
+    padding: 10px;
+    border-radius: 5px;
+}
+.navbar-dark.navbar .dt-magic-link-language-selector {
+    color: white;
+}
+
 .form-control {
     font-weight: 300;
     color: #495057;

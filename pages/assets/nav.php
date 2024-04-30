@@ -1,5 +1,5 @@
 <?php
-$url = dt_get_url_path();
+$url = dt_get_url_path( true );
 
 /**
  * Nav for Home Page
@@ -17,6 +17,9 @@ if ( '' === $url ) {
     $nav_class = 'navbar-dark';
 }
 $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'user_app' ) ? 'd-none' : '';
+$parent_langs = dt_get_available_languages( true, false, [ 'en', 'fr' ] );
+$langs = dt_get_available_languages( true, false, [ 'en_US', 'fr_FR' ] );
+$lang = pg_get_current_lang();
 
 ?>
 <nav class="pg-navbar navbar p-0 d-block <?php echo esc_html( $nav_class ) ?>" id="pg-navbar">
@@ -28,6 +31,28 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
         <h5 class="border border-brand-light offcanvas-title px-3 rounded"><a href="/" class="brand-light navbar__title">Prayer.Global</a></h5>
 
         <div class="d-flex justify-content-end align-items-center">
+            <select class="dt-magic-link-language-selector">
+
+                <?php foreach ( $langs as $code => $language ) : ?>
+
+                    <?php if ( isset( $language['native_name'] ) ) :
+                        $name = $language['native_name'];
+                        if ( str_contains( $code, '_' ) ) {
+                            $parent_code = explode( '_', $code )[0];
+                            $name = isset( $parent_langs[$parent_code]['native_name'] ) ? $parent_langs[$parent_code]['native_name'] : $name;
+                        }
+                        ?>
+                        <option value="<?php echo esc_html( $code ); ?>" <?php selected( $lang === $code ) ?>>
+
+                            <?php echo esc_html( $language['flag'] ?? '' ); ?> <?php echo esc_html( $name ); ?>
+
+                        </option>
+                    <?php endif; ?>
+
+                <?php endforeach; ?>
+
+            </select>
+
             <a href="/user_app/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
                 <i class="icon pg-profile"></i>
             </a>
