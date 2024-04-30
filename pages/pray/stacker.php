@@ -511,7 +511,7 @@ class PG_Stacker {
 
         $current_lang = pg_get_current_lang();
         if ( $current_lang !== 'en_US' ){
-            if ( str_contains( $current_lang, '_') ){
+            if ( str_contains( $current_lang, '_' ) ){
                 $current_lang = explode( '_', $current_lang )[0];
             }
 
