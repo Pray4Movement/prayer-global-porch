@@ -153,6 +153,8 @@ class Prayer_Global_Porch {
 
         $lang = pg_get_current_lang();
         pg_set_translation( $lang );
+        pg_add_lang_to_cookie( $lang );
+
     }
 
     /**

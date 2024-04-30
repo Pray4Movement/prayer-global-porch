@@ -1068,9 +1068,10 @@ function pg_reload_text_domain(){
  * @param string $lang
  */
 function pg_add_lang_to_cookie( string $lang ) {
-    if ( isset( $_GET['lang'] ) && !empty( $_GET['lang'] ) ){
-        setcookie( 'dt-magic-link-lang', $lang, 0, '/' );
+    if ( isset( $_COOKIE['dt-magic-link-lang'] ) && $_COOKIE['dt-magic-link-lang'] === $lang ){
+        return;
     }
+    setcookie( 'dt-magic-link-lang', $lang, 0, '/' );
 }
 
 function pg_enqueue_components(){

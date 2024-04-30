@@ -1,8 +1,5 @@
 <?php
 
-$lang = pg_get_current_lang();
-pg_add_lang_to_cookie( $lang );
-
 require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' ) ?>
 
 <section class="hero full-height contain bg-top dark-bg" style="background-image: url(<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/world-map-dark-background-new.png); min-height: 100vh;" id="section-home">
