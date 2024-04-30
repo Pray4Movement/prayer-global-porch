@@ -509,6 +509,25 @@ class PG_Stacker {
         }
 
 
+        $current_lang = pg_get_current_lang();
+        if ( $current_lang !== 'en_US' ){
+            if ( str_contains( $current_lang, '_') ){
+                $current_lang = explode( '_', $current_lang )[0];
+            }
+
+            $translated = $wpdb->get_row( $wpdb->prepare( "
+                SELECT *
+                FROM $wpdb->location_grid_names
+                WHERE grid_id = %s 
+                AND language_code = %s
+            ", $grid_id, $current_lang ), ARRAY_A );
+
+            $grid_record['name'] = $translated['name'] ?? $grid_record['name'];
+            $grid_record['full_name'] = $translated['full_name'] ?? $grid_record['full_name'];
+        }
+
+
+
         return [
             'location' => $grid_record,
             'cities' => $cities,
