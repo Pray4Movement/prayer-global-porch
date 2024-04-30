@@ -86,8 +86,9 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
         </div>
     </div>
     <div class="position-relative" id="story5">
-        <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/desktop-story-background-05.jpg" alt="">
+        <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/desktop-story-background-05.png" alt="">
         <div class="brand-light desktop-story__container text-right-40 text-bottom container text-align-right me-4" style="z-index: 1;">
+            <h2 class="font-title mb-3"><?php echo esc_html__( 'The Finish Line', 'prayer-global-porch' ) ?><i class="icon pg-logo-prayer ms-3"></i></h2>
             <p class="pb-3">
                 <?php echo sprintf( esc_html__( 'With each prayer lap we complete, we are that much closer to ushering in God’s Kingdom and the return of Jesus Christ! %sClick Start Praying to start your Prayer.Global experience today!', 'prayer-global-porch' ), '<br>' ) ?>
             </p>
@@ -183,7 +184,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
                                     <p class="white-gradient pb-3">
                                         <?php echo sprintf( esc_html__( 'With each prayer lap we complete, we are that much closer to ushering in God’s Kingdom and the return of Jesus Christ! %sClick Start Praying to start your Prayer.Global experience today!', 'prayer-global-porch' ), '<br>' ) ?>
                                     </p>
-                                    <img class="w-100 p-0 finish-line" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/finish-line-cropped.png" alt="dark world">
+                                    <img class="w-100 p-0 finish-line" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/finish-line-cropped-no-text.png" alt="dark world">
 
                                     <div class="mb-4 pb-3 position-absolute bottom-0"><a class="btn btn-cta mx-2 two-rem" href="/newest/lap/"><?php echo esc_html__( 'Start Praying', 'prayer-global-porch' ) ?></a></div>
                                 </div>
