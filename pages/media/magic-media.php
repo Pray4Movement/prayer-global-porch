@@ -92,6 +92,34 @@ class Prayer_Global_Porch_Media extends DT_Magic_Url_Base
                        <hr>
                     </div>
                     <div class="col-12">
+                        <h2><?php echo esc_html__( 'How to launch Prayer.Global at your church', 'prayer-global-porch' ) ?></h2>
+                    </div>
+                    <div class="col-lg-3 p-3">
+                        <?php echo esc_html( __( 'Video', 'prayer-global-porch' ) ) ?><br>
+                        <div style="padding:56.3% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/913555379?h=b79d3f9229&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+                    </div>
+                    <div class="col-lg-3 p-3">
+                        <p>
+                            <?php echo esc_html( __( 'Embed Code', 'prayer-global-porch' ) ) ?><br>
+                            <textarea style="font-size: .6em; height: 150px; width: 100%;" readonly><div style="padding:56.3% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/913555379?h=b79d3f9229&title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe></div><script src="https://player.vimeo.com/api/player.js"></script></textarea>
+                        </p>
+                    </div>
+                    <div class="col-lg-3 p-3">
+                        <?php echo esc_html( __( 'Resources', 'prayer-global-porch' ) ) ?><br>
+                        <p>
+                            <a href="/church"><?php echo esc_html__( 'How to launch Prayer.Global at your church document', 'prayer-global-porch' ) ?></a>
+                        </p>
+                        <p>
+                            <a href="https://vimeo.com/913555379" target="_blank"><?php echo esc_html__( 'Wayne Bushnell Prayer.Global Testimony Video', 'prayer-global-porch' ) ?> <i class="ion-android-open"></i></a>
+                        </p>
+
+                    </div>
+                </div>
+                <div class="row justify-content-md-center text-center mb-5">
+                    <div class="col-12 mb-3">
+                       <hr>
+                    </div>
+                    <div class="col-12">
                         <h2><?php echo esc_html__( 'Moravian Challenge Video', 'prayer-global-porch' ) ?></h2>
                     </div>
                     <div class="col-lg-3 p-3">
