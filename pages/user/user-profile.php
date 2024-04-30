@@ -105,7 +105,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'private_relays' => esc_html( __( 'My Private Relays', 'prayer-global-porch' ) ),
                 'private_explanation1' => sprintf( esc_html( __( "Private relays do not show on the %s page, but can be shared with your team mates.", 'prayer-global-porch' ) ), '<a href="/challenges/active">' . esc_html__( 'Prayer Relays', 'prayer-global-porch' ) . '</a>' ),
                 'public_explanation1' => sprintf( esc_html( __( "Your public relays will also appear on the %s page.", 'prayer-global-porch' ) ), '<a href="/challenges/active">' . esc_html__( 'Prayer Relays', 'prayer-global-porch' ) . '</a>' ),
-                'no_relays_found' => esc_html__( '', 'prayer-global-porch' ),
+                'no_relays_found' => esc_html__( 'You have not created any %s relays yet', 'prayer-global-porch' ),
                 'view_join_other_relays' => esc_html__( 'View other public relays', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
