@@ -130,7 +130,7 @@ class PG_Porch_404 extends DT_Magic_Url_Base
             <div class="container center">
                 <div class="row">
                     <div class="col center">
-                        Not where you meant to be? Try some of the links below (or above) to get back into the action...
+                        <p><?php echo esc_html__( 'Not where you meant to be? Try some of the links below (or above) to get back into the action...', 'prayer-global-porch' ) ?></p>
                     </div>
                 </div>
             </div>
@@ -139,10 +139,10 @@ class PG_Porch_404 extends DT_Magic_Url_Base
                 <div class="row">
                     <div class="col center">
                         <ul style="list-style: none; padding-left: 0;">
-                            <li><a href="/newest/lap">Start Praying</a></li>
-                            <li><a href="/newest/map">The map</a></li>
-                            <li><a href="/newest/stats">More stats</a></li>
-                            <li><a href="/challenges/active">Prayer Relays</a></li>
+                            <li><a href="/newest/lap"><?php echo esc_html__( 'Start Praying', 'prayer-global-porch' ) ?></a></li>
+                            <li><a href="/newest/map"><?php echo esc_html__( 'The map', 'prayer-global-porch' ) ?></a></li>
+                            <li><a href="/newest/stats"><?php echo esc_html__( 'More stats', 'prayer-global-porch' ) ?></a></li>
+                            <li><a href="/challenges/active"><?php echo esc_html__( 'Prayer Relays', 'prayer-global-porch' ) ?></a></li>
                         </ul>
                     </div>
                 </div>
@@ -151,9 +151,7 @@ class PG_Porch_404 extends DT_Magic_Url_Base
             <div class="container pb-4">
                 <div class="row">
                     <div class="col-md text-center">
-                        <h3 class="">
-                            Other interesting links
-                        </h3>
+                        <h3 class=""><?php echo esc_html__( 'Other interesting links', 'prayer-global-porch' ) ?></h3>
                     </div>
                 </div>
             </div>
@@ -161,9 +159,9 @@ class PG_Porch_404 extends DT_Magic_Url_Base
                 <div class="row">
                     <div class="col center">
                         <ul style="list-style: none; padding-left: 0;">
-                            <li><a href="/prayer_app/contact_us/">Anything to share/request? Please contact us :)</a></li>
-                            <li><a href="/content_app/data_sources">Where does all the data come from?</a></li>
-                            <li><a href="/download_app/media">Invites for sharing on social media</a></li>
+                            <li><a href="/prayer_app/contact_us/"><?php echo esc_html__( 'Anything to share/request? Please contact us :)', 'prayer-global-porch' ) ?></a></li>
+                            <li><a href="/content_app/data_sources"><?php echo esc_html__( 'Where does all the data come from?', 'prayer-global-porch' ) ?></a></li>
+                            <li><a href="/download_app/media"><?php echo esc_html__( 'Invites for sharing on social media', 'prayer-global-porch' ) ?></a></li>
                         </ul>
                     </div>
                 </div>
