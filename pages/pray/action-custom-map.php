@@ -50,7 +50,6 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
         $allowed_js[] = 'heatmap-js';
         $allowed_js[] = 'bootstrap-js';
         $allowed_js[] = 'components-js';
-        $allowed_js[] = 'components-js';
         return $allowed_js;
     }
 
