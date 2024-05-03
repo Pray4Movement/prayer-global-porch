@@ -1966,10 +1966,6 @@ class PG_Stacker_Text {
             ],
             [
                 'section_label' => $section_label,
-                'Seigneur, fournissez des anciens dont le cœur est entièrement à vous dans chaque ville du l’état de Oshana.',
-                'Seigneur, fournissez des anciens dont le cœur est entièrement à vous dans chaque ville dans l’état de Oshana.',
-                'Seigneur, fournissez des anciens dont le cœur est entièrement à vous dans chaque ville dans le pays de Oshana.',
-                'Seigneur, fournissez des anciens dont le cœur est entièrement à vous dans chaque ville dans le conté de Oshana.',
                 'prayer' => sprintf( __( 'Lord, please provide elders whose hearts are completely yours in every town in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_name'], $stack['location']['name'] ),
                 'reference' => __( 'Titus 1:5', 'prayer-global-porch' ),
                 'verse' => _x( 'The reason I left you in Crete was that you might put in order what was left unfinished and appoint elders in every town, as I directed you.', 'Titus 1:5', 'prayer-global-porch' ),
