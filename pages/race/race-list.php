@@ -120,7 +120,7 @@ class Prayer_Global_Porch_Stats_Race_List extends DT_Magic_Url_Base
             <div class="container pb-4">
                 <div class="row">
                     <div class="col-md text-center">
-                        <h2 class="">Race List</h2>
+                        <h2 class=""><?php echo esc_html__( 'Race List', 'prayer-global-porch' ) ?></h2>
                         <i class="icon pg-check icon-large"></i>
                     </div>
                 </div>
@@ -138,7 +138,7 @@ class Prayer_Global_Porch_Stats_Race_List extends DT_Magic_Url_Base
             <div class="container center">
                 <div class="row">
                     <div class="col center">
-                        <a href="/race_app/race_map/" role="button" class="btn smoothscroll btn-xl btn-primary rounded">Race Map</a>
+                        <a href="/race_app/race_map/" role="button" class="btn smoothscroll btn-xl btn-primary rounded"><?php echo esc_html__( 'Race Map', 'prayer-global-porch' ) ?></a>
                     </div>
                 </div>
             </div>
