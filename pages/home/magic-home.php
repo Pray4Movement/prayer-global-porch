@@ -58,9 +58,7 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
 
     }
 
-    public function wp_enqueue_scripts() {
-        pg_enqueue_components();
-    }
+    public function wp_enqueue_scripts() {}
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
         return [ 'components-js' ];
@@ -77,6 +75,7 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
     }
     public function _footer(){
         $this->footer_javascript();
+        wp_footer();
     }
 
     public function header_javascript(){

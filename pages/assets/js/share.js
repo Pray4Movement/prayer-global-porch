@@ -1,4 +1,4 @@
-$(document).ready(function($) {
+jQuery(document).ready(function($) {
     const shareModal = document.getElementById('share-modal')
     const shareFacebook = shareModal.querySelector('.facebook-action')
     const shareTwitter = shareModal.querySelector('.twitter-action')

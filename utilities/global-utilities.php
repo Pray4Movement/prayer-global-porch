@@ -984,35 +984,6 @@ function pg_calculate_lap_number( $post_id ) {
 
 }
 
-function pg_toggle_user_elements() {
-
-    ?>
-
-    <script>
-        $(document).ready(function($) {
-            window.getAuthUser(
-                () => {
-                    showElements('[data-pg-is-logged-in]', true)
-                    showElements('[data-pg-is-logged-out]', false)
-                },
-                () => {
-                    showElements('[data-pg-is-logged-in]', false)
-                    showElements('[data-pg-is-logged-out]', true)
-                }
-            )
-
-            function showElements(selector, show) {
-                document
-                    .querySelectorAll(selector)
-                    .forEach((element) => element.style.display = show ? 'block' : 'none')
-            }
-        })
-    </script>
-
-    <?php
-
-}
-
 if ( ! function_exists( 'dt_sanitize_array' ) ) {
     function dt_sanitize_array( &$array ) {
         foreach ( $array as &$value ) {
@@ -1072,18 +1043,4 @@ function pg_add_lang_to_cookie( string $lang ) {
         return;
     }
     setcookie( 'dt-magic-link-lang', $lang, 0, '/' );
-}
-
-function pg_enqueue_components(){
-    wp_enqueue_script( 'components-js', trailingslashit( plugin_dir_url( __DIR__ ) ) . 'pages/assets/js/components.js', [], filemtime( plugin_dir_path( __DIR__ ) . 'pages/assets/js/components.js' ) );
-    wp_localize_script( 'components-js', 'pg_components', [
-        'translations' => [
-            'years' => __( 'Years', 'prayer-global-porch' ),
-            'days' => __( 'Days', 'prayer-global-porch' ),
-            'hours' => __( 'Hours', 'prayer-global-porch' ),
-            'minutes' => __( 'Minutes', 'prayer-global-porch' ),
-            'seconds' => __( 'Seconds', 'prayer-global-porch' ),
-        ],
-    ] );
-
 }

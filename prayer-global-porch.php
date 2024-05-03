@@ -86,6 +86,12 @@ class Prayer_Global_Porch {
         }
         return self::$_instance;
     }
+    public static function get_url_path(){
+        return trailingslashit( plugin_dir_url( __FILE__ ) );
+    }
+    public static function get_dir_path(){
+        return trailingslashit( plugin_dir_path( __FILE__ ) );
+    }
 
     private function __construct() {
         global $wpdb;
@@ -109,6 +115,8 @@ class Prayer_Global_Porch {
 
         require_once( 'redirects/loader.php' );
         require_once( 'post-type/loader.php' );
+
+        require_once( 'pages/assets/enqueue.php' );
 
         // home
         require_once( 'pages/home/magic-home.php' );

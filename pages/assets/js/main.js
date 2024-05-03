@@ -254,3 +254,24 @@ $(document).ready(function($) {
   })
 });
 
+jQuery(document).ready(function($) {
+
+  jQuery('body').data('spy', 'scroll').data('target', '#pg-navbar').data('offset', '200')
+
+  window.getAuthUser(
+    () => {
+      showElements('[data-pg-is-logged-in]', true)
+      showElements('[data-pg-is-logged-out]', false)
+    },
+    () => {
+      showElements('[data-pg-is-logged-in]', false)
+      showElements('[data-pg-is-logged-out]', true)
+    }
+  )
+
+  function showElements(selector, show) {
+    document
+    .querySelectorAll(selector)
+    .forEach((element) => element.style.display = show ? 'block' : 'none')
+  }
+})
