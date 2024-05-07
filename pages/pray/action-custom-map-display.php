@@ -49,6 +49,8 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
         $allowed_js[] = 'jquery-cookie';
         $allowed_js[] = 'mapbox-cookie';
         $allowed_js[] = 'heatmap-js';
+        $allowed_js[] = 'foundations-js';
+
         return $allowed_js;
     }
 

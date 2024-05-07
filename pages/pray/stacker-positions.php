@@ -16,7 +16,7 @@ class PG_Stacker_Positions {
                 'type' => 'photo_block',
                 'data' => [
                     'section_label' => __( 'One Shot Prayer Walk', 'prayer-global-porch' ),
-                    'location_label' => sprintf( __( 'Photo from the %1$s of %2$s', 'prayer-global-porch' ), $stack['location']['admin_level_name'], $stack['location']['full_name'] ),
+                    'location_label' => sprintf( _x( 'Photo from %1$s of %2$s', 'Photo from the state of Colorado', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'] ),
                     'url' => $image_url,
                     'section_summary' => $text['section_summary'],
                     'prayer' => $text['prayer'],

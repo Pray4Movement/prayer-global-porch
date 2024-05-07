@@ -79,7 +79,10 @@ function pg_heatmap_scripts( $glass ){
             'Community Stats' => __( 'Community Stats', 'prayer-global-porch' ),
             'Summary' => __( 'Summary', 'prayer-global-porch' ),
             'Activity' => __( 'Activity', 'prayer-global-porch' ),
-
+            'Times prayed for' => __( 'Times prayed for', 'prayer-global-porch' ),
+            'Total time prayed' => __( 'Total time prayed', 'prayer-global-porch' ),
+            'minute' => __( 'minute', 'prayer-global-porch' ),
+            'minutes' => __( 'minutes', 'prayer-global-porch' ),
         ]
     ] );
 

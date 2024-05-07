@@ -863,6 +863,7 @@ jQuery(document).ready(function($){
           bodies_3 += '<i class="ion-ios-body secondary two-em"></i>';
           i++;
         }
+        let admin_level = response.location.admin_level_title.charAt(0).toUpperCase() + response.location.admin_level_title.slice(1)
         div.html(
           `
           <div class="row">
@@ -890,7 +891,7 @@ jQuery(document).ready(function($){
                 <hr>
               </div>
               <div class="col-12">
-                ${translations.location_description1.replace('%1$s', response.location.admin_level_name).replace('%2$s', response.location.full_name).replace('%3$s', response.location.population)}
+                ${translations.location_description1.replace('%1$s', admin_level).replace('%2$s', response.location.full_name).replace('%3$s', response.location.population)}
                 ${translations.location_description2.replace('%1$s', response.location.name).replace('%2$s', response.location.non_christians).replace('%3$s', response.location.christian_adherents).replace('%4$s', response.location.believers)}
                 ${translations.location_description3.replace('%1$s', response.location.full_name).replace('%2$s', response.location.peer_locations).replace('%3$s', response.location.admin_level_name_plural).replace('%4$s', response.location.parent_name)}
                 <hr>
@@ -997,11 +998,11 @@ jQuery(document).ready(function($){
                 <p><span class="stats-title two-em">${response.location.full_name}</span></p>
                 <hr />
                 <p><span class="two-em">${translations["Summary"]}</span></p>
-                <p>Prayed for ${communityStats.times_prayed.total} ${communityStats.times_prayed.total > 1 ? 'times' : 'time'}</p>
+                <p>${translations["Times prayed for"]}: ${communityStats.times_prayed.total}</p>
 
                 ${PG.IconInfographic(totalNumberStats)}
 
-                <p>Total time prayed: ${communityStats.time_prayed.total} ${communityStats.time_prayed.total > 1 ? 'mins' : 'min'}</p>
+                <p>${translations["Total time prayed"]}: ${communityStats.time_prayed.total} ${communityStats.time_prayed.total > 1 ? translations.minutes : translations.minute}</p>
 
                 ${PG.IconInfographic(totalTimeStats)}
 
