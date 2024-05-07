@@ -88,14 +88,14 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
         ?>
 
         <script>
-          let jsObject = [<?php echo json_encode([
-              'parts' => [
-                  'type' => $this->type,
-                  'root' => $this->root,
-              ],
-              'current_lap' => pg_current_global_lap(),
-              'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
-          ]) ?>][0]
+        let jsObject = [<?php echo json_encode([
+          'parts' => [
+              'type' => $this->type,
+              'root' => $this->root,
+          ],
+          'current_lap' => pg_current_global_lap(),
+          'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
+        ]) ?>][0]
 
           jQuery(document).ready(function($){
 

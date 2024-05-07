@@ -15,8 +15,8 @@ trait PG_Lap_Trait {
     }
 
     public function wp_enqueue_scripts(){
-        pg_enqueue_script( 'report-js', 'pages/pray/report.js', ['jquery', 'global-functions'], true );
-        pg_enqueue_script( 'lap-js', 'pages/pray/lap.js', ['jquery', 'global-functions', 'report-js'], true );
+        pg_enqueue_script( 'report-js', 'pages/pray/report.js', [ 'jquery', 'global-functions' ], true );
+        pg_enqueue_script( 'lap-js', 'pages/pray/lap.js', [ 'jquery', 'global-functions', 'report-js' ], true );
     }
 
     public function header_javascript(){

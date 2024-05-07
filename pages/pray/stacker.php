@@ -354,6 +354,32 @@ class PG_Stacker {
         $grid_record['percent_non_christians_full'] = (float) $grid_record['percent_non_christians'];
         $grid_record['percent_non_christians'] = round( (float) $grid_record['percent_non_christians'], 2 );
 
+
+        $current_lang = pg_get_current_lang();
+        if ( $current_lang !== 'en_US' ){
+            if ( str_contains( $current_lang, '_' ) ){
+                $current_lang = explode( '_', $current_lang )[0];
+            }
+
+            $translated = $wpdb->get_row( $wpdb->prepare( "
+                SELECT *
+                FROM $wpdb->location_grid_names
+                WHERE grid_id = %s 
+                AND language_code = %s
+            ", $grid_id, $current_lang ), ARRAY_A );
+
+            $translated_parent = $wpdb->get_row( $wpdb->prepare( "
+                SELECT *
+                FROM $wpdb->location_grid_names
+                WHERE grid_id = %s 
+                AND language_code = %s
+            ", $grid_record['parent_id'], $current_lang ), ARRAY_A );
+
+            $grid_record['name'] = $translated['name'] ?? $grid_record['name'];
+            $grid_record['full_name'] = $translated['full_name'] ?? $grid_record['full_name'];
+            $grid_record['parent_name'] = $translated_parent['name'] ?? $grid_record['parent_name'];
+        }
+
         // lost
         $grid_record['all_lost_int'] = $grid_record['christian_adherents_int'] + $grid_record['non_christians_int'];
         $grid_record['all_lost'] = number_format( $grid_record['all_lost_int'] );
@@ -517,24 +543,6 @@ class PG_Stacker {
             }
             $grid_record['cities_list'] = implode( ', ', $cities_list['names'] );
             $grid_record['cities_list_w_pop'] = implode( ', ', $cities_list['names_pop'] );
-        }
-
-
-        $current_lang = pg_get_current_lang();
-        if ( $current_lang !== 'en_US' ){
-            if ( str_contains( $current_lang, '_' ) ){
-                $current_lang = explode( '_', $current_lang )[0];
-            }
-
-            $translated = $wpdb->get_row( $wpdb->prepare( "
-                SELECT *
-                FROM $wpdb->location_grid_names
-                WHERE grid_id = %s 
-                AND language_code = %s
-            ", $grid_id, $current_lang ), ARRAY_A );
-
-            $grid_record['name'] = $translated['name'] ?? $grid_record['name'];
-            $grid_record['full_name'] = $translated['full_name'] ?? $grid_record['full_name'];
         }
 
 

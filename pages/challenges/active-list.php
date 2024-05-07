@@ -72,7 +72,7 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
     }
 
     public function wp_enqueue_scripts(){
-        pg_enqueue_script( 'active-list-js', 'pages/challenges/active-list.js', ['jquery', 'global-functions'], true );
+        pg_enqueue_script( 'active-list-js', 'pages/challenges/active-list.js', [ 'jquery', 'global-functions' ], true );
         wp_localize_script( 'active-list-js', 'pg_active_list', [
             'translations' => [
                 'pray' => esc_html( __( 'Pray', 'prayer-global-porch' ) ),
@@ -91,7 +91,7 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
             'images_url' => pg_grid_image_url(),
             'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
         ] );
-        wp_enqueue_script( 'datatables', 'https://cdn.datatables.net/v/dt/dt-1.12.1/r-2.3.0/datatables.min.js', ['active-list-js'], '4.0.1', true );
+        wp_enqueue_script( 'datatables', 'https://cdn.datatables.net/v/dt/dt-1.12.1/r-2.3.0/datatables.min.js', [ 'active-list-js' ], '4.0.1', true );
     }
 
 
@@ -193,12 +193,12 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
         return false;
     }
 
-    public function get_active_list() {
-         global $wpdb;
+    public function get_active_list(){
+        global $wpdb;
 
-         $data = [];
+        $data = [];
 
-         $results = $wpdb->get_results(
+        $results = $wpdb->get_results(
             "   SELECT
                     p.post_title,
                     pm.post_id,
@@ -220,7 +220,7 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
                 ORDER BY p.post_title
              ", ARRAY_A );
 
-        foreach ( $results as $row ) {
+        foreach ( $results as $row ){
             $row['stats'] = pg_custom_lap_stats_by_post_id( $row['post_id'] );
             $data[] = $row;
         }
