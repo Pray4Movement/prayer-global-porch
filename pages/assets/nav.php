@@ -31,28 +31,37 @@ $lang = pg_get_current_lang();
         <h5 class="border border-brand-light offcanvas-title px-3 rounded"><a href="/" class="brand-light navbar__title">Prayer.Global</a></h5>
 
         <div class="d-flex justify-content-end align-items-center">
-            <select class="dt-magic-link-language-selector">
+            <div class="d-flex justify-content-end align-items-center">
+                <div class="dropdown dt-magic-link-language-selector">
+                    <button class="btn btn-secondary btn-small dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img class="dt-icon dt-white-icon" src="<?php echo esc_html( get_template_directory_uri() . '/dt-assets/images/languages.svg' ) ?>"/>
+                    </button>
+                    <ul class="dropdown-menu">
 
-                <?php foreach ( $langs as $code => $language ) : ?>
+                        <?php foreach ( $langs as $code => $language ) : ?>
 
-                    <?php if ( isset( $language['native_name'] ) ) :
-                        $name = $language['native_name'];
-                        if ( str_contains( $code, '_' ) ) {
-                            $parent_code = explode( '_', $code )[0];
-                            $name = isset( $parent_langs[$parent_code]['native_name'] ) ? $parent_langs[$parent_code]['native_name'] : $name;
-                        }
-                        ?>
-                        <option value="<?php echo esc_html( $code ); ?>" <?php selected( $lang === $code ) ?>>
+                            <?php if ( isset( $language['native_name'] ) ) :
+                                $name = $language['native_name'];
+                                if ( str_contains( $code, '_' ) ) {
+                                    $parent_code = explode( '_', $code )[0];
+                                    $name = isset( $parent_langs[$parent_code]['native_name'] ) ? $parent_langs[$parent_code]['native_name'] : $name;
+                                }
+                                $selected_class = $lang === $code ? 'active' : '';
+                                ?>
+                                <li>
+                                    <a class="dropdown-item <?php echo esc_html( $selected_class ); ?>"
+                                       data-value="<?php echo esc_html( $code ); ?>"
+                                       aria-current="<?php echo $lang === $code ? 'true' : 'false' ?>">
+                                    <?php echo esc_html( $language['flag'] ?? '' ); ?> <?php echo esc_html( $name ); ?>
+                                    </a>
+                                </li>
+                            <?php endif; ?>
 
-                            <?php echo esc_html( $language['flag'] ?? '' ); ?> <?php echo esc_html( $name ); ?>
+                        <?php endforeach; ?>
 
-                        </option>
-                    <?php endif; ?>
-
-                <?php endforeach; ?>
-
-            </select>
-
+                    </ul>
+                </div>
+            </div>
             <a href="/user_app/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
                 <i class="icon pg-profile"></i>
             </a>

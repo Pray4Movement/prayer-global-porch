@@ -246,8 +246,8 @@ $(document).ready(function($) {
 	const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 	const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
-  $('.dt-magic-link-language-selector').change(e => {
-    const val = $(e.currentTarget).val()
+  $('.dt-magic-link-language-selector a').click(e => {
+    const val = $(e.currentTarget).data('value')
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set('lang', val);
     window.location.search = urlParams;

@@ -159,17 +159,18 @@ input[type="radio"]:checked {
 .navbar a {
     text-decoration: none;
 }
-.navbar .dt-magic-link-language-selector {
+.navbar .dt-magic-link-language-selector button{
     background: transparent;
     color: var(--pg-brand-color-light);
     padding: 3px;
     border-radius: 5px;
+    box-shadow: none;
 }
-.navbar .dt-magic-link-language-selector option {
-    color: var(--pg-brand-color-light);
+.navbar .dt-magic-link-language-selector button img {
+    height: 40px;
 }
-.navbar-dark.navbar .dt-magic-link-language-selector {
-    color: white;
+.navbar-dark.navbar .dt-magic-link-language-selector img {
+    filter: invert(100%) sepia(100%) saturate(6%) hue-rotate(105deg) brightness(102%) contrast(102%);
 }
 
 .form-control {
