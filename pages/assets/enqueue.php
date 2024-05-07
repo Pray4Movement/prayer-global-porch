@@ -58,6 +58,13 @@ add_action( 'wp_enqueue_scripts', function (){
             'seconds' => __( 'Seconds', 'prayer-global-porch' ),
         ],
     ] );
+
+    wp_localize_script( 'share-js', 'pg_share', [
+        'translations' => [
+            'Join us in covering the world in prayer' => __( 'Join us in covering the world in prayer', 'prayer-global-porch' ),
+        ],
+    ] );
+
 });
 
 

@@ -1,3 +1,5 @@
+const translations = window.pg_js.escapeObject(window.pg_share.translations)
+
 jQuery(document).ready(function($) {
     const shareModal = document.getElementById('share-modal')
     if ( !shareModal ) {
@@ -15,7 +17,7 @@ jQuery(document).ready(function($) {
 
     const pageToShare = metaUrlElement ? metaUrlElement.getAttribute('content') : document.URL
     const encodedPageToShare = encodeURIComponent(pageToShare)
-    const textToShare = "Join us in covering the world in prayer"
+    const textToShare = translations['Join us in covering the world in prayer']
     const encodedTextToShare = encodeURIComponent(textToShare)
 
 
