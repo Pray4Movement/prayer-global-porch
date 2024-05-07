@@ -168,7 +168,7 @@ jQuery(document).ready(function(){
     })
 
     function get_user_app(action, data = {} ) {
-        return window.api_fetch( jsObject.root + jsObject.parts.root + '/v1/' + jsObject.parts.type, {
+        return window.api_fetch( window.pg_global.root + jsObject.parts.root + '/v1/' + jsObject.parts.type, {
             method: 'POST',
             body: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
         } )

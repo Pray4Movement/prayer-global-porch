@@ -43,6 +43,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
+        $allowed_js = [];
         $allowed_js[] = 'jquery-touch-punch';
         $allowed_js[] = 'mapbox-gl';
         $allowed_js[] = 'jquery-cookie';
@@ -84,20 +85,12 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
         ?>
         <script>
             let jsObject = [<?php echo json_encode([
-                'map_key' => DT_Mapbox_API::get_key(),
-                'ipstack' => DT_Ipstack_API::get_key(),
-                'mirror_url' => dt_get_location_grid_mirror( true ),
-                'root' => esc_url_raw( rest_url() ),
-                'nonce' => wp_create_nonce( 'wp_rest' ),
                 'parts' => $this->parts,
                 'grid_data' => [],
                 'participants' => [],
                 'user_locations' => [],
                 'stats' => pg_global_stats_by_key( $this->parts['public_key'] ),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
-                'translations' => [
-                    'add' => __( 'Add Magic', 'prayer-global-porch' ),
-                ],
                 'map_type' => 'binary',
                 'is_cta_feature_on' => true,
             ]) ?>][0]
@@ -108,7 +101,6 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
         <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/prayer-global/style.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/fonts/prayer-global/style.css' ) ) ?>">
         <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/basic.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ) ) ?>" type="text/css" media="all">
         <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>heatmap.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'heatmap.css' ) ) ?>" type="text/css" media="all">
-        <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>report.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'report.js' ) ) ?>"></script>
         <?php
     }
 
@@ -290,12 +282,8 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
         <?php
     }
 
-    public static function _wp_enqueue_scripts(){
-        DT_Mapbox_API::load_mapbox_header_scripts();
-        wp_enqueue_script( 'heatmap-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'heatmap.js', [
-            'jquery',
-            'mapbox-gl'
-        ], esc_attr( filemtime( plugin_dir_path( __FILE__ ) .'heatmap.js' ) ), true );
+    public function _wp_enqueue_scripts(){
+        pg_heatmap_scripts( $this );
     }
 
     public function endpoint( WP_REST_Request $request ) {

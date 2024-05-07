@@ -126,9 +126,6 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
             return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
         }
 
-        $lang = pg_get_current_lang();
-        pg_set_translation( $lang );
-
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['parts']['action'] ) {
@@ -162,10 +159,12 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
     }
 
     public function _header() {
+        wp_head();
         $this->header_style();
         $this->header_javascript();
     }
     public function _footer(){
+        wp_footer();
         $this->footer_javascript();
     }
 

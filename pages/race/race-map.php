@@ -67,6 +67,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
+        $allowed_js = [];
         $allowed_js[] = 'jquery-touch-punch';
         $allowed_js[] = 'mapbox-gl';
         $allowed_js[] = 'jquery-cookie';
@@ -104,11 +105,6 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
         ?>
         <script>
             let jsObject = [<?php echo json_encode([
-                'map_key' => DT_Mapbox_API::get_key(),
-                'ipstack' => DT_Ipstack_API::get_key(),
-                'mirror_url' => dt_get_location_grid_mirror( true ),
-                'root' => esc_url_raw( rest_url() ),
-                'nonce' => wp_create_nonce( 'wp_rest' ),
                 'parts' => $this->parts,
                 'grid_data' => [],
                 'participants' => [],
@@ -229,12 +225,8 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
         <?php
     }
 
-    public static function _wp_enqueue_scripts(){
-        DT_Mapbox_API::load_mapbox_header_scripts();
-        wp_enqueue_script( 'heatmap-js', trailingslashit( plugin_dir_url( __DIR__ ) ) . 'pray/heatmap.js', [
-            'jquery',
-            'mapbox-gl'
-        ], filemtime( plugin_dir_path( __DIR__ ) .'pray/heatmap.js' ), true );
+    public function _wp_enqueue_scripts(){
+        pg_heatmap_scripts( null );
     }
 
     /**

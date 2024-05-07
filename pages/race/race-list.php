@@ -80,11 +80,6 @@ class Prayer_Global_Porch_Stats_Race_List extends DT_Magic_Url_Base
         ?>
         <script>
             let jsObject = [<?php echo json_encode([
-                'map_key' => DT_Mapbox_API::get_key(),
-                'mirror_url' => dt_get_location_grid_mirror( true ),
-                'ipstack' => DT_Ipstack_API::get_key(),
-                'root' => esc_url_raw( rest_url() ),
-                'nonce' => wp_create_nonce( 'wp_rest' ),
                 'parts' => $this->parts,
                 'current_lap' => pg_current_global_lap(),
                 'global_race' => pg_global_race_stats(),

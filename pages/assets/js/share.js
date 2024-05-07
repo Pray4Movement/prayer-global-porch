@@ -1,5 +1,8 @@
 jQuery(document).ready(function($) {
     const shareModal = document.getElementById('share-modal')
+    if ( !shareModal ) {
+      return;
+    }
     const shareFacebook = shareModal.querySelector('.facebook-action')
     const shareTwitter = shareModal.querySelector('.twitter-action')
     const shareEmail = shareModal.querySelector('.email-action')

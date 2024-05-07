@@ -1,14 +1,4 @@
-let escapeObject = function (obj) {
-  return Object.fromEntries(Object.entries(obj).map(([key, value]) => {
-    return [ key, escapeHTML(value)]
-  }))
-};
-let escapeHTML = function (str) {
-  if (typeof str === "undefined") return '';
-  if (typeof str !== "string") return str;
-  return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&apos;");
-};
-const translations = escapeObject(jsObject.translations)
+const translations = window.pg_js.escapeObject(jsObject.translations)
 let translate = function ( string ){
   return translations[string] ? translations[string] : string
 }
@@ -19,13 +9,13 @@ jQuery(document).ready(function(){
    * API HANDLERS
    */
   window.api_post = ( action, data ) => {
-    return window.api_fetch( jsObject.root + jsObject.parts.root + '/v1/' + jsObject.parts.type, {
+    return window.api_fetch( window.pg_global.root + jsObject.parts.root + '/v1/' + jsObject.parts.type, {
       method: "POST",
       body: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
     })
   }
   window.api_post_global = ( type, action, data = null ) => {
-    return window.api_fetch( `${jsObject.root}pg-api/v1/${type}/${action}`, {
+    return window.api_fetch( `${window.pg_global.root}pg-api/v1/${type}/${action}`, {
       method: "POST",
       body: data !== null ? JSON.stringify(data) : null,
     })
@@ -561,7 +551,7 @@ jQuery(document).ready(function(){
         return;
       }
       let center = [grid_row.p_longitude, grid_row.p_latitude]
-      mapboxgl.accessToken = jsObject.map_key;
+      mapboxgl.accessToken = window.pg_global.map_key;
       let map = new mapboxgl.Map({
         container: 'mapbox-map',
         style: 'mapbox://styles/discipletools/clgnj6vkv00e801pj9xnw49i6',
@@ -576,7 +566,7 @@ jQuery(document).ready(function(){
       map.on('load', function() {
 
         jQuery.ajax({
-          url: jsObject.mirror_url + 'collection/'+grid_row.parent_id+'.geojson',
+          url: window.pg_global.mirror_url + 'collection/'+grid_row.parent_id+'.geojson',
           dataType: 'json',
           data: null,
           cache: true,
@@ -689,7 +679,7 @@ jQuery(document).ready(function(){
 
         if ( grid_row.level >= 2 ) {
           jQuery.ajax({
-            url: jsObject.mirror_url + 'low/'+grid_row.admin0_grid_id+'.geojson',
+            url: window.pg_global.mirror_url + 'low/'+grid_row.admin0_grid_id+'.geojson',
             dataType: 'json',
             data: null,
             cache: true,
@@ -1366,33 +1356,36 @@ jQuery(document).ready(function(){
     }
     div.append(
       `<div class="container block basic-block">
-          <div class="row">
+        <div class="row">
           <div class="col text-center">
             <h5 class="mb-0 uc">${data.section_label}</h5>
-            <p class="mt-3 mb-3" style="display: ${icon};"><i class="${data.icon} six-em" /></p>
+            <p class="mt-3 mb-3" style="display: ${icon};">
+                <i class="${data.icon} six-em"></i>
+            </p>
           </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-           <p class="mt-3 mb-3 two-em lh-sm">${data.prayer}</p>
         </div>
-      </div>
+        <div class="row text-center justify-content-center">
+          <div class="col-md-8">
+             <p class="mt-3 mb-3 two-em lh-sm">${data.prayer}</p>
+          </div>
+        </div>
 
-      <div class="row text-center justify-content-center ${data.id}" style="display:${display}">
-        <div class="col mt-3 mb-3 font-weight-bold text-center">
-          <button type="button" class="px-4 d-flex mx-auto align-items-center gap-2" onclick="jQuery('#${data.id}').show();jQuery('.${data.id}').hide();" >
-            <span>${data.reference} </span> <i class="icon pg-chevron-down"></i>
-          </button>
+        <div class="row text-center justify-content-center ${data.id}" style="display:${display}">
+          <div class="col mt-3 mb-3 font-weight-bold text-center">
+            <button type="button" class="px-4 d-flex mx-auto align-items-center gap-2" onclick="jQuery('#${data.id}').show();jQuery('.${data.id}').hide();" >
+              <span>${data.reference} </span> <i class="icon pg-chevron-down"></i>
+            </button>
+          </div>
         </div>
-      </div>
-       <div class="row text-center justify-content-center" style="display:none;" id="${data.id}" >
-        <div class="col-md-8">
-           <p class="mt-3 mb-0 font-weight-normal font-italic lh-sm two-em">${data.verse}</p>
-           <p class="mt-0 mb-3 font-weight-normal">${data.reference}</p>
+        <div class="row text-center justify-content-center" style="display:none;" id="${data.id}" >
+          <div class="col-md-8">
+             <p class="mt-3 mb-0 font-weight-normal font-italic lh-sm two-em">${data.verse}</p>
+             <p class="mt-0 mb-3 font-weight-normal">${data.reference}</p>
+          </div>
         </div>
-      </div>
-      <hr>
-    </div>`)
+        <hr>
+      </div>`
+    );
   }
 
   function BodyIcon( color, size = '' ) {

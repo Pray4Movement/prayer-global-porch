@@ -54,7 +54,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        return array_merge( $allowed_js, [
+        return [
             'jquery',
             'jquery-ui',
             'foundations-js',
@@ -63,15 +63,12 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'mapbox-gl',
             'components-js',
             'user-profile-js'
-        ]);
+        ];
     }
 
     public function wp_enqueue_scripts() {
         wp_enqueue_script( 'user-profile-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-profile.js', [ 'jquery', 'components-js' ], filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-profile.js' ), true );
         wp_localize_script( 'user-profile-js', 'jsObject', [
-            'map_key' => DT_Mapbox_API::get_key(),
-            'root' => esc_url_raw( rest_url() ),
-            'nonce' => wp_create_nonce( 'wp_rest' ),
             'parts' => $this->parts,
             'translations' => [
                 'change' => esc_html( __( 'Change', 'prayer-global-porch' ) ),
@@ -117,7 +114,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         ?>
         <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/prayer-global/style.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/fonts/prayer-global/style.css' ) ) ?>">
-        <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>user-profile.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-profile.js' ) ) ?>"></script>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3"></script>
         <style>
             #login_form input {
