@@ -15,6 +15,8 @@ add_filter( 'dt_magic_url_base_allowed_js', function ( $allowed_js ){
         'bootstrap',
         'slick',
         'heatmap-js',
+        'jquery-easing',
+        'jquery-waypoints',
     ] );
 
     return $allowed_js;
@@ -39,6 +41,7 @@ add_action( 'wp_enqueue_scripts', function (){
     wp_enqueue_script( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', [], '1.9.0', true );
     //Easily execute a function when you scroll to an element
     wp_enqueue_script( 'jquery-waypoints', 'https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js', [ 'jquery' ], '4.0.1', true );
+    wp_enqueue_script( 'jquery-easing', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js', [ 'jquery' ], '1.4.1', true );
 
 
 
