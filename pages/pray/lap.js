@@ -1,10 +1,8 @@
-const translations = window.pg_js.escapeObject(jsObject.translations)
-let translate = function ( string ){
-  return translations[string] ? translations[string] : string
-}
-
-
 jQuery(document).ready(function(){
+  const translations = window.pg_js.escapeObject(jsObject.translations)
+  let translate = function ( string ){
+    return translations[string] ? translations[string] : string
+  }
   /**
    * API HANDLERS
    */

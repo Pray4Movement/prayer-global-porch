@@ -1,6 +1,5 @@
-const translations = window.pg_js.escapeObject(window.pg_share.translations)
-
 jQuery(document).ready(function($) {
+    const translations = window.pg_js.escapeObject(window.pg_share.translations)
     const shareModal = document.getElementById('share-modal')
     if ( !shareModal ) {
       return;

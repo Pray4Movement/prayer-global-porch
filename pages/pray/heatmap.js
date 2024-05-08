@@ -1,7 +1,6 @@
-const isMobile = window.pg_js.isMobile()
-const translations = window.pg_js.escapeObject(window.pg_heatmap.translations)
-
 jQuery(document).ready(function($){
+  const isMobile = window.pg_js.isMobile()
+  const translations = window.pg_js.escapeObject(window.pg_heatmap.translations)
 
   const red = 'rgba(255,0,0, .7)'
   const green = 'rgba(0,128,0, .9)'
