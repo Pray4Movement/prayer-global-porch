@@ -166,6 +166,9 @@ input[type="radio"]:checked {
     border-radius: 5px;
     box-shadow: none;
 }
+.navbar .offcanvas .dt-magic-link-language-selector button {
+    color: white;
+}
 .navbar .dt-magic-link-language-selector button::after {
     content: unset;
 }
