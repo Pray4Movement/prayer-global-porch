@@ -61,6 +61,8 @@ jQuery(document).ready(function(){
         private_explanation1,
         private_explanation2,
         public_explanation1,
+        edit,
+        display_map,
     } = jsObject.translations
 
 
@@ -763,7 +765,7 @@ jQuery(document).ready(function(){
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a href="#" data-bs-toggle="modal" data-bs-target="#create-challenge-modal" data-challenge-id="${challenge.post_id}" class="dropdown-item edit-challenge-button">Edit</a></li>
-                                <li><a href="${urlRoot}/display" class="dropdown-item">Display Map</a></li>
+                                <li><a href="${urlRoot}/display" class="dropdown-item">${display_map}</a></li>
                             </ul>
                         </div>
                     </td>
