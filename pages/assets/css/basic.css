@@ -171,6 +171,7 @@ input[type="radio"]:checked {
 }
 .navbar .dt-magic-link-language-selector button svg {
     width: 2rem;
+    height: 2rem;
 }
 .navbar-dark.navbar .dt-magic-link-language-selector button {
     color: white;
