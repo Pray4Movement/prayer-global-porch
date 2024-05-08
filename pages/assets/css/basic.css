@@ -159,18 +159,25 @@ input[type="radio"]:checked {
 .navbar a {
     text-decoration: none;
 }
-.navbar .dt-magic-link-language-selector button{
+.navbar .dt-magic-link-language-selector button {
     background: transparent;
     color: var(--pg-brand-color-light);
     padding: 3px;
     border-radius: 5px;
     box-shadow: none;
 }
-.navbar .dt-magic-link-language-selector button img {
-    height: 40px;
+.navbar .dt-magic-link-language-selector button::after {
+    content: unset;
 }
-.navbar-dark.navbar .dt-magic-link-language-selector img {
-    filter: invert(100%) sepia(100%) saturate(6%) hue-rotate(105deg) brightness(102%) contrast(102%);
+.navbar .dt-magic-link-language-selector button svg {
+    width: 2rem;
+}
+.navbar-dark.navbar .dt-magic-link-language-selector button {
+    color: white;
+}
+.navbar .dt-magic-link-language-selector .dropdown-menu {
+    --bs-dropdown-link-hover-bg: var(--pg-brand-color-lighter);
+    --bs-dropdown-link-active-bg: var(--pg-brand-color-lighter);
 }
 
 .form-control {

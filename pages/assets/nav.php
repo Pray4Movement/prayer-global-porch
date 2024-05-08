@@ -31,10 +31,10 @@ $lang = pg_get_current_lang();
         <h5 class="border border-brand-light offcanvas-title px-3 rounded navbar__title"><a href="/" class="brand-light navbar__title-link">Prayer.Global</a></h5>
 
         <div class="d-flex justify-content-end align-items-center">
-            <div class="d-flex justify-content-end align-items-center">
+            <div class="d-flex justify-content-end align-items-center mx-2">
                 <div class="dropdown dt-magic-link-language-selector">
                     <button class="btn btn-secondary btn-small dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img class="dt-icon dt-white-icon" src="<?php echo esc_html( get_template_directory_uri() . '/dt-assets/images/languages.svg' ) ?>"/>
+                        <svg xmlns="http://www.w3.org/2000/svg" color="currentColor" class="ionicon" viewBox="0 0 512 512"><path d="M256 48C141.13 48 48 141.13 48 256s93.13 208 208 208 208-93.13 208-208S370.87 48 256 48z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path><path d="M256 48c-58.07 0-112.67 93.13-112.67 208S197.93 464 256 464s112.67-93.13 112.67-208S314.07 48 256 48z" fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32"></path><path d="M117.33 117.33c38.24 27.15 86.38 43.34 138.67 43.34s100.43-16.19 138.67-43.34M394.67 394.67c-38.24-27.15-86.38-43.34-138.67-43.34s-100.43 16.19-138.67 43.34" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></path><path fill="none" stroke="currentColor" stroke-miterlimit="10" stroke-width="32" d="M256 48v416M464 256H48"></path></svg>
                     </button>
                     <ul class="dropdown-menu">
 
