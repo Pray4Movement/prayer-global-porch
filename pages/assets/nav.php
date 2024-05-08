@@ -28,7 +28,7 @@ $lang = pg_get_current_lang();
             <i class="icon pg-share"></i>
         </button>
 
-        <h5 class="border border-brand-light offcanvas-title px-3 rounded"><a href="/" class="brand-light navbar__title">Prayer.Global</a></h5>
+        <h5 class="border border-brand-light offcanvas-title px-3 rounded navbar__title"><a href="/" class="brand-light navbar__title-link">Prayer.Global</a></h5>
 
         <div class="d-flex justify-content-end align-items-center">
             <div class="d-flex justify-content-end align-items-center">

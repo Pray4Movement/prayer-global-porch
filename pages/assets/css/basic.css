@@ -1009,7 +1009,7 @@ nav.navbar-home {
     background-color: var(--pg-brand-color);
     color: white;
 }
-.navbar-dark .navbar__title {
+.navbar-dark .navbar__title-link {
     color: white;
 }
 .navbar-dark * {
@@ -1038,6 +1038,9 @@ nav.navbar-home {
     .navbar__cta {
         order: 2;
         width: 100%;
+    }
+    .navbar__title {
+        display: none;
     }
 }
 
