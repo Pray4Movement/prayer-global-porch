@@ -2864,9 +2864,9 @@ class PG_Stacker_Text {
              */
             'believers' => [
                 [
-                    'section_summary' => sprintf( __( 'The %1$s of %2$s has a population of %3$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], '<strong>'.$stack['location']['full_name'].'</strong>', '<strong>'.$stack['location']['population'].'</strong>' ).
+                    'section_summary' => sprintf( _x( '%1$s of %2$s has a population of %3$s.', 'The state of Colorado has a population of 5,773,714.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], '<strong>'.$stack['location']['full_name'].'</strong>', '<strong>'.$stack['location']['population'].'</strong>' ).
                         '<br><br>'.
-                        sprintf( __( 'We estimate %1$s has %2$s people who might know Jesus, %3$s people who might know about Jesus culturally, and %4$s people who do not know Jesus.', 'prayer-global-porch' ), $stack['location']['name'], '<strong>'.$stack['location']['believers'].'</strong>', '<strong>'.$stack['location']['christian_adherents'].'</strong>', '<strong>'.$stack['location']['non_christians'].'</strong>' ).
+                        sprintf( _x( 'We estimate %1$s has %2$s people who might know Jesus, %3$s people who might know about Jesus culturally, and %4$s people who do not know Jesus.', 'We estimate new york has 100 people who might know Jesus, 300 people who might know about Jesus culturally, and 500 people who do not know Jesus.', 'prayer-global-porch' ), $stack['location']['name'], '<strong>'.$stack['location']['believers'].'</strong>', '<strong>'.$stack['location']['christian_adherents'].'</strong>', '<strong>'.$stack['location']['non_christians'].'</strong>' ).
                         '<br><br>'.
                         sprintf( __( 'This is %1$s believer for every %2$s neighbors who need Jesus.', 'prayer-global-porch' ), '<strong>1</strong>', '<strong>'.$stack['location']['lost_per_believer'].'</strong>' ) ,
                 ],
@@ -2876,9 +2876,9 @@ class PG_Stacker_Text {
              */
             'christian_adherents' => [
                 [
-                    'section_summary' => sprintf( __( 'The %1$s of %2$s has a population of %3$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], '<strong>'.$stack['location']['full_name'].'</strong>', '<strong>'.$stack['location']['population'].'</strong>' ).
+                    'section_summary' => sprintf( _x( '%1$s of %2$s has a population of %3$s.', 'The state of Colorado has a population of 5,773,714.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], '<strong>'.$stack['location']['full_name'].'</strong>', '<strong>'.$stack['location']['population'].'</strong>' ).
                         '<br><br>'.
-                        sprintf( __( 'We estimate %1$s has %2$s people who might know Jesus, %3$s people who might know about Jesus culturally, and %4$s people who do not know Jesus.', 'prayer-global-porch' ), $stack['location']['name'], '<strong>'.$stack['location']['believers'].'</strong>', '<strong>'.$stack['location']['christian_adherents'].'</strong>', '<strong>'.$stack['location']['non_christians'].'</strong>' ).
+                        sprintf( _x( 'We estimate %1$s has %2$s people who might know Jesus, %3$s people who might know about Jesus culturally, and %4$s people who do not know Jesus.', 'We estimate new york has 100 people who might know Jesus, 300 people who might know about Jesus culturally, and 500 people who do not know Jesus.', 'prayer-global-porch' ), $stack['location']['name'], '<strong>'.$stack['location']['believers'].'</strong>', '<strong>'.$stack['location']['christian_adherents'].'</strong>', '<strong>'.$stack['location']['non_christians'].'</strong>' ).
                         '<br><br>'.
                         sprintf( __( 'This is %1$s believer for every %2$s neighbors who need Jesus.', 'prayer-global-porch' ), '<strong>1</strong>', '<strong>'.$stack['location']['lost_per_believer'].'</strong>' ) ,
                 ],
@@ -2888,9 +2888,9 @@ class PG_Stacker_Text {
              */
             'non_christians' => [
                 [
-                    'section_summary' => sprintf( __( 'The %1$s of %2$s has a population of %3$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], '<strong>'.$stack['location']['full_name'].'</strong>', '<strong>'.$stack['location']['population'].'</strong>' ).
+                    'section_summary' => sprintf( _x( '%1$s of %2$s has a population of %3$s.', 'The state of Colorado has a population of 5,773,714.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], '<strong>'.$stack['location']['full_name'].'</strong>', '<strong>'.$stack['location']['population'].'</strong>' ).
                         '<br><br>'.
-                        sprintf( __( 'We estimate %1$s has %2$s people who might know Jesus, %3$s people who might know about Jesus culturally, and %4$s people who do not know Jesus.', 'prayer-global-porch' ), $stack['location']['name'], '<strong>'.$stack['location']['believers'].'</strong>', '<strong>'.$stack['location']['christian_adherents'].'</strong>', '<strong>'.$stack['location']['non_christians'].'</strong>' ).
+                        sprintf( _x( 'We estimate %1$s has %2$s people who might know Jesus, %3$s people who might know about Jesus culturally, and %4$s people who do not know Jesus.', 'We estimate new york has 100 people who might know Jesus, 300 people who might know about Jesus culturally, and 500 people who do not know Jesus.', 'prayer-global-porch' ), $stack['location']['name'], '<strong>'.$stack['location']['believers'].'</strong>', '<strong>'.$stack['location']['christian_adherents'].'</strong>', '<strong>'.$stack['location']['non_christians'].'</strong>' ).
                         '<br><br>'.
                         sprintf( __( 'This is %1$s believer for every %2$s neighbors who need Jesus.', 'prayer-global-porch' ), '<strong>1</strong>', '<strong>'.$stack['location']['lost_per_believer'].'</strong>' ) ,
                 ],
