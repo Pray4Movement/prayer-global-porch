@@ -2658,7 +2658,7 @@ class PG_Stacker_Text {
                 'section_label' => sprintf( __( 'Cities in %s', 'prayer-global-porch' ), $stack['location']['name'] ),
                 'prayer' => sprintf( __( 'Jesus, bring your gospel to the people living in %1$s.', 'prayer-global-porch' ), $stack['location']['cities_list'] ),
                 'reference' => __( 'Matthew 28:19-20', 'prayer-global-porch' ),
-                'verse' => _x( 'Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything that I have commanded you.', 'Matthew 28:19-20', 'prayer-global-porch' ),
+                'verse' => _x( 'Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything I have commanded you.', 'Matthew 28:19-20', 'prayer-global-porch' ),
             ],
 //            [
 //                'section_label' => $section_label,
