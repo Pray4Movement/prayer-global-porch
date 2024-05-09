@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-05-09T12:14:35+00:00\n"
+"POT-Creation-Date: 2024-05-09T12:58:59+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: prayer-global-porch\n"
@@ -22,9 +22,9 @@ msgstr ""
 #: pages/about/about.php:116
 #: pages/assets/menu.php:78
 #: pages/home/body.php:14
-#: pages/home/body.php:97
-#: pages/home/body.php:189
-#: pages/home/body.php:280
+#: pages/home/body.php:103
+#: pages/home/body.php:195
+#: pages/home/body.php:286
 #: pages/pray/action-custom-map.php:151
 #: pages/pray/nav-global-map.php:8
 #: pages/race/nav-race-map.php:15
@@ -150,7 +150,7 @@ msgid "A Prayer Lap consists of covering all 4770 geographical states of the wor
 msgstr ""
 
 #: pages/about/about.php:183
-#: pages/home/body.php:236
+#: pages/home/body.php:242
 #: pages/race/nav-race-map.php:12
 #: pages/race/nav-race-map.php:13
 #: pages/race/race-list.php:134
@@ -162,7 +162,7 @@ msgid "The Race map shows the number of laps, number of minutes, and number of p
 msgstr ""
 
 #: pages/about/about.php:189
-#: pages/home/body.php:237
+#: pages/home/body.php:243
 #: pages/race/race-list.php:116
 msgid "Race List"
 msgstr ""
@@ -180,7 +180,7 @@ msgid "The Current Lap in the real time prayer coverage of the 4770 states of th
 msgstr ""
 
 #: pages/about/about.php:201
-#: pages/home/body.php:275
+#: pages/home/body.php:281
 msgid "Current Map"
 msgstr ""
 
@@ -433,7 +433,7 @@ msgid "Name"
 msgstr ""
 
 #: pages/challenges/active-list.php:83
-#: pages/home/body.php:252
+#: pages/home/body.php:258
 #: pages/pray/action-custom-map-display.php:152
 #: pages/pray/action-custom-map.php:190
 #: pages/pray/action-custom-map.php:277
@@ -891,7 +891,7 @@ msgid "The free encyclopedia provides many facts about countries and cities, how
 msgstr ""
 
 #: pages/home/body.php:10
-#: pages/home/body.php:103
+#: pages/home/body.php:109
 msgid "Cover the World in Prayer"
 msgstr ""
 
@@ -901,93 +901,108 @@ msgid "Learn more"
 msgstr ""
 
 #: pages/home/body.php:40
-#: pages/home/body.php:119
+#: pages/home/body.php:125
 msgid "The Goal"
 msgstr ""
 
 #: pages/home/body.php:42
-#: pages/home/body.php:121
+#: pages/home/body.php:127
 msgid "The clock is ticking. %sPrayer.Global seeks to encourage extraordinary prayer for the fulﬁllment of the Great Commission in our generation."
 msgstr ""
 
 #: pages/home/body.php:45
-#: pages/home/body.php:123
+#: pages/home/body.php:129
 msgid "But how?"
 msgstr ""
 
 #: pages/home/body.php:52
-#: pages/home/body.php:134
+#: pages/home/body.php:140
 msgid "The Race"
 msgstr ""
 
 #: pages/home/body.php:54
-#: pages/home/body.php:136
+#: pages/home/body.php:142
 msgid "Like a race, we pray with urgency and focus as we seek to complete laps by covering the entire world in prayer. An interactive map gives us real time updates on who we’ve prayed for and stats on our collective prayer lap status."
 msgstr ""
 
 #: pages/home/body.php:61
-#: pages/home/body.php:147
+#: pages/home/body.php:153
 msgid "Our Strategy"
 msgstr ""
 
 #: pages/home/body.php:63
-#: pages/home/body.php:149
-msgid "Prayer.Global has broken the world down into 4,770 states based on geographical and governmental boundaries. %1$sWhen you press the Start Praying button, location specific prayer fuel will help guide your prayers for each of these regions. %2$sThen, watch on the map as our united prayers light up the darkness."
+msgid "Prayer.Global has broken the world down into 4,770 states based on geographical and governmental boundaries."
 msgstr ""
 
-#: pages/home/body.php:70
-#: pages/home/body.php:160
+#: pages/home/body.php:65
+msgid "When you press the Start Praying button, location specific prayer fuel will help guide your prayers for each of these regions."
+msgstr ""
+
+#: pages/home/body.php:67
+msgid "Then, watch on the map as our united prayers light up the darkness."
+msgstr ""
+
+#: pages/home/body.php:74
+#: pages/home/body.php:166
 msgid "Current Status"
 msgstr ""
 
-#: pages/home/body.php:73
+#: pages/home/body.php:78
 msgctxt "Prayer Laps Completed"
-msgid "Prayer%1$sLaps %2$s"
+msgid "Prayer Laps"
 msgstr ""
 
-#: pages/home/body.php:73
-#: pages/home/body.php:165
-msgctxt "Laps Completed"
+#: pages/home/body.php:79
+msgctxt "Payer Laps Completed"
 msgid "Completed"
 msgstr ""
 
-#: pages/home/body.php:77
+#: pages/home/body.php:83
 msgid "Our ﬁrst global race started %1$s year and %2$s days ago and we’ve completed %3$s laps together so far."
 msgstr ""
 
-#: pages/home/body.php:81
-#: pages/home/body.php:169
+#: pages/home/body.php:87
+#: pages/home/body.php:175
 msgid "Lap %s Time Elapsed"
 msgstr ""
 
-#: pages/home/body.php:91
-#: pages/home/body.php:183
+#: pages/home/body.php:97
+#: pages/home/body.php:189
 msgid "The Finish Line"
 msgstr ""
 
-#: pages/home/body.php:93
-#: pages/home/body.php:185
+#: pages/home/body.php:99
+#: pages/home/body.php:191
 msgid "With each prayer lap we complete, we are that much closer to ushering in God’s Kingdom and the return of Jesus Christ! %sClick Start Praying to start your Prayer.Global experience today!"
 msgstr ""
 
-#: pages/home/body.php:96
+#: pages/home/body.php:102
 msgid "Ready. Set."
 msgstr ""
 
-#: pages/home/body.php:162
+#: pages/home/body.php:155
+msgid "Prayer.Global has broken the world down into 4,770 states based on geographical and governmental boundaries. %1$sWhen you press the Start Praying button, location specific prayer fuel will help guide your prayers for each of these regions. %2$sThen, watch on the map as our united prayers light up the darkness."
+msgstr ""
+
+#: pages/home/body.php:168
 msgid "Our ﬁrst global race started %1$s days ago and we’ve completed %2$s laps together so far."
 msgstr ""
 
-#: pages/home/body.php:165
+#: pages/home/body.php:171
 msgctxt "Laps Completed"
 msgid "Laps %s"
 msgstr ""
 
-#: pages/home/body.php:197
+#: pages/home/body.php:171
+msgctxt "Laps Completed"
+msgid "Completed"
+msgstr ""
+
+#: pages/home/body.php:203
 msgid "Previous"
 msgstr ""
 
-#: pages/home/body.php:201
+#: pages/home/body.php:207
 #: pages/pray/action-custom-lap.php:175
 #: pages/pray/action-custom-lap.php:185
 #: pages/pray/trait-lap.php:274
@@ -995,32 +1010,32 @@ msgstr ""
 msgid "Next"
 msgstr ""
 
-#: pages/home/body.php:214
+#: pages/home/body.php:220
 msgid "Global Race Stats"
 msgstr ""
 
-#: pages/home/body.php:217
+#: pages/home/body.php:223
 msgid "Total Elapsed Time"
 msgstr ""
 
-#: pages/home/body.php:224
+#: pages/home/body.php:230
 msgid "Laps Completed"
 msgstr ""
 
-#: pages/home/body.php:229
+#: pages/home/body.php:235
 msgid "Total Intercessors"
 msgstr ""
 
-#: pages/home/body.php:242
+#: pages/home/body.php:248
 #: pages/pray/action-custom-map.php:167
 msgid "Lap %s"
 msgstr ""
 
-#: pages/home/body.php:246
+#: pages/home/body.php:252
 msgid "Current Lap Elapsed Time"
 msgstr ""
 
-#: pages/home/body.php:259
+#: pages/home/body.php:265
 #: pages/pray/action-custom-map-display.php:138
 #: pages/pray/action-custom-map.php:182
 #: pages/pray/action-custom-map.php:268
@@ -1029,17 +1044,17 @@ msgstr ""
 msgid "Places Covered"
 msgstr ""
 
-#: pages/home/body.php:272
+#: pages/home/body.php:278
 msgctxt "10 of 4770"
 msgid "%1$s of %2$s"
 msgstr ""
 
-#: pages/home/body.php:309
+#: pages/home/body.php:315
 msgid "Get the Mobile App"
 msgstr ""
 
-#: pages/home/body.php:313
 #: pages/home/body.php:319
+#: pages/home/body.php:325
 msgid "%s App"
 msgstr ""
 
@@ -3009,6 +3024,7 @@ msgid "Matthew 28:19-20"
 msgstr ""
 
 #: pages/pray/stacker-text.php:1784
+#: pages/pray/stacker-text.php:2661
 msgctxt "Matthew 28:19-20"
 msgid "Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything I have commanded you."
 msgstr ""
@@ -4133,11 +4149,6 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:2659
 msgid "Jesus, bring your gospel to the people living in %1$s."
-msgstr ""
-
-#: pages/pray/stacker-text.php:2661
-msgctxt "Matthew 28:19-20"
-msgid "Go therefore and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything that I have commanded you."
 msgstr ""
 
 #: pages/pray/stacker-text.php:2737
