@@ -78,7 +78,7 @@ function pg_heatmap_scripts( $glass ){
 
         'translations' => [
             "Don't Know Jesus" => __( "Don't Know Jesus", 'prayer-global-porch' ),
-            'one_believer_for_every' => __( '1 believer for every %d lost neighbors.' ),
+            'one_believer_for_every' => __( '1 believer for every %d lost neighbors.', 'prayer-global-porch' ),
             'Know about Jesus' => __( 'Know About Jesus', 'prayer-global-porch' ),
             'Know Jesus' => __( 'Know Jesus', 'prayer-global-porch' ),
             'location_description1' => _x( '%1$s of %2$s has a population of %3$s.', 'The state of Colorado has a population of 5,773,714.', 'prayer-global-porch' ),
