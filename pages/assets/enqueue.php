@@ -95,8 +95,13 @@ function pg_heatmap_scripts( $glass ){
             'minutes' => __( 'minutes', 'prayer-global-porch' ),
         ]
     ] );
-
 }
+
+add_action( 'wp_footer', function (){
+    ?>
+    <script defer src="https://umami.gospelambition.com/script.js" data-website-id="c8b2d630-e64a-4354-b03a-f92ac853153e"></script>
+    <?php
+} );
 
 
 /**
