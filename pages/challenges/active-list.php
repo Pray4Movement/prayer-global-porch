@@ -23,7 +23,7 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
     public function __construct() {
         parent::__construct();
 
-        $url = dt_get_url_path();
+        $url = dt_get_url_path(true);
         if ( ( $this->root . '/' . $this->type ) === $url ) {
 
             $this->magic = new DT_Magic_URL( $this->root );
@@ -72,6 +72,10 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
     }
 
     public function wp_enqueue_scripts(){
+        $lang = pg_get_current_lang();
+        $enabled_langs = pg_enabled_translations();
+
+
         pg_enqueue_script( 'active-list-js', 'pages/challenges/active-list.js', [ 'jquery', 'global-functions' ], true );
         wp_localize_script( 'active-list-js', 'pg_active_list', [
             'translations' => [
@@ -90,6 +94,7 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
             'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/nope.jpg',
             'images_url' => pg_grid_image_url(),
             'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
+            'datatable_translations' => $enabled_langs[$lang]['datatables_url'] ?? ''
         ] );
         wp_enqueue_script( 'datatables', 'https://cdn.datatables.net/v/dt/dt-1.12.1/r-2.3.0/datatables.min.js', [ 'active-list-js' ], '4.0.1', true );
     }
