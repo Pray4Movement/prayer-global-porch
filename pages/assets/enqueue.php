@@ -102,6 +102,17 @@ add_action( 'wp_footer', function (){
     <script defer src="https://umami.gospelambition.com/script.js" data-website-id="c8b2d630-e64a-4354-b03a-f92ac853153e"></script>
     <?php
 } );
+add_action( 'wp_head', function (){
+    ?>
+    <script src="https://browser.sentry-cdn.com/8.7.0/bundle.min.js"></script>
+    <script>
+      Sentry.init({
+        dsn: "https://f3b365f3b25c46e9ac46b9406d01cdc0@red-gopher.pikapod.net/2",
+        tracesSampleRate: 0.01,
+      });
+    </script>
+    <?php
+} );
 
 
 /**
