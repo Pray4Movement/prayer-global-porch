@@ -318,7 +318,7 @@ class PG_Stacker_Positions {
                         'group' => 'non_christians',
                         'type' => 'births',
                         'size' => ( $stack['location']['births_non_christians_last_hour'] > 400 ) ? 2 : 3,
-                        'section_summary' => sprintf( __( 'On average, %1$s babies will be born in the next hour to families who are far from God in %2$s.', 'prayer-global-porch' ), $stack['location']['births_non_christians_last_hour'], $stack['location']['full_name'] ),
+                        'section_summary' => sprintf( __( 'On average, %1$s babies will be born in the next hour to families who are far from God in this region.', 'prayer-global-porch' ), $stack['location']['births_non_christians_last_hour'] ),
                         'prayer' => sprintf( __( '%s, reveal yourself to these new families.', 'prayer-global-porch' ), $name ),
                     ]
                 ];
@@ -332,7 +332,7 @@ class PG_Stacker_Positions {
                         'group' => 'non_christians',
                         'type' => 'births',
                         'size' => ( $stack['location']['births_non_christians_last_100'] > 400 ) ? 2 : 3,
-                        'section_summary' => sprintf( __( 'On average, %1$s babies will be born in the next 100 hours to families who are far from God in %2$s.', 'prayer-global-porch' ), $stack['location']['births_non_christians_last_100'], $stack['location']['full_name'] ),
+                        'section_summary' => sprintf( __( 'On average, %1$s babies will be born in the next 100 hours to families who are far from God in this region.', 'prayer-global-porch' ), $stack['location']['births_non_christians_last_100'] ),
                         'prayer' => sprintf( __( '%s, reveal yourself to these new families.', 'prayer-global-porch' ), $name ),
                     ]
                 ];
@@ -346,7 +346,7 @@ class PG_Stacker_Positions {
                         'group' => 'non_christians',
                         'type' => 'births',
                         'size' => ( $stack['location']['births_non_christians_last_week'] > 400 ) ? 2 : 3,
-                        'section_summary' => sprintf( __( 'On average, %1$s babies will be born in the next week to families who are far from God in %2$s.', 'prayer-global-porch' ), $stack['location']['births_non_christians_last_week'], $stack['location']['full_name'] ),
+                        'section_summary' => sprintf( __( 'On average, %1$s babies will be born in the next week to families who are far from God this this region.', 'prayer-global-porch' ), $stack['location']['births_non_christians_last_week'] ),
                         'prayer' => $name . ', reveal yourself to these new families.'
                     ]
                 ];
@@ -360,7 +360,7 @@ class PG_Stacker_Positions {
                         'group' => 'non_christians',
                         'type' => 'births',
                         'size' => ( $stack['location']['births_non_christians_last_month'] > 400 ) ? 2 : 3,
-                        'section_summary' => sprintf( __( 'On average, %1$s babies will be born in the next month to families who are far from God in %2$s.', 'prayer-global-porch' ), $stack['location']['births_non_christians_last_month'], $stack['location']['full_name'] ),
+                        'section_summary' => sprintf( __( 'On average, %1$s babies will be born in the next month to families who are far from God in this region.', 'prayer-global-porch' ), $stack['location']['births_non_christians_last_month'] ),
                         'prayer' => sprintf( __( '%s, reveal yourself to these new families.', 'prayer-global-porch' ), $name ),
                     ]
                 ];

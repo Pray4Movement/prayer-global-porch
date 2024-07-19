@@ -27,6 +27,8 @@
   <exclude-pattern>node_modules/*</exclude-pattern>
   <exclude-pattern>support/required-plugins/*</exclude-pattern>
 
+  <ini name="error_reporting" value="E_ALL &#38; ~E_DEPRECATED" />
+
   <arg name="extensions" value="php,inc,lib"/>
   <arg value="n"/>
 

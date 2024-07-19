@@ -15,61 +15,61 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, we cry out for a prayer movement in %1$s of %2$s. Please, stir the %3$s believers here to pray for awakening.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'], $stack['location']['believers'] ),
+                'prayer' => sprintf( __( 'Father, we cry out for a prayer movement in this region. Please, stir the %s believers here to pray for awakening.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, cause a passion for prayer among the people of %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Lord, cause a passion for prayer among the people of this region.', 'prayer-global-porch' ),
                 'reference' => __( 'John 17:20-21', 'prayer-global-porch' ),
                 'verse' => _x( 'I (Jesus) pray also for those who will believe in me through their message, that all of them may be one, Father, just as you are in me and I am in you. May they also be in us so that the world may believe that you have sent me.', 'John 17:20-21', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, stir the hearts of your people in %1$s of %2$s to agree with you in prayer.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Lord, stir the hearts of your people in this region to agree with you in prayer.', 'prayer-global-porch' ),
                 'reference' => __( 'John 17:20-21', 'prayer-global-porch' ),
                 'verse' => _x( 'I (Jesus) pray also for those who will believe in me through their message, that all of them may be one, Father, just as you are in me and I am in you. May they also be in us so that the world may believe that you have sent me.', 'John 17:20-21', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, teach the church in %1$s of %2$s to increase their prayer for your kingdom to come.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, teach the church in this region to increase their prayer for your kingdom to come.', 'prayer-global-porch' ),
                 'reference' => __( 'Daniel 6:10', 'prayer-global-porch' ),
                 'verse' => _x( 'Now when Daniel learned that the decree had been published, he went home to his upstairs room where the windows opened toward Jerusalem. Three times a day he got down on his knees and prayed, giving thanks to his God...', 'Daniel 6:10', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, teach the children in %1$s of %2$s to pray with passion and pleading for your presence.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, teach the children in this region to pray with passion and pleading for your presence.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, awaken a burning desire for your presence and intimacy among the %1$s people living in %2$s of %3$s.', 'prayer-global-porch' ), $stack['location']['population'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, awaken a burning desire for your presence and intimacy among the %s people living in this region.', 'prayer-global-porch' ), $stack['location']['population'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord we pray you unite the %1$s believers to pray at all times in the Spirit, with all prayer and supplication, for spiritual breakthrough in %2$s.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Lord we pray you unite the %1$s believers to pray at all times in the Spirit, with all prayer and supplication, for spiritual breakthrough in this region.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Philippians 4:6', 'prayer-global-porch' ),
                 'verse' => _x( '... in every situation, by prayer and petition, with thanksgiving, present your requests to God.', 'Philippians 4:6', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'God, we pray for the believers in %1$s that they will know how to spend an hour in prayer with you.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'God, we pray for the believers in this region that they will know how to spend an hour in prayer with you.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Please, teach the %1$s believers in %2$s how to pray to you and how to listen for your voice. That they might follow you into the good works you have prepared for them.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Please, teach the %s believers in this region how to pray to you and how to listen for your voice. That they might follow you into the good works you have prepared for them.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'John 10:27', 'prayer-global-porch' ),
                 'verse' => _x( 'My sheep listen to my voice; I know them, and they follow me.', 'John 10:27', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, answer the requests of your people in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, answer the requests of your people in this region.', 'prayer-global-porch' ),
                 'reference' => __( '1 John 5:14', 'prayer-global-porch' ),
                 'verse' => _x( 'This is the boldness which we have toward him, that, if we ask anything according to his will, he listens to us.', '1 John 5:14', 'prayer-global-porch' ),
             ],
@@ -87,64 +87,52 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, you taught Paul to train Timothy to train faithful men who would train others. Please, teach the church of %1$s to do the same.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Jesus, you taught Paul to train Timothy to train faithful men who would train others. Please, teach the church of this region to do the same.', 'prayer-global-porch' ),
                 'reference' => __( '2 Timothy 2:2', 'prayer-global-porch' ),
                 'verse' => _x( 'And the things you have heard me say in the presence of many witnesses entrust to reliable people who will also be qualified to teach others.', '2 Timothy 2:2', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, please equip every disciple to make disciples who make disciples in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, please equip every disciple to make disciples who make disciples in this region.', 'prayer-global-porch' ),
                 'reference' => __( '2 Timothy 2:2', 'prayer-global-porch' ),
                 'verse' => _x( 'And the things you have heard me say in the presence of many witnesses entrust to reliable people who will also be qualified to teach others.', '2 Timothy 2:2', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please, raise up a generation of disciples in %1$s of %2$s who will make disciples who make disciples.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, please, raise up a generation of disciples in this region who will make disciples who make disciples.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, help the church in %1$s of %2$s to exponentially multiply disciples.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, help the church in this region to exponentially multiply disciples.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please make every disciple be a disciple maker, every home a training center, and every church a church planting movement in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, please make every disciple be a disciple maker, every home a training center, and every church a church planting movement in this region.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, help the church in %1$s of %2$s do things that will multiply their numbers, not just add to them.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, help the church in this region do things that will multiply their numbers, not just add to them.', 'prayer-global-porch' ),
                 'reference' => __( '2 Corinthians 2:14', 'prayer-global-porch' ),
                 'verse' => _x( 'But thanks be to God, who always leads us triumphantly as captives in Christ and through us spreads everywhere the fragrance of the knowledge of Him.', '2 Corinthians 2:14', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, help the church in %1$s of %2$s to not rely on buildings or programs, but on your Spirit and the simple faithfulness of every believer.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Jesus, help the church in this region to not rely on buildings or programs, but on your Spirit and the simple faithfulness of every believer.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, reveal best practices for sharing the gospel in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, reveal best practices for sharing the gospel in this region.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
         ];
 
         if ( $all ) {
@@ -159,64 +147,40 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, please give new believers a yearning to see you praised in %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, please give new believers a yearning to see you praised in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 96:3', 'prayer-global-porch' ),
                 'verse' => _x( 'Declare his glory among the nations, his marvelous deeds among all peoples.', 'Psalm 96:3', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, give the disciples of the %1$s of %2$s words, actions, signs and wonders to proclaim the coming of the Kingdom.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, give the disciples of this region words, actions, signs and wonders to proclaim the coming of the Kingdom.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 10:7', 'prayer-global-porch' ),
                 'verse' => _x( 'As you go, proclaim this message: "The kingdom of heaven has come near."', 'Matthew 10:7', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, make the %1$s believers in %2$s to be brave and clear with the gospel to their %3$s neighbors.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'], $stack['location']['all_lost'] ),
+                'prayer' => sprintf( __( 'Lord, make the %1$s believers in this region to be brave and clear with the gospel to their %2$s neighbors.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['all_lost'] ),
                 'reference' => __( 'Acts 14:3', 'prayer-global-porch' ),
                 'verse' => _x( 'So Paul and Barnabas spent considerable time there, speaking boldly for the Lord, who confirmed the message of his grace by enabling them to perform signs and wonders.', 'Acts 14:3', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, we pray the believers are good spiritual stewards of their everyday relationships in %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, we pray the believers are good spiritual stewards of their everyday relationships.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, all authority was given to you, and you commanded all disciples in %1$s to make more disciples, and you promised to be with them. May your power and their obedience make more disciples today.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Jesus, all authority was given to you, and you commanded all disciples to make more disciples, and you promised to be with them. May your power and their obedience make more disciples today.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 28:18', 'prayer-global-porch' ),
                 'verse' => _x( 'All authority in heaven and on earth has been given to me. Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything I have commanded you. And surely I am with you always, to the very end of the age.', 'Matthew 28:18', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, help the %1$s believers in %2$s to be spiritually intentional with their relationships among their %3$s lost friends and neighbors.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'], $stack['location']['all_lost'] ),
+                'prayer' => sprintf( __( 'Father, help the %1$s believers in this region to be spiritually intentional with their relationships among their %2$s lost friends and neighbors.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['all_lost'] ),
                 'reference' => '',
                 'verse' => '',
             ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
         ];
 
         if ( $all ) {
@@ -237,58 +201,40 @@ class PG_Stacker_Text {
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, help your children in %1$s find someone like the Samaritan Woman today. Someone who will open an entire town to your message of salvation.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, help your children in this region find someone like the Samaritan Woman today. Someone who will open an entire town to your message of salvation.', 'prayer-global-porch' ),
                 'reference' => __( 'John 4:1–30', 'prayer-global-porch' ),
                 'verse' => _x( 'So the woman left her water jar and went away into town and said to the people, 29 “Come, see a man who told me all that I ever did. Can this be the Christ?” They went out of the town and were coming to him.', 'John 4:1–30', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, like with the Ethiopian Eunuch, set up a meeting today between a faithful believer in %1$s and a person seeking to understand the truth.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, like with the Ethiopian Eunuch, set up a meeting today between a faithful believer in this region and a person seeking to understand the truth.', 'prayer-global-porch' ),
                 'reference' => __( 'Acts 8:26–40', 'prayer-global-porch' ),
                 'verse' => _x( 'And the eunuch said to Philip, “About whom, I ask you, does the prophet say this, about himself or about someone else?” Then Philip opened his mouth, and beginning with this Scripture he told him the good news about Jesus.', 'Acts 8:26–40', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, reveal yourself to a faithful non-believer today, someone like Cornelius, and then Father please connect him with the church in %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, reveal yourself to a faithful non-believer today, someone like Cornelius, and then Father please connect him with the church in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Acts 10:9–11:1', 'prayer-global-porch' ),
                 'verse' => _x( 'And Cornelius said, “Four days ago, about this hour, I was praying in my house ... and behold, a man stood before me in bright clothing and said, "Cornelius, your prayer has been heard and your alms have been remembered before God."', 'Acts 10:9–11:1', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, guide someone in the church in %1$s of %2$s to a person ready to receive the message of the gospel, like Lydia, and who will then open her home to faith.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, guide someone in the church in this region to a person ready to receive the message of the gospel, like Lydia, and who will then open her home to faith.', 'prayer-global-porch' ),
                 'reference' => __( 'Acts 16:13–15', 'prayer-global-porch' ),
                 'verse' => _x( 'One of those listening was a woman from the city of Thyatira named Lydia, a dealer in purple cloth. She was a worshiper of God. The Lord opened her heart to respond to Paul’s message.', 'Acts 16:13–15', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, help the disciples in %1$s of %2$s to find a person of peace today, like the Philippian jailer, who heard and was immediately baptized with his whole family.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, help the disciples in this region to find a person of peace today, like the Philippian jailer, who heard and was immediately baptized with his whole family.', 'prayer-global-porch' ),
                 'reference' => __( 'Acts 16:32–33', 'prayer-global-porch' ),
                 'verse' => _x( 'And they spoke the word of the Lord to him and to all who were in his house. And he took them the same hour of the night and washed their wounds; and he was baptized at once, he and all his family.', 'Acts 16:32–33', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, like with the centurion who came to you for his sick servant, please call into your house those who have great faith but are not yet yours in %1$s of %2$s', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Jesus, like with the centurion who came to you for his sick servant, please call into your house those who have great faith but are not yet yours in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Luke 7:9–10', 'prayer-global-porch' ),
                 'verse' => _x( 'When Jesus heard these things, he marveled at him, and turning to the crowd that followed him, said, “I tell you, not even in Israel have I found such faith.” And when those who had been sent returned to the house, they found the servant well.', 'Luke 7:9–10', 'prayer-global-porch' ),
             ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
         ];
 
         if ( $all ) {
@@ -303,31 +249,31 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, guide the church in %1$s to see their community as a holy priesthood, offering spiritual sacrifices acceptable to God.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, guide the church in this region to see their community as a holy priesthood, offering spiritual sacrifices acceptable to God.', 'prayer-global-porch' ),
                 'reference' => __( '1 Peter 2:4-5', 'prayer-global-porch' ),
                 'verse' => _x( 'you also, like living stones, are being built into a spiritual house to be a holy priesthood, offering spiritual sacrifices acceptable to God through Jesus Christ.', '1 Peter 2:4-5', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, thank you that in your kindness you have made every believer in %1$s a priest, who can offer spiritual sacrifices to you through Jesus.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, thank you that in your kindness you have made every believer in this region a priest, who can offer spiritual sacrifices to you through Jesus.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 21:43-44', 'prayer-global-porch' ),
                 'verse' => _x( 'Therefore I tell you that the kingdom of God will be taken away from you and given to a people who will produce its fruit. He who falls on this stone will be broken to pieces, but he on whom it falls will be crushed.”', 'Matthew 21:43-44', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, please convict each believer in %1$s to take up their calling as a priesthood of believers and pray for the %2$s lost around them.', 'prayer-global-porch' ), $stack['location']['full_name'], $stack['location']['all_lost'] ),
+                'prayer' => sprintf( __( 'Spirit, please convict each believer in this region to take up their calling as a priesthood of believers and pray for the %s lost around them.', 'prayer-global-porch' ), $stack['location']['all_lost'] ),
                 'reference' => __( '1 Peter 2:4-5', 'prayer-global-porch' ),
                 'verse' => _x( 'you also, like living stones, are being built into a spiritual house to be a holy priesthood', '1 Peter 2:4-5', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please raise up every one you have called in %1$s to become worthy of their calling, and offer spiritual sacrifices acceptable to you through Jesus.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, please raise up every one you have called in this region to become worthy of their calling, and offer spiritual sacrifices acceptable to you through Jesus.', 'prayer-global-porch' ),
                 'reference' => __( 'Ephesians 4:1', 'prayer-global-porch' ),
                 'verse' => _x( 'I urge you to live a life worthy of the calling you have received', 'Ephesians 4:1', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, please convict the believers in %1$s to not assume the ministry is for professional clergy, but for all who have been called by you.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, please convict the believers in this region to not assume the ministry is for professional clergy, but for all who have been called by you.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
@@ -339,7 +285,7 @@ class PG_Stacker_Text {
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, you are the great high priest, please make the %1$s believers in %2$s a worthy priesthood under you.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Jesus, you are the great high priest, please make the %1$s believers in this region a worthy priesthood under you.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Hebrews 4:14-16', 'prayer-global-porch' ),
                 'verse' => _x( 'Since then we have a great high priest who has passed through the heavens, Jesus, the Son of God, let us hold fast our confession.', 'Hebrews 4:14-16', 'prayer-global-porch' ),
             ],
@@ -377,109 +323,109 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'God, guide the %1$s believers in %2$s to multiply spiritual families that love you, love each other, and make disciples.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'God, guide the %1$s believers in this region to multiply spiritual families that love you, love each other, and make disciples.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, help the %1$s believers in %2$s to start simple multiplying churches in their homes.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, help the %1$s believers in this region to start simple multiplying churches in their homes.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, we pray that the %1$s of %2$s be filled with simple churches in every neighborhood.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, we pray that this region be filled with simple churches in every neighborhood.', 'prayer-global-porch' ),
                 'reference' => __( 'Isaiah 11:9', 'prayer-global-porch' ),
                 'verse' => _x( 'For the earth will be full of the knowledge of the Lord, as the waters cover the sea.', 'Isaiah 11:9', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, we ask for %1$s new simple churches in %2$s of %3$s. Place a simple church in every community of the %4$s people living here.', 'prayer-global-porch' ), $stack['location']['new_churches_needed'], $stack['location']['admin_level_title'], $stack['location']['full_name'], $stack['location']['population'] ),
+                'prayer' => sprintf( __( 'Father, we ask for %1$s new simple churches in this region. Place a simple church in every community of the %2$s people living here.', 'prayer-global-porch' ), $stack['location']['new_churches_needed'], $stack['location']['population'] ),
                 'reference' => __( 'Psalm 72:19', 'prayer-global-porch' ),
                 'verse' => _x( 'And blessed be His glorious name forever; And may the whole earth be filled with His glory. Amen, and Amen.', 'Psalm 72:19', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, teach the %1$s believers in %2$s of %3$s the wisdom of how to form simple, reproducible churches of 12-30 in every neighborhood.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, teach the %1$s believers in this region the wisdom of how to form simple, reproducible churches of 12-30 in every neighborhood.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, bless the %1$s of %2$s with a multiplying movement of house churches.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, bless this region with a multiplying movement of house churches.', 'prayer-global-porch' ),
                 'reference' => __( 'Numbers 14:21', 'prayer-global-porch' ),
                 'verse' => _x( '...but indeed, as I live, all the earth will be filled with the glory of the Lord.', 'Numbers 14:21', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'God, we pray both the men and women of %1$s will find ways to meet in groups of two or three to encourage and correct one another from your Word.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'God, we pray both the men and women of %1$s will find ways to meet in groups of two or three to encourage and correct one another from your Word.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $the_church_section_label,
-                'prayer' => sprintf( __( 'Father, multiply brothers, sisters, and mothers to our spiritual family in %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, multiply brothers, sisters, and mothers to our spiritual family in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 12:50', 'prayer-global-porch' ),
                 'verse' => _x( 'He replied to him, “Who is my mother, and who are my brothers?” Pointing to his disciples, he said, “Here are my mother and my brothers. For whoever does the will of my Father in heaven is my brother and sister and mother.”', 'Matthew 12:50', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $the_church_section_label,
-                'prayer' => sprintf( __( 'Father, we rejoice that you who began a good work in the church of %1$s will carry it on to completion until the day of Jesus Christ!', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, we rejoice that you who began a good work in the church of this region will carry it on to completion until the day of Jesus Christ!', 'prayer-global-porch' ),
                 'reference' => __( 'Philippians 1:6', 'prayer-global-porch' ),
                 'verse' => _x( '...being confident of this, that he who began a good work in you will carry it on to completion until the day of Christ Jesus.', 'Philippians 1:6', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $the_church_section_label,
-                'prayer' => sprintf( __( 'Father, remind your church in %1$s that you have set your Son over all rule and authority, power and dominion, and every name that is invoked.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, remind your church in this region that you have set your Son over all rule and authority, power and dominion, and every name that is invoked.', 'prayer-global-porch' ),
                 'reference' => __( 'Ephesians 1:21', 'prayer-global-porch' ),
                 'verse' => _x( '...he raised Christ from the dead and seated him at his right hand in the heavenly realms, far above all rule and authority, power and dominion, and every name that is invoked, not only in the present age but also in the one to come.', 'Ephesians 1:21', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $church_planting_section_label,
-                'prayer' => sprintf( __( 'Father, help %1$s new simple churches start among the %2$s people in the %3$s of %4$s. One within reach of everyone living here.', 'prayer-global-porch' ), $stack['location']['new_churches_needed'], $stack['location']['population'], $stack['location']['admin_level_title'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Father, help %1$s new simple churches start among the %2$s people in this region. One within reach of everyone living here.', 'prayer-global-porch' ), $stack['location']['new_churches_needed'], $stack['location']['population'] ),
                 'reference' => __( 'Habakkuk 2:14', 'prayer-global-porch' ),
                 'verse' => _x( 'For the earth will be filled with the knowledge of the glory of the Lord as the waters cover the sea.', 'Habakkuk 2:14', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $church_planting_section_label,
-                'prayer' => sprintf( __( 'Spirit, please start new house churches in every neighborhood of the %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, please start new house churches in every neighborhood of this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Habakkuk 2:14', 'prayer-global-porch' ),
                 'verse' => _x( 'For the earth will be filled with the knowledge of the glory of the Lord as the waters cover the sea.', 'Habakkuk 2:14', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $church_planting_section_label,
-                'prayer' => sprintf( __( 'Spirit, please give every church in %1$s of %2$s a passion to plant another simple church.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, please give every church in this region a passion to plant another simple church.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $church_planting_section_label,
-                'prayer' => sprintf( __( 'Father, show your mercy on the %1$s people in %2$s who are far from you. Please add %3$s new house churches this year.', 'prayer-global-porch' ), $stack['location']['all_lost'], $stack['location']['name'], $stack['location']['new_churches_needed'] ),
+                'prayer' => sprintf( __( 'Father, show your mercy on the %1$s people in this region who are far from you. Please add %2$s new house churches this year.', 'prayer-global-porch' ), $stack['location']['all_lost'], $stack['location']['new_churches_needed'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $church_planting_section_label,
-                'prayer' => sprintf( __( 'Father, we agree with your desire that the people in %1$s of %2$s hear about you.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, we agree with your desire that the people in this region hear about you.', 'prayer-global-porch' ),
                 'reference' => __( 'Romans 15:21', 'prayer-global-porch' ),
                 'verse' => _x( 'Those who were not told about him will see, and those who have not heard will understand.', 'Romans 15:21', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $church_planting_section_label,
-                'prayer' => sprintf( __( 'Father, let every disciple be a disciple maker, every home a training center, and every church a church planting movement in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, let every disciple be a disciple maker, every home a training center, and every church a church planting movement in this region.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $church_planting_section_label,
-                'prayer' => sprintf( __( 'Father, we ask for networks of simple churches in every city in %1$s of %2$s, like Paul planted in Corinth and Ephesus.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, we ask for networks of simple churches in every city in this region, like Paul planted in Corinth and Ephesus.', 'prayer-global-porch' ),
                 'reference' => __( '1 Corinthians 16:19', 'prayer-global-porch' ),
                 'verse' => _x( 'The churches in the province of Asia send you greetings. Aquila and Priscilla greet you warmly in the Lord, and so does the church that meets at their house.', '1 Corinthians 16:19', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $church_planting_section_label,
-                'prayer' => sprintf( __( 'Jesus, %1$s people live in %2$s of %3$s. Please, give them %4$s new simple churches this year.', 'prayer-global-porch' ), $stack['location']['population'], $stack['location']['admin_level_title'], $stack['location']['name'], $stack['location']['new_churches_needed'] ),
+                'prayer' => sprintf( __( 'Jesus, %1$s people live in this region. Please, give them %2$s new simple churches this year.', 'prayer-global-porch' ), $stack['location']['population'], $stack['location']['new_churches_needed'] ),
                 'reference' => '',
                 'verse' => '',
             ],
@@ -500,19 +446,19 @@ class PG_Stacker_Text {
         $templates['non_christians'] = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please give the people in %1$s of %2$s access to a Bible in their own language.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, please give the people in this region access to a Bible in their own language.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, how will they hear without a preacher? How will they preach unless they have a Bible? Please give the people in %1$s of %2$s access to a Bible in their own language.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, how will they hear without a preacher? How will they preach unless they have a Bible? Please give the people in this region access to a Bible in their own language.', 'prayer-global-porch' ),
                 'reference' => __( 'Romans 10:14-15', 'prayer-global-porch' ),
                 'verse' => _x( 'How, then, can they call on the one they have not believed in? And how can they believe in the one of whom they have not heard? And how can they hear without someone preaching to them? And how can anyone preach unless they are sent? As it is written: “How beautiful are the feet of those who bring good news!”', 'Romans 10:14-15', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please remove the barriers that keep the %1$s who are far from you in %2$s from having access to a Bible.', 'prayer-global-porch' ), $stack['location']['non_christians'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Father, please remove the barriers that keep the %1$s who are far from you in this region from having access to a Bible.', 'prayer-global-porch' ), $stack['location']['non_christians'] ),
                 'reference' => __( 'Matthew 24:14', 'prayer-global-porch' ),
                 'verse' => _x( 'And this gospel of the kingdom will be preached in the whole world as a testimony to all nations, and then the end will come.', 'Matthew 24:14', 'prayer-global-porch' ),
             ],
@@ -524,7 +470,7 @@ class PG_Stacker_Text {
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, it’s possible most of the %1$s lost people in  %2$s have never held or opened a Bible. Please change this, Father.', 'prayer-global-porch' ), $stack['location']['non_christians'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Father, it’s possible most of the %s lost people in this region have never held or opened a Bible. Please change this, Father.', 'prayer-global-porch' ), $stack['location']['non_christians'] ),
                 'reference' => __( 'Romans 10:17', 'prayer-global-porch' ),
                 'verse' => _x( 'Yet faith comes from listening to this Good News—the Good News about Christ.', 'Romans 10:17', 'prayer-global-porch' ),
             ],
@@ -564,37 +510,37 @@ class PG_Stacker_Text {
         $templates['christian_adherents'] = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, there are %1$s people in %2$s of %3$s who claim Christianity, but may have never read the Bible. Please challenge them today to read the Bible for themselves.', 'prayer-global-porch' ), $stack['location']['christian_adherents'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Lord, there are %1$s people in this region who claim Christianity, but may have never read the Bible. Please challenge them today to read the Bible for themselves.', 'prayer-global-porch' ), $stack['location']['christian_adherents'] ),
                 'reference' => __( '2 Timothy 3:16-17', 'prayer-global-porch' ),
                 'verse' => _x( 'All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness.', '2 Timothy 3:16-17', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, of the %1$s people in %2$s of %3$s who claim Christianity, challenge some of them to pick up your Word and read it for themselves today.', 'prayer-global-porch' ), $stack['location']['christian_adherents'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, of the %1$s people in this region who claim Christianity, challenge some of them to pick up your Word and read it for themselves today.', 'prayer-global-porch' ), $stack['location']['christian_adherents'] ),
                 'reference' => __( 'John 8:32', 'prayer-global-porch' ),
                 'verse' => _x( 'and you will know the truth, and the truth will set you free.', 'John 8:32', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, your Word is essential for life and growth. Please challenge the %1$s cultural Christians in %2$s of %3$s to read your Word for themselves today.', 'prayer-global-porch' ), $stack['location']['christian_adherents'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Father, your Word is essential for life and growth. Please challenge the %1$s cultural Christians in this region to read your Word for themselves today.', 'prayer-global-porch' ), $stack['location']['christian_adherents'] ),
                 'reference' => __( 'Matthew 4:4', 'prayer-global-porch' ),
                 'verse' => _x( 'Man shall not live by bread alone, but by every word that comes from the mouth of God.', 'Matthew 4:4', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, the %1$s of %2$s will disappear one day, but your Word will never disappear. Call all who claim Christianity to anchor their lives on your Word.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Lord, this region will disappear one day, but your Word will never disappear. Call all who claim Christianity to anchor their lives on your Word.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 24:35', 'prayer-global-porch' ),
                 'verse' => _x( 'Heaven and earth will disappear, but my words will never disappear.', 'Matthew 24:35', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, your Word can be a lamp to the feet of the %1$s people in %2$s of %3$s who claim to know you, if they open it and read it today.', 'prayer-global-porch' ), $stack['location']['christian_adherents'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Father, your Word can be a lamp to the feet of the %1$s people in this region who claim to know you, if they open it and read it today.', 'prayer-global-porch' ), $stack['location']['christian_adherents'] ),
                 'reference' => __( 'Psalm 119:105', 'prayer-global-porch' ),
                 'verse' => _x( 'your Word is a lamp to my feet and a light to my path.', 'Psalm 119:105', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, make the %1$s people in %2$s of %3$s who claim to know you, brave enough to let the Bible weigh their thoughts and intentions today.', 'prayer-global-porch' ), $stack['location']['christian_adherents'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Jesus, make the %1$s people in this region who claim to know you, brave enough to let the Bible weigh their thoughts and intentions today.', 'prayer-global-porch' ), $stack['location']['christian_adherents'] ),
                 'reference' => __( 'Hebrews 4:12', 'prayer-global-porch' ),
                 'verse' => _x( 'For the word of God is living and powerful, and sharper than any two-edged sword, piercing even to the division of soul and spirit, and of joints and marrow, and is a discerner of the thoughts and intents of the heart.', 'Hebrews 4:12', 'prayer-global-porch' ),
             ],
@@ -628,43 +574,43 @@ class PG_Stacker_Text {
         $templates['believers'] = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please provide access to your Word for everyone, especially believers in %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, please provide access to your Word for everyone, especially believers in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 24:14', 'prayer-global-porch' ),
                 'verse' => _x( 'And this gospel of the kingdom will be preached in the whole world as a testimony to all nations, and then the end will come.', 'Matthew 24:14', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, if there is even one of the %1$s believers in %2$s who does not have a Bible, please provide them one today.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Father, if there is even one of the %1$s believers in this region who does not have a Bible, please provide them one today.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, let your Word be a lamp to the feet of the %1$s believers in %2$s.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Father, let your Word be a lamp to the feet of the %1$s believers in this region.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Psalm 119:105', 'prayer-global-porch' ),
                 'verse' => _x( 'your Word is a lamp to my feet and a light to my path.', 'Psalm 119:105', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, help the %1$s believers in %2$s desire the Bible as newborn babies desire milk.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Spirit, help the %1$s believers in this region desire the Bible as newborn babies desire milk.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( '1 Peter 2:2-3', 'prayer-global-porch' ),
                 'verse' => _x( 'Desire God’s pure word as newborn babies desire milk. Then you will grow in your salvation.', '1 Peter 2:2-3', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, provide a good translation of the Bible for the %1$s believers in %2$s.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Father, provide a good translation of the Bible for the %1$s believers in this region.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, provide a Bible for every believer in %1$s, and teach them to obey it.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Jesus, provide a Bible for every believer in this region, and teach them to obey it.', 'prayer-global-porch' ),
                 'reference' => __( 'James 1:23-25', 'prayer-global-porch' ),
                 'verse' => _x( 'For if you listen to the word and don’t obey, it is like glancing at your face in a mirror. 24 you see yourself, walk away, and forget what you look like. 25 But if you look carefully into the perfect law that sets you free, and if you do what it says and don’t forget what you heard, then God will bless you for doing it.', 'James 1:23-25', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, inspire Bible translators to communicate the Scriptures accurately in the heart languages spoken in %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, inspire Bible translators to communicate the Scriptures accurately in the heart languages spoken in this region.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
@@ -706,55 +652,55 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please help good, online teachers get the gospel on YouTube and into the %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, please help good, online teachers get the gospel on YouTube and into this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 24:14', 'prayer-global-porch' ),
                 'verse' => _x( 'And this gospel of the kingdom will be preached in the whole world as a testimony to all nations, and then the end will come.', 'Matthew 24:14', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, guide seekers in %1$s to the gospel through searching YouTube or TikTok today.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, guide seekers in this region to the gospel through searching YouTube or TikTok today.', 'prayer-global-porch' ),
                 'reference' => __( 'Proverbs 8:17', 'prayer-global-porch' ),
                 'verse' => _x( 'I love those who love me, and those who diligently seek me will find me.', 'Proverbs 8:17', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, help media producers communicate the gospel in a way that is understandable to the people of %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, help media producers communicate the gospel in a way that is understandable to the people of %1$s.', 'prayer-global-porch' ),
                 'reference' => __( 'Deuteronomy 4:29', 'prayer-global-porch' ),
                 'verse' => _x( 'But from there, you will seek the LORD your God, and you will find Him if you search for Him with all your heart and all your soul.', 'Deuteronomy 4:29', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, as people seek answers on the internet, please help them find the gospel in %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, as people seek answers on the internet, please help them find the gospel in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Luke 11:9-10', 'prayer-global-porch' ),
                 'verse' => _x( 'So I say to you, ask, and it will be given to you; seek, and you will find; knock, and it will be opened to you.', 'Luke 11:9-10', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, guide every search on Google for truth in %1$s to find a gospel video.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, guide every search on Google for truth in this region to find a gospel video.', 'prayer-global-porch' ),
                 'reference' => __( 'Jeremiah 29:13', 'prayer-global-porch' ),
                 'verse' => _x( 'you will seek Me and find Me when you search for Me with all your heart.', 'Jeremiah 29:13', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, use Google search to lead people in %1$s to the gospel today.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Lord, use Google search to lead people in this region to the gospel today.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, supernaturally prepare encounters with the gospel on sites like Facebook and Instagram for the %1$s people living in %2$s.', 'prayer-global-porch' ), $stack['location']['population'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, supernaturally prepare encounters with the gospel on sites like Facebook and Instagram for the %1$s people living in this region.', 'prayer-global-porch' ), $stack['location']['population'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, inspire new kinds of evangelism through social media in %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, inspire new kinds of evangelism through social media in this region.', 'prayer-global-porch' ),
                 'reference' => __( '2 Timothy 4:5', 'prayer-global-porch' ),
                 'verse' => _x( 'But you, keep your head in all situations, endure hardship, do the work of an evangelist, discharge all the duties of your ministry.', '2 Timothy 4:5', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, make yourself known to the %1$s people living in %2$s through the internet today.', 'prayer-global-porch' ), $stack['location']['population'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Jesus, make yourself known to the %1$s people living in this region through the internet today.', 'prayer-global-porch' ), $stack['location']['population'] ),
                 'reference' => __( 'Psalm 19:4', 'prayer-global-porch' ),
                 'verse' => _x( 'They have no speech, they use no words; no sound is heard from them. Yet their voice goes out into all the earth, their words to the ends of the world. In the heavens God has pitched a tent for the sun.', 'Psalm 19:4', 'prayer-global-porch' ),
             ],
@@ -784,55 +730,55 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, for those in trouble in %1$s of %2$s prompt them to call on you for rescue today.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, for those in trouble in this region prompt them to call on you for rescue today.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 91:15', 'prayer-global-porch' ),
                 'verse' => _x( 'He will call on me, and I will answer him. I will be with him in trouble. I will deliver him, and honor him.', 'Psalm 91:15', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, for those with enemies and who are afraid in %1$s, call them into your shelter and safety today.', 'prayer-global-porch' ), $stack['location']['name'] ),
+                'prayer' => __( 'Father, for those with enemies and who are afraid in this region, call them into your shelter and safety today.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 61:3', 'prayer-global-porch' ),
                 'verse' => _x( 'For you have been a refuge for me, a strong tower from the enemy.', 'Psalm 61:3', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, be a refuge and strength for the hurting in %1$s today.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, be a refuge and strength for the hurting in this region today.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 46:1', 'prayer-global-porch' ),
                 'verse' => _x( 'God is our refuge and strength, an ever-present help in trouble.', 'Psalm 46:1', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, help the stressed and anxious in %1$s know that you care for them today.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, help the stressed and anxious in this region know that you care for them today.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 55:22', 'prayer-global-porch' ),
                 'verse' => _x( 'Cast your cares on the Lord and he will sustain you; he will never let the righteous be shaken.', 'Psalm 55:22', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, teach those feeling unsafe in %1$s that they can hide under your wings', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, teach those feeling unsafe in this region that they can hide under your wings', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 91:4', 'prayer-global-porch' ),
                 'verse' => _x( 'He will cover you with his feathers, and under his wings you will find refuge; his faithfulness will be your shield and rampart.', 'Psalm 91:4', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, protect the vulnerable in %1$s from the evil one.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Jesus, protect the vulnerable in this region from the evil one.', 'prayer-global-porch' ),
                 'reference' => __( 'John 17:15', 'prayer-global-porch' ),
                 'verse' => _x( 'My prayer is not that you take them out of the world but that you protect them from the evil one.', 'John 17:15', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, let the threatened of %1$s know that it is better to trust in you than to trust in humans.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, let the threatened of %1$s know that it is better to trust in you than to trust in humans.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 118:8', 'prayer-global-porch' ),
                 'verse' => _x( 'It is better to take refuge in the Lord than to trust in humans.', 'Psalm 118:8', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, help the fearful in %1$s to submit to God and resist the devil.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, help the fearful in this region to submit to God and resist the devil.', 'prayer-global-porch' ),
                 'reference' => __( 'James 4:7', 'prayer-global-porch' ),
                 'verse' => _x( 'Submit yourselves, then, to God. Resist the devil, and he will flee from you.', 'James 4:7', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, encourage those who are afraid in %1$s that you are the healer and you are the Savior.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, encourage those who are afraid in this region that you are the healer and you are the Savior.', 'prayer-global-porch' ),
                 'reference' => __( 'Jeremiah 17:14', 'prayer-global-porch' ),
                 'verse' => _x( 'Heal me, Lord, and I will be healed; save me and I will be saved, for you are the one I praise.', 'Jeremiah 17:14', 'prayer-global-porch' ),
             ],
@@ -940,49 +886,49 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => __( 'Far from God', 'prayer-global-porch' ),
-                'prayer' => sprintf( __( 'Father, you desire the people in %1$s of %2$s who are far from you to hear about you.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, you desire the people in this region who are far from you to hear about you.', 'prayer-global-porch' ),
                 'reference' => __( 'Romans 15:21', 'prayer-global-porch' ),
                 'verse' => _x( 'Those who were not told about him will see, and those who have not heard will understand.', 'Romans 15:21', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'There are %1$s people living in %2$s of %3$s. Only about %4$s might be believers.', 'prayer-global-porch' ), $stack['location']['population'], $stack['location']['admin_level_title'], $stack['location']['name'], $stack['location']['believers'] ),
+                'prayer' => sprintf( __( 'There are %1$s people living in this region. Only about %2$s might be believers.', 'prayer-global-porch' ), $stack['location']['population'], $stack['location']['believers'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( '%1$s of %2$s has (about) %3$s people who know Jesus, %4$s people who know about him culturally, and %5$s people who are far from Jesus.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'], $stack['location']['believers'], $stack['location']['christian_adherents'], $stack['location']['non_christians'] ),
+                'prayer' => sprintf( __( 'this region has (about) %1$s people who know Jesus, %2$s people who know about him culturally, and %3$s people who are far from Jesus.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['christian_adherents'], $stack['location']['non_christians'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Pour your Spirit out on the %1$s citizens of %2$s, so that they might know your name and the name of your Son.', 'prayer-global-porch' ), $stack['location']['population'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Pour your Spirit out on the %1$s citizens of this region, so that they might know your name and the name of your Son.', 'prayer-global-porch' ), $stack['location']['population'] ),
                 'reference' => __( 'Joel 2:28', 'prayer-global-porch' ),
                 'verse' => _x( 'And afterward, I will pour out my Spirit on all people. your sons and daughters will prophesy, your old men will dream dreams, your young men will see visions.', 'Joel 2:28', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, we suspect there is 1 believer for every %1$s neighbors who are far from you in %2$s. Please, give courage and opportunity to your children to speak boldly.', 'prayer-global-porch' ), $stack['location']['lost_per_believer'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Father, we suspect there is 1 believer for every %1$s neighbors who are far from you in this region. Please, give courage and opportunity to your children to speak boldly.', 'prayer-global-porch' ), $stack['location']['lost_per_believer'] ),
                 'reference' => __( 'Ephesians 6:19', 'prayer-global-porch' ),
                 'verse' => _x( 'Pray also for me, that whenever I speak, words may be given me so that I will fearlessly make known the mystery of the gospel.', 'Ephesians 6:19', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, help the people of %1$s to discover the essence of being a disciple, making disciples, and how to plant churches that multiply.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Lord, help the people of %1$s to discover the essence of being a disciple, making disciples, and how to plant churches that multiply.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, you know every soul, and you know who are yours and who are yet to be yours out of the %1$s people living in %2$s. Please, call your lost sheep to yourself.', 'prayer-global-porch' ), $stack['location']['population'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Father, you know every soul, and you know who are yours and who are yet to be yours out of the %1$s people living in this region. Please, call your lost sheep to yourself.', 'prayer-global-porch' ), $stack['location']['population'] ),
                 'reference' => __( 'Ezekiel 36:24', 'prayer-global-porch' ),
                 'verse' => _x( 'For I will take you out of the nations; I will gather you from all the countries and bring you back into your own land.', 'Ezekiel 36:24', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, bring yourself glory in %1$s. Through your servants plant %2$s new churches that love you, love one another, and make disciples this year.', 'prayer-global-porch' ), $stack['location']['name'], $stack['location']['new_churches_needed'] ),
+                'prayer' => sprintf( __( 'Father, bring yourself glory in this region. Through your servants plant %s new churches that love you, love one another, and make disciples this year.', 'prayer-global-porch' ), $stack['location']['new_churches_needed'] ),
                 'reference' => __( 'Habakkuk 2:14', 'prayer-global-porch' ),
                 'verse' => _x( 'For the earth will be filled with the knowledge of the glory of the LORD as the waters cover the sea.', 'Habakkuk 2:14', 'prayer-global-porch' ),
             ],
@@ -1012,49 +958,49 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Over %1$s percent of the people of %2$s are far from Jesus. Lord, please send your gospel to them through the internet or radio or television today!', 'prayer-global-porch' ), $stack['location']['percent_non_christians'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Over %1$s percent of the people in this region are far from Jesus. Lord, please send your gospel to them through the internet or radio or television today!', 'prayer-global-porch' ), $stack['location']['percent_non_christians'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Over %1$s percent of the people of %2$s are far from Jesus.', 'prayer-global-porch' ), $stack['location']['percent_non_christians'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Over %1$s percent of the people in this region are far from Jesus.', 'prayer-global-porch' ), $stack['location']['percent_non_christians'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, call those who are far off in %1$s, so that they and their family can receive life.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Jesus, call those who are far off in this region, so that they and their family can receive life.', 'prayer-global-porch' ),
                 'reference' => __( 'Acts 2:39', 'prayer-global-porch' ),
                 'verse' => _x( 'For the promise is to you, and to your children, and to all who are far off, even as many as the Lord our God will call to himself.', 'Acts 2:39', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, you said, "The earth belongs to Me and all that is in it". Please, call %1$s into obedience and eternal life.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, you said, "The earth belongs to Me and all that is in it". Please, call %1$s into obedience and eternal life.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 24:1', 'prayer-global-porch' ),
                 'verse' => _x( 'The earth is Yahweh’s, with its fullness; the world, and those who dwell therein.', 'Psalm 24:1', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, let it be said of the %1$s lost in %2$s that you have called them out of darkness into your glorious light.', 'prayer-global-porch' ), $stack['location']['all_lost'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Lord, let it be said of the %1$s lost in this region that you have called them out of darkness into your glorious light.', 'prayer-global-porch' ), $stack['location']['all_lost'] ),
                 'reference' => __( '1 Peter 2:9', 'prayer-global-porch' ),
                 'verse' => _x( 'But you are a chosen race, a royal priesthood, a holy nation, a people for God’s own possession, that you may proclaim the excellence of him who called you out of darkness into his marvelous light', '1 Peter 2:9', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, please make the same Spirit that raised Jesus from the dead give life to those who are called by his name in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Lord, please make the same Spirit that raised Jesus from the dead give life to those who are called by his name in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Romans 8:11', 'prayer-global-porch' ),
                 'verse' => _x( 'But if the Spirit of him who raised up Jesus from the dead dwells in you, he who raised up Christ Jesus from the dead will also give life to your mortal bodies through his Spirit who dwells in you.', 'Romans 8:11', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, you desire to blot out the sins of the people of %1$s. You said, if they turn to you, you will dissolve their sins like mist.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, you desire to blot out the sins of the people of this region. You said, if they turn to you, you will dissolve their sins like mist.', 'prayer-global-porch' ),
                 'reference' => __( 'Isaiah 44:22', 'prayer-global-porch' ),
                 'verse' => _x( 'I have blotted out, as a thick cloud, your transgressions, and, as a cloud, your sins. Return to me, for I have redeemed you.', 'Isaiah 44:22', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, please send your Spirit to %1$s, so they can have freedom.', 'prayer-global-porch' ), $stack['location']['name'] ),
+                'prayer' => __( 'Jesus, please send your Spirit to this region, so they can have freedom.', 'prayer-global-porch' ),
                 'reference' => __( '2 Corinthians 3:17', 'prayer-global-porch' ),
                 'verse' => _x( 'Now the Lord is the Spirit and where the Spirit of the Lord is, there is freedom.', '2 Corinthians 3:17', 'prayer-global-porch' ),
             ],
@@ -1084,64 +1030,22 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, %1$s cultural Christians in %2$s likely have a Bible in their home. Please, send conviction for them to open it and read it for themselves.', 'prayer-global-porch' ), $stack['location']['christian_adherents'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Spirit, %s cultural Christians in this region likely have a Bible in their home. Please, send conviction for them to open it and read it for themselves.', 'prayer-global-porch' ), $stack['location']['christian_adherents'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, teach the %1$s cultural Christians in %2$s to pray from the heart and not with scripts or formulas only.', 'prayer-global-porch' ), $stack['location']['christian_adherents'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Spirit, teach the %s cultural Christians in this region to pray from the heart and not with scripts or formulas only.', 'prayer-global-porch' ), $stack['location']['christian_adherents'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, bless the %1$s cultural Christians in %2$s with more knowledge and curiosity about your beautiful gospel, that they might claim it for themselves personally and intimately.', 'prayer-global-porch' ), $stack['location']['christian_adherents'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, bless the %s cultural Christians in this region with more knowledge and curiosity about your beautiful gospel, that they might claim it for themselves personally and intimately.', 'prayer-global-porch' ), $stack['location']['christian_adherents'] ),
                 'reference' => '',
                 'verse' => '',
             ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
         ];
 
         if ( $all ) {
@@ -1156,19 +1060,19 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, thank you for the %1$s whom you have brought close through the blood of Christ already in %2$s.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Spirit, thank you for the %s whom you have brought close through the blood of Christ already in this region.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Ephesians 2:13', 'prayer-global-porch' ),
                 'verse' => _x( 'But now in Christ Jesus you who once were far off are made near in the blood of Christ.', 'Ephesians 2:13', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, thank you for the %1$s people that you have made believe and given eternal life to in %2$s.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Father, thank you for the %s people that you have made believe and given eternal life to in this region.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'John 3:16', 'prayer-global-porch' ),
                 'verse' => _x( 'For God so loved the world, that he gave his only Son, that whoever believes in him should not perish but have eternal life.', 'John 3:16', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, you made each of the %1$s believers in %2$s your ambassadors and your primary strategy for reconciling this %3$s .', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['full_name'], $stack['location']['admin_level_title'] ),
+                'prayer' => sprintf( __( 'Jesus, you made each of the %s believers in this region your ambassadors and your primary strategy for reconciliation.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( '2 Corinthians 5:20', 'prayer-global-porch' ),
                 'verse' => _x( 'We are therefore Christ’s ambassadors, as though God were making his appeal through us. We implore you on Christ’s behalf: Be reconciled to God.', '2 Corinthians 5:20', 'prayer-global-porch' ),
             ],
@@ -1238,31 +1142,31 @@ class PG_Stacker_Text {
         $templates = [
 //            [
 //                'section_label' => $section_label,
-//                'prayer' => sprintf( __( 'The primary religion in %1$s of %2$s is %3$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'], $stack['location']['primary_religion'] ),
+//                'prayer' => sprintf( __( 'The primary religion in this region is %3$s.', 'prayer-global-porch' ), $stack['location']['primary_religion'] ),
 //                'reference' => '',
 //                'verse' => '',
 //            ],
 //            [
 //                'section_label' => $section_label,
-//                'prayer' => sprintf( __( 'Father, give the %1$s believers in %2$s of %3$s the skill to communicate your gospel to those who follow %4$s around them.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['admin_level_title'], $stack['location']['name'], $stack['location']['primary_religion'] ),
+//                'prayer' => sprintf( __( 'Father, give the %1$s believers in this region the skill to communicate your gospel to those who follow %4$s around them.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['primary_religion'] ),
 //                'reference' => __( 'Ephesians 6:19', 'prayer-global-porch' ),
 //                'verse' => _x( 'Pray also for me, that whenever I speak, words may be given me so that I will fearlessly make known the mystery of the gospel.', 'Ephesians 6:19', 'prayer-global-porch' ),
 //            ],
 //            [
 //                'section_label' => $section_label,
-//                'prayer' => sprintf( __( 'Father, many people in %1$s follow %2$s. Please give them accurate knowledge of Jesus.', 'prayer-global-porch' ), $stack['location']['full_name'], $stack['location']['primary_religion'] ),
+//                'prayer' => sprintf( __( 'Father, many people in this region follow %2$s. Please give them accurate knowledge of Jesus.', 'prayer-global-porch' ), $stack['location']['primary_religion'] ),
 //                'reference' => __( 'Romans 10:2', 'prayer-global-porch' ),
 //                'verse' => _x( 'For I can testify about them that they are zealous for God, but their zeal is not based on knowledge.', 'Romans 10:2', 'prayer-global-porch' ),
 //            ],
 //            [
 //                'section_label' => $section_label,
-//                'prayer' => sprintf( __( 'Lord, increase spiritual dissatisfaction among those in %1$s of %2$s who follow %3$s', so that they would begin to seek you.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'], $stack['location']['primary_religion'] ),
+//                'prayer' => sprintf( __( 'Lord, increase spiritual dissatisfaction among those in this region who follow %3$s', so that they would begin to seek you.', 'prayer-global-porch' ), $stack['location']['primary_religion'] ),
 //                'reference' => __( 'Romans 10:2', 'prayer-global-porch' ),
 //                'verse' => _x( 'For I can testify about them that they are zealous for God, but their zeal is not based on knowledge.', 'Romans 10:2', 'prayer-global-porch' ),
 //            ],
 //            [
 //                'section_label' => $section_label,
-//                'prayer' => sprintf( __( 'Even though the primary religion is %1$s' in %2$s, Lord, call to yourself persons of peace among the community...those who fear you with the best knowledge they have.', 'prayer-global-porch' ), $stack['location']['primary_religion'] , $stack['location']['name'] ),
+//                'prayer' => sprintf( __( 'Even though the primary religion is %1$s' in this region, Lord, call to yourself persons of peace among the community...those who fear you with the best knowledge they have.', 'prayer-global-porch' ), $stack['location']['primary_religion']  ),
 //                'reference' => __( 'Acts 10:1,2', 'prayer-global-porch' ),
 //                'verse' => _x( 'At Caesarea there was a man named Cornelius, a centurion in what was known as the Italian Regiment. He and all his family were devout and God-fearing; he gave generously to those in need and prayed to God regularly.', 'Acts 10:1,2', 'prayer-global-porch' ),
 //            ],
@@ -1320,25 +1224,25 @@ class PG_Stacker_Text {
 //            ],
 //            [
 //                'section_label' => $section_label,
-//                'prayer' => sprintf( __( 'Father, please send those who can create videos and podcasts for the %1$s language for the %2$s of %3$s.', 'prayer-global-porch' ), $stack['location']['primary_language'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+//                'prayer' => sprintf( __( 'Father, please send those who can create videos and podcasts for the %1$s language for the this region.', 'prayer-global-porch' ), $stack['location']['primary_language'] ),
 //                'reference' => '',
 //                'verse' => '',
 //            ],
 //            [
 //                'section_label' => $section_label,
-//                'prayer' => sprintf( __( 'Father, please provide digital and printed Bibles in %1$s of %2$s specifically in the %3$s language. Give success to those who distribute them.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'], $stack['location']['primary_language'] ),
+//                'prayer' => sprintf( __( 'Father, please provide digital and printed Bibles in this region specifically in the %3$s language. Give success to those who distribute them.', 'prayer-global-porch' ), $stack['location']['primary_language'] ),
 //                'reference' => __( 'Isaiah 55:11', 'prayer-global-porch' ),
 //                'verse' => _x( 'So will My word be which goes forth from My mouth; It will not return to Me empty, Without accomplishing what I desire, And without succeeding in the matter for which I sent it.', 'Isaiah 55:11', 'prayer-global-porch' ),
 //            ],
 //            [
 //                'section_label' => $section_label,
-//                'prayer' => sprintf( __( 'Father, please provide a translation of the Bible in the %1$s language to every seeker in %2$s of %3$s.', 'prayer-global-porch' ), $stack['location']['primary_language'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+//                'prayer' => sprintf( __( 'Father, please provide a translation of the Bible in the %1$s language to every seeker in this region.', 'prayer-global-porch' ), $stack['location']['primary_language'] ),
 //                'reference' => '',
 //                'verse' => '',
 //            ],
 //            [
 //                'section_label' => $section_label,
-//                'prayer' => sprintf( __( 'Spirit, please, send the truth about Jesus through youTube, Tiktok, and Instagram in the %1$s language for the %2$s of %3$s.', 'prayer-global-porch' ), $stack['location']['primary_language'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+//                'prayer' => sprintf( __( 'Spirit, please, send the truth about Jesus through youTube, Tiktok, and Instagram in the %1$s language for the this region.', 'prayer-global-porch' ), $stack['location']['primary_language'] ),
 //                'reference' => '',
 //                'verse' => '',
 //            ],
@@ -1677,55 +1581,55 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, build the strength and maturity of the local leaders in %1$s. Show them that faithfulness is better than knowledge. Show them that the Spirit, the Word, and prayer is enough in order to grow and lead.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, build the strength and maturity of the local leaders in this region. Show them that faithfulness is better than knowledge. Show them that the Spirit, the Word, and prayer is enough in order to grow and lead.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'God, we ask you to raise up elders and deacons from the %1$s believers in %2$s, who will serve the church and equip it to do your work.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'God, we ask you to raise up elders and deacons from the %1$s believers in this region, who will serve the church and equip it to do your work.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Ephesians 4:11', 'prayer-global-porch' ),
                 'verse' => _x( 'So Christ himself gave the apostles, the prophets, the evangelists, the pastors and teachers, to equip his people for works of service, so that the body of Christ may be built up until we all reach unity in the faith and in the knowledge of the Son of God and become mature, attaining to the whole measure of the fullness of Christ.', 'Ephesians 4:11', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => __( 'Movement Leadership', 'prayer-global-porch' ),
-                'prayer' => sprintf( __( 'Father, we pray for every movement leader and disciple in %1$s of %2$s that they would have deepening intimacy with you.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, we pray for every movement leader and disciple in this region that they would have deepening intimacy with you.', 'prayer-global-porch' ),
                 'reference' => __( 'John 14:20', 'prayer-global-porch' ),
                 'verse' => _x( 'On that day you will realize that I am in my Father, and you are in me, and I am in you.', 'John 14:20', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, grace the churches in %1$s with faithful local leaders.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, grace the churches in this region with faithful local leaders.', 'prayer-global-porch' ),
                 'reference' => __( 'Proverbs 11:14', 'prayer-global-porch' ),
                 'verse' => _x( 'Where there is no guidance, a people falls, but in an abundance of counselors there is safety.', 'Proverbs 11:14', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, teach the local leaders in %1$s to be humble and to serve others.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Jesus, teach the local leaders in this region to be humble and to serve others.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 20:26–28', 'prayer-global-porch' ),
                 'verse' => _x( 'It shall not be so among you. But whoever would be great among you must be your servant, and whoever would be first among you must be your slave, even as the Son of Man came not to be served but to serve, and to give his life as a ransom for many.', 'Matthew 20:26–28', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, help the local leaders in %1$s to be faithful with what they have been given, whether a little or a lot.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Jesus, help the local leaders in this region to be faithful with what they have been given, whether a little or a lot.', 'prayer-global-porch' ),
                 'reference' => __( 'Luke 12:48', 'prayer-global-porch' ),
                 'verse' => _x( 'Everyone to whom much was given, of him much will be required, and from him to whom they entrusted much, they will demand the more.', 'Luke 12:48', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, help the local leaders in %1$s not be proud but humble, and willing to wash the feet of all they serve.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Jesus, help the local leaders in this region not be proud but humble, and willing to wash the feet of all they serve.', 'prayer-global-porch' ),
                 'reference' => __( 'John 13:13–17', 'prayer-global-porch' ),
                 'verse' => _x( 'you call me Teacher and Lord, and you are right, for so I am. If I then, your Lord and Teacher, have washed your feet, you also ought to wash one another’s feet. For I have given you an example, that you also should do just as I have done to you. ', 'John 13:13–17', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, may the churches in %1$s honor local leaders who work hard for the flock of God.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, may the churches in this region honor local leaders who work hard for the flock of God.', 'prayer-global-porch' ),
                 'reference' => __( 'Acts 20:28', 'prayer-global-porch' ),
                 'verse' => _x( 'Pay careful attention to yourselves and to all the flock, in which the Holy Spirit has made you overseers, to care for the church of God, which he obtained with his own blood.', 'Acts 20:28', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, knowing that teachers will be judged more strictly, help the local leaders in %1$s to be careful with their words.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, knowing that teachers will be judged more strictly, help the local leaders in this region to be careful with their words.', 'prayer-global-porch' ),
                 'reference' => __( 'James 3:1', 'prayer-global-porch' ),
                 'verse' => _x( 'Not many of you should become teachers, my brothers, for you know that we who teach will be judged with greater strictness.', 'James 3:1', 'prayer-global-porch' ),
             ],
@@ -1749,37 +1653,37 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please raise up new apostles to pioneer the growth of the church in %s.', 'prayer-global-porch' ), $stack['location']['name'] ),
+                'prayer' => __( 'Father, please raise up new apostles to pioneer the growth of the church.', 'prayer-global-porch' ),
                 'reference' => __( 'Ephesians 4:11', 'prayer-global-porch' ),
                 'verse' => _x( 'So Christ himself gave the apostles, the prophets, the evangelists, the pastors and teachers, to equip his people for works of service, so that the body of Christ may be built up', 'Ephesians 4:11', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, raise up apostolic workers to plant churches in every town in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Lord, raise up apostolic workers to plant churches in every town in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Titus 1:5', 'prayer-global-porch' ),
                 'verse' => _x( 'The reason I left you in Crete was that you might put in order what was left unfinished and appoint elders in every town, as I directed you.', 'Titus 1:5', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please send new apostles into the harvest, who can open up new communities for the gospel in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, please send new apostles into the harvest, who can open up new communities for the gospel in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 9:38', 'prayer-global-porch' ),
                 'verse' => _x( 'Ask the Lord of the harvest, therefore, to send out workers into his harvest field.', 'Matthew 9:38', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, please give the apostles in %1$s a vision for the harvest, and a passion to see the gospel spread to every corner of the %2$s.', 'prayer-global-porch' ), $stack['location']['full_name'], $stack['location']['admin_level_title'] ),
+                'prayer' => __( 'Jesus, please give the apostles in this region a vision for the harvest, and a passion to see the gospel spread to every corner of this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Ephesians 4:11', 'prayer-global-porch' ),
                 'verse' => _x( 'So Christ himself gave the apostles, the prophets, the evangelists, the pastors and teachers, to equip his people for works of service, so that the body of Christ may be built up', 'Ephesians 4:11', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord of the Harvest, please send out workers into the %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'] ),
+                'prayer' => __( 'Lord of the Harvest, please send out workers into the this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 9:37-38', 'prayer-global-porch' ),
                 'verse' => _x( 'Then he said to his disciples, “The harvest is plentiful but the workers are few. Ask the Lord of the harvest, therefore, to send out workers into his harvest field.', 'Matthew 9:37-38', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, please give apostles to expand the church into every neighborhood of %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Lord, please give apostles to expand the church into every neighborhood of this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 28:19-20', 'prayer-global-porch' ),
                 'verse' => _x( 'Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything I have commanded you.', 'Matthew 28:19-20', 'prayer-global-porch' ),
             ],
@@ -1821,49 +1725,49 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, please raise up evangelists to equip your people to share the gospel in %1$s.', 'prayer-global-porch' ), $stack['location']['name'] ),
+                'prayer' => __( 'Jesus, please raise up evangelists to equip your people to share the gospel in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Ephesians 4:11', 'prayer-global-porch' ),
                 'verse' => _x( 'So Christ himself gave the apostles, the prophets, the evangelists, the pastors and teachers, to equip his people for works of service, so that the body of Christ may be built up.', 'Ephesians 4:11', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please send new evangelists into the harvest in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, please send new evangelists into the harvest in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 9:38', 'prayer-global-porch' ),
                 'verse' => _x( 'Ask the Lord of the harvest, therefore, to send out workers into his harvest field.', 'Matthew 9:38', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, you said you were the giver of evangelists to the church. Please, send more evangelists to the %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'] ),
+                'prayer' => __( 'Jesus, you said you were the giver of evangelists to the church. Please, send more evangelists to the this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Ephesians 4:11', 'prayer-global-porch' ),
                 'verse' => _x( 'So Christ himself gave the apostles, the prophets, the evangelists, the pastors and teachers, to equip his people for works of service, so that the body of Christ may be built up.', 'Ephesians 4:11', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => __( 'Evangelists', 'prayer-global-porch' ),
-                'prayer' => sprintf( __( 'God in Heaven, only you can and should appoint evangelists. Please, appoint and send more to %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'God in Heaven, only you can and should appoint evangelists. Please, appoint and send more to %1$s.', 'prayer-global-porch' ),
                 'reference' => __( '1 Corinthians 12:28', 'prayer-global-porch' ),
                 'verse' => _x( 'And in the church God has appointed first of all apostles, second prophets, third teachers, then workers of miracles, and those with gifts of healing, helping, administration, and various tongues.', '1 Corinthians 12:28', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, encourage every believer in %1$s to do the work of an evangelist with their friends and neighbors.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, encourage every believer in this region to do the work of an evangelist with their friends and neighbors.', 'prayer-global-porch' ),
                 'reference' => __( 'Ephesians 4:5', 'prayer-global-porch' ),
                 'verse' => _x( 'But you, keep your head in all situations, endure hardship, do the work of an evangelist ...', 'Ephesians 4:5', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, help every believer in %1$s be prepared to give an answer to everyone who asks them for the reason for their hope.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, help every believer in this region be prepared to give an answer to everyone who asks them for the reason for their hope.', 'prayer-global-porch' ),
                 'reference' => __( '1 Peter 3:15', 'prayer-global-porch' ),
                 'verse' => _x( 'But in your hearts revere Christ as Lord. Always be prepared to give an answer to everyone who asks you to give the reason for the hope that you have. But do this with gentleness and respect.', '1 Peter 3:15', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, send out evangelists who will challenge people like Peter who said, "Repent and be baptized, every one of you" in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, send out evangelists who will challenge people like Peter who said, "Repent and be baptized, every one of you" in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Acts 2:38', 'prayer-global-porch' ),
                 'verse' => _x( 'Peter replied, “Repent and be baptized, every one of you, in the name of Jesus Christ for the forgiveness of your sins. And you will receive the gift of the Holy Spirit.', 'Acts 2:38', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, please give your people in %1$s a passion for the lost.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Jesus, please give your people in this region a passion for the lost.', 'prayer-global-porch' ),
                 'reference' => __( '2 Corinthians 5:20', 'prayer-global-porch' ),
                 'verse' => _x( 'We are therefore Christ’s ambassadors, as though God were making his appeal through us. We implore you on Christ’s behalf: Be reconciled to God.', '2 Corinthians 5:20', 'prayer-global-porch' ),
             ],
@@ -1887,49 +1791,49 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please raise up prophets in %1$s who can call the church to holiness and purity, preparing your church as a bride for your Son.', 'prayer-global-porch' ), $stack['location']['name'] ),
+                'prayer' => __( 'Father, please raise up prophets in this region who can call the church to holiness and purity, preparing your church as a bride for your Son.', 'prayer-global-porch' ),
                 'reference' => __( 'Ephesians 4:11', 'prayer-global-porch' ),
                 'verse' => _x( 'So Christ himself gave the apostles, the prophets, the evangelists, the pastors and teachers, to equip his people for works of service, so that the body of Christ may be built up.', 'Ephesians 4:11', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please give the church in %1$s of %2$s prophets who can build up holiness and faithfulness to you.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, please give the church in this region prophets who can build up holiness and faithfulness to you.', 'prayer-global-porch' ),
                 'reference' => __( 'Ephesians 4:11', 'prayer-global-porch' ),
                 'verse' => _x( 'So Christ himself gave the apostles, the prophets, the evangelists, the pastors and teachers, to equip his people for works of service, so that the body of Christ may be built up.', 'Ephesians 4:11', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, you already know the names of the prophets you want to raise up in %1$s. Please, raise them up and give them the courage to speak your truth to your church.', 'prayer-global-porch' ), $stack['location']['name'] ),
+                'prayer' => __( 'Lord, you already know the names of the prophets you want to raise up in this region. Please, raise them up and give them the courage to speak your truth to your church.', 'prayer-global-porch' ),
                 'reference' => __( 'Jeremiah 1:5', 'prayer-global-porch' ),
                 'verse' => _x( 'Before I formed you in the womb I knew you, and before you were born I consecrated you; I appointed you a prophet to the nations.', 'Jeremiah 1:5', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, like in the church of Antioch, where you gathered many prophets and teachers, please gather many prophets and teachers in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'] ),
+                'prayer' => __( 'Lord, like in the church of Antioch, where you gathered many prophets and teachers, please gather many prophets and teachers in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Acts 13:1', 'prayer-global-porch' ),
                 'verse' => _x( 'Now in the church at Antioch there were prophets and teachers: Barnabas, Simeon called Niger, Lucius of Cyrene, Manaen (who had been brought up with Herod the tetrarch), and Saul.', 'Acts 13:1', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, make bold the prophets in %1$s so that the church can be equipped with truth and insight and a vision of your heart.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, make bold the prophets in this region so that the church can be equipped with truth and insight and a vision of your heart.', 'prayer-global-porch' ),
                 'reference' => __( 'Zechariah 8:16', 'prayer-global-porch' ),
                 'verse' => _x( 'These are the things which you should do: speak the truth to one another; judge with truth and judgment for peace in your gates.', 'Zechariah 8:16', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, raise up prophets and truth speakers in your church in %1$s so that the church can grow in every way into the mature body of you its head.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Jesus, raise up prophets and truth speakers in your church in this region so that the church can grow in every way into the mature body of you its head.', 'prayer-global-porch' ),
                 'reference' => __( 'Ephesians 4:15', 'prayer-global-porch' ),
                 'verse' => _x( 'Instead, speaking the truth in love, we will grow to become in every respect the mature body of him who is the head, that is, Christ.', 'Ephesians 4:15', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, make the church in %1$s humble and willing to hear the sometimes hard voices of prophets bringing the light of truth on them.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, make the church in this region humble and willing to hear the sometimes hard voices of prophets bringing the light of truth on them.', 'prayer-global-porch' ),
                 'reference' => __( 'Galatians 4:16', 'prayer-global-porch' ),
                 'verse' => _x( 'So have I become your enemy by telling you the truth?', 'Galatians 4:16', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, strengthen the church in %1$s by giving a prophet, as you said you would, who is bold and willing to correct. Lord, may the believers care about holiness as you do.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Jesus, strengthen the church in this region by giving a prophet, as you said you would, who is bold and willing to correct. Lord, may the believers care about holiness as you do.', 'prayer-global-porch' ),
                 'reference' => __( 'Ephesians 4:11', 'prayer-global-porch' ),
                 'verse' => _x( 'So Christ himself gave the apostles, the prophets, the evangelists, the pastors and teachers, to equip his people for works of service, so that the body of Christ may be built up.', 'Ephesians 4:11', 'prayer-global-porch' ),
             ],
@@ -1960,19 +1864,19 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, give grace to the local leaders who shepherd the %1$s believers in %2$s of %3$s.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Lord, give grace to the local leaders who shepherd the %1$s believers in this region.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'John 10:11', 'prayer-global-porch' ),
                 'verse' => _x( 'I am the good shepherd. The good shepherd lays down his life for the sheep.', 'John 10:11', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, please provide elders whose hearts are completely yours in every town in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Lord, please provide elders whose hearts are completely yours in every town in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Titus 1:5', 'prayer-global-porch' ),
                 'verse' => _x( 'The reason I left you in Crete was that you might put in order what was left unfinished and appoint elders in every town, as I directed you.', 'Titus 1:5', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, please bless the leaders of the %1$s of %2$s who work hard at shepherding and guiding your people.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'] ),
+                'prayer' => __( 'Jesus, please bless the leaders of this region who work hard at shepherding and guiding your people.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 78:72', 'prayer-global-porch' ),
                 'verse' => _x( 'With upright heart he shepherded them and guided them with his skillful hand.', 'Psalm 78:72', 'prayer-global-porch' ),
             ],
@@ -1984,19 +1888,19 @@ class PG_Stacker_Text {
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, you gave the church of %1$s the greatest shepherd of all time, Jesus. Please, help them listen to him.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, you gave the church of this region the greatest shepherd of all time, Jesus. Please, help them listen to him.', 'prayer-global-porch' ),
                 'reference' => __( 'Ezekiel 34:23', 'prayer-global-porch' ),
                 'verse' => _x( 'I will place over them one shepherd, my servant David, and he will tend them; he will tend them and be their shepherd.', 'Ezekiel 34:23', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, for all those you call to look after your flock from the %1$s believers in %2$s, please, make them passionate about hearing your Word.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Father, for all those you call to look after your flock from the %1$s believers in this region, please, make them passionate about hearing your Word.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Ezekiel 34:7', 'prayer-global-porch' ),
                 'verse' => _x( 'Therefore, you shepherds, hear the word of the LORD.', 'Ezekiel 34:7', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Good Shepherd, thank you that you know the name of each of the %1$s believers in %2$s.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Good Shepherd, thank you that you know the name of each of the %1$s believers in this region.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'John 10:14', 'prayer-global-porch' ),
                 'verse' => _x( 'I am the good shepherd; I know my sheep and my sheep know me', 'John 10:14', 'prayer-global-porch' ),
             ],
@@ -2032,31 +1936,31 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please send teachers of your Word in %1$s who can speak your gospel boldly and clearly.', 'prayer-global-porch' ), $stack['location']['name'] ),
+                'prayer' => __( 'Father, please send teachers of your Word in this region who can speak your gospel boldly and clearly.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, build the strength and maturity of the local leaders in %1$s. Show them that faithfulness is more important than knowledge. Show them that the Spirit, the Word, and prayer is enough in order to grow and lead. ', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, build the strength and maturity of the local leaders in this region. Show them that faithfulness is more important than knowledge. Show them that the Spirit, the Word, and prayer is enough in order to grow and lead. ', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, for the leaders in %1$s of %2$s, let the eyes of their hearts be enlightened in order that they may know the hope to which they are called.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Lord, for the leaders in this region, let the eyes of their hearts be enlightened in order that they may know the hope to which they are called.', 'prayer-global-porch' ),
                 'reference' => __( 'Ephesians 1:18', 'prayer-global-porch' ),
                 'verse' => _x( 'I pray that the eyes of your heart may be enlightened in order that you may know the hope to which he has called you, the riches of his glorious inheritance in his holy people, and his incomparably great power for us who believe. ', 'Ephesians 1:18', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please send new teachers into the harvest, who can correct the lies of our enemy in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, please send new teachers into the harvest, who can correct the lies of our enemy in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 9:38', 'prayer-global-porch' ),
                 'verse' => _x( 'Ask the Lord of the harvest, therefore, to send out workers into his harvest field.', 'Matthew 9:38', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, the believers in %1$s of %2$s need teachers who can feed them with knowledge and understanding. Please raise them up.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'] ),
+                'prayer' => __( 'Lord, the believers in this region need teachers who can feed them with knowledge and understanding. Please raise them up.', 'prayer-global-porch' ),
                 'reference' => __( 'Jeremiah 3:15', 'prayer-global-porch' ),
                 'verse' => _x( 'Then I will give you shepherds after My own heart, who will feed you with knowledge and understanding.', 'Jeremiah 3:15', 'prayer-global-porch' ),
             ],
@@ -2111,79 +2015,79 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, make the Word of God a delight to the people of %1$s, like it was to David.', 'prayer-global-porch' ), $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, make the Word of God a delight to the people of %1$s, like it was to David.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 119:16', 'prayer-global-porch' ),
                 'verse' => _x( 'I delight in your decrees, I will not neglect your Word.', 'Psalm 119:16', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, instill a desire within the people of the %1$s of %2$s to hide your Word in their heart.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, instill a desire within the people of this region to hide your Word in their heart.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 119:11', 'prayer-global-porch' ),
                 'verse' => _x( 'I have hidden your Word in my heart that I might not sin against you.', 'Psalm 119:11', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, help the people of the %1$s of %2$s to be consumed with longing for your Word at all times, like David.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, help the people of this region to be consumed with longing for your Word at all times, like David.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 119:20', 'prayer-global-porch' ),
                 'verse' => _x( 'My soul is consumed with longing for your laws at all times.', 'Psalm 119:20', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, teach your Word to the people of the %1$s of %2$s, so that they can follow your ways all their life.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Lord, teach your Word to the people of this region, so that they can follow your ways all their life.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 119:33', 'prayer-global-porch' ),
                 'verse' => _x( 'Teach me, Lord, the way of your decrees, that I may follow it to the end.', 'Psalm 119:33', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, teach the disciples in %1$s of %2$s to trust your Word, like a lamp, in the darkness around them.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Lord, teach the disciples in this region to trust your Word, like a lamp, in the darkness around them.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 119:105', 'prayer-global-porch' ),
                 'verse' => _x( 'your Word is a lamp for my feet, a light on my path.', 'Psalm 119:105', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, teach the young people in %1$s of %2$s to trust your Word and find the path of purity.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Lord, teach the young people in this region to trust your Word and find the path of purity.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 119:9', 'prayer-global-porch' ),
                 'verse' => _x( 'How can a young person stay on the path of purity? By living according to your Word.', 'Psalm 119:9', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, we know that cultures come and go, even in %1$s of %2$s, but the truth of your Word endures generations.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, we know that cultures come and go, even in this region, but the truth of your Word endures generations.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 119:89', 'prayer-global-porch' ),
                 'verse' => _x( 'your Word, Lord, is eternal; it stands firm in the heavens.', 'Psalm 119:89', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, defend those who are loyal to your Word in %1$s of %2$s, even against fierce enemies.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, defend those who are loyal to your Word in this region, even against fierce enemies.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 119:61', 'prayer-global-porch' ),
                 'verse' => _x( 'Though the wicked bind me with ropes, I will not forget your law.', 'Psalm 119:61', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, fill the %1$s souls living in %2$s of %3$s with a taste for your Word. Make it sweet as honey in their mouth.', 'prayer-global-porch' ), $stack['location']['population'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, fill the %1$s souls living in this region with a taste for your Word. Make it sweet as honey in their mouth.', 'prayer-global-porch' ), $stack['location']['population'] ),
                 'reference' => __( 'Psalm 119:103', 'prayer-global-porch' ),
                 'verse' => _x( 'How sweet are your Words to my taste, sweeter than honey to my mouth!', 'Psalm 119:103', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, fill the %1$s believers in %2$s of %3$s with tears, because God is not obeyed by those around them.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, fill the %1$s believers in this region with tears, because God is not obeyed by those around them.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Psalm 119:136', 'prayer-global-porch' ),
                 'verse' => _x( 'Streams of tears flow from my eyes, for your law is not obeyed.', 'Psalm 119:136', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, guide the %1$s believers in %2$s of %3$s into all truth as they interpret Scriptures.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, guide the %1$s believers in this region into all truth as they interpret Scriptures.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Hebrews 4:12', 'prayer-global-porch' ),
                 'verse' => _x( 'For the Word of God is alive and active. Sharper than any two-edged sword, it penetrates even to dividing soul and spirit, joints and marrow.', 'Hebrews 4:12', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, we pray that the people of %1$s will learn to study the Bible, understand it, obey it, and share it.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, we pray that the people of %1$s will learn to study the Bible, understand it, obey it, and share it.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, let knowledge and depth of insight abound more and more in the church of %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, let knowledge and depth of insight abound more and more in the church of this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Philippians 1:9', 'prayer-global-porch' ),
                 'verse' => _x( 'And this is my prayer: that your love may abound more and more in knowledge and depth of insight', 'Philippians 1:9', 'prayer-global-porch' ),
             ],
@@ -2201,37 +2105,37 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, cause the %1$s believers in %2$s to obey with immediate, radical, costly obedience, like Abraham.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, cause the %1$s believers in this region to obey with immediate, radical, costly obedience, like Abraham.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Genesis 22:2-3', 'prayer-global-porch' ),
                 'verse' => _x( 'Then God said, “Take your son, your only son, whom you love — Isaac — and go to the region of Moriah. Sacrifice him there as a burnt offering on a mountain I will show you.” Early the next morning Abraham got up and loaded his donkey. He took with him two of his servants and his son Isaac. When he had cut enough wood for the burnt offering, he set out for the place God had told him about.', 'Genesis 22:2-3', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, teach the believers in %1$s of %2$s that love for you and obedience to you are connected.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Jesus, teach the believers in this region that love for you and obedience to you are connected.', 'prayer-global-porch' ),
                 'reference' => __( 'John 14:15', 'prayer-global-porch' ),
                 'verse' => _x( 'If you love me, keep my commands.', 'John 14:15', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, remind the disciples in %1$s of %2$s to train each other to obey all that you commanded, and that you will be with them as they do it.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Jesus, remind the disciples in this region to train each other to obey all that you commanded, and that you will be with them as they do it.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 28:20', 'prayer-global-porch' ),
                 'verse' => _x( '...teaching them to obey everything I have commanded you. And surely I am with you always, to the very end of the age.', 'Matthew 28:20', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, please help the %1$s believers in %2$s of %3$s to be filled with joyful obedience at all times, as you modeled for us all.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Jesus, please help the %1$s believers in this region to be filled with joyful obedience at all times, as you modeled for us all.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, help the %1$s believers in %2$s to know that you can make a big impact through their simple obedience today.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Father, help the %1$s believers in this region to know that you can make a big impact through their simple obedience today.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Exodus 19:6', 'prayer-global-porch' ),
                 'verse' => _x( '... you will be for me a kingdom of priests ...', 'Exodus 19:6', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, help the %1$s believers in %2$s to know your commands and to do them.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Father, help the %1$s believers in this region to know your commands and to do them.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Ezra 7:10,25', 'prayer-global-porch' ),
                 'verse' => _x( 'For Ezra had prepared his heart to seek the law of the LORD, and to do it, and to teach in Israel statutes and judgments.', 'Ezra 7:10,25', 'prayer-global-porch' ),
             ],
@@ -2273,49 +2177,49 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => __( 'Trust', 'prayer-global-porch' ),
-                'prayer' => sprintf( __( 'Father, move the %1$s believers in %2$s of %3$s to say "Not our will, but yours be done", like Jesus.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Father, move the %1$s believers in this region to say "Not our will, but yours be done", like Jesus.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Luke 22:41-42', 'prayer-global-porch' ),
                 'verse' => _x( 'He withdrew about a stone’s throw beyond them, knelt down and prayed, "Father, if you are willing, take this cup from me; yet not my will, but yours be done."', 'Luke 22:41-42', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => __( 'Suffering', 'prayer-global-porch' ),
-                'prayer' => sprintf( __( 'Spirit, please defend the %1$s believers in %2$s against an unwillingness to suffer. Give them courage to face social rejection.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, please defend the %1$s believers in this region against an unwillingness to suffer. Give them courage to face social rejection.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => __( 'Trust', 'prayer-global-porch' ),
-                'prayer' => sprintf( __( 'Please, convict the %1$s believers in %2$s to look to you as their only hope for strength and fruitfulness and life.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Please, convict the %1$s believers in this region to look to you as their only hope for strength and fruitfulness and life.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'John 15:5', 'prayer-global-porch' ),
                 'verse' => _x( 'I am the vine; you are the branches. If you remain in me and I in you, you will bear much fruit; apart from me you can do nothing.', 'John 15:5', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, look after and teach the way that is best for the %1$s believers living in %2$s.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['full_name'] ),
+                'prayer' => sprintf( __( 'Father, look after and teach the way that is best for the %1$s believers living in this region.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Psalm 32:8', 'prayer-global-porch' ),
                 'verse' => _x( 'I will instruct you and teach you in the way which you shall go. I will counsel you with my eye on you.', 'Psalm 32:8', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, train the church of %1$s to trust with all their hearts, and you will make their paths straight.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, train the church of this region to trust with all their hearts, and you will make their paths straight.', 'prayer-global-porch' ),
                 'reference' => __( 'Proverbs 3:5-6', 'prayer-global-porch' ),
                 'verse' => _x( 'Trust in Yahweh with all your heart, and don’t lean on your own understanding. In all your ways acknowledge him, and he will make your paths straight.', 'Proverbs 3:5-6', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, remind your church in %1$s that they can know and depend on the love you have for them.', 'prayer-global-porch' ), $stack['location']['name'] ),
+                'prayer' => __( 'Father, remind your church in this region that they can know and depend on the love you have for them.', 'prayer-global-porch' ),
                 'reference' => __( '1 John 4:16', 'prayer-global-porch' ),
                 'verse' => _x( 'We know and have believed the love which God has for us. God is love, and he who remains in love remains in God, and God remains in him.', '1 John 4:16', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, encourage your church in %1$s that you never forsake them.', 'prayer-global-porch' ), $stack['location']['name'] ),
+                'prayer' => __( 'Father, encourage your church in this region that you never forsake them.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 9:10', 'prayer-global-porch' ),
                 'verse' => _x( 'Those who know your name will put their trust in you, for you, Yahweh, have not forsaken those who seek you.', 'Psalm 9:10', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, reveal your kingdom to those with a childlike heart in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, reveal your kingdom to those with a childlike heart in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 11:25-26', 'prayer-global-porch' ),
                 'verse' => _x( 'At that time, Jesus answered, “I thank you, Father, Lord of heaven and earth, that you hid these things from the wise and understanding, and revealed them to infants. Yes, Father, for so it was well-pleasing in your sight.', 'Matthew 11:25-26', 'prayer-global-porch' ),
             ],
@@ -2327,7 +2231,7 @@ class PG_Stacker_Text {
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, to the people of %1$s you say, "If you wait for Me, I will work on your behalf."', 'prayer-global-porch' ), $stack['location']['name'] ),
+                'prayer' => __( 'Lord, to the people of %1$s you say, "If you wait for Me, I will work on your behalf."', 'prayer-global-porch' ),
                 'reference' => __( 'Isaiah 64:4', 'prayer-global-porch' ),
                 'verse' => _x( 'For from of old men have not heard, nor perceived by the ear, neither has the eye seen a God besides you, who works for him who waits for him.', 'Isaiah 64:4', 'prayer-global-porch' ),
             ],
@@ -2345,44 +2249,44 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => __( 'Faith', 'prayer-global-porch' ),
-                'prayer' => sprintf( __( 'Spirit, teach the %1$s believers in %2$s that when they seek first your Kingdom and your righteousness, you will abundantly provide all they need.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, teach the %1$s believers in this region that when they seek first your Kingdom and your righteousness, you will abundantly provide all they need.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( '2 Corinthians 9:8', 'prayer-global-porch' ),
                 'verse' => _x( 'And God is able to bless you abundantly, so that in all things at all times, having all that you need, you will abound in every good work.', '2 Corinthians 9:8', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => __( 'Faith', 'prayer-global-porch' ),
-                'prayer' => sprintf( __( 'Lord, please give the %1$s believers in %2$s of %3$s the Spirit of wisdom and revelation, so that they might know you better.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Lord, please give the %1$s believers in this region the Spirit of wisdom and revelation, so that they might know you better.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Ephesians 1:17', 'prayer-global-porch' ),
                 'verse' => _x( 'I keep asking that the God of our Lord Jesus Christ, the glorious Father, may give you the Spirit of wisdom and revelation, so that you may know him better.', 'Ephesians 1:17', 'prayer-global-porch' ),
             ],
 
             [
                 'section_label' => __( 'Faith', 'prayer-global-porch' ),
-                'prayer' => sprintf( __( 'Spirit, please defend the %1$s believers in %2$s against self-centered spirituality. Open their eyes to the fields ripe for harvest around them.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, please defend the %1$s believers in this region against self-centered spirituality. Open their eyes to the fields ripe for harvest around them.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => __( 'Faithfulness', 'prayer-global-porch' ),
-                'prayer' => sprintf( __( 'Father, convict the %1$s believers in %2$s to be holy and righteous. Inspire them to gather in small groups for accountability and spiritual growth.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Father, convict the %1$s believers in this region to be holy and righteous. Inspire them to gather in small groups for accountability and spiritual growth.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => __( 'Faithfulness', 'prayer-global-porch' ),
-                'prayer' => sprintf( __( 'Lord, we know that you invest more in those who have been faithful with what they have been given. Please, richly bless each faithful believer in %1$s with more spiritual insight, wisdom, courage and vision.', 'prayer-global-porch' ), $stack['location']['name'] ),
+                'prayer' => __( 'Lord, we know that you invest more in those who have been faithful with what they have been given. Please, richly bless each faithful believer in this region with more spiritual insight, wisdom, courage and vision.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 25:28', 'prayer-global-porch' ),
                 'verse' => _x( 'So take the bag of gold from him and give it to the one who has ten bags. For whoever has will be given more, and they will have an abundance. Whoever does not have, even what they have will be taken from them.', 'Matthew 25:28', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, please reward those who diligently seek you with a heart of faith in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, please reward those who diligently seek you with a heart of faith in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Hebrews 11:6', 'prayer-global-porch' ),
                 'verse' => _x( 'Without faith it is impossible to be well pleasing to him, for he who comes to God must believe that he exists, and that he is a rewarder of those who seek him.', 'Hebrews 11:6', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, sanctify the %1$s believers in %2$s and keep them blameless until Jesus returns.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, sanctify the %1$s believers in this region and keep them blameless until Jesus returns.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( '1 Thessalonians 5:23-24', 'prayer-global-porch' ),
                 'verse' => _x( 'May the God of peace himself sanctify you completely. May your whole spirit, soul, and body be preserved blameless at the coming of our Lord Jesus Christ. He who calls you is faithful, who will also do it.', '1 Thessalonians 5:23-24', 'prayer-global-porch' ),
             ],
@@ -2424,55 +2328,55 @@ class PG_Stacker_Text {
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, put the people who are lonely into families in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, put the people who are lonely into families in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 68:6', 'prayer-global-porch' ),
                 'verse' => _x( 'God sets the lonely in families. He brings out the prisoners with singing, but the rebellious dwell in a sun-scorched land.', 'Psalm 68:6', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, protect the overcomers in %1$s, so that they will one day sit with Jesus on His throne.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, protect the overcomers in this region, so that they will one day sit with Jesus on His throne.', 'prayer-global-porch' ),
                 'reference' => __( 'Revelation 3:21', 'prayer-global-porch' ),
                 'verse' => _x( 'He who overcomes, I will give to him to sit down with me on my throne, as I also overcame, and sat down with my Father on his throne.', 'Revelation 3:21', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, you have chosen the weak things of this world to confound the strong. Make the poor and outcast in %1$s of %2$s a testimony of your strength.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, you have chosen the weak things of this world to confound the strong. Make the poor and outcast in this region a testimony of your strength.', 'prayer-global-porch' ),
                 'reference' => __( '1 Corinthians 1:27', 'prayer-global-porch' ),
                 'verse' => _x( 'God chose the foolish things of the world that he might put to shame those who are wise. God chose the weak things of the world, that he might put to shame the things that are strong;', '1 Corinthians 1:27', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, encourage the church of %1$s that they are blessed with every heavenly blessing.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, encourage the church of this region that they are blessed with every heavenly blessing.', 'prayer-global-porch' ),
                 'reference' => __( 'Ephesians 1:3', 'prayer-global-porch' ),
                 'verse' => _x( 'Blessed be the God and Father of our Lord Jesus Christ, who has blessed us with every spiritual blessing in the heavenly places in Christ', 'Ephesians 1:3', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, thank you that you will never abandon the church of %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, thank you that you will never abandon the church of this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Hebrews 13:5 ', 'prayer-global-porch' ),
                 'verse' => _x( 'Be free from the love of money, content with such things as you have, for he has said, “I will in no way leave you, neither will I in any way forsake you.', 'Hebrews 13:5 ', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, for those distressed and afraid in %1$s, show them today that you give peace at all times and in every situation.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Jesus, for those distressed and afraid in this region, show them today that you give peace at all times and in every situation.', 'prayer-global-porch' ),
                 'reference' => __( '2 Thessalonians 3:16', 'prayer-global-porch' ),
                 'verse' => _x( 'Now may the Lord of peace himself give you peace at all times in all ways. The Lord be with you all.', '2 Thessalonians 3:16', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, please find the broken hearted among the %1$s souls in %2$s and mend their wounds.', 'prayer-global-porch' ), $stack['location']['population'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Jesus, please find the broken hearted among the %1$s souls in this region and mend their wounds.', 'prayer-global-porch' ), $stack['location']['population'] ),
                 'reference' => __( 'Psalm 147:3', 'prayer-global-porch' ),
                 'verse' => _x( 'He heals the broken in heart, and binds up their wounds.', 'Psalm 147:3', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, comfort those who mourn in %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, comfort those who mourn in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 5:4', 'prayer-global-porch' ),
                 'verse' => _x( 'Blessed are those who mourn, for they shall be comforted.', 'Matthew 5:4', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, see the suffering of your people in %1$s of %2$s. Deliver all those who have not forgotten your Word.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, see the suffering of your people in this region. Deliver all those who have not forgotten your Word.', 'prayer-global-porch' ),
                 'reference' => __( 'Psalm 119:153', 'prayer-global-porch' ),
                 'verse' => _x( 'Look on my suffering and deliver me, for I have not forgotten your law.', 'Psalm 119:153', 'prayer-global-porch' ),
             ],
@@ -2490,49 +2394,49 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, give the believers of the %1$s of %2$s unity and humility as they work to bring the kingdom to new people and places.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, give the believers of this region unity and humility as they work to bring the kingdom to new people and places.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, stir the hearts of your people in %1$s to agree with you and with one another.', 'prayer-global-porch' ), $stack['location']['name'] ),
+                'prayer' => __( 'Lord, stir the hearts of your people in this region to agree with you and with one another.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, stir the hearts of your people in %1$s of %2$s to agree with you and with one another in love.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Lord, stir the hearts of your people in this region to agree with you and with one another in love.', 'prayer-global-porch' ),
                 'reference' => __( 'John 17:21', 'prayer-global-porch' ),
                 'verse' => _x( 'that all of them may be one, Father, just as you are in me and I am in you. May they also be in us so that the world may believe that you have sent me.', 'John 17:21', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Lord, we pray for the believers in %1$s to be more like Jesus in their love for friends and enemies.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Lord, we pray for the believers in this region to be more like Jesus in their love for friends and enemies.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 5:44', 'prayer-global-porch' ),
                 'verse' => _x( 'But I tell you, love your enemies and pray for those who persecute you.', 'Matthew 5:44', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => __( 'The Church', 'prayer-global-porch' ),
-                'prayer' => sprintf( __( 'Father, let love abound more and more in the church of %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Father, let love abound more and more in the church of this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Philippians 1:9', 'prayer-global-porch' ),
                 'verse' => _x( 'And this is my prayer: that your love may abound more and more in knowledge and depth of insight', 'Philippians 1:9', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => __( 'Generosity', 'prayer-global-porch' ),
-                'prayer' => sprintf( __( 'God, we pray for the believers in %1$s to be generous so that they would be worthy of greater investment by you.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'God, we pray for the believers in this region to be generous so that they would be worthy of greater investment by you.', 'prayer-global-porch' ),
                 'reference' => '',
                 'verse' => '',
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, encourage the %1$s believers in %2$s to not just be consumers of knowledge but be producers of love, mercy, kindness, and justice.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Father, encourage the %1$s believers in this region to not just be consumers of knowledge but be producers of love, mercy, kindness, and justice.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( '1 John 3:18', 'prayer-global-porch' ),
                 'verse' => _x( '...let us not love with words or speech but with actions and in truth.', '1 John 3:18', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Oh Lord, show the fatherless in %1$s of %2$s that you can be their real Father.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Oh Lord, show the fatherless in this region that you can be their real Father.', 'prayer-global-porch' ),
                 'reference' => __( '2 Corinthians 6:18', 'prayer-global-porch' ),
                 'verse' => _x( 'I will be to you a Father. you will be to me sons and daughters,’ says the Lord Almighty.', '2 Corinthians 6:18', 'prayer-global-porch' ),
             ],
@@ -2562,79 +2466,79 @@ class PG_Stacker_Text {
         $templates = [
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, give the disciples of the %1$s of %2$s an urgency of seeing every people and place reached for the gospel.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, give the disciples of this region an urgency of seeing every people and place reached for the gospel.', 'prayer-global-porch' ),
                 'reference' => __( 'John 9:4', 'prayer-global-porch' ),
                 'verse' => _x( 'As long as it is day, we must do the works of him who sent me. Night is coming, when no one can work.', 'John 9:4', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, encourage the disciples in %1$s to live with urgency and a passion for making more disciples.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, encourage the disciples in this region to live with urgency and a passion for making more disciples.', 'prayer-global-porch' ),
                 'reference' => __( 'James 4:14', 'prayer-global-porch' ),
                 'verse' => _x( 'Yet you do not know what your life will be like tomorrow. you are just a vapor that appears for a little while and then vanishes away.', 'James 4:14', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, defend the church in %1$s of %2$s against being inward-focused.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, defend the church in this region against being inward-focused.', 'prayer-global-porch' ),
                 'reference' => __( 'Isaiah 61:1', 'prayer-global-porch' ),
                 'verse' => _x( 'The Spirit of the Sovereign LORD is on me, because the LORD has anointed me to proclaim good news to the poor. He has sent me to bind up the brokenhearted, to proclaim freedom for the captives and release from darkness for the prisoners.', 'Isaiah 61:1', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, encourage the church in %1$s to make the most of every opportunity.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
+                'prayer' => __( 'Spirit, encourage the church in this region to make the most of every opportunity.', 'prayer-global-porch' ),
                 'reference' => __( 'Ephesians 5:15', 'prayer-global-porch' ),
                 'verse' => _x( 'Be very careful, then, how you live—not as unwise but as wise, making the most of every opportunity, because the days are evil.', 'Ephesians 5:15', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, your return is closer than when we first believed. Please, set urgency in the hearts of the people living in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Jesus, your return is closer than when we first believed. Please, set urgency in the hearts of the people living in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Romans 13:11', 'prayer-global-porch' ),
                 'verse' => _x( 'Besides this you know the time, that the hour has come for you to wake from sleep. For salvation is nearer to us now than when we first believed.', 'Romans 13:11', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, disrupt complacency in the %1$s believers living in %2$s of %3$s. Remind them you are coming soon.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, disrupt complacency in the %1$s believers living in this region. Remind them you are coming soon.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Matthew 24:42', 'prayer-global-porch' ),
                 'verse' => _x( 'Therefore, stay awake, for you do not know on what day your Lord is coming.', 'Matthew 24:42', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, give faith and responsive hearts to the %1$s citizens of the %2$s of %3$s.', 'prayer-global-porch' ), $stack['location']['population'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Spirit, give faith and responsive hearts to the %1$s citizens of the this region.', 'prayer-global-porch' ), $stack['location']['population'] ),
                 'reference' => __( 'Isaiah 55:6', 'prayer-global-porch' ),
                 'verse' => _x( 'Seek the Lord while he may be found; call upon him while he is near;', 'Isaiah 55:6', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, renew the call of John the Baptist in %1$s of %2$s. Send out bold servants who will call all to repent.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, renew the call of John the Baptist in this region. Send out bold servants who will call all to repent.', 'prayer-global-porch' ),
                 'reference' => __( 'Matthew 3:2', 'prayer-global-porch' ),
                 'verse' => _x( 'Repent, for the kingdom of heaven is at hand.', 'Matthew 3:2', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Father, set on fire the hearts and passion of your church in %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Father, set on fire the hearts and passion of your church in this region.', 'prayer-global-porch' ),
                 'reference' => __( 'Romans 12:11', 'prayer-global-porch' ),
                 'verse' => _x( 'Do not be slothful in zeal, be fervent in spirit, serve the Lord.', 'Romans 12:11', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Spirit, awaken the sleepers and call them to repent and be baptized in %1$s of %2$s. Set an urgency in their hearts.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Spirit, awaken the sleepers and call them to repent and be baptized in this region. Set an urgency in their hearts.', 'prayer-global-porch' ),
                 'reference' => __( 'Acts 22:16', 'prayer-global-porch' ),
                 'verse' => _x( 'And now why do you wait? Rise and be baptized and wash away your sins, calling on his name.’', 'Acts 22:16', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, defend your people in %1$s of %2$s against the difficulty of these last days.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Jesus, defend your people in this region against the difficulty of these last days.', 'prayer-global-porch' ),
                 'reference' => __( '2 Timothy 3:1-4', 'prayer-global-porch' ),
                 'verse' => _x( 'But understand this, that in the last days there will come times of difficulty. For people will be lovers of self, lovers of money, proud, arrogant, abusive, disobedient to their parents, ungrateful, unholy, heartless, unappeasable, slanderous, without self-control, brutal, not loving good, treacherous, reckless, swollen with conceit, lovers of pleasure rather than lovers of God, having the appearance of godliness, but denying its power.', '2 Timothy 3:1-4', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Jesus, purify the %1$s believers in %2$s of %3$s to not just be hearers, but doers of your Word.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => sprintf( __( 'Jesus, purify the %1$s believers in this region to not just be hearers, but doers of your Word.', 'prayer-global-porch' ), $stack['location']['believers'] ),
                 'reference' => __( 'Revelation 1:3', 'prayer-global-porch' ),
                 'verse' => _x( 'Blessed is the one who reads aloud the words of this prophecy, and blessed are those who hear, and who keep what is written in it, for the time is near.', 'Revelation 1:3', 'prayer-global-porch' ),
             ],
             [
                 'section_label' => $section_label,
-                'prayer' => sprintf( __( 'Holy Spirit, have mercy on the simple who turned from you in %1$s of %2$s. Warn them again against their complacency.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
+                'prayer' => __( 'Holy Spirit, have mercy on the simple who turned from you in this region. Warn them again against their complacency.', 'prayer-global-porch' ),
                 'reference' => __( 'Proverbs 1:32', 'prayer-global-porch' ),
                 'verse' => _x( 'For the simple are killed by their turning away, and the complacency of fools destroys them;', 'Proverbs 1:32', 'prayer-global-porch' ),
             ],
@@ -2655,8 +2559,8 @@ class PG_Stacker_Text {
         }
         $templates = [
             [
-                'section_label' => sprintf( __( 'Cities in %s', 'prayer-global-porch' ), $stack['location']['name'] ),
-                'prayer' => sprintf( __( 'Jesus, bring your gospel to the people living in %1$s.', 'prayer-global-porch' ), $stack['location']['cities_list'] ),
+                'section_label' => __( 'Cities in this region', 'prayer-global-porch' ),
+                'prayer' => sprintf( __( 'Jesus, bring your gospel to the people living in this region.', 'prayer-global-porch' ), $stack['location']['cities_list'] ),
                 'reference' => __( 'Matthew 28:19-20', 'prayer-global-porch' ),
                 'verse' => _x( 'Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything I have commanded you.', 'Matthew 28:19-20', 'prayer-global-porch' ),
             ],
@@ -2726,7 +2630,7 @@ class PG_Stacker_Text {
 
 
     /* Illustration based blocks */
-    public static function least_reached_text( $stack): array
+    public static function least_reached_text( $stack ): array
     {
         /**
          * Least Reached Block
@@ -2791,7 +2695,7 @@ class PG_Stacker_Text {
         ];
     }
 
-    public static function photos_text( $stack): array
+    public static function photos_text( $stack ): array
     {
         /**
          * Photos Block
@@ -2828,7 +2732,7 @@ class PG_Stacker_Text {
         ];
     }
 
-    public static function key_city_text( $stack, $key_city): array
+    public static function key_city_text( $stack, $key_city ): array
     {
         /**
          * Key City Block
@@ -2840,22 +2744,22 @@ class PG_Stacker_Text {
         ];
     }
 
-    public static function cities_text( $stack): array
+    public static function cities_text( $stack ): array
     {
         /**
          * Key City Block
          */
         return [
             [
-                'prayer' => sprintf( __( 'Pray that God encourage his people in all these cities.', 'prayer-global-porch' ) ),
+                'prayer' => __( 'Pray that God encourage his people in all these cities.', 'prayer-global-porch' ),
             ],
             [
-                'prayer' => sprintf( __( 'Pray that new churches are planted in these cities.', 'prayer-global-porch' ) ),
+                'prayer' => __( 'Pray that new churches are planted in these cities.', 'prayer-global-porch' ),
             ],
         ];
     }
 
-    public static function demographics_content_text( $stack): array
+    public static function demographics_content_text( $stack ): array
     {
 
         return [
@@ -2864,7 +2768,7 @@ class PG_Stacker_Text {
              */
             'believers' => [
                 [
-                    'section_summary' => sprintf( _x( '%1$s of %2$s has a population of %3$s.', 'The state of Colorado has a population of 5,773,714.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], '<strong>'.$stack['location']['full_name'].'</strong>', '<strong>'.$stack['location']['population'].'</strong>' ).
+                    'section_summary' => sprintf( _x( '%1$s has a population of %2$s.', 'The state of Colorado has a population of 5,773,714.', 'prayer-global-porch' ), '<strong>'.$stack['location']['full_name'].'</strong>', '<strong>'.$stack['location']['population'].'</strong>' ).
                         '<br><br>'.
                         sprintf( _x( 'We estimate %1$s has %2$s people who might know Jesus, %3$s people who might know about Jesus culturally, and %4$s people who do not know Jesus.', 'We estimate new york has 100 people who might know Jesus, 300 people who might know about Jesus culturally, and 500 people who do not know Jesus.', 'prayer-global-porch' ), $stack['location']['name'], '<strong>'.$stack['location']['believers'].'</strong>', '<strong>'.$stack['location']['christian_adherents'].'</strong>', '<strong>'.$stack['location']['non_christians'].'</strong>' ).
                         '<br><br>'.
@@ -2876,7 +2780,7 @@ class PG_Stacker_Text {
              */
             'christian_adherents' => [
                 [
-                    'section_summary' => sprintf( _x( '%1$s of %2$s has a population of %3$s.', 'The state of Colorado has a population of 5,773,714.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], '<strong>'.$stack['location']['full_name'].'</strong>', '<strong>'.$stack['location']['population'].'</strong>' ).
+                    'section_summary' => sprintf( _x( '%1$s has a population of %2$s.', 'The state of Colorado has a population of 5,773,714.', 'prayer-global-porch' ), '<strong>'.$stack['location']['full_name'].'</strong>', '<strong>'.$stack['location']['population'].'</strong>' ).
                         '<br><br>'.
                         sprintf( _x( 'We estimate %1$s has %2$s people who might know Jesus, %3$s people who might know about Jesus culturally, and %4$s people who do not know Jesus.', 'We estimate new york has 100 people who might know Jesus, 300 people who might know about Jesus culturally, and 500 people who do not know Jesus.', 'prayer-global-porch' ), $stack['location']['name'], '<strong>'.$stack['location']['believers'].'</strong>', '<strong>'.$stack['location']['christian_adherents'].'</strong>', '<strong>'.$stack['location']['non_christians'].'</strong>' ).
                         '<br><br>'.
@@ -2888,7 +2792,7 @@ class PG_Stacker_Text {
              */
             'non_christians' => [
                 [
-                    'section_summary' => sprintf( _x( '%1$s of %2$s has a population of %3$s.', 'The state of Colorado has a population of 5,773,714.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], '<strong>'.$stack['location']['full_name'].'</strong>', '<strong>'.$stack['location']['population'].'</strong>' ).
+                    'section_summary' => sprintf( _x( '%1$s has a population of %2$s.', 'The state of Colorado has a population of 5,773,714.', 'prayer-global-porch' ), '<strong>'.$stack['location']['full_name'].'</strong>', '<strong>'.$stack['location']['population'].'</strong>' ).
                         '<br><br>'.
                         sprintf( _x( 'We estimate %1$s has %2$s people who might know Jesus, %3$s people who might know about Jesus culturally, and %4$s people who do not know Jesus.', 'We estimate new york has 100 people who might know Jesus, 300 people who might know about Jesus culturally, and 500 people who do not know Jesus.', 'prayer-global-porch' ), $stack['location']['name'], '<strong>'.$stack['location']['believers'].'</strong>', '<strong>'.$stack['location']['christian_adherents'].'</strong>', '<strong>'.$stack['location']['non_christians'].'</strong>' ).
                         '<br><br>'.
@@ -2899,7 +2803,7 @@ class PG_Stacker_Text {
 
     }
 
-    public static function demogrphics_4_fact_text( $stack): array
+    public static function demogrphics_4_fact_text( $stack ): array
     {
 
         return [
