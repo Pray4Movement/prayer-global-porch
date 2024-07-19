@@ -23,14 +23,14 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
     public function __construct() {
         parent::__construct();
 
-        $url = dt_get_url_path(true);
+        $url = dt_get_url_path( true );
         if ( ( $this->root . '/' . $this->type ) === $url ) {
 
             $this->magic = new DT_Magic_URL( $this->root );
             $this->parts = $this->magic->parse_url_parts();
 
             // register url and access
-            add_action( "template_redirect", [ $this, 'theme_redirect' ] );
+            add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
             add_filter( 'dt_blank_access', function (){ return true;
             }, 100, 1 );
             add_filter( 'dt_allow_non_login_access', function (){ return true;
@@ -39,7 +39,7 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
             }, 100, 1 );
 
             // header content
-            add_filter( "dt_blank_title", [ $this, "page_tab_title" ] ); // adds basic title to browser tab
+            add_filter( 'dt_blank_title', [ $this, 'page_tab_title' ] ); // adds basic title to browser tab
 
             // page content
             add_action( 'dt_blank_head', [ $this, '_header' ] );
@@ -50,7 +50,7 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
 
             add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
 
-            add_filter( "dt_override_header_meta", function (){ return true;
+            add_filter( 'dt_override_header_meta', function (){ return true;
             }, 100, 1 );
         }
 
@@ -187,7 +187,7 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
         $params = $request->get_params();
 
         if ( ! isset( $params['parts'], $params['action'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
         switch ( $params['action'] ) {
