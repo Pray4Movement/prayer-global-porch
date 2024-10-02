@@ -323,14 +323,14 @@ trait PG_Lap_Trait {
 
             // user information
             'payload' => [
-                'user_location' => $data['user']['label'],
+                'user_location' => $data['user']['label'] ?? null,
                 'user_language' => 'en' // @todo expand for other languages
             ],
-            'lng' => $data['user']['lng'],
-            'lat' => $data['user']['lat'],
-            'level' => $data['user']['level'],
-            'label' => $data['user']['country'],
-            'hash' => $data['user']['hash'],
+            'lng' => $data['user']['lng'] ?? null,
+            'lat' => $data['user']['lat'] ?? null,
+            'level' => $data['user']['level'] ?? null,
+            'label' => $data['user']['country'] ?? null,
+            'hash' => $data['user']['hash'] ?? null,
         ];
         if ( is_user_logged_in() ) {
             $args['user_id'] = get_current_user_id();
