@@ -4,8 +4,6 @@ define( 'SHORTINIT', true );
 
 echo time();
 
-echo DB_NAME;
-
 $servername = "localhost";
 $username = "xjhaqcngrf";
 $password = "MZRfmc9UtZ";
