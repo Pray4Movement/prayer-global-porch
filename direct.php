@@ -16,8 +16,8 @@ define( 'SHORTINIT', true );
 //echo "Connected successfully";
 
 
-if ( !function_exists( 'memcached_get' ) ){
-    echo 'memcached_get not found';
+if ( !class_exists('Memcached') ) {
+    echo 'Memcached class not found';
     exit;
 }
 
