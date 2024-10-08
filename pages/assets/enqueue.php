@@ -23,14 +23,15 @@ add_filter( 'dt_magic_url_base_allowed_js', function ( $allowed_js ){
 }, 100, 1 );
 
 
-function pg_enqueue_script( string $handle, string $rel_src, array $deps = array(), bool $in_footer = false ) {
-    wp_enqueue_script( $handle, Prayer_Global_Porch::get_url_path() . "$rel_src", $deps, filemtime( Prayer_Global_Porch::get_dir_path() . "$rel_src" ), $in_footer );
+function pg_enqueue_script( string $handle, string $rel_src, array $deps = array(), array|bool $args = false ) {
+    wp_enqueue_script( $handle, Prayer_Global_Porch::get_url_path() . "$rel_src", $deps, filemtime( Prayer_Global_Porch::get_dir_path() . "$rel_src" ), $args );
 }
 
 add_action( 'wp_enqueue_scripts', function (){
 
-    wp_enqueue_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js', [], '3.7.1', false );
-    wp_enqueue_script( 'canvas-confetti', 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js', [], '1.5.1', true );
+    wp_deregister_script( 'jquery' );
+    wp_enqueue_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js', [], '3.7.1', [ 'strategy' => 'defer' ] );
+    wp_enqueue_script( 'canvas-confetti', 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js', [], '1.5.1', [ 'strategy' => 'defer' ] );
     pg_enqueue_script( 'global-functions', 'pages/assets/js/global-functions.js', [ 'jquery' ], true );
     pg_enqueue_script( 'components-js', 'pages/assets/js/components.js', [ 'jquery', 'global-functions' ], true );
 
@@ -68,7 +69,7 @@ add_action( 'wp_enqueue_scripts', function (){
         ],
     ] );
 
-});
+}, 1000 );
 
 
 function pg_heatmap_scripts( $glass ){

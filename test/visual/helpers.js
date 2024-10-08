@@ -2,7 +2,7 @@ async function fullPageScreenshot() {
     const bodyHandle = await page.$('body');
 
     const { width, height } = await bodyHandle.boundingBox()
-    
+
     const image = await page.screenshot({
         clip: {
             x: 0,
@@ -22,7 +22,6 @@ async function gotoPage(urlPage) {
     return page.goto('http://localhost:8000/' + urlPage, {
         waitUntil: 'networkidle0'
     })
-}
 
 async function testPage(urlPage) {
     await gotoPage(urlPage)
