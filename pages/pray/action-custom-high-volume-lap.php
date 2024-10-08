@@ -181,10 +181,10 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             </div>
             <div class="container celebrate text-center" id="celebrate-panel"></div>
             <div class="w-100" ></div>
-            <div class="container flex-column justify-content-center">
-            <p class="my-0 font-weight-normal text-center tutorial uppercase one-em lh-1" id="tutorial-location"><?php echo esc_html__( 'Pray for', 'prayer-global-porch' ) ?></p>
-                <h5 class="my-0 font-weight-bold text-center w-75" id="location-name"></h5>
-                <p class="mb-0 text-center small">
+            <div class="container flow text-center" data-space="sm">
+                <p class="tutorial uc f-md lh-1" id="tutorial-location"><?php echo esc_html__( 'Pray for', 'prayer-global-porch' ) ?></p>
+                <h2 class="lh-1 center bold w-75" id="location-name">State of San Juan-Laventille, Trinidad and Tobago</h2>
+                <p class="f-sm">
                     <?php echo sprintf( esc_html__( 'In Prayer Relay %s', 'prayer-global-porch' ), esc_html( $this->lap_title ) ) ?>
                 </p>
             </div>

@@ -3,6 +3,8 @@
     --pg-light: #2c599d;
     --pg-orange: #f2944a;
     --pg-grey: #acabab;
+
+    font-size: 18px;
 }
 
 
@@ -34,8 +36,10 @@
 
 body {
     font-family: Europa, sans-serif;
+    color: var(--pg-dark);
 }
 
+/* Composition */
 .container {
     width: 90%;
     max-width: 1200px;
@@ -43,6 +47,50 @@ body {
     margin-right: auto;
     margin-bottom: 0.5em;
 }
+.flow {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.flow > * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.flow > * + * {
+    margin-top: var(--space, 1rem);
+}
+.flow[data-space="sm"] {
+    --space: 0.5rem;
+}
+
+.center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Utility */
+.bold {
+    font-weight: bold;
+}
+.uc {
+    text-transform: uppercase;
+}
+.f-md {
+    font-size: 1.4rem;
+}
+.f-sm {
+    font-size: 0.8rem;
+}
+.text-center {
+    text-align: center;
+}
+.w-75 {
+    width: 75%;
+}
+.lh-1 {
+    line-height: 1;
+}
+
 
 .prayer-navbar {
     position: fixed;
