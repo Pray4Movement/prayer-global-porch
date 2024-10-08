@@ -1,0 +1,137 @@
+:root {
+    --pg-dark: #11224e;
+    --pg-light: #2c599d;
+    --pg-orange: #f2944a;
+    --pg-grey: #acabab;
+}
+
+
+@font-face {
+    font-family: 'Europa';
+    src: url('../assets/fonts/Europa/Europa-Regular.eot');
+    src: url('../assets/fonts/Europa/Europa-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../assets/fonts/Europa/Europa-Regular.woff2') format('woff2'),
+        url('../assets/fonts/Europa/Europa-Regular.woff') format('woff'),
+        url('../assets/fonts/Europa/Europa-Regular.ttf') format('truetype'),
+        url('../assets/fonts/Europa/Europa-Regular.svg#Europa-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Europa';
+    src: url('../assets/fonts/Europa/Europa-Bold.eot');
+    src: url('../assets/fonts/Europa/Europa-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../assets/fonts/Europa/Europa-Bold.woff2') format('woff2'),
+        url('../assets/fonts/Europa/Europa-Bold.woff') format('woff'),
+        url('../assets/fonts/Europa/Europa-Bold.ttf') format('truetype'),
+        url('../assets/fonts/Europa/Europa-Bold.svg#Europa-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+body {
+    font-family: Europa, sans-serif;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 0.5em;
+}
+
+.prayer-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+
+    border-bottom: 1px solid lightgrey;
+    box-shadow: 0 1px 10px -2px rgb(0 0 0 / 15%);
+    background: white;
+    padding-top: 8px;
+}
+
+.praying-button-group {
+    display: flex;
+    gap: 8px;
+}
+
+.prayer-odometer {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    opacity: 1;
+    color: #f7fbff;
+    background-color: var(--pg-light);
+}
+
+.btn {
+    text-transform: uppercase;
+    border-radius: 6px;
+    box-shadow: var(--small-box-shadow);
+    border: none;
+    background-color: var(--pg-light);
+    color: white;
+    font-size: 1rem;
+    font-family: inherit;
+}
+.btn[data-bg="dark"] {
+    background-color: var(--pg-dark);
+}
+.btn[data-bg="orange"] {
+    background-color: var(--pg-orange);
+}
+.btn-group {
+    display: flex;
+    width: 100%;
+    gap: 8px;
+}
+.btn-group.question .btn {
+    line-height: 1.25;
+}
+.btn-group > * {
+    flex: 1;
+}
+.flex-2 {
+    flex: 2;
+}
+.btn-praying {
+    padding: 0.4rem 0.5rem;
+    line-height: 0.8;
+    font-size: 2em;
+}
+
+.praying-timer {
+    width: 100%;
+    background: var(--pg-grey);
+    color: #ffffff;
+    position: relative;
+    cursor: pointer;
+    overflow: hidden;
+    padding: 8px;
+}
+#praying__continue_button {
+    display:none;
+}
+.praying__progress {
+    position: absolute;
+    height: 100%;
+    width: 0%;
+    top: 0;
+    left: 0;
+    background: var(--pg-orange);
+    transition: width 0.3s;
+    box-shadow: 0 10px 0 -2px rgb(0 0 0 / 15%);
+    border-radius: 6px;
+}
+.praying__text {
+    position: relative;
+    line-height: 1;
+}
