@@ -4795,7 +4795,7 @@ $locations = [
 ];
 
 $memcache_obj = new Memcached();
-$memcache_obj->addServer( 'localhost', 11211 );
+$memcache_obj->addServer( '127.0.0.1', 11211 );
 
 $index = $memcache_obj->get( 'pg_loc_index' );
 if ( empty( $index ) ){
