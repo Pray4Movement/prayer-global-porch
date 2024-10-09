@@ -32,7 +32,7 @@ add_action( 'wp_enqueue_scripts', function (){
     wp_deregister_script( 'jquery' );
     wp_enqueue_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js', [], '3.7.1', [ 'strategy' => 'defer' ] );
     wp_enqueue_script( 'canvas-confetti', 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js', [], '1.5.1', [ 'strategy' => 'defer' ] );
-    pg_enqueue_script( 'global-functions', 'pages/assets/js/global-functions.js', [ 'jquery' ], [ 'strategy' => 'defer' ] );
+    pg_enqueue_script( 'global-functions', 'pages/assets/js/global-functions.js', [ 'jquery' ], true );
     pg_enqueue_script( 'components-js', 'pages/assets/js/components.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );
 
     pg_enqueue_script( 'main-js', 'pages/assets/js/main.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );

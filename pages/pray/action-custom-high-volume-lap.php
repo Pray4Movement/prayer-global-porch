@@ -125,6 +125,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
                     'images_url' => pg_grid_image_url(),
                     'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
+                    'json_folder' => plugin_dir_url( __DIR__ ) . 'assets/json/',
                     'current_url' => $current_url,
                     'stats_url' => $current_url . 'stats',
                     'map_url' => $current_url . 'map',
@@ -145,6 +146,33 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
     public function body(){
         ?>
 
+        <script>
+            const url = new URL(location.href)
+            const gridId = url.searchParams.get('grid_id')
+
+            if (gridId) {
+                const jsonUrl = jsObject.json_folder + gridId + '.json'
+
+                fetch(jsonUrl)
+                    .then((response) => {
+                        if (!response.ok) {
+                            throw new Error("Failed to fetch JSON", response.status)
+                        }
+                        return response.json()
+                    })
+                    .then((json) => {
+                        jsObject.current_content = {
+                            location: json
+                        }
+                    })
+                    .catch((error) => {
+                        console.error(error)
+                    })
+            } else {
+                console.log('no grid_id found')
+            }
+        </script>
+
         <!-- navigation & widget -->
         <nav class="prayer-navbar" id="praying-panel">
             <div class="container praying-button-group" role="group" aria-label="Praying Button">
@@ -153,7 +181,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 </div>
                 <button type="button" class="btn praying-timer" data-percent="0" data-seconds="0">
                     <div class="praying__progress"></div>
-                    <span class="praying__text uppercase font-weight-normal">Keep Praying</span>
+                    <span class="praying__text uppercase font-weight-normal"></span>
                 </button>
                 <button type="button" class="btn btn-praying" data-bg="dark" id="praying__close_button">
                     <i class="icon pg-pause"></i>
@@ -243,6 +271,21 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <div class="container flow" data-space="lg" id="content">
 
                 <hr>
+
+                <div class="block basic-block text-center">
+                    <div class="block__header">
+                        <h5 class="mb-0 uc">
+                            <div class="skeleton" data-title></div>
+                        </h5>
+                    </div>
+                    <div class="block__content">
+                        <p class="skeleton" data-text></p>
+                        <p class="skeleton" data-text></p>
+                    </div>
+                </div>
+
+                <hr>
+
 
                 <div class="block basic-block text-center">
                     <div class="block__header">

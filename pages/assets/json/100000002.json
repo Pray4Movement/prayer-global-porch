@@ -1,0 +1,231 @@
+{
+    "list": [
+        {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "Spirit, teach the 16,656 believers in the county of Amreli the wisdom of how to form simple, reproducible churches of 12-30 in every neighborhood.",
+                "reference": "",
+                "verse": "",
+                "id": "a6cd7513619bec9d845765217652b77541ca7a9e3d52be2ae513d285ffbbb426"
+            }
+        },
+        {
+            "type": "photo_block",
+            "data": {
+                "section_label": "One Shot Prayer Walk",
+                "location_label": "Photo from the county of Amreli, Gujarat, India",
+                "url": "https://storage.googleapis.com/location-grid-images/v1/grid/100219517/photos/rivers_2eb6c8d92db34.jpg",
+                "section_summary": "What challenges do people here face?",
+                "prayer": ""
+            }
+        },
+        {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Suffering",
+                "prayer": "Father, see the suffering of your people in the county of Amreli. Deliver all those who have not forgotten your Word.",
+                "reference": "Psalm 119:153",
+                "verse": "Look on my suffering and deliver me, for I have not forgotten your law.",
+                "id": "cebf092c14d68e9a73c037b2d4cc19ddc302555d2d3b741a60e1c9b7b199f3f7"
+            }
+        },
+        {
+            "type": "100_bodies_chart",
+            "data": {
+                "section_label": "Faith Status",
+                "percent_1": 97.69,
+                "percent_2": 1.21,
+                "percent_3": 1.1,
+                "pop_1": 97.69,
+                "pop_2": 1.21,
+                "pop_3": 1.1,
+                "pop_1_label": "Non-Christians",
+                "pop_2_label": "Cultural Christians",
+                "pop_3_label": "Believers",
+                "section_summary": "Non-Christians - 1,479,172 | Cultural Christians - 18,372 | Believers - 16,656",
+                "prayer": ""
+            }
+        },
+        {
+            "type": "basic_block",
+            "data": {
+                "section_label": "The Church",
+                "prayer": "Father, let love abound more and more in the church of Amreli, Gujarat, India.",
+                "reference": "Philippians 1:9",
+                "verse": "And this is my prayer: that your love may abound more and more in knowledge and depth of insight",
+                "id": "141a62eb5fc26d48530f6967e158f59caa9d0ad18b80d8fd7a2f90113142cec9"
+            }
+        },
+        {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Obedience",
+                "prayer": "Father, help the 16,656 believers in Amreli to know that you can make a big impact through their simple obedience today.",
+                "reference": "Exodus 19:6",
+                "verse": "you will be for me a kingdom of priests",
+                "id": "4af8db8c3b2d662fe6a0f3e0eab3e66198ffee77db40ac183a0a9defab7ce7b4"
+            }
+        },
+        {
+            "type": "least_reached_block",
+            "data": {
+                "section_label": "Least Reached",
+                "focus_label": "Gavri",
+                "image_url": false,
+                "section_summary": "",
+                "prayer": "Spirit, I pray that the Gavri people will come and worship before you, Lord. May they glorify your name for you are great.",
+                "diaspora_label": "Possibly Diaspora"
+            }
+        },
+        {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Local Leadership",
+                "prayer": "Jesus, teach the local leaders in Amreli, Gujarat, India to be humble and to serve others.",
+                "reference": "Matthew 20:26–28",
+                "verse": "It shall not be so among you. But whoever would be great among you must be your servant, and whoever would be first among you must be your slave, even as the Son of Man came not to be served but to serve, and to give his life as a ransom for many.",
+                "id": "f4e001e8123614d86786265922d7570dbdf419ccbaf735c87627be04ef328fcb"
+            }
+        },
+        {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Evangelists and Harvest Workers",
+                "prayer": "Jesus, you said you were the giver of evangelists to the church. Please, send more evangelists to the the county of Amreli, Gujarat, India.",
+                "reference": "Ephesians 4:11-12",
+                "verse": "So Christ himself gave the apostles, the prophets, the evangelists, the pastors and teachers, to equip his people for works of service, so that the body of Christ may be built up",
+                "id": "e838b23ec27f26988340b0f7aee1513560d64883f91b7fc99e888a84f2dd00fc"
+            }
+        },
+        {
+            "type": "content_block",
+            "data": {
+                "section_label": "Demographics",
+                "focus_label": "Amreli, Gujarat, India",
+                "icon": "ion-map",
+                "color": "brand-lighter",
+                "section_summary": "the county of <strong>Amreli, Gujarat, India</strong> has a population of <strong>1,514,200</strong>.<br><br>We estimate Amreli has <strong>16,656</strong> people who might know Jesus, <strong>18,372</strong> people who might know about Jesus culturally, and <strong>1,479,172</strong> people who do not know Jesus.<br><br>This is <strong>1</strong> believer for every <strong>90</strong> neighbors who need Jesus.",
+                "prayer": ""
+            }
+        },
+        {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Priesthood of Believers",
+                "prayer": "Father, encourage the 16,656 believers to have boldness before you, since they have a great high priest who has passed through the heavens, Jesus the Son of God.",
+                "reference": "Hebrews 4:14-16",
+                "verse": "Since then we have a great high priest who has passed through the heavens, Jesus, the Son of God, let us hold fast our confession.",
+                "id": "5681fe92e499f1a4d8831ce2edc9de198c52cc5cfbc836e301149f311fda78de"
+            }
+        }
+    ],
+    "location": {
+        "grid_id": "100219517",
+        "name": "Amreli",
+        "admin0_name": "India",
+        "full_name": "Amreli, Gujarat, India",
+        "population": "1,514,200",
+        "latitude": 21.4262,
+        "longitude": 71.2486,
+        "country_code": "IN",
+        "admin0_code": "IND",
+        "parent_id": "100219358",
+        "parent_name": "Gujarat",
+        "admin0_grid_id": "100219347",
+        "admin1_grid_id": "100219358",
+        "admin1_name": "Gujarat",
+        "admin2_grid_id": "100219517",
+        "admin2_name": "Amreli",
+        "admin3_grid_id": null,
+        "admin3_name": null,
+        "admin4_grid_id": null,
+        "admin4_name": null,
+        "admin5_grid_id": null,
+        "admin5_name": null,
+        "level": 2,
+        "level_name": "admin2",
+        "north_latitude": 22.0386,
+        "south_latitude": 20.8137,
+        "east_longitude": 71.7101,
+        "west_longitude": 70.7872,
+        "p_longitude": 71.3326,
+        "p_latitude": 22.4133,
+        "p_north_latitude": 24.7058,
+        "p_south_latitude": 20.1208,
+        "p_east_longitude": 74.4789,
+        "p_west_longitude": 68.1862,
+        "c_longitude": 82.8007,
+        "c_latitude": 21.1278,
+        "c_north_latitude": 35.5013,
+        "c_south_latitude": 6.75426,
+        "c_east_longitude": 97.4152,
+        "c_west_longitude": 68.1862,
+        "peer_locations": "33",
+        "birth_rate": 18.7,
+        "death_rate": 7.2,
+        "growth_rate": 1.115,
+        "believers": "16,656",
+        "christian_adherents": "18,372",
+        "non_christians": "1,479,172",
+        "primary_language": "Hindi",
+        "primary_religion": "Hinduism",
+        "percent_believers": 1.1,
+        "percent_christian_adherents": 1.21,
+        "percent_non_christians": 97.69,
+        "admin_level_name": "county",
+        "admin_level_title": "the county",
+        "admin_level_name_cap": "County",
+        "admin_level_name_plural": "counties",
+        "population_int": 1514200,
+        "believers_int": 16656,
+        "christian_adherents_int": 18372,
+        "non_christians_int": 1479172,
+        "percent_believers_full": 1.1,
+        "percent_christian_adherents_full": 1.21333,
+        "percent_non_christians_full": 97.6867,
+        "all_lost_int": 1497544,
+        "all_lost": "1,497,544",
+        "lost_per_believer_int": 90,
+        "lost_per_believer": "90",
+        "population_growth_status": "Significant Growth",
+        "deaths_non_christians_next_hour": "1",
+        "deaths_non_christians_next_100": "123",
+        "deaths_non_christians_next_week": "206",
+        "deaths_non_christians_next_month": "886",
+        "deaths_non_christians_next_year": "10,782",
+        "births_non_christians_last_hour": "3",
+        "births_non_christians_last_100": "319",
+        "births_non_christians_last_week": "537",
+        "births_non_christians_last_month": "2,301",
+        "births_non_christians_last_year": "28,004",
+        "deaths_christian_adherents_next_hour": "0",
+        "deaths_christian_adherents_next_100": "1",
+        "deaths_christian_adherents_next_week": "2",
+        "deaths_christian_adherents_next_month": "10",
+        "deaths_christian_adherents_next_year": "132",
+        "births_christian_adherents_last_hour": "0",
+        "births_christian_adherents_last_100": "3",
+        "births_christian_adherents_last_week": "6",
+        "births_christian_adherents_last_month": "28",
+        "births_christian_adherents_last_year": "343",
+        "deaths_among_lost": "0",
+        "new_churches_needed": "302",
+        "favor": "non_christians",
+        "icon_color": "brand-lighter",
+        "people_groups_list": "Patni Jamat, Yadav Golarana, Lohana, Kharva (Muslim traditions), Siddi (Muslim traditions)",
+        "people_groups_list_w_pop": "Patni Jamat (1,300), Yadav Golarana (900), Lohana (580,000), Kharva (Muslim traditions) (700), Siddi (Muslim traditions) (13,000)",
+        "cities_list": "Amreli, Kundla, Savarkundla, Rājula, Bagasra",
+        "cities_list_w_pop": "Amreli (99,742), Kundla (76,809), Savarkundla (73,695), Rājula (34,652), Bagasra (32,944)"
+    },
+    "parts": {
+        "root": "prayer_app",
+        "type": "custom",
+        "meta_key": "prayer_app_custom_magic_key",
+        "public_key": "1bbb6c",
+        "action": "",
+        "post_id": 1331,
+        "post_type": "laps",
+        "instance_id": ""
+    }
+}

@@ -146,10 +146,12 @@ jQuery(document).ready(function(){
 
     /* Passing query params through api allows different types of laps to use query params in different ways */
     const grid_id = new URL(window.location.href).searchParams.get('grid_id')
+    console.log(grid_id)
     // load current location
     window.api_post( 'refresh', { grid_id } )
       .then( function(l1) {
         // no remaining locations, send to map
+        console.log(l1)
         if ( ! l1 ) {
           window.location.href = jsObject.map_url
           return
