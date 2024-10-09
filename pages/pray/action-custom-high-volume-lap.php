@@ -215,6 +215,26 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <div class="container" id="map">
                 <div class="text-md-center" id="location-map"></div>
                 <div class="skeleton" data-map></div>
+                <div class="population-info">
+                    <div>
+                        <i class="ion-ios-body dark"></i>
+                        <span class="bad">
+                            <div class="skeleton" data-number></div>
+                        </span>
+                    </div>
+                    <div>
+                        <i class="ion-ios-body light"></i>
+                        <span class="neutral">
+                            <div class="skeleton" data-number></div>
+                        </span>
+                    </div>
+                    <div>
+                        <i class="ion-ios-body orange"></i>
+                        <span class="good">
+                            <div class="skeleton" data-number></div>
+                        </span>
+                    </div>
+                </div>
             </div>
             <a href="#content" class="btn" data-bg="orange" id="see-more-button">
                 <?php echo esc_html__( 'See more', 'prayer-global-porch' ) ?>

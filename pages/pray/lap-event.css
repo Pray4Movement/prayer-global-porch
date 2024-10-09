@@ -80,6 +80,15 @@ hr {
 }
 
 /* Utility */
+.dark {
+    color: var(--pg-dark);
+}
+.light {
+    color: var(--pg-light);
+}
+.orange {
+    color: var(--pg-orange);
+}
 .bold {
     font-weight: bold;
 }
@@ -272,10 +281,26 @@ hr {
     margin-left: auto;
     margin-right: auto;
 }
+/* ## Population info */
+.population-info {
+    padding-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.population-info > * {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.population-info i {
+    font-size: 3rem;
+}
 
 /* ## skeleton */
 .skeleton {
-    animation: skeleton-loading 1s linear infinite alternate;
+    animation: skeleton-loading 1s ease-in infinite alternate;
     margin-left: auto;
     margin-right: auto;
     border-radius: 5px;
