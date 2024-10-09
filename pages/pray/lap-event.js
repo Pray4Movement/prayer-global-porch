@@ -1,0 +1,1 @@
+console.log('get JSON, and hydrate page')
