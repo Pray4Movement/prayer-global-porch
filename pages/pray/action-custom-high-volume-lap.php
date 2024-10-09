@@ -151,7 +151,8 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             const gridId = url.searchParams.get('grid_id')
 
             if (gridId) {
-                const jsonUrl = jsObject.json_folder + gridId + '.json'
+                const jsonUrl = jsObject.json_folder + '100000002' + '.json'
+                //const jsonUrl = jsObject.json_folder + gridId + '.json'
 
                 fetch(jsonUrl)
                     .then((response) => {
@@ -264,7 +265,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     </div>
                 </div>
             </div>
-            <a href="#content" class="btn" data-bg="orange" id="see-more-button">
+            <a href="#content" class="btn" data-bg="orange" id="see-more-button" style="display: none">
                 <?php echo esc_html__( 'See more', 'prayer-global-porch' ) ?>
                 <i class="icon pg-chevron-down d-block center"></i>
             </a>

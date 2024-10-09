@@ -5,6 +5,7 @@
     --pg-grey: #acabab;
 
     font-size: 18px;
+    scroll-behavior: smooth;
 }
 
 
@@ -268,6 +269,9 @@ hr {
 
     padding: 0.5rem 0.75rem;
     line-height: 1.25;
+}
+#see-more-button.hide {
+    display: none;
 }
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
