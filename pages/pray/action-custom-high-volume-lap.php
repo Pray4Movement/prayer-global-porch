@@ -182,7 +182,9 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <div class="w-100" ></div>
             <div class="container flow text-center" data-space="sm">
                 <p class="tutorial uc f-xlg lh-1" id="tutorial-location"><?php echo esc_html__( 'Pray for', 'prayer-global-porch' ) ?></p>
-                <h2 class="lh-1 center bold w-75 f-md" id="location-name">State of San Juan-Laventille, Trinidad and Tobago</h2>
+                <h2 class="lh-1 center bold w-75 f-md" id="location-name">
+                    <div class="skeleton" data-title></div>
+                </h2>
                 <p class="f-sm">
                     <?php echo sprintf( esc_html__( 'In Prayer Relay %s', 'prayer-global-porch' ), esc_html( $this->lap_title ) ) ?>
                 </p>
@@ -209,19 +211,33 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
         </div>
 
         <!-- content section -->
-        <section data-custom-lap>
+        <section class="prayer-content flow" data-space="lg">
             <div class="container" id="map">
-                <div class="row">
-                    <div class="col">
-                        <p class="text-md-center" id="location-map"><span class="loading-spinner active"></span></p>
-                    </div>
-                </div>
+                <div class="text-md-center" id="location-map"></div>
+                <div class="skeleton" data-map></div>
             </div>
             <a href="#content" class="btn" data-bg="orange" id="see-more-button">
                 <?php echo esc_html__( 'See more', 'prayer-global-porch' ) ?>
                 <i class="icon pg-chevron-down d-block center"></i>
             </a>
-            <div id="content"></div>
+            <div class="container flow" data-space="lg" id="content">
+
+                <hr>
+
+                <div class="block basic-block text-center">
+                    <div class="block__header">
+                        <h5 class="mb-0 uc">
+                            <div class="skeleton" data-title></div>
+                        </h5>
+                    </div>
+                    <div class="block__content">
+                        <p class="skeleton" data-text></p>
+                        <p class="skeleton" data-text></p>
+                    </div>
+                </div>
+
+                <hr>
+            </div>
             <div class="container">
                 <div class="flow text-center">
                     <i class="icon pg-pray-hands-dark f-xxlg"></i>

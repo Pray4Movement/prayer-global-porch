@@ -40,6 +40,13 @@ body {
     margin: 0;
 }
 
+hr {
+    margin-top: 3em;
+    margin-bottom: 3em;
+    border-top: 1px solid var(--pg-orange);
+    width: 100%;
+}
+
 /* Composition */
 .container {
     width: 90%;
@@ -62,6 +69,9 @@ body {
 }
 .flow[data-space="sm"] {
     --space: 0.5rem;
+}
+.flow[data-space="lg"] {
+    --space: 2rem;
 }
 
 .center {
@@ -213,6 +223,9 @@ body {
     position: relative;
     line-height: 1;
 }
+.prayer-content {
+    margin-top: 2rem;
+}
 
 /* ## Modal */
 .modal {
@@ -258,4 +271,37 @@ body {
     gap: 8px;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* ## skeleton */
+.skeleton {
+    animation: skeleton-loading 1s linear infinite alternate;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 5px;
+}
+.skeleton[data-map] {
+    width: 100%;
+    padding-bottom: 45%;
+}
+.skeleton[data-title] {
+    width: 30%;
+    height: 1rem;
+}
+.skeleton[data-text] {
+    height: 1rem;
+    width: 70%;
+}
+.skeleton[data-number] {
+    width: 2rem;
+    height: 1rem;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: hsl(200, 20%, 80%);
+    }
+    100% {
+        background-color: hsl(200, 20%, 95%);
+    }
 }
