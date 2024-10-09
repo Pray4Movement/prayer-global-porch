@@ -193,26 +193,18 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
         <!-- Modal -->
         <div class="modal fade" id="decision_leave_modal" tabindex="-1" role="dialog" aria-labelledby="option_filter_label" aria-hidden="true">
             <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"><?php echo esc_html__( 'Are you sure you want to leave?', 'prayer-global-porch' ) ?></h5>
-                        <button type="button" class="d-flex brand-light" data-bs-dismiss="modal" aria-label="<?php esc_attr( __( 'Close', 'prayer-global-porch' ) ) ?>">
-                            <i class="icon pg-close two-em"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            <?php echo esc_html__( "If you leave now, this place won't count as having been prayed for and will remain available for the next person to pray over." ) ?>
-                        </p>
-                    </div>
-                    <div class="modal-footer center">
-                        <button type="button" class="btn btn-outline-primary uppercase" id="decision__keep_praying" data-bs-dismiss="modal"><?php echo esc_html__( "Keep Praying", 'prayer-global-porch' ) ?></button>
-                        <button type="button" class="btn btn-primary" id="decision__leave" data-bs-dismiss="modal"><?php echo esc_html__( "Leave", 'prayer-global-porch' ) ?></button>
-                    </div>
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"><?php echo esc_html__( 'Are you sure you want to leave?', 'prayer-global-porch' ) ?></h5>
+                    <button type="button" class="d-flex brand-light" data-bs-dismiss="modal" aria-label="<?php esc_attr( __( 'Close', 'prayer-global-porch' ) ) ?>">
+                        <i class="icon pg-close two-em"></i>
+                    </button>
                 </div>
-                    <div class="modal-footer justify-content-center pt-0">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><?php echo esc_html( __( "Let's Go!", 'prayer-global-porch' ) ) ?></button>
-                    </div>
+                <p>
+                    <?php echo esc_html__( "If you leave now, this place won't have been prayed for." ) ?>
+                </p>
+                <div class="modal-footer center">
+                    <button type="button" class="btn btn-outline-primary uppercase" id="decision__keep_praying" data-bs-dismiss="modal"><?php echo esc_html__( "Keep Praying", 'prayer-global-porch' ) ?></button>
+                    <button type="button" class="btn btn-primary" id="decision__leave" data-bs-dismiss="modal"><?php echo esc_html__( "Leave", 'prayer-global-porch' ) ?></button>
                 </div>
             </div>
         </div>
@@ -226,19 +218,15 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     </div>
                 </div>
             </div>
-            <a href="#content" class="text-decoration-none" id="see-more-button">
-                <div class="btn btn-secondary center d-block m-auto uppercase w-fit">
-                    <?php echo esc_html__( 'See more', 'prayer-global-porch' ) ?>
-                    <i class="icon pg-chevron-down d-block center"></i>
-                </div>
+            <a href="#content" class="btn" data-bg="orange" id="see-more-button">
+                <?php echo esc_html__( 'See more', 'prayer-global-porch' ) ?>
+                <i class="icon pg-chevron-down d-block center"></i>
             </a>
             <div id="content"></div>
             <div class="container">
-                <div class="row text-center mb-3">
-                    <div class="col">
-                        <i class="icon pg-pray-hands-dark d-block icon-small mb-3" style="margin-top: -2rem"></i>
-                        <button type="button" class="btn btn-outline-primary px-4 mx-auto gap-2 align-items-center" id="more_prayer_fuel"><?php echo esc_html__( 'Show More Guided Prayers', 'prayer-global-porch' ) ?><i class="icon pg-chevron-down"></i></button>
-                    </div>
+                <div class="flow text-center">
+                    <i class="icon pg-pray-hands-dark f-xxlg"></i>
+                    <button type="button" class="btn outline" id="more_prayer_fuel"><?php echo esc_html__( 'Show More Guided Prayers', 'prayer-global-porch' ) ?><i class="icon pg-chevron-down"></i></button>
                 </div>
             </div>
         </section>
