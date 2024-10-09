@@ -46,5 +46,651 @@ function renderContent(content) {
     const { location, list, parts } = content
 
     /* Render the content */
+    const blockTemplates = list.map((block) => getBlockTemplate(block))
 
+    contentElement.innerHTML = `
+    <hr />
+
+    ${blockTemplates.join('<hr>')}
+
+    <hr />
+    `
+}
+
+function getBlockTemplate(block) {
+    switch (block.type) {
+        case '4_fact_blocks':
+            return _template_4_fact_blocks(block.data)
+        case 'percent_3_circles':
+            return _template_percent_3_circles(block.data)
+        case 'percent_3_bar':
+            return _template_percent_3_bar(block.data)
+        case '100_bodies_chart':
+            return _template_100_bodies_chart(block.data)
+        case '100_bodies_3_chart':
+            return _template_100_bodies_3_chart(block.data)
+        case 'population_change_icon_block':
+            return _template_population_change_icon_block(block.data)
+        case 'bullet_list_2_column':
+            return _template_bullet_list_2_column(block.data)
+        case 'people_groups_list':
+            return _template_people_groups_list(block.data)
+        case 'least_reached_block':
+            return _template_least_reached_block(block.data)
+        case 'fact_block':
+            return _template_fact_block(block.data)
+        case 'content_block':
+            return _template_content_block(block.data)
+        case 'photo_block':
+            return _template_photo_block(block.data)
+        case 'verse_block':
+            return _template_verse_block(block.data)
+        case 'prayer_block':
+            return _template_prayer_block(block.data)
+        case 'basic_block':
+            return _template_basic_block(block.data)
+        case 'lost_per_believer':
+            return _template_lost_per_believer_block(block.data)
+        default:
+            return ''
+    }
+}
+function _template_percent_3_circles(data) {
+    return (
+        `<div class="block percent-3-circles-block">
+          <div class="row">
+              <div class="col text-center">
+                <h5 class="mb-0 uc">${data.section_label}</h5>
+              </div>
+          </div>
+          <div class="row text-center justify-content-center">
+              <div class="col-md-3 col-lg-2">
+                <p class="mt-3 mb-0 font-weight-bold">${data.label_1}</p>
+                <div class="pie" style="--p:${data.percent_1};--b:10px;--c:var(--pg-dark);">${data.percent_1}%</div>
+                <p class="mt-3 mb-0 font-weight-normal one-em">${data.population_1}</p>
+              </div>
+              <div class="col-md-3 col-lg-2">
+                <p class="mt-3 mb-0 font-weight-bold">${data.label_2}</p>
+                <div class="pie" style="--p:${data.percent_2};--b:10px;--c:var(--pg-light);">${data.percent_2}%</div>
+                <p class="mt-3 mb-0 font-weight-normal one-em">${data.population_2}</p>
+              </div>
+              <div class="col-md-3 col-lg-2">
+                <p class="mt-3 mb-0 font-weight-bold">${data.label_3}</p>
+                <div class="pie" style="--p:${data.percent_3};--b:10px;--c:var(--pg-orange);">${data.percent_3}%</div>
+                <p class="mt-3 mb-0 font-weight-normal one-em">${data.population_3}</p>
+              </div>
+          </div>
+          <div class="row text-center">
+            <div class="col">
+               <p class="font-weight-normal">${data.section_summary}</p>
+            </div>
+          </div>
+          <div class="row text-center justify-content-center">
+            <div class="col-md-8">
+               <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
+            </div>
+          </div>
+    </div>`
+    )
+}
+function _template_percent_3_bar(data) {
+    return (
+        `<div class="block percent-3-bar-block">
+          <div class="row">
+          <div class="col text-center ">
+             <h5 class="mb-0 uc">${data.section_label}</h5>
+          </div>
+      </div>
+      <div class="row text-center">
+          <div class="col-md-12">
+            <p class="mt-0 mb-3 font-weight-normal">
+              <div class="progress">
+                <div class="progress-bar progress-bar-success" role="progressbar" style="width:${data.percent_1}%">
+                  ${data.label_1}
+                </div>
+                <div class="progress-bar progress-bar-warning" role="progressbar" style="width:${data.percent_2}%">
+                  ${data.label_2}
+                </div>
+                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:${data.percent_3}%">
+                 ${data.label_3}
+                </div>
+              </div>
+            </p>
+          </div>
+      </div>
+      <div class="row text-center">
+        <div class="col">
+           <p class="font-weight-normal">${data.section_summary}</p>
+        </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+           <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
+        </div>
+      </div>
+    </div>`
+    )
+}
+function _template_100_bodies_chart(data) {
+    let bodies = ''
+    let i = 0
+    i = 0
+    while (i < data.percent_1) {
+        bodies += BodyIcon('bad', 'medium');
+        i++;
+    }
+    i = 0
+    while (i < data.percent_2) {
+        bodies += BodyIcon('neutral', 'medium');
+        i++;
+    }
+    i = 0
+    while (i < data.percent_3) {
+        bodies += BodyIcon('good', 'medium');
+        i++;
+    }
+    return (
+        `<div class="block 100-bodies-chart-block">
+          <div class="row">
+          <div class="col text-center ">
+             <h5 class="mb-0 uc">${data.section_label}</p>
+          </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+            <p class="mt-0 mb-3 font-weight-normal grow">
+              ${bodies}
+            </p>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="col">
+           <p class="font-weight-normal">${data.section_summary}</p>
+        </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+           <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
+        </div>
+      </div>
+    </div>`
+    )
+}
+function _template_100_bodies_3_chart(data) {
+    let bodies_1 = ''
+    let bodies_2 = ''
+    let bodies_3 = ''
+    i = 0
+    while (i < data.percent_1) {
+        bodies_1 += BodyIcon('bad', 'medium');
+        i++;
+    }
+    i = 0
+    while (i < data.percent_2) {
+        bodies_2 += BodyIcon('neutral', 'medium');
+        i++;
+    }
+    i = 0
+    while (i < data.percent_3) {
+        bodies_3 += BodyIcon('good', 'medium');
+        i++;
+    }
+    return (
+        `<div class="block 100-bodies-3-chart-block">
+          <div class="row">
+          <div class="col text-center ">
+             <h5 class="mb-0 uc">${data.section_label}</h5>
+          </div>
+      </div>
+      <div class="row text-center justify-content-center">
+          <div class="col-md-3 col-sm">
+            <p class="mt-3 mb-0 font-weight-bold">${data.label_1}</p>
+            <p class="mt-0 mb-3 font-weight-normal">
+              ${bodies_1}
+            </p>
+            <p class="mt-3 mb-0 font-weight-normal">${data.population_1}</p>
+          </div>
+          <div class="col-md-3 col-sm">
+            <p class="mt-3 mb-0 font-weight-bold">${data.label_2}</p>
+            <p class="mt-0 mb-3 font-weight-normal">
+              ${bodies_2}
+            </p>
+            <p class="mt-3 mb-0 font-weight-normal ">${data.population_2}</p>
+          </div>
+          <div class="col-md-3 col-sm">
+            <p class="mt-3 mb-0 font-weight-bold">${data.label_3}</p>
+            <p class="mt-0 mb-3 font-weight-normal">
+              ${bodies_3}
+            </p>
+            <p class="mt-3 mb-0 font-weight-normal">${data.population_3}</p>
+          </div>
+      </div>
+      <div class="row text-center">
+        <div class="col">
+           <p class="font-weight-normal">${data.section_summary}</p>
+        </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+          <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
+        </div>
+      </div>
+    </div>`
+    )
+}
+function _template_population_change_icon_block(data) {
+    if (data.count === '0' || data.count.length > 3) {
+        return
+    }
+
+    // icon types
+    let icons = ''
+    if ('deaths' === data.type) {
+        icons = ['ion-sad']
+    } else {
+        icons = ['ion-happy']
+    }
+    let icon = icons[Math.floor(Math.random() * icons.length)]
+
+    // icon color
+    let icon_color = 'bad'
+    if ('christian_adherents' === data.group) {
+        icon_color = 'neutral'
+    }
+    if ('believers' === data.group) {
+        icon_color = 'good'
+    }
+
+    // icon size
+    let icon_size = 'three-em'
+    if (2 === data.size) {
+        icon_size = 'two-em'
+    }
+
+    let font_size = '2em'
+    if (data.count > 1000) {
+        font_size = '1em'
+    } else if (data.count < 20) {
+        font_size = '3em'
+    }
+
+    // build icon list
+    let icon_list = ''
+    i = 0
+    while (i < data.count) {
+        icon_list += '<i class="' + icon + ' ' + icon_color + '"></i>';
+        i++;
+    }
+    return (
+        `<div class="block population-change-block">
+          <div class="row">
+          <div class="col text-center ">
+             <h5 class="mb-0 uc">${data.section_label}</h5>
+          </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+           <p class="mt-3 mb-3 two-em">${data.section_summary}</p>
+        </div>
+      </div>
+      <div class="row text-center justify-content-center">
+          <div class="col-md-8 col-sm">
+            <p class="mt-0 mb-1 font-weight-normal icon-block" style="font-size: ${font_size};">
+              ${icon_list} <span style="font-size:.5em;vertical-align:middle;">(${data.count})</span>
+            </p>
+          </div>
+      </div>
+
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+            <p class="mt-3 mb-3 lh-sm two-em">${data.prayer}</p>
+        </div>
+      </div>
+    </div>`
+    )
+}
+function _template_4_fact_blocks(data) {
+    return (
+        `<div class="block four-facts-block">
+          <div class="row">
+          <div class="col text-center ">
+             <h5 class="mb-0 uc">${data.section_label}</h5>
+             <p class="mt-3 mb-3 two-em">${data.focus_label}</p>
+          </div>
+      </div>
+      <div class="row">
+          <div class="col-md-6">
+            <div class="row text-center">
+              <div class="col-6">
+                <p class="mt-3 mb-0 font-weight-bold">${data.label_1}</p>
+                <p class="mt-0 mb-3 font-weight-normal ${data.size_1}">${data.value_1}</p>
+              </div>
+              <div class="col-6">
+                <p class="mt-3 mb-0 font-weight-bold">${data.label_2}</p>
+                <p class="mt-0 mb-3 font-weight-normal ${data.size_2}">${data.value_2}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="row text-center">
+                <div class="col-6">
+                  <p class="mt-3 mb-0 font-weight-bold">${data.label_3}</p>
+                  <p class="mt-0 mb-3 font-weight-normal ${data.size_3}">${data.value_3}</p>
+                </div>
+                <div class="col-6">
+                  <p class="mt-3 mb-0 font-weight-bold">${data.label_4}</p>
+                  <p class="mt-0 mb-3 font-weight-normal ${data.size_4}">${data.value_4}</p>
+                </div>
+            </div>
+          </div>
+      </div>
+
+      <div class="row text-center">
+        <div class="col">
+           <p class="font-weight-normal">${data.section_summary}</p>
+        </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+           <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
+        </div>
+      </div>
+    </div>`
+    )
+}
+function _template_bullet_list_2_column(data) {
+    if (data.values.length > 0) {
+        let values_list = ''
+        jQuery.each(data.values, function (i, v) {
+            values_list += '<p>' + v + '</p>'
+        })
+        return (
+            `<div class="block bullet-list-block">
+          <div class="row">
+          <div class="col text-center ">
+             <h5 class="mb-0 uc">${data.section_label}</h5>
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="col">
+             ${values_list}
+          </div>
+        </div>
+        <div class="row text-center">
+          <div class="col">
+             <p class="font-weight-normal">${data.section_summary}</p>
+          </div>
+        </div>
+        <div class="row text-center justify-content-center">
+          <div class="col-md-8">
+             <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
+          </div>
+      </div>
+    </div>`)
+    }
+}
+function _template_people_groups_list(data) {
+    let values_list = ''
+    let image = ''
+    jQuery.each(data.values, function (i, v) {
+        if (v.image_url) {
+            image = '<div style="background-image:url(' + v.image_url + '); width:200px; height:200px;background-size: cover;background-repeat: no-repeat;" class="img-fluid rounded-3"></div>'
+        } else {
+            image = '<div style=" height:200px;"><img class="img-fluid" src="' + jsObject.nope + '" alt="" /></div>'
+        }
+        values_list += '<div class="col-6 col-md-4 col-lg-2 mb-1"><p class="mb-2 text-center">' + image + '</p><p class="text-center"><img src="' + v.progress_image_url + '" class="img-fluid" alt="" /></p><p class="text-center">' + v.description + '</p></div>'
+    })
+    return (
+        `<div class="block people-groups-list-block">
+          <div class="row">
+          <div class="col text-center ">
+             <h5 class="mb-0 uc">${data.section_label}</h5>
+          </div>
+        </div>
+        <div class="row text-center justify-content-center">
+          ${values_list}
+        </div>
+        <div class="row text-center">
+          <div class="col">
+             <p class="font-weight-normal">${data.section_summary}</p>
+          </div>
+        </div>
+        <div class="row text-center justify-content-center">
+          <div class="col-md-8">
+             <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
+          </div>
+      </div>
+    </div>`)
+}
+function _template_least_reached_block(data) {
+    let image
+    if (data.image_url) {
+        image = '<p class="mt-3 mb-3"><img src="' + data.image_url + '" class="img-fluid rounded-3" alt="" /></p>'
+    } else {
+        image = '<p class="mt-3 mb-3"><img class="img-fluid" src="' + jsObject.nope + '" alt="" /></p>'
+    }
+    return (
+        `<div class="block least-reached-block">
+          <div class="row">
+          <div class="col text-center ">
+            <h5 class="mb-0 uc">${data.section_label}</h5>
+            <p class="mt-3 mb-0 two-em">${data.focus_label}</p>
+            ${data.diaspora_label !== '' ? `<p class="half-em mb-3 font-weight-normal">(${data.diaspora_label})</p>` : ''}
+            ${image}
+          </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+           <p class="mt-3 mb-3 lh-sm two-em lh-sm">${data.prayer}</p>
+        </div>
+    </div>
+    </div>`)
+}
+function _template_fact_block(data) {
+    let icon = ''
+    if (typeof data.icon !== 'undefined') {
+        let iclass = 'ion-android-warning'
+        if (data.icon) {
+            iclass = data.icon
+        }
+        let icolor = 'brand'
+        if (data.color) {
+            icolor = data.color
+        }
+        icon = '<p class="mt-3 mb-3 font-weight-bold six-em"><i class="' + iclass + ' ' + icolor + '"></i></p>'
+    }
+    return (
+        `<div class="block fact-block">
+          <div class="row">
+            <div class="col text-center ">
+               <h5 class="mb-0 uc">${data.section_label}</h5>
+               <p class="mt-3 mb-3 two-em">${data.focus_label}</p>
+              ${icon}
+            </div>
+          </div>
+          <div class="row text-center justify-content-center">
+            <div class="col-md-8">
+                <p class="mt-3 mb-3 font-weight-normal one-em">${data.section_summary}</p>
+            </div>
+          </div>
+          <div class="row text-center justify-content-center">
+            <div class="col-md-8">
+               <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
+            </div>
+        </div>
+    </div>
+    `)
+}
+function _template_content_block(data) {
+    let icon = ''
+    if (typeof data.icon !== 'undefined') {
+        let iclass = 'ion-android-warning'
+        if (data.icon) {
+            iclass = data.icon
+        }
+        let icolor = 'brand'
+        if (data.color) {
+            icolor = data.color
+        }
+        icon = '<p class="mt-3 mb-3 font-weight-bold six-em"><i class="' + iclass + ' ' + icolor + '"></i></p>'
+    }
+    return (
+        `<div class="block content-block">
+          <div class="row">
+          <div class="col text-center ">
+            <h5 class="mb-0 uc">${data.section_label}</h5>
+             <p class="mt-3 mb-3 two-em">${data.focus_label}</p>
+            ${icon}
+          </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+           <p class="mt-3 mb-3 font-weight-normal one-em">${data.section_summary}</p>
+        </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+           <p class="mt-3 mb-3 lh-sm two-em">${data.prayer}</p>
+        </div>
+      </div>
+    </div>`)
+}
+function _template_prayer_block(data) {
+    return (
+        `<div class="block prayer-block">
+          <div class="row">
+          <div class="col text-center ">
+            <h5 class="mt-3 mb-3 font-weight-normal one-em uc">${data.section_label}</h5>
+            <p class="mt-3 mb-3"><i class="ion-android-people ${data.icon_color} six-em" /> <i class="ion-android-people ${data.icon_color} six-em" /> <i class="ion-android-people ${data.icon_color} six-em" /></p>
+          </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+           <p class="mt-3 mb-3 lh-sm two-em">${data.prayer}</p>
+        </div>
+      </div>
+    </div>`)
+}
+function _template_verse_block(data) {
+    let icons = ['ion-android-sync']
+    let icon_name = icons[Math.floor(Math.random() * icons.length)]
+    return (
+        `<div class="block verse-block">
+          <div class="row">
+          <div class="col text-center ">
+            <h5 class="mt-3 mb-3 font-weight-normal one-em uc">${data.section_label}</h5>
+            <p class="mt-3 mb-3"><img src="${jsObject.image_folder}bible-${data.icon_color}.svg" alt="icon" /></p>
+          </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+           <p class="mt-3 mb-0 lh-sm two-em font-italic">${data.verse}</p>
+           <p class="mt-0 mb-3 font-italic">${data.reference}</p>
+        </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+           <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
+        </div>
+    </div>
+    </div>`)
+}
+function _template_lost_per_believer_block(data) {
+    let bodies_1 = ''
+    i = 0
+    while (i < data.lost_per_believer) {
+        bodies_1 += BodyIcon('bad');
+        i++;
+    }
+    let font_size = '2em'
+    if (data.lost_per_believer > 1000) {
+        font_size = '1em'
+    } else if (data.lost_per_believer < 20) {
+        font_size = '3em'
+    }
+    return (
+        `<div class="block lost-per-believer-block">
+          <div class="row">
+          <div class="col text-center ">
+             <h5 class="mt-3 mb-3 font-weight-normal one-em uc">${data.section_label}</h5>
+          </div>
+      </div>
+      <div class="row text-center justify-content-center">
+          <div class="col-md-9 col-sm">
+            <p class="mt-3 mb-3 font-weight-bold two-em">${data.label_1}</p>
+            <p class="mt-0 mb-0 font-weight-normal">
+             ${BodyIcon('good', 'large')}
+            </p>
+            <p class="mt-0 mb-3 font-weight-normal" style="font-size: ${font_size};">
+              ${bodies_1}
+            </p>
+          </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+          <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
+        </div>
+      </div>
+    </div>`
+    )
+}
+function _template_photo_block(data) {
+    return (
+        `<div class="block photo-block">
+          <div class="row">
+          <div class="col text-center ">
+            <h5 class="mt-3 mb-3 font-weight-normal one-em uc">${data.section_label}</h5>
+          </div>
+      </div>
+      <div class="row text-center">
+        <div class="col">
+           <img src="${data.url}" class="img-fluid rounded-3" alt="prayer photo" style="max-height:700px" />
+        </div>
+      </div>
+      <div class="row text-center justify-content-center">
+        <div class="col-md-8">
+           <p class="mt-0 mb-3 font-weight-normal f-sm">${data.section_summary}</p>
+           <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
+        </div>
+    </div>
+    </div>
+      `)
+}
+function _template_basic_block(data) {
+    const reference = data.reference ? `
+            <button type="button" class="btn simple id-${data.id}" onclick="document.querySelector('#id-${data.id}').style.display = 'block';document.querySelector('.id-${data.id}').style.display = 'none';" >
+                <span>${data.reference} </span> <i class="icon pg-chevron-down"></i>
+            </button>
+            <div class="flow" data-space="sm" style="display:none;" id="id-${data.id}" >
+                <p class="block__verse mt-3 mb-0 font-weight-normal font-italic lh-sm two-em">${data.verse}</p>
+                <p class="f-normal">${data.reference}</p>
+            </div>
+        ` : ''
+    const icon = data.icon ? `
+            <p>
+                <i class="${data.icon} six-em"></i>
+            </p>
+        ` : ''
+    return `
+        <div class="block basic-block">
+            <h5 class="mb-0 uc">${data.section_label}</h5>
+            ${icon}
+            <p class="mt-3 mb-3 two-em lh-sm">${data.prayer}</p>
+            ${reference}
+        </div>
+        `
+}
+
+
+function BodyIcon(color, size = '') {
+    const iconColors = {
+        bad: 'dark',
+        neutral: 'light',
+        good: 'orange',
+    }
+    const defaultColor = iconColors.orange
+
+    const iconColor = color && iconColors.hasOwnProperty(color) ? iconColors[color] : defaultColor
+
+    return `<i class="ion-ios-body ${iconColor}"></i>`
 }

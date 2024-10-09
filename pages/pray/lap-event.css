@@ -71,6 +71,9 @@ hr {
 .flow[data-space="sm"] {
     --space: 0.5rem;
 }
+.flow[data-space="md"] {
+    --space: 1.5rem;
+}
 .flow[data-space="lg"] {
     --space: 2rem;
 }
@@ -108,6 +111,9 @@ hr {
 .f-md {
     font-size: 1.2rem;
 }
+.f-normal {
+    font-size: 1rem;
+}
 .f-sm {
     font-size: 0.8rem;
 }
@@ -143,6 +149,7 @@ hr {
     font-size: 1rem;
     font-family: inherit;
     padding: 0.5rem 0.75rem;
+    cursor: pointer;
 }
 .btn[data-bg="dark"] {
     background-color: var(--pg-dark);
@@ -154,6 +161,12 @@ hr {
     background-color: white;
     color: var(--pg-dark);
     border: 1px solid var(--pg-dark);
+    text-transform: none;
+}
+.btn.simple {
+    background-color: white;
+    color: var(--pg-dark);
+    border: none;
     text-transform: none;
 }
 .btn-group {
@@ -333,4 +346,27 @@ hr {
     100% {
         background-color: #acabab20;
     }
+}
+
+/* ## Prayer Blocks */
+.block {
+    font-size: 2rem;
+    text-align: center;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.block > * {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+.block > * + * {
+    margin-top: 1.2rem;
+}
+.block h5 {
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+.block__verse {
+    font-style: italic;
 }

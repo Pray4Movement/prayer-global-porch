@@ -269,7 +269,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 <?php echo esc_html__( 'See more', 'prayer-global-porch' ) ?>
                 <i class="icon pg-chevron-down d-block center"></i>
             </a>
-            <div class="container flow" data-space="lg" id="content">
+            <div class="container flow" data-space="md" id="content">
 
                 <hr>
 
