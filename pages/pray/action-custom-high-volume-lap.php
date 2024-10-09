@@ -137,7 +137,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>lap-event.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap-event.css' ) ) ?>" type="text/css" media="all">
 
             <?php
-                wp_enqueue_style_async( 'ionicons', trailingslashit( plugin_dir_url( __DIR__ ) ) . "assets/fonts/ionicons/css/ionicons.min.css", [], filemtime( trailingslashit( plugin_dir_url( __DIR__ ) ) . "assets/fonts/ionicons/css/ionicons.min.css" ), 'all' );
+                wp_enqueue_style_async( 'ionicons', trailingslashit( plugin_dir_url( __DIR__ ) ) . "assets/fonts/ionicons/css/ionicons.min.css", [], filemtime( trailingslashit( plugin_dir_path( __DIR__ ) ) . "assets/fonts/ionicons/css/ionicons.min.css" ), 'all' );
         }
     }
 
