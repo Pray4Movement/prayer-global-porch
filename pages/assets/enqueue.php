@@ -32,17 +32,17 @@ add_action( 'wp_enqueue_scripts', function (){
     wp_deregister_script( 'jquery' );
     wp_enqueue_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js', [], '3.7.1', [ 'strategy' => 'defer' ] );
     wp_enqueue_script( 'canvas-confetti', 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js', [], '1.5.1', [ 'strategy' => 'defer' ] );
-    pg_enqueue_script( 'global-functions', 'pages/assets/js/global-functions.js', [ 'jquery' ], true );
-    pg_enqueue_script( 'components-js', 'pages/assets/js/components.js', [ 'jquery', 'global-functions' ], true );
+    pg_enqueue_script( 'global-functions', 'pages/assets/js/global-functions.js', [ 'jquery' ], [ 'strategy' => 'defer' ] );
+    pg_enqueue_script( 'components-js', 'pages/assets/js/components.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );
 
-    pg_enqueue_script( 'main-js', 'pages/assets/js/main.js', [ 'jquery', 'global-functions' ], true );
-    pg_enqueue_script( 'share-js', 'pages/assets/js/share.js', [ 'jquery', 'global-functions' ], true );
+    pg_enqueue_script( 'main-js', 'pages/assets/js/main.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );
+    pg_enqueue_script( 'share-js', 'pages/assets/js/share.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );
 
-    wp_enqueue_script( 'bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js', [], '5.3.3', true );
-    wp_enqueue_script( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', [], '1.9.0', true );
+    wp_enqueue_script( 'bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js', [], '5.3.3', [ 'strategy' => 'defer' ] );
+    wp_enqueue_script( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', [], '1.9.0', [ 'strategy' => 'defer' ] );
     //Easily execute a function when you scroll to an element
-    wp_enqueue_script( 'jquery-waypoints', 'https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js', [ 'jquery' ], '4.0.1', true );
-    wp_enqueue_script( 'jquery-easing', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js', [ 'jquery' ], '1.4.1', true );
+    wp_enqueue_script( 'jquery-waypoints', 'https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js', [ 'jquery' ], '4.0.1', [ 'strategy' => 'defer' ] );
+    wp_enqueue_script( 'jquery-easing', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js', [ 'jquery' ], '1.4.1', [ 'strategy' => 'defer' ] );
 
 
 

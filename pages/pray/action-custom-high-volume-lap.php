@@ -46,7 +46,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
         // redirect to completed if not current global lap
         add_action( 'dt_blank_body', [ $this, 'body' ] );
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
-        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
+        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 200, 1 );
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
 
         $lap = pg_get_custom_lap_by_post_id( $this->parts['post_id'] );
@@ -87,7 +87,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
     }
 
     public function wp_enqueue_scripts(){
-        pg_enqueue_script( 'lap-event-js', 'pages/pray/lap-event.js', [], true );
+        pg_enqueue_script( 'lap-event-js', 'pages/pray/lap-event.js', [], [ 'strategy' => 'defer' ] );
     }
 
     public function _header() {
@@ -135,9 +135,8 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
             <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>lap-event.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap-event.css' ) ) ?>" type="text/css" media="all">
 
-            <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/ionicons/css/ionicons.min.css">
-
             <?php
+                wp_enqueue_style_async( 'ionicons', trailingslashit( plugin_dir_url( __DIR__ ) ) . "assets/fonts/ionicons/css/ionicons.min.css", [], filemtime( trailingslashit( plugin_dir_url( __DIR__ ) ) . "assets/fonts/ionicons/css/ionicons.min.css" ), 'all' );
         }
     }
 
@@ -369,77 +368,6 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
         }
 
         return $response;
-    }
-
-    /**
-     * @param $parts
-     * @param $data
-     * @return array|false|int|WP_Error
-     */
-    public function save_correction( $parts, $data ) {
-
-        if ( !isset( $parts['post_id'], $parts['root'], $parts['type'], $data['grid_id'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
-        }
-
-        if ( empty( $data['section_label'] ) ) {
-            $title = $data['current_content']['location']['full_name'];
-        } else {
-            $title = $data['current_content']['location']['full_name'] . ' (' . $data['section_label'] . ')';
-        }
-
-        $current_location_list = 'SECTIONS AVAILABLE DURING REPORT' . PHP_EOL . PHP_EOL;
-        foreach ( $data['current_content']['list'] as $list ) {
-            $current_location_list .= strtoupper( $list['type'] ) . PHP_EOL;
-            foreach ( $list['data'] as $k => $v ){
-                if ( is_array( $v ) ) {
-                    $v = serialize( $v );
-                }
-                $current_location_list .= $k . ': ' . $v . PHP_EOL;
-            }
-            $current_location_list .= PHP_EOL;
-        }
-
-        $user_location = 'USER LOCATION' . PHP_EOL . PHP_EOL;
-        foreach ( $data['user'] as $uk => $uv ) {
-            $user_location .= $uk . ': ' . $uv . PHP_EOL;
-        }
-        $user_location .= PHP_EOL . 'https://maps.google.com/maps?q='.$data['user']['lat'].','.$data['user']['lng'] .'&ll='.$data['user']['lat'].','.$data['user']['lng'] .'&z=7' .  PHP_EOL;
-
-        $fields = [
-            // lap information
-            'title' => $title,
-            'type' => 'location',
-            'status' => 'new',
-            'payload' => maybe_serialize( $data ),
-            'response' => $data['response'],
-            'location_grid_meta' => [
-                'values' => [
-                    [
-                        'grid_id' => $data['grid_id']
-                    ]
-                ]
-            ],
-            'user_hash' => $data['user']['hash'],
-            'notes' => [
-                'Review Link' => get_site_url() . '/show_app/all_content/?grid_id='.$data['grid_id'],
-                'Current_Location' => $current_location_list,
-                'User_Location' => $user_location,
-            ]
-        ];
-
-        if ( is_user_logged_in() ) {
-            $contact_id = Disciple_Tools_Users::get_contact_for_user( get_current_user_id() );
-            if ( ! empty( $contact_id ) && ! is_wp_error( $contact_id ) ) {
-                $fields['contacts'] = [
-                    'values' => [
-                        [ 'value' => $contact_id ],
-                    ]
-                ];
-            }
-        }
-
-        return DT_Posts::create_post( 'feedback', $fields, true, false );
     }
 
     /**
