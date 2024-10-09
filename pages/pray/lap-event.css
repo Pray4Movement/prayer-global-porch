@@ -75,8 +75,14 @@ body {
 .uc {
     text-transform: uppercase;
 }
-.f-md {
+.f-xlg {
+    font-size: 1.8rem;
+}
+.f-lg {
     font-size: 1.4rem;
+}
+.f-md {
+    font-size: 1.2rem;
 }
 .f-sm {
     font-size: 0.8rem;
