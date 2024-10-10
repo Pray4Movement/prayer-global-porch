@@ -175,8 +175,8 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
         </script>
 
         <!-- navigation & widget -->
-        <nav class="prayer-navbar" id="praying-panel">
-            <div class="container praying-button-group" role="group" aria-label="Praying Button">
+        <nav class="prayer-navbar">
+            <div class="container praying-button-group" id="praying-panel" role="group" aria-label="Praying Button">
                 <div class="btn btn-praying prayer-odometer">
                     <i class="icon pg-prayer"></i><span class="location-count">0</span>
                 </div>
@@ -247,7 +247,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 <div class="population-info">
                     <div>
                         <i class="ion-ios-body dark"></i>
-                        <span class="bad">
+                        <span class="no">
                             <div class="skeleton" data-number></div>
                         </span>
                     </div>
@@ -259,7 +259,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     </div>
                     <div>
                         <i class="ion-ios-body orange"></i>
-                        <span class="good">
+                        <span class="yes">
                             <div class="skeleton" data-number></div>
                         </span>
                     </div>

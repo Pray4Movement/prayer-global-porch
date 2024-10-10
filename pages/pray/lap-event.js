@@ -1,4 +1,6 @@
 window.paused = false
+window.seconds = 60
+window.finishedPraying = false
 
 const contentElement = document.querySelector('#content')
 const prayingText = document.querySelector('.praying__text')
@@ -6,9 +8,16 @@ const locationName = document.querySelector('#location-name')
 const prayingButton = document.querySelector('#praying-button')
 const prayingCloseButton = document.querySelector('#praying__close_button')
 const prayingContinueButton = document.querySelector('#praying__continue_button')
+const prayingProgress = document.querySelector('.praying__progress')
+const tutorial = document.querySelector('#tutorial-location')
 
+const prayingPanel = document.querySelector('#praying-panel')
 const decisionPanel = document.querySelector('#decision-panel')
 const questionPanel = document.querySelector('#question-panel')
+
+const populationInfoNo = document.querySelector('.population-info .no')
+const populationInfoNeutral = document.querySelector('.population-info .neutral')
+const populationInfoYes = document.querySelector('.population-info .yes')
 
 checkForLocationAndLoad(init)
 
@@ -28,7 +37,6 @@ function setupListeners() {
 }
 
 function toggleTimer( pause ) {
-  console.log(pause)
   let pauseTimer = false
 
   if ( typeof pause === 'undefined' ) {
@@ -37,7 +45,6 @@ function toggleTimer( pause ) {
     pauseTimer = pause
   }
   window.paused = pauseTimer
-  console.log(pauseTimer)
 
   if (pauseTimer) {
     prayingText.innerHTML = escapeHTML(jsObject.translations.praying_paused)
@@ -49,6 +56,7 @@ function toggleTimer( pause ) {
     show(decisionPanel)
 
     /* clear the interval */
+    clearInterval(window.pgInterval)
   } else {
     prayingText.innerHTML = escapeHTML(jsObject.translations.keep_praying)
 
@@ -59,7 +67,40 @@ function toggleTimer( pause ) {
     hide(decisionPanel)
 
     /* Restart the interval */
+    startTimer( window.time )
   }
+}
+
+function startTimer(time) {
+  if (!time) {
+    window.time = 0
+  }
+
+  window.pgInterval = setInterval(() => {
+    window.time = window.time + 0.1
+
+    if (window.time < window.seconds) {
+
+      let percentage = window.time / window.seconds * 100
+
+      if (percentage > 100) {
+        percentage = 100
+      }
+
+      prayingProgress.style.width = `${percentage}%`
+
+    }
+    else if (!window.finishedPraying) {
+      window.finishedPraying = true
+
+      show(questionPanel)
+      hide(prayingPanel)
+
+      prayingProgress.style.width = 0
+    }
+
+  }, 100)
+
 }
 
 function hide(element) {
@@ -103,18 +144,26 @@ function removeSeeMoreButton() {
 
 /* We need to check and keep checking that the location object is ready to use */
 function checkForLocationAndLoad(callback) {
-    let interval
+    let checkingInterval
 
     if (jsObject.current_content && jsObject.current_content.location) {
         callback(jsObject.current_content.location)
+        return
     }
 
-    interval = setInterval(() => {
+    checkingInterval = setInterval(() => {
         if (jsObject.current_content && jsObject.current_content.location) {
+            clearInterval(checkingInterval)
+
             callback(jsObject.current_content.location)
-            clearInterval(interval)
         }
     }, 50)
+}
+
+function clearTutorial() {
+  setTimeout(() => {
+    tutorial.style.display = 'none'
+  }, 3000)
 }
 
 function renderContent(content) {
@@ -137,6 +186,12 @@ function renderContent(content) {
 
     <hr />
     `
+
+    clearTutorial()
+  console.log(location)
+    populationInfoNo.innerHTML = location.non_christians
+    populationInfoNeutral.innerHTML = location.christian_adherents
+    populationInfoYes.innerHTML = location.believers
 }
 
 function getBlockTemplate(block) {
