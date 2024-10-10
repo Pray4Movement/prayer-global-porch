@@ -233,33 +233,23 @@ function getBlockTemplate(block) {
 }
 function _template_percent_3_circles(data) {
   return `
-        <div class="block percent-3-circles-block">
-            <h5>${data.section_label}</h5>
-            <div class="switcher content">
-                <div class="flow" data-space="md">
-                    <p class="bold f-md">${data.label_1}</p>
-                    <div class="pie" style="--p:${data.percent_1};--b:10px;--c:var(--pg-dark);">${data.percent_1}%</div>
-                    <p class="f-lg">${data.population_1}</p>
-                </div>
-                <div class="flow" data-space="md">
-                    <p class="bold f-md">${data.label_2}</p>
-                    <div class="pie" style="--p:${data.percent_2};--b:10px;--c:var(--pg-light);">${data.percent_2}%</div>
-                    <p class="f-lg">${data.population_2}</p>
-                </div>
-                <div class="flow" data-space="md">
-                    <p class="bold f-md">${data.label_3}</p>
-                    <div class="pie" style="--p:${data.percent_3};--b:10px;--c:var(--pg-orange);">${data.percent_3}%</div>
-                    <p class="f-lg">${data.population_3}</p>
-                </div>
+    <div class="block percent-3-circles-block">
+        <h5>${data.section_label}</h5>
+        <div class="switcher">
+            <div class="flow" data-space="md">
+                <p class="bold f-md">${data.label_1}</p>
+                <div class="pie" style="--p:${data.percent_1};--b:10px;--c:var(--pg-dark);">${data.percent_1}%</div>
+                <p class="f-lg">${data.population_1}</p>
             </div>
-        <div class="row text-center">
-            <div class="col">
-                <p class="font-weight-normal">${data.section_summary}</p>
+            <div class="flow" data-space="md">
+                <p class="bold f-md">${data.label_2}</p>
+                <div class="pie" style="--p:${data.percent_2};--b:10px;--c:var(--pg-light);">${data.percent_2}%</div>
+                <p class="f-lg">${data.population_2}</p>
             </div>
-        </div>
-        <div class="row text-center justify-content-center">
-            <div iv class="col-md-8">
-                <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
+            <div class="flow" data-space="md">
+                <p class="bold f-md">${data.label_3}</p>
+                <div class="pie" style="--p:${data.percent_3};--b:10px;--c:var(--pg-orange);">${data.percent_3}%</div>
+                <p class="f-lg">${data.population_3}</p>
             </div>
         </div>
     </div>`
@@ -321,32 +311,17 @@ function _template_100_bodies_chart(data) {
         bodies += BodyIcon('good', 'medium');
         i++;
     }
-    return (
-        `<div class="block 100-bodies-chart-block">
-          <div class="row">
-          <div class="col text-center ">
-             <h5 class="mb-0 uc">${data.section_label}</p>
-          </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-            <p class="mt-0 mb-3 font-weight-normal grow">
-              ${bodies}
-            </p>
+    return `
+        <div class="block 100-bodies-chart-block">
+            <h5 class="mb-0 uc">${data.section_label}</h5>
+            <div class="content">
+                <p>
+                    ${bodies}
+                </p>
+            </div>
+            <p>${data.section_summary}</p>
         </div>
-      </div>
-      <div class="row text-center">
-        <div class="col">
-           <p class="font-weight-normal">${data.section_summary}</p>
-        </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-           <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
-        </div>
-      </div>
-    </div>`
-    )
+    `
 }
 function _template_100_bodies_3_chart(data) {
     let bodies_1 = ''
@@ -786,7 +761,7 @@ function _template_basic_block(data) {
                 <span>${data.reference} </span> <i class="icon pg-chevron-down"></i>
             </button>
             <div class="flow" data-space="sm" style="display:none;" id="id-${data.id}" >
-                <p class="block__verse mt-3 mb-0 font-weight-normal font-italic lh-sm two-em">${data.verse}</p>
+                <p class="block__verse">${data.verse}</p>
                 <p class="f-normal">${data.reference}</p>
             </div>
         ` : ''
@@ -799,8 +774,8 @@ function _template_basic_block(data) {
         <div class="block basic-block">
             <h5 class="mb-0 uc">${data.section_label}</h5>
             ${icon}
-            <div class="content">
-                <p class="mt-3 mb-3 two-em lh-sm">${data.prayer}</p>
+            <div class="content f-xlg">
+                <p"mt-3 mb-3 two-em lh-sm">${data.prayer}</p>
                 ${reference}
             </div>
         </div>
@@ -808,7 +783,7 @@ function _template_basic_block(data) {
 }
 
 
-function BodyIcon(color, size = '') {
+function BodyIcon(color) {
     const iconColors = {
         bad: 'dark',
         neutral: 'light',
