@@ -562,22 +562,18 @@ function _template_least_reached_block(data) {
     } else {
         image = '<p class="mt-3 mb-3"><img class="img-fluid" src="' + jsObject.nope + '" alt="" /></p>'
     }
-    return (
-        `<div class="block least-reached-block">
-          <div class="row">
-          <div class="col text-center ">
-            <h5 class="mb-0 uc">${data.section_label}</h5>
-            <p class="mt-3 mb-0 two-em">${data.focus_label}</p>
-            ${data.diaspora_label !== '' ? `<p class="half-em mb-3 font-weight-normal">(${data.diaspora_label})</p>` : ''}
-            ${image}
-          </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-           <p class="mt-3 mb-3 lh-sm two-em lh-sm">${data.prayer}</p>
-        </div>
-    </div>
-    </div>`)
+    return `
+        <div class="block least-reached-block">
+            <div class="flow sm">
+                <h5 class="mb-0 uc">${data.section_label}</h5>
+                <p class="f-xlg">${data.focus_label}</p>
+                ${data.diaspora_label !== '' ? `<p class="f-sm">(${data.diaspora_label})</p>` : ''}
+                ${image}
+            </div>
+            <div class="content f-xlg">
+                <p class="">${data.prayer}</p>
+            </div>
+    </div>`
 }
 function _template_fact_block(data) {
     let icon = ''
@@ -761,7 +757,7 @@ function _template_basic_block(data) {
             <h5 class="mb-0 uc">${data.section_label}</h5>
             ${icon}
             <div class="content f-xlg">
-                <p"mt-3 mb-3 two-em lh-sm">${data.prayer}</p>
+                <p>${data.prayer}</p>
                 ${reference}
             </div>
         </div>
