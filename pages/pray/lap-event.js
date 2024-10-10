@@ -418,7 +418,7 @@ function _template_people_groups_list(data) {
                 </div>`
         }
         values_list += `
-            <div class="flow">
+            <div class="flow grow0">
                 <p class="mb-2 text-center">${image}</p>
                 <div>
                     <img src="${v.progress_image_url}" class="img-fluid" alt="" />
@@ -532,7 +532,7 @@ function _template_basic_block(data) {
             <button type="button" class="btn simple id-${data.id}" onclick="document.querySelector('#id-${data.id}').style.display = 'block';document.querySelector('.id-${data.id}').style.display = 'none';" >
                 <span>${data.reference} </span> <i class="icon pg-chevron-down"></i>
             </button>
-            <div class="flow sm" style="display:none;" id="id-${data.id}" >
+            <div class="flow sm" id="id-${data.id}" >
                 <p class="block__verse">${data.verse}</p>
                 <p class="f-normal">${data.reference}</p>
             </div>
