@@ -50,6 +50,7 @@ hr {
 
 img {
     width: 100%;
+    border-radius: 10px;
 }
 
 /* Composition */
@@ -63,7 +64,7 @@ img {
 .flow {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
 }
 .flow > * {
     margin-top: 0;
@@ -85,6 +86,16 @@ img {
 .center {
     margin-left: auto;
     margin-right: auto;
+}
+
+.switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+.switcher > * {
+    flex: 1;
+    flex-basis: calc( ( var(--switcher-max-width, 30rem) - 100% ) * 1000 );
 }
 
 /* Utility */
@@ -354,7 +365,6 @@ img {
 
 /* ## Prayer Blocks */
 .block {
-    font-size: 2rem;
     text-align: center;
     width: 100%;
     margin-left: auto;
@@ -365,6 +375,7 @@ img {
     max-width: 30ch;
     margin-left: auto;
     margin-right: auto;
+    font-size: 2rem;
 }
 .block > * {
     margin-top: 0;
@@ -379,4 +390,24 @@ img {
 }
 .block__verse {
     font-style: italic;
+}
+.pie {
+    --w: 150px;
+    width: var(--w);
+    aspect-ratio: 1;
+    position: relative;
+    display: inline-grid;
+    place-content: center;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: sans-serif;
+}
+.pie:before {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    inset: 0;
+    background: conic-gradient(var(--c) calc(var(--p)* 1%), #F6F6F6 0);
+    -webkit-mask: radial-gradient(farthest-side, #0000 calc(99% - var(--b)), #000 calc(100% - var(--b)));
+    mask: radial-gradient(farthest-side, #0000 calc(99% - var(--b)), #000 calc(100% - var(--b)));
 }

@@ -232,42 +232,38 @@ function getBlockTemplate(block) {
     }
 }
 function _template_percent_3_circles(data) {
-    return (
-        `<div class="block percent-3-circles-block">
-          <div class="row">
-              <div class="col text-center">
-                <h5 class="mb-0 uc">${data.section_label}</h5>
-              </div>
-          </div>
-          <div class="row text-center justify-content-center">
-              <div class="col-md-3 col-lg-2">
-                <p class="mt-3 mb-0 font-weight-bold">${data.label_1}</p>
-                <div class="pie" style="--p:${data.percent_1};--b:10px;--c:var(--pg-dark);">${data.percent_1}%</div>
-                <p class="mt-3 mb-0 font-weight-normal one-em">${data.population_1}</p>
-              </div>
-              <div class="col-md-3 col-lg-2">
-                <p class="mt-3 mb-0 font-weight-bold">${data.label_2}</p>
-                <div class="pie" style="--p:${data.percent_2};--b:10px;--c:var(--pg-light);">${data.percent_2}%</div>
-                <p class="mt-3 mb-0 font-weight-normal one-em">${data.population_2}</p>
-              </div>
-              <div class="col-md-3 col-lg-2">
-                <p class="mt-3 mb-0 font-weight-bold">${data.label_3}</p>
-                <div class="pie" style="--p:${data.percent_3};--b:10px;--c:var(--pg-orange);">${data.percent_3}%</div>
-                <p class="mt-3 mb-0 font-weight-normal one-em">${data.population_3}</p>
-              </div>
-          </div>
-          <div class="row text-center">
+  return `
+        <div class="block percent-3-circles-block">
+            <h5>${data.section_label}</h5>
+            <div class="switcher content">
+                <div class="flow" data-space="md">
+                    <p class="bold f-md">${data.label_1}</p>
+                    <div class="pie" style="--p:${data.percent_1};--b:10px;--c:var(--pg-dark);">${data.percent_1}%</div>
+                    <p class="f-lg">${data.population_1}</p>
+                </div>
+                <div class="flow" data-space="md">
+                    <p class="bold f-md">${data.label_2}</p>
+                    <div class="pie" style="--p:${data.percent_2};--b:10px;--c:var(--pg-light);">${data.percent_2}%</div>
+                    <p class="f-lg">${data.population_2}</p>
+                </div>
+                <div class="flow" data-space="md">
+                    <p class="bold f-md">${data.label_3}</p>
+                    <div class="pie" style="--p:${data.percent_3};--b:10px;--c:var(--pg-orange);">${data.percent_3}%</div>
+                    <p class="f-lg">${data.population_3}</p>
+                </div>
+            </div>
+        <div class="row text-center">
             <div class="col">
-               <p class="font-weight-normal">${data.section_summary}</p>
+                <p class="font-weight-normal">${data.section_summary}</p>
             </div>
-          </div>
-          <div class="row text-center justify-content-center">
-            <div class="col-md-8">
-               <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
+        </div>
+        <div class="row text-center justify-content-center">
+            <div iv class="col-md-8">
+                <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
             </div>
-          </div>
+        </div>
     </div>`
-    )
+
 }
 function _template_percent_3_bar(data) {
     return (
