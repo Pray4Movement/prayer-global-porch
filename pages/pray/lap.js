@@ -148,7 +148,9 @@ jQuery(document).ready(function(){
     const grid_id = new URL(window.location.href).searchParams.get('grid_id')
     console.log(grid_id)
     // load current location
-    window.api_post( 'refresh', { grid_id } )
+    const url = new URL(location.href)
+    let action = url.searchParams.has('all-content') ? 'refresh-all' : 'refresh'
+    window.api_post( action, { grid_id } )
       .then( function(l1) {
         // no remaining locations, send to map
         console.log(l1)

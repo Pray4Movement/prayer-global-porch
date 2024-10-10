@@ -452,7 +452,7 @@ trait PG_Lap_Trait {
      * Global query
      * @return array|false|void
      */
-    public function get_new_location( $parts ) {
+    public function get_new_location( $parts, $all = false ) {
         // get 4770 list
         $list_4770 = pg_query_4770_locations();
 
@@ -478,7 +478,7 @@ trait PG_Lap_Trait {
             shuffle( $list_4770_without_all_promises );
             if ( isset( $list_4770_without_all_promises[0] ) ) {
                 $this->_log_promise( $parts, $list_4770_without_all_promises[0] );
-                return PG_Stacker::build_location_stack( $list_4770_without_all_promises[0] );
+                return PG_Stacker::build_location_stack( $list_4770_without_all_promises[0], $all );
             }
         }
         /**
@@ -489,14 +489,14 @@ trait PG_Lap_Trait {
             shuffle( $list_4770_without_custom_promises );
             if ( isset( $list_4770_without_custom_promises[0] ) ) {
                 $this->_log_promise( $parts, $list_4770_without_custom_promises[0] );
-                return PG_Stacker::build_location_stack( $list_4770_without_custom_promises[0] );
+                return PG_Stacker::build_location_stack( $list_4770_without_custom_promises[0], $all );
             }
         }
         /**
          * Only the available global locations
          */
         shuffle( $remaining_global );
-        return PG_Stacker::build_location_stack( $remaining_global[0] );
+        return PG_Stacker::build_location_stack( $remaining_global[0], $all );
     }
 
     public function _query_prayed_list() {

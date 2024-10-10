@@ -33,7 +33,7 @@ class PG_Stacker_Positions {
         return $stack;
     }
 
-    public static function _position_2( &$stack, $position = 3 ) {
+    public static function _position_2( &$stack, $position = 3, $all = false ) {
 
         $section_label = __( 'Faith Status', 'prayer-global-porch' );
 
@@ -368,11 +368,16 @@ class PG_Stacker_Positions {
             // end demographic birth death section
         }
 
+        if ( $all ) {
+            $stack['list'] = array_merge( array_slice( $stack['list'], 0, $position ), $templates, array_slice( $stack['list'], $position ) );
+            return $stack;
+        }
+
         $stack['list'] = array_merge( array_slice( $stack['list'], 0, $position ), [ $templates[array_rand( $templates )] ], array_slice( $stack['list'], $position ) );
         return $stack;
     }
 
-    public static function _position_3( &$stack, $position = 6 ) {
+    public static function _position_3( &$stack, $position = 6, $all = false ) {
         $templates = [];
 
         // least reached
@@ -458,26 +463,32 @@ class PG_Stacker_Positions {
 
         if ( empty( $templates ) ) {
             return $stack;
+        } else if ( $all ) {
+            $stack['list'] = array_merge( array_slice( $stack['list'], 0, $position ), $templates, array_slice( $stack['list'], $position ) );
+            return $stack;
         } else {
             $stack['list'] = array_merge( array_slice( $stack['list'], 0, $position ), [ $templates[array_rand( $templates )] ], array_slice( $stack['list'], $position ) );
             return $stack;
         }
     }
 
-    public static function _position_4( &$stack, $position = 7 ) {
+    public static function _position_4( &$stack, $position = 7, $all = false ) {
         $templates = [];
 
         // @add more
 
         if ( empty( $templates ) ) {
             return $stack;
+        } else if ( $all ) {
+            $stack['list'] = array_merge( array_slice( $stack['list'], 0, $position ), $templates, array_slice( $stack['list'], $position ) );
+            return $stack;
         } else {
             $stack['list'] = array_merge( array_slice( $stack['list'], 0, $position ), [ $templates[array_rand( $templates )] ], array_slice( $stack['list'], $position ) );
             return $stack;
         }
     }
 
-    public static function _position_5( &$stack, $position = 9 ) {
+    public static function _position_5( &$stack, $position = 9, $all = false ) {
         $templates = [];
 
         // demographics
@@ -541,6 +552,9 @@ class PG_Stacker_Positions {
         ];
 
         if ( empty( $templates ) ) {
+            return $stack;
+        } else if ( $all ) {
+            $stack['list'] = array_merge( array_slice( $stack['list'], 0, $position ), $templates, array_slice( $stack['list'], $position ) );
             return $stack;
         } else {
             $stack['list'] = array_merge( array_slice( $stack['list'], 0, $position ), [ $templates[array_rand( $templates )] ], array_slice( $stack['list'], $position ) );

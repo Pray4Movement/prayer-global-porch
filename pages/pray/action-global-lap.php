@@ -118,8 +118,11 @@ class PG_Global_Prayer_App_Lap extends PG_Global_Prayer_App {
                 return $this->increment_log( $params['parts'], $params['data'] );
             case 'correction':
                 return $this->save_correction( $params['parts'], $params['data'] );
+            case 'refresh-all':
+                $all = true;
+                // intentional fall through with $all set to true
             case 'refresh':
-                $stack = $this->get_new_location( $params['parts'] );
+                $stack = $this->get_new_location( $params['parts'], $all );
                 $global_lap = pg_current_global_lap();
                 $params['parts']['post_id'] = $global_lap['post_id'];
                 $params['parts']['public_key'] = $global_lap['key'];
