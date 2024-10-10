@@ -410,6 +410,10 @@ img {
 .icon-block {
     line-height: 1.1;
 }
+.icon-xlg {
+    font-size: 6rem;
+    line-height: 1.1;
+}
 .pie {
     --w: 150px;
     width: var(--w);

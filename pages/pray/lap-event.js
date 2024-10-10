@@ -512,7 +512,7 @@ function _template_people_groups_list(data) {
     let image = ''
     Object.values(data.values).forEach(function (v) {
         if (v.image_url) {
-            image = `<div style="background-image:url(${v.image_url}); width:200px; height:200px;background-size: cover;background-repeat: no-repeat;" class="bg-img img-fluid"></div>`
+            image = `<div style="background-image:url(${v.image_url}); " class="bg-img img-fluid"></div>`
         } else {
             image = `
                 <div style=" height:200px;">
@@ -600,32 +600,24 @@ function _template_content_block(data) {
         if (data.icon) {
             iclass = data.icon
         }
-        let icolor = 'brand'
-        if (data.color) {
+        let icolor = 'dark'
+        if (data.color === 'brand-lighter') {
+            icolor = 'light'
+        } else {
             icolor = data.color
         }
-        icon = '<p class="mt-3 mb-3 font-weight-bold six-em"><i class="' + iclass + ' ' + icolor + '"></i></p>'
+        icon = `<p class="icon-xlg"><i class="${iclass} ${icolor}"></i></p>`
     }
-    return (
-        `<div class="block content-block">
-          <div class="row">
-          <div class="col text-center ">
-            <h5 class="mb-0 uc">${data.section_label}</h5>
-             <p class="mt-3 mb-3 two-em">${data.focus_label}</p>
+    return `
+        <div class="block content-block">
+            <h5>${data.section_label}</h5>
+            <p class="f-xlg">${data.focus_label}</p>
             ${icon}
-          </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-           <p class="mt-3 mb-3 font-weight-normal one-em">${data.section_summary}</p>
-        </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-           <p class="mt-3 mb-3 lh-sm two-em">${data.prayer}</p>
-        </div>
-      </div>
-    </div>`)
+            <div class="w-75 center">
+                <p class="f-lg">${data.section_summary}</p>
+                <p class="f-xlg">${data.prayer}</p>
+            </div>
+    </div>`
 }
 function _template_prayer_block(data) {
     return (
