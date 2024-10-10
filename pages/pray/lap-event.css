@@ -373,6 +373,7 @@ img {
 }
 .block .content {
     width: 70%;
+    line-height: 1.8;
     max-width: 30ch;
     margin-left: auto;
     margin-right: auto;
@@ -396,12 +397,6 @@ img {
     margin-right: auto;
     max-width: unset;
     width: 70%;
-}
-.block .ion-ios-body,
-.block .ion-happy,
-.block .ion-sad {
-    font-size: 2rem;
-    line-height: 1.5;
 }
 .pie {
     --w: 150px;

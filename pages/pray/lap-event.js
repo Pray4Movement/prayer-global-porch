@@ -315,7 +315,7 @@ function _template_100_bodies_chart(data) {
         <div class="block 100-bodies-chart-block">
             <h5 class="mb-0 uc">${data.section_label}</h5>
             <div class="content">
-                <p>
+                <p class="f-xlg">
                     ${bodies}
                 </p>
             </div>
@@ -348,21 +348,21 @@ function _template_100_bodies_3_chart(data) {
             <div class="switcher">
                 <div class="flow sm">
                   <p class="bold">${data.label_1}</p>
-                  <p>
+                  <p class="f-xlg">
                     ${bodies_1}
                   </p>
                   <p class="f-lg">${data.population_1}</p>
                 </div>
                 <div class="flow sm">
                   <p class="bold">${data.label_2}</p>
-                  <p>
+                  <p class="f-xlg">
                     ${bodies_2}
                   </p>
                   <p class="f-lg">${data.population_2}</p>
                 </div>
                 <div class="flow sm">
                   <p class="bold">${data.label_3}</p>
-                  <p>
+                  <p class="f-xlg">
                     ${bodies_3}
                   </p>
                   <p class="f-lg">${data.population_3}</p>
@@ -558,9 +558,9 @@ function _template_people_groups_list(data) {
 function _template_least_reached_block(data) {
     let image
     if (data.image_url) {
-        image = '<p class="mt-3 mb-3"><img src="' + data.image_url + '" class="img-fluid rounded-3" alt="" /></p>'
+        image = `<div><img src="${data.image_url}" class="img-fluid rounded-3" alt="" /></div>`
     } else {
-        image = '<p class="mt-3 mb-3"><img class="img-fluid" src="' + jsObject.nope + '" alt="" /></p>'
+        image = `<div><img class="img-fluid" src="${jsObject.nope}" alt="" /></div>`
     }
     return `
         <div class="block least-reached-block">
@@ -568,10 +568,10 @@ function _template_least_reached_block(data) {
                 <h5 class="mb-0 uc">${data.section_label}</h5>
                 <p class="f-xlg">${data.focus_label}</p>
                 ${data.diaspora_label !== '' ? `<p class="f-sm">(${data.diaspora_label})</p>` : ''}
-                ${image}
             </div>
+            ${image}
             <div class="content f-xlg">
-                <p class="">${data.prayer}</p>
+                ${data.prayer}
             </div>
     </div>`
 }
@@ -691,37 +691,29 @@ function _template_lost_per_believer_block(data) {
         bodies_1 += BodyIcon('bad');
         i++;
     }
-    let font_size = '2em'
+    let font_size = 'f-xlg'
     if (data.lost_per_believer > 1000) {
-        font_size = '1em'
+        font_size = 'f-lg'
     } else if (data.lost_per_believer < 20) {
-        font_size = '3em'
+        font_size = 'f-xxlg'
     }
-    return (
-        `<div class="block lost-per-believer-block">
-          <div class="row">
-          <div class="col text-center ">
-             <h5 class="mt-3 mb-3 font-weight-normal one-em uc">${data.section_label}</h5>
-          </div>
-      </div>
-      <div class="row text-center justify-content-center">
-          <div class="col-md-9 col-sm">
-            <p class="mt-3 mb-3 font-weight-bold two-em">${data.label_1}</p>
-            <p class="mt-0 mb-0 font-weight-normal">
-             ${BodyIcon('good', 'large')}
-            </p>
-            <p class="mt-0 mb-3 font-weight-normal" style="font-size: ${font_size};">
-              ${bodies_1}
-            </p>
-          </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-          <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
+    return `
+        <div class="block lost-per-believer-block">
+            <h5>${data.section_label}</h5>
+            <div class="content flow">
+                <p class="bold f-xlg">${data.label_1}</p>
+                <p class="f-xxlg">
+                    ${BodyIcon('good')}
+                </p>
+                <p class="${font_size}">
+                  ${bodies_1}
+                </p>
+            </div>
+            <div class="content">
+                ${data.prayer}
+            </div>
         </div>
-      </div>
-    </div>`
-    )
+    `
 }
 function _template_photo_block(data) {
   return `
