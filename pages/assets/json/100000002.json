@@ -1,230 +1,667 @@
 {
-    "list": [
-        {
-            "type": "basic_block",
-            "data": {
-                "section_label": "Unleashing Simple Churches",
-                "prayer": "Spirit, teach the 16,656 believers in the county of Amreli the wisdom of how to form simple, reproducible churches of 12-30 in every neighborhood.",
-                "reference": "",
-                "verse": "",
-                "id": "a6cd7513619bec9d845765217652b77541ca7a9e3d52be2ae513d285ffbbb426"
-            }
-        },
-        {
+    "list": {
+        "0": {
             "type": "photo_block",
             "data": {
                 "section_label": "One Shot Prayer Walk",
-                "location_label": "Photo from the county of Amreli, Gujarat, India",
-                "url": "https://storage.googleapis.com/location-grid-images/v1/grid/100219517/photos/rivers_2eb6c8d92db34.jpg",
-                "section_summary": "What challenges do people here face?",
+                "location_label": "Photo from the state of Atlantique, Benin",
+                "url": "https://storage.googleapis.com/location-grid-images/v1/grid/100018014/photos/cafe_6fae88d9906d7.jpg",
+                "section_summary": "What beauty can God be thanked for in this photo?",
                 "prayer": ""
             }
         },
-        {
-            "type": "basic_block",
+        "1": {
+            "type": "percent_3_circles",
             "data": {
-                "section_label": "Suffering",
-                "prayer": "Father, see the suffering of your people in the county of Amreli. Deliver all those who have not forgotten your Word.",
-                "reference": "Psalm 119:153",
-                "verse": "Look on my suffering and deliver me, for I have not forgotten your law.",
-                "id": "cebf092c14d68e9a73c037b2d4cc19ddc302555d2d3b741a60e1c9b7b199f3f7"
+                "section_label": "Faith Status",
+                "label_1": "Don't Know Jesus",
+                "percent_1": 68.43,
+                "population_1": "613,762",
+                "label_2": "Know About Jesus",
+                "percent_2": 24.1,
+                "population_2": "216,148",
+                "label_3": "Know Jesus",
+                "percent_3": 7.47,
+                "population_3": "66,991",
+                "section_summary": "",
+                "prayer": ""
             }
         },
-        {
+        "2": {
             "type": "100_bodies_chart",
             "data": {
                 "section_label": "Faith Status",
-                "percent_1": 97.69,
-                "percent_2": 1.21,
-                "percent_3": 1.1,
-                "pop_1": 97.69,
-                "pop_2": 1.21,
-                "pop_3": 1.1,
+                "percent_1": 68.43,
+                "percent_2": 24.1,
+                "percent_3": 7.47,
+                "pop_1": 68.43,
+                "pop_2": 24.1,
+                "pop_3": 7.47,
                 "pop_1_label": "Non-Christians",
                 "pop_2_label": "Cultural Christians",
                 "pop_3_label": "Believers",
-                "section_summary": "Non-Christians - 1,479,172 | Cultural Christians - 18,372 | Believers - 16,656",
+                "section_summary": "Non-Christians - 613,762 | Cultural Christians - 216,148 | Believers - 66,991",
                 "prayer": ""
             }
         },
-        {
-            "type": "basic_block",
+        "3": {
+            "type": "100_bodies_3_chart",
             "data": {
-                "section_label": "The Church",
-                "prayer": "Father, let love abound more and more in the church of Amreli, Gujarat, India.",
-                "reference": "Philippians 1:9",
-                "verse": "And this is my prayer: that your love may abound more and more in knowledge and depth of insight",
-                "id": "141a62eb5fc26d48530f6967e158f59caa9d0ad18b80d8fd7a2f90113142cec9"
+                "section_label": "Faith Status",
+                "label_1": "Don't Know Jesus",
+                "percent_1": 68.43,
+                "population_1": "613,762",
+                "label_2": "Know About Jesus",
+                "percent_2": 24.1,
+                "population_2": "216,148",
+                "label_3": "Know Jesus",
+                "percent_3": 7.47,
+                "population_3": "66,991",
+                "section_summary": "",
+                "prayer": ""
             }
         },
-        {
-            "type": "basic_block",
-            "data": {
-                "section_label": "Obedience",
-                "prayer": "Father, help the 16,656 believers in Amreli to know that you can make a big impact through their simple obedience today.",
-                "reference": "Exodus 19:6",
-                "verse": "you will be for me a kingdom of priests",
-                "id": "4af8db8c3b2d662fe6a0f3e0eab3e66198ffee77db40ac183a0a9defab7ce7b4"
-            }
-        },
-        {
+        "4": {
             "type": "least_reached_block",
             "data": {
                 "section_label": "Least Reached",
-                "focus_label": "Gavri",
-                "image_url": false,
+                "focus_label": "Foodo",
+                "image_url": "https://storage.googleapis.com/location-grid-images/v1/jp/pid3/11223.jpg",
                 "section_summary": "",
-                "prayer": "Spirit, I pray that the Gavri people will come and worship before you, Lord. May they glorify your name for you are great.",
-                "diaspora_label": "Possibly Diaspora"
+                "prayer": "Lord, you sent Jesus as a witness to testify about the light so that all the Foodo people might believe through him.",
+                "diaspora_label": ""
             }
         },
-        {
-            "type": "basic_block",
+        "5": {
+            "type": "lost_per_believer",
             "data": {
-                "section_label": "Local Leadership",
-                "prayer": "Jesus, teach the local leaders in Amreli, Gujarat, India to be humble and to serve others.",
-                "reference": "Matthew 20:26–28",
-                "verse": "It shall not be so among you. But whoever would be great among you must be your servant, and whoever would be first among you must be your slave, even as the Son of Man came not to be served but to serve, and to give his life as a ransom for many.",
-                "id": "f4e001e8123614d86786265922d7570dbdf419ccbaf735c87627be04ef328fcb"
-            }
-        },
-        {
-            "type": "basic_block",
-            "data": {
-                "section_label": "Evangelists and Harvest Workers",
-                "prayer": "Jesus, you said you were the giver of evangelists to the church. Please, send more evangelists to the the county of Amreli, Gujarat, India.",
-                "reference": "Ephesians 4:11-12",
-                "verse": "So Christ himself gave the apostles, the prophets, the evangelists, the pastors and teachers, to equip his people for works of service, so that the body of Christ may be built up",
-                "id": "e838b23ec27f26988340b0f7aee1513560d64883f91b7fc99e888a84f2dd00fc"
-            }
-        },
-        {
-            "type": "content_block",
-            "data": {
-                "section_label": "Demographics",
-                "focus_label": "Amreli, Gujarat, India",
-                "icon": "ion-map",
-                "color": "brand-lighter",
-                "section_summary": "the county of <strong>Amreli, Gujarat, India</strong> has a population of <strong>1,514,200</strong>.<br><br>We estimate Amreli has <strong>16,656</strong> people who might know Jesus, <strong>18,372</strong> people who might know about Jesus culturally, and <strong>1,479,172</strong> people who do not know Jesus.<br><br>This is <strong>1</strong> believer for every <strong>90</strong> neighbors who need Jesus.",
+                "section_label": "Faith Status",
+                "label_1": "One disciple of Jesus for every 13 lost neighbors",
+                "lost_per_believer": 13,
                 "prayer": ""
             }
         },
-        {
+        "6": {
+            "type": "population_change_icon_block",
+            "data": {
+                "section_label": "Next 100 hours",
+                "count": "85",
+                "group": "non_christians",
+                "type": "deaths",
+                "size": 3,
+                "section_summary": "On average, 85 people will die without Jesus in the next 100 hours in Atlantique, Benin.",
+                "prayer": "Jesus, send your gospel to these."
+            }
+        },
+        "7": {
+            "type": "content_block",
+            "data": {
+                "section_label": "Demographics",
+                "focus_label": "Atlantique, Benin",
+                "icon": "ion-map",
+                "color": "brand-lighter",
+                "section_summary": "the state of <strong>Atlantique, Benin</strong> has a population of <strong>896,900</strong>.<br><br>We estimate Atlantique has <strong>66,991</strong> people who might know Jesus, <strong>216,148</strong> people who might know about Jesus culturally, and <strong>613,762</strong> people who do not know Jesus.<br><br>This is <strong>1</strong> believer for every <strong>13</strong> neighbors who need Jesus.",
+                "prayer": ""
+            }
+        },
+        "8": {
+            "type": "4_fact_blocks",
+            "data": {
+                "section_label": "Demographics",
+                "focus_label": "Atlantique, Benin",
+                "label_1": "Population",
+                "value_1": "896,900",
+                "size_1": "two-em",
+                "label_2": "Believers",
+                "value_2": "66,991",
+                "size_2": "two-em",
+                "label_3": "Dominant Religion",
+                "value_3": "Christianity",
+                "size_3": "two-em",
+                "label_4": "Language",
+                "value_4": "French",
+                "size_4": "two-em",
+                "section_summary": "",
+                "prayer": ""
+            }
+        },
+        "9": {
+            "type": "4_fact_blocks",
+            "data": {
+                "section_label": "Demographics",
+                "focus_label": "Atlantique, Benin",
+                "label_1": "Non-Christians",
+                "value_1": "613,762",
+                "size_1": "two-em",
+                "label_2": "Cultural Christians",
+                "value_2": "216,148",
+                "size_2": "two-em",
+                "label_3": "Believers",
+                "value_3": "66,991",
+                "size_3": "two-em",
+                "label_4": "Language",
+                "value_4": "French",
+                "size_4": "two-em",
+                "section_summary": "",
+                "prayer": ""
+            }
+        },
+        "2b35da0cf95a52c3670110b5045eed62eed77663c9649ae4e777405e4ceb040d": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Suffering",
+                "prayer": "Father, thank you that you will never abandon the church of Atlantique, Benin.",
+                "reference": "Hebrews 13:5 ",
+                "verse": "Be free from the love of money, content with such things as you have, for he has said, “I will in no way leave you, neither will I in any way forsake you.",
+                "id": "2b35da0cf95a52c3670110b5045eed62eed77663c9649ae4e777405e4ceb040d"
+            }
+        },
+        "73c11b7f1f05952d890f0efe90115d8b86152067e532c14e697ee4060cb3a93d": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Urgency",
+                "prayer": "Father, set on fire the hearts and passion of your church in the state of Atlantique.",
+                "reference": "Romans 12:11",
+                "verse": "Do not be slothful in zeal, be fervent in spirit, serve the Lord.",
+                "id": "73c11b7f1f05952d890f0efe90115d8b86152067e532c14e697ee4060cb3a93d"
+            }
+        },
+        "e6fef427bd152b0a9b485a2c84b978aa64d0ef27d15750a4417af1b5a80acc09": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Love",
+                "prayer": "Oh Lord, show the fatherless in the state of Atlantique that you can be their real Father.",
+                "reference": "2 Corinthians 6:18",
+                "verse": "I will be to you a Father. you will be to me sons and daughters,’ says the Lord Almighty.",
+                "id": "e6fef427bd152b0a9b485a2c84b978aa64d0ef27d15750a4417af1b5a80acc09"
+            }
+        },
+        "8695aa4e5fd51d1c88beaa70316bb093349d86006bf839e8e7f29ec368a41d71": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Faith",
+                "prayer": "Spirit, teach the 66,991 believers in Atlantique that when they seek first your Kingdom and your righteousness, you will abundantly provide all they need.",
+                "reference": "2 Corinthians 9:8",
+                "verse": "And God is able to bless you abundantly, so that in all things at all times, having all that you need, you will abound in every good work.",
+                "id": "8695aa4e5fd51d1c88beaa70316bb093349d86006bf839e8e7f29ec368a41d71"
+            }
+        },
+        "4701ae5d619638c88fdb328682b63b81bc2575e171c0ed6183b86f8f5af2c4e8": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Reliance on God",
+                "prayer": "Father, remind your church in Atlantique that they can know and depend on the love you have for them.",
+                "reference": "1 John 4:16",
+                "verse": "We know and have believed the love which God has for us. God is love, and he who remains in love remains in God, and God remains in him.",
+                "id": "4701ae5d619638c88fdb328682b63b81bc2575e171c0ed6183b86f8f5af2c4e8"
+            }
+        },
+        "dffb671f20bba587cf04579574d06219d5ef256e321d2013cec92592ea585225": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Obedience",
+                "prayer": "Father, help the 66,991 believers in Atlantique to know that you can make a big impact through their simple obedience today.",
+                "reference": "Exodus 19:6",
+                "verse": "you will be for me a kingdom of priests",
+                "id": "dffb671f20bba587cf04579574d06219d5ef256e321d2013cec92592ea585225"
+            }
+        },
+        "f1caccff2ef3de7588d756815d6021925000140cd2adee08852bacdb9bfce017": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Biblical Authority",
+                "prayer": "Spirit, fill the 896,900 souls living in the state of Atlantique with a taste for your Word. Make it sweet as honey in their mouth.",
+                "reference": "Psalm 119:103",
+                "verse": "How sweet are your words to my taste, sweeter than honey to my mouth!",
+                "id": "f1caccff2ef3de7588d756815d6021925000140cd2adee08852bacdb9bfce017"
+            }
+        },
+        "c8b696b8478674d903daf360b1cfe250d74e5d2db7f6a650dd18df3194653bb6": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Teachers",
+                "prayer": "Father, please send teachers of your Word in Atlantique who can speak your gospel boldly and clearly.",
+                "reference": "",
+                "verse": "",
+                "id": "c8b696b8478674d903daf360b1cfe250d74e5d2db7f6a650dd18df3194653bb6"
+            }
+        },
+        "f35ccb023293444fd6c39ac2440da5625a515c0cc29b26525279b2af0b991664": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Shepherds and Pastors",
+                "prayer": "Jesus, please bless the leaders of the the state of Atlantique, Benin who work hard at shepherding and guiding your people.",
+                "reference": "Psalm 78:72",
+                "verse": "With upright heart he shepherded them and guided them with his skillful hand.",
+                "id": "f35ccb023293444fd6c39ac2440da5625a515c0cc29b26525279b2af0b991664"
+            }
+        },
+        "df28e1e5d61a753d175e83c83db0df6ac62eb659fd89f981fb3b417d0b262c98": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Prophets and Truth Speakers",
+                "prayer": "Jesus, strengthen the church in Atlantique, Benin by giving a prophet, as you said you would, who is bold and willing to correct. Lord, may the believers care about holiness as you do.",
+                "reference": "Ephesians 4:11-12",
+                "verse": "So Christ himself gave the apostles, the prophets, the evangelists, the pastors and teachers, to equip his people for works of service, so that the body of Christ may be built up",
+                "id": "df28e1e5d61a753d175e83c83db0df6ac62eb659fd89f981fb3b417d0b262c98"
+            }
+        },
+        "f78b242a7f8f0f9c9c1f59f0238e3cd5b63a7acfd7cfa08c77071bc72dcc7608": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Evangelists and Harvest Workers",
+                "prayer": "Father, please send new evangelists into the harvest in the state of Atlantique, Benin.",
+                "reference": "Matthew 9:38",
+                "verse": "Ask the Lord of the harvest, therefore, to send out workers into his harvest field.",
+                "id": "f78b242a7f8f0f9c9c1f59f0238e3cd5b63a7acfd7cfa08c77071bc72dcc7608"
+            }
+        },
+        "56e4204ab35d3a21a1b826bff421c61bd510effd6db095ca44ca72537969d778": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Apostles and Pioneers",
+                "prayer": "Lord, raise up apostolic workers to plant churches in every town in the state of Atlantique.",
+                "reference": "Titus 1:5",
+                "verse": "The reason I left you in Crete was that you might put in order what was left unfinished and appoint elders in every town, as I directed you.",
+                "id": "56e4204ab35d3a21a1b826bff421c61bd510effd6db095ca44ca72537969d778"
+            }
+        },
+        "692af5f596de3fce6eae0d58a3f8e16bd9ddff1811f304f1ad2c1fba71606b54": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Local Leadership",
+                "prayer": "Father, grace the churches in Atlantique, Benin with faithful local leaders.",
+                "reference": "Proverbs 11:14",
+                "verse": "Where there is no guidance, a people falls, but in an abundance of counselors there is safety.",
+                "id": "692af5f596de3fce6eae0d58a3f8e16bd9ddff1811f304f1ad2c1fba71606b54"
+            }
+        },
+        "acd6577072c6cc98b7dbcae3f1e68326452c2c2ffca1aeb6c4817031c24c4593": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Non-Christians",
+                "prayer": "Father, you desire to blot out the sins of the people of Atlantique, Benin. You said, if they turn to you, you will dissolve their sins like mist.",
+                "reference": "Isaiah 44:22",
+                "verse": "I have blotted out, as a thick cloud, your transgressions, and, as a cloud, your sins. Return to me, for I have redeemed you.",
+                "id": "acd6577072c6cc98b7dbcae3f1e68326452c2c2ffca1aeb6c4817031c24c4593"
+            }
+        },
+        "55f4babd2d3734e7bdb1df04ab5565d8fda96d8699ccc78ff854e44a091b031e": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Population",
+                "prayer": "Lord, help the people of Atlantique, Benin to discover the essence of being a disciple, making disciples, and how to plant churches that multiply.",
+                "reference": "",
+                "verse": "",
+                "id": "55f4babd2d3734e7bdb1df04ab5565d8fda96d8699ccc78ff854e44a091b031e"
+            }
+        },
+        "0da3224cf8e919b89ea934fa5e7ad9aa24237cb9be5c5ab851661c0845fbe881": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Safety",
+                "prayer": "Father, be a refuge and strength for the hurting in Atlantique, Benin today.",
+                "reference": "Psalm 46:1",
+                "verse": "God is our refuge and strength, an ever-present help in trouble.",
+                "id": "0da3224cf8e919b89ea934fa5e7ad9aa24237cb9be5c5ab851661c0845fbe881"
+            }
+        },
+        "34b4419998d8e873de9efa3d72211ac6c01a7b0e4a8b570d6d8e78a7c08b5a60": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Media",
+                "prayer": "Lord, use Google search to lead people in Atlantique, Benin to the gospel today.",
+                "reference": "",
+                "verse": "",
+                "id": "34b4419998d8e873de9efa3d72211ac6c01a7b0e4a8b570d6d8e78a7c08b5a60"
+            }
+        },
+        "4f53dfe3a78dedff30440d9b70312ea9ee81840a562a5168532b57f03038927a": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Bible Access",
+                "prayer": "Spirit, how will they hear without a preacher? How will they preach unless they have a Bible? Please give the people in the state of Atlantique access to a Bible in their own language.",
+                "reference": "Romans 10:14-15",
+                "verse": "How, then, can they call on the one they have not believed in? And how can they believe in the one of whom they have not heard? And how can they hear without someone preaching to them? And how can anyone preach unless they are sent? As it is written: “How beautiful are the feet of those who bring good news!”",
+                "id": "4f53dfe3a78dedff30440d9b70312ea9ee81840a562a5168532b57f03038927a"
+            }
+        },
+        "86746bd392dadf336bbef61794bb4924ce61824eac81bb501c435fa846efde9a": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "God, guide the 66,991 believers in Atlantique to multiply spiritual families that love you, love each other, and make disciples.",
+                "reference": "",
+                "verse": "",
+                "id": "86746bd392dadf336bbef61794bb4924ce61824eac81bb501c435fa846efde9a"
+            }
+        },
+        "5b032ce90e044d2553ffd995df3c753884a8d35f1d9d85098fbfb1cabe905b32": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "Spirit, help the 66,991 believers in Atlantique to start simple multiplying churches in their homes.",
+                "reference": "",
+                "verse": "",
+                "id": "5b032ce90e044d2553ffd995df3c753884a8d35f1d9d85098fbfb1cabe905b32"
+            }
+        },
+        "fe43bff48c0d0879d18335009f6b2827d26ef7ab253b6c1ebec6c03409b8b52a": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "Father, we pray that the the state of Atlantique be filled with simple churches in every neighborhood.",
+                "reference": "Isaiah 11:9",
+                "verse": "For the earth will be full of the knowledge of the Lord, as the waters cover the sea.",
+                "id": "fe43bff48c0d0879d18335009f6b2827d26ef7ab253b6c1ebec6c03409b8b52a"
+            }
+        },
+        "1257f56ee35d0dcc75488d81e341457dd9cf651d354dd16541e2327a76e22815": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "Father, we ask for 179 new simple churches in the state of Atlantique, Benin. Place a simple church in every community of the 896,900 people living here.",
+                "reference": "Psalm 72:19",
+                "verse": "And blessed be His glorious name forever; And may the whole earth be filled with His glory. Amen, and Amen.",
+                "id": "1257f56ee35d0dcc75488d81e341457dd9cf651d354dd16541e2327a76e22815"
+            }
+        },
+        "e4c47a30fc0e7c9919520371505d217019a7343e2836ffcb67ef20089a586297": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "Spirit, teach the 66,991 believers in the state of Atlantique the wisdom of how to form simple, reproducible churches of 12-30 in every neighborhood.",
+                "reference": "",
+                "verse": "",
+                "id": "e4c47a30fc0e7c9919520371505d217019a7343e2836ffcb67ef20089a586297"
+            }
+        },
+        "8d79f673d1c74bfe3b5e7955b3309c27596ed63f3fef0b8c87d4dc2e433e45c6": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "Father, bless the the state of Atlantique with a multiplying movement of house churches.",
+                "reference": "Numbers 14:21",
+                "verse": "...but indeed, as I live, all the earth will be filled with the glory of the Lord.",
+                "id": "8d79f673d1c74bfe3b5e7955b3309c27596ed63f3fef0b8c87d4dc2e433e45c6"
+            }
+        },
+        "7309dbc0141f5182fbc9aeab94e931f0e8ee4929183120a7183fc77116d96d3b": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "God, we pray both the men and women of Atlantique, Benin will find ways to meet in groups of two or three to encourage and correct one another from your Word.",
+                "reference": "",
+                "verse": "",
+                "id": "7309dbc0141f5182fbc9aeab94e931f0e8ee4929183120a7183fc77116d96d3b"
+            }
+        },
+        "7e51f2424beab3bb63bff6606c641d369cf273e2372062b9cbf9cadec6310854": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "The Church",
+                "prayer": "Father, multiply brothers, sisters, and mothers to our spiritual family in Atlantique, Benin.",
+                "reference": "Matthew 12:48-50",
+                "verse": "He replied to him, “Who is my mother, and who are my brothers?” Pointing to his disciples, he said, “Here are my mother and my brothers. For whoever does the will of my Father in heaven is my brother and sister and mother.”",
+                "id": "7e51f2424beab3bb63bff6606c641d369cf273e2372062b9cbf9cadec6310854"
+            }
+        },
+        "fa01580380fb81e60d37a23c7681ad571ca827424c8fab57720cd180974256d4": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "The Church",
+                "prayer": "Father, we rejoice that you who began a good work in the church of Atlantique, Benin will carry it on to completion until the day of Jesus Christ!",
+                "reference": "Philippians 1:6",
+                "verse": "being confident of this, that he who began a good work in you will carry it on to completion until the day of Christ Jesus.",
+                "id": "fa01580380fb81e60d37a23c7681ad571ca827424c8fab57720cd180974256d4"
+            }
+        },
+        "d88cd236f8bfb77af0744c6fc39e348b46848f66b44cade8bb0a33b0adbabd38": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "The Church",
+                "prayer": "Father, remind your church in Atlantique, Benin that you have set your Son over all rule and authority, power and dominion, and every name that is invoked.",
+                "reference": "Ephesians 1:20-21",
+                "verse": "he raised Christ from the dead and seated him at his right hand in the heavenly realms, far above all rule and authority, power and dominion, and every name that is invoked, not only in the present age but also in the one to come.",
+                "id": "d88cd236f8bfb77af0744c6fc39e348b46848f66b44cade8bb0a33b0adbabd38"
+            }
+        },
+        "1fffdb4c94e262715f0131a76c046eff1b076cd0a375d94c3f06e5dbf042c985": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Father, help 179 new simple churches start among the 896,900 people in the the state of Atlantique, Benin. One within reach of everyone living here.",
+                "reference": "Habakkuk 2:14",
+                "verse": "For the earth will be filled with the knowledge of the glory of the Lord as the waters cover the sea.",
+                "id": "1fffdb4c94e262715f0131a76c046eff1b076cd0a375d94c3f06e5dbf042c985"
+            }
+        },
+        "966d5ed239281fc5f725de3fd9e931e9f8c84965bd52967c947cf5fc152c6e40": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Spirit, please start new house churches in every neighborhood of the the state of Atlantique.",
+                "reference": "Habakkuk 2:14",
+                "verse": "For the earth will be filled with the knowledge of the glory of the Lord as the waters cover the sea.",
+                "id": "966d5ed239281fc5f725de3fd9e931e9f8c84965bd52967c947cf5fc152c6e40"
+            }
+        },
+        "82f6521046b00fa6a36e7b2658a3e68f562b28fece1f327410eb86548e18e406": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Spirit, please give every church in the state of Atlantique a passion to plant another simple church.",
+                "reference": "",
+                "verse": "",
+                "id": "82f6521046b00fa6a36e7b2658a3e68f562b28fece1f327410eb86548e18e406"
+            }
+        },
+        "0ed0fc633ad9a1fe4015b864fc0fac61bd079798be4a43ac31d14176ef014fa4": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Father, show your mercy on the 829,910 people in Atlantique who are far from you. Please add 179 new house churches this year.",
+                "reference": "",
+                "verse": "",
+                "id": "0ed0fc633ad9a1fe4015b864fc0fac61bd079798be4a43ac31d14176ef014fa4"
+            }
+        },
+        "89eb3198eb8e5790486adfa207361a72b5f223a35234def199f2c534cce83699": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Father, we agree with your desire that the people in the state of Atlantique hear about you.",
+                "reference": "Romans 15:21",
+                "verse": "&quot;Those who were not told about him will see, and those who have not heard will understand.&quot;",
+                "id": "89eb3198eb8e5790486adfa207361a72b5f223a35234def199f2c534cce83699"
+            }
+        },
+        "2bafc1eea1aa166dfdf401eec6e61102d8835bf70e04da8a70ff1fb846ce98b9": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Father, let every disciple be a disciple maker, every home a training center, and every church a church planting movement in the state of Atlantique, Benin.",
+                "reference": "",
+                "verse": "",
+                "id": "2bafc1eea1aa166dfdf401eec6e61102d8835bf70e04da8a70ff1fb846ce98b9"
+            }
+        },
+        "1179b33910ecbf5a5dae0a2c3004be0a06d48911723a90ad7d3139442e86e3aa": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Father, we ask for networks of simple churches in every city in the state of Atlantique, like Paul planted in Corinth and Ephesus.",
+                "reference": "1 Corinthians 16:19",
+                "verse": "The churches in the province of Asia send you greetings. Aquila and Priscilla greet you warmly in the Lord, and so does the church that meets at their house.",
+                "id": "1179b33910ecbf5a5dae0a2c3004be0a06d48911723a90ad7d3139442e86e3aa"
+            }
+        },
+        "ffe96d3b6b08408915f262183c85b13ee613116e798eb59ee953cd953e39edee": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Jesus, 896,900 people live in the state of Atlantique. Please, give them 179 new simple churches this year.",
+                "reference": "",
+                "verse": "",
+                "id": "ffe96d3b6b08408915f262183c85b13ee613116e798eb59ee953cd953e39edee"
+            }
+        },
+        "3046267889dc33e76da76809df3683586caae696c5bdf5ab32ff502a86b598c6": {
             "type": "basic_block",
             "data": {
                 "section_label": "Priesthood of Believers",
-                "prayer": "Father, encourage the 16,656 believers to have boldness before you, since they have a great high priest who has passed through the heavens, Jesus the Son of God.",
-                "reference": "Hebrews 4:14-16",
-                "verse": "Since then we have a great high priest who has passed through the heavens, Jesus, the Son of God, let us hold fast our confession.",
-                "id": "5681fe92e499f1a4d8831ce2edc9de198c52cc5cfbc836e301149f311fda78de"
+                "prayer": "Father, please raise up every one you have called in Atlantique, Benin to become worthy of their calling, and offer spiritual sacrifices acceptable to you through Jesus.",
+                "reference": "Ephesians 4:1",
+                "verse": "I urge you to live a life worthy of the calling you have received",
+                "id": "3046267889dc33e76da76809df3683586caae696c5bdf5ab32ff502a86b598c6"
+            }
+        },
+        "d9b41eb4d13ea3f4bd0c422d80f91603f65c09e06932f5523af7638534cd6676": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Person of Peace",
+                "prayer": "Father, reveal yourself to a faithful non-believer today, someone like Cornelius, and then Father please connect him with the church in Atlantique, Benin.",
+                "reference": "Acts 10:30-31",
+                "verse": "Cornelius answered: “Three days ago I was in my house praying at this hour, at three in the afternoon. Suddenly a man in shining clothes stood before me and said, ‘Cornelius, God has heard your prayer and remembered your gifts to the poor.&quot;",
+                "id": "d9b41eb4d13ea3f4bd0c422d80f91603f65c09e06932f5523af7638534cd6676"
+            }
+        },
+        "29788e27bcb653f6d97a00da6e82a68a823dd673bc4900bc79d65e0e12fb29c2": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Abundant Gospel Sowing",
+                "prayer": "Jesus, all authority was given to you, and you commanded all disciples in Atlantique, Benin to make more disciples, and you promised to be with them. May your power and their obedience make more disciples today.",
+                "reference": "Matthew 28:18-20",
+                "verse": "All authority in heaven and on earth has been given to me. Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything I have commanded you. And surely I am with you always, to the very end of the age.",
+                "id": "29788e27bcb653f6d97a00da6e82a68a823dd673bc4900bc79d65e0e12fb29c2"
+            }
+        },
+        "0b8bf671f17631e590805853913a5414c47ef958c5712cd20c374cf6b1edd500": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Intentional Multiplicative Strategies",
+                "prayer": "Jesus, help the church in the state of Atlantique to not rely on buildings or programs, but on your Spirit and the simple faithfulness of every believer.",
+                "reference": "",
+                "verse": "",
+                "id": "0b8bf671f17631e590805853913a5414c47ef958c5712cd20c374cf6b1edd500"
+            }
+        },
+        "26b86953103664f9d0e86599039fa19434f00063c280640ac64aa633b9623b55": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Prayer Movement",
+                "prayer": "Father, answer the requests of your people in the state of Atlantique.",
+                "reference": "1 John 5:14",
+                "verse": "This is the boldness which we have toward him, that, if we ask anything according to his will, he listens to us.",
+                "id": "26b86953103664f9d0e86599039fa19434f00063c280640ac64aa633b9623b55"
             }
         }
-    ],
+    },
     "location": {
-        "grid_id": "100219517",
-        "name": "Amreli",
-        "admin0_name": "India",
-        "full_name": "Amreli, Gujarat, India",
-        "population": "1,514,200",
-        "latitude": 21.4262,
-        "longitude": 71.2486,
-        "country_code": "IN",
-        "admin0_code": "IND",
-        "parent_id": "100219358",
-        "parent_name": "Gujarat",
-        "admin0_grid_id": "100219347",
-        "admin1_grid_id": "100219358",
-        "admin1_name": "Gujarat",
-        "admin2_grid_id": "100219517",
-        "admin2_name": "Amreli",
+        "grid_id": "100018014",
+        "name": "Atlantique",
+        "admin0_name": "Benin",
+        "full_name": "Atlantique, Benin",
+        "population": "896,900",
+        "latitude": 6.61192,
+        "longitude": 2.22164,
+        "country_code": "BJ",
+        "admin0_code": "BEN",
+        "parent_id": "100018011",
+        "parent_name": "Benin",
+        "admin0_grid_id": "100018011",
+        "admin1_grid_id": "100018014",
+        "admin1_name": "Atlantique",
+        "admin2_grid_id": null,
+        "admin2_name": null,
         "admin3_grid_id": null,
         "admin3_name": null,
         "admin4_grid_id": null,
         "admin4_name": null,
         "admin5_grid_id": null,
         "admin5_name": null,
-        "level": 2,
-        "level_name": "admin2",
-        "north_latitude": 22.0386,
-        "south_latitude": 20.8137,
-        "east_longitude": 71.7101,
-        "west_longitude": 70.7872,
-        "p_longitude": 71.3326,
-        "p_latitude": 22.4133,
-        "p_north_latitude": 24.7058,
-        "p_south_latitude": 20.1208,
-        "p_east_longitude": 74.4789,
-        "p_west_longitude": 68.1862,
-        "c_longitude": 82.8007,
-        "c_latitude": 21.1278,
-        "c_north_latitude": 35.5013,
-        "c_south_latitude": 6.75426,
-        "c_east_longitude": 97.4152,
-        "c_west_longitude": 68.1862,
-        "peer_locations": "33",
-        "birth_rate": 18.7,
-        "death_rate": 7.2,
-        "growth_rate": 1.115,
-        "believers": "16,656",
-        "christian_adherents": "18,372",
-        "non_christians": "1,479,172",
-        "primary_language": "Hindi",
-        "primary_religion": "Hinduism",
-        "percent_believers": 1.1,
-        "percent_christian_adherents": 1.21,
-        "percent_non_christians": 97.69,
-        "admin_level_name": "county",
-        "admin_level_title": "the county",
-        "admin_level_name_cap": "County",
-        "admin_level_name_plural": "counties",
-        "population_int": 1514200,
-        "believers_int": 16656,
-        "christian_adherents_int": 18372,
-        "non_christians_int": 1479172,
-        "percent_believers_full": 1.1,
-        "percent_christian_adherents_full": 1.21333,
-        "percent_non_christians_full": 97.6867,
-        "all_lost_int": 1497544,
-        "all_lost": "1,497,544",
-        "lost_per_believer_int": 90,
-        "lost_per_believer": "90",
-        "population_growth_status": "Significant Growth",
-        "deaths_non_christians_next_hour": "1",
-        "deaths_non_christians_next_100": "123",
-        "deaths_non_christians_next_week": "206",
-        "deaths_non_christians_next_month": "886",
-        "deaths_non_christians_next_year": "10,782",
+        "level": 1,
+        "level_name": "admin1",
+        "north_latitude": 6.93056,
+        "south_latitude": 6.30125,
+        "east_longitude": 2.4888,
+        "west_longitude": 1.95722,
+        "p_longitude": 2.31314,
+        "p_latitude": 9.32675,
+        "p_north_latitude": 12.4184,
+        "p_south_latitude": 6.23514,
+        "p_east_longitude": 3.8517,
+        "p_west_longitude": 0.774574,
+        "c_longitude": 2.31314,
+        "c_latitude": 9.32675,
+        "c_north_latitude": 12.4184,
+        "c_south_latitude": 6.23514,
+        "c_east_longitude": 3.8517,
+        "c_west_longitude": 0.774574,
+        "peer_locations": "12",
+        "birth_rate": 34.5,
+        "death_rate": 9,
+        "growth_rate": 1.255,
+        "believers": "66,991",
+        "christian_adherents": "216,148",
+        "non_christians": "613,762",
+        "primary_language": "French",
+        "primary_religion": "Christianity",
+        "percent_believers": 7.47,
+        "percent_christian_adherents": 24.1,
+        "percent_non_christians": 68.43,
+        "admin_level_name": "state",
+        "admin_level_title": "the state",
+        "admin_level_name_cap": "State",
+        "admin_level_name_plural": "states",
+        "population_int": 896900,
+        "believers_int": 66991,
+        "christian_adherents_int": 216148,
+        "non_christians_int": 613762,
+        "percent_believers_full": 7.46912,
+        "percent_christian_adherents_full": 24.0994,
+        "percent_non_christians_full": 68.4315,
+        "all_lost_int": 829910,
+        "all_lost": "829,910",
+        "lost_per_believer_int": 13,
+        "lost_per_believer": "13",
+        "population_growth_status": "Extreme Growth",
+        "deaths_non_christians_next_hour": "0",
+        "deaths_non_christians_next_100": "85",
+        "deaths_non_christians_next_week": "143",
+        "deaths_non_christians_next_month": "613",
+        "deaths_non_christians_next_year": "7,469",
         "births_non_christians_last_hour": "3",
-        "births_non_christians_last_100": "319",
-        "births_non_christians_last_week": "537",
-        "births_non_christians_last_month": "2,301",
-        "births_non_christians_last_year": "28,004",
+        "births_non_christians_last_100": "326",
+        "births_non_christians_last_week": "549",
+        "births_non_christians_last_month": "2,353",
+        "births_non_christians_last_year": "28,631",
         "deaths_christian_adherents_next_hour": "0",
-        "deaths_christian_adherents_next_100": "1",
-        "deaths_christian_adherents_next_week": "2",
-        "deaths_christian_adherents_next_month": "10",
-        "deaths_christian_adherents_next_year": "132",
+        "deaths_christian_adherents_next_100": "22",
+        "deaths_christian_adherents_next_week": "37",
+        "deaths_christian_adherents_next_month": "159",
+        "deaths_christian_adherents_next_year": "1,945",
         "births_christian_adherents_last_hour": "0",
-        "births_christian_adherents_last_100": "3",
-        "births_christian_adherents_last_week": "6",
-        "births_christian_adherents_last_month": "28",
-        "births_christian_adherents_last_year": "343",
+        "births_christian_adherents_last_100": "85",
+        "births_christian_adherents_last_week": "143",
+        "births_christian_adherents_last_month": "612",
+        "births_christian_adherents_last_year": "7,457",
         "deaths_among_lost": "0",
-        "new_churches_needed": "302",
+        "new_churches_needed": "179",
         "favor": "non_christians",
         "icon_color": "brand-lighter",
-        "people_groups_list": "Patni Jamat, Yadav Golarana, Lohana, Kharva (Muslim traditions), Siddi (Muslim traditions)",
-        "people_groups_list_w_pop": "Patni Jamat (1,300), Yadav Golarana (900), Lohana (580,000), Kharva (Muslim traditions) (700), Siddi (Muslim traditions) (13,000)",
-        "cities_list": "Amreli, Kundla, Savarkundla, Rājula, Bagasra",
-        "cities_list_w_pop": "Amreli (99,742), Kundla (76,809), Savarkundla (73,695), Rājula (34,652), Bagasra (32,944)"
+        "people_groups_list": "Batonu, Baruba, Aguna, Biali, Ede Nago, Kura, Anii",
+        "people_groups_list_w_pop": "Batonu, Baruba (928,000), Aguna (19,000), Biali (162,000), Ede Nago, Kura (44,000), Anii (46,000)",
+        "cities_list": "Abomey-Calavi, Ouidah, Allada, Hévié, Hinvi",
+        "cities_list_w_pop": "Abomey-Calavi (385,755), Ouidah (83,503), Allada (20,094), Hévié (13,450), Hinvi (3,604)"
     },
     "parts": {
         "root": "prayer_app",
-        "type": "custom",
-        "meta_key": "prayer_app_custom_magic_key",
-        "public_key": "1bbb6c",
+        "type": "global",
+        "meta_key": "prayer_app_global_magic_key",
+        "public_key": "49ba4c",
         "action": "",
-        "post_id": 1331,
+        "post_id": 1321,
         "post_type": "laps",
         "instance_id": ""
     }
