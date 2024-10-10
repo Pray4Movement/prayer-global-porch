@@ -353,6 +353,7 @@ hr {
     font-size: 2rem;
     text-align: center;
     width: 70%;
+    max-width: 30ch;
     margin-left: auto;
     margin-right: auto;
 }

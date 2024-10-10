@@ -114,11 +114,11 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'current_lap' => pg_current_global_lap(),
                     'translations' => [
                         'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
-                        'Keep Praying...' => __( 'Keep Praying...', 'prayer-global-porch' ),
+                        'keep_praying' => __( 'Keep Praying...', 'prayer-global-porch' ),
                         "Don't Know Jesus" => __( "Don't Know Jesus", 'prayer-global-porch' ),
                         'Know About Jesus' => __( 'Know About Jesus', 'prayer-global-porch' ),
                         'Know Jesus' => __( 'Know Jesus', 'prayer-global-porch' ),
-                        'Praying Paused' => __( 'Praying Paused', 'prayer-global-porch' ),
+                        'praying_paused' => __( 'Praying Paused', 'prayer-global-porch' ),
                         'Great Job!' => __( 'Great Job!', 'prayer-global-porch' ),
                         'Prayer Added!' => __( 'Prayer Added!', 'prayer-global-porch' ),
                     ],
@@ -180,7 +180,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 <div class="btn btn-praying prayer-odometer">
                     <i class="icon pg-prayer"></i><span class="location-count">0</span>
                 </div>
-                <button type="button" class="btn praying-timer" data-percent="0" data-seconds="0">
+                <button type="button" class="btn praying-timer" id="praying-button" data-percent="0" data-seconds="0">
                     <div class="praying__progress"></div>
                     <span class="praying__text uppercase font-weight-normal"></span>
                 </button>

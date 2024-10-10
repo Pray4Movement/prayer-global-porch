@@ -1,3 +1,86 @@
+window.paused = false
+
+const contentElement = document.querySelector('#content')
+const prayingText = document.querySelector('.praying__text')
+const locationName = document.querySelector('#location-name')
+const prayingButton = document.querySelector('#praying-button')
+const prayingCloseButton = document.querySelector('#praying__close_button')
+const prayingContinueButton = document.querySelector('#praying__continue_button')
+
+const decisionPanel = document.querySelector('#decision-panel')
+const questionPanel = document.querySelector('#question-panel')
+
+checkForLocationAndLoad(init)
+
+function init(location) {
+
+  renderContent(location)
+
+  toggleTimer( false )
+
+  setupListeners()
+}
+
+function setupListeners() {
+  prayingButton.addEventListener('click', () => toggleTimer())
+  prayingCloseButton.addEventListener('click', () => toggleTimer(true))
+  prayingContinueButton.addEventListener('click', () => toggleTimer(false))
+}
+
+function toggleTimer( pause ) {
+  console.log(pause)
+  let pauseTimer = false
+
+  if ( typeof pause === 'undefined' ) {
+    pauseTimer = !window.paused
+  } else {
+    pauseTimer = pause
+  }
+  window.paused = pauseTimer
+  console.log(pauseTimer)
+
+  if (pauseTimer) {
+    prayingText.innerHTML = escapeHTML(jsObject.translations.praying_paused)
+
+    /* Show and hide the neccessary UI */
+    hide(prayingCloseButton)
+    show(prayingContinueButton)
+
+    show(decisionPanel)
+
+    /* clear the interval */
+  } else {
+    prayingText.innerHTML = escapeHTML(jsObject.translations.keep_praying)
+
+    /* Show and hide the necessary UI */
+    show(prayingCloseButton)
+    hide(prayingContinueButton)
+
+    hide(decisionPanel)
+
+    /* Restart the interval */
+  }
+}
+
+function hide(element) {
+  element.dataset.oldDisplay = element.style.display !== 'none' ? element.style.display : 'block'
+  element.style.display = 'none'
+}
+function show(element) {
+  element.style.display = element.dataset.oldDisplay || 'block'
+}
+
+function escapeHTML(str) {
+  if (typeof str === 'undefined') return '';
+  if (typeof str !== 'string') return str;
+  return str
+  .replace(/&/g, '&amp;')
+  .replace(/</g, '&lt;')
+  .replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;')
+  .replace(/'/g, '&apos;');
+}
+
 /* Fly away the see more button after a little bit of scroll */
 const seeMoreButton = document.querySelector('#see-more-button')
 if (window.scrollY < 100) {
@@ -34,16 +117,15 @@ function checkForLocationAndLoad(callback) {
     }, 50)
 }
 
-const contentElement = document.querySelector('#content')
-
-checkForLocationAndLoad(renderContent)
-
 function renderContent(content) {
     if (!content) {
         return
     }
 
     const { location, list, parts } = content
+
+
+    locationName.innerHTML = escapeHTML( jsObject.translations.state_of_location.replace('%1$s', location.admin_level_name_cap).replace('%2$s', location.full_name) )
 
     /* Render the content */
     const blockTemplates = list.map((block) => getBlockTemplate(block))
