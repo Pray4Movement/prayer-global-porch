@@ -479,7 +479,7 @@ function _template_4_fact_blocks(data) {
 function _template_bullet_list_2_column(data) {
     if (data.values.length > 0) {
         let values_list = ''
-        jQuery.each(data.values, function (i, v) {
+        data.values.forEath(function (v) {
             values_list += '<p>' + v + '</p>'
         })
         return (
@@ -510,35 +510,33 @@ function _template_bullet_list_2_column(data) {
 function _template_people_groups_list(data) {
     let values_list = ''
     let image = ''
-    jQuery.each(data.values, function (i, v) {
+    Object.values(data.values).forEach(function (v) {
         if (v.image_url) {
-            image = '<div style="background-image:url(' + v.image_url + '); width:200px; height:200px;background-size: cover;background-repeat: no-repeat;" class="img-fluid rounded-3"></div>'
+            image = `<div style="background-image:url(${v.image_url}); width:200px; height:200px;background-size: cover;background-repeat: no-repeat;" class="bg-img img-fluid"></div>`
         } else {
-            image = '<div style=" height:200px;"><img class="img-fluid" src="' + jsObject.nope + '" alt="" /></div>'
+            image = `
+                <div style=" height:200px;">
+                    <img class="img-fluid" src="${jsObject.nope}" alt="" />
+                </div>`
         }
-        values_list += '<div class="col-6 col-md-4 col-lg-2 mb-1"><p class="mb-2 text-center">' + image + '</p><p class="text-center"><img src="' + v.progress_image_url + '" class="img-fluid" alt="" /></p><p class="text-center">' + v.description + '</p></div>'
+        values_list += `
+            <div class="flow">
+                <p class="mb-2 text-center">${image}</p>
+                <div>
+                    <img src="${v.progress_image_url}" class="img-fluid" alt="" />
+                </div>
+                <p>${v.description}</p>
+            </div>
+        `
     })
-    return (
-        `<div class="block people-groups-list-block">
-          <div class="row">
-          <div class="col text-center ">
-             <h5 class="mb-0 uc">${data.section_label}</h5>
-          </div>
+    return `
+        <div class="block people-groups-list-block">
+            <h5>${data.section_label}</h5>
+            <div class="content switcher">
+                ${values_list}
+            </div>
         </div>
-        <div class="row text-center justify-content-center">
-          ${values_list}
-        </div>
-        <div class="row text-center">
-          <div class="col">
-             <p class="font-weight-normal">${data.section_summary}</p>
-          </div>
-        </div>
-        <div class="row text-center justify-content-center">
-          <div class="col-md-8">
-             <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
-          </div>
-      </div>
-    </div>`)
+    `
 }
 function _template_least_reached_block(data) {
     let image

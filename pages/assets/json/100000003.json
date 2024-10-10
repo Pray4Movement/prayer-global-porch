@@ -1,0 +1,683 @@
+{
+    "list": {
+        "0": {
+            "type": "photo_block",
+            "data": {
+                "section_label": "One Shot Prayer Walk",
+                "location_label": "Photo from the county of Zhaoqing, Guangdong, China",
+                "url": "https://storage.googleapis.com/location-grid-images/v1/grid/100050803/photos/intersections_b430bcb8bc8bf.jpg",
+                "section_summary": "What people or activities could you pray for in this photo?",
+                "prayer": ""
+            }
+        },
+        "1": {
+            "type": "percent_3_circles",
+            "data": {
+                "section_label": "Faith Status",
+                "label_1": "Don't Know Jesus",
+                "percent_1": 90.8,
+                "population_1": "3,034,119",
+                "label_2": "Know About Jesus",
+                "percent_2": 1.62,
+                "population_2": "53,983",
+                "label_3": "Know Jesus",
+                "percent_3": 7.59,
+                "population_3": "253,497",
+                "section_summary": "",
+                "prayer": ""
+            }
+        },
+        "2": {
+            "type": "100_bodies_chart",
+            "data": {
+                "section_label": "Faith Status",
+                "percent_1": 90.8,
+                "percent_2": 1.62,
+                "percent_3": 7.59,
+                "pop_1": 90.8,
+                "pop_2": 1.62,
+                "pop_3": 7.59,
+                "pop_1_label": "Non-Christians",
+                "pop_2_label": "Cultural Christians",
+                "pop_3_label": "Believers",
+                "section_summary": "Non-Christians - 3,034,119 | Cultural Christians - 53,983 | Believers - 253,497",
+                "prayer": ""
+            }
+        },
+        "3": {
+            "type": "100_bodies_3_chart",
+            "data": {
+                "section_label": "Faith Status",
+                "label_1": "Don't Know Jesus",
+                "percent_1": 90.8,
+                "population_1": "3,034,119",
+                "label_2": "Know About Jesus",
+                "percent_2": 1.62,
+                "population_2": "53,983",
+                "label_3": "Know Jesus",
+                "percent_3": 7.59,
+                "population_3": "253,497",
+                "section_summary": "",
+                "prayer": ""
+            }
+        },
+        "4": {
+            "type": "people_groups_list",
+            "data": {
+                "section_label": "People Groups In The Area",
+                "values": {
+                    "12057": {
+                        "name": "Han Chinese, Cantonese",
+                        "image_url": "https://storage.googleapis.com/location-grid-images/v1/jp/pid3/12057.jpg",
+                        "description": "Han Chinese, Cantonese<br>(Non-Religious)",
+                        "progress": "4",
+                        "progress_image_url": "https://storage.googleapis.com/location-grid-images/v1/jp/progress/4.png",
+                        "least_reached": "N"
+                    },
+                    "18473": {
+                        "name": "Han Chinese, Dan",
+                        "image_url": "https://storage.googleapis.com/location-grid-images/v1/jp/pid3/18473.jpg",
+                        "description": "Han Chinese, Dan<br>(Ethnic Religions)",
+                        "progress": "4",
+                        "progress_image_url": "https://storage.googleapis.com/location-grid-images/v1/jp/progress/4.png",
+                        "least_reached": "N"
+                    }
+                },
+                "section_summary": "",
+                "prayer": ""
+            }
+        },
+        "5": {
+            "type": "lost_per_believer",
+            "data": {
+                "section_label": "Faith Status",
+                "label_1": "One disciple of Jesus for every 13 lost neighbors",
+                "lost_per_believer": 13,
+                "prayer": ""
+            }
+        },
+        "6": {
+            "type": "population_change_icon_block",
+            "data": {
+                "section_label": "Next hour",
+                "count": "4",
+                "group": "non_christians",
+                "type": "births",
+                "size": 3,
+                "section_summary": "On average, 4 babies will be born in the next hour to families who are far from God in Zhaoqing, Guangdong, China.",
+                "prayer": "Lord, reveal yourself to these new families."
+            }
+        },
+        "7": {
+            "type": "content_block",
+            "data": {
+                "section_label": "Demographics",
+                "focus_label": "Zhaoqing, Guangdong, China",
+                "icon": "ion-map",
+                "color": "brand-lighter",
+                "section_summary": "the county of <strong>Zhaoqing, Guangdong, China</strong> has a population of <strong>3,341,600</strong>.<br><br>We estimate Zhaoqing has <strong>253,497</strong> people who might know Jesus, <strong>53,983</strong> people who might know about Jesus culturally, and <strong>3,034,119</strong> people who do not know Jesus.<br><br>This is <strong>1</strong> believer for every <strong>13</strong> neighbors who need Jesus.",
+                "prayer": ""
+            }
+        },
+        "8": {
+            "type": "4_fact_blocks",
+            "data": {
+                "section_label": "Demographics",
+                "focus_label": "Zhaoqing, Guangdong, China",
+                "label_1": "Population",
+                "value_1": "3,341,600",
+                "size_1": "two-em",
+                "label_2": "Believers",
+                "value_2": "253,497",
+                "size_2": "two-em",
+                "label_3": "Dominant Religion",
+                "value_3": "Agnosticism or Atheism",
+                "size_3": "two-em",
+                "label_4": "Language",
+                "value_4": "Chinese, Mandarin",
+                "size_4": "two-em",
+                "section_summary": "",
+                "prayer": ""
+            }
+        },
+        "9": {
+            "type": "4_fact_blocks",
+            "data": {
+                "section_label": "Demographics",
+                "focus_label": "Zhaoqing, Guangdong, China",
+                "label_1": "Non-Christians",
+                "value_1": "3,034,119",
+                "size_1": "two-em",
+                "label_2": "Cultural Christians",
+                "value_2": "53,983",
+                "size_2": "two-em",
+                "label_3": "Believers",
+                "value_3": "253,497",
+                "size_3": "two-em",
+                "label_4": "Language",
+                "value_4": "Chinese, Mandarin",
+                "size_4": "two-em",
+                "section_summary": "",
+                "prayer": ""
+            }
+        },
+        "65f3bf696a8f58e8bf751bad5eb0e04c1bd85b45c6ace673f0265991ffeb5c0f": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Suffering",
+                "prayer": "Father, see the suffering of your people in the county of Zhaoqing. Deliver all those who have not forgotten your Word.",
+                "reference": "Psalm 119:153",
+                "verse": "Look on my suffering and deliver me, for I have not forgotten your law.",
+                "id": "65f3bf696a8f58e8bf751bad5eb0e04c1bd85b45c6ace673f0265991ffeb5c0f"
+            }
+        },
+        "fb5db5a7bffab0aafc8cd31629ed9e7c57dcb8f3ef4393d270326248d70cc441": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Urgency",
+                "prayer": "Spirit, encourage the church in Zhaoqing, Guangdong, China to make the most of every opportunity.",
+                "reference": "Ephesians 5:15-16",
+                "verse": "Be very careful, then, how you live—not as unwise but as wise, making the most of every opportunity, because the days are evil.",
+                "id": "fb5db5a7bffab0aafc8cd31629ed9e7c57dcb8f3ef4393d270326248d70cc441"
+            }
+        },
+        "6fbab49fc8504fd641d7ec4da55e317135e4d5de8cbc539c8ee56d7bef9f5b8b": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Love",
+                "prayer": "Lord, stir the hearts of your people in Zhaoqing to agree with you and with one another.",
+                "reference": "",
+                "verse": "",
+                "id": "6fbab49fc8504fd641d7ec4da55e317135e4d5de8cbc539c8ee56d7bef9f5b8b"
+            }
+        },
+        "440a3040d76a3fa6f227bbdc6fd08552f89c13eca888f61ccf5d72a8672da9e1": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Prayer Movement",
+                "prayer": "Spirit, sanctify the 253,497 believers in Zhaoqing and keep them blameless until Jesus returns.",
+                "reference": "1 Thessalonians 5:23-24",
+                "verse": "May the God of peace himself sanctify you completely. May your whole spirit, soul, and body be preserved blameless at the coming of our Lord Jesus Christ. He who calls you is faithful, who will also do it.",
+                "id": "440a3040d76a3fa6f227bbdc6fd08552f89c13eca888f61ccf5d72a8672da9e1"
+            }
+        },
+        "dc43d99aee4fe08536426dcab386723c0096098c37695d5b2a78a7e645e64cd5": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Reliance on God",
+                "prayer": "Father, encourage your church in Zhaoqing that you never forsake them.",
+                "reference": "Psalm 9:10",
+                "verse": "Those who know your name will put their trust in you, for you, Yahweh, have not forsaken those who seek you.",
+                "id": "dc43d99aee4fe08536426dcab386723c0096098c37695d5b2a78a7e645e64cd5"
+            }
+        },
+        "ede016ec39fb32201e3ae2662e08eda276d881aae4cc88069c3f9999a14490cd": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Obedience",
+                "prayer": "Jesus, please help the 253,497 believers in the county of Zhaoqing to be filled with joyful obedience at all times, as you modeled for us all.",
+                "reference": "",
+                "verse": "",
+                "id": "ede016ec39fb32201e3ae2662e08eda276d881aae4cc88069c3f9999a14490cd"
+            }
+        },
+        "78c7b40a369da938fecc5cbdf1b7fd6752e0dc9af0bd5d0b9316885a71075eea": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Biblical Authority",
+                "prayer": "Spirit, instill a desire within the people of the the county of Zhaoqing to hide your Word in their heart.",
+                "reference": "Psalm 119:11",
+                "verse": "I have hidden your Word in my heart that I might not sin against you.",
+                "id": "78c7b40a369da938fecc5cbdf1b7fd6752e0dc9af0bd5d0b9316885a71075eea"
+            }
+        },
+        "a54e00fe8c816fb997f0db387fb246977e936dbb651d1d5a793ccd4a483d03cf": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Teachers",
+                "prayer": "Father, please send teachers of your Word in Zhaoqing who can speak your gospel boldly and clearly.",
+                "reference": "",
+                "verse": "",
+                "id": "a54e00fe8c816fb997f0db387fb246977e936dbb651d1d5a793ccd4a483d03cf"
+            }
+        },
+        "a6289ce5ca7a80f75d1d8d8b8eac1d4cb48d975410fa58ff6f7fa212d89e8e80": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Shepherds and Pastors",
+                "prayer": "Father, you gave the church of Zhaoqing, Guangdong, China the greatest shepherd of all time, Jesus. Please, help them listen to him.",
+                "reference": "Ezekiel 34:23",
+                "verse": "I will place over them one shepherd, my servant David, and he will tend them; he will tend them and be their shepherd.",
+                "id": "a6289ce5ca7a80f75d1d8d8b8eac1d4cb48d975410fa58ff6f7fa212d89e8e80"
+            }
+        },
+        "6352f442b6b9407f7837973a915871684ef44fb2890c6dc13e0df8fb913a3632": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Prophets and Truth Speakers",
+                "prayer": "Jesus, strengthen the church in Zhaoqing, Guangdong, China by giving a prophet, as you said you would, who is bold and willing to correct. Lord, may the believers care about holiness as you do.",
+                "reference": "Ephesians 4:11-12",
+                "verse": "So Christ himself gave the apostles, the prophets, the evangelists, the pastors and teachers, to equip his people for works of service, so that the body of Christ may be built up",
+                "id": "6352f442b6b9407f7837973a915871684ef44fb2890c6dc13e0df8fb913a3632"
+            }
+        },
+        "c869e0654534fafe92937955f2efcb6efd1d3fe4f0e4926edc8e5de3f50fa152": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Evangelists and Harvest Workers",
+                "prayer": "Jesus, you said you were the giver of evangelists to the church. Please, send more evangelists to the the county of Zhaoqing, Guangdong, China.",
+                "reference": "Ephesians 4:11-12",
+                "verse": "So Christ himself gave the apostles, the prophets, the evangelists, the pastors and teachers, to equip his people for works of service, so that the body of Christ may be built up",
+                "id": "c869e0654534fafe92937955f2efcb6efd1d3fe4f0e4926edc8e5de3f50fa152"
+            }
+        },
+        "eb7e44b62bdb092f40f207abb99333456c3333e54eec5fd15dbb36e3d69eb194": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Apostles and Pioneers",
+                "prayer": "Lord, raise up apostolic workers to plant churches in every town in the county of Zhaoqing.",
+                "reference": "Titus 1:5",
+                "verse": "The reason I left you in Crete was that you might put in order what was left unfinished and appoint elders in every town, as I directed you.",
+                "id": "eb7e44b62bdb092f40f207abb99333456c3333e54eec5fd15dbb36e3d69eb194"
+            }
+        },
+        "8c34d0c8f2315afc8197739ee1f9f2beef06fb12fddd8a983da6c3a4e15ba87f": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Local Leadership",
+                "prayer": "God, we ask you to raise up elders and deacons from the 253,497 believers in Zhaoqing, who will serve the church and equip it to do your work.",
+                "reference": "Ephesians 4:11-13",
+                "verse": "So Christ himself gave the apostles, the prophets, the evangelists, the pastors and teachers, to equip his people for works of service, so that the body of Christ may be built up until we all reach unity in the faith and in the knowledge of the Son of God and become mature, attaining to the whole measure of the fullness of Christ.",
+                "id": "8c34d0c8f2315afc8197739ee1f9f2beef06fb12fddd8a983da6c3a4e15ba87f"
+            }
+        },
+        "545bec109fbaf347ec3796e7b6a301374b1c2c615d927472ebad7be6df29a4c2": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Non-Christians",
+                "prayer": "Jesus, call those who are far off in Zhaoqing, Guangdong, China, so that they and their family can receive life.",
+                "reference": "Acts 2:39",
+                "verse": "For the promise is to you, and to your children, and to all who are far off, even as many as the Lord our God will call to himself.",
+                "id": "545bec109fbaf347ec3796e7b6a301374b1c2c615d927472ebad7be6df29a4c2"
+            }
+        },
+        "3410d12468b34bcb3d21e376469d3db89394734a749d99a8d15c0c51a42a9939": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Population",
+                "prayer": "Pour your Spirit out on the 3,341,600 citizens of Zhaoqing, Guangdong, China, so that they might know your name and the name of your Son.",
+                "reference": "Joel 2:28",
+                "verse": "And afterward, I will pour out my Spirit on all people. your sons and daughters will prophesy, your old men will dream dreams, your young men will see visions.",
+                "id": "3410d12468b34bcb3d21e376469d3db89394734a749d99a8d15c0c51a42a9939"
+            }
+        },
+        "aa57cb289972cfa17d73350f9f7f0b1c0ee97ebbc1c5e19da3c9f71efc2194b0": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Safety",
+                "prayer": "Spirit, help the fearful in Zhaoqing, Guangdong, China to submit to God and resist the devil.",
+                "reference": "James 4:7",
+                "verse": "Submit yourselves, then, to God. Resist the devil, and he will flee from you.",
+                "id": "aa57cb289972cfa17d73350f9f7f0b1c0ee97ebbc1c5e19da3c9f71efc2194b0"
+            }
+        },
+        "bd7987709e476296b659c9bb57eae216dfc4a216d182e91258def5156f0b6d7c": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Media",
+                "prayer": "Jesus, make yourself known to the 3,341,600 people living in Zhaoqing through the internet today.",
+                "reference": "Psalm 19:3-4",
+                "verse": "They have no speech, they use no words; no sound is heard from them. Yet their voice goes out into all the earth, their words to the ends of the world. In the heavens God has pitched a tent for the sun.",
+                "id": "bd7987709e476296b659c9bb57eae216dfc4a216d182e91258def5156f0b6d7c"
+            }
+        },
+        "693cea7282e5ec5330fba45f5e7e75e3e88c470bd777483fd3e405ff28fe225b": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Bible Access",
+                "prayer": "Spirit, how will they hear without a preacher? How will they preach unless they have a Bible? Please give the people in the county of Zhaoqing access to a Bible in their own language.",
+                "reference": "Romans 10:14-15",
+                "verse": "How, then, can they call on the one they have not believed in? And how can they believe in the one of whom they have not heard? And how can they hear without someone preaching to them? And how can anyone preach unless they are sent? As it is written: “How beautiful are the feet of those who bring good news!”",
+                "id": "693cea7282e5ec5330fba45f5e7e75e3e88c470bd777483fd3e405ff28fe225b"
+            }
+        },
+        "29b9cd744c99c38299276556ca08ef7295aeb24405a9d92580c51423bf23b34b": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "God, guide the 253,497 believers in Zhaoqing to multiply spiritual families that love you, love each other, and make disciples.",
+                "reference": "",
+                "verse": "",
+                "id": "29b9cd744c99c38299276556ca08ef7295aeb24405a9d92580c51423bf23b34b"
+            }
+        },
+        "51fb0d61161414ed5fdcfd99dd09641cbdaabeec547012c902ac15a955862b87": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "Spirit, help the 253,497 believers in Zhaoqing to start simple multiplying churches in their homes.",
+                "reference": "",
+                "verse": "",
+                "id": "51fb0d61161414ed5fdcfd99dd09641cbdaabeec547012c902ac15a955862b87"
+            }
+        },
+        "ecedbabf161ad668b550f3e25ac033780e160fc6d137ec26daf3f1de39a4e4e4": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "Father, we pray that the the county of Zhaoqing be filled with simple churches in every neighborhood.",
+                "reference": "Isaiah 11:9",
+                "verse": "For the earth will be full of the knowledge of the Lord, as the waters cover the sea.",
+                "id": "ecedbabf161ad668b550f3e25ac033780e160fc6d137ec26daf3f1de39a4e4e4"
+            }
+        },
+        "15ef2c62ac031fdb61785be2c634c5c25b7d1b27363f13c04a8f12209ad1d12c": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "Father, we ask for 668 new simple churches in the county of Zhaoqing, Guangdong, China. Place a simple church in every community of the 3,341,600 people living here.",
+                "reference": "Psalm 72:19",
+                "verse": "And blessed be His glorious name forever; And may the whole earth be filled with His glory. Amen, and Amen.",
+                "id": "15ef2c62ac031fdb61785be2c634c5c25b7d1b27363f13c04a8f12209ad1d12c"
+            }
+        },
+        "e52ce95fd9eb70f0e48efdb7837e1176f417ba5467e656291f95936fab6dea07": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "Spirit, teach the 253,497 believers in the county of Zhaoqing the wisdom of how to form simple, reproducible churches of 12-30 in every neighborhood.",
+                "reference": "",
+                "verse": "",
+                "id": "e52ce95fd9eb70f0e48efdb7837e1176f417ba5467e656291f95936fab6dea07"
+            }
+        },
+        "d138bb1207563fff1c026a4ab4b8d6c925be00fb27b685e09584f72528ec33eb": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "Father, bless the the county of Zhaoqing with a multiplying movement of house churches.",
+                "reference": "Numbers 14:21",
+                "verse": "...but indeed, as I live, all the earth will be filled with the glory of the Lord.",
+                "id": "d138bb1207563fff1c026a4ab4b8d6c925be00fb27b685e09584f72528ec33eb"
+            }
+        },
+        "2c518a5947914b54958a74814ce9babd66d8bdf6a66b1c3262fde5c430c25c73": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Unleashing Simple Churches",
+                "prayer": "God, we pray both the men and women of Zhaoqing, Guangdong, China will find ways to meet in groups of two or three to encourage and correct one another from your Word.",
+                "reference": "",
+                "verse": "",
+                "id": "2c518a5947914b54958a74814ce9babd66d8bdf6a66b1c3262fde5c430c25c73"
+            }
+        },
+        "6c514529695d81cd004818df22e5b5a1ec1354a16770b0c0668ce49af9637ae8": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "The Church",
+                "prayer": "Father, multiply brothers, sisters, and mothers to our spiritual family in Zhaoqing, Guangdong, China.",
+                "reference": "Matthew 12:48-50",
+                "verse": "He replied to him, “Who is my mother, and who are my brothers?” Pointing to his disciples, he said, “Here are my mother and my brothers. For whoever does the will of my Father in heaven is my brother and sister and mother.”",
+                "id": "6c514529695d81cd004818df22e5b5a1ec1354a16770b0c0668ce49af9637ae8"
+            }
+        },
+        "c281b4e2f5879b6faa6151e713249b6d39417f8536ff26ad59a9761597df85e3": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "The Church",
+                "prayer": "Father, we rejoice that you who began a good work in the church of Zhaoqing, Guangdong, China will carry it on to completion until the day of Jesus Christ!",
+                "reference": "Philippians 1:6",
+                "verse": "being confident of this, that he who began a good work in you will carry it on to completion until the day of Christ Jesus.",
+                "id": "c281b4e2f5879b6faa6151e713249b6d39417f8536ff26ad59a9761597df85e3"
+            }
+        },
+        "4cb78164f87a46400ed07cb7793bb51135db0f8c3a009b0bd1a51933f4f46aaf": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "The Church",
+                "prayer": "Father, remind your church in Zhaoqing, Guangdong, China that you have set your Son over all rule and authority, power and dominion, and every name that is invoked.",
+                "reference": "Ephesians 1:20-21",
+                "verse": "he raised Christ from the dead and seated him at his right hand in the heavenly realms, far above all rule and authority, power and dominion, and every name that is invoked, not only in the present age but also in the one to come.",
+                "id": "4cb78164f87a46400ed07cb7793bb51135db0f8c3a009b0bd1a51933f4f46aaf"
+            }
+        },
+        "ef20fe51f9fe318153b2bcf9586479949f79ce10a2854497cb5743933fd4a70b": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Father, help 668 new simple churches start among the 3,341,600 people in the the county of Zhaoqing, Guangdong, China. One within reach of everyone living here.",
+                "reference": "Habakkuk 2:14",
+                "verse": "For the earth will be filled with the knowledge of the glory of the Lord as the waters cover the sea.",
+                "id": "ef20fe51f9fe318153b2bcf9586479949f79ce10a2854497cb5743933fd4a70b"
+            }
+        },
+        "1acd9c20a5055278a9d23acf207e988f652a587d188b210745a441daf469a5c2": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Spirit, please start new house churches in every neighborhood of the the county of Zhaoqing.",
+                "reference": "Habakkuk 2:14",
+                "verse": "For the earth will be filled with the knowledge of the glory of the Lord as the waters cover the sea.",
+                "id": "1acd9c20a5055278a9d23acf207e988f652a587d188b210745a441daf469a5c2"
+            }
+        },
+        "02244263c8abe67b4af5809fccc5bd3376bf45f5e0465f3ea347e5835bafca54": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Spirit, please give every church in the county of Zhaoqing a passion to plant another simple church.",
+                "reference": "",
+                "verse": "",
+                "id": "02244263c8abe67b4af5809fccc5bd3376bf45f5e0465f3ea347e5835bafca54"
+            }
+        },
+        "0e45c1e7b4df6f833ec7309fcc87aef955b2e42e1f04a4e592dbc53ccfbd389b": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Father, show your mercy on the 3,088,102 people in Zhaoqing who are far from you. Please add 668 new house churches this year.",
+                "reference": "",
+                "verse": "",
+                "id": "0e45c1e7b4df6f833ec7309fcc87aef955b2e42e1f04a4e592dbc53ccfbd389b"
+            }
+        },
+        "9d147496abf64925aa60de8f3e6a137dad816e7ab0d3f601294e7a2c6d23c79e": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Father, we agree with your desire that the people in the county of Zhaoqing hear about you.",
+                "reference": "Romans 15:21",
+                "verse": "&quot;Those who were not told about him will see, and those who have not heard will understand.&quot;",
+                "id": "9d147496abf64925aa60de8f3e6a137dad816e7ab0d3f601294e7a2c6d23c79e"
+            }
+        },
+        "560666f8285678d4208a7dad8a366a860cb1371e9fafd98709201f99b2c4a6cc": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Father, let every disciple be a disciple maker, every home a training center, and every church a church planting movement in the county of Zhaoqing, Guangdong, China.",
+                "reference": "",
+                "verse": "",
+                "id": "560666f8285678d4208a7dad8a366a860cb1371e9fafd98709201f99b2c4a6cc"
+            }
+        },
+        "9eee55850998ac8ecac9a3b12643baf56d2b8080db9ff8926f75d9b8d9e3d94e": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Father, we ask for networks of simple churches in every city in the county of Zhaoqing, like Paul planted in Corinth and Ephesus.",
+                "reference": "1 Corinthians 16:19",
+                "verse": "The churches in the province of Asia send you greetings. Aquila and Priscilla greet you warmly in the Lord, and so does the church that meets at their house.",
+                "id": "9eee55850998ac8ecac9a3b12643baf56d2b8080db9ff8926f75d9b8d9e3d94e"
+            }
+        },
+        "05c09b3ddd80c57a99693b486d61c4f81b0f6c3eb8f9aaad1216a7c6b67e73b8": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Church Planting",
+                "prayer": "Jesus, 3,341,600 people live in the county of Zhaoqing. Please, give them 668 new simple churches this year.",
+                "reference": "",
+                "verse": "",
+                "id": "05c09b3ddd80c57a99693b486d61c4f81b0f6c3eb8f9aaad1216a7c6b67e73b8"
+            }
+        },
+        "9fcbed0c0a2337205558d880cd554125affe983adc11a28407b3872421a4f9c2": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Priesthood of Believers",
+                "prayer": "Father, encourage the 253,497 believers to have boldness before you, since they have a great high priest who has passed through the heavens, Jesus the Son of God.",
+                "reference": "Hebrews 4:14-16",
+                "verse": "Since then we have a great high priest who has passed through the heavens, Jesus, the Son of God, let us hold fast our confession.",
+                "id": "9fcbed0c0a2337205558d880cd554125affe983adc11a28407b3872421a4f9c2"
+            }
+        },
+        "faa9e744dc8ae39eedfb95d7264c0297ce5b9ecd69ac5d9e55222cdeca32c41d": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Person of Peace",
+                "prayer": "Spirit, guide someone in the church in the county of Zhaoqing to a person ready to receive the message of the gospel, like Lydia, and who will then open her home to faith.",
+                "reference": "Acts 16:14",
+                "verse": "One of those listening was a woman from the city of Thyatira named Lydia, a dealer in purple cloth. She was a worshiper of God. The Lord opened her heart to respond to Paul’s message.",
+                "id": "faa9e744dc8ae39eedfb95d7264c0297ce5b9ecd69ac5d9e55222cdeca32c41d"
+            }
+        },
+        "19ce251f64150675ab3b8c4e09934f847547436bafda91649def24ebc320785f": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Abundant Gospel Sowing",
+                "prayer": "Father, we pray the believers are good spiritual stewards of their everyday relationships in Zhaoqing, Guangdong, China.",
+                "reference": "",
+                "verse": "",
+                "id": "19ce251f64150675ab3b8c4e09934f847547436bafda91649def24ebc320785f"
+            }
+        },
+        "473b218400de47feaa19622165d0c3991e45c2c51fa88019c8c029f01d7ec85b": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Intentional Multiplicative Strategies",
+                "prayer": "Father, please, raise up a generation of disciples in the county of Zhaoqing who will make disciples who make disciples.",
+                "reference": "",
+                "verse": "",
+                "id": "473b218400de47feaa19622165d0c3991e45c2c51fa88019c8c029f01d7ec85b"
+            }
+        },
+        "f49284435f7a5147c85224449194cf110a57b24b6c74f9e49b7fa2ee73286ffd": {
+            "type": "basic_block",
+            "data": {
+                "section_label": "Prayer Movement",
+                "prayer": "Father, we cry out for a prayer movement in the county of Zhaoqing, Guangdong, China. Please, stir the 253,497 believers here to pray for awakening.",
+                "reference": "",
+                "verse": "",
+                "id": "f49284435f7a5147c85224449194cf110a57b24b6c74f9e49b7fa2ee73286ffd"
+            }
+        }
+    },
+    "location": {
+        "grid_id": "100050803",
+        "name": "Zhaoqing",
+        "admin0_name": "China",
+        "full_name": "Zhaoqing, Guangdong, China",
+        "population": "3,341,600",
+        "latitude": 23.5403,
+        "longitude": 112.202,
+        "country_code": "CN",
+        "admin0_code": "CHN",
+        "parent_id": "100050717",
+        "parent_name": "Guangdong",
+        "admin0_grid_id": "100050711",
+        "admin1_grid_id": "100050717",
+        "admin1_name": "Guangdong",
+        "admin2_grid_id": "100050803",
+        "admin2_name": "Zhaoqing",
+        "admin3_grid_id": null,
+        "admin3_name": null,
+        "admin4_grid_id": null,
+        "admin4_name": null,
+        "admin5_grid_id": null,
+        "admin5_name": null,
+        "level": 2,
+        "level_name": "admin2",
+        "north_latitude": 24.4005,
+        "south_latitude": 22.7733,
+        "east_longitude": 112.844,
+        "west_longitude": 111.355,
+        "p_longitude": 113.487,
+        "p_latitude": 22.8715,
+        "p_north_latitude": 25.5203,
+        "p_south_latitude": 20.2226,
+        "p_east_longitude": 117.311,
+        "p_west_longitude": 109.664,
+        "c_longitude": 104.166,
+        "c_latitude": 35.8601,
+        "c_north_latitude": 53.5609,
+        "c_south_latitude": 18.1593,
+        "c_east_longitude": 134.774,
+        "c_west_longitude": 73.5577,
+        "peer_locations": "21",
+        "birth_rate": 12.1,
+        "death_rate": 7.1,
+        "growth_rate": 1.05,
+        "believers": "253,497",
+        "christian_adherents": "53,983",
+        "non_christians": "3,034,119",
+        "primary_language": "Chinese, Mandarin",
+        "primary_religion": "Agnosticism or Atheism",
+        "percent_believers": 7.59,
+        "percent_christian_adherents": 1.62,
+        "percent_non_christians": 90.8,
+        "admin_level_name": "county",
+        "admin_level_title": "the county",
+        "admin_level_name_cap": "County",
+        "admin_level_name_plural": "counties",
+        "population_int": 3341600,
+        "believers_int": 253497,
+        "christian_adherents_int": 53983,
+        "non_christians_int": 3034119,
+        "percent_believers_full": 7.58611,
+        "percent_christian_adherents_full": 1.61549,
+        "percent_non_christians_full": 90.7984,
+        "all_lost_int": 3088102,
+        "all_lost": "3,088,102",
+        "lost_per_believer_int": 13,
+        "lost_per_believer": "13",
+        "population_growth_status": "Stable, but with slight growth",
+        "deaths_non_christians_next_hour": "2",
+        "deaths_non_christians_next_100": "250",
+        "deaths_non_christians_next_week": "420",
+        "deaths_non_christians_next_month": "1,802",
+        "deaths_non_christians_next_year": "21,925",
+        "births_non_christians_last_hour": "4",
+        "births_non_christians_last_100": "426",
+        "births_non_christians_last_week": "716",
+        "births_non_christians_last_month": "3,071",
+        "births_non_christians_last_year": "37,366",
+        "deaths_christian_adherents_next_hour": "0",
+        "deaths_christian_adherents_next_100": "4",
+        "deaths_christian_adherents_next_week": "7",
+        "deaths_christian_adherents_next_month": "31",
+        "deaths_christian_adherents_next_year": "383",
+        "births_christian_adherents_last_hour": "0",
+        "births_christian_adherents_last_100": "7",
+        "births_christian_adherents_last_week": "12",
+        "births_christian_adherents_last_month": "53",
+        "births_christian_adherents_last_year": "653",
+        "deaths_among_lost": "0",
+        "new_churches_needed": "668",
+        "favor": "non_christians",
+        "icon_color": "brand-lighter",
+        "people_groups_list": "Han Chinese, Dan, Han Chinese, Cantonese",
+        "people_groups_list_w_pop": "Han Chinese, Dan (5,045,000), Han Chinese, Cantonese (68,496,000)",
+        "cities_list": "Zhaoqing, Lubu, Huaicheng, Nanfeng, Cangwu",
+        "cities_list_w_pop": "Zhaoqing (1,553,109), Lubu (95,820), Huaicheng (89,294), Nanfeng (86,129), Cangwu"
+    },
+    "parts": {
+        "root": "prayer_app",
+        "type": "global",
+        "meta_key": "prayer_app_global_magic_key",
+        "public_key": "49ba4c",
+        "action": "",
+        "post_id": 1321,
+        "post_type": "laps",
+        "instance_id": ""
+    }
+}

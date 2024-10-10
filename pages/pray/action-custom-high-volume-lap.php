@@ -151,7 +151,8 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             const gridId = url.searchParams.get('grid_id')
 
             if (gridId) {
-                const jsonUrl = jsObject.json_folder + '100000002' + '.json'
+                //const jsonUrl = jsObject.json_folder + '100000002' + '.json'
+                const jsonUrl = jsObject.json_folder + '100000003' + '.json'
                 //const jsonUrl = jsObject.json_folder + gridId + '.json'
 
                 fetch(jsonUrl)

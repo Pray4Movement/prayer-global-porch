@@ -39,6 +39,7 @@ body {
     font-family: Europa, sans-serif;
     color: var(--pg-dark);
     margin: 0;
+    line-height: 1.5;
 }
 
 hr {
@@ -48,10 +49,17 @@ hr {
     width: 100%;
 }
 
+.img-fluid,
 img {
     max-width: 100%;
     height: auto;
     border-radius: 10px;
+}
+.bg-img {
+    width:200px;
+    height:200px;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
 /* Composition */
