@@ -209,7 +209,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             </div>
             <div class="container celebrate text-center" id="celebrate-panel"></div>
             <div class="w-100" ></div>
-            <div class="container flow text-center" data-space="sm">
+            <div class="container flow sm text-center">
                 <p class="tutorial uc f-xlg lh-1" id="tutorial-location"><?php echo esc_html__( 'Pray for', 'prayer-global-porch' ) ?></p>
                 <h2 class="lh-1 center bold w-75 f-md" id="location-name">
                     <div class="skeleton" data-title></div>
@@ -240,7 +240,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
         </div>
 
         <!-- content section -->
-        <section class="prayer-content flow" data-space="lg">
+        <section class="prayer-content flow lg">
             <div class="container" id="map">
                 <div class="text-md-center" id="location-map"></div>
                 <div class="skeleton" data-map></div>
@@ -269,7 +269,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 <?php echo esc_html__( 'See more', 'prayer-global-porch' ) ?>
                 <i class="icon pg-chevron-down d-block center"></i>
             </a>
-            <div class="container flow" data-space="md" id="content">
+            <div class="container flow md" id="content">
 
                 <hr>
 

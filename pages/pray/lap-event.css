@@ -73,13 +73,13 @@ img {
 .flow > * + * {
     margin-top: var(--space, 1rem);
 }
-.flow[data-space="sm"] {
+.flow.sm {
     --space: 0.5rem;
 }
-.flow[data-space="md"] {
+.flow.md {
     --space: 1.5rem;
 }
-.flow[data-space="lg"] {
+.flow.lg {
     --space: 2rem;
 }
 

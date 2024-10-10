@@ -236,17 +236,17 @@ function _template_percent_3_circles(data) {
     <div class="block percent-3-circles-block">
         <h5>${data.section_label}</h5>
         <div class="switcher">
-            <div class="flow" data-space="md">
+            <div class="flow sm">
                 <p class="bold f-md">${data.label_1}</p>
                 <div class="pie" style="--p:${data.percent_1};--b:10px;--c:var(--pg-dark);">${data.percent_1}%</div>
                 <p class="f-lg">${data.population_1}</p>
             </div>
-            <div class="flow" data-space="md">
+            <div class="flow sm">
                 <p class="bold f-md">${data.label_2}</p>
                 <div class="pie" style="--p:${data.percent_2};--b:10px;--c:var(--pg-light);">${data.percent_2}%</div>
                 <p class="f-lg">${data.population_2}</p>
             </div>
-            <div class="flow" data-space="md">
+            <div class="flow sm">
                 <p class="bold f-md">${data.label_3}</p>
                 <div class="pie" style="--p:${data.percent_3};--b:10px;--c:var(--pg-orange);">${data.percent_3}%</div>
                 <p class="f-lg">${data.population_3}</p>
@@ -298,17 +298,17 @@ function _template_100_bodies_chart(data) {
     let i = 0
     i = 0
     while (i < data.percent_1) {
-        bodies += BodyIcon('bad', 'medium');
+        bodies += BodyIcon('bad');
         i++;
     }
     i = 0
     while (i < data.percent_2) {
-        bodies += BodyIcon('neutral', 'medium');
+        bodies += BodyIcon('neutral');
         i++;
     }
     i = 0
     while (i < data.percent_3) {
-        bodies += BodyIcon('good', 'medium');
+        bodies += BodyIcon('good');
         i++;
     }
     return `
@@ -329,61 +329,47 @@ function _template_100_bodies_3_chart(data) {
     let bodies_3 = ''
     i = 0
     while (i < data.percent_1) {
-        bodies_1 += BodyIcon('bad', 'medium');
+        bodies_1 += BodyIcon('bad');
         i++;
     }
     i = 0
     while (i < data.percent_2) {
-        bodies_2 += BodyIcon('neutral', 'medium');
+        bodies_2 += BodyIcon('neutral');
         i++;
     }
     i = 0
     while (i < data.percent_3) {
-        bodies_3 += BodyIcon('good', 'medium');
+        bodies_3 += BodyIcon('good');
         i++;
     }
-    return (
-        `<div class="block 100-bodies-3-chart-block">
-          <div class="row">
-          <div class="col text-center ">
-             <h5 class="mb-0 uc">${data.section_label}</h5>
-          </div>
-      </div>
-      <div class="row text-center justify-content-center">
-          <div class="col-md-3 col-sm">
-            <p class="mt-3 mb-0 font-weight-bold">${data.label_1}</p>
-            <p class="mt-0 mb-3 font-weight-normal">
-              ${bodies_1}
-            </p>
-            <p class="mt-3 mb-0 font-weight-normal">${data.population_1}</p>
-          </div>
-          <div class="col-md-3 col-sm">
-            <p class="mt-3 mb-0 font-weight-bold">${data.label_2}</p>
-            <p class="mt-0 mb-3 font-weight-normal">
-              ${bodies_2}
-            </p>
-            <p class="mt-3 mb-0 font-weight-normal ">${data.population_2}</p>
-          </div>
-          <div class="col-md-3 col-sm">
-            <p class="mt-3 mb-0 font-weight-bold">${data.label_3}</p>
-            <p class="mt-0 mb-3 font-weight-normal">
-              ${bodies_3}
-            </p>
-            <p class="mt-3 mb-0 font-weight-normal">${data.population_3}</p>
-          </div>
-      </div>
-      <div class="row text-center">
-        <div class="col">
-           <p class="font-weight-normal">${data.section_summary}</p>
+    return `
+        <div class="block 100-bodies-3-chart-block">
+            <h5>${data.section_label}</h5>
+            <div class="switcher">
+                <div class="flow sm">
+                  <p class="bold">${data.label_1}</p>
+                  <p>
+                    ${bodies_1}
+                  </p>
+                  <p class="f-lg">${data.population_1}</p>
+                </div>
+                <div class="flow sm">
+                  <p class="bold">${data.label_2}</p>
+                  <p>
+                    ${bodies_2}
+                  </p>
+                  <p class="f-lg">${data.population_2}</p>
+                </div>
+                <div class="flow sm">
+                  <p class="bold">${data.label_3}</p>
+                  <p>
+                    ${bodies_3}
+                  </p>
+                  <p class="f-lg">${data.population_3}</p>
+                </div>
+            </div>
         </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-          <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
-        </div>
-      </div>
-    </div>`
-    )
+    `
 }
 function _template_population_change_icon_block(data) {
     if (data.count === '0' || data.count.length > 3) {
@@ -760,7 +746,7 @@ function _template_basic_block(data) {
             <button type="button" class="btn simple id-${data.id}" onclick="document.querySelector('#id-${data.id}').style.display = 'block';document.querySelector('.id-${data.id}').style.display = 'none';" >
                 <span>${data.reference} </span> <i class="icon pg-chevron-down"></i>
             </button>
-            <div class="flow" data-space="sm" style="display:none;" id="id-${data.id}" >
+            <div class="flow sm" style="display:none;" id="id-${data.id}" >
                 <p class="block__verse">${data.verse}</p>
                 <p class="f-normal">${data.reference}</p>
             </div>
