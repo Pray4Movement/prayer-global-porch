@@ -173,11 +173,11 @@ function renderContent(content) {
 
     const { location, list, parts } = content
 
-
     locationName.innerHTML = escapeHTML( jsObject.translations.state_of_location.replace('%1$s', location.admin_level_name_cap).replace('%2$s', location.full_name) )
 
     /* Render the content */
-    const blockTemplates = list.map((block) => getBlockTemplate(block))
+    const arrayList = Array.isArray(list) ? list : Object.values(list)
+    const blockTemplates = arrayList.map((block) => getBlockTemplate(block))
 
     contentElement.innerHTML = `
     <hr />
@@ -188,7 +188,6 @@ function renderContent(content) {
     `
 
     clearTutorial()
-  console.log(location)
     populationInfoNo.innerHTML = location.non_christians
     populationInfoNeutral.innerHTML = location.christian_adherents
     populationInfoYes.innerHTML = location.believers
@@ -772,26 +771,18 @@ function _template_lost_per_believer_block(data) {
     )
 }
 function _template_photo_block(data) {
-    return (
-        `<div class="block photo-block">
-          <div class="row">
-          <div class="col text-center ">
-            <h5 class="mt-3 mb-3 font-weight-normal one-em uc">${data.section_label}</h5>
-          </div>
+  return `
+    <div class="block photo-block">
+      <h5>${data.section_label}</h5>
+      <div>
+        <img src="${data.url}" class="img-fluid rounded-3" alt="prayer photo" style="max-height:700px" />
       </div>
-      <div class="row text-center">
-        <div class="col">
-           <img src="${data.url}" class="img-fluid rounded-3" alt="prayer photo" style="max-height:700px" />
-        </div>
+      <div class="content flow">
+        <p class="f-md">${data.section_summary}</p>
+        ${data.prayer ? `<p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>` : ''}
       </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-           <p class="mt-0 mb-3 font-weight-normal f-sm">${data.section_summary}</p>
-           <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
-        </div>
     </div>
-    </div>
-      `)
+      `
 }
 function _template_basic_block(data) {
     const reference = data.reference ? `
@@ -812,8 +803,10 @@ function _template_basic_block(data) {
         <div class="block basic-block">
             <h5 class="mb-0 uc">${data.section_label}</h5>
             ${icon}
-            <p class="mt-3 mb-3 two-em lh-sm">${data.prayer}</p>
-            ${reference}
+            <div class="content">
+                <p class="mt-3 mb-3 two-em lh-sm">${data.prayer}</p>
+                ${reference}
+            </div>
         </div>
         `
 }

@@ -48,6 +48,10 @@ hr {
     width: 100%;
 }
 
+img {
+    width: 100%;
+}
+
 /* Composition */
 .container {
     width: 90%;
@@ -352,6 +356,11 @@ hr {
 .block {
     font-size: 2rem;
     text-align: center;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+}
+.block .content {
     width: 70%;
     max-width: 30ch;
     margin-left: auto;
