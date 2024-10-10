@@ -199,30 +199,20 @@ function getBlockTemplate(block) {
             return _template_4_fact_blocks(block.data)
         case 'percent_3_circles':
             return _template_percent_3_circles(block.data)
-        case 'percent_3_bar':
-            return _template_percent_3_bar(block.data)
         case '100_bodies_chart':
             return _template_100_bodies_chart(block.data)
         case '100_bodies_3_chart':
             return _template_100_bodies_3_chart(block.data)
         case 'population_change_icon_block':
             return _template_population_change_icon_block(block.data)
-        case 'bullet_list_2_column':
-            return _template_bullet_list_2_column(block.data)
         case 'people_groups_list':
             return _template_people_groups_list(block.data)
         case 'least_reached_block':
             return _template_least_reached_block(block.data)
-        case 'fact_block':
-            return _template_fact_block(block.data)
         case 'content_block':
             return _template_content_block(block.data)
         case 'photo_block':
             return _template_photo_block(block.data)
-        case 'verse_block':
-            return _template_verse_block(block.data)
-        case 'prayer_block':
-            return _template_prayer_block(block.data)
         case 'basic_block':
             return _template_basic_block(block.data)
         case 'lost_per_believer':
@@ -254,44 +244,6 @@ function _template_percent_3_circles(data) {
         </div>
     </div>`
 
-}
-function _template_percent_3_bar(data) {
-    return (
-        `<div class="block percent-3-bar-block">
-          <div class="row">
-          <div class="col text-center ">
-             <h5 class="mb-0 uc">${data.section_label}</h5>
-          </div>
-      </div>
-      <div class="row text-center">
-          <div class="col-md-12">
-            <p class="mt-0 mb-3 font-weight-normal">
-              <div class="progress">
-                <div class="progress-bar progress-bar-success" role="progressbar" style="width:${data.percent_1}%">
-                  ${data.label_1}
-                </div>
-                <div class="progress-bar progress-bar-warning" role="progressbar" style="width:${data.percent_2}%">
-                  ${data.label_2}
-                </div>
-                <div class="progress-bar progress-bar-danger" role="progressbar" style="width:${data.percent_3}%">
-                 ${data.label_3}
-                </div>
-              </div>
-            </p>
-          </div>
-      </div>
-      <div class="row text-center">
-        <div class="col">
-           <p class="font-weight-normal">${data.section_summary}</p>
-        </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-           <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
-        </div>
-      </div>
-    </div>`
-    )
 }
 function _template_100_bodies_chart(data) {
     let bodies = ''
@@ -453,37 +405,6 @@ function _template_4_fact_blocks(data) {
         </div>
     `
 }
-function _template_bullet_list_2_column(data) {
-    if (data.values.length > 0) {
-        let values_list = ''
-        data.values.forEath(function (v) {
-            values_list += '<p>' + v + '</p>'
-        })
-        return (
-            `<div class="block bullet-list-block">
-          <div class="row">
-          <div class="col text-center ">
-             <h5 class="mb-0 uc">${data.section_label}</h5>
-          </div>
-        </div>
-        <div class="row text-center">
-          <div class="col">
-             ${values_list}
-          </div>
-        </div>
-        <div class="row text-center">
-          <div class="col">
-             <p class="font-weight-normal">${data.section_summary}</p>
-          </div>
-        </div>
-        <div class="row text-center justify-content-center">
-          <div class="col-md-8">
-             <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
-          </div>
-      </div>
-    </div>`)
-    }
-}
 function _template_people_groups_list(data) {
     let values_list = ''
     let image = ''
@@ -535,41 +456,6 @@ function _template_least_reached_block(data) {
             </div>
     </div>`
 }
-function _template_fact_block(data) {
-    let icon = ''
-    if (typeof data.icon !== 'undefined') {
-        let iclass = 'ion-android-warning'
-        if (data.icon) {
-            iclass = data.icon
-        }
-        let icolor = 'brand'
-        if (data.color) {
-            icolor = data.color
-        }
-        icon = '<p class="mt-3 mb-3 font-weight-bold six-em"><i class="' + iclass + ' ' + icolor + '"></i></p>'
-    }
-    return (
-        `<div class="block fact-block">
-          <div class="row">
-            <div class="col text-center ">
-               <h5 class="mb-0 uc">${data.section_label}</h5>
-               <p class="mt-3 mb-3 two-em">${data.focus_label}</p>
-              ${icon}
-            </div>
-          </div>
-          <div class="row text-center justify-content-center">
-            <div class="col-md-8">
-                <p class="mt-3 mb-3 font-weight-normal one-em">${data.section_summary}</p>
-            </div>
-          </div>
-          <div class="row text-center justify-content-center">
-            <div class="col-md-8">
-               <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
-            </div>
-        </div>
-    </div>
-    `)
-}
 function _template_content_block(data) {
     let icon = ''
     if (typeof data.icon !== 'undefined') {
@@ -595,46 +481,6 @@ function _template_content_block(data) {
                 <p class="f-xlg">${data.prayer}</p>
             </div>
     </div>`
-}
-function _template_prayer_block(data) {
-    return (
-        `<div class="block prayer-block">
-          <div class="row">
-          <div class="col text-center ">
-            <h5 class="mt-3 mb-3 font-weight-normal one-em uc">${data.section_label}</h5>
-            <p class="mt-3 mb-3"><i class="ion-android-people ${data.icon_color} six-em" /> <i class="ion-android-people ${data.icon_color} six-em" /> <i class="ion-android-people ${data.icon_color} six-em" /></p>
-          </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-           <p class="mt-3 mb-3 lh-sm two-em">${data.prayer}</p>
-        </div>
-      </div>
-    </div>`)
-}
-function _template_verse_block(data) {
-    let icons = ['ion-android-sync']
-    let icon_name = icons[Math.floor(Math.random() * icons.length)]
-    return (
-        `<div class="block verse-block">
-          <div class="row">
-          <div class="col text-center ">
-            <h5 class="mt-3 mb-3 font-weight-normal one-em uc">${data.section_label}</h5>
-            <p class="mt-3 mb-3"><img src="${jsObject.image_folder}bible-${data.icon_color}.svg" alt="icon" /></p>
-          </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-           <p class="mt-3 mb-0 lh-sm two-em font-italic">${data.verse}</p>
-           <p class="mt-0 mb-3 font-italic">${data.reference}</p>
-        </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-           <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
-        </div>
-    </div>
-    </div>`)
 }
 function _template_lost_per_believer_block(data) {
     let bodies_1 = ''
