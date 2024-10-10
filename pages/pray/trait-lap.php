@@ -11,12 +11,18 @@ trait PG_Lap_Trait {
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return [
+            'lap-css',
+            'mapbox-gl-css',
+        ];
     }
 
     public function wp_enqueue_scripts(){
         pg_enqueue_script( 'report-js', 'pages/pray/report.js', [ 'jquery', 'global-functions' ], true );
         pg_enqueue_script( 'lap-js', 'pages/pray/lap.js', [ 'jquery', 'global-functions', 'report-js' ], true );
+
+        wp_enqueue_style_async( 'mapbox-gl-css', DT_Mapbox_API::$mapbox_gl_css, [], fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . DT_Mapbox_API::$mapbox_gl_css ), 'all' );
+        wp_enqueue_style( 'lap-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'lap.css', [ 'basic-css' ], fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap.css' ), 'all' );
     }
 
     public function header_javascript(){
@@ -27,7 +33,7 @@ trait PG_Lap_Trait {
         if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
             ?>
             <!-- Resources -->
-            <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3"></script>
+            <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3" defer></script>
             <script>
                 let jsObject = [<?php echo json_encode([
                     'parts' => $this->parts,
@@ -52,9 +58,7 @@ trait PG_Lap_Trait {
                     'is_cta_feature_on' => true,
                 ]) ?>][0]
             </script>
-            <script type="text/javascript" src="<?php echo esc_url( DT_Mapbox_API::$mapbox_gl_js ) ?>"></script>
-            <link rel="stylesheet" href="<?php echo esc_url( DT_Mapbox_API::$mapbox_gl_css ) ?>" type="text/css" media="all">
-            <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>lap.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap.css' ) ) ?>" type="text/css" media="all">
+            <script type="text/javascript" src="<?php echo esc_url( DT_Mapbox_API::$mapbox_gl_js ) ?>" defer></script>
             <link rel="prefetch" href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/celebrate1.gif' ) ?>" >
             <link rel="prefetch" href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/celebrate2.gif' ) ?>" >
             <link rel="prefetch" href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/celebrate3.gif' ) ?>" >
@@ -323,14 +327,14 @@ trait PG_Lap_Trait {
 
             // user information
             'payload' => [
-                'user_location' => $data['user']['label'],
+                'user_location' => $data['user']['label'] ?? null,
                 'user_language' => 'en' // @todo expand for other languages
             ],
-            'lng' => $data['user']['lng'],
-            'lat' => $data['user']['lat'],
-            'level' => $data['user']['level'],
-            'label' => $data['user']['country'],
-            'hash' => $data['user']['hash'],
+            'lng' => $data['user']['lng'] ?? null,
+            'lat' => $data['user']['lat'] ?? null,
+            'level' => $data['user']['level'] ?? null,
+            'label' => $data['user']['country'] ?? null,
+            'hash' => $data['user']['hash'] ?? null,
         ];
         if ( is_user_logged_in() ) {
             $args['user_id'] = get_current_user_id();
@@ -448,7 +452,7 @@ trait PG_Lap_Trait {
      * Global query
      * @return array|false|void
      */
-    public function get_new_location( $parts ) {
+    public function get_new_location( $parts, $all = false ) {
         // get 4770 list
         $list_4770 = pg_query_4770_locations();
 
@@ -474,7 +478,7 @@ trait PG_Lap_Trait {
             shuffle( $list_4770_without_all_promises );
             if ( isset( $list_4770_without_all_promises[0] ) ) {
                 $this->_log_promise( $parts, $list_4770_without_all_promises[0] );
-                return PG_Stacker::build_location_stack( $list_4770_without_all_promises[0] );
+                return PG_Stacker::build_location_stack( $list_4770_without_all_promises[0], $all );
             }
         }
         /**
@@ -485,14 +489,14 @@ trait PG_Lap_Trait {
             shuffle( $list_4770_without_custom_promises );
             if ( isset( $list_4770_without_custom_promises[0] ) ) {
                 $this->_log_promise( $parts, $list_4770_without_custom_promises[0] );
-                return PG_Stacker::build_location_stack( $list_4770_without_custom_promises[0] );
+                return PG_Stacker::build_location_stack( $list_4770_without_custom_promises[0], $all );
             }
         }
         /**
          * Only the available global locations
          */
         shuffle( $remaining_global );
-        return PG_Stacker::build_location_stack( $remaining_global[0] );
+        return PG_Stacker::build_location_stack( $remaining_global[0], $all );
     }
 
     public function _query_prayed_list() {

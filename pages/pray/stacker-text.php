@@ -76,7 +76,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -148,7 +149,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -220,7 +222,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -292,7 +295,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -364,7 +368,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -486,7 +491,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -694,10 +700,12 @@ class PG_Stacker_Text {
             foreach ( $templates as $template ) {
                 $combined_templates = array_merge( $combined_templates, $template );
             }
-            return array_merge( $combined_templates, $lists );
+
+            $lists = array_merge( $combined_templates, $lists );
+            return $lists;
         }
         $templates = $templates[$stack['location']['favor']];
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
@@ -773,7 +781,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -857,7 +866,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -929,7 +939,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -1001,7 +1012,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -1073,7 +1085,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -1145,7 +1158,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -1223,7 +1237,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -1299,7 +1314,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -1375,7 +1391,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -1450,7 +1467,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -1522,7 +1540,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -1594,7 +1613,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -1666,7 +1686,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -1738,7 +1759,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -1810,7 +1832,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -1876,7 +1899,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -1949,7 +1973,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -2021,7 +2046,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -2099,7 +2125,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -2190,7 +2217,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -2262,7 +2290,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -2334,7 +2363,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -2407,7 +2437,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -2479,7 +2510,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -2551,7 +2583,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -2641,7 +2674,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
@@ -2717,7 +2751,8 @@ class PG_Stacker_Text {
         ];
 
         if ( $all ) {
-            return array_merge( $templates, $lists );
+            $lists = array_merge( $templates, $lists );
+            return $lists;
         }
          $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
