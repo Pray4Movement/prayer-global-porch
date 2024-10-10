@@ -428,53 +428,30 @@ function _template_population_change_icon_block(data) {
     `
 }
 function _template_4_fact_blocks(data) {
-    return (
-        `<div class="block four-facts-block">
-          <div class="row">
-          <div class="col text-center ">
-             <h5 class="mb-0 uc">${data.section_label}</h5>
-             <p class="mt-3 mb-3 two-em">${data.focus_label}</p>
-          </div>
-      </div>
-      <div class="row">
-          <div class="col-md-6">
-            <div class="row text-center">
-              <div class="col-6">
-                <p class="mt-3 mb-0 font-weight-bold">${data.label_1}</p>
-                <p class="mt-0 mb-3 font-weight-normal ${data.size_1}">${data.value_1}</p>
-              </div>
-              <div class="col-6">
-                <p class="mt-3 mb-0 font-weight-bold">${data.label_2}</p>
-                <p class="mt-0 mb-3 font-weight-normal ${data.size_2}">${data.value_2}</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="row text-center">
-                <div class="col-6">
-                  <p class="mt-3 mb-0 font-weight-bold">${data.label_3}</p>
-                  <p class="mt-0 mb-3 font-weight-normal ${data.size_3}">${data.value_3}</p>
+    return `
+        <div class="block four-facts-block">
+            <h5>${data.section_label}</h5>
+            <p class="f-xlg">${data.focus_label}</p>
+            <div class="switcher">
+                <div class="flow sm">
+                    <p class="bold">${data.label_1}</p>
+                    <p class="f-xlg">${data.value_1}</p>
                 </div>
-                <div class="col-6">
-                  <p class="mt-3 mb-0 font-weight-bold">${data.label_4}</p>
-                  <p class="mt-0 mb-3 font-weight-normal ${data.size_4}">${data.value_4}</p>
+                <div class="flow sm">
+                    <p class="bold">${data.label_2}</p>
+                    <p class="f-xlg">${data.value_2}</p>
+                </div>
+                <div class="flow sm">
+                    <p class="bold">${data.label_3}</p>
+                    <p class="f-xlg">${data.value_3}</p>
+                </div>
+                <div class="flow sm">
+                    <p class="bold">${data.label_4}</p>
+                    <p class="f-xlg">${data.value_4}</p>
                 </div>
             </div>
-          </div>
-      </div>
-
-      <div class="row text-center">
-        <div class="col">
-           <p class="font-weight-normal">${data.section_summary}</p>
         </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-           <p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>
-        </div>
-      </div>
-    </div>`
-    )
+    `
 }
 function _template_bullet_list_2_column(data) {
     if (data.values.length > 0) {
