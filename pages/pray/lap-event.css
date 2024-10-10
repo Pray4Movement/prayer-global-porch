@@ -388,6 +388,7 @@ img {
 .block h5 {
     font-size: 1.25rem;
     font-weight: 400;
+    text-transform: uppercase;
 }
 .block__verse {
     font-style: italic;
@@ -397,6 +398,9 @@ img {
     margin-right: auto;
     max-width: unset;
     width: 70%;
+}
+.icon-block {
+    line-height: 1.1;
 }
 .pie {
     --w: 150px;

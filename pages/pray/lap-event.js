@@ -313,7 +313,7 @@ function _template_100_bodies_chart(data) {
     }
     return `
         <div class="block 100-bodies-chart-block">
-            <h5 class="mb-0 uc">${data.section_label}</h5>
+            <h5>${data.section_label}</h5>
             <div class="content">
                 <p class="f-xlg">
                     ${bodies}
@@ -400,11 +400,11 @@ function _template_population_change_icon_block(data) {
         icon_size = 'two-em'
     }
 
-    let font_size = '2em'
+    let font_size = 'f-xlg'
     if (data.count > 1000) {
-        font_size = '1em'
+        font_size = 'f-lg'
     } else if (data.count < 20) {
-        font_size = '3em'
+        font_size = 'f-xxlg'
     }
 
     // build icon list
@@ -414,33 +414,18 @@ function _template_population_change_icon_block(data) {
         icon_list += '<i class="' + icon + ' ' + icon_color + '"></i>';
         i++;
     }
-    return (
-        `<div class="block population-change-block">
-          <div class="row">
-          <div class="col text-center ">
-             <h5 class="mb-0 uc">${data.section_label}</h5>
-          </div>
-      </div>
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-           <p class="mt-3 mb-3 two-em">${data.section_summary}</p>
+    return `
+        <div class="block population-change-block">
+            <h5>${data.section_label}</h5>
+            <div class="content flow f-xlg">
+                <p>${data.section_summary}</p>
+                <p class="${font_size} icon-block">
+                    ${icon_list} <span style="font-size:.5em;vertical-align:middle;">(${data.count})</span>
+                </p>
+                <p>${data.prayer}</p>
+            </div>
         </div>
-      </div>
-      <div class="row text-center justify-content-center">
-          <div class="col-md-8 col-sm">
-            <p class="mt-0 mb-1 font-weight-normal icon-block" style="font-size: ${font_size};">
-              ${icon_list} <span style="font-size:.5em;vertical-align:middle;">(${data.count})</span>
-            </p>
-          </div>
-      </div>
-
-      <div class="row text-center justify-content-center">
-        <div class="col-md-8">
-            <p class="mt-3 mb-3 lh-sm two-em">${data.prayer}</p>
-        </div>
-      </div>
-    </div>`
-    )
+    `
 }
 function _template_4_fact_blocks(data) {
     return (
@@ -565,7 +550,7 @@ function _template_least_reached_block(data) {
     return `
         <div class="block least-reached-block">
             <div class="flow sm">
-                <h5 class="mb-0 uc">${data.section_label}</h5>
+                <h5>${data.section_label}</h5>
                 <p class="f-xlg">${data.focus_label}</p>
                 ${data.diaspora_label !== '' ? `<p class="f-sm">(${data.diaspora_label})</p>` : ''}
             </div>
@@ -746,7 +731,7 @@ function _template_basic_block(data) {
         ` : ''
     return `
         <div class="block basic-block">
-            <h5 class="mb-0 uc">${data.section_label}</h5>
+            <h5>${data.section_label}</h5>
             ${icon}
             <div class="content f-xlg">
                 <p>${data.prayer}</p>
