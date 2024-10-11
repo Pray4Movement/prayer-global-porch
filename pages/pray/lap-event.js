@@ -15,12 +15,22 @@ const tutorial = document.querySelector('#tutorial-location')
 const prayingPanel = document.querySelector('#praying-panel')
 const decisionPanel = document.querySelector('#decision-panel')
 const questionPanel = document.querySelector('#question-panel')
+const decisionLeaveModal = document.querySelector('#decision_leave_modal')
+
+const leaveMapButton = decisionPanel.querySelector('#decision__map')
+const leaveHomeButton = decisionPanel.querySelector('#decision__home')
+const leaveModalButton = decisionLeaveModal.querySelector('#decision__leave')
+const stayModalButton = decisionLeaveModal.querySelector('#decision__keep_praying')
+const closeModalButton = decisionLeaveModal.querySelector('#decision__close')
+const doneButton = questionPanel.querySelector('#question__yes_done')
+const nextButton = questionPanel.querySelector('#question__yes_next')
 
 const populationInfoNo = document.querySelector('.population-info .no')
 const populationInfoNeutral = document.querySelector('.population-info .neutral')
 const populationInfoYes = document.querySelector('.population-info .yes')
 
 const morePrayerFuelButton = document.querySelector('#more_prayer_fuel')
+
 
 checkForLocationAndLoad(init)
 
@@ -38,6 +48,42 @@ function setupListeners() {
     prayingPauseButton.addEventListener('click', () => toggleTimer(true))
     prayingContinueButton.addEventListener('click', () => toggleTimer(false))
     morePrayerFuelButton.addEventListener('click', showMorePrayerFuel)
+
+    leaveMapButton.addEventListener('click', openLeaveModal)
+    leaveHomeButton.addEventListener('click', openLeaveModal)
+
+    stayModalButton.addEventListener('click', keepPraying)
+    closeModalButton.addEventListener('click', keepPraying)
+    leaveModalButton.addEventListener('click', leavePraying)
+
+    doneButton.addEventListener('click', celebrateAndDone)
+    nextButton.addEventListener('click', celebrateAndNext)
+}
+
+function celebrateAndNext() {
+    /* Get the next location JSON */
+    alert('TODO: get the next location + fire off celebrations while doing so')
+
+    /* Fire off the celebrations and open the celebrate panel */
+}
+function celebrateAndDone() {
+    alert('TODO: fire off celebrations and navigate to map')
+}
+
+function openLeaveModal() {
+    decisionLeaveModal.classList.add('show')
+}
+
+function keepPraying() {
+    decisionLeaveModal.classList.remove('show')
+    toggleTimer()
+}
+function leavePraying() {
+    if ( jsObject.is_cta_feature_on === true ) {
+        window.location = jsObject.map_url + '?show_cta'
+    } else {
+        window.location = jsObject.map_url
+    }
 }
 
 function showMorePrayerFuel() {
