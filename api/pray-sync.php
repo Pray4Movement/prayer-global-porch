@@ -44,7 +44,7 @@ class PG_Prayer_API {
             $sql = "INSERT INTO $wpdb->dt_reports (post_id, post_type, type, subtype, value, grid_id, timestamp) VALUES ";
             foreach ( $chunked_array as $log ){
                 if ( floor( $log['id'] / 4700 ) > $current_lap['lap_number'] ){
-                    pg_generate_new_custom_prayer_lap( 1051 );
+                    pg_generate_new_custom_prayer_lap( $current_lap['post_id'] );
                     $current_lap = pg_current_custom_lap( 1051 );
                 }
                 $lap_id = $current_lap['post_id'];
