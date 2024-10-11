@@ -1,6 +1,7 @@
 window.paused = false
 window.seconds = 60
 window.finishedPraying = false
+window.items = 7
 
 const contentElement = document.querySelector('#content')
 const prayingText = document.querySelector('.praying__text')
@@ -19,6 +20,8 @@ const populationInfoNo = document.querySelector('.population-info .no')
 const populationInfoNeutral = document.querySelector('.population-info .neutral')
 const populationInfoYes = document.querySelector('.population-info .yes')
 
+const morePrayerFuelButton = document.querySelector('#more_prayer_fuel')
+
 checkForLocationAndLoad(init)
 
 function init(location) {
@@ -34,6 +37,15 @@ function setupListeners() {
     prayingButton.addEventListener('click', () => toggleTimer())
     prayingPauseButton.addEventListener('click', () => toggleTimer(true))
     prayingContinueButton.addEventListener('click', () => toggleTimer(false))
+    morePrayerFuelButton.addEventListener('click', showMorePrayerFuel)
+}
+
+function showMorePrayerFuel() {
+    const hiddenBlocks = contentElement.querySelectorAll('.block.hidden')
+    hiddenBlocks.forEach((block) => {
+        block.classList.remove('hidden')
+        hide(morePrayerFuelButton)
+    })
 }
 
 function toggleTimer(pause) {
@@ -190,6 +202,13 @@ function renderContent(content) {
 
     <hr />
     `
+
+    const blocks = contentElement.querySelectorAll('.block')
+    blocks.forEach((block, i) => {
+        if ( i > window.items ) {
+            block.classList.add('hidden')
+        }
+    })
 
     clearTutorial()
     populationInfoNo.innerHTML = location.non_christians

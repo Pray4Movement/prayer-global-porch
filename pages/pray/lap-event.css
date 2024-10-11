@@ -171,6 +171,9 @@ img {
 .relative {
     position: relative;
 }
+.hidden {
+    display: none;
+}
 
 /* Blocks */
 #decision-panel {
@@ -297,6 +300,7 @@ img {
 }
 .prayer-content {
     margin-top: 2rem;
+    margin-bottom: 8rem;
 }
 
 /* ## Modal */
@@ -433,6 +437,9 @@ img {
     margin-right: auto;
     max-width: unset;
     width: 70%;
+}
+.block.hidden + hr {
+    display: none;
 }
 .icon-block {
     line-height: 1.1;
