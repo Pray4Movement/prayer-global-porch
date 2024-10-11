@@ -79,7 +79,7 @@ function keepPraying() {
     toggleTimer()
 }
 function leavePraying() {
-    if ( jsObject.is_cta_feature_on === true ) {
+    if (jsObject.is_cta_feature_on === true) {
         window.location = jsObject.map_url + '?show_cta'
     } else {
         window.location = jsObject.map_url
@@ -134,30 +134,30 @@ function startTimer(time) {
         window.time = 0
     }
 
-  window.pgInterval = setInterval(() => {
-    window.time = window.time + 0.1
+    window.pgInterval = setInterval(() => {
+        window.time = window.time + 0.1
 
-    if (window.time < window.seconds) {
+        if (window.time < window.seconds) {
 
-      let percentage = window.time / window.seconds * 100
+            let percentage = window.time / window.seconds * 100
 
-      if (percentage > 100) {
-        percentage = 100
-      }
+            if (percentage > 100) {
+                percentage = 100
+            }
 
-      prayingProgress.style.width = `${percentage}%`
+            prayingProgress.style.width = `${percentage}%`
 
-    }
-    else if (!window.finishedPraying) {
-      window.finishedPraying = true
+        }
+        else if (!window.finishedPraying) {
+            window.finishedPraying = true
 
-      show(questionPanel)
-      hide(prayingPanel)
+            show(questionPanel)
+            hide(prayingPanel)
 
-      prayingProgress.style.width = 0
-    }
+            prayingProgress.style.width = 0
+        }
 
-  }, 100)
+    }, 100)
 
 }
 
@@ -172,14 +172,14 @@ function show(element) {
 }
 
 function escapeHTML(str) {
-  if (typeof str === 'undefined') return '';
-  if (typeof str !== 'string') return str;
-  return str
-  .replace(/&/g, '&amp;')
-  .replace(/</g, '&lt;')
-  .replace(/>/g, '&gt;')
-  .replace(/"/g, '&quot;')
-  .replace(/'/g, '&apos;');
+    if (typeof str === 'undefined') return '';
+    if (typeof str !== 'string') return str;
+    return str
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&apos;');
 }
 
 /* Fly away the see more button after a little bit of scroll */
@@ -222,9 +222,9 @@ function checkForLocationAndLoad(callback) {
 }
 
 function clearTutorial() {
-  setTimeout(() => {
-    tutorial.style.display = 'none'
-  }, 3000)
+    setTimeout(() => {
+        tutorial.style.display = 'none'
+    }, 3000)
 }
 
 function renderContent(content) {
@@ -234,7 +234,7 @@ function renderContent(content) {
 
     const { location, list, parts } = content
 
-    locationName.innerHTML = escapeHTML( jsObject.translations.state_of_location.replace('%1$s', location.admin_level_name_cap).replace('%2$s', location.full_name) )
+    locationName.innerHTML = escapeHTML(jsObject.translations.state_of_location.replace('%1$s', location.admin_level_name_cap).replace('%2$s', location.full_name))
 
     /* Render the content */
     const arrayList = Array.isArray(list) ? list : Object.values(list)
@@ -251,7 +251,7 @@ function renderContent(content) {
 
     const blocks = contentElement.querySelectorAll('.block')
     blocks.forEach((block, i) => {
-        if ( i > window.items ) {
+        if (i > window.items) {
             block.classList.add('hidden')
         }
     })
@@ -291,7 +291,7 @@ function getBlockTemplate(block) {
     }
 }
 function _template_percent_3_circles(data) {
-  return `
+    return `
     <div class="block percent-3-circles-block">
         <h5>${data.section_label}</h5>
         <div class="switcher">
@@ -368,25 +368,25 @@ function _template_100_bodies_3_chart(data) {
             <h5>${data.section_label}</h5>
             <div class="switcher">
                 <div class="flow sm">
-                  <p class="bold">${data.label_1}</p>
-                  <p class="f-xlg">
-                    ${bodies_1}
-                  </p>
-                  <p class="f-lg">${data.population_1}</p>
+                    <p class="bold">${data.label_1}</p>
+                    <p class="f-xlg">
+                        ${bodies_1}
+                    </p>
+                    <p class="f-lg">${data.population_1}</p>
                 </div>
                 <div class="flow sm">
-                  <p class="bold">${data.label_2}</p>
-                  <p class="f-xlg">
-                    ${bodies_2}
-                  </p>
-                  <p class="f-lg">${data.population_2}</p>
+                    <p class="bold">${data.label_2}</p>
+                    <p class="f-xlg">
+                        ${bodies_2}
+                    </p>
+                    <p class="f-lg">${data.population_2}</p>
                 </div>
                 <div class="flow sm">
-                  <p class="bold">${data.label_3}</p>
-                  <p class="f-xlg">
-                    ${bodies_3}
-                  </p>
-                  <p class="f-lg">${data.population_3}</p>
+                    <p class="bold">${data.label_3}</p>
+                    <p class="f-xlg">
+                        ${bodies_3}
+                    </p>
+                    <p class="f-lg">${data.population_3}</p>
                 </div>
             </div>
         </div>
@@ -580,7 +580,7 @@ function _template_lost_per_believer_block(data) {
                     ${BodyIcon('good')}
                 </p>
                 <p class="${font_size}">
-                  ${bodies_1}
+                    ${bodies_1}
                 </p>
             </div>
             <div class="content">
@@ -590,18 +590,18 @@ function _template_lost_per_believer_block(data) {
     `
 }
 function _template_photo_block(data) {
-  return `
+    return `
     <div class="block photo-block">
-      <h5>${data.section_label}</h5>
-      <div>
-        <img src="${data.url}" class="img-fluid rounded-3" alt="prayer photo" style="max-height:700px" />
-      </div>
-      <div class="content flow">
-        <p class="f-md">${data.section_summary}</p>
-        ${data.prayer ? `<p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>` : ''}
-      </div>
+        <h5>${data.section_label}</h5>
+        <div>
+            <img src="${data.url}" class="img-fluid rounded-3" alt="prayer photo" style="max-height:700px" />
+        </div>
+        <div class="content flow">
+            <p class="f-md">${data.section_summary}</p>
+            ${data.prayer ? `<p class="mt-3 mb-3 font-weight-normal one-em">${data.prayer}</p>` : ''}
+        </div>
     </div>
-      `
+    `
 }
 function _template_basic_block(data) {
     const reference = data.reference ? `
