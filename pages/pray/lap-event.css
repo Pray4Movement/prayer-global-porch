@@ -61,6 +61,12 @@ img {
     background-size: cover;
     background-repeat: no-repeat;
 }
+.icon {
+    width: 0.75em;
+    width: 1cap;
+    height: 0.75em;
+    height: 1cap;
+}
 
 /* Composition */
 .container {
@@ -114,12 +120,15 @@ img {
 /* Utility */
 .dark {
     color: var(--pg-dark);
+    fill: var(--pg-dark);
 }
 .light {
     color: var(--pg-light);
+    fill: var(--pg-light);
 }
 .orange {
     color: var(--pg-orange);
+    fill: var(--pg-orange);
 }
 .bold {
     font-weight: bold;
@@ -347,8 +356,9 @@ img {
     align-items: center;
     gap: 0.5rem;
 }
-.population-info i {
-    font-size: 3rem;
+.population-info .icon {
+    height: 3rem;
+    width: 3rem;
 }
 
 /* ## skeleton */
@@ -421,9 +431,13 @@ img {
 }
 .icon-block {
     line-height: 1.1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 .icon-xlg {
-    font-size: 6rem;
+    height: 6rem;
+    width: 6rem;
     line-height: 1.1;
 }
 .pie {

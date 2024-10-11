@@ -137,7 +137,6 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>lap-event.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap-event.css' ) ) ?>" type="text/css" media="all">
 
             <?php
-                wp_enqueue_style_async( 'ionicons', trailingslashit( plugin_dir_url( __DIR__ ) ) . "assets/fonts/ionicons/css/ionicons.min.css", [], filemtime( trailingslashit( plugin_dir_path( __DIR__ ) ) . "assets/fonts/ionicons/css/ionicons.min.css" ), 'all' );
         }
     }
 
@@ -174,6 +173,9 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 console.log('no grid_id found')
             }
         </script>
+
+        <?php //phpcs:ignore ?>
+        <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/ionicon-subset.svg' ); ?>
 
         <!-- navigation & widget -->
         <nav class="prayer-navbar">
@@ -247,19 +249,25 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 <div class="skeleton" data-map></div>
                 <div class="population-info">
                     <div>
-                        <i class="ion-ios-body dark"></i>
+                        <svg class="icon dark" width="0.75em" height="0.75em" viewBox="0 0 512 512">
+                            <use href="#ion-ios-body"></use>
+                        </svg>
                         <span class="no">
                             <div class="skeleton" data-number></div>
                         </span>
                     </div>
                     <div>
-                        <i class="ion-ios-body light"></i>
+                        <svg class="icon light" width="0.75em" height="0.75em" viewBox="0 0 512 512">
+                            <use href="#ion-ios-body"></use>
+                        </svg>
                         <span class="neutral">
                             <div class="skeleton" data-number></div>
                         </span>
                     </div>
                     <div>
-                        <i class="ion-ios-body orange"></i>
+                        <svg class="icon orange" width="0.75em" height="0.75em" viewBox="0 0 512 512">
+                            <use href="#ion-ios-body"></use>
+                        </svg>
                         <span class="yes">
                             <div class="skeleton" data-number></div>
                         </span>

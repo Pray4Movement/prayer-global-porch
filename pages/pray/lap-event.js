@@ -340,21 +340,20 @@ function _template_population_change_icon_block(data) {
     let icon = icons[Math.floor(Math.random() * icons.length)]
 
     // icon color
-    let icon_color = 'bad'
+    let icon_color = 'dark'
     if ('christian_adherents' === data.group) {
-        icon_color = 'neutral'
+        icon_color = 'light'
     }
     if ('believers' === data.group) {
-        icon_color = 'good'
+        icon_color = 'orange'
     }
 
     // icon size
-    let icon_size = 'three-em'
+    let font_size = 'f-xlg'
     if (2 === data.size) {
-        icon_size = 'two-em'
+        font_size = 'f-lg'
     }
 
-    let font_size = 'f-xlg'
     if (data.count > 1000) {
         font_size = 'f-lg'
     } else if (data.count < 20) {
@@ -365,7 +364,11 @@ function _template_population_change_icon_block(data) {
     let icon_list = ''
     i = 0
     while (i < data.count) {
-        icon_list += '<i class="' + icon + ' ' + icon_color + '"></i>';
+        icon_list += `
+            <svg height="0.75em" width="0.75em" viewBox="0 0 512 512" class="icon ${icon_color} ${font_size}">
+                <use href="#${icon}"></use>
+            </svg>
+        `
         i++;
     }
     return `
@@ -373,9 +376,9 @@ function _template_population_change_icon_block(data) {
             <h5>${data.section_label}</h5>
             <div class="content flow f-xlg">
                 <p>${data.section_summary}</p>
-                <p class="${font_size} icon-block">
+                <div class="${font_size} icon-block">
                     ${icon_list} <span style="font-size:.5em;vertical-align:middle;">(${data.count})</span>
-                </p>
+                </div>
                 <p>${data.prayer}</p>
             </div>
         </div>
@@ -471,10 +474,14 @@ function _template_content_block(data) {
         } else {
             icolor = data.color
         }
-        icon = `<p class="icon-xlg"><i class="${iclass} ${icolor}"></i></p>`
+        icon = `
+            <svg class="icon-xlg ${icolor}" width="0.75em" height="0.75em" viewBox="0 0 512 512">
+                <use href="#${iclass}" ></use>
+            </svg>
+        `
     }
     return `
-        <div class="block content-block">
+        <div class="block flow content-block">
             <h5>${data.section_label}</h5>
             <p class="f-xlg">${data.focus_label}</p>
             ${icon}
@@ -567,5 +574,9 @@ function BodyIcon(color) {
 
     const iconColor = color && iconColors.hasOwnProperty(color) ? iconColors[color] : defaultColor
 
-    return `<i class="ion-ios-body ${iconColor}"></i>`
+    return `
+        <svg class="icon ${iconColor}" width="0.75em" height="0.75em" viewBox="0 0 512 512">
+            <use href="#ion-ios-body"></use>
+        </svg>
+    `
 }
