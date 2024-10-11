@@ -155,12 +155,19 @@ img {
     text-transform: uppercase;
     border-radius: 6px;
     box-shadow: var(--small-box-shadow);
-    border: none;
+    border: 1px solid transparent;
     background: var(--pg-light);
     color: white;
     font-size: 1rem;
     font-family: inherit;
     padding: 0.5rem 0.75rem;
+    transition: all 120ms linear;
+}
+.btn:hover {
+    background: #1a3b70;
+}
+.btn.bg-orange:hover {
+    background: #d28041;
 }
 .btn.outline {
     background-color: white;
@@ -168,11 +175,17 @@ img {
     border: 1px solid var(--pg-dark);
     text-transform: none;
 }
+.btn.outline:hover {
+    background-color: var(--pg-dark);
+    color: white;
+}
 .btn.simple {
     background-color: white;
     color: var(--pg-dark);
-    border: none;
     text-transform: none;
+}
+.btn.simple:hover {
+    border-color: var(--pg-dark);
 }
 .btn-group {
     display: flex;
