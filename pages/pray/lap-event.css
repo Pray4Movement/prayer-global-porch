@@ -154,6 +154,9 @@ img {
 .lh-1 {
     line-height: 1;
 }
+.relative {
+    position: relative;
+}
 
 /* Blocks */
 #decision-panel {
@@ -164,6 +167,10 @@ img {
 }
 #celebrate-panel {
     display: none;
+}
+#content-anchor {
+    position: absolute;
+    top: -8rem;
 }
 
 /* ## Buttons */

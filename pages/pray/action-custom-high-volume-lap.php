@@ -266,13 +266,13 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     </div>
                 </div>
             </div>
-            <a href="#content" class="btn" data-bg="orange" id="see-more-button" style="display: none">
+            <a href="#content-anchor" class="btn" data-bg="orange" id="see-more-button" style="display: none">
                 <?php echo esc_html__( 'See more', 'prayer-global-porch' ) ?>
                 <i class="icon pg-chevron-down d-block center"></i>
             </a>
-            <div class="container flow md" id="content">
+            <div class="container flow md relative" id="content">
 
-                <hr>
+                <hr />
 
                 <div class="block basic-block text-center">
                     <div class="block__header">
@@ -286,7 +286,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     </div>
                 </div>
 
-                <hr>
+                <hr />
 
 
                 <div class="block basic-block text-center">

@@ -23,58 +23,58 @@ checkForLocationAndLoad(init)
 
 function init(location) {
 
-  renderContent(location)
+    renderContent(location)
 
-  toggleTimer( false )
+    toggleTimer(false)
 
-  setupListeners()
+    setupListeners()
 }
 
 function setupListeners() {
-  prayingButton.addEventListener('click', () => toggleTimer())
-  prayingCloseButton.addEventListener('click', () => toggleTimer(true))
-  prayingContinueButton.addEventListener('click', () => toggleTimer(false))
+    prayingButton.addEventListener('click', () => toggleTimer())
+    prayingCloseButton.addEventListener('click', () => toggleTimer(true))
+    prayingContinueButton.addEventListener('click', () => toggleTimer(false))
 }
 
-function toggleTimer( pause ) {
-  let pauseTimer = false
+function toggleTimer(pause) {
+    let pauseTimer = false
 
-  if ( typeof pause === 'undefined' ) {
-    pauseTimer = !window.paused
-  } else {
-    pauseTimer = pause
-  }
-  window.paused = pauseTimer
+    if (typeof pause === 'undefined') {
+        pauseTimer = !window.paused
+    } else {
+        pauseTimer = pause
+    }
+    window.paused = pauseTimer
 
-  if (pauseTimer) {
-    prayingText.innerHTML = escapeHTML(jsObject.translations.praying_paused)
+    if (pauseTimer) {
+        prayingText.innerHTML = escapeHTML(jsObject.translations.praying_paused)
 
-    /* Show and hide the neccessary UI */
-    hide(prayingCloseButton)
-    show(prayingContinueButton)
+        /* Show and hide the neccessary UI */
+        hide(prayingCloseButton)
+        show(prayingContinueButton)
 
-    show(decisionPanel)
+        show(decisionPanel)
 
-    /* clear the interval */
-    clearInterval(window.pgInterval)
-  } else {
-    prayingText.innerHTML = escapeHTML(jsObject.translations.keep_praying)
+        /* clear the interval */
+        clearInterval(window.pgInterval)
+    } else {
+        prayingText.innerHTML = escapeHTML(jsObject.translations.keep_praying)
 
-    /* Show and hide the necessary UI */
-    show(prayingCloseButton)
-    hide(prayingContinueButton)
+        /* Show and hide the necessary UI */
+        show(prayingCloseButton)
+        hide(prayingContinueButton)
 
-    hide(decisionPanel)
+        hide(decisionPanel)
 
-    /* Restart the interval */
-    startTimer( window.time )
-  }
+        /* Restart the interval */
+        startTimer(window.time)
+    }
 }
 
 function startTimer(time) {
-  if (!time) {
-    window.time = 0
-  }
+    if (!time) {
+        window.time = 0
+    }
 
   window.pgInterval = setInterval(() => {
     window.time = window.time + 0.1
@@ -180,6 +180,7 @@ function renderContent(content) {
     const blockTemplates = arrayList.map((block) => getBlockTemplate(block))
 
     contentElement.innerHTML = `
+    <div class="content-anchor"></div>
     <hr />
 
     ${blockTemplates.join('<hr>')}
@@ -532,7 +533,7 @@ function _template_basic_block(data) {
             <button type="button" class="btn simple id-${data.id}" onclick="document.querySelector('#id-${data.id}').style.display = 'block';document.querySelector('.id-${data.id}').style.display = 'none';" >
                 <span>${data.reference} </span> <i class="icon pg-chevron-down"></i>
             </button>
-            <div class="flow sm" id="id-${data.id}" >
+            <div class="flow sm" id="id-${data.id}" style="display: none" >
                 <p class="block__verse">${data.verse}</p>
                 <p class="f-normal">${data.reference}</p>
             </div>
