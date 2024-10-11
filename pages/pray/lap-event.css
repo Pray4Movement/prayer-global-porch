@@ -61,12 +61,6 @@ img {
     background-size: cover;
     background-repeat: no-repeat;
 }
-.icon {
-    width: 0.75em;
-    width: 1cap;
-    height: 0.75em;
-    height: 1cap;
-}
 
 /* Composition */
 .container {
@@ -117,6 +111,17 @@ img {
     flex-grow: 0;
 }
 
+.with-icon {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.icon {
+    width: 0.75em;
+    width: 1cap;
+    height: 0.75em;
+    height: 1cap;
+}
 /* Utility */
 .dark {
     color: var(--pg-dark);
@@ -320,7 +325,7 @@ img {
     text-decoration: none;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    align-items: center;
     margin-left: auto;
     margin-right: auto;
     width: fit-content;

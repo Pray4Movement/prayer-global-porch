@@ -6,7 +6,7 @@ const contentElement = document.querySelector('#content')
 const prayingText = document.querySelector('.praying__text')
 const locationName = document.querySelector('#location-name')
 const prayingButton = document.querySelector('#praying-button')
-const prayingCloseButton = document.querySelector('#praying__close_button')
+const prayingPauseButton = document.querySelector('#praying__pause_button')
 const prayingContinueButton = document.querySelector('#praying__continue_button')
 const prayingProgress = document.querySelector('.praying__progress')
 const tutorial = document.querySelector('#tutorial-location')
@@ -32,7 +32,7 @@ function init(location) {
 
 function setupListeners() {
     prayingButton.addEventListener('click', () => toggleTimer())
-    prayingCloseButton.addEventListener('click', () => toggleTimer(true))
+    prayingPauseButton.addEventListener('click', () => toggleTimer(true))
     prayingContinueButton.addEventListener('click', () => toggleTimer(false))
 }
 
@@ -50,7 +50,7 @@ function toggleTimer(pause) {
         prayingText.innerHTML = escapeHTML(jsObject.translations.praying_paused)
 
         /* Show and hide the neccessary UI */
-        hide(prayingCloseButton)
+        hide(prayingPauseButton)
         show(prayingContinueButton)
 
         show(decisionPanel)
@@ -61,7 +61,7 @@ function toggleTimer(pause) {
         prayingText.innerHTML = escapeHTML(jsObject.translations.keep_praying)
 
         /* Show and hide the necessary UI */
-        show(prayingCloseButton)
+        show(prayingPauseButton)
         hide(prayingContinueButton)
 
         hide(decisionPanel)
@@ -104,11 +104,13 @@ function startTimer(time) {
 }
 
 function hide(element) {
-  element.dataset.oldDisplay = element.style.display !== 'none' ? element.style.display : 'block'
-  element.style.display = 'none'
+    if (!element.dataset.display) {
+        element.dataset.display = element.style.display !== 'none' ? element.style.display : 'block'
+    }
+    element.style.display = 'none'
 }
 function show(element) {
-  element.style.display = element.dataset.oldDisplay || 'block'
+    element.style.display = element.dataset.display || 'block'
 }
 
 function escapeHTML(str) {
@@ -365,7 +367,7 @@ function _template_population_change_icon_block(data) {
     i = 0
     while (i < data.count) {
         icon_list += `
-            <svg height="0.75em" width="0.75em" viewBox="0 0 512 512" class="icon ${icon_color} ${font_size}">
+            <svg height="1em" width="1em" viewBox="0 0 512 512" class="${icon_color} ${font_size}">
                 <use href="#${icon}"></use>
             </svg>
         `
@@ -475,7 +477,7 @@ function _template_content_block(data) {
             icolor = data.color
         }
         icon = `
-            <svg class="icon-xlg ${icolor}" width="0.75em" height="0.75em" viewBox="0 0 512 512">
+            <svg class="icon-xlg ${icolor}" width="1em" height="1em" viewBox="0 0 512 512">
                 <use href="#${iclass}" ></use>
             </svg>
         `
@@ -538,8 +540,8 @@ function _template_photo_block(data) {
 }
 function _template_basic_block(data) {
     const reference = data.reference ? `
-            <button type="button" class="btn simple id-${data.id}" onclick="document.querySelector('#id-${data.id}').style.display = 'block';document.querySelector('.id-${data.id}').style.display = 'none';" >
-                <span>${data.reference} </span> <i class="icon pg-chevron-down"></i>
+            <button type="button" class="btn simple id-${data.id} with-icon" onclick="document.querySelector('#id-${data.id}').style.display = 'block';document.querySelector('.id-${data.id}').style.display = 'none';" >
+                <span>${data.reference} </span> <svg width="1em" height="1em" viewBox="0 0 33 33"><use href="#pg-chevron-down"></use></svg>
             </button>
             <div class="flow sm" id="id-${data.id}" style="display: none" >
                 <p class="block__verse">${data.verse}</p>
@@ -555,7 +557,7 @@ function _template_basic_block(data) {
         <div class="block basic-block">
             <h5>${data.section_label}</h5>
             ${icon}
-            <div class="content f-xlg">
+            <div class="content f-xlg flow">
                 <p>${data.prayer}</p>
                 ${reference}
             </div>
@@ -575,7 +577,7 @@ function BodyIcon(color) {
     const iconColor = color && iconColors.hasOwnProperty(color) ? iconColors[color] : defaultColor
 
     return `
-        <svg class="icon ${iconColor}" width="0.75em" height="0.75em" viewBox="0 0 512 512">
+        <svg class="${iconColor}" width="1em" height="1em" viewBox="0 0 512 512">
             <use href="#ion-ios-body"></use>
         </svg>
     `

@@ -105,7 +105,6 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
         if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
 
-            wp_enqueue_style_async( 'pg-style', trailingslashit( plugin_dir_url( __DIR__ ) ) . "assets/fonts/prayer-global/style.css", [], filemtime( trailingslashit( plugin_dir_path( __DIR__ ) ) . "assets/fonts/prayer-global/style.css" ), 'all' );
             ?>
             <!-- Resources -->
             <script>
@@ -176,22 +175,31 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
         <?php //phpcs:ignore ?>
         <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/ionicon-subset.svg' ); ?>
+        <?php //phpcs:ignore ?>
+        <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/pgicon-subset.svg' ); ?>
 
         <!-- navigation & widget -->
         <nav class="prayer-navbar">
             <div class="container praying-button-group" id="praying-panel" role="group" aria-label="Praying Button">
                 <div class="btn btn-praying prayer-odometer">
-                    <i class="icon pg-prayer"></i><span class="location-count">0</span>
+                    <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 33 33">
+                        <use href="#pg-prayer"></use>
+                    </svg>
+                    <span class="location-count">0</span>
                 </div>
                 <button type="button" class="btn praying-timer" id="praying-button" data-percent="0" data-seconds="0">
                     <div class="praying__progress"></div>
                     <span class="praying__text uppercase font-weight-normal"></span>
                 </button>
-                <button type="button" class="btn btn-praying" data-bg="dark" id="praying__close_button">
-                    <i class="icon pg-pause"></i>
+                <button type="button" class="btn btn-praying white" data-display="flex" data-bg="dark" id="praying__pause_button">
+                    <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 33 33">
+                        <use href="#pg-pause"></use>
+                    </svg>
                 </button>
-                <button type="button" class="btn btn-praying" data-bg="dark" id="praying__continue_button">
-                    <i class="icon pg-start"></i>
+                <button type="button" class="btn btn-praying" data-bg="dark" data-display="flex" id="praying__continue_button">
+                    <svg height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
+                        <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/start.svg#pg-icon' ) ?>"></use>
+                    </svg>
                 </button>
             </div>
             <div class="container" id="question-panel">
@@ -204,7 +212,9 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <div class="container" id="decision-panel">
                 <div class="btn-group decision" role="group" aria-label="Decision Button">
                     <button type="button" class="btn btn-praying" data-bg="dark" id="decision__home">
-                        <i class="icon pg-home"></i>
+                        <svg height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
+                            <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/home.svg#pg-icon' ) ?>"></use>
+                        </svg>
                     </button>
                     <button type="button" class="btn btn-praying flex-2" data-bg="dark" id="decision__map"><?php echo esc_html( __( 'Map', 'prayer-global-porch' ) ) ?></button>
                     <button type="button" class="btn btn-praying" id="decision__next"><?php echo esc_html( __( 'Next', 'prayer-global-porch' ) ) ?></button>
@@ -276,7 +286,9 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             </div>
             <a href="#content-anchor" class="btn" data-bg="orange" id="see-more-button" style="display: none">
                 <?php echo esc_html__( 'See more', 'prayer-global-porch' ) ?>
-                <i class="icon pg-chevron-down d-block center"></i>
+                <svg viewBox="0 0 33 33" width="1em" height="1em" fill="currentColor">
+                    <use href="#pg-chevron-down"></use>
+                </svg>
             </a>
             <div class="container flow md relative" id="content">
 
@@ -313,7 +325,9 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             </div>
             <div class="container">
                 <div class="flow text-center">
-                    <i class="icon pg-pray-hands-dark f-xxlg"></i>
+                    <svg class="f-xxlg" height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
+                        <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/pray-hands-dark.svg#pg-icon' ) ?>"></use>
+                    </svg>
                     <button type="button" class="btn outline" id="more_prayer_fuel"><?php echo esc_html__( 'Show More Guided Prayers', 'prayer-global-porch' ) ?><i class="icon pg-chevron-down"></i></button>
                 </div>
             </div>

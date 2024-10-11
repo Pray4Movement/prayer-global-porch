@@ -66,7 +66,7 @@ jQuery(document).ready(function(){
   let praying_button = jQuery('#praying_button')
   let button_progress = jQuery('.praying__progress')
   let button_text = jQuery('.praying__text')
-  let praying_close_button = jQuery('#praying__close_button')
+  let praying_pause_button = jQuery('#praying__pause_button')
   let praying_continue_button = jQuery('#praying__continue_button')
 
   let decision_home = jQuery('#decision__home')
@@ -229,8 +229,8 @@ jQuery(document).ready(function(){
     praying_button.on('click', function( e ) {
       toggle_timer()
     })
-    praying_close_button.off('click')
-    praying_close_button.on('click', function( e ) {
+    praying_pause_button.off('click')
+    praying_pause_button.on('click', function( e ) {
       toggle_timer( true )
     })
     praying_continue_button.off('click')
@@ -357,7 +357,7 @@ jQuery(document).ready(function(){
 
     if ( pauseTimer ) {
       // console.log('pausing')
-      praying_close_button.hide()
+      praying_pause_button.hide()
       praying_continue_button.show()
 
       decision_panel.show()
@@ -367,7 +367,7 @@ jQuery(document).ready(function(){
       window.paused = true
     } else {
       // console.log('activating')
-      praying_close_button.show()
+      praying_pause_button.show()
       praying_continue_button.hide()
 
       praying_panel.show()
