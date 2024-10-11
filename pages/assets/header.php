@@ -30,7 +30,7 @@ $current_url = dt_get_url_path( false, true );
 
 <?php
 
-wp_enqueue_style( 'basic-css', trailingslashit( plugin_dir_url( __DIR__ ) ) . "assets/css/basic.css", [], fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ), 'all' )
+    wp_enqueue_style( 'basic-css', trailingslashit( plugin_dir_url( __DIR__ ) ) . "assets/css/basic.css", [], fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ), 'all' );
 
 ?>
 <link rel="stylesheet" href="" type="text/css" media="all">
