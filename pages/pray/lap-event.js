@@ -124,6 +124,7 @@ function escapeHTML(str) {
 
 /* Fly away the see more button after a little bit of scroll */
 const seeMoreButton = document.querySelector('#see-more-button')
+console.log(window.scrollY)
 if (window.scrollY < 100) {
     seeMoreButton.style.display = ''
     window.addEventListener('scroll', removeSeeMoreButton)
@@ -180,7 +181,7 @@ function renderContent(content) {
     const blockTemplates = arrayList.map((block) => getBlockTemplate(block))
 
     contentElement.innerHTML = `
-    <div class="content-anchor"></div>
+    <div id="content-anchor"></div>
     <hr />
 
     ${blockTemplates.join('<hr>')}
