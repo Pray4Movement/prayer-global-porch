@@ -191,12 +191,12 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     <div class="praying__progress"></div>
                     <span class="praying__text uppercase font-weight-normal"></span>
                 </button>
-                <button type="button" class="btn btn-praying white" data-display="flex" data-bg="dark" id="praying__pause_button">
+                <button type="button" class="btn btn-praying bg-dark" data-display="flex" id="praying__pause_button">
                     <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 33 33">
                         <use href="#pg-pause"></use>
                     </svg>
                 </button>
-                <button type="button" class="btn btn-praying" data-bg="dark" data-display="flex" id="praying__continue_button">
+                <button type="button" class="btn btn-praying bg-dark" data-display="flex" id="praying__continue_button">
                     <svg height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
                         <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/start.svg#pg-icon' ) ?>"></use>
                     </svg>
@@ -204,20 +204,20 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             </div>
             <div class="container" id="question-panel">
                 <div class="btn-group question" role="group" aria-label="Praying Button">
-                    <button type="button" class="btn btn-praying lh-sm" data-bg="dark" id="question__yes_done"><?php echo esc_html( __( 'Done', 'prayer-global-porch' ) ) ?></button>
-                    <button type="button" class="btn btn-praying lh-sm" data-bg="orange" id="question__yes_next"><?php echo esc_html( __( 'Next', 'prayer-global-porch' ) ) ?></button>
+                    <button type="button" class="btn btn-praying lh-sm bg-dark" id="question__yes_done"><?php echo esc_html( __( 'Done', 'prayer-global-porch' ) ) ?></button>
+                    <button type="button" class="btn btn-praying lh-sm bg-orange" id="question__yes_next"><?php echo esc_html( __( 'Next', 'prayer-global-porch' ) ) ?></button>
                 </div>
             </div>
             <div class="w-100" ></div>
             <div class="container" id="decision-panel">
                 <div class="btn-group decision" role="group" aria-label="Decision Button">
-                    <button type="button" class="btn btn-praying" data-bg="dark" id="decision__home">
+                    <button type="button" class="btn btn-praying bg-dark" id="decision__home">
                         <svg height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
                             <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/home.svg#pg-icon' ) ?>"></use>
                         </svg>
                     </button>
-                    <button type="button" class="btn btn-praying flex-2" data-bg="dark" id="decision__map"><?php echo esc_html( __( 'Map', 'prayer-global-porch' ) ) ?></button>
-                    <button type="button" class="btn btn-praying" id="decision__next"><?php echo esc_html( __( 'Next', 'prayer-global-porch' ) ) ?></button>
+                    <button type="button" class="btn btn-praying bg-light" id="decision__map"><?php echo esc_html( __( 'Map', 'prayer-global-porch' ) ) ?></button>
+                    <!-- <button type="button" class="btn btn-praying" id="decision__next"><?php echo esc_html( __( 'Next', 'prayer-global-porch' ) ) ?></button> -->
                 </div>
             </div>
             <div class="container celebrate text-center" id="celebrate-panel"></div>
@@ -284,7 +284,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     </div>
                 </div>
             </div>
-            <a href="#content-anchor" class="btn" data-bg="orange" id="see-more-button" style="display: none">
+            <a href="#content-anchor" class="btn bg-orange" id="see-more-button" style="display: none">
                 <?php echo esc_html__( 'See more', 'prayer-global-porch' ) ?>
                 <svg viewBox="0 0 33 33" width="1em" height="1em" fill="currentColor">
                     <use href="#pg-chevron-down"></use>

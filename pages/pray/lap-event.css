@@ -122,58 +122,6 @@ img {
     height: 0.75em;
     height: 1cap;
 }
-/* Utility */
-.dark {
-    color: var(--pg-dark);
-    fill: var(--pg-dark);
-}
-.light {
-    color: var(--pg-light);
-    fill: var(--pg-light);
-}
-.orange {
-    color: var(--pg-orange);
-    fill: var(--pg-orange);
-}
-.bold {
-    font-weight: bold;
-}
-.uc {
-    text-transform: uppercase;
-}
-.f-xxlg {
-    font-size: 2.5rem;
-}
-.f-xlg {
-    font-size: 1.8rem;
-}
-.f-lg {
-    font-size: 1.4rem;
-}
-.f-md {
-    font-size: 1.2rem;
-}
-.f-normal {
-    font-size: 1rem;
-}
-.f-sm {
-    font-size: 0.8rem;
-}
-.text-center {
-    text-align: center;
-}
-.w-75 {
-    width: 75%;
-}
-.lh-1 {
-    line-height: 1;
-}
-.relative {
-    position: relative;
-}
-.hidden {
-    display: none;
-}
 
 /* Blocks */
 #decision-panel {
@@ -196,18 +144,12 @@ img {
     border-radius: 6px;
     box-shadow: var(--small-box-shadow);
     border: none;
-    background-color: var(--pg-light);
+    background: var(--pg-light);
     color: white;
     font-size: 1rem;
     font-family: inherit;
     padding: 0.5rem 0.75rem;
     cursor: pointer;
-}
-.btn[data-bg="dark"] {
-    background-color: var(--pg-dark);
-}
-.btn[data-bg="orange"] {
-    background-color: var(--pg-orange);
 }
 .btn.outline {
     background-color: white;
@@ -471,4 +413,66 @@ img {
     background: conic-gradient(var(--c) calc(var(--p)* 1%), #F6F6F6 0);
     -webkit-mask: radial-gradient(farthest-side, #0000 calc(99% - var(--b)), #000 calc(100% - var(--b)));
     mask: radial-gradient(farthest-side, #0000 calc(99% - var(--b)), #000 calc(100% - var(--b)));
+}
+
+/* Utility */
+.dark {
+    color: var(--pg-dark);
+    fill: var(--pg-dark);
+}
+.light {
+    color: var(--pg-light);
+    fill: var(--pg-light);
+}
+.orange {
+    color: var(--pg-orange);
+    fill: var(--pg-orange);
+}
+.bg-dark {
+    background: var(--pg-dark);
+}
+.bg-light {
+    background: var(--pg-light);
+}
+.bg-orange {
+    background: var(--pg-orange);
+}
+.bold {
+    font-weight: bold;
+}
+.uc {
+    text-transform: uppercase;
+}
+.f-xxlg {
+    font-size: 2.5rem;
+}
+.f-xlg {
+    font-size: 1.8rem;
+}
+.f-lg {
+    font-size: 1.4rem;
+}
+.f-md {
+    font-size: 1.2rem;
+}
+.f-normal {
+    font-size: 1rem;
+}
+.f-sm {
+    font-size: 0.8rem;
+}
+.text-center {
+    text-align: center;
+}
+.w-75 {
+    width: 75%;
+}
+.lh-1 {
+    line-height: 1;
+}
+.relative {
+    position: relative;
+}
+.hidden {
+    display: none;
 }
