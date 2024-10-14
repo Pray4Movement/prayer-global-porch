@@ -10,9 +10,9 @@ class PG_Prayer_API {
         if ( dt_is_rest() ) {
             add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
         }
-        if ( !wp_next_scheduled( 'pg_api_sync' ) ){
-            wp_schedule_event( time(), '5min', 'trigger' );
-        }
+//        if ( !wp_next_scheduled( 'pg_api_sync' ) ){
+//            wp_schedule_event( time(), '5min', 'trigger' );
+//        }
     }
 
     public function add_endpoints() {
@@ -20,7 +20,12 @@ class PG_Prayer_API {
         DT_Route::get( $namespace, 'trigger', [ $this, 'trigger' ] );
     }
 
-    public function trigger() {
+    public function trigger( WP_REST_Request $request ) {
+        $params = $request->get_params();
+        $relay = $params['relay'];
+        if ( empty( $relay ) ){
+            return new WP_Error( 'missing_relay', 'Missing relay parameter', [ 'status' => 400 ] );
+        }
         $url = 'http://api.prayer.global/logs';
         $last_saved_id = get_option( 'pg_sync_last_saved_id', 0 );
         $url .= '?last_id=' . $last_saved_id;
@@ -28,16 +33,16 @@ class PG_Prayer_API {
         $body = wp_remote_retrieve_body( $response );
         $data = json_decode( $body, true );
         if ( !empty( $data['total'] ) ){
-            $this->save_logs( $data );
+            $this->save_logs( $data, $relay );
         }
         return $data['total'];
     }
 
-    private function save_logs( $logs ){
+    private function save_logs( $logs, $relay_id ){
         global $wpdb;
         $time = time(); //@todo record time on log
 
-        $current_lap = pg_current_custom_lap( 1051 );
+        $current_lap = pg_current_custom_lap( $relay_id );
 
         $chunked_arrays = array_chunk( $logs['rows'], 500 );
         foreach ( $chunked_arrays as $chunked_array ){
@@ -45,7 +50,7 @@ class PG_Prayer_API {
             foreach ( $chunked_array as $log ){
                 if ( floor( $log['id'] / 4700 ) > $current_lap['lap_number'] ){
                     pg_generate_new_custom_prayer_lap( $current_lap['post_id'] );
-                    $current_lap = pg_current_custom_lap( 1051 );
+                    $current_lap = pg_current_custom_lap( $relay_id );
                 }
                 $lap_id = $current_lap['post_id'];
                 $location = $log['location'];
