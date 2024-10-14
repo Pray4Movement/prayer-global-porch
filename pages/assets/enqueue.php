@@ -101,7 +101,6 @@ function pg_heatmap_scripts( $glass ){
 }
 
 
-    wp_enqueue_script( 'umami', 'https://umami.gospelambition.com/script.js', [], 1, [ 'strategy' => 'defer', ] );
 add_filter( 'script_loader_tag', function ( $tag, $handle ){
 
     if ( $handle === 'umami' ) {
