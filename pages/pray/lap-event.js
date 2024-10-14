@@ -1,6 +1,4 @@
-window.paused = false
 window.seconds = 60
-window.finishedPraying = false
 window.items = 7
 
 const contentElement = document.querySelector('#content')
@@ -35,6 +33,13 @@ const morePrayerFuelButton = document.querySelector('#more_prayer_fuel')
 checkForLocationAndLoad(init)
 
 function init(location) {
+    window.paused = false
+    window.finishedPraying = false
+    window.alreadyLogged = false
+    window.time = 0
+    window.randomLogSeconds = 30 + 30 * Math.random()
+
+    console.log(window.randomLogSeconds)
 
     renderContent(location)
 
@@ -136,6 +141,24 @@ function startTimer(time) {
 
     window.pgInterval = setInterval(() => {
         window.time = window.time + 0.1
+
+        if (window.time > window.randomLogSeconds && !window.alreadyLogged) {
+            /* send log */
+            const url = `https://api.prayer.global/update?location=${jsObject.current_content.location.location.grid_id}&relay_id=${jsObject.parts.public_key}`
+            fetch(url, {
+                method: 'POST',
+            })
+                .then((res) => {
+                    if (!res.ok) {
+                        throw Error(res.status + ': ' + res.statusText)
+                    }
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+
+            window.alreadyLogged = true
+        }
 
         if (window.time < window.seconds) {
 
