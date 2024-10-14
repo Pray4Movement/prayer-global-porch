@@ -18,6 +18,7 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
         'stats' => "Stats",
         'completed' => "Completed",
         'location' => "Location",
+        'location-map' => "Location Map",
     ];
     public $show_bulk_send = false;
     public $post_type = 'laps';
@@ -79,6 +80,8 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
             require_once( 'action-global-stats.php' );
         } else if ( 'location' === $this->parts['action'] ) {
             require_once( 'action-global-location.php' );
+        } else if ( 'location-map' === $this->parts['action'] ) {
+            require_once( 'action-global-location-map.php' );
         } else {
             wp_redirect( trailingslashit( site_url() ) );
         }
