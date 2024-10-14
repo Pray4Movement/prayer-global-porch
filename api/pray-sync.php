@@ -26,7 +26,7 @@ class PG_Prayer_API {
         if ( empty( $relay_id ) ){
             return new WP_Error( 'missing_relay', 'Missing relay parameter', [ 'status' => 400 ] );
         }
-        $url = 'http://api.prayer.global/logs';
+        $url = 'http://api.prayer.global/logs?relay=' . $relay_id;
 
         //get the id of the last saved location, get logs since then
         $last_saved_id = get_option( 'pg_sync_last_saved_id_' . $relay_id, 0 );
