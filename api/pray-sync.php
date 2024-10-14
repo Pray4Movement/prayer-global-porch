@@ -1,13 +1,13 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
+if ( !defined( 'ABSPATH' ) ){
     exit; // Exit if accessed directly
 }
 
-class PG_Prayer_API {
+class PG_Prayer_API{
 
-    public function __construct() {
-        if ( dt_is_rest() ) {
+    public function __construct(){
+        if ( dt_is_rest() ){
             add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
         }
 //        if ( !wp_next_scheduled( 'pg_api_sync' ) ){
@@ -15,14 +15,14 @@ class PG_Prayer_API {
 //        }
     }
 
-    public function add_endpoints() {
+    public function add_endpoints(){
         $namespace = 'dt-public/pg-api/v1/';
         DT_Route::get( $namespace, 'trigger', [ $this, 'trigger' ] );
     }
 
-    public function trigger( WP_REST_Request $request ) {
+    public function trigger( WP_REST_Request $request ){
         $params = $request->get_params();
-        $relay_id = $params['relay'];
+        $relay_id = $params['relay'] ?? null;
         if ( empty( $relay_id ) ){
             return new WP_Error( 'missing_relay', 'Missing relay parameter', [ 'status' => 400 ] );
         }
@@ -30,7 +30,7 @@ class PG_Prayer_API {
 
         //get the id of the last saved location, get logs since then
         $last_saved_id = get_option( 'pg_sync_last_saved_id_' . $relay_id, 0 );
-        $url .= '?last_id=' . $last_saved_id;
+        $url .= '&last_id=' . $last_saved_id;
         $response = wp_remote_get( $url );
         $body = wp_remote_retrieve_body( $response );
         $data = json_decode( $body, true );
@@ -44,7 +44,24 @@ class PG_Prayer_API {
         global $wpdb;
         $time = time(); //@todo record time on log
 
-        $current_lap = pg_current_custom_lap( $relay_id );
+        $current_lap_post = $wpdb->get_row( $wpdb->prepare( "
+            SELECT *
+            FROM $wpdb->posts p
+            INNER JOIN $wpdb->postmeta pm ON ( 
+                pm.post_id = p.ID AND
+                pm.meta_key = 'prayer_app_custom_magic_key' AND
+                pm.meta_value = %s
+            )
+            WHERE p.post_type = 'laps'
+        ", $relay_id ), ARRAY_A );
+        if ( empty( $current_lap_post ) ){
+            return;
+        }
+
+        $current_lap = pg_current_custom_lap( $current_lap_post['ID'] );
+        if ( empty( $current_lap ) ){
+            return;
+        }
 
         //split logs into groups of 500 to avoid max query length
         $chunked_arrays = array_chunk( $logs['rows'], 500 );
@@ -62,8 +79,9 @@ class PG_Prayer_API {
             }
             $sql = rtrim( $sql, ',' );
             $wpdb->query( $sql );
-            update_option( 'pg_sync_last_saved_id_' . $relay_id , $chunked_array[ count( $chunked_array ) - 1 ]['id'] );
+            update_option( 'pg_sync_last_saved_id_' . $relay_id, $chunked_array[count( $chunked_array ) - 1]['id'] );
         }
     }
 }
+
 new PG_Prayer_API();

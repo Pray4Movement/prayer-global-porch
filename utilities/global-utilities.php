@@ -5678,7 +5678,6 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
     $fields['type'] = 'custom';
     $fields['visibility'] = $current_lap['visibility'] ? $current_lap['visibility'] : 'public';
     $fields['challenge_type'] = $current_lap['challenge_type'] ? $current_lap['challenge_type'] : 'ongoing';
-    $fields['assigned_to'] = $current_lap['assigned_to'];
     $fields['start_date'] = $date;
     $fields['start_time'] = $time;
     $fields['global_lap_number'] = $next_custom_lap_number;
@@ -5692,6 +5691,9 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
     $fields['contacts'] = [
         'values' => $contacts,
     ];
+    if ( $current_lap['assigned_to'] ){
+        $fields['assigned_to'] = $current_lap['assigned_to'];
+    }
 
     $new_post = DT_Posts::create_post( 'laps', $fields, true, false );
     if ( is_wp_error( $new_post ) ) {
