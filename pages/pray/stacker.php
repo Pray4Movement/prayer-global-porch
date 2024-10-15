@@ -294,6 +294,9 @@ class PG_Stacker {
         ", $grid_id ), ARRAY_A );
 
 
+        dt_write_log( '--- recently promised locations query ---' );
+        dt_write_log( $wpdb->last_query );
+
         // build the description
         if ( 'admin1' === $grid_record['level_name'] ) {
             $admin_level_name = esc_html( __( 'state', 'prayer-global-porch' ) );
