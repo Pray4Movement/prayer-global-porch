@@ -706,6 +706,9 @@ jQuery(document).ready(function(){
                   'line-width': 4
                 }
               });
+
+              // make sure that the country label is above all lines
+              map.moveLayer('country_outline_lines', 'poi-labels')
             })
         }
 

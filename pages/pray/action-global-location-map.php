@@ -117,7 +117,7 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
 
             content.empty().html(`
                 <div id="map-wrapper">
-                  <div id='mapbox-map'></div>
+                  <div id='mapbox-map' style="border-radius: 0"></div>
                 </div>
                 `
               )
@@ -133,11 +133,11 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
                 style: 'mapbox://styles/discipletools/clgnj6vkv00e801pj9xnw49i6',
                 center: center,
                 minZoom: 0,
-                zoom: 1
+                zoom: 1,
+                zoomControls: false,
               });
               map.dragRotate.disable();
               map.touchZoomRotate.disableRotation();
-              map.addControl(new mapboxgl.NavigationControl());
 
               map.on('load', function() {
 
@@ -167,6 +167,7 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
                     });
                     map.addLayer({
                       'id': 'parent_collection_lines',
+                      'beforeId': 'poi-labels',
                       'type': 'line',
                       'source': 'parent_collection',
                       'paint': {
@@ -176,6 +177,7 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
                     });
                     map.addLayer({
                       'id': 'parent_collection_fill',
+                      'beforeId': 'poi-labels',
                       'type': 'fill',
                       'source': 'parent_collection',
                       'filter': [ '==', ['get', 'grid_id'], grid_row.grid_id ],
@@ -186,6 +188,7 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
                     });
                     map.addLayer({
                       'id': 'parent_collection_fill_click',
+                      'beforeId': 'poi-labels',
                       'type': 'fill',
                       'source': 'parent_collection',
                       'paint': {
@@ -194,6 +197,7 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
                       }
                     });
 
+                    console.log(map)
 
                     let point_geojson = {
                       'type': 'FeatureCollection',
@@ -232,24 +236,14 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
                       },
                     });
 
-                    map.on('click', 'parent_collection_fill_click', function (e) {
-                      new mapboxgl.Popup()
-                        .setLngLat(e.lngLat)
-                        .setHTML(e.features[0].properties.full_name)
-                        .addTo(map);
-                    });
-                    map.on('mouseenter', 'parent_collection_fill_click', function () {
-                      map.getCanvas().style.cursor = 'pointer';
-                    });
+                    map.moveLayer('poi-labels')
 
-                    map.on('mouseleave', 'parent_collection_fill_click', function () {
-                      map.getCanvas().style.cursor = '';
-                    });
+                    const padding = 500 * 0.2
 
                     map.fitBounds([
                       [parseFloat( grid_row.p_west_longitude), parseFloat(grid_row.p_south_latitude)], // southwestern corner of the bounds
                       [parseFloat(grid_row.p_east_longitude), parseFloat(grid_row.p_north_latitude)] // northeastern corner of the bounds
-                    ], {padding: 25, duration: 5000});
+                    ], {padding: padding, duration: 0});
 
                   })
 
@@ -279,6 +273,8 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
                           'line-width': 4
                         }
                       });
+
+                      map.moveLayer('country_outline_lines', 'poi-labels')
                     })
                 }
 
@@ -315,139 +311,45 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
 
-        $current_lap = pg_current_global_lap();
-        $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
-        if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
-            ?>
-            <!-- Resources -->
-            <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3" defer></script>
-            <script>
-                let jsObject = [<?php echo json_encode([
-                    'parts' => $this->parts,
-                    'current_lap' => pg_current_global_lap(),
-                    'translations' => [
-                        'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
-                        'Keep Praying...' => __( 'Keep Praying...', 'prayer-global-porch' ),
-                        "Don't Know Jesus" => __( "Don't Know Jesus", 'prayer-global-porch' ),
-                        'Know About Jesus' => __( 'Know About Jesus', 'prayer-global-porch' ),
-                        'Know Jesus' => __( 'Know Jesus', 'prayer-global-porch' ),
-                        'Praying Paused' => __( 'Praying Paused', 'prayer-global-porch' ),
-                        'Great Job!' => __( 'Great Job!', 'prayer-global-porch' ),
-                        'Prayer Added!' => __( 'Prayer Added!', 'prayer-global-porch' ),
-                    ],
-                    'map_key' => DT_Mapbox_API::get_key(),
-                    'mirror_url' => dt_get_location_grid_mirror( true ),
-                    'location' => [
-                        "grid_id" => "100000002",
-                        "name" => "Badakhshan",
-                        "admin0_name" => "Afghanistan",
-                        "full_name" => "Badakhshan, Afghanistan",
-                        "population" => "1,054,100",
-                        "latitude" => 37.0329,
-                        "longitude" => 71.459,
-                        "country_code" => "AF",
-                        "admin0_code" => "AFG",
-                        "parent_id" => "100000001",
-                        "parent_name" => "Afghanistan",
-                        "admin0_grid_id" => "100000001",
-                        "admin1_grid_id" => "100000002",
-                        "admin1_name" => "Badakhshan",
-                        "admin2_grid_id" => null,
-                        "admin2_name" => null,
-                        "admin3_grid_id" => null,
-                        "admin3_name" => null,
-                        "admin4_grid_id" => null,
-                        "admin4_name" => null,
-                        "admin5_grid_id" => null,
-                        "admin5_name" => null,
-                        "level" => 1,
-                        "level_name" => "admin1",
-                        "north_latitude" => 38.4909,
-                        "south_latitude" => 35.4464,
-                        "east_longitude" => 74.8941,
-                        "west_longitude" => 69.9615,
-                        "p_longitude" => 66.0296,
-                        "p_latitude" => 33.8284,
-                        "p_north_latitude" => 38.4909,
-                        "p_south_latitude" => 29.3616,
-                        "p_east_longitude" => 74.8941,
-                        "p_west_longitude" => 60.5049,
-                        "c_longitude" => 66.0296,
-                        "c_latitude" => 33.8284,
-                        "c_north_latitude" => 38.4909,
-                        "c_south_latitude" => 29.3616,
-                        "c_east_longitude" => 74.8941,
-                        "c_west_longitude" => 60.5049,
-                        "peer_locations" => "34",
-                        "birth_rate" => 37.5,
-                        "death_rate" => 6.5,
-                        "growth_rate" => 1.31,
-                        "believers" => "168",
-                        "christian_adherents" => "33",
-                        "non_christians" => "1,053,900",
-                        "primary_language" => "Pashto, Southern",
-                        "primary_religion" => "Islam",
-                        "percent_believers" => 0.02,
-                        "percent_christian_adherents" => 0,
-                        "percent_non_christians" => 99.98,
-                        "admin_level_name" => "state",
-                        "admin_level_title" => "the state",
-                        "admin_level_name_cap" => "State",
-                        "admin_level_name_plural" => "states",
-                        "population_int" => 1054100,
-                        "believers_int" => 168,
-                        "christian_adherents_int" => 33,
-                        "non_christians_int" => 1053900,
-                        "percent_believers_full" => 0.0158908,
-                        "percent_christian_adherents_full" => 0.00312661,
-                        "percent_non_christians_full" => 99.981,
-                        "all_lost_int" => 1053933,
-                        "all_lost" => "1,053,933",
-                        "lost_per_believer_int" => 6274,
-                        "lost_per_believer" => "6,274",
-                        "population_growth_status" => "Fastest Growing in the World",
-                        "deaths_non_christians_next_hour" => "0",
-                        "deaths_non_christians_next_100" => "78",
-                        "deaths_non_christians_next_week" => "131",
-                        "deaths_non_christians_next_month" => "563",
-                        "deaths_non_christians_next_year" => "6,850",
-                        "births_non_christians_last_hour" => "4",
-                        "births_non_christians_last_100" => "451",
-                        "births_non_christians_last_week" => "757",
-                        "births_non_christians_last_month" => "3,248",
-                        "births_non_christians_last_year" => "39,522",
-                        "deaths_christian_adherents_next_hour" => "0",
-                        "deaths_christian_adherents_next_100" => "0",
-                        "deaths_christian_adherents_next_week" => "0",
-                        "deaths_christian_adherents_next_month" => "0",
-                        "deaths_christian_adherents_next_year" => "0",
-                        "births_christian_adherents_last_hour" => "0",
-                        "births_christian_adherents_last_100" => "0",
-                        "births_christian_adherents_last_week" => "0",
-                        "births_christian_adherents_last_month" => "0",
-                        "births_christian_adherents_last_year" => "1",
-                        "deaths_among_lost" => "0",
-                        "new_churches_needed" => "210",
-                        "favor" => "non_christians",
-                        "icon_color" => "brand-lighter",
-                        "people_groups_list" => "Nuristani, Prasuni, Garwi, Kohistani, Ishkashimi, Arora (Hindu traditions), Parachi",
-                        "people_groups_list_w_pop" => "Nuristani, Prasuni (9,700), Garwi, Kohistani (1,900), Ishkashimi (3,100), Arora (Hindu traditions) (1,500), Parachi (8,100)",
-                        "cities_list" => "Fayzabad, Jurm, Darāyim, Chākarān, Bahārak",
-                        "cities_list_w_pop" => "Fayzabad (44,421), Jurm (12,106), Darāyim, Chākarān, Bahārak"
-                    ],
-                    'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
-                    'images_url' => pg_grid_image_url(),
-                    'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
-                    'current_url' => $current_url,
-                    'stats_url' => $current_url . 'stats',
-                    'map_url' => $current_url . 'map',
-                    'is_custom' => ( 'custom' === $this->parts['type'] ),
-                    'is_cta_feature_on' => true,
-                ]) ?>][0]
-            </script>
-            <script type="text/javascript" src="<?php echo esc_url( DT_Mapbox_API::$mapbox_gl_js ) ?>" defer></script>
-            <?php
-        }
+        $current_url = trailingslashit( value: site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
+
+        $url = new DT_URL( dt_get_url_path() );
+        $grid_id = $url->query_params->get( 'grid_id' );
+
+        $stack = PG_Stacker::_stack_query( $grid_id );
+
+        ?>
+        <!-- Resources -->
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3" defer></script>
+        <script>
+            let jsObject = [<?php echo json_encode([
+                'parts' => $this->parts,
+                'current_lap' => pg_current_global_lap(),
+                'translations' => [
+                    'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
+                    'Keep Praying...' => __( 'Keep Praying...', 'prayer-global-porch' ),
+                    "Don't Know Jesus" => __( "Don't Know Jesus", 'prayer-global-porch' ),
+                    'Know About Jesus' => __( 'Know About Jesus', 'prayer-global-porch' ),
+                    'Know Jesus' => __( 'Know Jesus', 'prayer-global-porch' ),
+                    'Praying Paused' => __( 'Praying Paused', 'prayer-global-porch' ),
+                    'Great Job!' => __( 'Great Job!', 'prayer-global-porch' ),
+                    'Prayer Added!' => __( 'Prayer Added!', 'prayer-global-porch' ),
+                ],
+                'map_key' => DT_Mapbox_API::get_key(),
+                'mirror_url' => dt_get_location_grid_mirror( true ),
+                'location' => $stack['location'],
+                'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
+                'images_url' => pg_grid_image_url(),
+                'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
+                'current_url' => $current_url,
+                'stats_url' => $current_url . 'stats',
+                'map_url' => $current_url . 'map',
+                'is_custom' => ( 'custom' === $this->parts['type'] ),
+                'is_cta_feature_on' => true,
+            ]) ?>][0]
+        </script>
+        <script type="text/javascript" src="<?php echo esc_url( DT_Mapbox_API::$mapbox_gl_js ) ?>" defer></script>
+        <?php
     }
 
     public function footer_javascript(){
