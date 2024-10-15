@@ -593,6 +593,7 @@ jQuery(document).ready(function(){
             });
             map.addLayer({
               'id': 'parent_collection_lines',
+              'beforeId': 'poi-labels',
               'type': 'line',
               'source': 'parent_collection',
               'paint': {
