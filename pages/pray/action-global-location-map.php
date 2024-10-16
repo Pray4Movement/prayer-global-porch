@@ -238,7 +238,13 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
 
                     map.moveLayer('poi-labels')
 
-                    const padding = 500 * 0.2
+                    const paddingBoundary = 500 * 0.2
+                    const padding = {
+                      top: paddingBoundary,
+                      bottom: paddingBoundary,
+                      left: 315 + paddingBoundary,
+                      right: 315 + paddingBoundary,
+                    }
 
                     map.fitBounds([
                       [parseFloat( grid_row.p_west_longitude), parseFloat(grid_row.p_south_latitude)], // southwestern corner of the bounds
