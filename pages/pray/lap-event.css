@@ -375,7 +375,8 @@ img {
 }
 /* Map */
 .location-map {
-    height: 500px;
+    padding-bottom: 60%;
+    padding-bottom: min(500px, 75%);
     background-size: cover;
     background-position: center;
     border-radius: 10px;
