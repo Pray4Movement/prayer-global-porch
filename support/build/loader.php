@@ -7,4 +7,6 @@ require_once( 'test-load.php' );
 
 require_once( 'style-guide.php' );
 
+require_once( 'json-generator.php' );
+
 //  require_once('support/build/add-records.php');

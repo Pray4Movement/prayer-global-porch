@@ -164,7 +164,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                         <div class="praying__progress"></div>
                         <span class="praying__text uppercase font-weight-normal"></span>
                     </button>
-                    <button type="button" class="btn btn-primary-dark btn-praying" id="praying__close_button">
+                    <button type="button" class="btn btn-primary-dark btn-praying" id="praying__pause_button">
                         <i class="icon pg-pause"></i>
                     </button>
                     <button type="button" class="btn btn-primary-dark btn-praying" id="praying__continue_button">

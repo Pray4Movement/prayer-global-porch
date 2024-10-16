@@ -1,4 +1,6 @@
 vendor/*
+maps/*
+support/build/json-files
 node_modules/*
 composer.lock
 support/build/connect_params.json
