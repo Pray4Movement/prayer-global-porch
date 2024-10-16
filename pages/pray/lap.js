@@ -593,6 +593,7 @@ jQuery(document).ready(function(){
             });
             map.addLayer({
               'id': 'parent_collection_lines',
+              'beforeId': 'poi-labels',
               'type': 'line',
               'source': 'parent_collection',
               'paint': {
@@ -705,6 +706,9 @@ jQuery(document).ready(function(){
                   'line-width': 4
                 }
               });
+
+              // make sure that the country label is above all lines
+              map.moveLayer('country_outline_lines', 'poi-labels')
             })
         }
 
