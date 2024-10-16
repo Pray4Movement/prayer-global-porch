@@ -51,6 +51,7 @@ add_action( 'wp_enqueue_scripts', function (){
     wp_localize_script( 'global-functions', 'pg_global', [
         'map_key' => DT_Mapbox_API::get_key(),
         'mirror_url' => dt_get_location_grid_mirror( true ),
+        'cache_url' => dt_get_location_grid_mirror( true ),
         'root' => esc_url_raw( rest_url() ),
         'nonce' => wp_create_nonce( 'wp_rest' ),
     ]);

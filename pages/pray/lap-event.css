@@ -373,6 +373,18 @@ img {
     height: 3rem;
     width: 3rem;
 }
+/* Map */
+.location-map {
+    height: 500px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 10px;
+    background-size: auto 100%;
+    transition: background-size 1500ms ease-in-out;
+}
+.location-map.zoom {
+    background-size: auto 120%;
+}
 
 /* ## skeleton */
 .skeleton {
@@ -383,7 +395,7 @@ img {
 }
 .skeleton[data-map] {
     width: 100%;
-    padding-bottom: 45%;
+    height: 500px;
 }
 .skeleton[data-title] {
     width: 30%;

@@ -74,7 +74,7 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
                 require_once( 'action-custom-lap.php' );
             }
         } else if ( 'event' === $this->parts['action'] ) {
-            require_once( 'action-custom-high-volume-lap.php' );
+            require_once( 'action-custom-event-lap.php' );
         } else if ( 'completed' === $this->parts['action'] ) {
             require_once( 'action-custom-completed.php' );
         } else if ( 'map' === $this->parts['action'] ) {
@@ -166,7 +166,7 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
                 }
                 return new WP_Error( __METHOD__, "Class not loaded: PG_Custom_Prayer_App_Map_Display", [ 'status' => 400 ] );
             case 'event':
-                require_once( 'action-custom-high-volume-lap.php' );
+                require_once( 'action-custom-event-lap.php' );
                 if ( class_exists( 'PG_Custom_High_Volume_Prayer_App_Lap' ) ) {
                     return PG_Custom_High_Volume_Prayer_App_Lap::instance()->endpoint( $request );
                 }

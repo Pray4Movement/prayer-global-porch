@@ -2,6 +2,9 @@ window.seconds = 60
 window.items = 7
 
 const contentElement = document.querySelector('#content')
+const mapElement = document.querySelector('#location-map')
+const mapSkeleton = mapElement.querySelector('.skeleton')
+
 const prayingText = document.querySelector('.praying__text')
 const locationName = document.querySelector('#location-name')
 const prayingButton = document.querySelector('#praying-button')
@@ -42,6 +45,7 @@ function init(location) {
     console.log(window.randomLogSeconds)
 
     renderContent(location)
+    renderMap(location)
 
     toggleTimer(false)
 
@@ -283,6 +287,21 @@ function renderContent(content) {
     populationInfoNo.innerHTML = location.non_christians
     populationInfoNeutral.innerHTML = location.christian_adherents
     populationInfoYes.innerHTML = location.believers
+}
+function renderMap(content) {
+    const { location } = content
+
+    const imageSrc = jsObject.cache_url + 'maps/' + location.grid_id + '.jpg'
+    const bgImg = new Image()
+    bgImg.onload = function(){
+        mapSkeleton.style.display = 'none'
+        mapElement.style.backgroundImage = 'url(' + bgImg.src + ')'
+
+        setTimeout(() => {
+            mapElement.classList.add('zoom')
+        }, 500)
+    }
+    bgImg.src = imageSrc
 }
 
 function getBlockTemplate(block) {

@@ -122,6 +122,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                         'Prayer Added!' => __( 'Prayer Added!', 'prayer-global-porch' ),
                     ],
                     'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
+                    'cache_url' => 'https://s3.prayer.global/',
                     'images_url' => pg_grid_image_url(),
                     'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                     'json_folder' => plugin_dir_url( __DIR__ ) . 'assets/json/',
@@ -142,6 +143,10 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
     public function footer_javascript(){}
 
     public function body(){
+
+        $url = new DT_URL( dt_get_url_path() );
+        $grid_id = $url->query_params->has( 'grid_id' ) ? $url->query_params->get( 'grid_id' ) : 0;
+
         ?>
 
         <script>
@@ -151,7 +156,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             if (gridId) {
                 //const jsonUrl = jsObject.json_folder + '100000002' + '.json'
                 //const jsonUrl = jsObject.json_folder + '100000003' + '.json'
-                const jsonUrl = jsObject.json_folder + gridId + '.json'
+                const jsonUrl = jsObject.cache_url + 'json/' + gridId + '.json'
 
                 fetch(jsonUrl)
                     .then((response) => {
@@ -259,8 +264,9 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
         <!-- content section -->
         <section class="prayer-content flow lg">
             <div class="container" id="map">
-                <div class="text-md-center" id="location-map"></div>
-                <div class="skeleton" data-map></div>
+                <div class="text-md-center location-map" id="location-map">
+                    <div class="skeleton" data-map></div>
+                </div>
                 <div class="population-info">
                     <div>
                         <svg class="icon dark" width="0.75em" height="0.75em" viewBox="0 0 512 512">
