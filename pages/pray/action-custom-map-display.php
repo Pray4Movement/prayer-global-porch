@@ -192,12 +192,14 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
 
         switch ( $params['action'] ) {
             case 'get_stats':
-                return pg_custom_lap_stats_by_post_id( $params['parts']['post_id'] );
+                $current_lap = pg_current_custom_lap( $params['parts']['post_id'] );
+                return pg_custom_lap_stats_by_post_id( $current_lap['post_id'] );
             case 'get_grid':
+                $current_lap = pg_current_custom_lap( $params['parts']['post_id'] );
                 return [
                     'grid_data' => $this->get_grid( $params['parts'] ),
                     'participants' => [],
-                    'stats' => pg_custom_lap_stats_by_post_id( $params['parts']['post_id'] ),
+                    'stats' => pg_custom_lap_stats_by_post_id( $current_lap['post_id'] ),
                 ];
             default:
                 return new WP_Error( __METHOD__, 'missing action parameter' );
