@@ -258,7 +258,7 @@ jQuery(document).ready(function($){
           reload_load_grid()
         })
     }
-  }, 60000 )
+  }, 1000 )
 
   function reload_load_grid() {
     jQuery.each(asset_list, function(i,file){
