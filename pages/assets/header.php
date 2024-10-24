@@ -23,14 +23,17 @@ $current_url = dt_get_url_path( false, true );
 
 <?php pg_og_tags( [ "url" => $current_url ] ) ?>
 
-<link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400" rel="stylesheet">
-
 <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>css/bootstrap/bootstrap5.2.2.css">
 <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>fonts/ionicons/css/ionicons.min.css">
 
 <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>fonts/prayer-global/style.css">
 
-<link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/basic.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ) ) ?>" type="text/css" media="all">
+<?php
+
+    wp_enqueue_style( 'basic-css', trailingslashit( plugin_dir_url( __DIR__ ) ) . "assets/css/basic.css", [], fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ), 'all' );
+
+?>
+<link rel="stylesheet" href="" type="text/css" media="all">
 
 
 

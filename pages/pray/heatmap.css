@@ -80,6 +80,12 @@ progress {
     background: white;
     height: 80%;
 }
+.lap-number {
+    position: absolute;
+    left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+}
 
 @media (max-width: 576px) {
     #head_block {

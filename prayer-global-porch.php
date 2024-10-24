@@ -24,6 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'PG_TOTAL_STATES', 4770 );
 define( 'PG_NAMESPACE', 'pg_' );
+define( 'PG_API_ENDPOINT', 'https://api.prayer.global/' );
 
 
 
@@ -102,6 +103,7 @@ class Prayer_Global_Porch {
         $wpdb->location_grid_names = 'location_grid_names';
 
         require_once( 'utilities/global-utilities.php' );
+        require_once( 'utilities/enqueue-async.php' );
         require_once( 'utilities/login-functions.php' );
         require_once( 'classes/pg-feature-flag.php' );
         require_once( 'classes/pg-flags.php' );
