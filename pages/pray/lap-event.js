@@ -148,7 +148,7 @@ function startTimer(time) {
 
         if (window.time > window.randomLogSeconds && !window.alreadyLogged) {
             /* send log */
-            const url = `https://api.prayer.global/update?location=${jsObject.current_content.location.location.grid_id}&relay=${jsObject.parts.public_key}`
+            const url = `${jsObject.update_url}update?location=${jsObject.current_content.location.location.grid_id}&relay=${jsObject.parts.public_key}`
             fetch(url, {
                 method: 'POST',
             })
