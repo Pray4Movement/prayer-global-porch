@@ -253,6 +253,7 @@ jQuery(document).ready(function($){
           jQuery('.time_elapsed').html( jsObject.stats.time_elapsed_small )
           jQuery('.prayer_warriors').html( jsObject.stats.participants )
           jQuery('.lap_pace').html( jsObject.stats.lap_pace_small )
+          jQuery('.lap-number span').html( jsObject.stats.lap_number )
 
           jsObject.grid_data = x.grid_data
           reload_load_grid()

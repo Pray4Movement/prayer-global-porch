@@ -76,7 +76,9 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
                 'grid_data' => [],
                 'stats' => $this->stats,
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
-                'translations' => [],
+                'translations' => [
+                    'lap' => __( 'Lap %d', 'prayer-global-porch' ),
+                ],
                 'map_type' => 'binary',
             ]) ?>][0]
         </script>
@@ -107,9 +109,10 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
             </div>
             <div id="map-wrapper">
                 <div id="head_block_wrapper">
-                    <div id="head_block_display" class="center brand-bg white">
+                    <div id="head_block_display" class="center brand-bg white relative">
                         <h2 class="uppercase"><?php echo esc_html( sprintf( __( '%s Prayer Relay', 'prayer-global-porch' ), $lap_stats['title'] ) ) ?></h2>
                         <h4 class="uppercase"><?php echo esc_html__( 'Cover The World In Prayer', 'prayer-global-porch' ) ?></h4>
+                        <h4 class="uppercase lap-number"><?php echo esc_html__( 'Lap:', 'prayer-global-porch' ) ?> <span><?php echo esc_html( $lap_stats['lap_number'] ) ?></span></h4>
                     </div>
                 </div>
                 <span class="loading-spinner active"></span>
