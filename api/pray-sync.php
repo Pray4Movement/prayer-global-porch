@@ -7,7 +7,7 @@ if ( !defined( 'ABSPATH' ) ){
 class PG_Prayer_API{
 
     public string $last_saved_id_prefix = 'pg_sync_last_saved_id_';
-    public string $api_url = PG_LOGS_ENDPOINT;
+    public string $api_url = PG_API_ENDPOINT;
     public int $lap_size = PG_TOTAL_STATES;
 
     public function __construct(){

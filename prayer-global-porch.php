@@ -24,9 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'PG_TOTAL_STATES', 4770 );
 define( 'PG_NAMESPACE', 'pg_' );
-define( 'PG_REDIRECT_ENDPOINT', 'https://api.prayer.global/' );
-define( 'PG_UPDATE_ENDPOINT', 'https://api.prayer.global:4000/' );
-define( 'PG_LOGS_ENDPOINT', 'https://api.prayer.global:5000/' );
+define( 'PG_API_ENDPOINT', 'https://api.prayer.global/' );
 
 
 
