@@ -7,17 +7,21 @@ if ( !defined( 'ABSPATH' ) ){
 class PG_Prayer_API{
 
     public string $last_saved_id_prefix = 'pg_sync_last_saved_id_';
-    public string $api_url = 'http://api.prayer.global/';
+    public string $api_url = 'http://api.prayer.global:5000/';
     public int $lap_size = PG_TOTAL_STATES;
-    //public int $lap_size = 500;
 
     public function __construct(){
         if ( dt_is_rest() ){
             add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
+
+            //Setting WP HTTP API Timeout
+            add_action( 'http_api_curl', [ $this, 'my_http_api_curl' ], 100, 1 );
         }
-//        if ( !wp_next_scheduled( 'pg_api_sync' ) ){
-//            wp_schedule_event( time(), '5min', 'trigger' );
-//        }
+    }
+
+    public function my_http_api_curl( $handle ) {
+        curl_setopt( $handle, CURLOPT_CONNECTTIMEOUT, 0 );
+        curl_setopt( $handle, CURLOPT_TIMEOUT, 30 );
     }
 
     public function add_endpoints(){
@@ -38,7 +42,14 @@ class PG_Prayer_API{
         //get the id of the last saved location, get logs since then
         $last_saved_id = get_option( $this->last_saved_id_prefix . $relay_id, 0 );
         $url .= '&last_id=' . $last_saved_id;
+
+        $start_time = microtime( true );
+
         $response = wp_remote_get( $url );
+
+        $end_time = microtime( true );
+
+        $response_time = floor( ( $end_time - $start_time ) * 1000 ) / 1000;
         if ( is_wp_error( $response ) ) {
             return [
                 'error' => $response->get_error_message(),
@@ -56,6 +67,7 @@ class PG_Prayer_API{
             'first_id' => !empty( $data['rows'] ) ? $data['rows'][0]['id'] : null,
             'last_id' => !empty( $data['rows'] ) ? $data['rows'][ count( $data['rows'] ) - 1 ]['id'] : null,
             'last_saved_id' => $last_saved_id,
+            'curl_time' => $response_time,
         ];
     }
 
@@ -111,7 +123,8 @@ class PG_Prayer_API{
             $sql = "INSERT INTO $wpdb->dt_reports (post_id, post_type, type, subtype, value, grid_id, timestamp) VALUES ";
             foreach ( $chunked_array as $log ){
                 //check and generate a new lap if needed
-                if ( ceil( $log['logId'] / $this->lap_size ) > (int) $current_lap['lap_number'] ){
+                $number_of_laps_of_logs = ceil( $log['logId'] / $this->lap_size );
+                if ( $number_of_laps_of_logs > (int) $current_lap['lap_number'] ){
                     pg_generate_new_custom_prayer_lap( $current_lap['post_id'] );
                     $current_lap = pg_current_custom_lap( $current_lap['post_id'] );
                 }
