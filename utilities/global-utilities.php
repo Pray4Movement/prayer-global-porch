@@ -49,7 +49,7 @@ function pg_current_custom_lap( int $post_id ) : array {
     global $wpdb;
 
     /* === THIS QUERY WORKS UP TO MYSQL 5.7 AND SHOULD BE REMOVED IN FAVOR OF BELOW QUERY WHEN MYSQL IS UPGRADED TO 8 === */
-    $results = $wpdb->get_results( $wpdb->prepare(
+/*     $results = $wpdb->get_results( $wpdb->prepare(
         "SELECT
             t.p2p_from,
             @pv:= t.p2p_to p2p_to,
@@ -58,10 +58,10 @@ function pg_current_custom_lap( int $post_id ) : array {
         JOIN ( SELECT @pv := %d ) tmp
         WHERE p2p_type = 'parent-lap_to_child-lap'
         AND t.p2p_from = @pv;",
-    $post_id ), ARRAY_A );
+    $post_id ), ARRAY_A ); */
 
     /* === THIS QUERY SHOULD BE USED WHEN THE MYSQL DB IS UPGRADED TO 8 IN FAVOR OF THE ABOVE ONE === */
-    /*$results = $wpdb->get_results( $wpdb->prepare(
+    $results = $wpdb->get_results( $wpdb->prepare(
         "WITH RECURSIVE cte ( p2p_from_, p2p_to_ ) AS (
             SELECT p2p_from, p2p_to FROM $wpdb->p2p WHERE p2p_from = %d AND p2p_type = 'parent-lap_to_child-lap'
             UNION ALL
@@ -80,7 +80,7 @@ function pg_current_custom_lap( int $post_id ) : array {
         FROM cte c
 
     ", [ $post_id ] ), ARRAY_A );
-    */
+
     if ( is_wp_error( $results ) ) {
         return [];
     }
@@ -5684,6 +5684,7 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
     $fields['global_lap_number'] = $next_custom_lap_number;
     $fields['prayer_app_custom_magic_key'] = $current_lap_key;
     $fields['ctas_off'] = $current_lap['ctas_off'];
+    $fields['event_lap'] = $current_lap['event_lap'];
     $fields['parent_lap'] = [
         'values' => [
             [ 'value' => $current_lap['post_id'] ]
@@ -5727,15 +5728,15 @@ function pg_calculate_lap_number( $post_id ) {
     global $wpdb;
 
     /* === THIS QUERY WORKS UP TO MYSQL 5.7 AND SHOULD BE REMOVED IN FAVOR OF BELOW QUERY WHEN MYSQL IS UPGRADED TO 8 === */
-    $results = $wpdb->get_results( $wpdb->prepare(
+/*     $results = $wpdb->get_results( $wpdb->prepare(
         "SELECT  @pv:= t.p2p_from, t.p2p_to
         FROM (SELECT * FROM wp_p2p ORDER BY p2p_to DESC) t
         JOIN (SELECT @pv := %d) tmp
         WHERE p2p_type = 'parent-lap_to_child-lap'
         AND t.p2p_to = @pv",
-    $post_id ), ARRAY_A );
+    $post_id ), ARRAY_A ); */
     /* === THIS QUERY ONLY WORKS ON MYQSL 8+ === */
-    /*$results = $wpdb->get_results( $wpdb->prepare(
+    $results = $wpdb->get_var( $wpdb->prepare(
         "WITH RECURSIVE cte ( p2p_from_, p2p_to_ ) AS (
             SELECT
                 p2p_from, p2p_to
@@ -5757,11 +5758,10 @@ function pg_calculate_lap_number( $post_id ) {
             AND
                 p.p2p_type = 'parent-lap_to_child-lap'
         )
-        SELECT * FROM cte
+        SELECT COUNT(*) FROM cte
     ", [ $post_id ] ), ARRAY_A );
-    */
 
-    return count( $results ) + 1;
+    return $results + 1;
 
 }
 
