@@ -1,5 +1,3 @@
-const isMobile = window.pg_js.isMobile()
-
 jQuery(document).ready(function($){
 
   window.get_page = (action) => {
