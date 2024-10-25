@@ -5759,7 +5759,7 @@ function pg_calculate_lap_number( $post_id ) {
                 p.p2p_type = 'parent-lap_to_child-lap'
         )
         SELECT COUNT(*) FROM cte
-    ", [ $post_id ] ), ARRAY_A );
+    ", [ $post_id ] ) );
 
     return $results + 1;
 
