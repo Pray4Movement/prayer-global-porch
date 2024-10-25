@@ -161,6 +161,10 @@ img {
     background-color: var(--pg-dark);
     color: white;
 }
+.celebrate-panel h2 {
+    margin-top: 2rem;
+    font-size: 2em;
+}
 
 /* ## Buttons */
 .btn {

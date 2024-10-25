@@ -114,10 +114,8 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
         $has_challenge_started = $lap_stats['start_time'] < $now;
         DT_Mapbox_API::geocoder_scripts();
 
-        $lap = pg_current_custom_lap( $parts['post_id'] );
-
         $pray_href = '/prayer_app/custom/' . esc_attr( $parts['public_key'] );
-        if ( $lap['event_lap'] ) {
+        if ( $lap_stats['event_lap'] ) {
             $domain_param = isset( $_SERVER['HTTP_HOST'] ) ? '&domain=' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
             $pray_href = PG_API_ENDPOINT . '?relay=' . $parts['public_key'] . $domain_param;
         }
