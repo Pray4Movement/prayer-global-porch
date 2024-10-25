@@ -104,6 +104,9 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header-event.php' );
 
+        $url = new DT_URL( dt_get_url_path() );
+        $grid_id = $url->query_params->has( 'grid_id' ) ? $url->query_params->get( 'grid_id' ) : 0;
+
         $current_lap = pg_get_custom_lap_by_post_id( $this->parts['post_id'] );
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
         if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
@@ -138,6 +141,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             </script>
 
             <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>lap-event.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap-event.css' ) ) ?>" type="text/css" media="all">
+            <link rel="preload" href="https://s3.prayer.global/maps/<?php echo esc_attr( $grid_id ) ?>.jpg" >
 
             <?php
         }
@@ -146,9 +150,6 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
     public function footer_javascript(){}
 
     public function body(){
-
-        $url = new DT_URL( dt_get_url_path() );
-        $grid_id = $url->query_params->has( 'grid_id' ) ? $url->query_params->get( 'grid_id' ) : 0;
 
         ?>
 
