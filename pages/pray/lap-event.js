@@ -1,6 +1,8 @@
 window.seconds = 60
 window.items = 7
 
+CELEBRATION_TIMEOUT = 3000
+
 const contentElement = document.querySelector('#content')
 const mapElement = document.querySelector('#location-map')
 const mapSkeleton = mapElement.querySelector('.skeleton')
@@ -13,6 +15,7 @@ const prayingContinueButton = document.querySelector('#praying__continue_button'
 const prayingProgress = document.querySelector('.praying__progress')
 const tutorial = document.querySelector('#tutorial-location')
 
+const prayerNavbar = document.querySelector('.prayer-navbar')
 const prayingPanel = document.querySelector('#praying-panel')
 const decisionPanel = document.querySelector('#decision-panel')
 const questionPanel = document.querySelector('#question-panel')
@@ -31,7 +34,7 @@ const populationInfoNeutral = document.querySelector('.population-info .neutral'
 const populationInfoYes = document.querySelector('.population-info .yes')
 
 const morePrayerFuelButton = document.querySelector('#more_prayer_fuel')
-
+const celebratePanel = document.querySelector('#celebrate-panel')
 
 checkForLocationAndLoad(init)
 
@@ -70,13 +73,25 @@ function setupListeners() {
 }
 
 function celebrateAndNext() {
-    /* Get the next location JSON */
-    alert('TODO: get the next location + fire off celebrations while doing so')
+    const url = new URL(jsObject.api_url)
+    const siteOrigin = (new URL(location.href)).host
+    url.searchParams.append('relay', jsObject.parts.public_key)
+    url.searchParams.append('domain', siteOrigin)
 
-    /* Fire off the celebrations and open the celebrate panel */
+    celebrateAndNavigateTo(url.href)
 }
 function celebrateAndDone() {
-    alert('TODO: fire off celebrations and navigate to map')
+    celebrateAndNavigateTo(getMapUrl())
+}
+
+function celebrateAndNavigateTo(href) {
+    /* Fire off the celebrations and open the celebrate panel */
+    window.celebrationFireworks()
+    show(celebratePanel)
+
+    setTimeout(() => {
+        location.href = href
+    }, CELEBRATION_TIMEOUT)
 }
 
 function openLeaveModal() {
@@ -88,10 +103,14 @@ function keepPraying() {
     toggleTimer()
 }
 function leavePraying() {
+    window.location = getMapUrl()
+}
+
+function getMapUrl() {
     if (jsObject.is_cta_feature_on === true) {
-        window.location = jsObject.map_url + '?show_cta'
+        return jsObject.map_url + '?show_cta'
     } else {
-        window.location = jsObject.map_url
+        return jsObject.map_url
     }
 }
 
@@ -148,7 +167,7 @@ function startTimer(time) {
 
         if (window.time > window.randomLogSeconds && !window.alreadyLogged) {
             /* send log */
-            const url = `${jsObject.update_url}update?location=${jsObject.current_content.location.location.grid_id}&relay=${jsObject.parts.public_key}`
+            const url = `${jsObject.api_url}update?location=${jsObject.current_content.location.location.grid_id}&relay=${jsObject.parts.public_key}`
             fetch(url, {
                 method: 'POST',
             })

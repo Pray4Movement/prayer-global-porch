@@ -27,7 +27,7 @@ window.pg_js = {
   }
 }
 
-$(document).ready(function ($) {
+document.addEventListener("DOMContentLoaded", function() {
   window.schoolPride = function () {
     var end = Date.now() + 3 * 1000;
 
@@ -38,14 +38,14 @@ $(document).ready(function ($) {
       confetti({
         particleCount: 3,
         angle: 60,
-        spread: 55,
+        spread: 30,
         origin: { x: 0, y: 0.8 },
         colors: colors,
       });
       confetti({
         particleCount: 3,
         angle: 120,
-        spread: 55,
+        spread: 30,
         origin: { x: 1, y: 0.8 },
         colors: colors,
       });

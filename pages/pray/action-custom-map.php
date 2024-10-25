@@ -113,6 +113,15 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
         $now = time();
         $has_challenge_started = $lap_stats['start_time'] < $now;
         DT_Mapbox_API::geocoder_scripts();
+
+        $lap = pg_current_custom_lap( $parts['post_id'] );
+
+        $pray_href = '/prayer_app/custom/' . esc_attr( $parts['public_key'] );
+        if ( $lap['event_lap'] ) {
+            $domain_param = isset( $_SERVER['HTTP_HOST'] ) ? '&domain=' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
+            $pray_href = PG_API_ENDPOINT . '?relay=' . $parts['public_key'] . $domain_param;
+        }
+
         ?>
         <style id="custom-style"></style>
         <div id="map-content">
@@ -136,7 +145,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                                 <i class="icon pg-share"></i>
                             </button>
                         </div>
-                        <a class="btn btn-cta" id="pray-button" href="/prayer_app/custom/<?php echo esc_attr( $parts['public_key'] ) ?>"><?php echo esc_html__( 'Pray', 'prayer-global-porch' ) ?></a>
+                        <a class="btn btn-cta" id="pray-button" href="<?php echo esc_url( $pray_href ) ?>"><?php echo esc_html__( 'Pray', 'prayer-global-porch' ) ?></a>
 
                     </div>
 

@@ -282,6 +282,15 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
                 'in_create_form' => true,
                 'hidden' => false,
             ];
+            $fields['event_lap'] = [
+                'name' => __( 'Event lap', 'prayer-global-porch' ),
+                'description' => __( 'Is this lap to be run in an event', 'prayer-global-porch' ),
+                'type' => 'boolean',
+                'tile' => 'details',
+                'default' => false,
+                'in_create_form' => true,
+                'hidden' => false,
+            ];
 
             $fields['contacts'] = [
                 "name" => __( 'Contacts', 'prayer-global-porch' ),

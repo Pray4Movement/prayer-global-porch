@@ -21,12 +21,24 @@ jQuery(document).ready(function() {
 
             jQuery.each( data, function(i,v){
               const lapNumber = v.lap_number || '1'
+
+
+              let prayHref = `/prayer_app/custom/${v.lap_key}`
+              if (v.event_lap && v.event_lap === '1') {
+                const url = new URL(pg_active_list.api_url)
+                const siteOrigin = (new URL(location.href)).host
+                url.searchParams.append('relay', v.lap_key)
+                url.searchParams.append('domain', siteOrigin)
+
+                prayHref = url.href
+              }
+
               if ( v.status === 'active' ){
                 html_content_active += `<tr>
                                 <td>${v.start_time}</td>
                                 <th class="white">${v.post_title} ${!window.pg_active_list.is_rolling_laps_feature_on || v.single_lap === '1' ? '' : translations.lap.replace('%d', lapNumber)}</th>
                                 <td style="text-align:right;">
-                                  <a href="/prayer_app/custom/${v.lap_key}">${translations.pray}</a> |
+                                  <a href="${prayHref}">${translations.pray}</a> |
                                   <a href="/prayer_app/custom/${v.lap_key}/map">${translations.map}</a> |
                                   <a href="/prayer_app/custom/${v.lap_key}/tools">${translations.sharing}</a> |
                                   <a href="/prayer_app/custom/${v.lap_key}/display">${translations.display}</a>

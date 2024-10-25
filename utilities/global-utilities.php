@@ -190,6 +190,7 @@ function pg_get_custom_lap_by_post_id( $post_id ) {
             'visibility' => isset( $result['visibility']['key'] ) ? $result['visibility']['key'] : 'public',
             'challenge_type' => isset( $result['challenge_type']['key'] ) ? $result['challenge_type']['key'] : 'ongoing',
             'single_lap' => isset( $result['single_lap'] ) ? $result['single_lap'] : false,
+            'event_lap' => isset( $result['event_lap'] ) ? $result['event_lap'] : false,
             'assigned_to' => isset( $result['assigned_to']['assigned-to'] ) ? $result['assigned_to']['assigned-to'] : null,
             'contacts' => $contacts,
             'ctas_off' => isset( $result['ctas_off'] ) ? $result['ctas_off'] : false,

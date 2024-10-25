@@ -77,8 +77,11 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        $allowed_js = [];
-        $allowed_js[] = 'lap-event-js';
+        $allowed_js = [
+            'lap-event-js',
+            'canvas-confetti',
+            'global-functions',
+        ];
         return $allowed_js;
     }
 
@@ -118,7 +121,6 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                         'Know About Jesus' => __( 'Know About Jesus', 'prayer-global-porch' ),
                         'Know Jesus' => __( 'Know Jesus', 'prayer-global-porch' ),
                         'praying_paused' => __( 'Praying Paused', 'prayer-global-porch' ),
-                        'Great Job!' => __( 'Great Job!', 'prayer-global-porch' ),
                         'Prayer Added!' => __( 'Prayer Added!', 'prayer-global-porch' ),
                     ],
                     'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
@@ -129,7 +131,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'current_url' => $current_url,
                     'stats_url' => $current_url . 'stats',
                     'map_url' => $current_url . 'map',
-                    'update_url' => PG_API_ENDPOINT,
+                    'api_url' => PG_API_ENDPOINT,
                     'is_custom' => ( 'custom' === $this->parts['type'] ),
                     'is_cta_feature_on' => !$current_lap['ctas_off'],
                 ]) ?>][0]
@@ -226,7 +228,6 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     <!-- <button type="button" class="btn btn-praying" id="decision__next"><?php echo esc_html( __( 'Next', 'prayer-global-porch' ) ) ?></button> -->
                 </div>
             </div>
-            <div class="container celebrate text-center" id="celebrate-panel"></div>
             <div class="w-100" ></div>
             <div class="container flow sm text-center">
                 <p class="tutorial uc f-xlg lh-1" id="tutorial-location"><?php echo esc_html__( 'Pray for', 'prayer-global-porch' ) ?></p>
@@ -238,6 +239,16 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 </p>
             </div>
         </nav>
+
+        <div class="celebrate-panel text-center" id="celebrate-panel">
+            <div class="container">
+                <h2>
+                    <?php echo esc_html__( 'Great Job!', 'prayer-global-porch' ) ?>
+                    <br />
+                    <?php echo esc_html__( 'Prayer Added!', 'prayer-global-porch' ) ?>
+                </h2>
+            </div>
+        </div>
 
         <!-- Modal -->
         <div class="modal fade" id="decision_leave_modal" tabindex="-1" role="dialog" aria-labelledby="option_filter_label" aria-hidden="true">

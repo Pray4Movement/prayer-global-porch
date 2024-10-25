@@ -90,6 +90,7 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
                 'lap' => esc_html( __( '- Lap %d', 'prayer-global-porch' ) ),
             ],
             'is_rolling_laps_feature_on' => true,
+            'api_url' => PG_API_ENDPOINT,
             'parts' => $this->parts,
             'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/nope.jpg',
             'images_url' => pg_grid_image_url(),
@@ -211,7 +212,8 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
                     pm3.meta_value as lap_key,
                     pm4.meta_value as start_time,
                     pm6.meta_value as lap_number,
-                    pm7.meta_value as single_lap
+                    pm7.meta_value as single_lap,
+                    pm8.meta_value as event_lap
                 FROM $wpdb->posts p
                 JOIN $wpdb->postmeta pm ON pm.post_id=p.ID AND pm.meta_key = 'type' AND pm.meta_value = 'custom'
                 LEFT JOIN $wpdb->postmeta pm2 ON pm2.post_id=p.ID AND pm2.meta_key = 'status'
@@ -220,6 +222,7 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
                 LEFT JOIN $wpdb->postmeta pm5 ON pm5.post_id=p.ID AND pm5.meta_key = 'visibility'
                 LEFT JOIN $wpdb->postmeta pm6 ON pm6.post_id=p.ID AND pm6.meta_key = 'global_lap_number'
                 LEFT JOIN $wpdb->postmeta pm7 ON pm7.post_id=p.ID AND pm7.meta_key = 'single_lap'
+                LEFT JOIN $wpdb->postmeta pm8 ON pm8.post_id=p.ID AND pm8.meta_key = 'event_lap'
                 WHERE p.post_type = 'laps'
                 AND pm5.meta_value = 'public' OR pm5.meta_value IS NULL OR pm5.meta_value = 'none'
                 ORDER BY p.post_title
