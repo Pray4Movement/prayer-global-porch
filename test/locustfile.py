@@ -1,9 +1,18 @@
 from locust import HttpUser, task
 
+class RedirectingUser(HttpUser):
+    host="https://api.prayer.global"
+
+    relay="0f6263"
+
+    @task
+    def pray_for_location(self):
+        self.client.get(f"/?relay={self.relay}&domain=perf.prayer.global")
+
 class PrayingUser(HttpUser):
     host="https://api.prayer.global"
 
-    relay="abc123"
+    relay="0f6263"
 
     @task
     def pray_for_location(self):
