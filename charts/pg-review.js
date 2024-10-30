@@ -84,9 +84,9 @@
       contentType: "application/json; charset=utf-8",
       dataType: "json",
       url: `${localizedObject.rest_endpoints_base}/sample`,
-      beforeSend: function(xhr) {
-        xhr.setRequestHeader('X-WP-Nonce', localizedObject.nonce);
-      },
+      // beforeSend: function(xhr) {
+      //   xhr.setRequestHeader('X-WP-Nonce', localizedObject.nonce);
+      // },
     })
     .done(function (data) {
       $('#sample_spinner').removeClass("active")

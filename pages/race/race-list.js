@@ -9,9 +9,6 @@ jQuery(document).ready(function() {
       contentType: "application/json; charset=utf-8",
       dataType: "json",
       url: window.pg_global.root + jsObject.parts.root + '/v1/' + jsObject.parts.type,
-      beforeSend: function (xhr) {
-        xhr.setRequestHeader('X-WP-Nonce', window.pg_global.nonce)
-      }
     })
       .fail(function (e) {
         console.log(e)
