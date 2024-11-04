@@ -5,8 +5,10 @@ $url = dt_get_url_path( true );
  * Nav for Home Page
  */
 $nav_class = 'white-bg brand';
+$home_page = false;
 if ( '' === $url ) {
     $nav_class = 'navbar-home navbar-dark';
+    $home_page = true;
 } else if ( str_contains( $url, 'stats' ) ||
             str_contains( $url, 'completed' ) ||
             str_contains( $url, 'about' ) ||
@@ -21,7 +23,7 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
 ?>
 <nav class="pg-navbar navbar p-0 d-block <?php echo esc_html( $nav_class ) ?>" id="pg-navbar">
 
-    <?php if ( ( new PG_Feature_Flag( 'icom_banner' ) )->is_on() ) : ?>
+    <?php if ( ( new PG_Feature_Flag( 'icom_banner' ) )->is_on() && true === $home_page ) : ?>
 
         <script>
             window.addEventListener('load', () => {
