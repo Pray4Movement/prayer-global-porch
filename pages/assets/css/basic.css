@@ -1540,6 +1540,12 @@ input[type="text"],
     background-position: center;
     background-size: cover;
 }
+.user__gravatar:hover,
+.user__gravatar:active,
+.user__gravatar:focus {
+    border: 2px solid white;
+    transition: all 100ms ease-in;
+}
 
 .user__avatar {
     position: relative;
