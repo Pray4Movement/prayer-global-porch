@@ -162,9 +162,6 @@ class Prayer_Global_Test_Load extends DT_Magic_Url_Base
                         contentType: "application/json; charset=utf-8",
                         dataType: "json",
                         url: url,
-                        beforeSend: function (xhr) {
-                            xhr.setRequestHeader('X-WP-Nonce', jsObject.nonce )
-                        }
                     })
                         .fail(function(e) {
                             console.log(e)
