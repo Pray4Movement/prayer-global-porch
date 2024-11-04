@@ -1532,6 +1532,15 @@ input[type="text"],
     vertical-align: middle;
 }
 
+.user__gravatar {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border-radius: 1000px;
+    background-position: center;
+    background-size: cover;
+}
+
 .user__avatar {
     position: relative;
 }

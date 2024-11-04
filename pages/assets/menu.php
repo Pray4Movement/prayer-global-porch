@@ -26,7 +26,9 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
 
                 </div>
                 <a href="/user_app/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
-                    <i class="icon pg-profile"></i>
+
+                    <?php echo pg_profile_icon() ?>
+
                 </a>
                 <button type="button" class="icon-button p-0 two-rem d-flex ms-2" data-bs-dismiss="offcanvas" aria-label="Close">
                     <i class="icon pg-close"></i>

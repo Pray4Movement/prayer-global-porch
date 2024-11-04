@@ -63,7 +63,9 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
 
             </div>
             <a href="/user_app/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
-                <i class="icon pg-profile"></i>
+
+                <?php echo pg_profile_icon() ?>
+
             </a>
             <button class="icon-button navbar-toggler mx-2 two-rem d-flex align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#probootstrap-navbar" aria-controls="probootstrap-navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="icon pg-menu"></i>

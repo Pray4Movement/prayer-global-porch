@@ -32,6 +32,19 @@ function pg_grid_images_version(){
 function pg_jp_images_version(){
     return get_option( 'pg_jp_images_version' );
 }
+function pg_profile_icon( $icon = 'pg-profile' ) {
+    if ( is_user_logged_in() ) {
+        $user = wp_get_current_user();
+
+        $hash = hash( 'md5', $user->user_login );
+
+        $gravatar_url = "https://gravatar.com/avatar/$hash?size=200&d=identicon";
+
+        return '<div class="user__gravatar" style="background-image: url(\''.$gravatar_url.'\')"></div>';
+    }
+
+    return "<i class='icon $icon'></i>";
+}
 function pg_current_global_lap() : array {
     /**
      * Example:
