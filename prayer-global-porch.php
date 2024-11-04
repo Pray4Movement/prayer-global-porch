@@ -157,9 +157,9 @@ class Prayer_Global_Porch {
         // 404
         require_once( 'pages/404/404.php' ); // MUST BE LAST LOADED
 
-        /* We want to login via the JWT token route so that the user isn't logged into the WP admin */
+        /* Use the WP cookie login method, to easily persist logins */
         add_filter( 'dt_login_method', function () {
-            return DT_Login_Methods::MOBILE;
+            return DT_Login_Methods::WORDPRESS;
         } );
 
         $lang = pg_get_current_lang();

@@ -86,7 +86,7 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
         ?>
         <script>
 
-          $(document).ready(function($) {
+          window.addEventListener('load', function() {
             window.getAuthUser(
               () => {
                 const url = new URL(location.href)

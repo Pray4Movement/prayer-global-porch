@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const { status } = data;
 
         if (status !== 200) {
-          throw new Error();
+          throw new Error(json.message);
         }
       })
       .then(() =>
@@ -189,9 +189,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
       })
       .catch((error) => {
-        localStorage.removeItem("login_token");
-        localStorage.removeItem("login_method");
-
         if (failureCallback) {
           failureCallback(error);
         }
@@ -209,12 +206,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     opts.headers["Content-Type"] = "application/json";
-
-    /* Check if the user has a valid token */
-    const token = localStorage.getItem("login_token");
-    if (token) {
-      opts.headers["Authorization"] = `Bearer ${token}`;
-    }
+    opts.headers["X-WP-Nonce"] = pg_global.nonce
 
     return fetch(url, opts)
       .then((result) => {
