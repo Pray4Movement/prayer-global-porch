@@ -72,6 +72,11 @@ function prayer_global_porch() {
 }
 add_action( 'after_setup_theme', 'prayer_global_porch', 20 );
 
+/* Give the cookie a year expiration date */
+add_filter( 'auth_cookie_expiration', function (){
+    return 365 * DAY_IN_SECONDS;
+}, 20 );
+
 /**
  * Singleton class for setting up the plugin.
  *
