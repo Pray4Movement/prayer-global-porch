@@ -1,4 +1,4 @@
-jQuery(document).ready(function($){
+window.addEventListener('load', function($){
 
   window.get_page = (action) => {
     return jQuery.ajax({

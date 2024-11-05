@@ -1,4 +1,4 @@
-jQuery(document).ready(function() {
+window.addEventListener('load', function() {
   const translations = window.pg_js.escapeObject(window.pg_active_list.translations);
   /**
    * API HANDLERS

@@ -124,18 +124,33 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
         ?>
 
 
-
-        <section class="page-section pt-4" data-section="login" id="section-login">
+        <section class="page-section pt-4" data-section="register" id="section-register">
             <div class="container">
                 <div class="row justify-content-md-center text-center">
                     <div class="col-lg-7" id="pg_content">
-                        <h2 class=""><?php echo esc_html__( 'Login', 'prayer-global-porch' ) ?></h2>
+                        <h2 class=""><?php echo esc_html__( 'Register', 'prayer-global-porch' ) ?></h2>
                         <p class="center"><?php echo esc_html__( 'Create your own free login. This will allow you to:', 'prayer-global-porch' ) ?></p>
                         <ul class="w-fit text-align-left mx-auto">
                             <li><?php echo esc_html__( 'See your prayer history', 'prayer-global-porch' ) ?></li>
                             <li><?php echo esc_html__( 'Create your own prayer relays', 'prayer-global-porch' ) ?></li>
                             <li><?php echo esc_html__( 'Get badges and more', 'prayer-global-porch' ) ?></li>
                         </ul>
+                        <div id="login-ui" style="display: none;">
+                            <?php echo do_shortcode( '[dt_firebase_login_ui lang_code="' . $lang . '"]' ) ?>
+                        </div>
+                        <div id="login-ui-loader">
+                            <span class="loading-spinner active"></span>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="page-section pt-4" data-section="login" id="section-login">
+            <div class="container">
+                <div class="row justify-content-md-center text-center">
+                    <div class="col-lg-7" id="pg_content">
+                        <h2 class=""><?php echo esc_html__( 'Login', 'prayer-global-porch' ) ?></h2>
                         <div id="login-ui" style="display: none;">
                             <?php echo do_shortcode( '[dt_firebase_login_ui lang_code="' . $lang . '"]' ) ?>
                         </div>

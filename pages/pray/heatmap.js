@@ -1,4 +1,4 @@
-jQuery(document).ready(function($){
+window.addEventListener('load', function($){
   const isMobile = window.pg_js.isMobile()
   const translations = window.pg_js.escapeObject(window.pg_heatmap.translations)
 

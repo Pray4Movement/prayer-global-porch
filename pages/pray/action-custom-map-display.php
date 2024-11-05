@@ -163,7 +163,7 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
     public function footer_javascript(){
         ?>
         <script>
-            jQuery(document).ready(function(){
+            window.addEventListener('load', function(){
                 setTimeout(function() {
                     let qr_width = jQuery('#qr-cell').width()
                     let qr_height = ( qr_width * .15 ) + qr_width

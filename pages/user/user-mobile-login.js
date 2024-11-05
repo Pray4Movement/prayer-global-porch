@@ -7,26 +7,6 @@ jQuery(document).ready(function () {
   const isGoNative = navigator.userAgent.indexOf("gonative") >= 0;
 
   if (isGoNative) {
-    function initialiseMobileButton(selector, socialProvider, callback) {
-      console.log(`initialising ${socialProvider} mobile button`);
-      const buttonElement = document.querySelector(selector);
-
-      const buttonClone = buttonElement.cloneNode(true);
-      const parentNode = buttonElement.parentNode;
-
-      buttonElement.remove();
-
-      if (socialProvider === "google") {
-        buttonClone.onclick = () =>
-          gonative.socialLogin.google.login({ callback: callback });
-      } else if (socialProvider === "facebook") {
-        buttonClone.onclick = () =>
-          gonative.socialLogin.facebook.login({ callback: callback });
-      }
-
-      parentNode.appendChild(buttonClone);
-    }
-
     waitForElement(googleButtonSelector, () =>
       initialiseMobileButton(
         googleButtonSelector,
@@ -70,6 +50,26 @@ jQuery(document).ready(function () {
 
       callback();
     }, timeIncrement);
+  }
+
+  function initialiseMobileButton(selector, socialProvider, callback) {
+    console.log(`initialising ${socialProvider} mobile button`);
+    const buttonElement = document.querySelector(selector);
+
+    const buttonClone = buttonElement.cloneNode(true);
+    const parentNode = buttonElement.parentNode;
+
+    buttonElement.remove();
+
+    if (socialProvider === "google") {
+      buttonClone.onclick = () =>
+        gonative.socialLogin.google.login({ callback: callback });
+    } else if (socialProvider === "facebook") {
+      buttonClone.onclick = () =>
+        gonative.socialLogin.facebook.login({ callback: callback });
+    }
+
+    parentNode.appendChild(buttonClone);
   }
 
   function waitForElementContainingText(selector, text, callback) {

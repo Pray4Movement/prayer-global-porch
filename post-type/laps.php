@@ -360,7 +360,7 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
             if ( isset( $post['type']['key'] ) && $post['type']['key'] === 'global' ) {
                 ?>
                 <script>
-                    jQuery(document).ready(function(){
+                    window.addEventListener('load', function(){
                         jQuery('.section-app-links.prayer_app_custom_magic_key').hide().prev().hide()
                         console.log('test')
                     })
@@ -369,7 +369,7 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
             } else if ( isset( $post['type']['key'] ) && $post['type']['key'] === 'custom' ) {
                 ?>
                 <script>
-                    jQuery(document).ready(function(){
+                    window.addEventListener('load', function(){
                         jQuery('.section-app-links.prayer_app_global_magic_key').hide().prev().hide()
                         console.log('test')
                     })
