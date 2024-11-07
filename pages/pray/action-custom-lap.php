@@ -606,7 +606,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
          * $global_remaining is a list of those locations still available for prayer in the global lap
          * $promised_locations is a list of locations issued in the last 90 seconds
          */
-        $remaining_global = $this->_remaining_global_prayed_list( $list_4770 );
+        $remaining_global = self::_remaining_global_prayed_list( $list_4770 );
         $global_priority_list = array_intersect( $remaining_custom, $remaining_global );
         $recently_promised_locations = $this->_recently_promised_locations( $parts['post_id'] );
 
@@ -764,7 +764,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
     }
 
-    public function _remaining_global_prayed_list( $list_4770 = null ) {
+    public static function _remaining_global_prayed_list( $list_4770 = null ) {
         global $wpdb;
         if ( empty( $list_4770 ) ) {
             $list_4770 = pg_query_4770_locations();
