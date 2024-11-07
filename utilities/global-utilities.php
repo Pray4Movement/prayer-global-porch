@@ -32,7 +32,7 @@ function pg_grid_images_version(){
 function pg_jp_images_version(){
     return get_option( 'pg_jp_images_version' );
 }
-function pg_profile_icon( $icon = 'pg-profile' ) {
+function pg_profile_icon() {
     if ( is_user_logged_in() ) {
         $user = wp_get_current_user();
 
@@ -41,7 +41,7 @@ function pg_profile_icon( $icon = 'pg-profile' ) {
         return '<div class="user__gravatar" style="background-image: url(\''.$gravatar_url.'\')"></div>';
     }
 
-    return "<i class='icon $icon'></i>";
+    return "<i class='icon pg-profile'></i>";
 }
 function pg_current_global_lap() : array {
     /**

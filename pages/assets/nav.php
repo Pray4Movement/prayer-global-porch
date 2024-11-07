@@ -57,16 +57,25 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
         <h5 class="border border-brand-light offcanvas-title px-3 rounded navbar__title"><a href="/" class="brand-light navbar__title-link">Prayer.Global</a></h5>
 
         <div class="d-flex justify-content-end align-items-center">
+            <a href="/user_app/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
+
+                <?php if ( is_user_logged_in() ) : ?>
+
+                    <?php //phpcs:ignore ?>
+                    <?php echo pg_profile_icon(); ?>
+
+                <?php else : ?>
+
+                    <span class="one-rem"><?php echo esc_html__( 'Login', 'prayer-global-porch' ); ?></span>
+
+                <?php endif; ?>
+
+            </a>
             <div class="d-flex justify-content-end align-items-center mx-2">
 
                 <?php require( __DIR__ . '/language-menu.php' ) ?>
 
             </div>
-            <a href="/user_app/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
-
-                <?php echo pg_profile_icon() ?>
-
-            </a>
             <button class="icon-button navbar-toggler mx-2 two-rem d-flex align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#probootstrap-navbar" aria-controls="probootstrap-navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="icon pg-menu"></i>
             </button>

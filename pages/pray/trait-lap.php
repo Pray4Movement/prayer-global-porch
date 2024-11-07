@@ -80,7 +80,19 @@ trait PG_Lap_Trait {
             <div class="container" id="praying-panel">
                 <div class="d-flex w-100 gap-2 praying_button_group" role="group" aria-label="<?php echo esc_attr__( 'Praying Button', 'prayer-global-porch' ) ?>">
                     <div class="align-items-center brand-lighter-bg btn-praying d-flex gap-2 prayer-odometer px-2">
-                        <?php echo pg_profile_icon( 'pg-prayer' ) ?><span class="two-rem location-count">0</span>
+
+                        <?php if ( is_user_logged_in() ) : ?>
+
+                            <?php //phpcs:ignore ?>
+                            <?php echo pg_profile_icon(); ?>
+
+                        <?php else : ?>
+
+                            <i class='icon pg-prayer'></i>
+
+                        <?php endif; ?>
+
+                        <span class="two-rem location-count">0</span>
                     </div>
                     <button type="button" class="btn p-2" id="praying_button" data-percent="0" data-seconds="0">
                         <div class="praying__progress"></div>
