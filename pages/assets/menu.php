@@ -20,16 +20,25 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
                 <i class="icon pg-home"></i>
             </a>
             <div class="d-flex">
+                <a href="/user_app/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
+
+                    <?php if ( is_user_logged_in() ) : ?>
+
+                        <?php //phpcs:ignore ?>
+                        <?php echo pg_profile_icon(); ?>
+
+                    <?php else : ?>
+
+                        <span class="one-rem"><?php echo esc_html__( 'Login', 'prayer-global-porch' ); ?></span>
+
+                    <?php endif; ?>
+
+                </a>
                 <div class="d-flex justify-content-end align-items-center mx-2">
 
                     <?php require( __DIR__ . '/language-menu.php' ) ?>
 
                 </div>
-                <a href="/user_app/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
-
-                    <?php echo pg_profile_icon() ?>
-
-                </a>
                 <button type="button" class="icon-button p-0 two-rem d-flex ms-2" data-bs-dismiss="offcanvas" aria-label="Close">
                     <i class="icon pg-close"></i>
                 </button>
