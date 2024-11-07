@@ -36,9 +36,7 @@ function pg_profile_icon( $icon = 'pg-profile' ) {
     if ( is_user_logged_in() ) {
         $user = wp_get_current_user();
 
-        $hash = hash( 'md5', $user->user_login );
-
-        $gravatar_url = "https://gravatar.com/avatar/$hash?size=200&d=identicon";
+        $gravatar_url = get_avatar_url( $user->user_login );
 
         return '<div class="user__gravatar" style="background-image: url(\''.$gravatar_url.'\')"></div>';
     }
