@@ -4,26 +4,31 @@ import { sleep } from 'k6';
 export const options = {
   scenarios: {
     redirect_and_update: {
-      executor: 'ramping-vus	',
+      executor: 'ramping-arrival-rate',
       startTime: '0s',
-      startVUs: 0,
+      timeUnit: '1s',
+      startRate: 0,
       stages: [
+        { duration: '5s', target: 2000 },
+        { duration: '5s', target: 0 },
+/*         { duration: '53s', target: 0 },
         { duration: '10s', target: 2000 },
-        { duration: '10s', target: 0 },
+        { duration: '10s', target: 0 }, */
       ],
-      preAllocatedVUs: 2000,
-      maxVUs: 10000,
+      preAllocatedVUs: 500,
+      maxVUs: 4000,
     }
   }
 };
 
 const relay = 'dbd28'
-const apiHost = 'https://api.prayer.global'
+const apiHost = 'https://api.prayer.global?domain=perf.prayer.global'
 const waitTime = 30
 
 /* Simulate a user being redirected and then logging between 30-60 seconds */
 export default function() {
   const response = http.get(`${apiHost}?relay=${relay}`, {
+    redirects: 0,
     tags: {
       test_type: 'redirects'
     }
@@ -35,7 +40,7 @@ export default function() {
 
   const randomWait = waitTime + Math.floor( Math.random() * waitTime )
 
-  sleep(randomWait)
+/*   sleep(randomWait)
 
   http.post(`${apiHost}/update?location=${locationId}&relay=${relay}`, {
     tags: {
@@ -43,5 +48,5 @@ export default function() {
     }
   })
 
-  sleep(( 2 * waitTime) - randomWait )
+  sleep(( 2 * waitTime) - randomWait ) */
 }
