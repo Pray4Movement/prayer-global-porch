@@ -80,6 +80,16 @@ class Prayer_Global_Porth_ICOM_Lap extends DT_Magic_Url_Base
         $link = '/prayer_app/custom/' . $current_lap['key'];
         return $link;
     }
+
+    public static function pray_link() {
+        $domain_url = new DT_URL( site_url() );
+        $domain = $domain_url->parsed_url['host'];
+        $domain = isset( $domain_url->parsed_url['port'] ) ? $domain . ':' . $domain_url->parsed_url['port'] : $domain;
+        $current_lap = pg_current_custom_lap( 1051 );
+
+        $link = trailingslashit( PG_API_ENDPOINT ) . '?relay='.$current_lap['key'].'&domain='.$domain;
+        return $link;
+    }
 }
 Prayer_Global_Porth_ICOM_Lap::instance();
 

@@ -39,7 +39,7 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
         <div class="relay-banner">
             <div class="container">
                 <h2 class="heading animate">Entrusted to Pray ICOM 2024</h2>
-                <a href="<?php echo esc_url( Prayer_Global_Porth_ICOM_Lap::link() ) ?>">
+                <a href="<?php echo esc_url( Prayer_Global_Porth_ICOM_Lap::pray_link() ) ?>">
                     <div class="btn btn-primary-light btn-small animate">
                         <?php echo esc_html__( 'Start Praying', 'prayer-global-porch' ) ?>
                     </div>
