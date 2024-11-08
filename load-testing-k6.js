@@ -3,50 +3,48 @@ import { sleep } from 'k6';
 
 export const options = {
   scenarios: {
-    redirect_and_update: {
+/*     redirect_and_update: {
       executor: 'ramping-arrival-rate',
       startTime: '0s',
       timeUnit: '1s',
       startRate: 0,
       stages: [
-        { duration: '5s', target: 2000 },
-        { duration: '5s', target: 0 },
-/*         { duration: '53s', target: 0 },
-        { duration: '10s', target: 2000 },
-        { duration: '10s', target: 0 }, */
+        { duration: '15s', target: 2000 },
       ],
       preAllocatedVUs: 500,
       maxVUs: 4000,
+    }, */
+    redirect_and_update_cloud: {
+      executor: 'ramping-arrival-rate',
+      startTime: '0s',
+      timeUnit: '1s',
+      startRate: 0,
+      stages: [
+        { duration: '15s', target: 100 },
+      ],
+      preAllocatedVUs: 50,
+      maxVUs: 100,
     }
   }
 };
 
-const relay = 'dbd28'
-const apiHost = 'https://api.prayer.global?domain=perf.prayer.global'
-const waitTime = 30
+const relay = 'f176ba'
+const apiHost = 'https://api.prayer.global'
+const domain = 'perf.prayer.global'
 
-/* Simulate a user being redirected and then logging between 30-60 seconds */
 export default function() {
-  const response = http.get(`${apiHost}?relay=${relay}`, {
+  const response = http.get(`${apiHost}?relay=${relay}&domain=${domain}`, {
     redirects: 0,
     tags: {
       test_type: 'redirects'
     }
   });
 
-  const url = response.url
-
-  const locationId = url.split('=').pop()
-
-  const randomWait = waitTime + Math.floor( Math.random() * waitTime )
-
-/*   sleep(randomWait)
+  const locationId = response.headers['X-Location-Grid-Id']
 
   http.post(`${apiHost}/update?location=${locationId}&relay=${relay}`, {
     tags: {
       test_type: 'updates'
     }
   })
-
-  sleep(( 2 * waitTime) - randomWait ) */
 }
