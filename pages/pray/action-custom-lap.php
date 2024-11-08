@@ -785,7 +785,9 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             "SELECT DISTINCT grid_id
                     FROM $wpdb->dt_reports
                     WHERE timestamp >= %d
-                      AND type = 'prayer_app'",
+                    AND type = 'prayer_app'
+                    AND subtype != 'event'
+                    ",
         $current_lap['start_time'] ) );
 
         $prayed_list = array_unique( $raw_list );

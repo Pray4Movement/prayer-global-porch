@@ -305,11 +305,12 @@ function pg_global_race_stats() {
 function _pg_global_stats_builder_query( &$data ) {
     global $wpdb;
     $counts = $wpdb->get_row( $wpdb->prepare( "
-       SELECT SUM(r.value) as minutes_prayed, COUNT( DISTINCT( r.grid_id ) ) as locations_completed, COUNT( DISTINCT( r.hash ) ) as participants, COUNT(DISTINCT(r.label)) as participant_country_count
-       FROM $wpdb->dt_reports r
+        SELECT SUM(r.value) as minutes_prayed, COUNT( DISTINCT( r.grid_id ) ) as locations_completed, COUNT( DISTINCT( r.hash ) ) as participants, COUNT(DISTINCT(r.label)) as participant_country_count
+        FROM $wpdb->dt_reports r
         WHERE r.post_type = 'laps'
-            AND r.type = 'prayer_app'
-       AND r.timestamp >= %d AND r.timestamp <= %d
+        AND r.type = 'prayer_app'
+        AND ( r.subtype = 'global' OR r.subtype = 'custom' )  
+        AND r.timestamp >= %d AND r.timestamp <= %d
     ", $data['start_time'], $data['end_time'] ), ARRAY_A );
     $data['locations_completed'] = (int) $counts['locations_completed'];
     $data['participants'] = (int) $counts['participants'];
@@ -330,7 +331,7 @@ function _pg_custom_stats_builder_query( &$data ) {
        FROM $wpdb->dt_reports r
         WHERE r.post_type = 'laps'
             AND r.type = 'prayer_app'
-       AND r.subtype = 'custom' AND r.post_id = %d
+       AND ( r.subtype = 'custom' OR r.subtype = 'event' ) AND r.post_id = %d
     ", $data['post_id'] ), ARRAY_A );
 
     $data['locations_completed'] = (int) $counts['locations_completed'];
