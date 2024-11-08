@@ -331,7 +331,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
            FROM $wpdb->dt_reports r
            LEFT JOIN $wpdb->dt_location_grid lg ON lg.grid_id=r.grid_id
             WHERE r.post_type = 'laps'
-                AND r.type = 'prayer_app'
+            AND r.type = 'prayer_app'
            AND r.timestamp >= %d AND r.timestamp <= %d AND r.hash IS NOT NULL
         ", $lap_stats['start_time'], $lap_stats['end_time'] ), ARRAY_A );
         $participants = [];

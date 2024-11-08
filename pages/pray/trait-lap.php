@@ -522,6 +522,7 @@ trait PG_Lap_Trait {
                     WHERE timestamp >= %d
                       AND type = 'prayer_app'
                       AND timestamp <= %d
+                      AND ( subtype = 'global' OR subtype = 'custom' )
                       ",
         $current_lap['start_time'], $time ) );
 

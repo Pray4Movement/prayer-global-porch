@@ -130,7 +130,7 @@ class PG_Prayer_API{
                 }
                 $lap_id = $current_lap['post_id'];
                 $location = $log['location'];
-                $sql .= "( $lap_id, 'laps', 'prayer_app', 'custom', 1, $location, $time ),";
+                $sql .= "( $lap_id, 'laps', 'prayer_app', 'event', 1, $location, $time ),";
 
                 /* Check if a global lap needs creating */
                 PG_Custom_Prayer_App_Lap::_remaining_global_prayed_list();
