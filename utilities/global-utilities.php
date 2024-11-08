@@ -408,6 +408,7 @@ function _pg_stats_builder( $data ) : array {
 
     $data['start_time_formatted'] = gmdate( 'M d, Y', $data['start_time'] );
     $data['end_time_formatted'] = gmdate( 'M d, Y', $data['end_time'] );
+    $data['timestamp'] = time();
 
 //    dt_write_log(__METHOD__);
 //    dt_write_log($data);
