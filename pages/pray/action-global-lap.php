@@ -89,7 +89,7 @@ class PG_Global_Prayer_App_Lap extends PG_Global_Prayer_App {
     public function endpoint( WP_REST_Request $request ) {
         $params = $request->get_params();
 
-        dt_write_log( 'action-global-lap: ' . $_SERVER['REQUEST_URI'] . ' - ' .  $params['action'] );
+        //dt_write_log( 'action-global-lap: ' . $_SERVER['REQUEST_URI'] . ' - ' .  $params['action'] );
 
         if ( ! isset( $params['parts'], $params['action'], $params['data'] ) ) {
             return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
