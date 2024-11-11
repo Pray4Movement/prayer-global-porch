@@ -126,6 +126,39 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
 
                 ?>
 
+                <script>
+                    window.addEventListener('DOMContentLoaded', function() {
+                        window.waitForElement('.firebaseui-idp-button', () => {
+                            const firebaseButtons = document.querySelectorAll('.firebaseui-idp-button')
+                            const tshirtCheckBox =document.querySelector('#icom_free_tshirt')
+                            const generalEmailsCheckBox =document.querySelector('#send_general_emails')
+                            const lapEmailsCheckBox =document.querySelector('#send_lap_emails')
+
+                            firebaseButtons.forEach((button) => {
+                                /* TODO: this marketing info is being saved too early, if they change their options before actually registering
+                                it won't save it.
+                                so could add some event listers to the checkboxes, to save the data globally, instead of this way when they are clicked
+                                that way they will be able to change their option at any point in the process */
+                                button.addEventListener('click', function(event) {
+                                    const marketingPermission = generalEmailsCheckBox.checked
+                                    const lapEmailsPermission = lapEmailsCheckBox.checked
+                                    const tshirtPrizeEntry = false
+
+                                    if (tshirtCheckBox) {
+                                        tshirtPrizeEntry = tshirtCheckBox.checked
+                                    }
+
+                                    window.pg_marketing_info = {
+                                        marketingPermission,
+                                        lapEmailsCheckBox,
+                                        tshirtPrizeEntry,
+                                    }
+                                })
+                            })
+                        })
+                    })
+                </script>
+
                 <section class="page-section pt-4" data-section="register" id="section-register">
                     <div class="container">
                         <div class="row justify-content-md-center text-center">
@@ -173,6 +206,14 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                                                             lapEmailsCheckBox.removeAttribute( 'disabled' )
                                                         }
                                                     }
+                                                })
+
+                                                const firebaseButtons = document.querySelectorAll('.firebaseui-idp-button')
+                                                console.log(firebaseButtons)
+                                                firebaseButtons.forEach((button) => {
+                                                    button.addEventListener('click', function(event) {
+                                                        console.log('click')
+                                                    })
                                                 })
                                             </script>
 
