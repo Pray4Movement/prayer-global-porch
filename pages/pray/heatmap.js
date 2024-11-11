@@ -1035,23 +1035,7 @@ window.addEventListener('load', function($){
     const binaryFill = {
       'fill-color': {
         property: 'value',
-        stops: [[0, '#11224E'], [1, '#fff']]
-        //#f2e86d
-        //#e5d58a
-        //#d4c28a
-        //#e1b843
-        //#FCD37B
-        //#FAE6BC
-        //#FAF8D4 light yellow
-        //#FAF2A1 vanilla
-        //#FDFBE8 ice white
-        //#E6C229 saffron
-        //#EACC48 naples yellow
-        //#C04CFD phlox
-        //#f2944a secondary colour
-        //#FFC170 earth yellow
-        //#BDEDE0 celeste
-        //#FDFBE8 ivory
+        stops: [[0, '#11224E'], [1, '#F4F4E4']]
       },
       'fill-opacity': 1,
       'fill-outline-color': 'black'
