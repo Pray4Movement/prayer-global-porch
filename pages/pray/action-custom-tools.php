@@ -68,7 +68,7 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/footer.php' );
         ?>
         <script type="application/javascript">
-          jQuery(document).ready(function() {
+          window.addEventListener('load', function() {
             var clipboard = new ClipboardJS('#copy-button');
             clipboard.on('success', function(e) {
               console.info('Action:', e.action);

@@ -282,6 +282,15 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
                 'in_create_form' => true,
                 'hidden' => false,
             ];
+            $fields['event_lap'] = [
+                'name' => __( 'Event lap', 'prayer-global-porch' ),
+                'description' => __( 'Is this lap to be run in an event', 'prayer-global-porch' ),
+                'type' => 'boolean',
+                'tile' => 'details',
+                'default' => false,
+                'in_create_form' => true,
+                'hidden' => false,
+            ];
 
             $fields['contacts'] = [
                 "name" => __( 'Contacts', 'prayer-global-porch' ),
@@ -351,7 +360,7 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
             if ( isset( $post['type']['key'] ) && $post['type']['key'] === 'global' ) {
                 ?>
                 <script>
-                    jQuery(document).ready(function(){
+                    window.addEventListener('load', function(){
                         jQuery('.section-app-links.prayer_app_custom_magic_key').hide().prev().hide()
                         console.log('test')
                     })
@@ -360,7 +369,7 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
             } else if ( isset( $post['type']['key'] ) && $post['type']['key'] === 'custom' ) {
                 ?>
                 <script>
-                    jQuery(document).ready(function(){
+                    window.addEventListener('load', function(){
                         jQuery('.section-app-links.prayer_app_global_magic_key').hide().prev().hide()
                         console.log('test')
                     })

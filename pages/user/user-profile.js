@@ -1,4 +1,4 @@
-jQuery(document).ready(function(){
+window.addEventListener('load', function(){
 
     const userProfileDetails = jQuery('#user-details-content')
 

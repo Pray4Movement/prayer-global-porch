@@ -254,7 +254,7 @@ $(document).ready(function($) {
   })
 });
 
-jQuery(document).ready(function($) {
+window.addEventListener('load', function($) {
 
   jQuery('body').data('spy', 'scroll').data('target', '#pg-navbar').data('offset', '200')
 

@@ -17,37 +17,41 @@ add_filter( 'dt_magic_url_base_allowed_js', function ( $allowed_js ){
         'heatmap-js',
         'jquery-easing',
         'jquery-waypoints',
+        'umami',
     ] );
 
     return $allowed_js;
 }, 100, 1 );
 
 
-function pg_enqueue_script( string $handle, string $rel_src, array $deps = array(), bool $in_footer = false ) {
-    wp_enqueue_script( $handle, Prayer_Global_Porch::get_url_path() . "$rel_src", $deps, filemtime( Prayer_Global_Porch::get_dir_path() . "$rel_src" ), $in_footer );
+function pg_enqueue_script( string $handle, string $rel_src, array $deps = array(), array|bool $args = false ) {
+    wp_enqueue_script( $handle, Prayer_Global_Porch::get_url_path() . "$rel_src", $deps, filemtime( Prayer_Global_Porch::get_dir_path() . "$rel_src" ), $args );
 }
 
 add_action( 'wp_enqueue_scripts', function (){
 
-    wp_enqueue_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js', [], '3.7.1', false );
-    wp_enqueue_script( 'canvas-confetti', 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js', [], '1.5.1', true );
-    pg_enqueue_script( 'global-functions', 'pages/assets/js/global-functions.js', [ 'jquery' ], true );
-    pg_enqueue_script( 'components-js', 'pages/assets/js/components.js', [ 'jquery', 'global-functions' ], true );
+    wp_deregister_script( 'jquery' );
+    wp_enqueue_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js', [], '3.7.1', [ 'strategy' => 'defer' ] );
+    wp_enqueue_script( 'canvas-confetti', 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js', [], '1.5.1', [ 'strategy' => 'defer' ] );
+    pg_enqueue_script( 'global-functions', 'pages/assets/js/global-functions.js', [], [ 'strategy' => 'defer' ] );
+    pg_enqueue_script( 'components-js', 'pages/assets/js/components.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );
 
-    pg_enqueue_script( 'main-js', 'pages/assets/js/main.js', [ 'jquery', 'global-functions' ], true );
-    pg_enqueue_script( 'share-js', 'pages/assets/js/share.js', [ 'jquery', 'global-functions' ], true );
+    pg_enqueue_script( 'main-js', 'pages/assets/js/main.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );
+    pg_enqueue_script( 'share-js', 'pages/assets/js/share.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );
 
-    wp_enqueue_script( 'bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js', [], '5.3.3', true );
-    wp_enqueue_script( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', [], '1.9.0', true );
+    wp_enqueue_script( 'bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js', [], '5.3.3', [ 'strategy' => 'defer' ] );
+    wp_enqueue_script( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', [], '1.9.0', [ 'strategy' => 'defer' ] );
     //Easily execute a function when you scroll to an element
-    wp_enqueue_script( 'jquery-waypoints', 'https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js', [ 'jquery' ], '4.0.1', true );
-    wp_enqueue_script( 'jquery-easing', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js', [ 'jquery' ], '1.4.1', true );
+    wp_enqueue_script( 'jquery-waypoints', 'https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js', [ 'jquery' ], '4.0.1', [ 'strategy' => 'defer' ] );
+    wp_enqueue_script( 'jquery-easing', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js', [ 'jquery' ], '1.4.1', [ 'strategy' => 'defer' ] );
 
+    wp_enqueue_script( 'umami', 'https://umami.gospelambition.com/script.js', [], 1, [ 'strategy' => 'defer', ] );
 
 
     wp_localize_script( 'global-functions', 'pg_global', [
         'map_key' => DT_Mapbox_API::get_key(),
         'mirror_url' => dt_get_location_grid_mirror( true ),
+        'cache_url' => dt_get_location_grid_mirror( true ),
         'root' => esc_url_raw( rest_url() ),
         'nonce' => wp_create_nonce( 'wp_rest' ),
     ]);
@@ -68,7 +72,7 @@ add_action( 'wp_enqueue_scripts', function (){
         ],
     ] );
 
-});
+}, 1000 );
 
 
 function pg_heatmap_scripts( $glass ){
@@ -97,11 +101,15 @@ function pg_heatmap_scripts( $glass ){
     ] );
 }
 
-add_action( 'wp_footer', function (){
-    ?>
-    <script defer src="https://umami.gospelambition.com/script.js" data-website-id="c8b2d630-e64a-4354-b03a-f92ac853153e"></script>
-    <?php
-} );
+
+add_filter( 'script_loader_tag', function ( $tag, $handle ){
+
+    if ( $handle === 'umami' ) {
+        return '<script defer src="https://umami.gospelambition.com/script.js" data-website-id="c8b2d630-e64a-4354-b03a-f92ac853153e"></script>';
+    }
+
+    return $tag;
+}, 10, 2 );
 
 
 /**

@@ -27,7 +27,7 @@ window.pg_js = {
   }
 }
 
-$(document).ready(function ($) {
+document.addEventListener("DOMContentLoaded", function() {
   window.schoolPride = function () {
     var end = Date.now() + 3 * 1000;
 
@@ -38,14 +38,14 @@ $(document).ready(function ($) {
       confetti({
         particleCount: 3,
         angle: 60,
-        spread: 55,
+        spread: 30,
         origin: { x: 0, y: 0.8 },
         colors: colors,
       });
       confetti({
         particleCount: 3,
         angle: 120,
-        spread: 55,
+        spread: 30,
         origin: { x: 1, y: 0.8 },
         colors: colors,
       });
@@ -171,7 +171,7 @@ $(document).ready(function ($) {
         const { status } = data;
 
         if (status !== 200) {
-          throw new Error();
+          throw new Error(json.message);
         }
       })
       .then(() =>
@@ -189,9 +189,6 @@ $(document).ready(function ($) {
         }
       })
       .catch((error) => {
-        localStorage.removeItem("login_token");
-        localStorage.removeItem("login_method");
-
         if (failureCallback) {
           failureCallback(error);
         }
@@ -209,12 +206,7 @@ $(document).ready(function ($) {
     }
 
     opts.headers["Content-Type"] = "application/json";
-
-    /* Check if the user has a valid token */
-    const token = localStorage.getItem("login_token");
-    if (token) {
-      opts.headers["Authorization"] = `Bearer ${token}`;
-    }
+    opts.headers["X-WP-Nonce"] = pg_global.nonce
 
     return fetch(url, opts)
       .then((result) => {

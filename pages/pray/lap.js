@@ -1,4 +1,4 @@
-jQuery(document).ready(function(){
+window.addEventListener('load', function(){
   const translations = window.pg_js.escapeObject(jsObject.translations)
   let translate = function ( string ){
     return translations[string] ? translations[string] : string
@@ -66,7 +66,7 @@ jQuery(document).ready(function(){
   let praying_button = jQuery('#praying_button')
   let button_progress = jQuery('.praying__progress')
   let button_text = jQuery('.praying__text')
-  let praying_close_button = jQuery('#praying__close_button')
+  let praying_pause_button = jQuery('#praying__pause_button')
   let praying_continue_button = jQuery('#praying__continue_button')
 
   let decision_home = jQuery('#decision__home')
@@ -146,10 +146,14 @@ jQuery(document).ready(function(){
 
     /* Passing query params through api allows different types of laps to use query params in different ways */
     const grid_id = new URL(window.location.href).searchParams.get('grid_id')
+    console.log(grid_id)
     // load current location
-    window.api_post( 'refresh', { grid_id } )
+    const url = new URL(location.href)
+    let action = url.searchParams.has('all-content') ? 'refresh-all' : 'refresh'
+    window.api_post( action, { grid_id } )
       .then( function(l1) {
         // no remaining locations, send to map
+        console.log(l1)
         if ( ! l1 ) {
           window.location.href = jsObject.map_url
           return
@@ -225,8 +229,8 @@ jQuery(document).ready(function(){
     praying_button.on('click', function( e ) {
       toggle_timer()
     })
-    praying_close_button.off('click')
-    praying_close_button.on('click', function( e ) {
+    praying_pause_button.off('click')
+    praying_pause_button.on('click', function( e ) {
       toggle_timer( true )
     })
     praying_continue_button.off('click')
@@ -353,7 +357,7 @@ jQuery(document).ready(function(){
 
     if ( pauseTimer ) {
       // console.log('pausing')
-      praying_close_button.hide()
+      praying_pause_button.hide()
       praying_continue_button.show()
 
       decision_panel.show()
@@ -363,7 +367,7 @@ jQuery(document).ready(function(){
       window.paused = true
     } else {
       // console.log('activating')
-      praying_close_button.show()
+      praying_pause_button.show()
       praying_continue_button.hide()
 
       praying_panel.show()
@@ -589,6 +593,7 @@ jQuery(document).ready(function(){
             });
             map.addLayer({
               'id': 'parent_collection_lines',
+              'beforeId': 'poi-labels',
               'type': 'line',
               'source': 'parent_collection',
               'paint': {
@@ -701,6 +706,9 @@ jQuery(document).ready(function(){
                   'line-width': 4
                 }
               });
+
+              // make sure that the country label is above all lines
+              map.moveLayer('country_outline_lines', 'poi-labels')
             })
         }
 

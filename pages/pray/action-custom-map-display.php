@@ -76,7 +76,9 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
                 'grid_data' => [],
                 'stats' => $this->stats,
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
-                'translations' => [],
+                'translations' => [
+                    'lap' => __( 'Lap %d', 'prayer-global-porch' ),
+                ],
                 'map_type' => 'binary',
             ]) ?>][0]
         </script>
@@ -107,9 +109,10 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
             </div>
             <div id="map-wrapper">
                 <div id="head_block_wrapper">
-                    <div id="head_block_display" class="center brand-bg white">
+                    <div id="head_block_display" class="center brand-bg white relative">
                         <h2 class="uppercase"><?php echo esc_html( sprintf( __( '%s Prayer Relay', 'prayer-global-porch' ), $lap_stats['title'] ) ) ?></h2>
                         <h4 class="uppercase"><?php echo esc_html__( 'Cover The World In Prayer', 'prayer-global-porch' ) ?></h4>
+                        <h4 class="uppercase lap-number"><?php echo esc_html__( 'Lap:', 'prayer-global-porch' ) ?> <span><?php echo esc_html( $lap_stats['lap_number'] ) ?></span></h4>
                     </div>
                 </div>
                 <span class="loading-spinner active"></span>
@@ -160,7 +163,7 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
     public function footer_javascript(){
         ?>
         <script>
-            jQuery(document).ready(function(){
+            window.addEventListener('load', function(){
                 setTimeout(function() {
                     let qr_width = jQuery('#qr-cell').width()
                     let qr_height = ( qr_width * .15 ) + qr_width
@@ -192,45 +195,50 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
 
         switch ( $params['action'] ) {
             case 'get_stats':
-                return pg_custom_lap_stats_by_post_id( $params['parts']['post_id'] );
+                $current_lap = pg_current_custom_lap( $params['parts']['post_id'] );
+                return pg_custom_lap_stats_by_post_id( $current_lap['post_id'] );
             case 'get_grid':
+                $current_lap = pg_current_custom_lap( $params['parts']['post_id'] );
                 return [
-                    'grid_data' => $this->get_grid( $params['parts'] ),
+                    'grid_data' => $this->get_grid( $current_lap['post_id'] ),
                     'participants' => [],
-                    'stats' => pg_custom_lap_stats_by_post_id( $params['parts']['post_id'] ),
+                    'stats' => pg_custom_lap_stats_by_post_id( $current_lap['post_id'] ),
                 ];
             default:
                 return new WP_Error( __METHOD__, 'missing action parameter' );
         }
     }
 
-    public function get_grid( $parts ) {
+    public function get_grid( $post_id ) {
         global $wpdb;
 
         // map grid
         $data_raw = $wpdb->get_results( $wpdb->prepare( "
             SELECT
-                lg1.grid_id, r1.value
+                lg1.grid_id, SUM(r1.value) as value
             FROM $wpdb->dt_location_grid lg1
-			JOIN $wpdb->dt_reports r1 ON r1.grid_id=lg1.grid_id AND r1.type = 'prayer_app' AND r1.subtype = 'custom' AND r1.post_id = %d
+			JOIN $wpdb->dt_reports r1 ON r1.grid_id=lg1.grid_id AND r1.type = 'prayer_app' AND r1.post_id = %d AND ( r1.subtype = 'event' OR r1.subtype = 'custom' )
             WHERE lg1.level = 0
               AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
               AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
+            GROUP BY lg1.grid_id
             UNION ALL
             SELECT
-                lg2.grid_id, r2.value
+                lg2.grid_id, SUM(r2.value) as value
             FROM $wpdb->dt_location_grid lg2
-			JOIN $wpdb->dt_reports r2 ON r2.grid_id=lg2.grid_id AND r2.type = 'prayer_app' AND r2.subtype = 'custom' AND r2.post_id = %d
+			JOIN $wpdb->dt_reports r2 ON r2.grid_id=lg2.grid_id AND r2.type = 'prayer_app' AND r2.post_id = %d AND ( r2.subtype = 'event' OR r2.subtype = 'custom' )
             WHERE lg2.level = 1
               AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
+            GROUP BY lg2.grid_id
             UNION ALL
             SELECT
-                lg3.grid_id, r3.value
+                lg3.grid_id, SUM(r3.value) as value
             FROM $wpdb->dt_location_grid lg3
-			JOIN $wpdb->dt_reports r3 ON r3.grid_id=lg3.grid_id AND r3.type = 'prayer_app' AND r3.subtype = 'custom' AND r3.post_id = %d
+			JOIN $wpdb->dt_reports r3 ON r3.grid_id=lg3.grid_id AND r3.type = 'prayer_app' AND r3.post_id = %d AND ( r3.subtype = 'event' OR r3.subtype = 'custom' )
             WHERE lg3.level = 2
               AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)
-        ", $parts['post_id'], $parts['post_id'], $parts['post_id'] ), ARRAY_A );
+          GROUP BY lg3.grid_id
+        ", $post_id, $post_id, $post_id ), ARRAY_A );
 
         $data = [];
         foreach ( $data_raw as $row ) {

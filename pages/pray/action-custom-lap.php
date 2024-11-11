@@ -158,13 +158,23 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <div class="container" id="praying-panel">
                 <div class="d-flex w-100 gap-2 praying_button_group" role="group" aria-label="Praying Button">
                     <div class="align-items-center brand-lighter-bg btn-praying d-flex gap-2 prayer-odometer px-2">
-                        <i class="icon pg-prayer"></i><span class="two-rem location-count">0</span>
+                        <?php if ( is_user_logged_in() ) : ?>
+
+                            <?php //phpcs:ignore ?>
+                            <?php echo pg_profile_icon(); ?>
+
+                        <?php else : ?>
+
+                            <i class='icon pg-prayer'></i>
+
+                        <?php endif; ?>
+                        <span class="two-rem location-count">0</span>
                     </div>
                     <button type="button" class="btn p-2" id="praying_button" data-percent="0" data-seconds="0">
                         <div class="praying__progress"></div>
                         <span class="praying__text uppercase font-weight-normal"></span>
                     </button>
-                    <button type="button" class="btn btn-primary-dark btn-praying" id="praying__close_button">
+                    <button type="button" class="btn btn-primary-dark btn-praying" id="praying__pause_button">
                         <i class="icon pg-pause"></i>
                     </button>
                     <button type="button" class="btn btn-primary-dark btn-praying" id="praying__continue_button">
@@ -606,7 +616,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
          * $global_remaining is a list of those locations still available for prayer in the global lap
          * $promised_locations is a list of locations issued in the last 90 seconds
          */
-        $remaining_global = $this->_remaining_global_prayed_list( $list_4770 );
+        $remaining_global = self::_remaining_global_prayed_list( $list_4770 );
         $global_priority_list = array_intersect( $remaining_custom, $remaining_global );
         $recently_promised_locations = $this->_recently_promised_locations( $parts['post_id'] );
 
@@ -764,7 +774,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
     }
 
-    public function _remaining_global_prayed_list( $list_4770 = null ) {
+    public static function _remaining_global_prayed_list( $list_4770 = null ) {
         global $wpdb;
         if ( empty( $list_4770 ) ) {
             $list_4770 = pg_query_4770_locations();
@@ -775,7 +785,9 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             "SELECT DISTINCT grid_id
                     FROM $wpdb->dt_reports
                     WHERE timestamp >= %d
-                      AND type = 'prayer_app'",
+                    AND type = 'prayer_app'
+                    AND subtype != 'event'
+                    ",
         $current_lap['start_time'] ) );
 
         $prayed_list = array_unique( $raw_list );

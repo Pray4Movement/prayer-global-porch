@@ -24,6 +24,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'PG_TOTAL_STATES', 4770 );
 define( 'PG_NAMESPACE', 'pg_' );
+define( 'PG_API_ENDPOINT', 'https://api.prayer.global/' );
 
 
 
@@ -71,6 +72,11 @@ function prayer_global_porch() {
 }
 add_action( 'after_setup_theme', 'prayer_global_porch', 20 );
 
+/* Give the cookie a year expiration date */
+add_filter( 'auth_cookie_expiration', function (){
+    return 365 * DAY_IN_SECONDS;
+}, 20 );
+
 /**
  * Singleton class for setting up the plugin.
  *
@@ -102,6 +108,7 @@ class Prayer_Global_Porch {
         $wpdb->location_grid_names = 'location_grid_names';
 
         require_once( 'utilities/global-utilities.php' );
+        require_once( 'utilities/enqueue-async.php' );
         require_once( 'utilities/login-functions.php' );
         require_once( 'classes/pg-feature-flag.php' );
         require_once( 'classes/pg-flags.php' );
@@ -155,9 +162,9 @@ class Prayer_Global_Porch {
         // 404
         require_once( 'pages/404/404.php' ); // MUST BE LAST LOADED
 
-        /* We want to login via the JWT token route so that the user isn't logged into the WP admin */
+        /* Use the WP cookie login method, to easily persist logins */
         add_filter( 'dt_login_method', function () {
-            return DT_Login_Methods::MOBILE;
+            return DT_Login_Methods::WORDPRESS;
         } );
 
         $lang = pg_get_current_lang();

@@ -74,7 +74,9 @@ class PG_User_Logout extends DT_Magic_Url_Base {
             $redirect_to = '/';
         }
 
-        echo do_shortcode( "[dt_firebase_logout_script redirect_to=\"$redirect_to\"]" );
+        wp_logout();
+
+        wp_redirect( $redirect_to );
 
     }
 

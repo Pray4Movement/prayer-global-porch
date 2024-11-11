@@ -7,7 +7,18 @@
         <div class="d-flex justify-content-end align-items-center">
             <div><a class="btn btn-cta mx-2" href="/newest/lap/"><?php echo esc_html__( 'Start Praying', 'prayer-global-porch' ) ?></a></div>
             <a href="/user_app/profile" class="icon-button mx-2 two-rem d-flex align-items-center white" title="<?php echo esc_attr__( 'Profile', 'prayer-global-porch' ) ?>" id="user-profile-link">
-                <i class="icon pg-profile"></i>
+
+                <?php if ( is_user_logged_in() ) : ?>
+
+                    <?php //phpcs:ignore ?>
+                    <?php echo pg_profile_icon(); ?>
+
+                <?php else : ?>
+
+                    <span class="one-rem"><?php echo esc_html__( 'Login', 'prayer-global-porch' ); ?></span>
+
+                <?php endif; ?>
+
             </a>
             <button class="navbar-toggler mx-2 two-rem d-flex align-items-center white" type="button" data-bs-toggle="offcanvas" data-bs-target="#probootstrap-navbar" aria-controls="probootstrap-navbar" aria-expanded="false" aria-label="<?php echo esc_attr__( 'Toggle navigation', 'prayer-global-porch' ) ?>">
                 <i class="icon pg-menu"></i>

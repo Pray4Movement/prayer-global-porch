@@ -322,26 +322,29 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
         // map grid
         $data_raw = $wpdb->get_results( $wpdb->prepare( "
             SELECT
-                lg1.grid_id, r1.value
+                lg1.grid_id, SUM(r1.value) as value
             FROM $wpdb->dt_location_grid lg1
-			LEFT JOIN $wpdb->dt_reports r1 ON r1.grid_id=lg1.grid_id AND r1.type = 'prayer_app' AND r1.timestamp >= %d AND r1.timestamp <= %d
+			LEFT JOIN $wpdb->dt_reports r1 ON r1.grid_id=lg1.grid_id AND r1.type = 'prayer_app' AND r1.timestamp >= %d AND r1.timestamp <= %d AND ( r1.subtype = 'global' OR r1.subtype = 'custom' )
             WHERE lg1.level = 0
               AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
               AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
+            GROUP BY lg1.grid_id
             UNION ALL
             SELECT
-                lg2.grid_id, r2.value
+                lg2.grid_id, SUM(r2.value) as value
             FROM $wpdb->dt_location_grid lg2
-			LEFT JOIN $wpdb->dt_reports r2 ON r2.grid_id=lg2.grid_id AND r2.type = 'prayer_app' AND r2.timestamp >= %d AND r2.timestamp <= %d
+			LEFT JOIN $wpdb->dt_reports r2 ON r2.grid_id=lg2.grid_id AND r2.type = 'prayer_app' AND r2.timestamp >= %d AND r2.timestamp <= %d AND ( r2.subtype = 'global' OR r2.subtype = 'custom' )
             WHERE lg2.level = 1
               AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
+            GROUP BY lg2.grid_id
             UNION ALL
             SELECT
-                lg3.grid_id, r3.value
+                lg3.grid_id, SUM(r3.value) as value
             FROM $wpdb->dt_location_grid lg3
-			LEFT JOIN $wpdb->dt_reports r3 ON r3.grid_id=lg3.grid_id AND r3.type = 'prayer_app' AND r3.timestamp >= %d AND r3.timestamp <= %d
+			LEFT JOIN $wpdb->dt_reports r3 ON r3.grid_id=lg3.grid_id AND r3.type = 'prayer_app' AND r3.timestamp >= %d AND r3.timestamp <= %d AND ( r3.subtype = 'global' OR r3.subtype = 'custom' )
             WHERE lg3.level = 2
               AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)
+            GROUP BY lg3.grid_id
         ", $lap_stats['start_time'], $lap_stats['end_time'], $lap_stats['start_time'], $lap_stats['end_time'], $lap_stats['start_time'], $lap_stats['end_time'] ), ARRAY_A );
 
         $data = [];
@@ -365,9 +368,10 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
            FROM $wpdb->dt_reports r
            LEFT JOIN $wpdb->dt_location_grid lg ON lg.grid_id=r.grid_id
             WHERE r.post_type = 'laps'
-                AND r.type = 'prayer_app'
+            AND r.type = 'prayer_app'
+            AND r.post_id = %d
            AND r.timestamp >= %d AND r.timestamp <= %d AND r.hash IS NOT NULL
-        ", $lap_stats['start_time'], $lap_stats['end_time'] ), ARRAY_A );
+        ", $parts['post_id'], $lap_stats['start_time'], $lap_stats['end_time'] ), ARRAY_A );
         $participants = [];
         if ( ! empty( $participants_raw ) ) {
             foreach ( $participants_raw as $p ) {
@@ -399,9 +403,10 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
                WHERE r.post_type = 'laps'
                     AND r.type = 'prayer_app'
                     AND r.hash = %s
+                    AND r.post_id = %d
                 AND r.timestamp >= %d AND r.timestamp <= %d
                 AND r.label IS NOT NULL
-            ", $hash, $lap_stats['start_time'], $lap_stats['end_time'] ), ARRAY_A );
+            ", $hash, $parts['post_id'], $lap_stats['start_time'], $lap_stats['end_time'] ), ARRAY_A );
 
         $user_locations = [];
         if ( ! empty( $user_locations_raw ) ) {

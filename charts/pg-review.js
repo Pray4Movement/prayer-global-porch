@@ -1,6 +1,6 @@
 (function() {
   "use strict";
-  jQuery(document).ready(function() {
+  window.addEventListener('load', function() {
 
     // expand the current selected menu
     jQuery('#metrics-sidemenu').foundation('down', jQuery(`#${window.wp_js_object.base_slug}-menu`));

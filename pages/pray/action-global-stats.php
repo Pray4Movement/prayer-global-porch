@@ -159,7 +159,7 @@ class PG_Global_Prayer_App_Stats extends PG_Global_Prayer_App {
                     })
             }
 
-            jQuery(document).ready(function(){
+            window.addEventListener('load', function(){
                 let data = {
                     // hash: Cookies.get('pg_user_hash')
                     hash: localStorage.getItem('pg_user_hash')

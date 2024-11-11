@@ -10,7 +10,7 @@ class PG_Stacker {
      * @param $grid_id
      * @return array
      */
-    public static function build_location_stack( $grid_id ) {
+    public static function build_location_stack( $grid_id, $all = false ) {
         $stack['list'] = [];
         $lists = [];
 
@@ -25,7 +25,7 @@ class PG_Stacker {
         PG_Stacker_Text::_for_abundant_gospel_sowing( $lists, $stack );
         PG_Stacker_Text::_for_persons_of_peace( $lists, $stack );
         PG_Stacker_Text::_for_prioritizing_priesthood_of_believers( $lists, $stack );
-        PG_Stacker_Text::_for_unleashing_simple_churches( $lists, $stack );
+        PG_Stacker_Text::_for_unleashing_simple_churches( $lists, $stack, $all );
         PG_Stacker_Text::_for_bible_access( $lists, $stack );
         PG_Stacker_Text::_for_internet_gospel_access( $lists, $stack );
         PG_Stacker_Text::_for_safety( $lists, $stack );
@@ -70,17 +70,20 @@ class PG_Stacker {
                 'data' => $content
             ];
         }
-        shuffle( $stack['list'] ); // shuffle the list
-        $stack['list'] = array_slice( $stack['list'], 0, 7 ); // limit to first 8
+
+        if ( !$all ) {
+            shuffle( $stack['list'] ); // shuffle the list
+            $stack['list'] = array_slice( $stack['list'], 0, 7 ); // limit to first 8
+        }
 
         /****************************/
         // PRAYER FACTS
         /****************************/
         PG_Stacker_Positions::_position_1( $stack );
-        PG_Stacker_Positions::_position_2( $stack );
-        PG_Stacker_Positions::_position_3( $stack );
-        PG_Stacker_Positions::_position_4( $stack );
-        PG_Stacker_Positions::_position_5( $stack );
+        PG_Stacker_Positions::_position_2( $stack, all: $all );
+        PG_Stacker_Positions::_position_3( $stack, all: $all );
+        PG_Stacker_Positions::_position_4( $stack, all: $all );
+        PG_Stacker_Positions::_position_5( $stack, all: $all );
 
         // REDUCE STACK
         $reduced_stack = [];

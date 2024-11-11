@@ -113,6 +113,13 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
         $now = time();
         $has_challenge_started = $lap_stats['start_time'] < $now;
         DT_Mapbox_API::geocoder_scripts();
+
+        $pray_href = '/prayer_app/custom/' . esc_attr( $parts['public_key'] );
+        if ( $lap_stats['event_lap'] ) {
+            $domain_param = isset( $_SERVER['HTTP_HOST'] ) ? '&domain=' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
+            $pray_href = PG_API_ENDPOINT . '?relay=' . $parts['public_key'] . $domain_param;
+        }
+
         ?>
         <style id="custom-style"></style>
         <div id="map-content">
@@ -136,7 +143,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                                 <i class="icon pg-share"></i>
                             </button>
                         </div>
-                        <a class="btn btn-cta" id="pray-button" href="/prayer_app/custom/<?php echo esc_attr( $parts['public_key'] ) ?>"><?php echo esc_html__( 'Pray', 'prayer-global-porch' ) ?></a>
+                        <a class="btn btn-cta" id="pray-button" href="<?php echo esc_url( $pray_href ) ?>"><?php echo esc_html__( 'Pray', 'prayer-global-porch' ) ?></a>
 
                     </div>
 
@@ -365,26 +372,29 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
         // map grid
         $data_raw = $wpdb->get_results( $wpdb->prepare( "
             SELECT
-                lg1.grid_id, r1.value
+                lg1.grid_id, SUM(r1.value) as value
             FROM $wpdb->dt_location_grid lg1
-			JOIN $wpdb->dt_reports r1 ON r1.grid_id=lg1.grid_id AND r1.type = 'prayer_app' AND r1.subtype = 'custom' AND r1.post_id = %d
+			JOIN $wpdb->dt_reports r1 ON r1.grid_id=lg1.grid_id AND r1.type = 'prayer_app' AND r1.post_id = %d AND ( r1.subtype = 'event' OR r1.subtype = 'custom' )
             WHERE lg1.level = 0
               AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
               AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
+            GROUP BY lg1.grid_id
             UNION ALL
             SELECT
-                lg2.grid_id, r2.value
+                lg2.grid_id, SUM(r2.value) as value
             FROM $wpdb->dt_location_grid lg2
-			JOIN $wpdb->dt_reports r2 ON r2.grid_id=lg2.grid_id AND r2.type = 'prayer_app' AND r2.subtype = 'custom' AND r2.post_id = %d
+			JOIN $wpdb->dt_reports r2 ON r2.grid_id=lg2.grid_id AND r2.type = 'prayer_app' AND r2.post_id = %d AND ( r2.subtype = 'event' OR r2.subtype = 'custom' )
             WHERE lg2.level = 1
               AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
+            GROUP BY lg2.grid_id
             UNION ALL
             SELECT
-                lg3.grid_id, r3.value
+                lg3.grid_id, SUM(r3.value) as value
             FROM $wpdb->dt_location_grid lg3
-			JOIN $wpdb->dt_reports r3 ON r3.grid_id=lg3.grid_id AND r3.type = 'prayer_app' AND r3.subtype = 'custom' AND r3.post_id = %d
+			JOIN $wpdb->dt_reports r3 ON r3.grid_id=lg3.grid_id AND r3.type = 'prayer_app' AND r3.post_id = %d AND ( r3.subtype = 'event' OR r3.subtype = 'custom' )
             WHERE lg3.level = 2
               AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)
+          GROUP BY lg3.grid_id
         ", $parts['post_id'], $parts['post_id'], $parts['post_id'] ), ARRAY_A );
 
         $data = [];

@@ -303,7 +303,7 @@ class Prayer_Global_Show_All extends DT_Magic_Url_Base
             </div>
         </section>
         <script>
-            jQuery(document).ready(function(){
+            window.addEventListener('load', function(){
                 jQuery('#country_change').on('change', function(e){
                     let grid_id = jQuery(this).val()
                     window.location.href = '/show_app/all_content/?grid_id='+grid_id

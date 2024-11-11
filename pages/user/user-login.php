@@ -86,7 +86,7 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
         ?>
         <script>
 
-          $(document).ready(function($) {
+          window.addEventListener('load', function() {
             window.getAuthUser(
               () => {
                 const url = new URL(location.href)
@@ -109,44 +109,155 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
     public function body() {
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' );
 
-        /* if ( is_user_logged_in() ) {
-            if ( isset( $_GET['redirect_to'] ) ) {
-                $redirect_to = urldecode( wp_sanitize_redirect( wp_unslash( $_GET['redirect_to'] ) ) );
-            } else {
-                $redirect_to = DT_Login_Fields::get( 'redirect_url' );
-            }
-
-            header( "Location: $redirect_to" );
-        } */
-
         $lang = pg_get_current_lang();
+
+        $url = new DT_URL( dt_get_url_path() );
+
+        $action = $url->query_params->has( 'action' ) ? $url->query_params->get( 'action' ) : 'login';
+        $redirect_to = $url->query_params->has( 'redirect_to' ) ? urlencode( $url->query_params->get( 'redirect_to' ) ) : '';
+        $icom_free_tshirt = $url->query_params->has( 'icom_free_tshirt' ) ? true : false;
 
         ?>
 
+        <?php
 
+        switch ( $action ) {
+            case 'register':
 
-        <section class="page-section pt-4" data-section="login" id="section-login">
-            <div class="container">
-                <div class="row justify-content-md-center text-center">
-                    <div class="col-lg-7" id="pg_content">
-                        <h2 class=""><?php echo esc_html__( 'Login', 'prayer-global-porch' ) ?></h2>
-                        <p class="center"><?php echo esc_html__( 'Create your own free login. This will allow you to:', 'prayer-global-porch' ) ?></p>
-                        <ul class="w-fit text-align-left mx-auto">
-                            <li><?php echo esc_html__( 'See your prayer history', 'prayer-global-porch' ) ?></li>
-                            <li><?php echo esc_html__( 'Create your own prayer relays', 'prayer-global-porch' ) ?></li>
-                            <li><?php echo esc_html__( 'Get badges and more', 'prayer-global-porch' ) ?></li>
-                        </ul>
-                        <div id="login-ui" style="display: none;">
-                            <?php echo do_shortcode( '[dt_firebase_login_ui lang_code="' . $lang . '"]' ) ?>
+                ?>
+
+                <section class="page-section pt-4" data-section="register" id="section-register">
+                    <div class="container">
+                        <div class="row justify-content-md-center text-center">
+                            <div class="col-lg-7" id="pg_content">
+                                <h2 class=""><?php echo esc_html__( 'Register', 'prayer-global-porch' ) ?></h2>
+                                <p class="center"><?php echo esc_html__( 'Create your own free login. This will allow you to:', 'prayer-global-porch' ) ?></p>
+                                <ul class="w-fit text-align-left mx-auto">
+                                    <li><?php echo esc_html__( 'See your prayer history', 'prayer-global-porch' ) ?></li>
+                                    <li><?php echo esc_html__( 'Create your own prayer relays', 'prayer-global-porch' ) ?></li>
+                                    <li><?php echo esc_html__( 'Get badges and more', 'prayer-global-porch' ) ?></li>
+                                </ul>
+                                <div id="login-ui" style="display: none;">
+                                    <?php echo do_shortcode( '[dt_firebase_login_ui lang_code="' . $lang . '"]' ) ?>
+                                </div>
+                                <div id="login-ui-loader">
+                                    <span class="loading-spinner active"></span>
+                                </div>
+                                <div class="flow-medium">
+                                    <div class="marketing-options">
+
+                                        <?php if ( $icom_free_tshirt ) : ?>
+
+                                            <script>
+                                                window.addEventListener('DOMContentLoaded', function() {
+                                                    const tshirtCheckBox =document.querySelector('#icom_free_tshirt')
+                                                    const generalEmailsCheckBox =document.querySelector('#send_general_emails')
+                                                    const lapEmailsCheckBox =document.querySelector('#send_lap_emails')
+
+                                                    tshirtCheckBox.addEventListener('change', onTshirtCheckBoxChange)
+                                                    toggleMarketingPreferences(true)
+
+                                                    function onTshirtCheckBoxChange(event) {
+                                                        const checked = event.target.checked
+
+                                                        toggleMarketingPreferences(checked)
+                                                    }
+                                                    function toggleMarketingPreferences(checked) {
+                                                        if ( checked ) {
+                                                            generalEmailsCheckBox.setAttribute( 'disabled', '' )
+                                                            lapEmailsCheckBox.setAttribute( 'disabled', '' )
+                                                            generalEmailsCheckBox.checked = true
+                                                            lapEmailsCheckBox.checked = true
+                                                        } else {
+                                                            generalEmailsCheckBox.removeAttribute( 'disabled' )
+                                                            lapEmailsCheckBox.removeAttribute( 'disabled' )
+                                                        }
+                                                    }
+                                                })
+                                            </script>
+
+                                            <div class="form-check">
+                                                <input class="form-check-input user-check-preferences" type="checkbox" id="icom_free_tshirt" checked>
+                                                <label class="form-check-label" for="icom_free_tshirt">
+                                                    Enter me in the T-Shirt Prize draw
+                                                </label>
+                                            </div>
+
+                                        <?php endif; ?>
+
+                                        <div class="form-check small">
+                                            <input class="form-check-input user-check-preferences" type="checkbox" id="send_general_emails" checked>
+                                            <label class="form-check-label" for="send_general_emails">
+                                                <?php echo esc_html( sprintf( __( 'Send information about %1$s, %2$s, %3$s and other %4$s projects via email', 'prayer-global-porch' ), 'Prayer.Global', 'Zume', 'Pray4Movement', 'Gospel Ambition' ) ) ?>
+                                            </label>
+                                        </div>
+                                        <div class="form-check small">
+                                            <input class="form-check-input user-check-preferences" type="checkbox" id="send_lap_emails" checked>
+                                            <label class="form-check-label" for="send_lap_emails">
+                                                <?php echo esc_html( __( 'Send me lap challenges via email', 'prayer-global-porch' ) ) ?>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="login-links">
+                                        <p>
+                                            <?php echo esc_html__( 'Already got an account?', 'prayer-global-porch' ) ?>
+                                            <?php
+                                                $login_url = '/user_app/login';
+                                                $login_url = !empty( $redirect_to ) ? $login_url . "?redirect_to=$redirect_to" : $login_url;
+                                            ?>
+                                            <a href="<?php echo esc_url( $login_url ) ?>"><?php echo esc_html__( 'Login', 'prayer-global-porch' ) ?></a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div id="login-ui-loader">
-                            <span class="loading-spinner active"></span>
-                        </div>
-
                     </div>
-                </div>
-            </div>
-        </section>
+                </section>
+
+                <?php
+
+                break;
+            case 'login':
+            // intentionally fall through to default for login
+            default:
+                ?>
+
+                <section class="page-section pt-4" data-section="login" id="section-login">
+                    <div class="container">
+                        <div class="row justify-content-md-center text-center">
+                            <div class="col-lg-7" id="pg_content">
+                                <h2 class=""><?php echo esc_html__( 'Login', 'prayer-global-porch' ) ?></h2>
+                                <div id="login-ui" style="display: none;">
+                                    <?php echo do_shortcode( '[dt_firebase_login_ui lang_code="' . $lang . '"]' ) ?>
+                                </div>
+                                <div id="login-ui-loader">
+                                    <span class="loading-spinner active"></span>
+                                </div>
+                                <div class="login-links">
+                                    <p>
+                                        <?php echo esc_html__( 'Not got an account?', 'prayer-global-porch' ) ?>
+                                        <?php
+                                            $register_url = '/user_app/login?action=register';
+                                            $register_url = !empty( $redirect_to ) ? $register_url . "&redirect_to=$redirect_to" : $register_url;
+                                        ?>
+                                        <a href="<?php echo esc_url( $register_url ) ?>"><?php echo esc_html__( 'Register', 'prayer-global-porch' ) ?></a>
+                                    </p>
+                                    <ul class="w-fit text-align-left mx-auto">
+                                        <li><?php echo esc_html__( 'See your prayer history', 'prayer-global-porch' ) ?></li>
+                                        <li><?php echo esc_html__( 'Create your own prayer relays', 'prayer-global-porch' ) ?></li>
+                                        <li><?php echo esc_html__( 'Get badges and more', 'prayer-global-porch' ) ?></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <?php
+            break;
+        }
+
+        ?>
 
         <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>user-mobile-login.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-mobile-login.js' ) ) ?>" defer></script>
 

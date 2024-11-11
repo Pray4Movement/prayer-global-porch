@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+window.addEventListener('load', function($) {
     const translations = window.pg_js.escapeObject(window.pg_share.translations)
     const shareModal = document.getElementById('share-modal')
     if ( !shareModal ) {
@@ -24,7 +24,7 @@ jQuery(document).ready(function($) {
 
         const ctaModal = document.getElementById('cta_modal')
         if ( ctaModal ) {
-            $(ctaModal).modal('hide')
+            jQuery(ctaModal).modal('hide')
         }
         if ( isGoNativeApp ) {
             window.location.href = 'gonative://share/sharePage?url=' + encodedPageToShare
@@ -34,8 +34,8 @@ jQuery(document).ready(function($) {
             }
             navigator.share(data)
         } else {
-            const navToggler = $('.navbar-toggler')
-            const navBar = $('.pg-navmenu')
+            const navToggler = jQuery('.navbar-toggler')
+            const navBar = jQuery('.pg-navmenu')
             if ( navBar.hasClass('show') ) {
                 navToggler.click();
             }
@@ -49,7 +49,7 @@ jQuery(document).ready(function($) {
         // stop button opening modal
         const shareButtons = document.querySelectorAll('.share-button')
         shareButtons.forEach((shareButton) => {
-            let button = $(shareButton)
+            let button = jQuery(shareButton)
             button.off('click')
             button.on('click', shareAction)
         })
@@ -76,7 +76,7 @@ jQuery(document).ready(function($) {
             shareLink.classList.add('list-group-item-success')
         })
 
-        $(shareModal).on('hidden.bs.modal', () => {
+        jQuery(shareModal).on('hidden.bs.modal', () => {
             shareLink.classList.remove('list-group-item-success')
         })
     }

@@ -1,6 +1,4 @@
-const isMobile = window.pg_js.isMobile()
-
-jQuery(document).ready(function($){
+window.addEventListener('load', function($){
 
   window.get_page = (action) => {
     return jQuery.ajax({
@@ -247,12 +245,13 @@ jQuery(document).ready(function($){
           jQuery('.time_elapsed').html( jsObject.stats.time_elapsed_small )
           jQuery('.prayer_warriors').html( jsObject.stats.participants )
           jQuery('.lap_pace').html( jsObject.stats.lap_pace_small )
+          jQuery('.lap-number span').html( jsObject.stats.lap_number )
 
           jsObject.grid_data = x.grid_data
           reload_load_grid()
         })
     }
-  }, 60000 )
+  }, 1000 )
 
   function reload_load_grid() {
     jQuery.each(asset_list, function(i,file){
