@@ -17,3 +17,14 @@ function pg_login_redirect_login_page() {
     }
     return $url;
 }, 100, 1 ); */
+
+
+add_action('dt_sso_login_extra_fields', function ( $extra_fields, $body ){
+    if ( $extra_fields['tshirt'] === 'on' ){
+        update_user_meta( get_current_user_id(), 'pg_tshirt', true );
+    }
+    if ( $extra_fields['marketing'] === 'on' ){
+        update_user_meta( get_current_user_id(), 'pg_marketing', true );
+    }
+
+}, 10, 2);
