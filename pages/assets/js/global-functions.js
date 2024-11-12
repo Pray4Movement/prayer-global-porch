@@ -224,4 +224,19 @@ document.addEventListener("DOMContentLoaded", function() {
     const zeros = (length) => new Array(length).fill('0').join('')
     return (zeros(length) + number).slice(-length)
   }
+
+  window.waitForElement = function(selector, callback) {
+    console.log("waiting for element", selector);
+    const timeIncrement = 200;
+
+    const ticker = setInterval(() => {
+      const element = document.querySelector(selector);
+
+      if (!element) return;
+
+      clearInterval(ticker);
+
+      callback();
+    }, timeIncrement);
+  }
 });

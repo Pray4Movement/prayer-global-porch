@@ -1,4 +1,5 @@
 jQuery(document).ready(function () {
+  const waitForElement = window.waitForElement
   /* We can access all of the top level constants and functions declared in login-shortcodes.php for the login shortcode */
   const googleButtonSelector = ".firebaseui-idp-google";
   const facebookButtonSelector = ".firebaseui-idp-facebook";
@@ -35,21 +36,6 @@ jQuery(document).ready(function () {
         providerLoginCallback
       )
     })
-  }
-
-  function waitForElement(selector, callback) {
-    console.log("waiting for element", selector);
-    const timeIncrement = 200;
-
-    const ticker = setInterval(() => {
-      const element = document.querySelector(selector);
-
-      if (!element) return;
-
-      clearInterval(ticker);
-
-      callback();
-    }, timeIncrement);
   }
 
   function initialiseMobileButton(selector, socialProvider, callback) {

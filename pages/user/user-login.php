@@ -147,54 +147,18 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                                     <div class="marketing-options">
 
                                         <?php if ( $icom_free_tshirt ) : ?>
-
-                                            <script>
-                                                window.addEventListener('DOMContentLoaded', function() {
-                                                    const tshirtCheckBox =document.querySelector('#icom_free_tshirt')
-                                                    const generalEmailsCheckBox =document.querySelector('#send_general_emails')
-                                                    const lapEmailsCheckBox =document.querySelector('#send_lap_emails')
-
-                                                    tshirtCheckBox.addEventListener('change', onTshirtCheckBoxChange)
-                                                    toggleMarketingPreferences(true)
-
-                                                    function onTshirtCheckBoxChange(event) {
-                                                        const checked = event.target.checked
-
-                                                        toggleMarketingPreferences(checked)
-                                                    }
-                                                    function toggleMarketingPreferences(checked) {
-                                                        if ( checked ) {
-                                                            generalEmailsCheckBox.setAttribute( 'disabled', '' )
-                                                            lapEmailsCheckBox.setAttribute( 'disabled', '' )
-                                                            generalEmailsCheckBox.checked = true
-                                                            lapEmailsCheckBox.checked = true
-                                                        } else {
-                                                            generalEmailsCheckBox.removeAttribute( 'disabled' )
-                                                            lapEmailsCheckBox.removeAttribute( 'disabled' )
-                                                        }
-                                                    }
-                                                })
-                                            </script>
-
-                                            <div class="form-check">
-                                                <input class="form-check-input user-check-preferences" type="checkbox" id="icom_free_tshirt" checked>
-                                                <label class="form-check-label" for="icom_free_tshirt">
-                                                    Enter me in the T-Shirt Prize draw
+                                            <div class="form-check small">
+                                                <input class="form-check-input user-check-preferences" type="checkbox" id="extra_register_input_tshirt" checked>
+                                                <label class="form-check-label" for="extra_register_input_tshirt">
+                                                    Participate in the T-Shirt Prize draw
                                                 </label>
                                             </div>
 
                                         <?php endif; ?>
-
                                         <div class="form-check small">
-                                            <input class="form-check-input user-check-preferences" type="checkbox" id="send_general_emails" checked>
-                                            <label class="form-check-label" for="send_general_emails">
-                                                <?php echo esc_html( sprintf( __( 'Send information about %1$s, %2$s, %3$s and other %4$s projects via email', 'prayer-global-porch' ), 'Prayer.Global', 'Zume', 'Pray4Movement', 'Gospel Ambition' ) ) ?>
-                                            </label>
-                                        </div>
-                                        <div class="form-check small">
-                                            <input class="form-check-input user-check-preferences" type="checkbox" id="send_lap_emails" checked>
-                                            <label class="form-check-label" for="send_lap_emails">
-                                                <?php echo esc_html( __( 'Send me lap challenges via email', 'prayer-global-porch' ) ) ?>
+                                            <input class="form-check-input user-check-preferences" type="checkbox" id="extra_register_input_marketing" checked>
+                                            <label class="form-check-label" for="extra_register_input_marketing">
+                                                <?php echo esc_html( __( 'Sign up for Prayer.Global news and opportunities, and occasional communication from Prayer.Tools and GospelAmbition.org', 'prayer-global-porch' ) ) ?>
                                             </label>
                                         </div>
                                     </div>
