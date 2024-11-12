@@ -1,6 +1,41 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
+class Prayer_Global_Porch_ICOM_Tshirt_Signup extends DT_Magic_Url_Base
+{
+    public $page_title = 'Prayer.Global';
+    public $root = 'tshirt';
+    public $url_token = 'tshirt';
+    public $type_name = 'ICOM Tshirt prize draw';
+    public $post_type = 'contacts';
+
+    private static $_instance = null;
+    public static function instance() {
+        if ( is_null( self::$_instance ) ) {
+            self::$_instance = new self();
+        }
+        return self::$_instance;
+    } // End instance()
+
+    public function __construct() {
+        parent::__construct();
+
+        $url = dt_get_url_path();
+
+        if ( substr( $url, 0, strlen( $this->url_token ) ) !== $this->root ) {
+            return;
+        }
+
+        $this->redirect();
+    }
+
+    public function redirect() {
+        $link = '/user_app/login?action=register';
+        wp_redirect( $link );
+        exit;
+    }
+}
+Prayer_Global_Porch_ICOM_Tshirt_Signup::instance();
 class Prayer_Global_Porch_Active_Relays extends DT_Magic_Url_Base
 {
     public $page_title = 'Prayer.Global';
