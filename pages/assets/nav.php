@@ -30,7 +30,7 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
                 const animateElements = document.querySelectorAll('.relay-banner .animate')
                 if (animateElements.length) {
                     animateElements.forEach((element) => {
-                        element.style.transform = 'translateX(0)'
+                        element.classList.add('active')
                     })
                 }
             })
@@ -38,9 +38,9 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
 
         <div class="relay-banner">
             <div class="container">
-                <h2 class="heading animate">Entrusted to Pray ICOM 2024</h2>
+                <h2 class="heading animate left">Entrusted to Pray ICOM 2024</h2>
                 <a href="<?php echo esc_url( Prayer_Global_Porth_ICOM_Lap::pray_link() ) ?>">
-                    <div class="btn btn-primary-light btn-small animate">
+                    <div class="btn btn-primary-light btn-small animate right">
                         <?php echo esc_html__( 'Start Praying', 'prayer-global-porch' ) ?>
                     </div>
                 </a>
