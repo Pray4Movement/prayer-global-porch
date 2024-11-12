@@ -337,7 +337,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         switch ( $params['action'] ) {
             case 'update_user':
-                return $this->update_user( $params['data'] );
+                return $this->update_user_meta( $params['data'] );
             case 'delete_user':
                 return $this->delete_user( $params['data'] );
             case 'activity':
@@ -407,7 +407,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
      * Update the user's data
      *
      * @param array $data
-     * @return void|WP_Error
+     * @return bool|WP_Error
      */
     public function update_user_meta( $data ) {
         $user_id = get_current_user_id();
@@ -435,6 +435,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 return $response;
             }
         }
+
+        return true;
     }
 
     public function delete_user( $data ) {

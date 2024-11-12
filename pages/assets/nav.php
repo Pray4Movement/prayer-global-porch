@@ -26,7 +26,7 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
     <?php if ( ( new PG_Feature_Flag( 'icom_banner' ) )->is_on() && true === $home_page ) : ?>
 
         <script>
-            window.addEventListener('load', () => {
+            window.addEventListener('DOMContentLoaded', () => {
                 const animateElements = document.querySelectorAll('.relay-banner .animate')
                 if (animateElements.length) {
                     animateElements.forEach((element) => {

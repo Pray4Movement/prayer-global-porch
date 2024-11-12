@@ -212,9 +212,22 @@ window.addEventListener('load', function(){
                             ${data.location && data.location.source === 'ip' ? estimated_location : ''}
                         </span>
                     </p>
+                    <div class="user__banner flow-small">
+                        ${
+                            data.tshirt ? `
+                                <h3>Congratulations!</h3>
+                                <p>You have signed up for the T-shirt draw.</p>
+                                <p>We will contact you by email to let you know if you have won</p>
+                            ` : `
+                                <h3>ICOM T-shirt Prize draw (ICOM participants only)</h3>
+                                <p>Click the button if you wish to be entered into the prize draw. You will also be signed up for newsletters for Prayer.Global, Zume and other Gospel Ambition project</p>
+                                <button class="btn btn-primary" id="enter-prize-draw">Enter Prize draw</button>
+                            `
+                        }
+                    </div>
                 </div>
             </section>
-           <section class="profile-menu px-2 mt-5">
+            <section class="profile-menu px-2 mt-5">
                 <div class="navbar-nav w-fit mx-auto">
                     <button class="user-profile-link nav-link uppercase px-1 py-4 d-flex justify-content-between align-items-center border-bottom border-top border-1 border-dark">
                         <i class="icon pg-profile three-em"></i>
@@ -247,6 +260,14 @@ window.addEventListener('load', function(){
 
         jQuery('.change-details').on('click', () => {
             setup_details_modal()
+        })
+
+        jQuery('#enter-prize-draw').on('click', () => {
+            get_user_app('update_user', {
+                tshirt: true,
+            }).then(() => {
+                window.location.reload()
+            })
         })
 
         if ( !data.stats ) {
