@@ -142,6 +142,30 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                                     <div class="marketing-options" style="text-align: start">
 
                                         <?php if ( $icom_free_tshirt ) : ?>
+
+                                            <script>
+                                                window.addEventListener('DOMContentLoaded', function() {
+                                                    const tshirtCheckBox =document.querySelector('#extra_register_input_tshirt')
+                                                    const generalEmailsCheckBox =document.querySelector('#extra_register_input_marketing')
+
+                                                    tshirtCheckBox.addEventListener('change', onTshirtCheckBoxChange)
+
+                                                    function onTshirtCheckBoxChange(event) {
+                                                        const checked = event.target.checked
+
+                                                        toggleMarketingPreferences(checked)
+                                                    }
+                                                    function toggleMarketingPreferences(checked) {
+                                                        if ( checked ) {
+                                                            generalEmailsCheckBox.setAttribute( 'disabled', '' )
+                                                            generalEmailsCheckBox.checked = true
+                                                        } else {
+                                                            generalEmailsCheckBox.removeAttribute( 'disabled' )
+                                                        }
+                                                    }
+                                                })
+                                            </script>
+
                                             <div class="form-check small">
                                                 <input class="form-check-input user-check-preferences" type="checkbox" id="extra_register_input_tshirt">
                                                 <label class="form-check-label" for="extra_register_input_tshirt">
