@@ -44,7 +44,6 @@ window.addEventListener('load', function(){
         location_text,
         locations_text,
         communication_preferences,
-        send_lap_emails_text,
         send_general_emails_text,
         erase_account,
         minutes,
@@ -310,7 +309,6 @@ window.addEventListener('load', function(){
         name,
         email,
         location,
-        send_lap_emails = false,
         send_general_emails = false,
     }) {
         const userDetailsContentHTML = `
@@ -343,12 +341,6 @@ window.addEventListener('load', function(){
             <h2 class="center">${communication_preferences}</h2>
 
             <div>
-                <div class="form-check small">
-                    <input class="form-check-input user-check-preferences" type="checkbox" id="send_lap_emails" ${send_lap_emails && 'checked'}>
-                    <label class="form-check-label" for="send_lap_emails">
-                        ${send_lap_emails_text}
-                    </label>
-                </div>
                 <div class="form-check small">
                     <input class="form-check-input user-check-preferences" type="checkbox" id="send_general_emails" ${send_general_emails && 'checked'}>
                     <label class="form-check-label" for="send_general_emails">

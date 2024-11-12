@@ -12,8 +12,8 @@ class PG_User_API {
     public static $allowed_user_meta = [
         'location',
         'location_hash',
-        'send_lap_emails',
         'send_general_emails',
+        'tshirt',
     ];
 
     private static $_instance = null;

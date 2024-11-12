@@ -87,7 +87,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'location_text' => esc_html( __( 'Location', 'prayer-global-porch' ) ),
                 'locations_text' => esc_html( __( 'Locations', 'prayer-global-porch' ) ),
                 'communication_preferences' => esc_html( __( 'Communication Preferences', 'prayer-global-porch' ) ),
-                'send_lap_emails_text' => esc_html( __( 'Send me lap challenges via email', 'prayer-global-porch' ) ),
                 'send_general_emails_text' => esc_html( sprintf( __( 'Send information about %1$s, %2$s, %3$s and other %4$s projects via email', 'prayer-global-porch' ), 'Prayer.Global', 'Zume', 'Pray4Movement', 'Gospel Ambition' ) ),
                 'erase_account' => esc_html( __( 'Erase my account', 'prayer-global-porch' ) ),
                 'minutes' => esc_html( __( 'Minutes', 'prayer-global-porch' ) ),

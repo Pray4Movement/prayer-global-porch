@@ -24,7 +24,7 @@ add_action('dt_sso_login_extra_fields', function ( $extra_fields, $body ){
         update_user_meta( get_current_user_id(), 'pg_tshirt', true );
     }
     if ( $extra_fields['marketing'] === 'on' ){
-        update_user_meta( get_current_user_id(), 'pg_marketing', true );
+        update_user_meta( get_current_user_id(), 'pg_send_general_emails', true );
     }
 
 }, 10, 2);
