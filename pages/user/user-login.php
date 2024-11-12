@@ -115,7 +115,8 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
 
         $action = $url->query_params->has( 'action' ) ? $url->query_params->get( 'action' ) : 'login';
         $redirect_to = $url->query_params->has( 'redirect_to' ) ? urlencode( $url->query_params->get( 'redirect_to' ) ) : '';
-        $icom_free_tshirt = $url->query_params->has( 'icom_free_tshirt' ) ? true : false;
+//        $icom_free_tshirt = $url->query_params->has( 'icom_free_tshirt' ) ? true : false;
+        $icom_free_tshirt = true;
 
         ?>
 
@@ -137,20 +138,14 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                                     <li><?php echo esc_html__( 'Create your own prayer relays', 'prayer-global-porch' ) ?></li>
                                     <li><?php echo esc_html__( 'Get badges and more', 'prayer-global-porch' ) ?></li>
                                 </ul>
-                                <div id="login-ui" style="display: none;">
-                                    <?php echo do_shortcode( '[dt_firebase_login_ui lang_code="' . $lang . '"]' ) ?>
-                                </div>
-                                <div id="login-ui-loader">
-                                    <span class="loading-spinner active"></span>
-                                </div>
                                 <div class="flow-medium">
-                                    <div class="marketing-options">
+                                    <div class="marketing-options" style="text-align: start">
 
                                         <?php if ( $icom_free_tshirt ) : ?>
                                             <div class="form-check small">
-                                                <input class="form-check-input user-check-preferences" type="checkbox" id="extra_register_input_tshirt" checked>
+                                                <input class="form-check-input user-check-preferences" type="checkbox" id="extra_register_input_tshirt">
                                                 <label class="form-check-label" for="extra_register_input_tshirt">
-                                                    Participate in the T-Shirt Prize draw
+                                                    Participate in the T-Shirt Prize draw (ICOM participants only)
                                                 </label>
                                             </div>
 
@@ -162,6 +157,15 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                                             </label>
                                         </div>
                                     </div>
+                                </div>
+                                <div id="login-ui" style="display: none;">
+                                    <?php echo do_shortcode( '[dt_firebase_login_ui lang_code="' . $lang . '"]' ) ?>
+                                </div>
+
+                                <div id="login-ui-loader">
+                                    <span class="loading-spinner active"></span>
+                                </div>
+                                <div class="flow-medium">
                                     <div class="login-links">
                                         <p>
                                             <?php echo esc_html__( 'Already got an account?', 'prayer-global-porch' ) ?>
