@@ -298,8 +298,8 @@ function pg_get_global_race(){
 function pg_global_race_stats() {
     $current_lap = pg_current_global_lap();
     $data = pg_get_global_race();
-    $data['number_of_laps'] = $current_lap['lap_number'];
     _pg_global_stats_builder_query( $data );
+    $data['number_of_laps'] = $current_lap['lap_number'] + $data['lap_number'];
     return _pg_stats_builder( $data );
 }
 function _pg_global_stats_builder_query( &$data ) {
@@ -316,6 +316,9 @@ function _pg_global_stats_builder_query( &$data ) {
     $data['participants'] = (int) $counts['participants'];
     $data['minutes_prayed'] = (int) $counts['minutes_prayed'];
     $data['participant_country_count'] = (int) $counts['participant_country_count'];
+
+    $completed_event_laps = pg_number_completed_event_laps();
+    $data['lap_number'] += $completed_event_laps;
 
     return $data;
 }
@@ -340,6 +343,19 @@ function _pg_custom_stats_builder_query( &$data ) {
     $data['participant_country_count'] = (int) $counts['participant_country_count'];
 
     return $data;
+}
+
+function pg_number_completed_event_laps(){
+    global $wpdb;
+    $completed_event_laps = $wpdb->query("
+        SELECT count( DISTINCT( p.ID ) ) as completed_event_laps
+        FROM $wpdb->posts p
+        INNER JOIN $wpdb->postmeta pm1 on ( p.ID = pm1.post_id AND pm1.meta_key = 'event_lap' AND pm1.meta_value = '1' )
+        INNER JOIN $wpdb->postmeta pm2 on ( p.ID = pm2.post_id AND pm2.meta_key = 'status' AND pm2.meta_value = 'complete' )
+        INNER JOIN $wpdb->postmeta pm3 on ( p.ID = pm3.post_id AND pm3.meta_key = 'visibility' AND pm2.meta_value = 'public' )
+        WHERE post_type = 'laps'
+    ");
+    return $completed_event_laps ?? 0;
 }
 
 function _pg_stats_builder( $data ) : array {
