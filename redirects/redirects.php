@@ -117,6 +117,7 @@ class Prayer_Global_Porth_ICOM_Lap extends DT_Magic_Url_Base
     public $url_token = 'icom';
     public $type_name = 'ICOM lap';
     public $post_type = 'contacts';
+    public static $lap_key = 'a67715';
 
     private static $_instance = null;
     public static function instance() {
@@ -147,8 +148,7 @@ class Prayer_Global_Porth_ICOM_Lap extends DT_Magic_Url_Base
     }
 
     public static function link() {
-        $current_lap = pg_current_custom_lap( 1051 );
-        $link = '/prayer_app/custom/' . $current_lap['key'];
+        $link = '/prayer_app/custom/' . self::$lap_key;
         return $link;
     }
 
@@ -156,9 +156,8 @@ class Prayer_Global_Porth_ICOM_Lap extends DT_Magic_Url_Base
         $domain_url = new DT_URL( site_url() );
         $domain = $domain_url->parsed_url['host'];
         $domain = isset( $domain_url->parsed_url['port'] ) ? $domain . ':' . $domain_url->parsed_url['port'] : $domain;
-        $current_lap = pg_current_custom_lap( 1051 );
 
-        $link = trailingslashit( PG_API_ENDPOINT ) . '?relay='.$current_lap['key'].'&domain='.$domain;
+        $link = trailingslashit( PG_API_ENDPOINT ) . '?relay='.self::$lap_key.'&domain='.$domain;
         return $link;
     }
 }
