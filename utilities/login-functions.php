@@ -20,11 +20,43 @@ function pg_login_redirect_login_page() {
 
 
 add_action('dt_sso_login_extra_fields', function ( $extra_fields, $body ){
-    if ( $extra_fields['tshirt'] === 'on' ){
+    if ( !empty( $extra_fields['tshirt'] ) ){
         update_user_meta( get_current_user_id(), 'pg_tshirt', true );
     }
-    if ( $extra_fields['marketing'] === 'on' ){
+    if ( !empty( $extra_fields['marketing'] ) ){
         update_user_meta( get_current_user_id(), 'pg_send_general_emails', true );
+        pg_connect_to_crm();
     }
 
 }, 10, 2);
+
+
+function pg_connect_to_crm(){
+
+    $key = Site_Link_System::get_site_key_by_dev_key('crm_connection');
+    if ( empty( $key ) ){
+        return;
+    }
+
+    $site_key = md5( $key['token'] . $key['site1'] . $key['site2'] );
+    $transfer_token = Site_Link_System::create_transfer_token_for_site( $site_key );
+
+    $url = 'http://' . $key['site2'] . '/wp-json/dt-posts/v2/contacts';
+
+    $current_user = wp_get_current_user();
+
+    $fields = [
+        'title' => $current_user->display_name,
+        'contact_email' => [ [ 'value' => $current_user->user_email ] ],
+        'sources' => [ 'values' => [[ 'value' => 'prayer_global' ]] ],
+        'steps_taken' => [ 'values' => [[ 'value' => 'P.G Newsletter' ]] ],
+        'tags' => [ 'values' => [ [ 'value' => 'add_to_mailing_list_39' ] ] ], //P.G Newsletter
+    ];
+
+    $request = wp_remote_post( $url, [
+        'body' => $fields,
+        'headers' => [
+            'Authorization' => 'Bearer ' . $transfer_token,
+        ],
+    ] );
+}
