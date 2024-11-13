@@ -51,6 +51,7 @@ function pg_connect_to_crm(){
         'sources' => [ 'values' => [[ 'value' => 'prayer_global' ]] ],
         'steps_taken' => [ 'values' => [[ 'value' => 'P.G Newsletter' ]] ],
         'tags' => [ 'values' => [ [ 'value' => 'add_to_mailing_list_39' ] ] ], //P.G Newsletter
+        'projects' => [ 'values' => [ [ 'value' => 'prayer_global' ] ] ],
     ];
 
     $request = wp_remote_post( $url, [
