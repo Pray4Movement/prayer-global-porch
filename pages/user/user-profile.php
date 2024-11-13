@@ -335,6 +335,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         $params = dt_recursive_sanitize_array( $params );
 
+        do_action( 'pg_user_endpoint_data', $params );
+
         switch ( $params['action'] ) {
             case 'update_user':
                 return $this->update_user_meta( $params['data'] );

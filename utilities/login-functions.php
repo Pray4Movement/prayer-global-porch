@@ -22,6 +22,7 @@ function pg_login_redirect_login_page() {
 add_action('dt_sso_login_extra_fields', function ( $extra_fields, $body ){
     if ( !empty( $extra_fields['tshirt'] ) ){
         update_user_meta( get_current_user_id(), 'pg_tshirt', true );
+        pg_icom_tshirt();
     }
     if ( !empty( $extra_fields['marketing'] ) ){
         update_user_meta( get_current_user_id(), 'pg_send_general_emails', true );
@@ -30,6 +31,11 @@ add_action('dt_sso_login_extra_fields', function ( $extra_fields, $body ){
 
 }, 10, 2);
 
+add_action( 'pg_user_endpoint_data', function( $params ){
+    if ( isset($params['action']) && $params['action'] === 'update_user' && isset( $params['data']['tshirt'] ) ){
+        pg_icom_tshirt( !empty( $params['data']['tshirt'] ) );
+    }
+}, 10, 1 );
 
 function pg_connect_to_crm(){
 
@@ -60,4 +66,18 @@ function pg_connect_to_crm(){
             'Authorization' => 'Bearer ' . $transfer_token,
         ],
     ] );
+}
+
+function pg_icom_tshirt( $set_tag = true ){
+    //get current contact
+    $current_user_id = get_current_user_id();
+    $contact_id = Disciple_Tools_Users::get_contact_for_user( $current_user_id );
+    $update = [
+        'tags' => [ 'values' => [ [ 'value' => 'icom_tshirt' ] ] ],
+    ];
+    if ( !$set_tag ){
+        $update['tags']['values'][0]['value']['delete'] = true;
+    }
+
+    DT_Posts::update_post('contacts', $contact_id, $update, true, false);
 }
