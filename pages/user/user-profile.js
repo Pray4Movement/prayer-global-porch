@@ -220,7 +220,7 @@ window.addEventListener('load', function(){
                                 <p>We will contact you by email to let you know if you have won</p>
                             ` : `
                                 <h3>ICOM T-shirt Prize draw (ICOM participants only)</h3>
-                                <p>Click the button if you wish to be entered into the prize draw. You will also be signed up for newsletters for Prayer.Global, Zume and other Gospel Ambition project</p>
+                                <p>Click the button if you wish to be entered into the prize draw.</p>
                                 <button class="btn btn-primary" id="enter-prize-draw">Enter Prize draw</button>
                             `
                         }
