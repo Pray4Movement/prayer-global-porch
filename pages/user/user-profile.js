@@ -265,7 +265,6 @@ window.addEventListener('load', function(){
         jQuery('#enter-prize-draw').on('click', () => {
             get_user_app('update_user', {
                 tshirt: true,
-                send_general_emails: true,
 
             }).then(() => {
                 window.location.reload()
