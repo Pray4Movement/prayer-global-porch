@@ -158,42 +158,14 @@ document.addEventListener("DOMContentLoaded", function() {
   };
 
   window.getAuthUser = function (successCallback, failureCallback) {
-    return window
-      .api_fetch("/wp-json/dt/v1/session/check_auth", {
-        method: "POST",
+    if (pg_global.is_logged_in) {
+      successCallback(pg_global.user)
+    } else {
+      failureCallback({
+        message: 'not logged in',
       })
-      .then((json) => {
-        if (!json) {
-          throw new Error("not logged in");
-        }
-
-        const { data } = json;
-        const { status } = data;
-
-        if (status !== 200) {
-          throw new Error(json.message);
-        }
-      })
-      .then(() =>
-        window.api_fetch("/wp-json/pg-api/v1/user/details", {
-          method: "POST",
-        })
-      )
-      .then((user) => {
-        if (typeof jsObject !== 'undefined') {
-          jsObject.user = user;
-        }
-
-        if (successCallback) {
-          successCallback(user);
-        }
-      })
-      .catch((error) => {
-        if (failureCallback) {
-          failureCallback(error);
-        }
-      });
-  };
+    }
+  }
 
   window.api_fetch = function (url, options = {}) {
     const opts = {

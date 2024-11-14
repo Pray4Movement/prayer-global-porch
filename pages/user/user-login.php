@@ -70,6 +70,7 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                 'is_logged_in' => is_user_logged_in() ? 1 : 0,
                 'logout_url' => esc_url( '/user_app/logout' ),
                 'redirect_url' => DT_Login_Fields::get( 'redirect_url' ),
+                'user' => PG_User_API::get_user(),
             ]) ?>][0]
         </script>
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3"></script>
