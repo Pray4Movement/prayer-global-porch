@@ -106,7 +106,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'display_map' => esc_html__( 'Display Map', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
-            'logout_url' => esc_url( '/user_app/logout' )
+            'logout_url' => esc_url( '/user_app/logout' ),
+            'user' => PG_User_API::get_user(),
         ] );
     }
 

@@ -70,16 +70,16 @@ class PG_User_API {
     /**
      * Get the user data and stats for the currently logged in user
      */
-    public function get_user() {
+    public static function get_user() {
         $user_id = get_current_user_id();
         $userdata = pg_get_user( $user_id, self::$allowed_user_meta );
 
-        $userdata['stats'] = $this->get_user_stats();
+        $userdata['stats'] = self::get_user_stats();
 
         return $userdata;
     }
 
-    public function get_user_stats() {
+    public static function get_user_stats() {
         global $wpdb;
 
         $user_id = get_current_user_id();
