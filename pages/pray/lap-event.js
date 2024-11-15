@@ -103,7 +103,7 @@ function keepPraying() {
     toggleTimer()
 }
 function leavePraying() {
-    window.location = getMapUrl()
+    window.location = window.pg_global.home_url || '/'
 }
 
 function getMapUrl() {

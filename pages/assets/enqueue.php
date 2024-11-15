@@ -56,6 +56,7 @@ add_action( 'wp_enqueue_scripts', function (){
         'nonce' => wp_create_nonce( 'wp_rest' ),
         'is_logged_in' => is_user_logged_in(),
         'user' => PG_User_API::get_user(),
+        'home_url' => home_url(),
     ]);
 
     wp_localize_script( 'components-js', 'pg_components', [
