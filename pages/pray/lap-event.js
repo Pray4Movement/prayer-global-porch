@@ -81,7 +81,7 @@ function celebrateAndNext() {
     celebrateAndNavigateTo(url.href)
 }
 function celebrateAndDone() {
-    celebrateAndNavigateTo(getMapUrl())
+    celebrateAndNavigateTo(getHomeUrl())
 }
 
 function celebrateAndNavigateTo(href) {
@@ -103,9 +103,12 @@ function keepPraying() {
     toggleTimer()
 }
 function leavePraying() {
-    window.location = getMapUrl()
+    window.location = getHomeUrl()
 }
 
+function getHomeUrl() {
+    return window.pg_global.home_url || '/'
+}
 function getMapUrl() {
     if (jsObject.is_cta_feature_on === true) {
         return jsObject.map_url + '?show_cta'
