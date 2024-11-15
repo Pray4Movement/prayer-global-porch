@@ -21,7 +21,6 @@ const decisionPanel = document.querySelector('#decision-panel')
 const questionPanel = document.querySelector('#question-panel')
 const decisionLeaveModal = document.querySelector('#decision_leave_modal')
 
-const leaveMapButton = decisionPanel.querySelector('#decision__map')
 const leaveHomeButton = decisionPanel.querySelector('#decision__home')
 const leaveModalButton = decisionLeaveModal.querySelector('#decision__leave')
 const stayModalButton = decisionLeaveModal.querySelector('#decision__keep_praying')
@@ -61,7 +60,6 @@ function setupListeners() {
     prayingContinueButton.addEventListener('click', () => toggleTimer(false))
     morePrayerFuelButton.addEventListener('click', showMorePrayerFuel)
 
-    leaveMapButton.addEventListener('click', openLeaveModal)
     leaveHomeButton.addEventListener('click', openLeaveModal)
 
     stayModalButton.addEventListener('click', keepPraying)
@@ -107,7 +105,7 @@ function leavePraying() {
 }
 
 function getHomeUrl() {
-    return window.pg_global.home_url || '/'
+    return '/congratulations'
 }
 function getMapUrl() {
     if (jsObject.is_cta_feature_on === true) {
