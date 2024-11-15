@@ -141,7 +141,7 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
                             </div>
                             <span class="uppercase one-rem"><?php echo esc_html__( 'World Coverage', 'prayer-global-porch' ) ?></span>
                         </div>
-                        <div class="w-auto flex-1">
+                        <div class="w-auto flex-1 d-none">
                             <div class="secondary-bg white secondary-border rounded d-flex align-items-center justify-content-around font-weight-bold">
                                 <i class="icon pg-prayer three-em"></i>
                                 <div class="three-em prayer_warriors"></div>
