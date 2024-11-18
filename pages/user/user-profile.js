@@ -212,19 +212,6 @@ window.addEventListener('load', function(){
                             ${data.location && data.location.source === 'ip' ? estimated_location : ''}
                         </span>
                     </p>
-                    <div class="user__banner flow-small">
-                        ${
-                            data.tshirt ? `
-                                <h3>Congratulations!</h3>
-                                <p>You have signed up for the T-shirt draw.</p>
-                                <p>We will contact you by email to let you know if you have won</p>
-                            ` : `
-                                <h3>ICOM T-shirt Prize draw (ICOM participants only)</h3>
-                                <p>Click the button if you wish to be entered into the prize draw.</p>
-                                <button class="btn btn-primary" id="enter-prize-draw">Enter Prize draw</button>
-                            `
-                        }
-                    </div>
                 </div>
             </section>
             <section class="profile-menu px-2 mt-5">
