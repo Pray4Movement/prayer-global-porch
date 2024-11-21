@@ -520,7 +520,8 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                gap: 1rem;
+                gap: 0.5rem;
+                font-size: 0.8rem;
             }
             .population-info > * {
                 display: flex;
@@ -528,8 +529,8 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 gap: 0.5rem;
             }
             .population-info .icon {
-                height: 3rem;
-                width: 3rem;
+                height: 1rem;
+                width: 1rem;
             }
             /* Map */
             .location-map {
