@@ -1,4 +1,5 @@
 window.addEventListener('load', function($){
+  const MAP_REFRESH_INTERVAL = jsObject.stats.event_lap ? 1000 : 5000
 
   window.get_page = (action) => {
     return jQuery.ajax({
@@ -251,7 +252,7 @@ window.addEventListener('load', function($){
           reload_load_grid()
         })
     }
-  }, 1000 )
+  }, MAP_REFRESH_INTERVAL )
 
   function reload_load_grid() {
     jQuery.each(asset_list, function(i,file){
