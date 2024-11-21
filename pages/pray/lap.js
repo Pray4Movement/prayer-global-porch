@@ -440,7 +440,7 @@ window.addEventListener('load', function(){
       trigger: 'focus',
     }
     redBodyIcons.forEach((element) => {
-      new bootstrap.Popover(element, { ...config, content: translate("Don't Know Jesus")})
+      new bootstrap.Popover(element, { ...config, content: jsObject.translations["Don't Know Jesus"]})
     })
     const orangeBodyIcons = document.querySelectorAll('.ion-ios-body.brand-lighter')
     orangeBodyIcons.forEach((element) => {
