@@ -1,5 +1,12 @@
 window.addEventListener('load', function($){
   const MAP_REFRESH_INTERVAL = jsObject.stats.event_lap ? 1000 : 5000
+  const displayMapModal = document.querySelector('#display_map_modal')
+  const modalBackButton = document.querySelector('#display_map_back')
+
+  if (window.innerWidth < 1020) {
+    jQuery(displayMapModal).modal('show')
+    modalBackButton.addEventListener('click', () => window.history.back())
+  }
 
   window.get_page = (action) => {
     return jQuery.ajax({
