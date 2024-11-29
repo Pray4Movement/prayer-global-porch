@@ -1,14 +1,15 @@
 DROP TABLE IF EXISTS wp_dt_relays;
 CREATE TABLE wp_dt_relays (
-    id BIGINT(20),
-    relay_id VARCHAR(20),
-    grid_id BIGINT(20),
-	total INT
+    id BIGINT(20) NOT NULL AUTO_INCREMENT,
+    relay_id VARCHAR(20) NOT NULL,
+    grid_id BIGINT(20) NOT NULL,
+	total INT DEFAULT 0,
+    PRIMARY KEY (id)
 );
 
 ## Give the same relay_id to all parent and child laps of a relay
 
-### Get all the current active laps
+### Get all the current active laps and update their relays with the same keys
 delimiter //
 DROP PROCEDURE IF EXISTS update_all_relays_with_relay_key//
 CREATE PROCEDURE update_all_relays_with_relay_key( lap_type VARCHAR(20) )
@@ -94,6 +95,12 @@ CALL update_all_relays_with_relay_key('global')
 CALL update_all_relays_with_relay_key('custom')
 
 delimiter ;
-## Loop over reports table and create necessary rows
 
-## Loop over reports table and increment count on rows
+## Aggregate the counts of grid_ids and relay_ids into the wp_dt_relays table
+
+INSERT INTO ( grid_id, relay_id, total )
+SELECT r.grid_id, pm.meta_value as relay_id, COUNT(*) AS total FROM wp_dt_reports r
+JOIN wp_postmeta pm ON r.post_id = pm.post_id
+WHERE pm.meta_key = 'prayer_app_relay_key'
+GROUP BY pm.meta_value, r.grid_id
+ORDER BY pm.meta_value
