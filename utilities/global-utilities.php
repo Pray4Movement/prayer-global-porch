@@ -195,6 +195,7 @@ function pg_get_custom_lap_by_post_id( $post_id ) {
             'lap_number' => (int) isset( $result['global_lap_number'] ) ? $result['global_lap_number'] : 1,
             'post_id' => (int) $post_id,
             'key' => $result['prayer_app_custom_magic_key'],
+            'relay_key' => $result['prayer_app_relay_key'],
             'start_time' => (int) $result['start_time'],
             'end_time' => (int) isset( $result['end_time'] ) ? $result['end_time'] : time(),
             'on_going' => $ongoing,
@@ -309,7 +310,7 @@ function _pg_global_stats_builder_query( &$data ) {
         FROM $wpdb->dt_reports r
         WHERE r.post_type = 'laps'
         AND r.type = 'prayer_app'
-        AND ( r.subtype = 'global' OR r.subtype = 'custom' )  
+        AND ( r.subtype = 'global' OR r.subtype = 'custom' )
         AND r.timestamp >= %d AND r.timestamp <= %d
     ", $data['start_time'], $data['end_time'] ), ARRAY_A );
     $data['locations_completed'] = (int) $counts['locations_completed'];
@@ -5600,6 +5601,10 @@ function pg_generate_new_global_prayer_lap( $post_id ) {
     $next_global_lap_number = $completed_prayer_lap_number + 1;
 
     $current_lap = pg_current_global_lap();
+    /* I think we can probably rethink how we get the latest global lap */
+    /* Currently it is stored in an option with minimal info so everyone can find the latest lap easily */
+    /* But we could either get the active global lap or use the recursive method instead */
+    $lap = DT_Posts::get_post( 'laps', $post_id );
     $current_lap_key = $current_lap['key'];
 
     // create key
@@ -5615,6 +5620,7 @@ function pg_generate_new_global_prayer_lap( $post_id ) {
     $fields['start_time'] = $time;
     $fields['global_lap_number'] = $next_global_lap_number;
     $fields['prayer_app_global_magic_key'] = $current_lap_key;
+    $fields['prayer_app_relay_key'] = $lap['prayer_app_relay_key'];
     $fields['parent_lap'] = [
         'values' => [
             [ 'value' => $current_lap['post_id'] ]
@@ -5712,6 +5718,7 @@ function pg_generate_new_custom_prayer_lap( $post_id ) {
     $fields['start_time'] = $time;
     $fields['global_lap_number'] = $next_custom_lap_number;
     $fields['prayer_app_custom_magic_key'] = $current_lap_key;
+    $fields['prayer_app_relay_key'] = $current_lap['relay_key'];
     $fields['ctas_off'] = $current_lap['ctas_off'];
     $fields['event_lap'] = $current_lap['event_lap'];
     $fields['parent_lap'] = [
