@@ -239,6 +239,13 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
                 'default'     => substr( md5( rand( 10000, 100000 ) ), 0, 3 ) . substr( md5( rand( 10000, 100000 ) ), 0, 3 ),
                 'tile' => 'details',
             ];
+            $fields['prayer_app_relay_key'] = [
+                'name'        => __( 'Relay Key', 'prayer-global-porch' ),
+                'description' => '',
+                'type'        => 'text',
+                'default'     => '',
+                'tile' => 'details',
+            ];
             $fields['visibility'] = [
                 'name' => __( "Status", 'prayer-global-porch' ),
                 'type' => 'key_select',
