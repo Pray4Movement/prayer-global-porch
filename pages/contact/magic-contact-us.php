@@ -153,7 +153,7 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
 
         ?>
 
-        <section class="page-section mt-5 pb-0" data-section="about" id="section-about">
+        <section class="page-section mt-5 pb-10" data-section="about" id="section-about">
             <div class="container">
                 <div class="row justify-content-md-center text-center mb-5">
                     <div class="col-lg-7">
@@ -217,7 +217,7 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
                                 </button>
                             </p>
                         </form>
-                        <div id="form-confirm" class="section-header" style="display: none">
+                        <div id="form-confirm" class="section-header" style="display: none; text-align: center;">
                             <h3 class="section-subtitle"><?php esc_html_e( 'Thank you', 'prayer-global-porch' ); ?></h3>
                         </div>
                     </div>
