@@ -1394,6 +1394,8 @@ input[type="date"],
 input[type="time"],
 input[type="number"],
 input[type="text"],
+input[type="email"],
+textarea[type="text"],
 #section-give #payment-form .payment-form,
 .data-table .dataTables_wrapper .dataTables_filter input {
     border: 2px solid var(--pg-grey);
