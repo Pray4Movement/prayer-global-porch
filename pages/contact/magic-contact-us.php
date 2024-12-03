@@ -102,13 +102,12 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
         $site_key = md5( $key['token'] . $key['site1'] . $key['site2'] );
         $transfer_token = Site_Link_System::create_transfer_token_for_site( $site_key );
 
-        $url = 'https://' . $key['site2'] . '/wp-json/dt-posts/v2/contacts';
+        $url = 'http://' . $key['site2'] . '/wp-json/dt-posts/v2/contacts';
 
         $body = [
             'title' => $name,
             'contact_email' => [ [ 'value' => $email ] ],
-            'email' => $email,
-            'message' => $message,
+            'notes' => [ $message ],
             'sources' => [ 'values' => [ [ 'value' => 'prayer_global' ] ] ],
             'projects' => [ 'values' => [ [ 'value' => 'prayer_global' ] ] ],
         ];
