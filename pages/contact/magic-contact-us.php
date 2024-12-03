@@ -282,7 +282,7 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
     public function enqueue_scripts(){
         $cloudflare_site_key = get_option( 'dt_cloudflare_site_key', '' );
         if ( !empty( $cloudflare_site_key ) ){
-            wp_enqueue_script( 'cloudflare-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], '0', [ 'strategy' => 'defer' ] );
+            wp_enqueue_script( 'cloudflare-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], 'v0', [ 'strategy' => 'defer' ] );
         }
     }
 }
