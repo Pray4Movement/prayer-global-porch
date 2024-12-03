@@ -102,20 +102,18 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
         $site_key = md5( $key['token'] . $key['site1'] . $key['site2'] );
         $transfer_token = Site_Link_System::create_transfer_token_for_site( $site_key );
 
-        $url = 'http://' . $key['site2'] . '/wp-json/dt-posts/v2/contacts';
+        $url = 'https://' . $key['site2'] . '/wp-json/dt-posts/v2/contacts';
 
         $body = [
             'title' => $name,
             'contact_email' => [ [ 'value' => $email ] ],
-            'notes' => [ $message ],
             'sources' => [ 'values' => [ [ 'value' => 'prayer_global' ] ] ],
-            'projects' => [ 'values' => [ [ 'value' => 'prayer_global' ] ] ],
+            'source_details' => 'pg_contact_us',
+            'notes' => [
+                '**Comment**: ' . $message
+            ],
+            'news' => $news,
         ];
-
-        if ( $news ){
-            $body['steps_taken'] = [ 'values' => [ [ 'value' => 'P.G Newsletter' ] ] ];
-            $body['tags'] = [ 'values' => [ [ 'value' => 'add_to_mailing_list_39' ] ] ]; //P.G Newsletter
-        }
 
         $request = wp_remote_post( $url, [
             'body' => $body,
