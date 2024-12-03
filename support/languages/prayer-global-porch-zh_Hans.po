@@ -6,17 +6,16 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/prayer-global-"
 "porch\n"
 "POT-Creation-Date: 2024-07-19T14:37:10+00:00\n"
-"PO-Revision-Date: 2024-06-28 09:59+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
-"Language-Team: Chinese (Simplified) <https://translate.disciple.tools/"
-"projects/pray4movement/prayer-global/zh_Hans/>\n"
+"PO-Revision-Date: 2024-12-03 10:19+0000\n"
+"Last-Translator: Chad Edwards <credwards73@gmail.com>\n"
+"Language-Team: Chinese (Simplified Han script) <https://translate.disciple."
+"tools/projects/pray4movement/prayer-global/zh_Hans/>\n"
 "Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.6.1\n"
+"X-Generator: Weblate 5.8.4\n"
 "X-Domain: prayer-global-porch\n"
 
 #: pages/404/404.php:121
@@ -332,12 +331,10 @@ msgid "Days"
 msgstr "天"
 
 #: pages/assets/enqueue.php:59
-#, fuzzy
 msgid "Hours"
 msgstr "小时"
 
 #: pages/assets/enqueue.php:60 pages/user/user-profile.php:93
-#, fuzzy
 msgid "Minutes"
 msgstr "分钟"
 
