@@ -1,8 +1,9 @@
 <?php
-if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
+if ( !defined( 'ABSPATH' ) ){
+    exit;
+} // Exit if accessed directly.
 
-class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base
-{
+class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
     public $magic = false;
     public $parts = false;
     public $page_title = 'Global Prayer - Contact Us';
@@ -13,18 +14,19 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base
     public $post_type = 'groups';
 
     private static $_instance = null;
-    public static function instance() {
-        if ( is_null( self::$_instance ) ) {
+
+    public static function instance(){
+        if ( is_null( self::$_instance ) ){
             self::$_instance = new self();
         }
         return self::$_instance;
     } // End instance()
 
-    public function __construct() {
+    public function __construct(){
         parent::__construct();
 
         $url = dt_get_url_path();
-        if ( ( $this->root . '/' . $this->type ) === $url ) {
+        if ( ( $this->root . '/' . $this->type ) === $url ){
 
             $this->magic = new DT_Magic_URL( $this->root );
             $this->parts = $this->magic->parse_url_parts();
@@ -42,17 +44,17 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base
 
     }
 
-    public function add_api_routes() {
+    public function add_api_routes(){
         register_rest_route( $this->root . '/v1/' . $this->type, '/contact_us', [
             'methods' => 'POST',
             'callback' => [ $this, 'contact_us' ],
-            'permission_callback' => function () {
+            'permission_callback' => function (){
                 return true;
             },
         ] );
     }
 
-    public function contact_us( WP_REST_Request $request ) {
+    public function contact_us( WP_REST_Request $request ){
         $params = $request->get_params();
 
         $name = sanitize_text_field( $params['name'] );
@@ -64,11 +66,11 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base
         $cf_secret = get_option( 'dt_cloudflare_secret_key', '' );
         $cf_site_key = get_option( 'dt_cloudflare_site_key', '' );
 
-        if ( !isset( $params['message'], $params['email'], $params['name'] ) ) {
+        if ( !isset( $params['message'], $params['email'], $params['name'] ) ){
             return new WP_Error( __METHOD__, 'Missing required fields', [ 'status' => 400 ] );
         }
 
-        if ( !empty( $cf_secret ) && !empty( $cf_site_key ) ) {
+        if ( !empty( $cf_secret ) && !empty( $cf_site_key ) ){
             $cf_token = $params['cf_token'] ?? '';
             if ( empty( $cf_token ) ){
                 return new WP_Error( __METHOD__, 'Missing Cloudflare Verification', [ 'status' => 400 ] );
@@ -84,7 +86,7 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base
                 ],
             ] );
 
-            if ( is_wp_error( $response ) ) {
+            if ( is_wp_error( $response ) ){
                 return new WP_Error( 'cf_token', 'Invalid token', [ 'status' => 400 ] );
             }
             $response_body = json_decode( wp_remote_retrieve_body( $response ), true );
@@ -93,7 +95,7 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base
             }
         }
 
-        $key = Site_Link_System::get_site_key_by_dev_key('crm_connection');
+        $key = Site_Link_System::get_site_key_by_dev_key( 'crm_connection' );
         if ( empty( $key ) ){
             return new WP_Error( __METHOD__, 'Internal Server Error', [ 'status' => 500 ] );
         }
@@ -107,11 +109,11 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base
             'contact_email' => [ [ 'value' => $email ] ],
             'email' => $email,
             'message' => $message,
-            'sources' => [ 'values' => [[ 'value' => 'prayer_global' ]] ],
+            'sources' => [ 'values' => [ [ 'value' => 'prayer_global' ] ] ],
             'projects' => [ 'values' => [ [ 'value' => 'prayer_global' ] ] ],
         ];
 
-        if ( $news ) {
+        if ( $news ){
             $body['steps_taken'] = [ 'values' => [ [ 'value' => 'P.G Newsletter' ] ] ];
             $body['tags'] = [ 'values' => [ [ 'value' => 'add_to_mailing_list_39' ] ] ]; //P.G Newsletter
         }
@@ -123,17 +125,17 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base
             ],
         ] );
 
-        if ( is_wp_error( $request ) ) {
+        if ( is_wp_error( $request ) ){
             return new WP_Error( __METHOD__, 'Internal Server Error', [ 'status' => 500 ] );
         }
         return true;
     }
 
-    public function dt_magic_url_base_allowed_js( $allowed_js ) {
+    public function dt_magic_url_base_allowed_js( $allowed_js ){
         return [ 'cloudflare-turnstile' ];
     }
 
-    public function dt_magic_url_base_allowed_css( $allowed_css ) {
+    public function dt_magic_url_base_allowed_css( $allowed_css ){
         return [];
     }
 
@@ -167,7 +169,8 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base
                 </div>
                 <div class="row justify-content-md-center">
                     <div class="col-lg-7">
-                        <form onSubmit="event.preventDefault();submit_contact_us_form();return false;" id="form-content" style="max-width: 600px; margin: auto">
+                        <form onSubmit="event.preventDefault();submit_contact_us_form();return false;" id="form-content"
+                              style="max-width: 600px; margin: auto">
                             <p>
                                 <label style="width: 100%">
                                     <?php esc_html_e( 'Name', 'prayer-global-porch' ); ?>
@@ -187,7 +190,8 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base
                                 <label style="width: 100%">
                                     <?php esc_html_e( 'Question or Comment', 'prayer-global-porch' ); ?>
                                     <br>
-                                    <textarea id="contact-message" required rows="4" type="text" style="width: 100%"></textarea>
+                                    <textarea id="contact-message" required rows="4" type="text"
+                                              style="width: 100%"></textarea>
                                 </label>
                             </p>
                             <p>
@@ -208,7 +212,9 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base
                             <p>
                                 <button id="contact-submit-button" class="btn btn-primary-light white uppercase">
                                     <?php esc_html_e( 'Submit', 'prayer-global-porch' ); ?>
-                                    <img id="contact-submit-spinner" style="display: none; margin-left: 10px" src="<?php echo esc_url( trailingslashit( get_stylesheet_directory_uri() ) ) ?>spinner.svg" width="22px;" alt="spinner "/>
+                                    <img id="contact-submit-spinner" style="display: none; margin-left: 10px"
+                                         src="<?php echo esc_url( trailingslashit( get_stylesheet_directory_uri() ) ) ?>spinner.svg"
+                                         width="22px;" alt="spinner "/>
                                 </button>
                             </p>
                         </form>
@@ -222,11 +228,11 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base
         <script>
           const parts = <?php echo json_encode( $this->parts ) ?>;
 
-          let submit_contact_us_form = function (){
+          let submit_contact_us_form = function () {
 
             $('#contact-submit-spinner').show()
             let honey = $('#email').val();
-            if ( honey ){
+            if (honey) {
               return;
             }
             $('#form-error-section').text('');
@@ -256,12 +262,12 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base
               contentType: 'application/json; charset=utf-8',
               dataType: 'json',
               url: link,
-            }).done(function(data){
+            }).done(function (data) {
               $('#contact-submit-spinner').hide()
               $('#form-content').hide()
               $('#form-confirm').show()
             })
-            .fail(function(e) {
+            .fail(function (e) {
               const message = e.responseJSON?.message || 'There was an error submitting your form. Please try again.';
               $('#form-error-section').text(message);
               $('#contact-submit-spinner').hide()
@@ -280,4 +286,5 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base
         }
     }
 }
+
 Prayer_Global_Porch_Contact_Us::instance();
