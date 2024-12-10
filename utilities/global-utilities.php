@@ -309,7 +309,7 @@ function _pg_global_stats_builder_query( &$data ) {
         FROM $wpdb->dt_reports r
         WHERE r.post_type = 'laps'
         AND r.type = 'prayer_app'
-        AND ( r.subtype = 'global' OR r.subtype = 'custom' )  
+        AND ( r.subtype = 'global' OR r.subtype = 'custom' )
         AND r.timestamp >= %d AND r.timestamp <= %d
     ", $data['start_time'], $data['end_time'] ), ARRAY_A );
     $data['locations_completed'] = (int) $counts['locations_completed'];
@@ -481,6 +481,54 @@ function _pg_format_duration( &$data, $time, $key_long, $key_short, $key_data = 
             'days' => $days,
         ];
     }
+}
+
+function generate_4770_locations_for_folder_creation() {
+    global $wpdb;
+    $raw_list = $wpdb->get_results(
+        "SELECT
+                        lg1.grid_id, lgn1.full_name
+                    FROM $wpdb->dt_location_grid lg1
+                    JOIN location_grid_names lgn1
+                        ON lgn1.grid_id = lg1.grid_id
+                    WHERE lg1.level = 0
+                      AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
+                      AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
+                      AND lgn1.language_code = 'en'
+                    UNION ALL
+                    SELECT
+                        lg2.grid_id, lgn2.full_name
+                    FROM $wpdb->dt_location_grid lg2
+                    JOIN location_grid_names lgn2
+                        ON lgn2.grid_id = lg2.grid_id
+                    WHERE lg2.level = 1
+                      AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
+                      AND lgn2.language_code = 'en'
+                    UNION ALL
+                    SELECT
+                        lg3.grid_id, lgn3.full_name
+                    FROM $wpdb->dt_location_grid lg3
+                    JOIN location_grid_names lgn3
+                        ON lgn3.grid_id = lg3.grid_id
+                    WHERE lg3.level = 2
+                      AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)
+                      AND lgn3.language_code = 'en'
+        ",
+        ARRAY_A,
+    );
+
+    $list = [];
+    if ( ! empty( $raw_list ) ) {
+        foreach ( $raw_list as $item ) {
+            $full_name = $item['full_name'];
+            $full_name = str_replace( ', ', '-', $full_name );
+            $full_name = str_replace( ' ', '-', $full_name );
+            $full_name = str_replace( '/', '-', $full_name );
+            $list[] = $item['grid_id'].'_'.$full_name;
+        }
+    }
+
+    set_transient( __METHOD__, json_encode($list, JSON_UNESCAPED_UNICODE), 60 *60 *12 );
 }
 
 function pg_query_4770_locations() {
@@ -5257,42 +5305,42 @@ function pg_query_4770_locations() {
         100260018 => '100260018',
     ];
 
-//    if ( get_transient( __METHOD__ ) ) {
-//        return get_transient( __METHOD__ );
-//    }
-//
-//    global $wpdb;
-//    $raw_list = $wpdb->get_col(
-//        "SELECT
-//                        lg1.grid_id
-//                    FROM $wpdb->dt_location_grid lg1
-//                    WHERE lg1.level = 0
-//                      AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
-//                      AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-//                    UNION ALL
-//                    SELECT
-//                        lg2.grid_id
-//                    FROM $wpdb->dt_location_grid lg2
-//                    WHERE lg2.level = 1
-//                      AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-//                    UNION ALL
-//                    SELECT
-//                        lg3.grid_id
-//                    FROM $wpdb->dt_location_grid lg3
-//                    WHERE lg3.level = 2
-//                      AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)"
-//    );
-//
-//    $list = [];
-//    if ( ! empty( $raw_list ) ) {
-//        foreach ( $raw_list as $item ) {
-//            $list[$item] = $item;
-//        }
-//    }
-//
-//    set_transient( __METHOD__, $list, 60 *60 *12 );
-//
-//    return $list;
+/*     if ( get_transient( __METHOD__ ) ) {
+        return get_transient( __METHOD__ );
+    } */
+/*
+    global $wpdb;
+    $raw_list = $wpdb->get_col(
+        "SELECT
+                        lg1.grid_id
+                    FROM $wpdb->dt_location_grid lg1
+                    WHERE lg1.level = 0
+                      AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
+                      AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
+                    UNION ALL
+                    SELECT
+                        lg2.grid_id
+                    FROM $wpdb->dt_location_grid lg2
+                    WHERE lg2.level = 1
+                      AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
+                    UNION ALL
+                    SELECT
+                        lg3.grid_id
+                    FROM $wpdb->dt_location_grid lg3
+                    WHERE lg3.level = 2
+                      AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)"
+    );
+
+    $list = [];
+    if ( ! empty( $raw_list ) ) {
+        foreach ( $raw_list as $item ) {
+            $list[$item] = $item;
+        }
+    }
+
+    set_transient( __METHOD__, $list, 60 *60 *12 );
+    return $list;
+ */
 }
 
 function pg_fields() {
