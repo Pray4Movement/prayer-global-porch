@@ -44,6 +44,8 @@ BEGIN
     DECLARE done INT DEFAULT FALSE;
     DECLARE lap_id INT;
     DECLARE relay_key VARCHAR(20);
+    DECLARE lap_number INT;
+    DECLARE start_time VARCHAR(20);
     DECLARE cursorLaps CURSOR FOR
         WITH RECURSIVE cte ( p2p_from_, p2p_to_ ) AS (
             ## where p2p_to = %d is looking at the last child in the chain
@@ -66,7 +68,14 @@ BEGIN
     WHERE post_id = id
     AND meta_key = CONCAT('prayer_app_', lap_type ,'_magic_key');
 
+    SELECT meta_value INTO start_time
+    FROM wp_postmeta
+    WHERE post_id = id
+    AND meta_key = 'start_time';
+
     CALL update_relay_with_id( id, relay_key );
+
+    SET lap_number = 0;
 
     OPEN cursorLaps;
 
@@ -76,10 +85,24 @@ BEGIN
             LEAVE read_loop;
         END IF;
 
+        SET lap_number = lap_number + 1;
         CALL update_relay_with_id( lap_id, relay_key );
     END LOOP read_loop;
 
     CLOSE cursorLaps;
+
+    # Make sure that the active lap has the correct lap number
+    IF (SELECT meta_value FROM wp_postmeta WHERE meta_key = 'global_lap_number' AND post_id = id) IS NULL THEN
+        INSERT INTO wp_postmeta (post_id, meta_key, meta_value)
+        VALUES ( id, 'global_lap_number', lap_number + 1 );
+    ELSE
+        UPDATE wp_postmeta
+        SET meta_value = lap_number + 1
+        WHERE meta_key = 'global_lap_number'
+        AND post_id = id;
+    END IF;
+
+    CALL populate_relay_table_with_data( relay_key, lap_number, start_time );
 END//
 delimiter ;
 
@@ -91,16 +114,51 @@ BEGIN
     VALUES ( lap_id, 'prayer_app_relay_key', relay_id );
 END//
 
-CALL update_all_relays_with_relay_key('global')
-CALL update_all_relays_with_relay_key('custom')
+delimiter ;
+
+delimiter //
+DROP PROCEDURE IF EXISTS populate_relay_table_with_data//
+CREATE PROCEDURE populate_relay_table_with_data(relay_key VARCHAR(20), lap_number INT, start_time VARCHAR(20))
+BEGIN
+    # Get all grid_ids into the relays table with a total of the number of completed laps so far
+    INSERT INTO wp_dt_relays ( relay_id, grid_id, total )
+    SELECT relay_key as relay_id, r.grid_id, lap_number as total FROM wp_dt_reports r
+    JOIN wp_postmeta pm ON r.post_id = pm.post_id
+    WHERE pm.meta_key = 'prayer_app_relay_key'
+    AND pm.meta_value = '49ba4c'
+    GROUP BY r.grid_id;
+
+    IF relay_key = '49ba4c' THEN
+        UPDATE wp_dt_relays l
+        JOIN (
+            SELECT relay_key as relay_id, r.grid_id, lap_number as total FROM wp_dt_reports r
+            WHERE r.timestamp > start_time
+            GROUP BY r.grid_id
+        ) c
+        ON l.relay_id = c.relay_id AND l.grid_id = c.grid_id
+        SET l.total = lap_number + 1;
+    ELSE
+
+        # For every unique grid_id in reports table since the start of current global lap, increment total in relay
+        UPDATE wp_dt_relays l
+        JOIN (
+            SELECT relay_key as relay_id, r.grid_id, lap_number as total FROM wp_dt_reports r
+            JOIN wp_postmeta pm ON r.post_id = pm.post_id
+            WHERE pm.meta_key = 'prayer_app_relay_key'
+            AND pm.meta_value = relay_key
+            AND r.timestamp > start_time
+            GROUP BY r.grid_id
+        ) c
+        ON l.relay_id = c.relay_id AND l.grid_id = c.grid_id
+        SET l.total = lap_number + 1;
+
+    END IF;
+
+END//
 
 delimiter ;
 
-## Aggregate the counts of grid_ids and relay_ids into the wp_dt_relays table
+CALL update_all_relays_with_relay_key('global');
+CALL update_all_relays_with_relay_key('custom');
 
-INSERT INTO ( grid_id, relay_id, total )
-SELECT r.grid_id, pm.meta_value as relay_id, COUNT(*) AS total FROM wp_dt_reports r
-JOIN wp_postmeta pm ON r.post_id = pm.post_id
-WHERE pm.meta_key = 'prayer_app_relay_key'
-GROUP BY pm.meta_value, r.grid_id
-ORDER BY pm.meta_value
+
