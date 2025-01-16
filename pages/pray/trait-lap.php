@@ -324,6 +324,8 @@ trait PG_Lap_Trait {
             return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
         }
 
+        $this->update_relay_total( $parts['public_key'], $data['grid_id'] );
+
         // prayer location log
         $args = [
 
@@ -458,6 +460,92 @@ trait PG_Lap_Trait {
         $result = DT_Posts::create_post( 'feedback', $fields, true, false );
 
         return $result;
+    }
+
+    public function get_new_location_from_relays_table( $relay_id, $all ) {
+        $next_location = $this->get_next_grid_id_from_relays_table( $relay_id );
+        $this->log_promise_timestamp( $relay_id, $next_location );
+        return PG_Stacker::build_location_stack( $next_location, $all );
+    }
+
+    public function get_next_grid_id_from_relays_table( $relay_id ) {
+        /* Get locations which haven't been prayed for yet this lap, and haven't been promised in the last minute */
+
+        $next_location = $this->query_needed_locations_not_recently_promised( $relay_id );
+
+        /* IF all the locations that need praying for have been promised in the last minute */
+        /* THEN get a location for the next lap that hasn't been promised in the last minute */
+        if ( empty( $next_location ) ) {
+            $next_location = $this->query_locations_not_recently_promised( $relay_id );
+        }
+
+        /* IF even that fails, then just give a random location */
+        if ( empty( $next_location ) ) {
+            $list_4770 = pg_query_4770_locations();
+            shuffle( $list_4770 );
+            $next_location = $list_4770[0];
+        }
+
+        return $next_location;
+    }
+
+    /**
+     * Get a random location that hasn't been prayed for and hasn't been recently promised
+     * @param string $relay_id
+     * @return array|object|null
+     */
+    private function query_needed_locations_not_recently_promised( string $relay_id ) {
+        global $wpdb;
+        $random_location_which_needs_prayer = $wpdb->get_row( $wpdb->prepare("
+            SELECT * FROM wp_dt_relays
+                WHERE relay_id = %s
+                AND total = ( SELECT MIN(total) FROM wp_dt_relays WHERE relay_id = %s )
+                AND timestamp < TIMESTAMPADD( MINUTE, -1, NOW() )
+                ORDER BY RAND()
+                LIMIT 1
+        ", $relay_id, $relay_id ), ARRAY_A );
+
+        return $random_location_which_needs_prayer;
+    }
+
+    /**
+     * Get any location that wasn't recently promised in this relay
+     * @param string $relay_id
+     * @return array|null
+     */
+    private function query_locations_not_recently_promised( string $relay_id ) {
+        global $wpdb;
+        $random_location_which_needs_prayer = $wpdb->get_row( $wpdb->prepare("
+            SELECT * FROM wp_dt_relays
+                WHERE relay_id = %s
+                AND timestamp < TIMESTAMPADD( MINUTE, -1, NOW() )
+                ORDER BY RAND()
+                LIMIT 1
+        ", $relay_id ), ARRAY_A );
+
+        return $random_location_which_needs_prayer;
+    }
+
+    private function log_promise_timestamp( $relay_id, $grid_id ) {
+        global $wpdb;
+
+        $wpdb->query( $wpdb->prepare( "
+            UPDATE wp_dt_relays
+            SET timestamp = %s
+            WHERE relay_id = %s
+            AND grid_id = %d
+        ", gmdate( 'Y-m-d H:i:s' ), $relay_id, $grid_id ) );
+    }
+
+    private function update_relay_total( $relay_id, $grid_id ) {
+        global $wpdb;
+
+        $wpdb->query( $wpdb->prepare( "
+            UPDATE wp_dt_relays
+            SET total = total + 1
+            WHERE relay_id = %s
+            AND grid_id = %d
+        ", $relay_id, $grid_id ) );
     }
 
     /**
