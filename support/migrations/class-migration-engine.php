@@ -15,12 +15,12 @@ class Prayer_Global_Migration_Engine
     public static $migration_number = 1;
 
     protected static $migrations = null;
-    
+
     public static $number_key = 'prayer_global_migration_number';
     public static $lock_key = 'prayer_global_migration_lock';
     public static $class_key = 'Prayer_Global_Migration';
-    
-    
+
+
 
     /**
      * @return array
