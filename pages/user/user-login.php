@@ -116,12 +116,6 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
 
         $action = $url->query_params->has( 'action' ) ? $url->query_params->get( 'action' ) : 'login';
         $redirect_to = $url->query_params->has( 'redirect_to' ) ? urlencode( $url->query_params->get( 'redirect_to' ) ) : '';
-//        $icom_free_tshirt = $url->query_params->has( 'icom_free_tshirt' ) ? true : false;
-        $icom_free_tshirt = true;
-
-        ?>
-
-        <?php
 
         switch ( $action ) {
             case 'register':
@@ -142,16 +136,6 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                                 <div class="flow-medium">
                                     <div class="marketing-options" style="text-align: start">
 
-                                        <?php if ( $icom_free_tshirt ) : ?>
-
-                                            <div class="form-check small">
-                                                <input class="form-check-input user-check-preferences" type="checkbox" id="extra_register_input_tshirt">
-                                                <label class="form-check-label" for="extra_register_input_tshirt">
-                                                    Participate in the T-Shirt Prize draw (ICOM participants only)
-                                                </label>
-                                            </div>
-
-                                        <?php endif; ?>
                                         <div class="form-check small">
                                             <input class="form-check-input user-check-preferences" type="checkbox" id="extra_register_input_marketing" checked>
                                             <label class="form-check-label" for="extra_register_input_marketing">
