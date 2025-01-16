@@ -4,7 +4,7 @@ CREATE TABLE wp_dt_relays (
     relay_id VARCHAR(20) NOT NULL,
     grid_id BIGINT(20) NOT NULL,
 	total INT DEFAULT 0,
-	timestamp INT DEFAULT NOW(),
+	timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
 );
 
