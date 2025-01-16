@@ -497,9 +497,9 @@ trait PG_Lap_Trait {
     private function query_needed_locations_not_recently_promised( string $relay_id ) {
         global $wpdb;
         $random_location_which_needs_prayer = $wpdb->get_row( $wpdb->prepare("
-            SELECT * FROM wp_dt_relays
+            SELECT * FROM $wpdb->dt_relays
                 WHERE relay_id = %s
-                AND total = ( SELECT MIN(total) FROM wp_dt_relays WHERE relay_id = %s )
+                AND total = ( SELECT MIN(total) FROM $wpdb->dt_relays WHERE relay_id = %s )
                 AND timestamp < TIMESTAMPADD( MINUTE, -1, NOW() )
                 ORDER BY RAND()
                 LIMIT 1
@@ -516,7 +516,7 @@ trait PG_Lap_Trait {
     private function query_locations_not_recently_promised( string $relay_id ) {
         global $wpdb;
         $random_location_which_needs_prayer = $wpdb->get_row( $wpdb->prepare("
-            SELECT * FROM wp_dt_relays
+            SELECT * FROM $wpdb->dt_relays
                 WHERE relay_id = %s
                 AND timestamp < TIMESTAMPADD( MINUTE, -1, NOW() )
                 ORDER BY RAND()
@@ -530,7 +530,7 @@ trait PG_Lap_Trait {
         global $wpdb;
 
         $wpdb->query( $wpdb->prepare( "
-            UPDATE wp_dt_relays
+            UPDATE $wpdb->dt_relays
             SET timestamp = %s
             WHERE relay_id = %s
             AND grid_id = %d
@@ -541,7 +541,7 @@ trait PG_Lap_Trait {
         global $wpdb;
 
         $wpdb->query( $wpdb->prepare( "
-            UPDATE wp_dt_relays
+            UPDATE $wpdb->dt_relays
             SET total = total + 1
             WHERE relay_id = %s
             AND grid_id = %d
