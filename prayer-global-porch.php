@@ -106,7 +106,7 @@ class Prayer_Global_Porch {
         $wpdb->location_grid_cities = 'location_grid_cities';
         $wpdb->location_grid_people_groups = 'location_grid_people_groups';
         $wpdb->location_grid_names = 'location_grid_names';
-        $wpdb->dt_relays = 'dt_relays';
+        $wpdb->dt_relays = $wpdb->prefix . 'dt_relays';
 
         require_once( 'utilities/global-utilities.php' );
         require_once( 'utilities/enqueue-async.php' );
