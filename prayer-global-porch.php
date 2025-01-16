@@ -53,6 +53,13 @@ function prayer_global_porch() {
         return false;
     }
 
+    try {
+        require_once( 'support/migrations/class-migration-engine.php' );
+        Prayer_Global_Migration_Engine::migrate( Prayer_Global_Migration_Engine::$migration_number );
+    } catch ( Throwable $e ) {
+        new WP_Error( 'migration_error', 'Prayer Global Migration engine failed to migrate.', [ 'message' => $e->getMessage() ] );
+    }
+
     /**
      * Load useful function from the theme
      */
@@ -342,8 +349,5 @@ add_action( 'plugins_loaded', function (){
         }
     }
 } );
-
-
-
 
 
