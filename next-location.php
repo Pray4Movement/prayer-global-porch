@@ -1,4 +1,6 @@
 <?php
+// select total, count(total) from 9VJS6H_dt_relays where relay_id = '49ba4c' group by total order by total;
+//
 //this stops wp-settings from load everything
 define( 'SHORTINIT', true );
 
@@ -13,13 +15,15 @@ if ($conn->connect_error) {
     die( "Connection failed: " . $conn->connect_error );
 }
 
-echo "Connected successfully";
+echo "Connected successfully\n";
 $db_prefix = defined( 'DB_PREFIX' ) ? DB_PREFIX : 'wp_';
 //phpcs:ignore
 $relay_id = isset( $_GET['relay_id'] ) ? $_GET['relay_id'] : '49ba4c';
 
 $relays_table = $db_prefix . 'dt_relays';
 
+//phpcs:ignore
+echo "DB_PREFIX = $db_prefix\n";
 /**
  * Get a random location that hasn't been prayed for and hasn't been recently promised
  * @param mysqli $mysqli
@@ -87,6 +91,9 @@ function get_next_grid_id_from_relays_table( mysqli $mysqli, string $relay_table
         shuffle( $list_4770 );
         return $list_4770[0];
     }
+
+    //phpcs:ignore
+    echo print_r( $next_location, true );
 
     return $next_location[0]['grid_id'];
 }

@@ -15,7 +15,11 @@ export const options = {
   },
 };
 
-const apiHost = "https://staging.prayer.global/wp-json/prayer_app/v1/global";
+const apiHost = "https://staging.prayer.global";
+const apiEndpoint = "/wp-json/prayer_app/v1/global";
+const directEndpoint =
+  "/wp-content/plugins/prayer-global-porch/next-location.php";
+
 const data = {
   action: "refresh",
   parts: {
@@ -32,7 +36,7 @@ const data = {
 };
 
 export default function () {
-  http.post(apiHost, JSON.stringify(data), {
+  http.post(apiHost + directEndpoint, JSON.stringify(data), {
     headers: {
       "X-WP-Nonce": "3c631cff67",
       Cookie:
