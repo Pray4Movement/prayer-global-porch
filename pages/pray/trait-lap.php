@@ -483,10 +483,10 @@ trait PG_Lap_Trait {
         if ( empty( $next_location ) ) {
             $list_4770 = pg_query_4770_locations();
             shuffle( $list_4770 );
-            $next_location = $list_4770[0];
+            return $list_4770[0];
         }
 
-        return $next_location;
+        return $next_location['grid_id'];
     }
 
     /**

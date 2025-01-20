@@ -122,8 +122,8 @@ class PG_Global_Prayer_App_Lap extends PG_Global_Prayer_App {
             case 'next_grid_id':
                 $relay_id = $params['parts']['public_key'];
                 $next_location = $this->get_next_grid_id_from_relays_table( $relay_id );
-                $this->log_promise_timestamp( $relay_id, $next_location['grid_id'] );
-                $this->update_relay_total( $relay_id, $next_location['grid_id'] );
+                $this->log_promise_timestamp( $relay_id, $next_location );
+                $this->update_relay_total( $relay_id, $next_location );
                 return $next_location;
             case 'ip_location':
                 return $this->get_ip_location();
