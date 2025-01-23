@@ -83,9 +83,6 @@ function get_next_grid_id_from_relays_table( mysqli $mysqli, string $relay_table
         return get_random_item( $list_4770 );
     }
 
-    //phpcs:ignore
-    echo print_r( $next_location, true );
-
     return $next_location['grid_id'];
 }
 

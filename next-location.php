@@ -22,7 +22,6 @@ if ($conn->connect_error) {
     die( "Connection failed: " . $conn->connect_error );
 }
 
-echo "Connected successfully\n";
 $db_prefix = defined( 'DB_PREFIX' ) ? DB_PREFIX : 'wp_';
 //phpcs:ignore
 $relay_id = isset( $_GET['relay_id'] ) ? $_GET['relay_id'] : '49ba4c';
@@ -30,7 +29,6 @@ $relay_id = isset( $_GET['relay_id'] ) ? $_GET['relay_id'] : '49ba4c';
 $relays_table = $db_prefix . 'dt_relays';
 
 //phpcs:ignore
-echo "DB_PREFIX = $db_prefix\n";
 try {
     $next_location = get_next_grid_id_from_relays_table( $conn, $relays_table, $relay_id );
     log_promise_timestamp( $conn, $relays_table, $relay_id, $next_location );
