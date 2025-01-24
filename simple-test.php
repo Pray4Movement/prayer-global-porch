@@ -102,6 +102,29 @@ try {
             $locations = $results->fetch_all( MYSQLI_ASSOC );
             $location = !empty( $locations ) ? $locations[0] : '';
             break;
+        case 'total-rand-order':
+            $results = $mysqli->execute_query( "
+                SELECT * FROM $relays_table
+                    WHERE relay_id = ?
+                    AND timestamp < TIMESTAMPADD( MINUTE, -1, NOW() )
+                    ORDER BY total, RAND()
+                    LIMIT 1
+            ", [ $relay_id ] );
+            $locations = $results->fetch_all( MYSQLI_ASSOC );
+            $location = !empty( $locations ) ? $locations[0] : '';
+            break;
+        case 'min-total-timestamp-precalc':
+            $results = $mysqli->execute_query( "
+                SELECT * FROM $relays_table
+                    WHERE relay_id = ?
+                    AND total = ( SELECT MIN(total) FROM $relays_table WHERE relay_id = ? )
+                    AND timestamp < ?
+                    ORDER BY RAND()
+                    LIMIT 1
+            ", [ $relay_id, $relay_id, gmdate( 'Y-m-d H:i:s', time() - 60 ) ] );
+            $locations = $results->fetch_all( MYSQLI_ASSOC );
+            $location = !empty( $locations ) ? $locations[0] : '';
+            break;
         case 'min-total-sorted':
             $results = $mysqli->execute_query( "
                 SELECT * FROM $relays_table
