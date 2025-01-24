@@ -70,6 +70,17 @@ try {
             $locations = $results->fetch_all( MYSQLI_ASSOC );
             $location = !empty( $locations ) ? $locations[0] : '';
             break;
+        case 'min-total':
+            $results = $mysqli->execute_query( "
+                SELECT * FROM $relays_table
+                    WHERE relay_id = ?
+                    AND total = ( SELECT MIN(total) FROM $relays_table WHERE relay_id = ? )
+                ORDER BY RAND()
+                LIMIT 1
+            ", [ $relay_id, $relay_id ] );
+            $locations = $results->fetch_all( MYSQLI_ASSOC );
+            $location = !empty( $locations ) ? $locations[0] : '';
+            break;
         default:
             $location = '';
             break;
