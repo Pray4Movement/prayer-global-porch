@@ -62,11 +62,10 @@ function query_needed_locations_not_recently_promised( mysqli $mysqli, string $r
     $random_location_which_needs_prayer = $mysqli->execute_query( "
         SELECT * FROM $relay_table
             WHERE relay_id = ?
-            AND total = ( SELECT MIN(total) FROM $relay_table WHERE relay_id = ? )
-            AND timestamp < TIMESTAMPADD( MINUTE, -1, NOW() )
-            ORDER BY RAND()
+            AND epoch < ?
+            ORDER BY total, RAND()
             LIMIT 1
-    ", [ $relay_id, $relay_id ] );
+    ", [ $relay_id, time() - 60 ] );
 
     if ( false === $random_location_which_needs_prayer ) {
         throw new ErrorException( 'Failed to get *needed* location not recently promised' );
@@ -81,10 +80,10 @@ function query_locations_not_recently_promised( mysqli $mysqli, string $table_na
     $random_location_which_needs_prayer = $mysqli->execute_query( "
         SELECT * FROM $table_name
             WHERE relay_id = ?
-            AND timestamp < TIMESTAMPADD( MINUTE, -1, NOW() )
+            AND epoch < ?
             ORDER BY RAND()
             LIMIT 1
-    ", [ $relay_id ] );
+    ", [ $relay_id, time() - 60 ] );
 
     if ( false === $random_location_which_needs_prayer ) {
         throw new ErrorException( 'Failed to get location not recently promised' );
@@ -130,14 +129,7 @@ function get_next_grid_id_from_relays_table( mysqli $mysqli, string $relay_table
         $next_location = query_next_location_with_php( $mysqli, $relay_table, $relay_id );
     } else {
         $next_location = query_needed_locations_not_recently_promised( $mysqli, $relay_table, $relay_id );
-
-        /* IF all the locations that need praying for have been promised in the last minute */
-        /* THEN get a location for the next lap that hasn't been promised in the last minute */
-        if ( empty( $next_location ) && $run_2 ) {
-            $next_location = query_locations_not_recently_promised( $mysqli, $relay_table, $relay_id );
-        }
     }
-
 
     /* IF even that fails, then just give a random location */
     if ( empty( $next_location ) && $run_3 ) {
