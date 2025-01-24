@@ -96,7 +96,7 @@ try {
                     WHERE relay_id = ?
                 ORDER BY total, RAND()
                 LIMIT 1
-            ", [ $relay_id, $relay_id ] );
+            ", [ $relay_id ] );
             $locations = $results->fetch_all( MYSQLI_ASSOC );
             $location = !empty( $locations ) ? $locations[0] : '';
             break;
