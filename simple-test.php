@@ -26,6 +26,7 @@ $db_prefix = defined( 'DB_PREFIX' ) ? DB_PREFIX : 'wp_';
 $relay_id = isset( $_GET['relay_id'] ) && 1 === preg_match( '/[[:^alnum]]/', $_GET['relay_id'] ) ? $_GET['relay_id'] : '49ba4c';
 //phpcs:ignore
 $grid_id = isset( $_GET['grid_id'] ) && 1 === preg_match( '/[[:^alnum]]/', $_GET['grid_id'] ) ? $_GET['grid_id'] : '100219981';
+$and_update = isset( $_GET['and_update'] ) ? true : false;
 
 $relays_table = $db_prefix . 'dt_relays';
 
@@ -37,6 +38,14 @@ try {
             AND grid_id = ?
     ", [ $relay_id, $grid_id ] );
 
+    if ( $and_update ) {
+        $mysqli->execute_query( "
+            UPDATE $relays_table
+            SET timestamp = ?
+                WHERE relay_id = ?
+                AND grid_id = ?
+        ", [ gmdate( 'Y-m-d H:i:s' ), $relay_id, $grid_id ] );
+    }
     if ( false === $results ) {
         throw new ErrorException( 'Failed to get location not recently promised' );
     }
