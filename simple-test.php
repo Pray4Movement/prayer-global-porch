@@ -53,6 +53,14 @@ try {
             $locations = $results->fetch_all( MYSQLI_ASSOC );
             $location = $locations[0];
             break;
+        case 'all-ids':
+            $results = $mysqli->execute_query( "
+                SELECT grid_id FROM $relays_table
+                    WHERE relay_id = ?
+            ", [ $relay_id ] );
+            $locations = $results->fetch_all( MYSQLI_ASSOC );
+            $location = $locations[0];
+            break;
         case 'rand-php':
             $results = $mysqli->execute_query( "
                 SELECT * FROM $relays_table
