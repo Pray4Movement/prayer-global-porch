@@ -28,15 +28,31 @@ $relay_id = isset( $_GET['relay_id'] ) && 1 === preg_match( '/[[:^alnum]]/', $_G
 $grid_id = isset( $_GET['grid_id'] ) && 1 === preg_match( '/[[:^alnum]]/', $_GET['grid_id'] ) ? $_GET['grid_id'] : '100219981';
 $and_update = isset( $_GET['and_update'] ) ? true : false;
 
+//phpcs:ignore
+$get_what = isset( $_GET['get'] ) ? $_GET['get'] : 'one';
+
 $relays_table = $db_prefix . 'dt_relays';
 
 //phpcs:ignore
 try {
-    $results = $mysqli->execute_query( "
-        SELECT * FROM $relays_table
-            WHERE relay_id = ?
-            AND grid_id = ?
-    ", [ $relay_id, $grid_id ] );
+    switch ( $get_what ) {
+        case 'one':
+            $results = $mysqli->execute_query( "
+                SELECT * FROM $relays_table
+                    WHERE relay_id = ?
+                    AND grid_id = ?
+            ", [ $relay_id, $grid_id ] );
+            break;
+        case 'all':
+            $results = $mysqli->execute_query( "
+                SELECT * FROM $relays_table
+                    WHERE relay_id = ?
+            ", [ $relay_id, $grid_id ] );
+            break;
+        default:
+            # code...
+            break;
+    }
 
     if ( $and_update ) {
         $mysqli->execute_query( "
