@@ -64,6 +64,8 @@ function query_needed_locations_not_recently_promised( mysqli $mysqli, string $r
             WHERE relay_id = ?
             AND total = ( SELECT MIN(total) FROM $relay_table WHERE relay_id = ? )
             AND timestamp < TIMESTAMPADD( MINUTE, -1, NOW() )
+            ORDER BY RAND()
+            LIMIT 1
     ", [ $relay_id, $relay_id ] );
 
     if ( false === $random_location_which_needs_prayer ) {
@@ -71,7 +73,8 @@ function query_needed_locations_not_recently_promised( mysqli $mysqli, string $r
     }
 
     $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
-    return get_random_item( $locations );
+    $location = !empty( $locations ) ? $locations[0] : [];
+    return $location;
 }
 
 function query_locations_not_recently_promised( mysqli $mysqli, string $table_name, string $relay_id ) {
@@ -79,6 +82,8 @@ function query_locations_not_recently_promised( mysqli $mysqli, string $table_na
         SELECT * FROM $table_name
             WHERE relay_id = ?
             AND timestamp < TIMESTAMPADD( MINUTE, -1, NOW() )
+            ORDER BY RAND()
+            LIMIT 1
     ", [ $relay_id ] );
 
     if ( false === $random_location_which_needs_prayer ) {
@@ -86,8 +91,8 @@ function query_locations_not_recently_promised( mysqli $mysqli, string $table_na
     }
 
     $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
-
-    return get_random_item( $locations );
+    $location = !empty( $locations ) ? $locations[0] : [];
+    return $location;
 }
 
 function log_promise_timestamp( mysqli $mysqli, string $table_name, $relay_id, $grid_id ) {
