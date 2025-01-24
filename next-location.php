@@ -25,16 +25,19 @@ if ($conn->connect_error) {
 $db_prefix = defined( 'DB_PREFIX' ) ? DB_PREFIX : 'wp_';
 //phpcs:ignore
 $relay_id = isset( $_GET['relay_id'] ) && 1 === preg_match( '/[[:^alnum]]/', $_GET['relay_id'] ) ? $_GET['relay_id'] : '49ba4c';
-//phpcs:ignore
 $prefer_php = isset( $_GET['prefer_php'] ) ? true : false;
+$only_get = isset( $_GET['only_get'] ) ? true : false;
 
 $relays_table = $db_prefix . 'dt_relays';
 
 //phpcs:ignore
 try {
     $next_location = get_next_grid_id_from_relays_table( $conn, $relays_table, $relay_id, $prefer_php );
-    log_promise_timestamp( $conn, $relays_table, $relay_id, $next_location );
-    update_relay_total( $conn, $relays_table, $relay_id, $next_location );
+
+    if ( !$only_get ) {
+        log_promise_timestamp( $conn, $relays_table, $relay_id, $next_location );
+        update_relay_total( $conn, $relays_table, $relay_id, $next_location );
+    }
 } catch (\Throwable $th) {
     send_response( [
         'status' => 'error',
