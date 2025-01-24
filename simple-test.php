@@ -81,6 +81,21 @@ try {
             $locations = $results->fetch_all( MYSQLI_ASSOC );
             $location = !empty( $locations ) ? $locations[0] : '';
             break;
+        case 'min-total-precalc':
+            $min_results = $mysqli->execute_query( "
+                SELECT MIN(total) FROM $relays_table WHERE relay_id = ?
+            ", [ $relay_id ] );
+            $min_total = $min_results->fetch_column();
+            $results = $mysqli->execute_query( "
+                SELECT * FROM $relays_table
+                    WHERE relay_id = ?
+                    AND total = ?
+                ORDER BY RAND()
+                LIMIT 1
+            ", [ $relay_id, $min_total ] );
+            $locations = $results->fetch_all( MYSQLI_ASSOC );
+            $location = !empty( $locations ) ? $locations[0] : '';
+            break;
         default:
             $location = '';
             break;
