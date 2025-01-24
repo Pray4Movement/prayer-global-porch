@@ -47,7 +47,7 @@ try {
             $results = $mysqli->execute_query( "
                 SELECT * FROM $relays_table
                     WHERE relay_id = ?
-            ", [ $relay_id, $grid_id ] );
+            ", [ $relay_id ] );
             break;
         default:
             # code...
@@ -67,6 +67,7 @@ try {
     }
 
     $locations = $results->fetch_all( MYSQLI_ASSOC );
+    $location = !empty( $locations ) ? $locations[0] : '';
 } catch (\Throwable $th) {
     send_response( [
         'status' => 'error',
@@ -77,7 +78,7 @@ try {
 
 send_response([
     'status' => 'ok',
-    'locations' => $locations,
+    'location' => $location,
 ]);
 
 ?>
