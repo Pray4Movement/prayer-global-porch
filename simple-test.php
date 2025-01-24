@@ -32,6 +32,7 @@ $and_update = isset( $_GET['and_update'] ) ? true : false;
 $get_what = isset( $_GET['get'] ) ? $_GET['get'] : 'one';
 
 $relays_table = $db_prefix . 'dt_relays';
+$options_table = $db_prefix . 'options';
 
 //phpcs:ignore
 try {
@@ -96,6 +97,28 @@ try {
             $locations = $results->fetch_all( MYSQLI_ASSOC );
             $location = !empty( $locations ) ? $locations[0] : '';
             break;
+        case 'min-total-cached':
+
+            $min_total = get_cache( $mysqli, $options_table, 'relays_min_total' );
+            if ( $min_total === false ) {
+                $min_results = $mysqli->execute_query( "
+                    SELECT MIN(total) FROM $relays_table WHERE relay_id = ?
+                ", [ $relay_id ] );
+                $min_total = $min_results->fetch_column();
+
+                set_cache( $mysqli, $options_table, 'relays_min_total', $min_total );
+            }
+
+            $results = $mysqli->execute_query( "
+                SELECT * FROM $relays_table
+                    WHERE relay_id = ?
+                    AND total = ?
+                ORDER BY RAND()
+                LIMIT 1
+            ", [ $relay_id, $min_total ] );
+            $locations = $results->fetch_all( MYSQLI_ASSOC );
+            $location = !empty( $locations ) ? $locations[0] : '';
+            break;
         default:
             $location = '';
             break;
@@ -124,5 +147,22 @@ send_response([
     'status' => 'ok',
     'location' => $location,
 ]);
+
+function set_cache( $mysqli, $options_table, $key, $value ) {
+    $mysqli->execute_query( "
+        INSERT INTO $options_table ( option_name, option_value )
+        VALUES ( ?, ? )
+    ", [ $key, $value ] );
+}
+
+function get_cache( mysqli $mysqli, $options_table, $key ) {
+    $results = $mysqli->execute_query( "
+        SELECT option_value FROM $options_table
+        WHERE option_name = ?
+    ", [ $key ] );
+    $value = $results->fetch_column();
+
+    return $value;
+}
 
 ?>
