@@ -2,7 +2,7 @@
 
 function query_next_location_with_php( mysqli $mysqli, string $relay_table, string $relay_id ) {
     $query = $mysqli->execute_query( "
-        SELECT relay_id, grid_id, total, UNIX_TIMESTAMP( timestamp ) as unix_timestamp FROM $relay_table
+        SELECT relay_id, grid_id, total, epoch as unix_timestamp FROM $relay_table
             WHERE relay_id = ?
     ", [ $relay_id ] );
 
@@ -97,10 +97,10 @@ function query_locations_not_recently_promised( mysqli $mysqli, string $table_na
 function log_promise_timestamp( mysqli $mysqli, string $table_name, $relay_id, $grid_id ) {
     $response = $mysqli->execute_query( "
         UPDATE $table_name
-        SET timestamp = ?
+        SET epoch = ?
         WHERE relay_id = ?
         AND grid_id = ?
-    ", [ gmdate( 'Y-m-d H:i:s' ), $relay_id, $grid_id ] );
+    ", [ time(), $relay_id, $grid_id ] );
 
     if ( !$response ) {
         throw new ErrorException( 'Failed to update promise timestamp' );
