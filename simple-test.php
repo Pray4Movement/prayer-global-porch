@@ -113,6 +113,17 @@ try {
             $locations = $results->fetch_all( MYSQLI_ASSOC );
             $location = !empty( $locations ) ? $locations[0] : '';
             break;
+        case 'total-rand-order-epoch':
+            $results = $mysqli->execute_query( "
+                SELECT * FROM $relays_table
+                    WHERE relay_id = ?
+                    AND epoch < ?
+                    ORDER BY total, RAND()
+                    LIMIT 1
+            ", [ $relay_id, time() - 60 ] );
+            $locations = $results->fetch_all( MYSQLI_ASSOC );
+            $location = !empty( $locations ) ? $locations[0] : '';
+            break;
         case 'min-total-timestamp-precalc':
             $results = $mysqli->execute_query( "
                 SELECT * FROM $relays_table
