@@ -142,7 +142,9 @@ try {
             break;
     }
 
-    if ( $and_update ) {
+    $grid_id = !empty( $location ) ? $location['grid_id'] : '';
+
+    if ( $and_update && !empty( $grid_id ) ) {
         $mysqli->execute_query( "
             UPDATE $relays_table
             SET timestamp = ?
