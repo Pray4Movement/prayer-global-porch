@@ -123,6 +123,8 @@ function update_relay_total( mysqli $mysqli, string $table_name, $relay_id, $gri
 
 function get_next_grid_id_from_relays_table( mysqli $mysqli, string $relay_table, $relay_id, $prefer_php_algorithm = false ) {
     /* Get locations which haven't been prayed for yet this lap, and haven't been promised in the last minute */
+    $run_2 = isset( $_GET['no_two'] ) ? false : true;
+    $run_3 = isset( $_GET['no_three'] ) ? false : true;
 
     if ( $prefer_php_algorithm ) {
         $next_location = query_next_location_with_php( $mysqli, $relay_table, $relay_id );
@@ -131,14 +133,14 @@ function get_next_grid_id_from_relays_table( mysqli $mysqli, string $relay_table
 
         /* IF all the locations that need praying for have been promised in the last minute */
         /* THEN get a location for the next lap that hasn't been promised in the last minute */
-        if ( empty( $next_location ) ) {
+        if ( empty( $next_location ) && $run_2 ) {
             $next_location = query_locations_not_recently_promised( $mysqli, $relay_table, $relay_id );
         }
     }
 
 
     /* IF even that fails, then just give a random location */
-    if ( empty( $next_location ) ) {
+    if ( empty( $next_location ) && $run_3 ) {
         require 'pg-query-4770-locations.php';
         $list_4770 = pg_query_4770_locations();
         return get_random_item( $list_4770 );
