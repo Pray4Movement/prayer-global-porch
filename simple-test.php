@@ -42,15 +42,36 @@ try {
                     WHERE relay_id = ?
                     AND grid_id = ?
             ", [ $relay_id, $grid_id ] );
+            $locations = $results->fetch_all( MYSQLI_ASSOC );
             break;
         case 'all':
             $results = $mysqli->execute_query( "
                 SELECT * FROM $relays_table
                     WHERE relay_id = ?
             ", [ $relay_id ] );
+            $locations = $results->fetch_all( MYSQLI_ASSOC );
+            $location = $locations[0];
+            break;
+        case 'rand-php':
+            $results = $mysqli->execute_query( "
+                SELECT * FROM $relays_table
+                    WHERE relay_id = ?
+            ", [ $relay_id ] );
+            $locations = $results->fetch_all( MYSQLI_ASSOC );
+            $location = !empty( $locations ) ? $locations[rand( 0, count( $locations ) - 1 )] : '';
+            break;
+        case 'rand-mysql':
+            $results = $mysqli->execute_query( "
+                SELECT * FROM $relays_table
+                    WHERE relay_id = ?
+                ORDER BY RAND()
+                LIMIT 1
+            ", [ $relay_id ] );
+            $locations = $results->fetch_all( MYSQLI_ASSOC );
+            $location = !empty( $locations ) ? $locations[0] : '';
             break;
         default:
-            # code...
+            $location = '';
             break;
     }
 
@@ -65,9 +86,6 @@ try {
     if ( false === $results ) {
         throw new ErrorException( 'Failed to get location not recently promised' );
     }
-
-    $locations = $results->fetch_all( MYSQLI_ASSOC );
-    $location = !empty( $locations ) ? $locations[0] : '';
 } catch (\Throwable $th) {
     send_response( [
         'status' => 'error',
