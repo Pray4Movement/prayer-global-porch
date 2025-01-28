@@ -17,21 +17,23 @@ mysqli_report( MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT );
 $conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
 
 if ($conn->connect_error) {
-    //phpcs:ignore
-    die( "Connection failed: " . $conn->connect_error );
+    send_response( [
+        'status' => 'error',
+        'error' => 'Unable to make connection with DB',
+    ] );
 }
 
 $db_prefix = defined( 'DB_PREFIX' ) ? DB_PREFIX : 'wp_';
+
 //phpcs:ignore
 $relay_id = isset( $_GET['relay_id'] ) && 1 === preg_match( '/[[:^alnum]]/', $_GET['relay_id'] ) ? $_GET['relay_id'] : '49ba4c';
 
-$relays_table = $db_prefix . 'dt_relays';
+$relays_table = new PG_Relays_Table( $conn, $db_prefix );
 
-//phpcs:ignore
 try {
-    $next_location = get_next_grid_id_from_relays_table( $conn, $relays_table, $relay_id );
-    log_promise_timestamp( $conn, $relays_table, $relay_id, $next_location );
-    update_relay_total( $conn, $relays_table, $relay_id, $next_location );
+    $next_location = $relays_table->get_next_grid_id( $relay_id );
+    $relays_table->log_promise_timestamp( $relay_id, $next_location );
+    $relays_table->update_relay_total( $relay_id, $next_location );
 } catch (\Throwable $th) {
     send_response( [
         'status' => 'error',
@@ -40,9 +42,7 @@ try {
     ], 400 );
 }
 
-send_response([
+send_response( [
     'status' => 'ok',
     'next_location' => $next_location,
-]);
-
-?>
+] );
