@@ -1,8 +1,7 @@
 <?php
-// select total, count(total) from 9VJS6H_dt_relays where relay_id = '49ba4c' group by total order by total;
-
-/* TODO: prevent direct access */
-
+/* Useful sql queries to check and reset the database */
+// SELECT total, COUNT(total) FROM 9VJS6H_dt_relays WHERE relay_id = '49ba4c' GROUP BY total ORDER BY total;
+// UPDATE 9VJS6H_dt_relays SET epoch = epoch - 60, total = 0 WHERE relay_id = '49ba4c';
 
 //this stops wp-settings from load everything
 define( 'SHORTINIT', true );
@@ -25,25 +24,14 @@ if ($conn->connect_error) {
 $db_prefix = defined( 'DB_PREFIX' ) ? DB_PREFIX : 'wp_';
 //phpcs:ignore
 $relay_id = isset( $_GET['relay_id'] ) && 1 === preg_match( '/[[:^alnum]]/', $_GET['relay_id'] ) ? $_GET['relay_id'] : '49ba4c';
-$prefer_php = isset( $_GET['prefer_php'] ) ? true : false;
-$only_get = isset( $_GET['only_get'] ) ? true : false;
-$log_timestamp = isset( $_GET['no_timestamp'] ) ? false : true;
-$log_total = isset( $_GET['no_total'] ) ? false : true;
 
 $relays_table = $db_prefix . 'dt_relays';
 
 //phpcs:ignore
 try {
-    $next_location = get_next_grid_id_from_relays_table( $conn, $relays_table, $relay_id, $prefer_php );
-
-    if ( !$only_get ) {
-        if ( $log_timestamp ) {
-            log_promise_timestamp( $conn, $relays_table, $relay_id, $next_location );
-        }
-        if ( $log_total ) {
-            update_relay_total( $conn, $relays_table, $relay_id, $next_location );
-        }
-    }
+    $next_location = get_next_grid_id_from_relays_table( $conn, $relays_table, $relay_id );
+    log_promise_timestamp( $conn, $relays_table, $relay_id, $next_location );
+    update_relay_total( $conn, $relays_table, $relay_id, $next_location );
 } catch (\Throwable $th) {
     send_response( [
         'status' => 'error',
