@@ -17,10 +17,10 @@ mysqli_report( MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT );
 $conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
 
 if ($conn->connect_error) {
-    send_response( [
+    send_response( array(
         'status' => 'error',
         'error' => 'Unable to make connection with DB',
-    ] );
+    ) );
 }
 
 $db_prefix = defined( 'DB_PREFIX' ) ? DB_PREFIX : 'wp_';
@@ -35,14 +35,14 @@ try {
     $relays_table->log_promise_timestamp( $relay_id, $next_location );
     $relays_table->update_relay_total( $relay_id, $next_location );
 } catch (\Throwable $th) {
-    send_response( [
+    send_response( array(
         'status' => 'error',
         'error' => $th->getMessage(),
         'trace' => $th->getTrace(),
-    ], 400 );
+    ), 400 );
 }
 
-send_response( [
+send_response( array(
     'status' => 'ok',
     'next_location' => $next_location,
-] );
+) );
