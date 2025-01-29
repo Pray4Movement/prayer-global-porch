@@ -22,11 +22,11 @@ trait PG_Lap_Trait {
         pg_enqueue_script( 'lap-js', 'pages/pray/lap.js', [ 'jquery', 'global-functions', 'report-js' ], true );
 
         wp_enqueue_style_async( 'mapbox-gl-css', DT_Mapbox_API::$mapbox_gl_css, [], '1.1.0', 'all' );
-        wp_enqueue_style( 'lap-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'lap.css', [ 'basic-css' ], fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap.css' ), 'all' );
+        wp_enqueue_style( 'lap-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'lap.css', [], fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap.css' ), 'all' );
     }
 
     public function header_javascript(){
-        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header-event.php' );
 
         $current_lap = pg_current_global_lap();
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
@@ -56,6 +56,8 @@ trait PG_Lap_Trait {
                     'map_url' => $current_url . 'map',
                     'is_custom' => ( 'custom' === $this->parts['type'] ),
                     'is_cta_feature_on' => true,
+                    'cache_url' => 'https://s3.prayer.global/',
+                    'direct_api_url' => plugin_dir_url( dirname( __DIR__ ) ),
                 ]) ?>][0]
             </script>
             <script type="text/javascript" src="<?php echo esc_url( DT_Mapbox_API::$mapbox_gl_js ) ?>" defer></script>
@@ -71,7 +73,241 @@ trait PG_Lap_Trait {
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/share-modal.php' );
     }
 
-    public function body(){
+    public function body(): void {
+
+        ?>
+
+        <script>
+
+            Promise.resolve()
+                .then(() => {
+                    const url = new URL(location.href)
+                    const gridId = url.searchParams.has('grid_id') ? url.searchParams.get('grid_id') : false
+                    if (gridId !== false) {
+                        return gridId
+                    }
+
+                    const relayId = jsObject.parts.public_key
+                    return fetch(`${jsObject.direct_api_url}/next-location.php?relay_id=${relayId}`)
+                        .then((response) => {
+                            if (!response.ok) {
+                                throw new Error('Failed to get next gridId', response)
+                            }
+                            return response.json()
+                        })
+                        .then(({status, next_location, ...response}) => {
+                            if (status !== 'ok') {
+                                console.log(response)
+                            }
+
+                            return next_location
+                        })
+                })
+                .then((gridId) => {
+                    if (gridId) {
+                        //const jsonUrl = jsObject.json_folder + '100000002' + '.json'
+                        //const jsonUrl = jsObject.json_folder + '100000003' + '.json'
+                        const jsonUrl = jsObject.cache_url + 'json/' + gridId + '.json'
+
+                        fetch(jsonUrl)
+                            .then((response) => {
+                                if (!response.ok) {
+                                    throw new Error("Failed to fetch JSON", response.status)
+                                }
+                                return response.json()
+                            })
+                            .then((json) => {
+                                jsObject.current_content = {
+                                    location: json
+                                }
+                            })
+                            .catch((error) => {
+                                console.error(error)
+                            })
+                    } else {
+                        console.log('no grid_id found')
+                    }
+                })
+
+
+        </script>
+
+        <?php //phpcs:ignore ?>
+        <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/ionicon-subset.svg' ); ?>
+        <?php //phpcs:ignore ?>
+        <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/pgicon-subset.svg' ); ?>
+
+        <!-- navigation & widget -->
+        <nav class="prayer-navbar">
+            <div class="container praying-button-group" id="praying-panel" role="group" aria-label="Praying Button">
+                <div class="btn btn-praying prayer-odometer">
+                    <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 33 33">
+                        <use href="#pg-prayer"></use>
+                    </svg>
+                    <span class="location-count">0</span>
+                </div>
+                <button type="button" class="btn praying-timer" id="praying-button" data-percent="0" data-seconds="0">
+                    <div class="praying__progress"></div>
+                    <span class="praying__text uppercase font-weight-normal"></span>
+                </button>
+                <button type="button" class="btn btn-praying bg-dark" data-display="flex" id="praying__pause_button">
+                    <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 33 33">
+                        <use href="#pg-pause"></use>
+                    </svg>
+                </button>
+                <button type="button" class="btn btn-praying bg-dark" data-display="flex" id="praying__continue_button">
+                    <svg height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
+                        <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/start.svg#pg-icon' ) ?>"></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="container" id="question-panel">
+                <div class="btn-group question" role="group" aria-label="Praying Button">
+                    <button type="button" class="btn btn-praying lh-sm bg-dark" id="question__yes_done"><?php echo esc_html( __( 'Done', 'prayer-global-porch' ) ) ?></button>
+                    <button type="button" class="btn btn-praying lh-sm bg-orange" id="question__yes_next"><?php echo esc_html( __( 'Next', 'prayer-global-porch' ) ) ?></button>
+                </div>
+            </div>
+            <div class="w-100" ></div>
+            <div class="container" id="decision-panel">
+                <div class="btn-group decision" role="group" aria-label="Decision Button">
+                    <button type="button" class="btn btn-praying bg-dark" id="decision__home">
+                        <svg height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
+                            <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/home.svg#pg-icon' ) ?>"></use>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="w-100" ></div>
+            <div class="container flow sm text-center">
+                <p class="tutorial uc f-xlg lh-1" id="tutorial-location"><?php echo esc_html__( 'Pray for', 'prayer-global-porch' ) ?></p>
+                <h2 class="lh-1 center bold w-75 f-md" id="location-name">
+                    <div class="skeleton" data-title></div>
+                </h2>
+                <p class="f-sm">
+                    <?php echo sprintf( esc_html__( 'In Prayer Relay %s', 'prayer-global-porch' ), esc_html( $this->lap_title ) ) ?>
+                </p>
+            </div>
+        </nav>
+
+        <div class="celebrate-panel text-center" id="celebrate-panel">
+            <div class="container">
+                <h2>
+                    <?php echo esc_html__( 'Great Job!', 'prayer-global-porch' ) ?>
+                    <br />
+                    <?php echo esc_html__( 'Prayer Added!', 'prayer-global-porch' ) ?>
+                </h2>
+            </div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="decision_leave_modal" tabindex="-1" role="dialog" aria-labelledby="option_filter_label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="option_filter_label"><?php echo esc_html__( 'Are you sure you want to leave?', 'prayer-global-porch' ) ?></h5>
+                        <button type="button" id="decision__close" aria-label="<?php esc_attr( __( 'Close', 'prayer-global-porch' ) ) ?>">
+                            <svg class="f-xlg" height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
+                                <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/close.svg#pg-icon' ) ?>"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="modal-body">
+                        <?php echo esc_html__( "If you leave now, this place won't have been prayed for." ) ?>
+                    </p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn outline" id="decision__keep_praying" data-bs-dismiss="modal"><?php echo esc_html__( "Keep Praying", 'prayer-global-porch' ) ?></button>
+                        <button type="button" class="btn bg-dark" id="decision__leave" data-bs-dismiss="modal"><?php echo esc_html__( "Leave", 'prayer-global-porch' ) ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- content section -->
+        <section class="prayer-content flow lg">
+            <div class="container" id="map">
+                <div class="text-md-center location-map" id="location-map">
+                    <div class="skeleton" data-map></div>
+                </div>
+                <div class="population-info">
+                    <div>
+                        <svg class="icon dark" width="0.75em" height="0.75em" viewBox="0 0 512 512">
+                            <use href="#ion-ios-body"></use>
+                        </svg>
+                        <span class="no">
+                            <div class="skeleton" data-number></div>
+                        </span>
+                    </div>
+                    <div>
+                        <svg class="icon light" width="0.75em" height="0.75em" viewBox="0 0 512 512">
+                            <use href="#ion-ios-body"></use>
+                        </svg>
+                        <span class="neutral">
+                            <div class="skeleton" data-number></div>
+                        </span>
+                    </div>
+                    <div>
+                        <svg class="icon orange" width="0.75em" height="0.75em" viewBox="0 0 512 512">
+                            <use href="#ion-ios-body"></use>
+                        </svg>
+                        <span class="yes">
+                            <div class="skeleton" data-number></div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <a href="#content-anchor" class="btn bg-orange" id="see-more-button" style="display: none">
+                <?php echo esc_html__( 'See more', 'prayer-global-porch' ) ?>
+                <svg viewBox="0 0 33 33" width="1em" height="1em" fill="currentColor">
+                    <use href="#pg-chevron-down"></use>
+                </svg>
+            </a>
+            <div class="container flow md relative" id="content">
+
+                <hr />
+
+                <div class="block basic-block text-center">
+                    <div class="block__header">
+                        <h5 class="mb-0 uc">
+                            <div class="skeleton" data-title></div>
+                        </h5>
+                    </div>
+                    <div class="block__content">
+                        <p class="skeleton" data-text></p>
+                        <p class="skeleton" data-text></p>
+                    </div>
+                </div>
+
+                <hr />
+
+
+                <div class="block basic-block text-center">
+                    <div class="block__header">
+                        <h5 class="mb-0 uc">
+                            <div class="skeleton" data-title></div>
+                        </h5>
+                    </div>
+                    <div class="block__content">
+                        <p class="skeleton" data-text></p>
+                        <p class="skeleton" data-text></p>
+                    </div>
+                </div>
+
+                <hr>
+            </div>
+            <div class="container">
+                <div class="flow text-center">
+                    <svg class="f-xxlg" height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
+                        <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/pray-hands-dark.svg#pg-icon' ) ?>"></use>
+                    </svg>
+                    <button type="button" class="btn outline" id="more_prayer_fuel"><?php echo esc_html__( 'Show More Guided Prayers', 'prayer-global-porch' ) ?><i class="icon pg-chevron-down"></i></button>
+                </div>
+            </div>
+        </section>
+
+        <?php
+    }
+
+    public function body_old(){
         DT_Mapbox_API::geocoder_scripts();
         ?>
 
@@ -460,143 +696,6 @@ trait PG_Lap_Trait {
         $result = DT_Posts::create_post( 'feedback', $fields, true, false );
 
         return $result;
-    }
-
-    public function get_new_location_from_relays_table( $relay_id, $all ) {
-        $next_location = $this->get_next_grid_id_from_relays_table( $relay_id );
-        $this->log_promise_timestamp( $relay_id, $next_location );
-        return PG_Stacker::build_location_stack( $next_location, $all );
-    }
-
-    public function get_next_grid_id_from_relays_table( $relay_id ) {
-        /* Get locations which haven't been prayed for yet this lap, and haven't been promised in the last minute */
-
-        $next_location = $this->query_needed_locations_not_recently_promised( $relay_id );
-
-        /* IF all the locations that need praying for have been promised in the last minute */
-        /* THEN get a location for the next lap that hasn't been promised in the last minute */
-        if ( empty( $next_location ) ) {
-            $next_location = $this->query_locations_not_recently_promised( $relay_id );
-        }
-
-        /* IF even that fails, then just give a random location */
-        if ( empty( $next_location ) ) {
-            $list_4770 = pg_query_4770_locations();
-            shuffle( $list_4770 );
-            return $list_4770[0];
-        }
-
-        return $next_location['grid_id'];
-    }
-
-    /**
-     * Get a random location that hasn't been prayed for and hasn't been recently promised
-     * @param string $relay_id
-     * @return array|object|null
-     */
-    private function query_needed_locations_not_recently_promised( string $relay_id ) {
-        global $wpdb;
-        $random_location_which_needs_prayer = $wpdb->get_row( $wpdb->prepare("
-            SELECT * FROM $wpdb->dt_relays
-                WHERE relay_id = %s
-                AND total = ( SELECT MIN(total) FROM $wpdb->dt_relays WHERE relay_id = %s )
-                AND timestamp < TIMESTAMPADD( MINUTE, -1, NOW() )
-                ORDER BY RAND()
-                LIMIT 1
-        ", $relay_id, $relay_id ), ARRAY_A );
-
-        return $random_location_which_needs_prayer;
-    }
-
-    /**
-     * Get any location that wasn't recently promised in this relay
-     * @param string $relay_id
-     * @return array|null
-     */
-    private function query_locations_not_recently_promised( string $relay_id ) {
-        global $wpdb;
-        $random_location_which_needs_prayer = $wpdb->get_row( $wpdb->prepare("
-            SELECT * FROM $wpdb->dt_relays
-                WHERE relay_id = %s
-                AND timestamp < TIMESTAMPADD( MINUTE, -1, NOW() )
-                ORDER BY RAND()
-                LIMIT 1
-        ", $relay_id ), ARRAY_A );
-
-        return $random_location_which_needs_prayer;
-    }
-
-    private function log_promise_timestamp( $relay_id, $grid_id ) {
-        global $wpdb;
-
-        $wpdb->query( $wpdb->prepare( "
-            UPDATE $wpdb->dt_relays
-            SET timestamp = %s
-            WHERE relay_id = %s
-            AND grid_id = %d
-        ", gmdate( 'Y-m-d H:i:s' ), $relay_id, $grid_id ) );
-    }
-
-    private function update_relay_total( $relay_id, $grid_id ) {
-        global $wpdb;
-
-        $wpdb->query( $wpdb->prepare( "
-            UPDATE $wpdb->dt_relays
-            SET total = total + 1
-            WHERE relay_id = %s
-            AND grid_id = %d
-        ", $relay_id, $grid_id ) );
-    }
-
-    /**
-     * Global query
-     * @return array|false|void
-     */
-    public function get_new_location( $parts, $all = false ) {
-        // get 4770 list
-        $list_4770 = pg_query_4770_locations();
-
-        // subtract prayed places
-        $global_list_prayed = $this->_query_prayed_list();
-        $remaining_global = array_diff( $list_4770, $global_list_prayed );
-
-        /**
-         * If empty, generate a new global prayer lap and continue
-         */
-        if ( empty( $remaining_global ) ) {
-            dt_write_log( __METHOD__ . ' : generated a new prayer lap' );
-            $post_id = $parts['post_id'];
-            $remaining_global = pg_generate_new_global_prayer_lap( $post_id );
-        }
-
-        /**
-         * Most restrictive, available global locations without all promises both global and custom
-         */
-        $recently_promised_locations = $this->_recently_promised_locations();
-        $list_4770_without_all_promises = array_diff( $remaining_global, $recently_promised_locations['all'] );
-        if ( ! empty( $list_4770_without_all_promises ) ) {
-            shuffle( $list_4770_without_all_promises );
-            if ( isset( $list_4770_without_all_promises[0] ) ) {
-                $this->_log_promise( $parts, $list_4770_without_all_promises[0] );
-                return PG_Stacker::build_location_stack( $list_4770_without_all_promises[0], $all );
-            }
-        }
-        /**
-         * Next level restrictive, available global locations without the global promises
-         */
-        $list_4770_without_custom_promises = array_diff( $remaining_global, $recently_promised_locations['minus_custom'] );
-        if ( ! empty( $list_4770_without_custom_promises ) ) {
-            shuffle( $list_4770_without_custom_promises );
-            if ( isset( $list_4770_without_custom_promises[0] ) ) {
-                $this->_log_promise( $parts, $list_4770_without_custom_promises[0] );
-                return PG_Stacker::build_location_stack( $list_4770_without_custom_promises[0], $all );
-            }
-        }
-        /**
-         * Only the available global locations
-         */
-        shuffle( $remaining_global );
-        return PG_Stacker::build_location_stack( $remaining_global[0], $all );
     }
 
     public function _query_prayed_list() {
