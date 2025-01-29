@@ -71,7 +71,7 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
 
                 <?php endif; ?>
 
-                <a class="nav-link" href="https://prayer_global/give/" target="_blank">
+                <a class="nav-link" href="/give" target="_blank">
                     <div class="nav-link__inner">
                         <i class="icon pg-give"></i>
                         <span><?php echo esc_html( __( 'Give', 'prayer-global-porch' ) ) ?></span>
