@@ -1,18 +1,13 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-/**
- * DEPRECATED: we are now using https://give.prayer.global/
- *
- * The old content_app/give_page is being redirected there in redirects.php
- */
-/* class Prayer_Global_Give extends DT_Magic_Url_Base
-{
+
+class Prayer_Global_Give extends DT_Magic_Url_Base {
     public $magic = false;
     public $parts = false;
     public $page_title = 'Global Prayer - Give';
-    public $root = 'content_app';
-    public $type = 'give_page';
+    public $root = 'give';
+    public $type = '';
     public $type_name = 'Global Prayer - Give';
     public static $token = 'content_app_give';
     public $post_type = 'laps';
@@ -29,14 +24,14 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
         parent::__construct();
 
         $url = dt_get_url_path();
-        if ( ( $this->root . '/' . $this->type ) === $url ) {
+        if ( ( $this->root ) === $url ) {
 
             $this->magic = new DT_Magic_URL( $this->root );
             $this->parts = $this->magic->parse_url_parts();
 
 
             // register url and access
-            add_action( "template_redirect", [ $this, 'theme_redirect' ] );
+            add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
             add_filter( 'dt_blank_access', function (){ return true;
             }, 100, 1 );
             add_filter( 'dt_allow_non_login_access', function (){ return true;
@@ -45,7 +40,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
             }, 100, 1 );
 
             // header content
-            add_filter( "dt_blank_title", [ $this, "page_tab_title" ] ); // adds basic title to browser tab
+            add_filter( 'dt_blank_title', [ $this, 'page_tab_title' ] ); // adds basic title to browser tab
             add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 1500 ); // authorizes scripts
             add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
 
@@ -59,9 +54,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
             add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
 
             add_filter( 'dt_allow_rest_access', [ $this, 'authorize_url' ], 10, 1 );
-
         }
-
     }
 
     public function authorize_url( $authorized ){
@@ -92,11 +85,6 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
-        ?>
-        <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400" rel="stylesheet">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/ionicons/css/ionicons.min.css">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/basic.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ) ) ?>" type="text/css" media="all">
-        <?php
     }
 
     public function footer_javascript(){
@@ -121,21 +109,24 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
                 <div class="row justify-content-md-center text-center flow-small brand-bg white py-4">
                     <div class="col col-md-8">
-                    <h4><?php echo esc_html( __( 'Credit/Debit Card', 'prayer-global-porch' ) ) ?></h4>
+                    <h4><?php echo esc_html( __( 'Give Online', 'prayer-global-porch' ) ) ?></h4>
 
-                        <?php echo do_shortcode( '[stripe]' ) ?>
+                        <iframe height="650" src=https://axiainternational.net/embed/giving/231-0312MYK width="100%" id="givingWidget231-0312MYK" style="border: none" scrolling="no"></iframe>
+                        <script>window.addEventListener("message", function (event) {if (event.origin ==='https://axiainternational.net' && (typeof event.data == "number" || typeof event.data == "string")) {
+                          document.getElementById("givingWidget231-0312MYK").height = event.data;
+                        }});</script>
 
                     </div>
                 </div>
 
                 <div class="row justify-content-md-center text-center">
                     <div class="col col-md-8">
-                        <h4 class="white"><?php echo esc_html( __( 'Check', 'prayer-global-porch' ) ) ?></h4>
+                        <h4><?php echo esc_html( __( 'Give by Check', 'prayer-global-porch' ) ) ?></h4>
                         <p>
                             <strong><?php echo esc_html( __( 'Note:', 'prayer-global-porch' ) ) ?></strong> <?php echo esc_html( __( "If you'd like to avoid the 3% fee that credit card companies charge everyone, you can send tax deductible donations via check to:", 'prayer-global-porch' ) ) ?>
                         </p>
                         <p class="font-weight-bold">
-                            Pray4Movement <br>
+                            Prayer.Global <br>
                             c/o Gospel Ambition <br>
                             PO Box 325 <br>
                             Mooreland OK 73852
@@ -159,5 +150,3 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 }
 Prayer_Global_Give::instance();
-
- */
