@@ -178,7 +178,7 @@ trait PG_Lap_Trait {
                 </div>
             </div>
             <div class="w-100" ></div>
-            <div class="container flow sm text-center">
+            <div class="container flow space-sm text-center">
                 <p class="tutorial uc f-xlg lh-1" id="tutorial-location"><?php echo esc_html__( 'Pray for', 'prayer-global-porch' ) ?></p>
                 <h2 class="lh-1 center bold w-75 f-md" id="location-name">
                     <div class="skeleton" data-title></div>
@@ -223,7 +223,7 @@ trait PG_Lap_Trait {
         </div>
 
         <!-- content section -->
-        <section class="prayer-content flow lg">
+        <section class="prayer-content flow space-lg">
             <div class="container" id="map">
                 <div class="text-md-center location-map" id="location-map">
                     <div class="skeleton" data-map></div>
@@ -261,7 +261,7 @@ trait PG_Lap_Trait {
                     <use href="#pg-chevron-down"></use>
                 </svg>
             </a>
-            <div class="container flow md relative" id="content">
+            <div class="container flow space-md relative" id="content">
 
                 <hr />
 
@@ -300,10 +300,47 @@ trait PG_Lap_Trait {
                         <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/pray-hands-dark.svg#pg-icon' ) ?>"></use>
                     </svg>
                     <button type="button" class="btn outline" id="more_prayer_fuel"><?php echo esc_html__( 'Show More Guided Prayers', 'prayer-global-porch' ) ?><i class="icon pg-chevron-down"></i></button>
+                    <button class="btn simple" id="correction_button"><?php echo esc_html__( 'Correction Needed?', 'prayer-global-porch' ) ?></button>
                 </div>
             </div>
-        </section>
 
+        </section>
+        <div class="modal fade" id="correction_modal" tabindex="-1" role="dialog" aria-labelledby="correction_modal_label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><?php echo esc_html( __( 'Thank you! Leave us a correction below.', 'prayer-global-porch' ) ) ?></h5>
+                        <button type="button" id="correction_close" data-bs-dismiss="modal" aria-label="<?php esc_attr( __( 'Close', 'prayer-global-porch' ) ) ?>">
+                            <svg class="f-xlg" height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
+                                <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/close.svg#pg-icon' ) ?>"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body flow space-md">
+                        <p><span id="correction_title" class="correction_field"></span></p>
+                        <div class="flow space-sm form-group">
+                            <label for="correction_select">
+                                <?php echo esc_html( __( 'Section:', 'prayer-global-porch' ) ) ?>
+                            </label>
+                            <select class="form-control form-select correction_field" id="correction_select"></select>
+                        </div>
+                        <div class="flow space-sm form-group">
+                            <label for="correction_response">
+                                <?php echo esc_html( __( 'Correction Requested:', 'prayer-global-porch' ) ) ?>
+                            </label>
+                            <textarea class="form-control correction_field" id="correction_response" rows="3"></textarea>
+                        </div>
+                        <p id="correction_error" class="correction_field"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" id="correction_submit_button">
+                            <?php echo esc_html( __( 'Submit', 'prayer-global-porch' ) ) ?>
+                            <span class="loading-spinner correction_modal_spinner"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <?php
     }
 

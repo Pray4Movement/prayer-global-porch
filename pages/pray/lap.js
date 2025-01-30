@@ -58,6 +58,8 @@ function init(location) {
   toggleTimer(false);
 
   setupListeners();
+
+  window.load_report_modal();
 }
 
 function setupListeners() {
