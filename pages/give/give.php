@@ -111,7 +111,16 @@ class Prayer_Global_Give extends DT_Magic_Url_Base {
                     <div class="col col-md-8">
                     <h4><?php echo esc_html( __( 'Give Online', 'prayer-global-porch' ) ) ?></h4>
 
-                        <iframe height="650" src=https://axiainternational.net/embed/giving/231-0312MYK width="100%" id="givingWidget231-0312MYK" style="border: none" scrolling="no"></iframe>
+                        <!--spinner-->
+                        <div id="give-loading-spinner" class="text-center" style="padding-top: 50px">
+                            <div class="spinner-border text-light" role="status"></div>
+                        </div>
+
+                        <iframe height="650"
+                                src="https://axiainternational.net/embed/giving/231-0312MYK" width="100%" id="givingWidget231-0312MYK"
+                                style="border: none" scrolling="no"
+                                onload="document.querySelector('#give-loading-spinner').remove()"
+                        ></iframe>
                         <script>window.addEventListener("message", function (event) {if (event.origin ==='https://axiainternational.net' && (typeof event.data == "number" || typeof event.data == "string")) {
                           document.getElementById("givingWidget231-0312MYK").height = event.data;
                         }});</script>
