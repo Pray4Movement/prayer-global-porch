@@ -3,12 +3,17 @@
 class PG_Relays_Table {
 
     private mysqli $mysqli;
-    private string $table_name = 'dt_relays';
     private string $relay_table;
+    private string $reports_table;
+    private string $posts_table;
+    private string $postmeta_table;
 
     public function __construct( mysqli $mysqli, string $db_prefix ) {
         $this->mysqli = $mysqli;
-        $this->relay_table = $db_prefix . $this->table_name;
+        $this->relay_table = $db_prefix . 'dt_relays';
+        $this->reports_table = $db_prefix . 'dt_reports';
+        $this->posts_table = $db_prefix . 'posts';
+        $this->postmeta_table = $db_prefix . 'postmeta';
     }
 
     public function log_promise_timestamp( $relay_id, $grid_id ) {
@@ -37,6 +42,80 @@ class PG_Relays_Table {
         }
     }
 
+    public function log_prayer( string $relay_id, array $data ) {
+        $post_id = $this->get_active_lap_id_for_relay( $relay_id );
+
+        $args = [
+            // lap information
+            'post_id' => $post_id,
+            'post_type' => 'laps',
+            'type' => $data['root'],
+            'subtype' => $data['type'],
+
+            // prayer information
+            'value' => $data['pace'] ?? 1,
+            'grid_id' => $data['grid_id'],
+
+            // user information
+            'payload' => serialize( [
+                'user_location' => $data['user']['label'] ?? null,
+                'user_language' => 'en' // @todo expand for other languages
+            ] ),
+            'lng' => $data['user']['lng'] ?? null,
+            'lat' => $data['user']['lat'] ?? null,
+            'level' => $data['user']['level'] ?? null,
+            'label' => $data['user']['country'] ?? null,
+            'hash' => $data['user']['hash'] ?? null,
+            'user_id' => $data['user_id'] ?? null,
+            'timestamp' => time(),
+        ];
+
+        if ( empty( $args['hash'] ) ) {
+            $args['hash'] = hash( 'sha256', maybe_serialize( $args ) );
+        }
+
+        $response = $this->mysqli->execute_query( "
+            INSERT INTO $this->reports_table
+            (
+                user_id,
+                post_id,
+                post_type,
+                type,
+                subtype,
+                payload,
+                value,
+                lng,
+                lat,
+                level,
+                label,
+                grid_id,
+                timestamp,
+                hash
+            )
+            VALUES
+            ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ", [
+            $args['user_id'],
+            $args['post_id'],
+            $args['post_type'],
+            $args['type'],
+            $args['subtype'],
+            $args['payload'],
+            $args['value'],
+            $args['lng'],
+            $args['lat'],
+            $args['level'],
+            $args['label'],
+            $args['grid_id'],
+            $args['timestamp'],
+            $args['hash'],
+        ] );
+
+        if ( !$response ) {
+            throw new ErrorException( 'Failed to insert report' );
+        }
+    }
+
     public function get_next_grid_id( $relay_id ) {
         /* Get locations which haven't been prayed for yet this lap, and haven't been promised in the last minute */
         $next_location = $this->query_needed_locations_not_recently_promised( $relay_id );
@@ -51,10 +130,28 @@ class PG_Relays_Table {
         return $next_location['grid_id'];
     }
 
+    private function get_active_lap_id_for_relay( $relay_id ) {
+        $active_lap = $this->mysqli->execute_query( "
+            SELECT p.ID FROM $this->posts_table p
+                JOIN $this->postmeta_table pm ON pm.post_id = p.ID
+                JOIN $this->postmeta_table pm1 ON pm1.post_id = p.ID
+                WHERE pm.meta_key = 'prayer_app_relay_key'
+                AND pm.meta_value = ?
+                AND pm1.meta_key = 'status'
+                AND pm1.meta_value = 'active'
+        ", [ $relay_id ] );
+
+        if ( false === $active_lap ) {
+            throw new ErrorException( 'Failed to get *needed* location not recently promised' );
+        }
+
+        $active_lap_id = $active_lap->fetch_column();
+
+        return $active_lap_id;
+    }
+
     /**
      * Get a random location that hasn't been prayed for and hasn't been recently promised
-     * @param mysqli $mysqli
-     * @param string $relay_table
      * @param string $relay_id
      * @return array|object|null
      */

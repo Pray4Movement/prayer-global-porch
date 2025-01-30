@@ -49,8 +49,8 @@ function init(location) {
   window.alreadyLogged = false;
   window.time = 0;
   window.randomLogSeconds = 30 + 30 * Math.random();
-
-  console.log(window.randomLogSeconds);
+  window.secondsTilLog = 60;
+  jsObject.location = location;
 
   renderContent(location);
   renderMap(location);
@@ -167,11 +167,23 @@ function startTimer(time) {
   window.pgInterval = setInterval(() => {
     window.time = window.time + 0.1;
 
-    if (window.time > window.randomLogSeconds && !window.alreadyLogged) {
+    if (window.time > window.secondsTilLog && !window.alreadyLogged) {
       /* send log */
-      const url = `${jsObject.api_url}update?location=${jsObject.current_content.location.location.grid_id}&relay=${jsObject.parts.public_key}`;
+      const url = `${jsObject.direct_api_url}update-location.php`;
       fetch(url, {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          relay_id: jsObject.parts.public_key,
+          data: {
+            ...window.user_location,
+            ...jsObject.parts,
+            pace: window.pace,
+            grid_id: jsObject.location.location.grid_id,
+          },
+        }),
       })
         .then((res) => {
           if (!res.ok) {

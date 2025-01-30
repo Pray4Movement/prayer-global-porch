@@ -3,6 +3,8 @@
 // SELECT total, COUNT(total) FROM 9VJS6H_dt_relays WHERE relay_id = '49ba4c' GROUP BY total ORDER BY total;
 // UPDATE 9VJS6H_dt_relays SET epoch = epoch - 60, total = 0 WHERE relay_id = '49ba4c';
 
+/* TODO: add cors and file protections */
+
 //this stops wp-settings from load everything
 define( 'SHORTINIT', true );
 
@@ -33,7 +35,6 @@ $relays_table = new PG_Relays_Table( $conn, $db_prefix );
 try {
     $next_location = $relays_table->get_next_grid_id( $relay_id );
     $relays_table->log_promise_timestamp( $relay_id, $next_location );
-    $relays_table->update_relay_total( $relay_id, $next_location );
 } catch (\Throwable $th) {
     send_response( array(
         'status' => 'error',
