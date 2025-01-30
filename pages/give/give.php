@@ -156,6 +156,5 @@ class Prayer_Global_Give extends DT_Magic_Url_Base {
         <?php require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/working-footer.php' ) ?>
         <?php
     }
-
 }
 Prayer_Global_Give::instance();
