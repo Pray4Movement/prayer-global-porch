@@ -93,7 +93,7 @@ class PG_Relays_Table {
                 hash
             )
             VALUES
-            ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
         ", [
             $args['user_id'],
             $args['post_id'],

@@ -64,7 +64,8 @@ $data = dt_recursive_sanitize_array( $decoded['data'] );
 $relays_table = new PG_Relays_Table( $conn, $db_prefix );
 
 try {
-    $relays_table->update_relay_total( $relay_id, $data );
+    $relays_table->update_relay_total( $relay_id, $data['grid_id'] );
+    $relays_table->log_prayer( $relay_id, $data );
 } catch (\Throwable $th) {
     send_response( array(
         'status' => 'error',
