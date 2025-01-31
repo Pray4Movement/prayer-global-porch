@@ -33,6 +33,8 @@ const closeModalButton = decisionLeaveModal.querySelector("#decision__close");
 const doneButton = questionPanel.querySelector("#question__yes_done");
 const nextButton = questionPanel.querySelector("#question__yes_next");
 
+const settingsButton = document.querySelector("#praying__open_options");
+const settingsDoneButton = document.querySelector("#option_filter_done");
 const paceButtons = document.querySelectorAll(".pace-btn");
 
 const populationInfoNo = document.querySelector(".population-info .no");
@@ -83,6 +85,9 @@ function setupListeners() {
 
   doneButton.addEventListener("click", celebrateAndDone);
   nextButton.addEventListener("click", celebrateAndNext);
+
+  settingsButton.addEventListener("click", () => toggleTimer(true));
+  settingsDoneButton.addEventListener("click", () => toggleTimer(false));
 }
 
 function setupPace(pace) {
@@ -281,7 +286,6 @@ function escapeHTML(str) {
 
 /* Fly away the see more button after a little bit of scroll */
 const seeMoreButton = document.querySelector("#see-more-button");
-console.log(window.scrollY);
 if (window.scrollY < 100) {
   seeMoreButton.style.display = "";
   window.addEventListener("scroll", removeSeeMoreButton);

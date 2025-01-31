@@ -371,7 +371,7 @@ trait PG_Lap_Trait {
                         </div>
                     </div>
                     <div class="modal-footer center">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><?php echo esc_html__( "Let's Go!", 'prayer-global-porch' ) ?></button>
+                        <button type="button" class="btn btn-primary" id="option_filter_done" data-bs-dismiss="modal"><?php echo esc_html__( "Let's Go!", 'prayer-global-porch' ) ?></button>
                     </div>
                 </div>
             </div>
