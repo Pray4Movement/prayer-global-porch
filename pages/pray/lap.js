@@ -45,6 +45,8 @@ const populationInfoYes = document.querySelector(".population-info .yes");
 
 const morePrayerFuelButton = document.querySelector("#more_prayer_fuel");
 const celebratePanel = document.querySelector("#celebrate-panel");
+const welcomeModal = document.querySelector("#welcome_screen");
+const welcomeScreenDoneButton = document.querySelector("#welcome_screen_done");
 
 checkForLocationAndLoad(init);
 
@@ -63,7 +65,12 @@ function init(location) {
   renderContent(location);
   renderMap(location);
 
-  toggleTimer(false);
+  window.viewed = localStorage.getItem("pg_viewed");
+  if (!window.viewed) {
+    welcomeModal.classList.add("show");
+  } else {
+    toggleTimer(false);
+  }
 
   setupListeners();
   setupPaceButtons(currentPace);
@@ -88,6 +95,8 @@ function setupListeners() {
 
   settingsButton.addEventListener("click", () => toggleTimer(true));
   settingsDoneButton.addEventListener("click", () => toggleTimer(false));
+
+  welcomeScreenDoneButton.addEventListener("click", finishWelcome);
 }
 
 function setupPace(pace) {
@@ -120,6 +129,12 @@ function selectPaceOption(event) {
 
   deselectAllPaceButtons();
   event.target.classList.add("selected");
+}
+
+function finishWelcome() {
+  welcomeModal.classList.remove("show");
+  localStorage.setItem("pg_viewed", true);
+  toggleTimer(false);
 }
 
 function celebrateAndNext() {
