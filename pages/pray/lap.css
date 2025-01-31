@@ -201,6 +201,8 @@ textarea {
 /* ## Buttons */
 .btn {
     display: flex;
+    justify-content: center;
+    align-items: center;
     text-transform: uppercase;
     border-radius: 6px;
     box-shadow: var(--small-box-shadow);
