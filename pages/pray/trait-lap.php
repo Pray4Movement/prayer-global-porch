@@ -160,6 +160,11 @@ trait PG_Lap_Trait {
                         <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/start.svg#pg-icon' ) ?>"></use>
                     </svg>
                 </button>
+                <button type="button" class="btn btn-praying bg-light" id="praying__open_options" data-bs-toggle="modal" data-bs-target="#option_filter">
+                    <svg height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
+                        <use href="#pg-settings"></use>
+                    </svg>
+                </button>
             </div>
             <div class="container" id="question-panel">
                 <div class="btn-group question" role="group" aria-label="Praying Button">
@@ -337,6 +342,36 @@ trait PG_Lap_Trait {
                             <?php echo esc_html( __( 'Submit', 'prayer-global-porch' ) ) ?>
                             <span class="loading-spinner correction_modal_spinner"></span>
                         </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="option_filter" tabindex="-1" role="dialog" aria-labelledby="option_filter_label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><?php echo esc_html__( 'Set Your Prayer Experience', 'prayer-global-porch' ) ?></h5>
+                        <button type="button" id="option_filter_close" data-bs-dismiss="modal" aria-label="<?php esc_attr( __( 'Close', 'prayer-global-porch' ) ) ?>">
+                            <svg class="f-xlg" height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
+                                <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/close.svg#pg-icon' ) ?>"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div>
+                            <p><?php echo esc_html__( 'Prayer pace per place', 'prayer-global-porch' ) ?></p>
+                        </div>
+                        <div class="btn-group vertical">
+                            <button type="button" class="btn pace-btn" id="pace__1" value="1"><?php echo esc_html( sprintf( __( '%d Minute', 'prayer-global-porch' ), 1 ) ) ?></button>
+                            <button type="button" class="btn pace-btn" id="pace__2" value="2"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 2 ) ) ?></button>
+                            <button type="button" class="btn pace-btn" id="pace__3" value="3"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 3 ) ) ?></button>
+                            <button type="button" class="btn pace-btn" id="pace__5" value="5"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 5 ) ) ?></button>
+                            <button type="button" class="btn pace-btn" id="pace__10" value="10"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 10 ) ) ?></button>
+                            <button type="button" class="btn pace-btn" id="pace__15" value="15"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 15 ) ) ?></button>
+                        </div>
+                    </div>
+                    <div class="modal-footer center">
+                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><?php echo esc_html__( "Let's Go!", 'prayer-global-porch' ) ?></button>
                     </div>
                 </div>
             </div>

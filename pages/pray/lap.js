@@ -1,7 +1,8 @@
-window.seconds = 60;
-window.items = 7;
-
 CELEBRATION_TIMEOUT = 3000;
+ONE_MINUTE = 60;
+
+window.seconds = ONE_MINUTE;
+window.items = 7;
 
 const contentElement = document.querySelector("#content");
 const mapElement = document.querySelector("#location-map");
@@ -32,6 +33,8 @@ const closeModalButton = decisionLeaveModal.querySelector("#decision__close");
 const doneButton = questionPanel.querySelector("#question__yes_done");
 const nextButton = questionPanel.querySelector("#question__yes_next");
 
+const paceButtons = document.querySelectorAll(".pace-btn");
+
 const populationInfoNo = document.querySelector(".population-info .no");
 const populationInfoNeutral = document.querySelector(
   ".population-info .neutral"
@@ -51,6 +54,9 @@ function init(location) {
   window.randomLogSeconds = 30 + 30 * Math.random();
   window.secondsTilLog = 60;
   jsObject.location = location;
+  const currentPace = localStorage.getItem("pg_pace") || 1;
+
+  setupPace(currentPace);
 
   renderContent(location);
   renderMap(location);
@@ -58,6 +64,7 @@ function init(location) {
   toggleTimer(false);
 
   setupListeners();
+  setupPaceButtons(currentPace);
 
   window.load_report_modal();
 }
@@ -76,6 +83,38 @@ function setupListeners() {
 
   doneButton.addEventListener("click", celebrateAndDone);
   nextButton.addEventListener("click", celebrateAndNext);
+}
+
+function setupPace(pace) {
+  window.pace = pace;
+  window.seconds = pace * ONE_MINUTE;
+  window.items = parseInt(pace) + 6;
+}
+
+function setupPaceButtons(currentPace) {
+  deselectAllPaceButtons();
+
+  const selectedPaceButton = document.querySelector(
+    `.pace-btn[value="${currentPace}"]`
+  );
+  selectedPaceButton.classList.add("selected");
+  paceButtons.forEach((paceButton) =>
+    paceButton.addEventListener("click", selectPaceOption)
+  );
+}
+function deselectAllPaceButtons() {
+  paceButtons.forEach((paceButton) => {
+    paceButton.classList.remove("selected");
+  });
+}
+function selectPaceOption(event) {
+  const paceSelected = event.target.getAttribute("value");
+
+  localStorage.setItem("pg_pace", paceSelected);
+  setupPace(paceSelected);
+
+  deselectAllPaceButtons();
+  event.target.classList.add("selected");
 }
 
 function celebrateAndNext() {

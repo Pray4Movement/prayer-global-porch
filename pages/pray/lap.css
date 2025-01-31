@@ -235,6 +235,18 @@ textarea {
 .btn.simple:hover {
     border-color: var(--pg-dark);
 }
+.pace-btn {
+    background-color: white;
+    color: var(--pg-dark);
+    border: 1px solid var(--pg-dark);
+    text-transform: none;
+}
+.pace-btn.selected,
+.pace-btn:hover {
+    background-color: var(--pg-orange);
+    color: white;
+    border-color: var(--pg-orange);
+}
 .btn-group {
     display: flex;
     width: 100%;
@@ -245,6 +257,9 @@ textarea {
 }
 .btn-group > * {
     flex: 1;
+}
+.btn-group.vertical {
+    flex-direction: column;
 }
 .flex-2 {
     flex: 2;
