@@ -151,8 +151,7 @@ function getLocationCount() {
     "pg_location_count_timestamp"
   );
   if (locationCountTimestamp < Date.now() - 60 * 60 * 1000) {
-    locationCount = 0;
-    setLocationCount(locationCount);
+    return resetLocationCount();
   }
 
   return Number(locationCount);
@@ -163,6 +162,10 @@ function setLocationCount(number) {
 function updateLocationCount() {
   setLocationCount(getLocationCount() + 1);
   localStorage.setItem("pg_location_count_timestamp", Date.now());
+}
+function resetLocationCount() {
+  setLocationCount(0);
+  return 0;
 }
 
 function celebrateAndNext() {
