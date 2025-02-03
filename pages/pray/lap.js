@@ -351,21 +351,57 @@ function removeSeeMoreButton() {
 
 /* We need to check and keep checking that the location object is ready to use */
 function waitForLocation() {
-  return new Promise((resolve) => {
-    let checkingInterval;
-
-    if (jsObject.current_content && jsObject.current_content.location) {
-      resolve(jsObject.current_content.location);
-    }
-
-    checkingInterval = setInterval(() => {
-      if (jsObject.current_content && jsObject.current_content.location) {
-        clearInterval(checkingInterval);
-
-        resolve(jsObject.current_content.location);
+  return Promise.resolve()
+    .then(() => {
+      const url = new URL(location.href);
+      const gridId = url.searchParams.has("grid_id")
+        ? url.searchParams.get("grid_id")
+        : false;
+      if (gridId !== false) {
+        return gridId;
       }
-    }, 50);
-  });
+
+      const relayId = jsObject.parts.public_key;
+      return fetch(
+        `${jsObject.direct_api_url}/next-location.php?relay_id=${relayId}`
+      )
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Failed to get next gridId", response);
+          }
+          return response.json();
+        })
+        .then(({ status, next_location, ...response }) => {
+          if (status !== "ok") {
+            console.log(response);
+          }
+
+          return next_location;
+        });
+    })
+    .then((gridId) => {
+      if (gridId) {
+        //const jsonUrl = jsObject.json_folder + '100000002' + '.json'
+        //const jsonUrl = jsObject.json_folder + '100000003' + '.json'
+        const jsonUrl = jsObject.cache_url + "json/" + gridId + ".json";
+
+        return fetch(jsonUrl)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("Failed to fetch JSON", response.status);
+            }
+            return response.json();
+          })
+          .then((json) => {
+            return json;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      } else {
+        console.log("no grid_id found");
+      }
+    });
 }
 
 function clearTutorial() {

@@ -77,61 +77,6 @@ trait PG_Lap_Trait {
 
         ?>
 
-        <script>
-
-            Promise.resolve()
-                .then(() => {
-                    const url = new URL(location.href)
-                    const gridId = url.searchParams.has('grid_id') ? url.searchParams.get('grid_id') : false
-                    if (gridId !== false) {
-                        return gridId
-                    }
-
-                    const relayId = jsObject.parts.public_key
-                    return fetch(`${jsObject.direct_api_url}/next-location.php?relay_id=${relayId}`)
-                        .then((response) => {
-                            if (!response.ok) {
-                                throw new Error('Failed to get next gridId', response)
-                            }
-                            return response.json()
-                        })
-                        .then(({status, next_location, ...response}) => {
-                            if (status !== 'ok') {
-                                console.log(response)
-                            }
-
-                            return next_location
-                        })
-                })
-                .then((gridId) => {
-                    if (gridId) {
-                        //const jsonUrl = jsObject.json_folder + '100000002' + '.json'
-                        //const jsonUrl = jsObject.json_folder + '100000003' + '.json'
-                        const jsonUrl = jsObject.cache_url + 'json/' + gridId + '.json'
-
-                        fetch(jsonUrl)
-                            .then((response) => {
-                                if (!response.ok) {
-                                    throw new Error("Failed to fetch JSON", response.status)
-                                }
-                                return response.json()
-                            })
-                            .then((json) => {
-                                jsObject.current_content = {
-                                    location: json
-                                }
-                            })
-                            .catch((error) => {
-                                console.error(error)
-                            })
-                    } else {
-                        console.log('no grid_id found')
-                    }
-                })
-
-
-        </script>
-
         <?php //phpcs:ignore ?>
         <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/ionicon-subset.svg' ); ?>
         <?php //phpcs:ignore ?>
