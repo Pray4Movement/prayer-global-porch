@@ -187,7 +187,7 @@ class Prayer_Global_Porch_Stats_Race_List extends DT_Magic_Url_Base
                 LEFT JOIN $wpdb->postmeta pm4 ON pm4.post_id=p.ID AND pm4.meta_key = 'start_time'
                 LEFT JOIN $wpdb->postmeta pm5 ON pm5.post_id=p.ID AND pm5.meta_key = 'end_time'
                 WHERE p.post_type = 'laps'
-                ORDER BY pm2.meta_value DESC
+                ORDER BY pm2.meta_value + 0 DESC
              ", ARRAY_A );
 
         foreach ( $results as $row ) {
