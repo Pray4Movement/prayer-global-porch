@@ -528,7 +528,7 @@ function generate_4770_locations_for_folder_creation() {
         }
     }
 
-    set_transient( __METHOD__, json_encode($list, JSON_UNESCAPED_UNICODE), 60 *60 *12 );
+    set_transient( __METHOD__, json_encode( $list, JSON_UNESCAPED_UNICODE ), 60 * 60 * 12 );
 }
 
 function pg_query_4770_locations() {
