@@ -48,15 +48,19 @@ const celebratePanel = document.querySelector("#celebrate-panel");
 const welcomeModal = document.querySelector("#welcome_screen");
 const welcomeScreenDoneButton = document.querySelector("#welcome_screen_done");
 
-checkForLocationAndLoad(init);
+init();
 
-function init(location) {
+async function init() {
   window.paused = false;
   window.finishedPraying = false;
   window.alreadyLogged = false;
   window.time = 0;
   window.randomLogSeconds = 30 + 30 * Math.random();
   window.secondsTilLog = 60;
+
+  displayLocationCount();
+
+  const location = await waitForLocation();
   jsObject.location = location;
   const currentPace = localStorage.getItem("pg_pace") || 1;
 
@@ -137,6 +141,24 @@ function finishWelcome() {
   toggleTimer(false);
 }
 
+function displayLocationCount() {
+  const locationCountLabel = document.querySelector(".location-count");
+  const locationCount = getLocationCount();
+  locationCountLabel.innerHTML = locationCount;
+}
+function getLocationCount() {
+  let locationCount = localStorage.getItem("pg_location_count");
+  const locationCountTimestamp = localStorage.getItem(
+    "pg_location_count_timestamp"
+  );
+  if (locationCountTimestamp < Date.now() - 60 * 60 * 1000) {
+    /* Reset the location count to 0 */
+    locationCount = 0;
+    localStorage.setItem("pg_location_count", locationCount);
+  }
+
+  return locationCount;
+}
 function celebrateAndNext() {
   celebrateAndNavigateTo(location.href);
 }
@@ -148,10 +170,18 @@ function celebrateAndNavigateTo(href) {
   /* Fire off the celebrations and open the celebrate panel */
   window.celebrationFireworks();
   show(celebratePanel);
+  updateLocationCount();
 
   setTimeout(() => {
     location.href = href;
   }, CELEBRATION_TIMEOUT);
+}
+
+function updateLocationCount() {
+  const locationCount = localStorage.getItem("pg_location_count") || 0;
+
+  localStorage.setItem("pg_location_count", Number(locationCount) + 1);
+  localStorage.setItem("pg_location_count_timestamp", Date.now());
 }
 
 function openLeaveModal() {
@@ -319,21 +349,22 @@ function removeSeeMoreButton() {
 }
 
 /* We need to check and keep checking that the location object is ready to use */
-function checkForLocationAndLoad(callback) {
-  let checkingInterval;
+function waitForLocation() {
+  return new Promise((resolve) => {
+    let checkingInterval;
 
-  if (jsObject.current_content && jsObject.current_content.location) {
-    callback(jsObject.current_content.location);
-    return;
-  }
-
-  checkingInterval = setInterval(() => {
     if (jsObject.current_content && jsObject.current_content.location) {
-      clearInterval(checkingInterval);
-
-      callback(jsObject.current_content.location);
+      resolve(jsObject.current_content.location);
     }
-  }, 50);
+
+    checkingInterval = setInterval(() => {
+      if (jsObject.current_content && jsObject.current_content.location) {
+        clearInterval(checkingInterval);
+
+        resolve(jsObject.current_content.location);
+      }
+    }, 50);
+  });
 }
 
 function clearTutorial() {

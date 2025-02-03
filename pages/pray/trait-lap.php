@@ -144,7 +144,7 @@ trait PG_Lap_Trait {
                     <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 33 33">
                         <use href="#pg-prayer"></use>
                     </svg>
-                    <span class="location-count">0</span>
+                    <span class="location-count"></span>
                 </div>
                 <button type="button" class="btn praying-timer" id="praying-button" data-percent="0" data-seconds="0">
                     <div class="praying__progress"></div>
