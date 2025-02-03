@@ -143,8 +143,7 @@ function finishWelcome() {
 
 function displayLocationCount() {
   const locationCountLabel = document.querySelector(".location-count");
-  const locationCount = getLocationCount();
-  locationCountLabel.innerHTML = locationCount;
+  locationCountLabel.innerHTML = getLocationCount();
 }
 function getLocationCount() {
   let locationCount = localStorage.getItem("pg_location_count");
@@ -152,20 +151,26 @@ function getLocationCount() {
     "pg_location_count_timestamp"
   );
   if (locationCountTimestamp < Date.now() - 60 * 60 * 1000) {
-    /* Reset the location count to 0 */
     locationCount = 0;
-    localStorage.setItem("pg_location_count", locationCount);
+    setLocationCount(locationCount);
   }
 
-  return locationCount;
+  return Number(locationCount);
 }
+function setLocationCount(number) {
+  localStorage.setItem("pg_location_count", number);
+}
+function updateLocationCount() {
+  setLocationCount(getLocationCount() + 1);
+  localStorage.setItem("pg_location_count_timestamp", Date.now());
+}
+
 function celebrateAndNext() {
   celebrateAndNavigateTo(location.href);
 }
 function celebrateAndDone() {
   celebrateAndNavigateTo(getHomeUrl());
 }
-
 function celebrateAndNavigateTo(href) {
   /* Fire off the celebrations and open the celebrate panel */
   window.celebrationFireworks();
@@ -175,13 +180,6 @@ function celebrateAndNavigateTo(href) {
   setTimeout(() => {
     location.href = href;
   }, CELEBRATION_TIMEOUT);
-}
-
-function updateLocationCount() {
-  const locationCount = localStorage.getItem("pg_location_count") || 0;
-
-  localStorage.setItem("pg_location_count", Number(locationCount) + 1);
-  localStorage.setItem("pg_location_count_timestamp", Date.now());
 }
 
 function openLeaveModal() {
