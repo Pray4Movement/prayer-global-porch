@@ -4,7 +4,7 @@ CREATE TABLE wp_dt_relays (
     relay_id VARCHAR(20) NOT NULL,
     grid_id BIGINT(20) NOT NULL,
 	total INT DEFAULT 0,
-	epoch BIGINT DEFAULT,
+	epoch BIGINT DEFAULT NOW(),
     PRIMARY KEY (id)
 );
 
@@ -61,7 +61,8 @@ BEGIN
             AND _next.p2p_type = 'parent-lap_to_child-lap'
         )
         SELECT c.p2p_from_
-        FROM cte c;
+        FROM cte c
+        ORDER BY c.p2p_from_ ASC;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
     SELECT meta_value INTO relay_key
@@ -88,9 +89,19 @@ BEGIN
 
         SET lap_number = lap_number + 1;
         CALL update_relay_with_id( lap_id, relay_key );
-    END LOOP read_loop;
 
-    CLOSE cursorLaps;
+        # Make sure that the active lap has the correct lap number
+        IF (SELECT meta_value FROM wp_postmeta WHERE meta_key = 'global_lap_number' AND post_id = lap_id) IS NULL THEN
+            INSERT INTO wp_postmeta (post_id, meta_key, meta_value)
+            VALUES ( lap_id, 'global_lap_number', lap_number );
+        ELSE
+            UPDATE wp_postmeta
+            SET meta_value = lap_number
+            WHERE meta_key = 'global_lap_number'
+            AND post_id = lap_id;
+        END IF;
+
+    END LOOP read_loop;
 
     # Make sure that the active lap has the correct lap number
     IF (SELECT meta_value FROM wp_postmeta WHERE meta_key = 'global_lap_number' AND post_id = id) IS NULL THEN
@@ -102,6 +113,8 @@ BEGIN
         WHERE meta_key = 'global_lap_number'
         AND post_id = id;
     END IF;
+
+    CLOSE cursorLaps;
 
     CALL populate_relay_table_with_data( relay_key, lap_number, start_time );
 END//
