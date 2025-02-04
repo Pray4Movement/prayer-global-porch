@@ -8,6 +8,7 @@
     --pg-highlight: #aec5eb;
     --pg-orange: #f2944a;
     --pg-grey: #acabab;
+    --pg-grey-hover: #8a8888;
 
     font-size: 18px;
     scroll-behavior: smooth;
@@ -310,6 +311,9 @@ textarea {
     position: relative;
     overflow: hidden;
     padding: 8px;
+}
+.praying-timer:hover {
+    background: var(--pg-grey-hover);
 }
 #praying__continue_button {
     display:none;
