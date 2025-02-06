@@ -13,6 +13,14 @@ if ( ! class_exists( 'DT_Module_Base' ) ) {
  * Add any modules required or added for the post type
  */
 add_filter( 'dt_post_type_modules', function( $modules ){
+    $modules["relays_base"] = [
+        "name" => "Relays",
+        "enabled" => true,
+        "locked" => true,
+        "prerequisites" => [ 'contacts_base' ],
+        "post_type" => "pg_relays",
+        "description" => "Prayer Relays"
+    ];
     $modules["laps_base"] = [
         "name" => "Laps",
         "enabled" => true,
@@ -36,6 +44,9 @@ add_filter( 'dt_post_type_modules', function( $modules ){
 
 require_once 'laps.php';
 Prayer_Global_Laps_Post_Type::instance();
+
+require_once 'relays.php';
+Prayer_Global_Relays_Post_Type::instance();
 
 require_once 'feedback.php';
 Prayer_Global_Feedback_Post_Type::instance();
