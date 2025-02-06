@@ -21,7 +21,7 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
         'location-map' => "Location Map",
     ];
     public $show_bulk_send = false;
-    public $post_type = 'laps';
+    public $post_type = 'pg_relays';
     private $meta_key = '';
     public $show_app_tile = true;
 

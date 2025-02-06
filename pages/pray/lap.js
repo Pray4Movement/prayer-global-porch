@@ -79,6 +79,7 @@ async function init() {
   setupListeners();
   setupPaceButtons(currentPace);
 
+  ip_location();
   window.load_report_modal();
 }
 
@@ -268,13 +269,12 @@ function startTimer(time) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          relay_id: jsObject.parts.public_key,
-          data: {
-            ...window.user_location,
-            ...jsObject.parts,
-            pace: window.pace,
-            grid_id: jsObject.location.location.grid_id,
-          },
+          user_id: jsObject.user_id || null,
+          grid_id: jsObject.location.location.grid_id,
+          relay_key: jsObject.parts.public_key,
+          pace: window.pace,
+          parts: jsObject.parts,
+          user_location: window.user_location,
         }),
       })
         .then((res) => {
@@ -328,6 +328,43 @@ function escapeHTML(str) {
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&apos;");
+}
+
+window.api_post = (action, data) => {
+  return window.api_fetch(
+    window.pg_global.root + jsObject.parts.root + "/v1/" + jsObject.parts.type,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        action: action,
+        parts: jsObject.parts,
+        data: data,
+      }),
+    }
+  );
+};
+window.api_post_global = (type, action, data = null) => {
+  return window.api_fetch(
+    `${window.pg_global.root}pg-api/v1/${type}/${action}`,
+    {
+      method: "POST",
+      body: data !== null ? JSON.stringify(data) : null,
+    }
+  );
+};
+function ip_location() {
+  window.api_post_global("user", "ip_location").then(function (location) {
+    window.user_location = [];
+    if (location) {
+      let pg_user_hash = localStorage.getItem("pg_user_hash");
+      if (!pg_user_hash || pg_user_hash === "undefined") {
+        localStorage.setItem("pg_user_hash", location.hash);
+      } else {
+        location.hash = pg_user_hash;
+      }
+      window.user_location = location;
+    }
+  });
 }
 
 /* Fly away the see more button after a little bit of scroll */

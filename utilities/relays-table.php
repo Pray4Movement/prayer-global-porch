@@ -29,10 +29,11 @@ class PG_Relays_Table {
         }
     }
 
+    /* https://www.sqlines.com/mysql/how-to/select-update-single-statement-race-condition */
     public function update_relay_total( $relay_id, $grid_id ) {
         $response = $this->mysqli->execute_query( "
             UPDATE $this->relay_table
-            SET total = total + 1
+            SET total = LAST_INSERT_ID(total + 1)
             WHERE relay_id = ?
             AND grid_id = ?
         ", [ $relay_id, $grid_id ] );
@@ -40,33 +41,54 @@ class PG_Relays_Table {
         if ( !$response ) {
             throw new ErrorException( 'Failed to update relay total' );
         }
+
+        return $this->last_lap_number_updated();
     }
 
-    public function log_prayer( string $relay_id, array $data ) {
-        $post_id = $this->get_active_lap_id_for_relay( $relay_id );
+    public function last_lap_number_updated() : int {
+        $response = $this->mysqli->execute_query( "
+            SELECT LAST_INSERT_ID();
+        " );
+
+        if ( $response === false ) {
+            throw new Exception( "last insert ID not found for relay update" );
+        }
+
+        return $response->fetch_column();
+    }
+
+    public function log_prayer( string $grid_id, string $relay_key, array $data ) {
+        $post_id = $this->get_relay_id( $relay_key );
+        $user_id = $data['user_id'];
+        $lap_number = $data['lap_number'];
+        $pace = $data['pace'];
+        $parts = $data['parts'];
+        $user_location = $data['user_location'];
 
         $args = [
             // lap information
             'post_id' => $post_id,
-            'post_type' => 'laps',
-            'type' => $data['root'],
-            'subtype' => $data['type'],
+            'post_type' => $parts['post_type'],
+            'lap_number' => $lap_number,
+
+            'type' => $parts['root'],
+            'subtype' => $parts['type'],
 
             // prayer information
-            'value' => $data['pace'] ?? 1,
-            'grid_id' => $data['grid_id'],
+            'value' => $pace ?? 1,
+            'grid_id' => $grid_id,
 
             // user information
             'payload' => serialize( [
-                'user_location' => $data['user']['label'] ?? null,
+                'user_location' => $user_location['label'] ?? null,
                 'user_language' => 'en' // @todo expand for other languages
             ] ),
-            'lng' => $data['user']['lng'] ?? null,
-            'lat' => $data['user']['lat'] ?? null,
-            'level' => $data['user']['level'] ?? null,
-            'label' => $data['user']['country'] ?? null,
-            'hash' => $data['user']['hash'] ?? null,
-            'user_id' => $data['user_id'] ?? null,
+            'lng' => $user_location['lng'] ?? null,
+            'lat' => $user_location['lat'] ?? null,
+            'level' => $user_location['level'] ?? null,
+            'label' => $user_location['country'] ?? null,
+            'hash' => $user_location['hash'] ?? null,
+            'user_id' => $user_id ?? null,
             'timestamp' => time(),
         ];
 
@@ -80,6 +102,7 @@ class PG_Relays_Table {
                 user_id,
                 post_id,
                 post_type,
+                lap_number,
                 type,
                 subtype,
                 payload,
@@ -93,11 +116,12 @@ class PG_Relays_Table {
                 hash
             )
             VALUES
-            ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
+            ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
         ", [
             $args['user_id'],
             $args['post_id'],
             $args['post_type'],
+            $args['lap_number'],
             $args['type'],
             $args['subtype'],
             $args['payload'],
@@ -130,7 +154,7 @@ class PG_Relays_Table {
         return $next_location['grid_id'];
     }
 
-    private function get_active_lap_id_for_relay( $relay_id ) {
+    private function get_relay_id( $relay_id ) {
         $active_lap = $this->mysqli->execute_query( "
             SELECT p.ID FROM $this->posts_table p
                 JOIN $this->postmeta_table pm ON pm.post_id = p.ID

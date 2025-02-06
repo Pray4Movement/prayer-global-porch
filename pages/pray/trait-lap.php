@@ -56,6 +56,7 @@ trait PG_Lap_Trait {
                     'map_url' => $current_url . 'map',
                     'is_custom' => ( 'custom' === $this->parts['type'] ),
                     'is_cta_feature_on' => true,
+                    'user_id' => get_current_user_id(),
                     'cache_url' => 'https://s3.prayer.global/',
                     'direct_api_url' => plugin_dir_url( dirname( __DIR__ ) ),
                 ]) ?>][0]
