@@ -19,13 +19,16 @@ class Prayer_Global_Migration_0003 extends Prayer_Global_Migration {
         $wpdb->dt_reports = $wpdb->prefix . 'dt_reports';
         $wpdb->postmeta = $wpdb->prefix . 'postmeta';
 
-        $wpdb->query( "
+        $query = $wpdb->query( "
             UPDATE $wpdb->dt_reports r
             JOIN $wpdb->postmeta pm
             ON r.post_id = pm.post_id
-            SET r.lap_number = CAST(pm.meta_value AS INT)
+            SET r.lap_number = CAST(pm.meta_value AS UNSIGNED)
             WHERE pm.meta_key = 'global_lap_number'
         " );
+        if ( empty( $query ) ) {
+            throw new \Exception( "Got error when updating table $wpdb->dt_reports." );
+        }
     }
 
     /**

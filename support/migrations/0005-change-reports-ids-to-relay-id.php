@@ -21,9 +21,9 @@ class Prayer_Global_Migration_0005 extends Prayer_Global_Migration {
         $wpdb->p2p = $wpdb->prefix . 'p2p';
         $wpdb->dt_reports = $wpdb->prefix . 'dt_reports';
 
-        $wpdb->query( "
+        $wpdb->query( '
             DROP PROCEDURE IF EXISTS update_reports_with_relay_ids;
-        " );
+        ' );
         /* Loop over relays and update all reports and lap children with these post ids */
         $wpdb->query( "
             CREATE PROCEDURE update_reports_with_relay_ids()
@@ -52,9 +52,9 @@ class Prayer_Global_Migration_0005 extends Prayer_Global_Migration {
                 CLOSE cursorLaps;
             END;
         " );
-        $wpdb->query( "
+        $wpdb->query( '
             DROP PROCEDURE IF EXISTS update_reports_with_id;
-        " );
+        ' );
         $wpdb->query( "
             CREATE PROCEDURE update_reports_with_id(id INT)
             BEGIN
@@ -99,9 +99,9 @@ class Prayer_Global_Migration_0005 extends Prayer_Global_Migration {
                 CLOSE cursorLaps;
             END;
         " );
-        $wpdb->query( "
+        $wpdb->query( '
             CALL update_reports_with_relay_ids();
-        " );
+        ' );
     }
 
     /**
