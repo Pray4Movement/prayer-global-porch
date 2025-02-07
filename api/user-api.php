@@ -100,6 +100,5 @@ class PG_User_API {
         $user_stats['total_minutes'] = (int) $user_stats['total_minutes'];
         return $user_stats;
     }
-
 }
 PG_User_API::instance();

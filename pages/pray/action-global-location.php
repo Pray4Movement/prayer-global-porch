@@ -57,7 +57,6 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
-
     }
 
     public function _header() {
@@ -151,7 +150,7 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
         $params = $request->get_params();
 
         if ( ! isset( $params['parts'], $params['action'], $params['data'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
         $params = dt_recursive_sanitize_array( $params );
@@ -175,7 +174,7 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
             case 'ip_location':
                 return $this->get_ip_location();
             default:
-                return new WP_Error( __METHOD__, "Incorrect action", [ 'status' => 400 ] );
+                return new WP_Error( __METHOD__, 'Incorrect action', [ 'status' => 400 ] );
         }
     }
 

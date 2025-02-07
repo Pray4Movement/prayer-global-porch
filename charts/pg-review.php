@@ -5,7 +5,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 class PG_Charts_Review extends PG_Metrics_Chart_Base
 {
     public $base_slug = 'content'; // lowercase
-    public $base_title = "Content Review";
+    public $base_title = 'Content Review';
 
     public $title = 'Locations';
     public $slug = 'locations'; // lowercase
@@ -66,8 +66,8 @@ class PG_Charts_Review extends PG_Metrics_Chart_Base
                     // add preload stats data into arrays here
                 ],
                 'translations' => [
-                    "title" => $this->title,
-                    "Sample API Call" => __( "Sample API Call", 'disciple-tools-plugin-starter-template' )
+                    'title' => $this->title,
+                    'Sample API Call' => __( 'Sample API Call', 'disciple-tools-plugin-starter-template' )
                 ]
             ]
         );
@@ -96,5 +96,4 @@ class PG_Charts_Review extends PG_Metrics_Chart_Base
             return new WP_Error( __METHOD__, 'Missing parameters.' );
         }
     }
-
 }

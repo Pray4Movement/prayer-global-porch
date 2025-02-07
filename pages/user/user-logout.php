@@ -77,8 +77,6 @@ class PG_User_Logout extends DT_Magic_Url_Base {
         wp_logout();
 
         wp_redirect( $redirect_to );
-
     }
-
 }
 PG_User_Logout::instance();

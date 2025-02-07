@@ -312,7 +312,6 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
             default:
                 return new WP_Error( __METHOD__, 'missing action parameter' );
         }
-
     }
 
     public function get_grid( $parts ) {

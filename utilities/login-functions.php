@@ -29,7 +29,6 @@ add_action( 'dt_sso_login_extra_fields', function ( $extra_fields, $body ){
         update_user_meta( get_current_user_id(), 'pg_send_general_emails', true );
         pg_connect_to_crm();
     }
-
 }, 10, 2 );
 
 add_action( 'pg_user_endpoint_data', function ( $params ){

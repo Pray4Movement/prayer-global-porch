@@ -21,7 +21,7 @@ $current_url = dt_get_url_path( false, true );
 
 <link rel="manifest" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ); ?>assets/images/favicons/site.webmanifest">
 
-<?php pg_og_tags( [ "url" => $current_url ] ) ?>
+<?php pg_og_tags( [ 'url' => $current_url ] ) ?>
 
 <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>css/bootstrap/bootstrap5.2.2.css">
 <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>fonts/ionicons/css/ionicons.min.css">
@@ -30,7 +30,7 @@ $current_url = dt_get_url_path( false, true );
 
 <?php
 
-    wp_enqueue_style( 'basic-css', trailingslashit( plugin_dir_url( __DIR__ ) ) . "assets/css/basic.css", [], fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ), 'all' );
+    wp_enqueue_style( 'basic-css', trailingslashit( plugin_dir_url( __DIR__ ) ) . 'assets/css/basic.css', [], fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ), 'all' );
 
 ?>
 <link rel="stylesheet" href="" type="text/css" media="all">

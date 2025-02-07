@@ -221,7 +221,7 @@ class Prayer_Global_Porch_Newest_Lap_Stats extends DT_Magic_Url_Base
     private static $_instance = null;
 
     public static function instance() {
-        if (is_null( self::$_instance )) {
+        if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
         }
         return self::$_instance;
@@ -232,7 +232,7 @@ class Prayer_Global_Porch_Newest_Lap_Stats extends DT_Magic_Url_Base
 
         $url = dt_get_url_path();
 
-        if (substr( $url, 0, strlen( $this->url_token ) ) !== $this->root . '/' . $this->type) {
+        if ( substr( $url, 0, strlen( $this->url_token ) ) !== $this->root . '/' . $this->type ) {
             return;
         }
 
@@ -261,7 +261,7 @@ class Prayer_Global_Porch_Newest_Lap_Map extends DT_Magic_Url_Base
     private static $_instance = null;
 
     public static function instance() {
-        if (is_null( self::$_instance )) {
+        if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
         }
         return self::$_instance;
@@ -272,15 +272,13 @@ class Prayer_Global_Porch_Newest_Lap_Map extends DT_Magic_Url_Base
 
         $url = dt_get_url_path();
 
-        if (substr( $url, 0, strlen( $this->url_token ) ) === $this->root . '/' . $this->type) {
+        if ( substr( $url, 0, strlen( $this->url_token ) ) === $this->root . '/' . $this->type ) {
             $this->redirect();
         }
 
         if ( $url === 'map' ) {
             $this->redirect();
         }
-
-
     }
 
     public function redirect() {
@@ -342,7 +340,7 @@ class Prayer_Global_Porch_App_Store_Redirect extends DT_Magic_Url_Base
     private static $_instance = null;
 
     public static function instance() {
-        if (is_null( self::$_instance )) {
+        if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
         }
         return self::$_instance;
@@ -353,7 +351,7 @@ class Prayer_Global_Porch_App_Store_Redirect extends DT_Magic_Url_Base
 
         $url = dt_get_url_path();
 
-        if (substr( $url, 0, strlen( $this->url_token ) ) === $this->root . '/' . $this->type) {
+        if ( substr( $url, 0, strlen( $this->url_token ) ) === $this->root . '/' . $this->type ) {
             $this->redirect();
         }
     }

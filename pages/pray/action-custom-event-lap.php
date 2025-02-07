@@ -43,7 +43,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
 
         $lap = pg_get_custom_lap_by_post_id( $this->parts['post_id'] );
-        $title_words = preg_split( "/[\s\-_]+/", $lap['title'] );
+        $title_words = preg_split( '/[\s\-_]+/', $lap['title'] );
 
         $this->lap_title = $lap['title'];
         if ( strlen( $lap['title'] ) < 6 ) {
@@ -1552,8 +1552,8 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                         <?php echo esc_html__( "If you leave now, this place won't have been prayed for." ) ?>
                     </p>
                     <div class="modal-footer">
-                        <button type="button" class="btn outline" id="decision__keep_praying" data-bs-dismiss="modal"><?php echo esc_html__( "Keep Praying", 'prayer-global-porch' ) ?></button>
-                        <button type="button" class="btn bg-dark" id="decision__leave" data-bs-dismiss="modal"><?php echo esc_html__( "Leave", 'prayer-global-porch' ) ?></button>
+                        <button type="button" class="btn outline" id="decision__keep_praying" data-bs-dismiss="modal"><?php echo esc_html__( 'Keep Praying', 'prayer-global-porch' ) ?></button>
+                        <button type="button" class="btn bg-dark" id="decision__leave" data-bs-dismiss="modal"><?php echo esc_html__( 'Leave', 'prayer-global-porch' ) ?></button>
                     </div>
                 </div>
             </div>
@@ -1643,7 +1643,6 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
         <?php
     }
-
 }
 PG_Custom_High_Volume_Prayer_App_Lap::instance();
 

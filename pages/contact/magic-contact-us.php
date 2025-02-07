@@ -41,7 +41,6 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
 
         }
         add_action( 'rest_api_init', [ $this, 'add_api_routes' ] );
-
     }
 
     public function add_api_routes(){

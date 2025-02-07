@@ -30,8 +30,8 @@ class PG_Charts_Loader
     public function add_navigation_links( $tabs ) {
         if ( current_user_can( 'access_contacts' ) ) {
             $tabs['review'] = [
-                "link" => site_url( "/review/" ),
-                "label" => 'Review',
+                'link' => site_url( '/review/' ),
+                'label' => 'Review',
                 'icon' => '',
                 'hidden' => false,
                 'submenu' => []
@@ -45,6 +45,5 @@ class PG_Charts_Loader
         $template_for_url['review'] = 'template-metrics.php';
         return $template_for_url;
     }
-
 }
 PG_Charts_Loader::instance();
