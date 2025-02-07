@@ -235,6 +235,5 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
 
         return $data;
     }
-
 }
 Prayer_Global_Porch_Challenge_List::instance();

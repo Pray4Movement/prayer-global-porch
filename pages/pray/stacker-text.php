@@ -2761,7 +2761,7 @@ class PG_Stacker_Text {
 
 
     /* Illustration based blocks */
-    public static function least_reached_text( $stack): array
+    public static function least_reached_text( $stack ): array
     {
         /**
          * Least Reached Block
@@ -2826,7 +2826,7 @@ class PG_Stacker_Text {
         ];
     }
 
-    public static function photos_text( $stack): array
+    public static function photos_text( $stack ): array
     {
         /**
          * Photos Block
@@ -2863,7 +2863,7 @@ class PG_Stacker_Text {
         ];
     }
 
-    public static function key_city_text( $stack, $key_city): array
+    public static function key_city_text( $stack, $key_city ): array
     {
         /**
          * Key City Block
@@ -2875,7 +2875,7 @@ class PG_Stacker_Text {
         ];
     }
 
-    public static function cities_text( $stack): array
+    public static function cities_text( $stack ): array
     {
         /**
          * Key City Block
@@ -2890,7 +2890,7 @@ class PG_Stacker_Text {
         ];
     }
 
-    public static function demographics_content_text( $stack): array
+    public static function demographics_content_text( $stack ): array
     {
 
         return [
@@ -2903,7 +2903,7 @@ class PG_Stacker_Text {
                         '<br><br>'.
                         sprintf( _x( 'We estimate %1$s has %2$s people who might know Jesus, %3$s people who might know about Jesus culturally, and %4$s people who do not know Jesus.', 'We estimate new york has 100 people who might know Jesus, 300 people who might know about Jesus culturally, and 500 people who do not know Jesus.', 'prayer-global-porch' ), $stack['location']['name'], '<strong>'.$stack['location']['believers'].'</strong>', '<strong>'.$stack['location']['christian_adherents'].'</strong>', '<strong>'.$stack['location']['non_christians'].'</strong>' ).
                         '<br><br>'.
-                        sprintf( __( 'This is %1$s believer for every %2$s neighbors who need Jesus.', 'prayer-global-porch' ), '<strong>1</strong>', '<strong>'.$stack['location']['lost_per_believer'].'</strong>' ) ,
+                        sprintf( __( 'This is %1$s believer for every %2$s neighbors who need Jesus.', 'prayer-global-porch' ), '<strong>1</strong>', '<strong>'.$stack['location']['lost_per_believer'].'</strong>' ),
                 ],
             ],
             /**
@@ -2915,7 +2915,7 @@ class PG_Stacker_Text {
                         '<br><br>'.
                         sprintf( _x( 'We estimate %1$s has %2$s people who might know Jesus, %3$s people who might know about Jesus culturally, and %4$s people who do not know Jesus.', 'We estimate new york has 100 people who might know Jesus, 300 people who might know about Jesus culturally, and 500 people who do not know Jesus.', 'prayer-global-porch' ), $stack['location']['name'], '<strong>'.$stack['location']['believers'].'</strong>', '<strong>'.$stack['location']['christian_adherents'].'</strong>', '<strong>'.$stack['location']['non_christians'].'</strong>' ).
                         '<br><br>'.
-                        sprintf( __( 'This is %1$s believer for every %2$s neighbors who need Jesus.', 'prayer-global-porch' ), '<strong>1</strong>', '<strong>'.$stack['location']['lost_per_believer'].'</strong>' ) ,
+                        sprintf( __( 'This is %1$s believer for every %2$s neighbors who need Jesus.', 'prayer-global-porch' ), '<strong>1</strong>', '<strong>'.$stack['location']['lost_per_believer'].'</strong>' ),
                 ],
             ],
             /**
@@ -2927,14 +2927,13 @@ class PG_Stacker_Text {
                         '<br><br>'.
                         sprintf( _x( 'We estimate %1$s has %2$s people who might know Jesus, %3$s people who might know about Jesus culturally, and %4$s people who do not know Jesus.', 'We estimate new york has 100 people who might know Jesus, 300 people who might know about Jesus culturally, and 500 people who do not know Jesus.', 'prayer-global-porch' ), $stack['location']['name'], '<strong>'.$stack['location']['believers'].'</strong>', '<strong>'.$stack['location']['christian_adherents'].'</strong>', '<strong>'.$stack['location']['non_christians'].'</strong>' ).
                         '<br><br>'.
-                        sprintf( __( 'This is %1$s believer for every %2$s neighbors who need Jesus.', 'prayer-global-porch' ), '<strong>1</strong>', '<strong>'.$stack['location']['lost_per_believer'].'</strong>' ) ,
+                        sprintf( __( 'This is %1$s believer for every %2$s neighbors who need Jesus.', 'prayer-global-porch' ), '<strong>1</strong>', '<strong>'.$stack['location']['lost_per_believer'].'</strong>' ),
                 ],
             ]
         ];
-
     }
 
-    public static function demogrphics_4_fact_text( $stack): array
+    public static function demogrphics_4_fact_text( $stack ): array
     {
 
         return [
@@ -2963,9 +2962,7 @@ class PG_Stacker_Text {
                 ],
             ]
         ];
-
     }
-
 }
 
 

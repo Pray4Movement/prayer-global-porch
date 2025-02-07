@@ -439,8 +439,8 @@ function _pg_format_duration( &$data, $time, $key_long, $key_short, $key_data = 
     }
 
     if ( $time === 0 ) {
-        $data[$key_long] = "--";
-        $data[$key_short] = "--";
+        $data[$key_long] = '--';
+        $data[$key_short] = '--';
         return;
     }
     $days = floor( $time / 60 / 60 / 24 );
@@ -448,14 +448,14 @@ function _pg_format_duration( &$data, $time, $key_long, $key_short, $key_data = 
     $minutes = floor( ( $time / 60 ) - ( $hours * 60 ) - ( $days * 24 * 60 ) );
     if ( empty( $days ) && empty( $hours ) ){
         $data[$key_long] = "$minutes minutes";
-        $data[$key_short] = $minutes." min";
+        $data[$key_short] = $minutes.' min';
         $data[$key_data] = [
             'minutes' => $minutes,
         ];
     }
     else if ( empty( $days ) ) {
         $data[$key_long] = "$hours hours, $minutes minutes";
-        $data[$key_short] = $hours."h, ".$minutes."m";
+        $data[$key_short] = $hours.'h, '.$minutes.'m';
         $data[$key_data] = [
             'minutes' => $minutes,
             'hours' => $hours,
@@ -465,7 +465,7 @@ function _pg_format_duration( &$data, $time, $key_long, $key_short, $key_data = 
         $years = floor( $time / 60 / 60 / 24 / 365 );
         $days = floor( $days - ( $years * 365 ) );
         $data[$key_long] = "$years years, $days days, $hours hours, $minutes minutes";
-        $data[$key_short] = $years."y, ".$days."d, ".$hours."h, ".$minutes."m";
+        $data[$key_short] = $years.'y, '.$days.'d, '.$hours.'h, '.$minutes.'m';
         $data[$key_data] = [
             'minutes' => $minutes,
             'hours' => $hours,
@@ -475,7 +475,7 @@ function _pg_format_duration( &$data, $time, $key_long, $key_short, $key_data = 
     }
     else {
         $data[$key_long] = "$days days, $hours hours, $minutes minutes";
-        $data[$key_short] = $days."d, ".$hours."h, ".$minutes."m";
+        $data[$key_short] = $days.'d, '.$hours.'h, '.$minutes.'m';
         $data[$key_data] = [
             'minutes' => $minutes,
             'hours' => $hours,
@@ -5451,7 +5451,7 @@ function pg_recursive_parse_args( $args, $defaults ) {
         if ( is_array( $value ) && isset( $new_args[ $key ] ) ) {
             $new_args[ $key ] = pg_recursive_parse_args( $value, $new_args[ $key ] );
         }
-        elseif ( $key !== "default" ){
+        elseif ( $key !== 'default' ){
             $new_args[ $key ] = $value;
         }
     }
@@ -5478,11 +5478,11 @@ function pg_is_lap_complete( $post_id ) {
 function pg_og_tags( $details = [] ) {
     global $wp;
     $details = array_merge([
-        "url" => home_url(),
-        "type" => "app",
-        "title" => 'Prayer.Global',
-        "description" => 'Join us in covering the world in prayer for disciple making using a creative, community-driven prayer coordination app.',
-        "image" => trailingslashit( plugin_dir_url( __DIR__ ) ) . 'pages/assets/images/favicons/prayer-global-og.png',
+        'url' => home_url(),
+        'type' => 'app',
+        'title' => 'Prayer.Global',
+        'description' => 'Join us in covering the world in prayer for disciple making using a creative, community-driven prayer coordination app.',
+        'image' => trailingslashit( plugin_dir_url( __DIR__ ) ) . 'pages/assets/images/favicons/prayer-global-og.png',
     ], $details);
 
     ?>
@@ -5538,7 +5538,7 @@ function pg_soft_time_format( $object, $timestamp_key, $when_key, $timestamp_for
         $months_word = $months > 1 ? __( 'months', 'prayer-global-porch' ) : __( 'month', 'prayer-global-porch' );
         $object[$when_key] = sprintf( _x( '%1$d %2$s ago', '23 seconds ago', 'prayer-global-porch' ), $months, $months_word );
     } else {
-        $object[$when_key] = "";
+        $object[$when_key] = '';
     }
 
     $object[$timestamp_formatted_key] = gmdate( $time );
@@ -5846,7 +5846,6 @@ function pg_calculate_lap_number( $post_id ) {
     ", [ $post_id ] ) );
 
     return $results + 1;
-
 }
 
 if ( ! function_exists( 'dt_sanitize_array' ) ) {

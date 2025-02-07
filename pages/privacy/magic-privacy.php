@@ -31,7 +31,7 @@ class Prayer_Global_Porch_Privacy extends DT_Magic_Url_Base
 
 
             // register url and access
-            add_action( "template_redirect", [ $this, 'theme_redirect' ] );
+            add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
             add_filter( 'dt_blank_access', function (){ return true;
             }, 100, 1 );
             add_filter( 'dt_allow_non_login_access', function (){ return true;
@@ -40,7 +40,7 @@ class Prayer_Global_Porch_Privacy extends DT_Magic_Url_Base
             }, 100, 1 );
 
             // header content
-            add_filter( "dt_blank_title", [ $this, "page_tab_title" ] ); // adds basic title to browser tab
+            add_filter( 'dt_blank_title', [ $this, 'page_tab_title' ] ); // adds basic title to browser tab
             add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 1500 ); // authorizes scripts
             add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
 
@@ -53,7 +53,6 @@ class Prayer_Global_Porch_Privacy extends DT_Magic_Url_Base
             add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
             add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
         }
-
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -159,13 +158,13 @@ class Prayer_Global_Porch_Privacy extends DT_Magic_Url_Base
                     <div class="col-12">
                         <hr>
                         <h3 class="secondary" id="access-control"><?php echo esc_html__( 'Your Access to and Control Over Information', 'prayer-global-porch' ) ?></h3>
-                            <p><?php echo sprintf( esc_html_x( 'You can do the following at any time by contacting us via our %s form:', 'You can do the following at any time by contacting us via our contact us form:', 'prayer-global-porch' ), '<a href="https://prayer.global/prayer_app/contact_us/">' . __( 'contact us', 'prayer-global-porch') . '</a>' ) ?></p>
+                            <p><?php echo sprintf( esc_html_x( 'You can do the following at any time by contacting us via our %s form:', 'You can do the following at any time by contacting us via our contact us form:', 'prayer-global-porch' ), '<a href="https://prayer.global/prayer_app/contact_us/">' . esc_html( __( 'contact us', 'prayer-global-porch' ) ) . '</a>' ) ?></p>
                         <ul>
                             <li><?php echo esc_html__( "See what data we've aggregated from your activities with us.", 'prayer-global-porch' ) ?></li>
                             <li><?php echo esc_html__( 'Change/correct any data we have about you.', 'prayer-global-porch' ) ?></li>
                             <li><?php echo esc_html__( 'Have us delete your account or any data we have about you.', 'prayer-global-porch' ) ?></li>
                             <li><?php echo esc_html__( 'Express any concern you have about our use of your data.', 'prayer-global-porch' ) ?></li>
-                            <li><?php echo esc_html__( "Opt out of any future contact from us.", 'prayer-global-porch' ) ?></li>
+                            <li><?php echo esc_html__( 'Opt out of any future contact from us.', 'prayer-global-porch' ) ?></li>
                         </ul>
                     </div>
 
@@ -184,6 +183,5 @@ class Prayer_Global_Porch_Privacy extends DT_Magic_Url_Base
         <?php require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/working-footer.php' ) ?>
         <?php
     }
-
 }
 Prayer_Global_Porch_Privacy::instance();

@@ -50,7 +50,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
 
         $lap = pg_get_custom_lap_by_post_id( $this->parts['post_id'] );
-        $title_words = preg_split( "/[\s\-_]+/", $lap['title'] );
+        $title_words = preg_split( '/[\s\-_]+/', $lap['title'] );
 
         $this->lap_title = $lap['title'];
         if ( strlen( $lap['title'] ) < 6 ) {
@@ -256,8 +256,8 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                         </p>
                     </div>
                     <div class="modal-footer center">
-                        <button type="button" class="btn btn-outline-primary uppercase" id="decision__keep_praying" data-bs-dismiss="modal"><?php echo esc_html__( "Keep Praying", 'prayer-global-porch' ) ?></button>
-                        <button type="button" class="btn btn-primary" id="decision__leave" data-bs-dismiss="modal"><?php echo esc_html__( "Leave", 'prayer-global-porch' ) ?></button>
+                        <button type="button" class="btn btn-outline-primary uppercase" id="decision__keep_praying" data-bs-dismiss="modal"><?php echo esc_html__( 'Keep Praying', 'prayer-global-porch' ) ?></button>
+                        <button type="button" class="btn btn-primary" id="decision__leave" data-bs-dismiss="modal"><?php echo esc_html__( 'Leave', 'prayer-global-porch' ) ?></button>
                     </div>
                 </div>
             </div>
@@ -382,7 +382,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         $params = $request->get_params();
 
         if ( ! isset( $params['parts'], $params['action'], $params['data'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
         $params = dt_recursive_sanitize_array( $params );
@@ -409,7 +409,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             case 'increment_log':
                 return $this->increment_log( $params['parts'], $params['data'] );
             default:
-                return new WP_Error( __METHOD__, "Incorrect action", [ 'status' => 400 ] );
+                return new WP_Error( __METHOD__, 'Incorrect action', [ 'status' => 400 ] );
         }
     }
 
@@ -420,7 +420,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
      */
     public function increment_log( $parts, $data ) {
         if ( !isset( $parts['post_id'], $parts['root'], $parts['type'], $data['report_id'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
         /* Check that the report exists */
         $report = Disciple_Tools_Reports::get( $data['report_id'], 'id' );
@@ -432,8 +432,8 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         $new_value = (int) $report['value'] + 1;
         /* update the report */
         Disciple_Tools_Reports::update( [
-            "id" => $data['report_id'],
-            "value" => $new_value,
+            'id' => $data['report_id'],
+            'value' => $new_value,
         ] );
 
         return $new_value;
@@ -455,7 +455,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
     public function save_log( $parts, $data ) {
 
         if ( !isset( $parts['post_id'], $parts['root'], $parts['type'], $data['grid_id'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400, 'data' => [ $parts, $data ] ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400, 'data' => [ $parts, $data ] ] );
         }
 
         // prayer location log
@@ -503,7 +503,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
     public function save_correction( $parts, $data ) {
 
         if ( !isset( $parts['post_id'], $parts['root'], $parts['type'], $data['grid_id'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
         if ( empty( $data['section_label'] ) ) {
@@ -761,7 +761,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             if ( 'post' === $item['type'] || 'global' === $item['type'] ) {
                 $list['minus_custom'][] = $item['grid_id'];
             }
-            if ( 'post' === $item['type']) {
+            if ( 'post' === $item['type'] ) {
                 $list['post_only'][] = $item['grid_id'];
             }
         }
@@ -771,7 +771,6 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         $list['post_only'] = array_unique( $list['post_only'] );
 
         return $list;
-
     }
 
     public static function _remaining_global_prayed_list( $list_4770 = null ) {

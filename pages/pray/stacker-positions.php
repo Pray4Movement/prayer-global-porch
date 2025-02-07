@@ -141,7 +141,7 @@ class PG_Stacker_Positions {
                     ]
                 ];
             }
-            else if ( $stack['location']['deaths_christian_adherents_next_100'] > 1) {
+            else if ( $stack['location']['deaths_christian_adherents_next_100'] > 1 ) {
                  $templates[] = [
                     'type' => 'population_change_icon_block',
                     'data' => [
