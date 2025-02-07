@@ -165,9 +165,5 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
                 return new WP_Error( __METHOD__, 'Incorrect action', [ 'status' => 400 ] );
         }
     }
-
-    public function get_location_by_grid_id( $grid_id, $all = false ) {
-        return PG_Stacker::build_location_stack( $grid_id, $all );
-    }
 }
 PG_Global_Prayer_App_Location::instance();
