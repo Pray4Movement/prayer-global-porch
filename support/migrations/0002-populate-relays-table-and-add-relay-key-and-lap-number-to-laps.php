@@ -53,9 +53,9 @@ class Prayer_Global_Migration_0002 extends Prayer_Global_Migration {
                 CLOSE cursorActiveLaps;
             END
         " );
-        $wpdb->query( "
+        $wpdb->query( '
             DROP PROCEDURE IF EXISTS update_relay_with_relay_key;
-        " );
+        ' );
         $wpdb->query( "
             ### Get the ancestor laps from the active lap
             CREATE PROCEDURE update_relay_with_relay_key(id INT, lap_type VARCHAR(20))
@@ -137,9 +137,9 @@ class Prayer_Global_Migration_0002 extends Prayer_Global_Migration {
                 CALL populate_relay_table_with_data( relay_key, lap_number, start_time );
             END
         " );
-        $wpdb->query( "
+        $wpdb->query( '
             DROP PROCEDURE IF EXISTS update_relay_with_id;
-        " );
+        ' );
         $wpdb->query( "
             CREATE PROCEDURE update_relay_with_id(lap_id INT, relay_id VARCHAR(20))
             BEGIN
@@ -147,9 +147,9 @@ class Prayer_Global_Migration_0002 extends Prayer_Global_Migration {
                 VALUES ( lap_id, 'prayer_app_relay_key', relay_id );
             END
         " );
-        $wpdb->query( "
+        $wpdb->query( '
             DROP PROCEDURE IF EXISTS populate_relay_table_with_data;
-        " );
+        ' );
         $wpdb->query( "
             CREATE PROCEDURE populate_relay_table_with_data(relay_key VARCHAR(20), lap_number INT, start_time VARCHAR(20))
             BEGIN
