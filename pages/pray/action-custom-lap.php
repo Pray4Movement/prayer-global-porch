@@ -132,6 +132,8 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'user_id' => get_current_user_id(),
                     'is_custom' => ( 'custom' === $this->parts['type'] ),
                     'is_cta_feature_on' => !$current_lap['ctas_off'],
+                    'direct_api_url' => plugin_dir_url( dirname( __DIR__ ) ),
+                    'cache_url' => 'https://s3.prayer.global/',
                 ]) ?>][0]
             </script>
             <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>lap.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap.css' ) ) ?>" type="text/css" media="all">
