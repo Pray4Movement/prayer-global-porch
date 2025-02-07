@@ -96,7 +96,7 @@ function setupListeners() {
   leaveModalButton.addEventListener("click", leavePraying);
 
   doneButton.addEventListener("click", celebrateAndDone);
-  nextButton.addEventListener("click", celebrateAndNext);
+  nextButton?.addEventListener("click", celebrateAndNext);
 
   settingsButton.addEventListener("click", () => toggleTimer(true));
   settingsDoneButton.addEventListener("click", () => toggleTimer(false));
