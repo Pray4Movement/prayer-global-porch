@@ -13,7 +13,6 @@ trait PG_Lap_Trait {
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
         return [
             'lap-css',
-            'mapbox-gl-css',
         ];
     }
 
@@ -21,7 +20,6 @@ trait PG_Lap_Trait {
         pg_enqueue_script( 'report-js', 'pages/pray/report.js', [ 'jquery', 'global-functions' ], true );
         pg_enqueue_script( 'lap-js', 'pages/pray/lap.js', [ 'jquery', 'global-functions', 'report-js' ], true );
 
-        wp_enqueue_style_async( 'mapbox-gl-css', DT_Mapbox_API::$mapbox_gl_css, [], '1.1.0', 'all' );
         wp_enqueue_style( 'lap-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'lap.css', [], fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap.css' ), 'all' );
     }
 
@@ -83,9 +81,20 @@ trait PG_Lap_Trait {
         <nav class="prayer-navbar">
             <div class="container praying-button-group" id="praying-panel" role="group" aria-label="Praying Button">
                 <div class="btn btn-praying prayer-odometer">
-                    <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 33 33">
-                        <use href="#pg-prayer"></use>
-                    </svg>
+
+                    <?php if ( is_user_logged_in() ) : ?>
+
+                        <?php //phpcs:ignore ?>
+                        <?php echo pg_profile_icon() ?>
+
+                    <?php else : ?>
+
+                        <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 33 33">
+                            <use href="#pg-prayer"></use>
+                        </svg>
+
+                    <?php endif; ?>
+
                     <span class="location-count">-</span>
                 </div>
                 <button type="button" class="btn praying-timer" id="praying-button" data-percent="0" data-seconds="0">
