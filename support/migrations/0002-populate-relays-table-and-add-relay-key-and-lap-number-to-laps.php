@@ -26,6 +26,10 @@ class Prayer_Global_Migration_0002 extends Prayer_Global_Migration {
         /* Add correct global_lap_number to all ancestor laps */
         /* populate the relays table using the latest lap number and reports table to create a lap_number... lap_number-1... structure */
 
+
+        $wpdb->query( '
+            DROP PROCEDURE IF EXISTS update_all_relays_with_relay_key;
+        ' );
         $wpdb->query( "
             CREATE PROCEDURE update_all_relays_with_relay_key( lap_type VARCHAR(20) )
             BEGIN
@@ -33,10 +37,10 @@ class Prayer_Global_Migration_0002 extends Prayer_Global_Migration {
                 DECLARE lap_id INT;
                 DECLARE cursorActiveLaps CURSOR FOR
                     SELECT ID from $wpdb->posts
-                        JOIN $wpdb->postmeta p1 ON ID = p1.post_id AND p1.meta_key = 'type' AND p1.meta_value = lap_type;
+                        JOIN $wpdb->postmeta p1 ON ID = p1.post_id AND p1.meta_key = 'type' AND p1.meta_value = lap_type
                         LEFT JOIN $wpdb->p2p pp ON p2p_from = ID
                         WHERE post_type = 'laps'
-                        AND p2p_from IS NULL
+                        AND p2p_from IS NULL;
                 DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
 
                 OPEN cursorActiveLaps;
