@@ -171,13 +171,14 @@ function pg_get_custom_lap_by_post_id( $post_id ) {
 //        return wp_cache_get( __METHOD__. $post_id );
 //    }
 
-    $result = DT_Posts::get_post( 'laps', $post_id, true, false );
+    $result = DT_Posts::get_post( 'pg_relays', $post_id, true, false );
 
     if ( is_wp_error( $result ) ) {
         $lap = false;
     } else if ( empty( $result ) ) {
         $lap = false;
     } else {
+        /* Not sure what this is doing... why does no end_time suggest it's ongoing?? */
         $ongoing = false;
         if ( empty( $result['end_time'] ) ) {
             $result['end_time'] = time();

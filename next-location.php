@@ -18,7 +18,7 @@ mysqli_report( MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT );
 //phpcs:ignore
 $conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
 
-if ($conn->connect_error) {
+if ( $conn->connect_error ) {
     send_response( array(
         'status' => 'error',
         'error' => 'Unable to make connection with DB',
@@ -35,7 +35,7 @@ $relays_table = new PG_Relays_Table( $conn, $db_prefix );
 try {
     $next_location = $relays_table->get_next_grid_id( $relay_id );
     $relays_table->log_promise_timestamp( $relay_id, $next_location );
-} catch (\Throwable $th) {
+} catch ( \Throwable $th ) {
     send_response( array(
         'status' => 'error',
         'error' => $th->getMessage(),
