@@ -35,8 +35,7 @@ class Prayer_Global_Menu {
      */
     public function __construct() {
 
-        add_action( "admin_menu", array( $this, "register_menu" ) );
-
+        add_action( 'admin_menu', array( $this, 'register_menu' ) );
     } // End __construct()
 
 
@@ -63,8 +62,8 @@ class Prayer_Global_Menu {
             wp_die( 'You do not have sufficient permissions to access this page.' );
         }
 
-        if ( isset( $_GET["tab"] ) ) {
-            $tab = sanitize_key( wp_unslash( $_GET["tab"] ) );
+        if ( isset( $_GET['tab'] ) ) {
+            $tab = sanitize_key( wp_unslash( $_GET['tab'] ) );
         } else {
             $tab = 'general';
         }
@@ -82,11 +81,11 @@ class Prayer_Global_Menu {
 
             <?php
             switch ( $tab ) {
-                case "general":
+                case 'general':
                     $object = new Prayer_Global_Tab_General();
                     $object->content();
                     break;
-                case "second":
+                case 'second':
                     $object = new Prayer_Global_Tab_Second();
                     $object->content();
                     break;
@@ -146,7 +145,7 @@ class Prayer_Global_Tab_General {
 
             $post_list = dt_recursive_sanitize_array( $_POST['list'] );
             foreach ( $post_list as $field_key => $value ){
-                if ( isset( $saved_fields[$field_key]["type"], $_POST['list'][$field_key] ) && $saved_fields[$field_key]["type"] === "textarea" ){ // if textarea
+                if ( isset( $saved_fields[$field_key]['type'], $_POST['list'][$field_key] ) && $saved_fields[$field_key]['type'] === 'textarea' ){ // if textarea
                     $post_list[$field_key] = wp_kses( wp_unslash( $_POST['list'][$field_key] ), $allowed_tags );
                 }
             }
@@ -176,7 +175,7 @@ class Prayer_Global_Tab_General {
                 </thead>
                 <tbody>
                 <?php foreach ( $fields as $key => $field ) :
-                    if ( isset( $field["enabled"] ) && $field["enabled"] === false ){
+                    if ( isset( $field['enabled'] ) && $field['enabled'] === false ){
                         continue;
                     }
                     if ( !isset( $field['type'] ) || 'text' === $field['type'] ) : ?>

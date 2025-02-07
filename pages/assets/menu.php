@@ -93,7 +93,6 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
     </div>
 
     <?php
-
 }
 
 ?>

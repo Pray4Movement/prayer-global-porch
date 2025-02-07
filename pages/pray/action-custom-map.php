@@ -363,7 +363,6 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
             default:
                 return new WP_Error( __METHOD__, 'missing action parameter' );
         }
-
     }
 
     public function get_grid( $parts ) {
@@ -469,6 +468,5 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
 
         return $user_locations;
     }
-
 }
 PG_Custom_Prayer_App_Map::instance();

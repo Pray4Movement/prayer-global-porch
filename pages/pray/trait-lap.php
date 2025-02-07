@@ -462,8 +462,8 @@ trait PG_Lap_Trait {
                         </p>
                     </div>
                     <div class="modal-footer center">
-                        <button type="button" class="btn btn-outline-primary uppercase" id="decision__keep_praying" data-bs-dismiss="modal"><?php echo esc_html__( "Keep Praying", 'prayer-global-porch' ) ?></button>
-                        <button type="button" class="btn btn-primary" id="decision__leave" data-bs-dismiss="modal"><?php echo esc_html__( "Leave", 'prayer-global-porch' ) ?></button>
+                        <button type="button" class="btn btn-outline-primary uppercase" id="decision__keep_praying" data-bs-dismiss="modal"><?php echo esc_html__( 'Keep Praying', 'prayer-global-porch' ) ?></button>
+                        <button type="button" class="btn btn-primary" id="decision__leave" data-bs-dismiss="modal"><?php echo esc_html__( 'Leave', 'prayer-global-porch' ) ?></button>
                     </div>
                 </div>
             </div>
@@ -606,7 +606,7 @@ trait PG_Lap_Trait {
     public function save_log( $parts, $data ) {
 
         if ( !isset( $parts['post_id'], $parts['root'], $parts['type'], $data['grid_id'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
         $this->update_relay_total( $parts['public_key'], $data['grid_id'] );
@@ -653,9 +653,9 @@ trait PG_Lap_Trait {
      * @param $data
      * @return int|WP_Error
      */
-    public function increment_log( $parts, $data) {
+    public function increment_log( $parts, $data ) {
         if ( !isset( $parts['post_id'], $parts['root'], $parts['type'], $data['report_id'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
         /* Check that the report exists */
         $report = Disciple_Tools_Reports::get( $data['report_id'], 'id' );
@@ -842,5 +842,4 @@ trait PG_Lap_Trait {
             ]
         );
     }
-
 }

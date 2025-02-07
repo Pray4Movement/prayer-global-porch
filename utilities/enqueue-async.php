@@ -45,8 +45,8 @@ function pg_filter_style_loader_tag( $tag, $handle ){
     global $enqueue_async_handles;
     $filter_tag = $tag;
     // Async loading via print mediaquery switching
-    if ( in_array( $handle, array_merge( $enqueue_async_handles->styles->async, $enqueue_async_handles->styles->async_preload ), true )){
-        if ( !preg_match( '/\sonload=|\smedia=["\']none["\']/', $tag )){
+    if ( in_array( $handle, array_merge( $enqueue_async_handles->styles->async, $enqueue_async_handles->styles->async_preload ), true ) ){
+        if ( !preg_match( '/\sonload=|\smedia=["\']none["\']/', $tag ) ){
             // Lazy load with JS, but also but noscript in case no JS
             $no_script_str = '<noscript>' . $tag . '</noscript>';
             // Add onload and media="none" attr, and put together with noscript
@@ -58,9 +58,9 @@ function pg_filter_style_loader_tag( $tag, $handle ){
         }
     }
     // Async loading via preload and loadCSS - https://github.com/filamentgroup/loadCSS/
-    if (in_array( $handle, $enqueue_async_handles->styles->async_preload, true )){
+    if ( in_array( $handle, $enqueue_async_handles->styles->async_preload, true ) ){
         // Do not touch if already modified
-        if ( !preg_match( '/\srel=["\']preload|\sonload=["\']/', $tag )){
+        if ( !preg_match( '/\srel=["\']preload|\sonload=["\']/', $tag ) ){
             // Strip rel="" & as="" portion, if exist
             $tag = preg_replace( '/\srel=["\'][^"\']*["\']|\sas=["\'][^"\']*["\']/', '', $tag, -1 );
             // Add onload, rel="preload", as="style", and put together with noscript

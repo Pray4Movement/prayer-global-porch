@@ -49,7 +49,6 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
-
     }
 
     public function _header() {
@@ -362,6 +361,5 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/footer.php' );
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/share-modal.php' );
     }
-
 }
 PG_Global_Prayer_App_Location_Map::instance();

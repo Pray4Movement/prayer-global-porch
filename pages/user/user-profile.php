@@ -98,8 +98,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'private' => esc_html( __( 'Private', 'prayer-global-porch' ) ),
                 'public_relays' => esc_html( __( 'My Public Relays', 'prayer-global-porch' ) ),
                 'private_relays' => esc_html( __( 'My Private Relays', 'prayer-global-porch' ) ),
-                'private_explanation1' => sprintf( esc_html( __( "Private relays do not show on the %s page, but can be shared with your team mates.", 'prayer-global-porch' ) ), '<a href="/challenges/active">' . esc_html__( 'Prayer Relays', 'prayer-global-porch' ) . '</a>' ),
-                'public_explanation1' => sprintf( esc_html( __( "Your public relays will also appear on the %s page.", 'prayer-global-porch' ) ), '<a href="/challenges/active">' . esc_html__( 'Prayer Relays', 'prayer-global-porch' ) . '</a>' ),
+                'private_explanation1' => sprintf( esc_html( __( 'Private relays do not show on the %s page, but can be shared with your team mates.', 'prayer-global-porch' ) ), '<a href="/challenges/active">' . esc_html__( 'Prayer Relays', 'prayer-global-porch' ) . '</a>' ),
+                'public_explanation1' => sprintf( esc_html( __( 'Your public relays will also appear on the %s page.', 'prayer-global-porch' ) ), '<a href="/challenges/active">' . esc_html__( 'Prayer Relays', 'prayer-global-porch' ) . '</a>' ),
                 'no_relays_found' => esc_html__( 'You have not created any %s relays yet', 'prayer-global-porch' ),
                 'view_join_other_relays' => esc_html__( 'View other public relays', 'prayer-global-porch' ),
                 'edit' => esc_html__( 'Edit', 'prayer-global-porch' ),
@@ -318,7 +318,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             '/'.$this->type,
             [
                 [
-                    'methods'  => "POST",
+                    'methods'  => 'POST',
                     'callback' => [ $this, 'endpoint' ],
                     'permission_callback' => '__return_true',
                 ],
@@ -331,7 +331,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         $params = $request->get_params();
 
         if ( ! isset( $params['parts'], $params['action'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
         $params = dt_recursive_sanitize_array( $params );
@@ -360,8 +360,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             default:
                 return $params;
         }
-
-
     }
 
     /**
@@ -515,8 +513,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         }
 
         $data = [
-            "location" => $response,
-            "location_hash" => $hash,
+            'location' => $response,
+            'location_hash' => $hash,
         ];
 
         $this->update_user_meta( $data );
@@ -668,12 +666,12 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         ];
 
         if ( isset( $data['start_date'] ) ) {
-            $fields["start_date"] = (int) $data['start_date'];
-            $fields["start_time"] = (int) $data['start_date'];
+            $fields['start_date'] = (int) $data['start_date'];
+            $fields['start_time'] = (int) $data['start_date'];
         }
         if ( isset( $data['end_date'] ) ) {
-            $fields["end_date"] = (int) $data['end_date'];
-            $fields["end_time"] = (int) $data['end_date'];
+            $fields['end_date'] = (int) $data['end_date'];
+            $fields['end_time'] = (int) $data['end_date'];
         }
 
         $fields['assigned_to'] = $user_id;
@@ -717,12 +715,12 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         }
 
         if ( isset( $data['start_date'] ) ) {
-            $fields["start_date"] = (int) $data['start_date'];
-            $fields["start_time"] = (int) $data['start_date'];
+            $fields['start_date'] = (int) $data['start_date'];
+            $fields['start_time'] = (int) $data['start_date'];
         }
         if ( isset( $data['end_date'] ) ) {
-            $fields["end_date"] = (int) $data['end_date'];
-            $fields["end_time"] = (int) $data['end_date'];
+            $fields['end_date'] = (int) $data['end_date'];
+            $fields['end_time'] = (int) $data['end_date'];
         }
         if ( isset( $data['single_lap'] ) ) {
             $fields['single_lap'] = (bool) $data['single_lap'];
@@ -772,6 +770,5 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         return $data;
     }
-
 }
 PG_User_App_Profile::instance();

@@ -225,7 +225,7 @@ class PG_Global_Prayer_App_Stats extends PG_Global_Prayer_App {
         $params = $request->get_params();
 
         if ( ! isset( $params['parts'], $params['action'], $params['data'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
         $params = dt_recursive_sanitize_array( $params );
@@ -282,6 +282,5 @@ class PG_Global_Prayer_App_Stats extends PG_Global_Prayer_App {
             'user_stats' => $user_stats,
         ];
     }
-
 }
 PG_Global_Prayer_App_Stats::instance();

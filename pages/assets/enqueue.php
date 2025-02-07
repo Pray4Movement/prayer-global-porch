@@ -74,7 +74,6 @@ add_action( 'wp_enqueue_scripts', function (){
             'Join us in covering the world in prayer' => __( 'Join us in covering the world in prayer', 'prayer-global-porch' ),
         ],
     ] );
-
 }, 1000 );
 
 

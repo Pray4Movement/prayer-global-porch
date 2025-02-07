@@ -124,17 +124,17 @@ class PG_Stacker {
         }
 
         $community_stats = [
-            "time_prayed" => [
-                "me" => 0,
-                "community" => 0,
-                "total" => 0,
+            'time_prayed' => [
+                'me' => 0,
+                'community' => 0,
+                'total' => 0,
             ],
-            "times_prayed" => [
-                "me" => 0,
-                "community" => 0,
-                "total" => 0,
+            'times_prayed' => [
+                'me' => 0,
+                'community' => 0,
+                'total' => 0,
             ],
-            "logs" => [],
+            'logs' => [],
         ];
 
         foreach ( $community_activity as $key => $activity ) {
@@ -157,7 +157,7 @@ class PG_Stacker {
         $community_stats['time_prayed']['total'] = $community_stats['time_prayed']['me'] + $community_stats['time_prayed']['community'];
         $community_stats['logs'] = $community_activity;
 
-        $stack["stats"] = $community_stats;
+        $stack['stats'] = $community_stats;
 
         return $stack;
     }
@@ -187,26 +187,26 @@ class PG_Stacker {
         $args = [ $user_id ];
 
         if ( !is_null( $grid_id ) ) {
-            $sql .= "AND r.grid_id = %d";
+            $sql .= 'AND r.grid_id = %d';
             $args[] = $grid_id;
         }
 
-        $sql .= "
+        $sql .= '
             ORDER BY r.timestamp DESC
             LIMIT %d, %d
-        ";
+        ';
         $args[] = $offset;
         $args[] = $limit;
 
         $user_activity = $wpdb->get_results( $wpdb->prepare( $sql, $args ), ARRAY_A ); // @phpcs:ignore
 
         $user_stats = [
-            "offset" => (int) $offset,
-            "limit" => (int) $limit,
-            "logs" => [],
+            'offset' => (int) $offset,
+            'limit' => (int) $limit,
+            'logs' => [],
         ];
 
-        foreach ($user_activity as $key => $activity) {
+        foreach ( $user_activity as $key => $activity ) {
             $user_activity[$key] = pg_soft_time_format( $activity, 'timestamp', 'when_text', 'when_text_formatted' );
 
             $minutes_prayed = (int) $activity['minutes'];
@@ -427,13 +427,13 @@ class PG_Stacker {
         $grid_record['new_churches_needed'] = self::_get_pace( 'new_churches_needed', $grid_record );
 
         $status = [];
-        for ($i = 1; $i <= $grid_record['percent_christian_adherents']; $i++) {
+        for ( $i = 1; $i <= $grid_record['percent_christian_adherents']; $i++ ) {
             $status[] = 'christian_adherents';
         }
-        for ($i = 1; $i <= $grid_record['percent_non_christians']; $i++) {
+        for ( $i = 1; $i <= $grid_record['percent_non_christians']; $i++ ) {
             $status[] = 'non_christians';
         }
-        for ($i = 1; $i <= $grid_record['percent_believers']; $i++) {
+        for ( $i = 1; $i <= $grid_record['percent_believers']; $i++ ) {
             $status[] = 'believers';
         }
         $grid_record['favor'] = $status[array_rand( $status )];
@@ -678,5 +678,4 @@ class PG_Stacker {
 
         return number_format( intval( $return_value ) );
     }
-
 }
