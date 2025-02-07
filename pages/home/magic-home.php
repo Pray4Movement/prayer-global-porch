@@ -172,13 +172,16 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
             return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
         }
 
-//        $params = dt_recursive_sanitize_array( $params );
+        $data = get_transient( 'pg_home_stats' );
+        if ( !empty( $data ) ) {
+            return $data;
+        }
 
         $current_global_lap = pg_current_global_lap();
         $current_global_stats = pg_global_stats_by_lap_number( $current_global_lap['lap_number'] );
         $global_race = pg_global_race_stats();
 
-        return [
+        $data = [
             'current_time_elapsed' => $current_global_stats['time_elapsed'],
             'current_time_elapsed_data' => $current_global_stats['time_elapsed_data'],
             'current_participants' => $current_global_stats['participants'],
@@ -190,7 +193,8 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
             'global_minutes_prayed' => $global_race['minutes_prayed'],
             'global_lap_number' => (int) $global_race['number_of_laps'] - 1,
         ];
+        set_transient( 'pg_home_stats', $data, 5 * MINUTE_IN_SECONDS );
+        return $data;
     }
-
 }
 Prayer_Global_Porch_Home::instance();
