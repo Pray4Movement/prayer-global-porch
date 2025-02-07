@@ -107,7 +107,7 @@ class PG_Custom_Prayer_App_Completed extends PG_Custom_Prayer_App {
                 <div class="row ">
                     <div class="col text-center">
                         <h2 class="heading mb-5">
-                            <?php echo esc_attr( sprintf( _X( 'Lap %s Completed!', 'Lap 20 Completed!', 'prayer-global-porch' ), $lap_stats['lap_number']  ) ) ?>
+                            <?php echo esc_attr( sprintf( _X( 'Lap %s Completed!', 'Lap 20 Completed!', 'prayer-global-porch' ), $lap_stats['lap_number'] ) ) ?>
                         </h2>
                         <a href="<?php echo esc_url( '/'. $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/map' ) ?>" role="button" class="btn smoothscroll cta_button btn-primary uppercase"><?php esc_html_e( 'View Map', 'prayer-global-porch' ); ?></a>
                         <a href="/newest/lap/" role="button" class="btn smoothscroll cta_button btn-primary uppercase"><?php esc_html_e( 'Go To The Current Lap', 'prayer-global-porch' ); ?></a> <br>
@@ -140,7 +140,7 @@ class PG_Custom_Prayer_App_Completed extends PG_Custom_Prayer_App {
                     <div class="col-md-6">
                         <h2 class="heading mb-3"><?php esc_html_e( 'Participants', 'prayer-global-porch' ); ?></h2>
                         <div class="sub-heading ps-4">
-                            <p class="mb-0"><?php echo esc_attr( sprintf( _X( '%s Prayer Intercessors Participated', '192 Prayer Intercessors Participated', 'prayer-global-porch' ), $lap_stats['participants'] )  ) ?> </p>
+                            <p class="mb-0"><?php echo esc_attr( sprintf( _X( '%s Prayer Intercessors Participated', '192 Prayer Intercessors Participated', 'prayer-global-porch' ), $lap_stats['participants'] ) ) ?> </p>
 
                             <p class="mb-2"><u><?php esc_html_e( 'Top Intercessor Locations', 'prayer-global-porch' ); ?></u></p>
                             <ol class="intercessor-locations">
@@ -173,6 +173,5 @@ class PG_Custom_Prayer_App_Completed extends PG_Custom_Prayer_App {
 
         <?php
     }
-
 }
 PG_Custom_Prayer_App_Completed::instance();

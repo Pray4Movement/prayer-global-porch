@@ -44,7 +44,7 @@ class PG_CTAs_API {
         $params = $request->get_params();
 
         if ( ! isset( $params['parts'], $params['action'], $params['data'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
         $params = dt_recursive_sanitize_array( $params );
@@ -53,7 +53,7 @@ class PG_CTAs_API {
             case 'get_cta':
                 return $this->get_cta();
             default:
-                return new WP_Error( __METHOD__, "Incorrect action", [ 'status' => 400 ] );
+                return new WP_Error( __METHOD__, 'Incorrect action', [ 'status' => 400 ] );
         }
     }
 

@@ -39,7 +39,6 @@ class PG_Custom_Prayer_App_Stats extends PG_Custom_Prayer_App {
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
 
         require( __DIR__ . '/nav-custom-lap.php' );
-
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -160,6 +159,5 @@ class PG_Custom_Prayer_App_Stats extends PG_Custom_Prayer_App {
         <?php require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/working-footer.php' ) ?>
         <?php // end html
     }
-
 }
 PG_Custom_Prayer_App_Stats::instance();

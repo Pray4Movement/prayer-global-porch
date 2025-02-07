@@ -31,7 +31,7 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
 
 
             // register url and access
-            add_action( "template_redirect", [ $this, 'theme_redirect' ] );
+            add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
             add_filter( 'dt_blank_access', function (){ return true;
             }, 100, 1 );
             add_filter( 'dt_allow_non_login_access', function (){ return true;
@@ -40,7 +40,7 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
             }, 100, 1 );
 
             // header content
-            add_filter( "dt_blank_title", [ $this, "page_tab_title" ] ); // adds basic title to browser tab
+            add_filter( 'dt_blank_title', [ $this, 'page_tab_title' ] ); // adds basic title to browser tab
             add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 1500 ); // authorizes scripts
             add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
 
@@ -53,7 +53,6 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
             add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
             add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
         }
-
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -92,13 +91,13 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
                     <!-- Item -->
                     <div class="col-12 center">
                         <p>
-                            <?php echo esc_html( __( "We acknowledge that there is no way to possess 100% accurate knowledge of the faith status or location status of every person in the world.", 'prayer-global-porch' ) ) ?>
+                            <?php echo esc_html( __( 'We acknowledge that there is no way to possess 100% accurate knowledge of the faith status or location status of every person in the world.', 'prayer-global-porch' ) ) ?>
                         </p>
                         <p>
                             <?php echo esc_html( __( "No government has this exact number, no business, ... nobody but God has the facts of a person's true faith or whereabouts. Therefore, every demographic fact is a mathematical deduction or extrapolation. (Sorry friends who like exact numbers.)", 'prayer-global-porch' ) ) ?>
                         </p>
                         <p>
-                            <?php echo esc_html( __( "But leveraging the best data sources we can access, we have created a prayer tool to offer informative prayer guidance featuring a unique, close-up location breakdown of the world.", 'prayer-global-porch' ) ) ?>
+                            <?php echo esc_html( __( 'But leveraging the best data sources we can access, we have created a prayer tool to offer informative prayer guidance featuring a unique, close-up location breakdown of the world.', 'prayer-global-porch' ) ) ?>
                         </p>
                     </div>
 
@@ -120,7 +119,7 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
                         <hr>
                         <h3 class="secondary"><?php echo esc_html( __( 'Population Data', 'prayer-global-porch' ) ) ?></h3>
                         <p>
-                            <?php echo esc_html( __( "The population data was acquired and cross-checked through multiple sources; country level data is easy to find; most state level data is relatively easy to find; but county level data for non-western countries often required significant research to compile recent census data.", 'prayer-global-porch' ) ) ?>
+                            <?php echo esc_html( __( 'The population data was acquired and cross-checked through multiple sources; country level data is easy to find; most state level data is relatively easy to find; but county level data for non-western countries often required significant research to compile recent census data.', 'prayer-global-porch' ) ) ?>
                         </p>
 
                         <u><?php echo esc_html__( 'Country Level Population', 'prayer-global-porch' ) ?></u>
@@ -172,16 +171,16 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
                             <li>
                                 <u><?php echo esc_html__( 'Acknowledged Weakness', 'prayer-global-porch' ) ?></u><br>
                                 <p>
-                                    <?php echo esc_html( __( "At best, this methodology can offer a general, estimated target for the faith status of various locations. Actual faith status for each location could vary enormously above or below our estimates.", 'prayer-global-porch' ) ) ?>
+                                    <?php echo esc_html( __( 'At best, this methodology can offer a general, estimated target for the faith status of various locations. Actual faith status for each location could vary enormously above or below our estimates.', 'prayer-global-porch' ) ) ?>
                                 </p>
                                 <p>
-                                    <?php echo esc_html( __( "All calculations of faith status data anywhere suffer the same limitations ... no matter the source ... they are all generalizations.", 'prayer-global-porch' ) ) ?>
+                                    <?php echo esc_html( __( 'All calculations of faith status data anywhere suffer the same limitations ... no matter the source ... they are all generalizations.', 'prayer-global-porch' ) ) ?>
                                 </p>
                                 <p>
-                                    <?php echo esc_html( __( "Our belief is that the estimated numbers for non-christian, cultural christian, and disciple help the person praying to better understand the challenge facing the church in that location. It helps answer questions like: Is this a weak and small church surrounded by a dominant religion? Is this church holding out against an atheist culture? Is this a church trying to be faithful while surrounded by a lukewarm historic cultural church?", 'prayer-global-porch' ) ) ?>
+                                    <?php echo esc_html( __( 'Our belief is that the estimated numbers for non-christian, cultural christian, and disciple help the person praying to better understand the challenge facing the church in that location. It helps answer questions like: Is this a weak and small church surrounded by a dominant religion? Is this church holding out against an atheist culture? Is this a church trying to be faithful while surrounded by a lukewarm historic cultural church?', 'prayer-global-porch' ) ) ?>
                                 </p>
                                 <p>
-                                    <?php echo esc_html( __( "More than the exact number, it is the distribution of knowledge of Jesus that is informative to the praying person.", 'prayer-global-porch' ) ) ?>
+                                    <?php echo esc_html( __( 'More than the exact number, it is the distribution of knowledge of Jesus that is informative to the praying person.', 'prayer-global-porch' ) ) ?>
                                 </p>
                             </li>
                         </ul>
@@ -533,6 +532,5 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
         <?php require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/working-footer.php' ) ?>
         <?php
     }
-
 }
 Prayer_Global_Porch_Data_Source::instance();

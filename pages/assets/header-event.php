@@ -21,6 +21,6 @@ $current_url = dt_get_url_path( false, true );
 
 <link rel="manifest" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ); ?>assets/images/favicons/site.webmanifest">
 
-<?php pg_og_tags( [ "url" => $current_url ] ) ?>
+<?php pg_og_tags( [ 'url' => $current_url ] ) ?>
 
 
