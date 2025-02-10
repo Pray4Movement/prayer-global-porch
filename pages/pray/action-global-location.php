@@ -119,7 +119,7 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
     public function decision_buttons() {
         ?>
 
-        <button type="button" class="btn btn-primary decision" id="decision__map"><?php echo esc_html__( 'Leave', 'prayer-global-porch' ) ?></button>
+        <button type="button" class="btn btn-primary decision" id="decision__leave"><?php echo esc_html__( 'Leave', 'prayer-global-porch' ) ?></button>
 
         <?php
     }

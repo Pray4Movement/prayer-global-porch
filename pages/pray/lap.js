@@ -89,7 +89,8 @@ function setupListeners() {
   prayingContinueButton.addEventListener("click", () => toggleTimer(false));
   morePrayerFuelButton.addEventListener("click", showMorePrayerFuel);
 
-  leaveHomeButton.addEventListener("click", openLeaveModal);
+  /* This button isn't always there in all situations */
+  leaveHomeButton?.addEventListener("click", openLeaveModal);
 
   stayModalButton.addEventListener("click", keepPraying);
   closeModalButton.addEventListener("click", keepPraying);
