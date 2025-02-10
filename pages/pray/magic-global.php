@@ -53,7 +53,7 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
             return;
         }
 
-        $post_id = $this->get_post_id( 'prayer_app_relay_key', $this->parts['public_key'] );
+        $post_id = pg_get_relay_id( $this->parts['public_key'] );
         $this->parts['post_id'] = $post_id;
 
         // must be valid parts
@@ -80,20 +80,6 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
         } else {
             wp_redirect( trailingslashit( site_url() ) );
         }
-    }
-
-    public function get_post_id( string $meta_key, string $public_key ){
-        global $wpdb;
-        $result = $wpdb->get_var( $wpdb->prepare( "
-            SELECT pm.post_id
-            FROM $wpdb->postmeta as pm
-            WHERE pm.meta_key = %s
-              AND pm.meta_value = %s
-              ", $meta_key, $public_key ) );
-        if ( ! empty( $result ) && ! is_wp_error( $result ) ){
-            return $result;
-        }
-        return false;
     }
 
     public function if_rest_add_actions() {

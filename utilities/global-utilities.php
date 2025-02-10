@@ -146,7 +146,27 @@ function pg_relay_check_parts_match( string $url ) {
 
 }
 
+function pg_get_relay_id( string $public_key ) {
+    return pg_get_post_id( 'prayer_app_relay_key', $public_key );
+}
+function pg_get_post_id( string $meta_key, string $public_key ) {
+    global $wpdb;
+    $result = $wpdb->get_var( $wpdb->prepare( "
+        SELECT pm.post_id
+        FROM $wpdb->postmeta as pm
+        WHERE pm.meta_key = %s
+          AND pm.meta_value = %s
+          ", $meta_key, $public_key ) );
+    if ( ! empty( $result ) && ! is_wp_error( $result ) ){
+        return $result;
+    }
+    return false;
+}
+
+
 /**
+ * TODO: deprecate this in favour of pg_get_relay
+ *
  * @param $key
  * @return array|false
  */
@@ -193,6 +213,8 @@ function pg_get_global_lap_by_key( $key ) {
 }
 
 /**
+ * TODO: deprecate this in favour of relay system
+ *
  * @param int|string $post_id
  *
  * @return array
@@ -247,6 +269,7 @@ function pg_get_custom_lap_by_post_id( $post_id ) {
     return $lap;
 }
 
+/* TODO: deprecate  */
 function pg_get_global_lap_by_lap_number( $lap_number ) {
 
 //    if ( wp_cache_get( __METHOD__.$lap_number ) ) {

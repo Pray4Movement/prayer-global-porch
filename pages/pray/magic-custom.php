@@ -62,7 +62,7 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
             return;
         }
 
-        $relay_post_id = $this->get_post_id( 'prayer_app_relay_key', $this->parts['public_key'] );
+        $relay_post_id = pg_get_relay_id( $this->parts['public_key'] );
 
         if ( !$relay_post_id ) {
             return;
@@ -105,19 +105,6 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
         $this->page_title = $this->stats['title'] ?? 'Prayer Relay';
     }
 
-    public function get_post_id( string $meta_key, string $public_key ) {
-        global $wpdb;
-        $result = $wpdb->get_var( $wpdb->prepare( "
-            SELECT pm.post_id
-            FROM $wpdb->postmeta as pm
-            WHERE pm.meta_key = %s
-              AND pm.meta_value = %s
-              ", $meta_key, $public_key ) );
-        if ( ! empty( $result ) && ! is_wp_error( $result ) ){
-            return $result;
-        }
-        return false;
-    }
     /* Setup $parts manually */
 
     public function dt_settings_apps_list( $apps_list ) {
