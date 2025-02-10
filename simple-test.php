@@ -16,7 +16,7 @@ mysqli_report( MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT );
 //phpcs:ignore
 $mysqli = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
 
-if ($mysqli->connect_error) {
+if ( $mysqli->connect_error ) {
     //phpcs:ignore
     die( "Connection failed: " . $mysqli->connect_error );
 }
@@ -201,7 +201,7 @@ try {
     if ( false === $results ) {
         throw new ErrorException( 'Failed to get location not recently promised' );
     }
-} catch (\Throwable $th) {
+} catch ( \Throwable $th ) {
     send_response( [
         'status' => 'error',
         'error' => $th->getMessage(),
