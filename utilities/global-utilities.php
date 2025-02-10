@@ -68,10 +68,10 @@ function pg_current_global_lap() : array {
         FROM $wpdb->postmeta pm
         JOIN $wpdb->postmeta pm1 ON pm.post_id = pm1.post_id AND pm1.meta_key = 'prayer_app_relay_key'
         JOIN $wpdb->postmeta pm2 ON pm.post_id = pm2.post_id AND pm2.meta_key = 'start_time'
-        #JOIN $wpdb->dt_relays r ON r.relay_id = pm1.meta_value
+        #JOIN $wpdb->dt_relays r ON r.relay_key = pm1.meta_value
         WHERE pm.meta_key = 'type'
         AND pm.meta_value = 'global'
-        #GROUP BY r.relay_id
+        #GROUP BY r.relay_key
     ", ARRAY_A);
 
     $result = [

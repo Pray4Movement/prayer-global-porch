@@ -7,7 +7,7 @@ class Prayer_Stats {
         return (int) $wpdb->get_var( $wpdb->prepare(
             "SELECT MIN(total) as lap_number
             FROM $wpdb->dt_relays
-            WHERE relay_id = %s", $relay_key ) );
+            WHERE relay_key = %s", $relay_key ) );
     }
 
     public static function get_relay_current_lap( $relay_key = '49ba4c' ){
@@ -21,13 +21,13 @@ class Prayer_Stats {
         global $wpdb;
         $data = $wpdb->get_row( $wpdb->prepare(
             "SELECT MIN(total) as lap_number, MIN( epoch ) as start_time,
-            ( SELECT pm.post_id 
+            ( SELECT pm.post_id
                 FROM $wpdb->postmeta pm
                 WHERE pm.meta_key = 'prayer_app_relay_key'
                 AND pm.meta_value = %s
              ) as post_id
             FROM $wpdb->dt_relays
-            WHERE relay_id = %s", $relay_key, $relay_key ), ARRAY_A );
+            WHERE relay_key = %s", $relay_key, $relay_key ), ARRAY_A );
         return [
             'lap_number' => (int) $data['lap_number'],
             'post_id' => (int) $data['post_id'],
@@ -42,7 +42,7 @@ class Prayer_Stats {
 
         global $wpdb;
         $result = $wpdb->get_row( $wpdb->prepare("
-            SELECT 
+            SELECT
             MIN( r.timestamp ) as start_time,
             MAX( r.timestamp ) as end_time,
             COUNT( DISTINCT( r.grid_id ) ) as locations_completed,
@@ -77,7 +77,7 @@ class Prayer_Stats {
 
         global $wpdb;
         $result = $wpdb->get_row( $wpdb->prepare("
-            SELECT 
+            SELECT
             MIN( r.timestamp ) as start_time,
             MAX( r.timestamp ) as end_time,
             COUNT( DISTINCT( r.grid_id ) ) as locations_completed,

@@ -406,9 +406,9 @@ function waitForLocation() {
         return gridId;
       }
 
-      const relayId = jsObject.parts.public_key;
+      const relayKey = jsObject.parts.public_key;
       return fetch(
-        `${jsObject.direct_api_url}/next-location.php?relay_id=${relayId}`
+        `${jsObject.direct_api_url}/next-location.php?relay_key=${relayKey}`
       )
         .then((response) => {
           if (!response.ok) {

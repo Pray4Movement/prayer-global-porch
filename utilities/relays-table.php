@@ -16,13 +16,13 @@ class PG_Relays_Table {
         $this->postmeta_table = $db_prefix . 'postmeta';
     }
 
-    public function log_promise_timestamp( $relay_id, $grid_id ) {
+    public function log_promise_timestamp( $relay_key, $grid_id ) {
         $response = $this->mysqli->execute_query( "
             UPDATE $this->relay_table
             SET epoch = ?
-            WHERE relay_id = ?
+            WHERE relay_key = ?
             AND grid_id = ?
-        ", [ time(), $relay_id, $grid_id ] );
+        ", [ time(), $relay_key, $grid_id ] );
 
         if ( !$response ) {
             throw new ErrorException( 'Failed to update promise timestamp' );
@@ -30,13 +30,13 @@ class PG_Relays_Table {
     }
 
     /* https://www.sqlines.com/mysql/how-to/select-update-single-statement-race-condition */
-    public function update_relay_total( $relay_id, $grid_id ) {
+    public function update_relay_total( $relay_key, $grid_id ) {
         $response = $this->mysqli->execute_query( "
             UPDATE $this->relay_table
             SET total = LAST_INSERT_ID(total + 1)
-            WHERE relay_id = ?
+            WHERE relay_key = ?
             AND grid_id = ?
-        ", [ $relay_id, $grid_id ] );
+        ", [ $relay_key, $grid_id ] );
 
         if ( !$response ) {
             throw new ErrorException( 'Failed to update relay total' );
@@ -140,9 +140,9 @@ class PG_Relays_Table {
         }
     }
 
-    public function get_next_grid_id( $relay_id ) {
+    public function get_next_grid_id( $relay_key ) {
         /* Get locations which haven't been prayed for yet this lap, and haven't been promised in the last minute */
-        $next_location = $this->query_needed_locations_not_recently_promised( $relay_id );
+        $next_location = $this->query_needed_locations_not_recently_promised( $relay_key );
 
         /* IF even that fails, then just give a random location */
         if ( empty( $next_location ) ) {
@@ -154,7 +154,7 @@ class PG_Relays_Table {
         return $next_location['grid_id'];
     }
 
-    private function get_relay_id( $relay_id ) {
+    private function get_relay_id( $relay_key ) {
         $active_lap = $this->mysqli->execute_query( "
             SELECT p.ID FROM $this->posts_table p
                 JOIN $this->postmeta_table pm ON pm.post_id = p.ID
@@ -163,7 +163,7 @@ class PG_Relays_Table {
                 AND pm.meta_value = ?
                 AND pm1.meta_key = 'status'
                 AND pm1.meta_value = 'active'
-        ", [ $relay_id ] );
+        ", [ $relay_key ] );
 
         if ( false === $active_lap ) {
             throw new ErrorException( 'Failed to get *needed* location not recently promised' );
@@ -176,17 +176,17 @@ class PG_Relays_Table {
 
     /**
      * Get a random location that hasn't been prayed for and hasn't been recently promised
-     * @param string $relay_id
+     * @param string $relay_key
      * @return array|object|null
      */
-    private function query_needed_locations_not_recently_promised( string $relay_id ) {
+    private function query_needed_locations_not_recently_promised( string $relay_key ) {
         $random_location_which_needs_prayer = $this->mysqli->execute_query( "
             SELECT * FROM $this->relay_table
-                WHERE relay_id = ?
+                WHERE relay_key = ?
                 AND epoch < ?
                 ORDER BY total, RAND()
                 LIMIT 1
-        ", [ $relay_id, time() - 60 ] );
+        ", [ $relay_key, time() - 60 ] );
 
         if ( false === $random_location_which_needs_prayer ) {
             throw new ErrorException( 'Failed to get *needed* location not recently promised' );
