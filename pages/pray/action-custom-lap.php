@@ -111,7 +111,6 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <script>
                 let jsObject = [<?php echo json_encode([
                     'parts' => $this->parts,
-                    'current_lap' => pg_current_global_lap(),
                     'translations' => [
                         'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
                         'Keep Praying...' => __( 'Keep Praying...', 'prayer-global-porch' ),

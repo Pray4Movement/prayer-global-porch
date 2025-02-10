@@ -142,11 +142,6 @@ function pg_current_custom_lap( int $post_id ) : array {
 
     return $current_lap;
 }
-
-function pg_relay_check_parts_match( string $url ) {
-
-}
-
 function pg_get_relay_id( string $public_key ) {
     return pg_get_post_id( 'prayer_app_relay_key', $public_key );
 }
@@ -364,7 +359,7 @@ function pg_global_race_stats() {
 function _pg_global_stats_builder_query( &$data ) {
     global $wpdb;
     $counts = $wpdb->get_row( $wpdb->prepare( "
-        SELECT 
+        SELECT
             SUM(r.value) as minutes_prayed,
             COUNT( DISTINCT( r.grid_id ) ) as locations_completed,
             COUNT( DISTINCT( r.hash ) ) as participants,
