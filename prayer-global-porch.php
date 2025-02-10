@@ -116,6 +116,7 @@ class Prayer_Global_Porch {
         $wpdb->dt_relays = $wpdb->prefix . 'dt_relays';
 
         require_once( 'utilities/global-utilities.php' );
+        require_once( 'utilities/prayer-stats.php' );
         require_once( 'utilities/enqueue-async.php' );
         require_once( 'utilities/login-functions.php' );
         require_once( 'classes/pg-feature-flag.php' );

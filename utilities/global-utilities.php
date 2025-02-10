@@ -43,6 +43,7 @@ function pg_profile_icon() {
 
     return "<i class='icon pg-profile'></i>";
 }
+
 function pg_current_global_lap() : array {
     global $wpdb;
     /**
@@ -311,6 +312,7 @@ function pg_get_global_lap_by_lap_number( $lap_number ) {
 
     return $lap;
 }
+
 function pg_global_stats_by_lap_number( $lap_number ) {
     $data = pg_get_global_lap_by_lap_number( $lap_number );
     _pg_global_stats_builder_query( $data );
@@ -362,7 +364,11 @@ function pg_global_race_stats() {
 function _pg_global_stats_builder_query( &$data ) {
     global $wpdb;
     $counts = $wpdb->get_row( $wpdb->prepare( "
-        SELECT SUM(r.value) as minutes_prayed, COUNT( DISTINCT( r.grid_id ) ) as locations_completed, COUNT( DISTINCT( r.hash ) ) as participants, COUNT(DISTINCT(r.label)) as participant_country_count
+        SELECT 
+            SUM(r.value) as minutes_prayed,
+            COUNT( DISTINCT( r.grid_id ) ) as locations_completed,
+            COUNT( DISTINCT( r.hash ) ) as participants,
+            COUNT(DISTINCT(r.label)) as participant_country_count
         FROM $wpdb->dt_reports r
         WHERE r.post_type = 'laps'
         AND r.type = 'prayer_app'
@@ -416,7 +422,6 @@ function pg_number_completed_event_laps(){
 }
 
 function _pg_stats_builder( $data ) : array {
-//    dt_write_log(__METHOD__);
     /**
      * TIME CALCULATIONS
      */
@@ -483,8 +488,6 @@ function _pg_stats_builder( $data ) : array {
     $data['end_time_formatted'] = gmdate( 'M d, Y', $data['end_time'] );
     $data['timestamp'] = time();
 
-//    dt_write_log(__METHOD__);
-//    dt_write_log($data);
     return $data;
 }
 

@@ -18,19 +18,19 @@ class Prayer_Global_Migration_0004 extends Prayer_Global_Migration {
         global $wpdb;
         $wpdb->posts = $wpdb->prefix . 'posts';
         $wpdb->postmeta = $wpdb->prefix . 'postmeta';
+        $wpdb->p2p = $wpdb->prefix . 'p2p';
 
-        /* Change active lap posts to have type 'relays' */
-        $wpdb->get_col( "
-            UPDATE $wpdb->posts
-            SET post_type = 'pg_relays'
-            WHERE ID in (
-                SELECT ID from $wpdb->posts
-                LEFT JOIN $wpdb->p2p
-                ON ID = p2p_from
-                WHERE post_type = 'laps'
-                AND p2p_from IS NULL
-            )
+        /* Change last child posts to have type 'relays' */
+        $query = $wpdb->get_col( "
+            UPDATE $wpdb->posts p
+            LEFT JOIN $wpdb->p2p p2p ON p.ID = p2p.p2p_from
+            SET p.post_type = 'pg_relays'
+            WHERE p.post_type = 'laps'
+            AND p2p.p2p_from IS NULL
         " );
+        if ( $query === false ) {
+            throw new \Exception( "Got error when updating table $wpdb->dt_reports." );
+        }
     }
 
     /**
