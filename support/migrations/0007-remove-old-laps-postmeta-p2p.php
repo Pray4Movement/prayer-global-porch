@@ -22,7 +22,7 @@ class Prayer_Global_Migration_0007 extends Prayer_Global_Migration {
 
         /* Remove old lap postmeta */
         $query = $wpdb->query( "
-            DELETE wp_postmeta FROM $wpdb->postmeta
+            DELETE $wpdb->postmeta FROM $wpdb->postmeta
             JOIN $wpdb->posts p ON ID = post_id
             WHERE p.post_type = 'laps'
         " );
@@ -31,7 +31,7 @@ class Prayer_Global_Migration_0007 extends Prayer_Global_Migration {
         }
         /* Remove old lap p2p */
         $query = $wpdb->query( "
-            DELETE wp_p2p FROM $wpdb->p2p
+            DELETE $wpdb->p2p FROM $wpdb->p2p
             JOIN $wpdb->posts ON (ID = p2p_from OR ID = p2p_to)
             WHERE post_type = 'laps'
         " );
