@@ -44,6 +44,7 @@ function pg_profile_icon() {
     return "<i class='icon pg-profile'></i>";
 }
 function pg_current_global_lap() : array {
+    global $wpdb;
     /**
      * Example:
      *  [lap_number] => 5
@@ -51,8 +52,35 @@ function pg_current_global_lap() : array {
      *  [key] => d7dcd4
      *  [start_time] => 1651269768
      */
-    $lap = get_option( 'pg_current_global_lap', [] );
-    return $lap;
+
+    /* It used to be stored in an option so that this function would be fast, as it is used all over the place */
+    // $lap = get_option( 'pg_current_global_lap', [] );
+
+    /* TODO: refactor this throughout the app. Maybe use the stats endpoint for this? */
+    /* This will be slower, but more accurate, but won't be being called for the mission critical stuff, so could be ok */
+    $global_relay = $wpdb->get_row( "
+        SELECT
+            pm.post_id as post_id,
+            pm1.meta_value as relay_key,
+            pm2.meta_value as start_time
+            #, MIN(r.total) as lap_number
+        FROM $wpdb->postmeta pm
+        JOIN $wpdb->postmeta pm1 ON pm.post_id = pm1.post_id AND pm1.meta_key = 'prayer_app_relay_key'
+        JOIN $wpdb->postmeta pm2 ON pm.post_id = pm2.post_id AND pm2.meta_key = 'start_time'
+        #JOIN $wpdb->dt_relays r ON r.relay_id = pm1.meta_value
+        WHERE pm.meta_key = 'type'
+        AND pm.meta_value = 'global'
+        #GROUP BY r.relay_id
+    ", ARRAY_A);
+
+    $result = [
+        'lap_number' => -1,
+        'post_id' => $global_relay['post_id'],
+        'key' => $global_relay['relay_key'],
+        'start_time' => $global_relay['start_time'],
+    ];
+
+    return $result;
 }
 
 function pg_current_custom_lap( int $post_id ) : array {
@@ -112,6 +140,10 @@ function pg_current_custom_lap( int $post_id ) : array {
     }
 
     return $current_lap;
+}
+
+function pg_relay_check_parts_match( string $url ) {
+
 }
 
 /**
