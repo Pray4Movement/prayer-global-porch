@@ -74,6 +74,8 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
         }, 1000, 1 );
 
         $relay = DT_Posts::get_post( $this->post_type, $relay_post_id, true, false );
+
+        $action = $this->parts['action'];
         // load different actions
         if ( empty( $action ) ) {
             if ( !empty( $relay['single_lap'] ) && pg_is_lap_complete( $this->parts['post_id'] ) ) {
