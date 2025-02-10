@@ -175,9 +175,9 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
             return $data;
         }
 
-        $current_global_lap = pg_current_global_lap();
-        $current_global_stats = pg_global_stats_by_lap_number( $current_global_lap['lap_number'] );
-        $global_race = pg_stats_since_start_of_relay( $current_global_lap['post_id'] );
+        $current_global_lap = Prayer_Stats::pg_get_relay_current_lap();
+        $current_global_stats = Prayer_Stats::pg_get_lap_stats( $current_global_lap['post_id'], $current_global_lap['lap_number'] );
+        $global_race = Prayer_Stats::pg_stats_since_start_of_relay( $current_global_lap['post_id'] );
 
         $data = [
             'current_time_elapsed' => $current_global_stats['time_elapsed'],
@@ -189,7 +189,7 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
             'global_time_elapsed_data' => $global_race['time_elapsed_data'],
             'global_participants' => $global_race['participants'],
             'global_minutes_prayed' => $global_race['minutes_prayed'],
-            'global_lap_number' => (int) $global_race['number_of_laps'] - 1,
+            'global_lap_number' => (int) $global_race['lap_number'] - 1,
             'race' => $global_race
         ];
         set_transient( 'pg_home_stats', $data, 5 * MINUTE_IN_SECONDS );
