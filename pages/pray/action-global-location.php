@@ -111,7 +111,7 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
     public function question_buttons() {
         ?>
 
-        <button type="button" class="btn btn-primary question" id="question__yes_done">Done</button>
+        <button type="button" class="btn btn-primary question" id="question__yes_done"><?php echo esc_html__( 'Done', 'prayer-global-porch' ) ?></button>
 
         <?php
     }
@@ -119,8 +119,7 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
     public function decision_buttons() {
         ?>
 
-        <button type="button" class="btn btn-primary-dark uppercase decision" id="decision__home">Home</button>
-        <button type="button" class="btn btn-primary decision" id="decision__map">Map</button>
+        <button type="button" class="btn btn-primary decision" id="decision__leave"><?php echo esc_html__( 'Leave', 'prayer-global-porch' ) ?></button>
 
         <?php
     }
@@ -156,17 +155,6 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['action'] ) {
-            case 'refresh-all':
-                $all = true;
-                // intenentional drop through to add $all = true
-            case 'refresh':
-                $grid_id = isset( $params['data']['grid_id'] ) ? $params['data']['grid_id'] : null;
-                if ( $grid_id ) {
-                    return $this->get_location_by_grid_id( $grid_id, $all );
-                }
-                return $this->get_new_location( $params['parts'] );
-            case 'log':
-                return $this->save_log( $params['parts'], $params['data'] );
             case 'increment_log':
                 return $this->increment_log( $params['parts'], $params['data'] );
             case 'correction':
@@ -176,10 +164,6 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
             default:
                 return new WP_Error( __METHOD__, 'Incorrect action', [ 'status' => 400 ] );
         }
-    }
-
-    public function get_location_by_grid_id( $grid_id, $all = false ) {
-        return PG_Stacker::build_location_stack( $grid_id, $all );
     }
 }
 PG_Global_Prayer_App_Location::instance();

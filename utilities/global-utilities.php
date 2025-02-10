@@ -45,6 +45,7 @@ function pg_profile_icon() {
 }
 
 function pg_current_global_lap() : array {
+    global $wpdb;
     /**
      * Example:
      *  [lap_number] => 5
@@ -52,8 +53,35 @@ function pg_current_global_lap() : array {
      *  [key] => d7dcd4
      *  [start_time] => 1651269768
      */
-    $lap = get_option( 'pg_current_global_lap', [] );
-    return $lap;
+
+    /* It used to be stored in an option so that this function would be fast, as it is used all over the place */
+    // $lap = get_option( 'pg_current_global_lap', [] );
+
+    /* TODO: refactor this throughout the app. Maybe use the stats endpoint for this? */
+    /* This will be slower, but more accurate, but won't be being called for the mission critical stuff, so could be ok */
+    $global_relay = $wpdb->get_row( "
+        SELECT
+            pm.post_id as post_id,
+            pm1.meta_value as relay_key,
+            pm2.meta_value as start_time
+            #, MIN(r.total) as lap_number
+        FROM $wpdb->postmeta pm
+        JOIN $wpdb->postmeta pm1 ON pm.post_id = pm1.post_id AND pm1.meta_key = 'prayer_app_relay_key'
+        JOIN $wpdb->postmeta pm2 ON pm.post_id = pm2.post_id AND pm2.meta_key = 'start_time'
+        #JOIN $wpdb->dt_relays r ON r.relay_id = pm1.meta_value
+        WHERE pm.meta_key = 'type'
+        AND pm.meta_value = 'global'
+        #GROUP BY r.relay_id
+    ", ARRAY_A);
+
+    $result = [
+        'lap_number' => -1,
+        'post_id' => $global_relay['post_id'],
+        'key' => $global_relay['relay_key'],
+        'start_time' => $global_relay['start_time'],
+    ];
+
+    return $result;
 }
 
 function pg_current_custom_lap( int $post_id ) : array {
@@ -114,8 +142,27 @@ function pg_current_custom_lap( int $post_id ) : array {
 
     return $current_lap;
 }
+function pg_get_relay_id( string $public_key ) {
+    return pg_get_post_id( 'prayer_app_relay_key', $public_key );
+}
+function pg_get_post_id( string $meta_key, string $public_key ) {
+    global $wpdb;
+    $result = $wpdb->get_var( $wpdb->prepare( "
+        SELECT pm.post_id
+        FROM $wpdb->postmeta as pm
+        WHERE pm.meta_key = %s
+          AND pm.meta_value = %s
+          ", $meta_key, $public_key ) );
+    if ( ! empty( $result ) && ! is_wp_error( $result ) ){
+        return $result;
+    }
+    return false;
+}
+
 
 /**
+ * TODO: deprecate this in favour of pg_get_relay
+ *
  * @param $key
  * @return array|false
  */
@@ -162,6 +209,8 @@ function pg_get_global_lap_by_key( $key ) {
 }
 
 /**
+ * TODO: deprecate this in favour of relay system
+ *
  * @param int|string $post_id
  *
  * @return array
@@ -216,6 +265,7 @@ function pg_get_custom_lap_by_post_id( $post_id ) {
     return $lap;
 }
 
+/* TODO: deprecate  */
 function pg_get_global_lap_by_lap_number( $lap_number ) {
 
 //    if ( wp_cache_get( __METHOD__.$lap_number ) ) {
@@ -309,7 +359,7 @@ function pg_global_race_stats() {
 function _pg_global_stats_builder_query( &$data ) {
     global $wpdb;
     $counts = $wpdb->get_row( $wpdb->prepare( "
-        SELECT 
+        SELECT
             SUM(r.value) as minutes_prayed,
             COUNT( DISTINCT( r.grid_id ) ) as locations_completed,
             COUNT( DISTINCT( r.hash ) ) as participants,

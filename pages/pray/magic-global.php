@@ -53,6 +53,9 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
             return;
         }
 
+        $post_id = pg_get_relay_id( $this->parts['public_key'] );
+        $this->parts['post_id'] = $post_id;
+
         // must be valid parts
         if ( !$this->check_parts_match( true ) ){
             return;
@@ -63,13 +66,7 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
 
         // load different actions
         if ( empty( $this->parts['action'] ) ) {
-            $current_lap = pg_current_global_lap();
-            if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
-                require_once( 'action-global-lap.php' );
-            } else {
-                wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/completed' );
-                exit;
-            }
+            require_once( 'action-global-lap.php' );
         } else if ( 'completed' === $this->parts['action'] ) {
             require_once( 'action-global-completed.php' );
         } else if ( 'map' === $this->parts['action'] ) {

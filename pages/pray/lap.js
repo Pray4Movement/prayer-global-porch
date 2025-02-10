@@ -89,14 +89,15 @@ function setupListeners() {
   prayingContinueButton.addEventListener("click", () => toggleTimer(false));
   morePrayerFuelButton.addEventListener("click", showMorePrayerFuel);
 
-  leaveHomeButton.addEventListener("click", openLeaveModal);
+  /* This button isn't always there in all situations */
+  leaveHomeButton?.addEventListener("click", openLeaveModal);
 
   stayModalButton.addEventListener("click", keepPraying);
   closeModalButton.addEventListener("click", keepPraying);
   leaveModalButton.addEventListener("click", leavePraying);
 
   doneButton.addEventListener("click", celebrateAndDone);
-  nextButton.addEventListener("click", celebrateAndNext);
+  nextButton?.addEventListener("click", celebrateAndNext);
 
   settingsButton.addEventListener("click", () => toggleTimer(true));
   settingsDoneButton.addEventListener("click", () => toggleTimer(false));
@@ -330,19 +331,26 @@ function escapeHTML(str) {
     .replace(/'/g, "&apos;");
 }
 
-window.api_post = (action, data) => {
-  return window.api_fetch(
-    window.pg_global.root + jsObject.parts.root + "/v1/" + jsObject.parts.type,
-    {
-      method: "POST",
-      body: JSON.stringify({
-        action: action,
-        parts: jsObject.parts,
-        data: data,
-      }),
-    }
-  );
+window.api_fetch = function (url, options = {}) {
+  const opts = {
+    method: "GET",
+    ...options,
+  };
+
+  if (!Object.prototype.hasOwnProperty.call(options, "headers")) {
+    opts.headers = {};
+  }
+
+  opts.headers["Content-Type"] = "application/json";
+  opts.headers["X-WP-Nonce"] = pg_global.nonce;
+
+  return fetch(url, opts)
+    .then((result) => {
+      return result;
+    })
+    .then((result) => result.json());
 };
+
 window.api_post_global = (type, action, data = null) => {
   return window.api_fetch(
     `${window.pg_global.root}pg-api/v1/${type}/${action}`,

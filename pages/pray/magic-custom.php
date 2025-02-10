@@ -58,29 +58,24 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
         }
 
         // must be valid parts
-/*         if ( !$this->check_parts_match( true ) ){
-            return;
-        } */
-
-        /* parse the URL manually */
-        $url_parts = explode( '/', dt_get_url_path() );
-        if ( !( $url_parts[0] === $this->root && $url_parts[1] === $this->type ) ) {
+        if ( !$this->check_parts_match( true ) ){
             return;
         }
 
-        $relay_key = $url_parts[2];
-        $action = $url_parts[3] ?? '';
-
-        $relay_post_id = $this->get_post_id( 'prayer_app_relay_key', $relay_key );
+        $relay_post_id = pg_get_relay_id( $this->parts['public_key'] );
 
         if ( !$relay_post_id ) {
             return;
         }
 
+        $this->parts['post_id'] = $relay_post_id;
+
         add_filter( 'dt_override_header_meta', function (){ return true;
         }, 1000, 1 );
 
         $relay = DT_Posts::get_post( $this->post_type, $relay_post_id, true, false );
+
+        $action = $this->parts['action'];
         // load different actions
         if ( empty( $action ) ) {
             if ( !empty( $relay['single_lap'] ) && pg_is_lap_complete( $this->parts['post_id'] ) ) {
@@ -110,19 +105,6 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
         $this->page_title = $this->stats['title'] ?? 'Prayer Relay';
     }
 
-    public function get_post_id( string $meta_key, string $public_key ) {
-        global $wpdb;
-        $result = $wpdb->get_var( $wpdb->prepare( "
-            SELECT pm.post_id
-            FROM $wpdb->postmeta as pm
-            WHERE pm.meta_key = %s
-              AND pm.meta_value = %s
-              ", $meta_key, $public_key ) );
-        if ( ! empty( $result ) && ! is_wp_error( $result ) ){
-            return $result;
-        }
-        return false;
-    }
     /* Setup $parts manually */
 
     public function dt_settings_apps_list( $apps_list ) {
