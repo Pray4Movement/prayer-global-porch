@@ -19,6 +19,9 @@ class Prayer_Global_Migration_0000 extends Prayer_Global_Migration {
         global $wpdb;
         $wpdb->dt_relays = $wpdb->prefix . 'dt_relays';
         $wpdb->query( "
+            DROP TABLE IF EXISTS $wpdb->dt_relays
+        " );
+        $wpdb->query( "
             CREATE TABLE IF NOT EXISTS $wpdb->dt_relays (
             id BIGINT(20) NOT NULL AUTO_INCREMENT,
             relay_id VARCHAR(20) NOT NULL,
