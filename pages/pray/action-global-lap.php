@@ -38,14 +38,7 @@ class PG_Global_Prayer_App_Lap extends PG_Global_Prayer_App {
             return;
         }
 
-        // redirect to completed if not current global lap
-        $current_lap = pg_current_global_lap();
-        if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
-            add_action( 'dt_blank_body', [ $this, 'body' ] );
-        } else {
-            wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/completed' );
-            exit;
-        }
+        add_action( 'dt_blank_body', [ $this, 'body' ] );
 
         $this->lap_title = 'Global';
 
