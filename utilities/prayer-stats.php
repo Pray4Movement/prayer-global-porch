@@ -10,7 +10,7 @@ class Prayer_Stats {
             WHERE relay_id = %s", $relay_key ) );
     }
 
-    public static function pg_get_relay_current_lap( $relay_key = '49ba4c' ){
+    public static function get_relay_current_lap( $relay_key = '49ba4c' ){
         /**
          * Example:
          *  [lap_number] => 5
@@ -36,7 +36,7 @@ class Prayer_Stats {
         ];
     }
 
-    public static function pg_get_lap_stats( int $relay_id, int $lap_number ){
+    public static function get_lap_stats( int $relay_id, int $lap_number ){
         $relay = DT_Posts::get_post( 'relays', $relay_id, true, false );
         $current_lap_number = self::get_relay_lap_number( $relay['prayer_app_relay_key'] );
 
@@ -71,7 +71,7 @@ class Prayer_Stats {
         return _pg_stats_builder( $data );
     }
 
-    public static function pg_stats_since_start_of_relay( $relay_id ) {
+    public static function stats_since_start_of_relay( $relay_id ) {
         $relay = DT_Posts::get_post( 'relays', $relay_id, true, false );
         $current_lap_number = self::get_relay_lap_number( $relay['prayer_app_relay_key'] );
 
