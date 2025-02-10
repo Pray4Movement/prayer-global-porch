@@ -23,7 +23,7 @@ class Prayer_Stats {
             "SELECT MIN(total) as lap_number, MIN( epoch ) as start_time,
             ( SELECT pm.post_id 
                 FROM $wpdb->postmeta pm
-                WHERE pm.meta_key = 'prayer_app_global_magic_key'
+                WHERE pm.meta_key = 'prayer_app_relay_key'
                 AND pm.meta_value = %s
              ) as post_id
             FROM $wpdb->dt_relays
