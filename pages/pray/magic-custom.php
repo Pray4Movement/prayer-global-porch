@@ -58,24 +58,17 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
         }
 
         // must be valid parts
-/*         if ( !$this->check_parts_match( true ) ){
-            return;
-        } */
-
-        /* parse the URL manually */
-        $url_parts = explode( '/', dt_get_url_path() );
-        if ( !( $url_parts[0] === $this->root && $url_parts[1] === $this->type ) ) {
+        if ( !$this->check_parts_match( true ) ){
             return;
         }
 
-        $relay_key = $url_parts[2];
-        $action = $url_parts[3] ?? '';
-
-        $relay_post_id = $this->get_post_id( 'prayer_app_relay_key', $relay_key );
+        $relay_post_id = $this->get_post_id( 'prayer_app_relay_key', $this->parts['public_key'] );
 
         if ( !$relay_post_id ) {
             return;
         }
+
+        $this->parts['post_id'] = $relay_post_id;
 
         add_filter( 'dt_override_header_meta', function (){ return true;
         }, 1000, 1 );
