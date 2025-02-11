@@ -52,18 +52,7 @@ class Prayer_Global_Migration_0007 extends Prayer_Global_Migration {
     /**
      * @throws \Exception  Got error when dropping table $name.
      */
-    public function down() {
-        global $wpdb;
-        $wpdb->dt_relays = $wpdb->prefix . 'dt_relays';
-
-        $query = $wpdb->query( "
-            ALTER TABLE $wpdb->dt_relays
-            RENAME COLUMN relay_key TO relay_id;
-        " );
-        if ( $query === false ) {
-            throw new \Exception( "Got error when updating table $wpdb->dt_reports." );
-        }
-    }
+    public function down() {}
 
     /**
      * @return array
