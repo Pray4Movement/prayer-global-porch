@@ -41,7 +41,7 @@ class PG_User_API {
         DT_Route::post( $namespace, 'ip_location', [ $this, 'get_ip_location' ] );
         DT_Route::post( $namespace, 'details', [ $this, 'get_user' ] );
         DT_Route::post( $namespace, 'stats', [ $this, 'get_user_stats' ] );
-        DT_Route::post( $namespace, 'locations-prayed-for', [ $this, 'get_user_locations_prayed_for' ] );
+        DT_Route::post( $namespace, 'locations-prayed-for', [ $this, 'get_user_locations_prayed_for_endpoint' ] );
     }
 
     public function authorize_url( $authorized ){
@@ -102,7 +102,7 @@ class PG_User_API {
         return $user_stats;
     }
 
-    public static function get_user_locations_prayed_for( WP_REST_Request $request ){
+    public static function get_user_locations_prayed_for_endpoint( WP_REST_Request $request ){
         $params = $request->get_params();
         $params = dt_recursive_sanitize_array( $params );
         if ( !isset( $params['parts']['public_key'] ) ){
@@ -110,9 +110,19 @@ class PG_User_API {
         }
 
         $key = $params['parts']['public_key'];
-        $lap = Prayer_Stats::get_relay_current_lap( $key );
 
         $hash = $params['data']['hash'] ?? false;
+        if ( empty( $hash ) ) {
+            return [];
+        }
+
+        return self::get_user_locations_prayed_for( $key, $hash );
+    }
+
+    public static function get_user_locations_prayed_for( $key, $hash ){
+
+        $lap = Prayer_Stats::get_relay_current_lap( $key );
+
         if ( empty( $hash ) ) {
             return [];
         }

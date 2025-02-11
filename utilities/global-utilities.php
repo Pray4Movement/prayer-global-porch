@@ -151,8 +151,10 @@ function pg_get_post_id( string $meta_key, string $public_key ) {
         SELECT pm.post_id
         FROM $wpdb->postmeta as pm
         WHERE pm.meta_key = %s
-          AND pm.meta_value = %s
-          ", $meta_key, $public_key ) );
+        AND pm.meta_value = %s
+        ORDER BY pm.post_id DESC
+        LIMIT 1
+    ", $meta_key, $public_key ) );
     if ( ! empty( $result ) && ! is_wp_error( $result ) ){
         return $result;
     }

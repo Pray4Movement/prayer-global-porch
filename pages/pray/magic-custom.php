@@ -101,8 +101,7 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
         }
 
         // set page title
-        $this->stats = pg_custom_lap_stats_by_post_id( $this->parts['post_id'] );
-        $this->page_title = $this->stats['title'] ?? 'Prayer Relay';
+        $this->page_title = get_the_title( $this->parts['post_id'] );
     }
 
     /* Setup $parts manually */

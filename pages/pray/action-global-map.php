@@ -293,15 +293,40 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['action'] ) {
+            case 'get_stats':
+                return pg_global_stats_by_key( $params['parts']['public_key'] );
+            case 'get_grid':
+                return [
+                    'grid_data' => $this->get_grid( $params['parts'] ),
+                    'participants' => $this->get_participants( $params['parts'] ),
+                ];
             case 'get_grid_details':
                 if ( isset( $params['data']['grid_id'] ) ) {
                     return PG_Stacker::build_location_stack( $params['data']['grid_id'] );
                 }
                 return false;
+            case 'get_participants':
+                return $this->get_participants( $params['parts'] );
+            case 'get_user_locations':
+                return $this->get_user_locations( $params['parts'], $params['data'] );
             default:
                 return new WP_Error( __METHOD__, 'missing action parameter' );
         }
     }
 
+    public function get_grid( $parts ) {
+        $data = Prayer_Stats::get_relay_current_lap_map_stats( $parts['public_key'] );
+        return [
+            'data' => $data,
+        ];
+    }
+
+    public function get_participants( $parts ){
+        return Prayer_Stats::get_relay_current_lap_map_participants( $parts['public_key'] );
+    }
+
+    public function get_user_locations( $parts, $data ){
+        return PG_User_API::get_user_locations_prayed_for( $parts['public_key'], $data['hash'] );
+    }
 }
 PG_Global_Prayer_App_Map::instance();
