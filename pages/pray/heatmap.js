@@ -62,60 +62,68 @@ window.addEventListener("load", function ($) {
 
   let countdownInterval;
 
-  window.get_page = (action) => {
-    return jQuery
-      .ajax({
-        type: "POST",
-        data: JSON.stringify({ action: action, parts: jsObject.parts }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        url:
-          window.pg_global.root +
-          jsObject.parts.root +
-          "/v1/" +
-          jsObject.parts.type +
-          "/" +
-          jsObject.parts.action,
+  window.get_map_locations = () => {
+    return jQuery.ajax({
+      type: "POST",
+      data: JSON.stringify({ action: 'map', parts: jsObject.parts }),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      url: window.pg_global.root + 'prayer-global/stats/map/locations',
+    })
+      .fail(function(e) {
+        console.log(e)
+        jQuery('#error').html(e)
       })
-      .fail(function (e) {
-        console.log(e);
-        jQuery("#error").html(e);
-      });
-  };
-  window.get_data_page = (action, data) => {
-    return jQuery
-      .ajax({
-        type: "POST",
-        data: JSON.stringify({
-          action: action,
-          parts: jsObject.parts,
-          data: data,
-        }),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        url:
-          window.pg_global.root +
-          jsObject.parts.root +
-          "/v1/" +
-          jsObject.parts.type +
-          "/" +
-          jsObject.parts.action,
+  }
+  window.get_stats = () => {
+    return jQuery.ajax({
+      type: "POST",
+      data: JSON.stringify({ action: 'map', parts: jsObject.parts }),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      url: window.pg_global.root + 'prayer-global/stats/lap',
+    })
+      .fail(function(e) {
+        console.log(e)
+        jQuery('#error').html(e)
       })
-      .fail(function (e) {
-        console.log(e);
-        jQuery("#error").html(e);
-      });
-  };
-  window.api_post_global = (type, action, data = []) => {
-    return window.api_fetch(
-      `${window.pg_global.root}pg-api/v1/${type}/${action}`,
-      {
-        method: "POST",
-        body: JSON.stringify(data),
-      }
-    );
-  };
-  jQuery("#custom-style").empty().append(`
+  }
+  window.get_user_locations_prayer_for = () => {
+    let data = {
+      hash: localStorage.getItem('pg_user_hash')
+    }
+    return jQuery.ajax({
+      type: "POST",
+      data: JSON.stringify({ action: 'map', parts: jsObject.parts, data: data }),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      url: window.pg_global.root + 'pg-api/v1/user/locations-prayed-for',
+    })
+      .fail(function(e) {
+        console.log(e)
+        jQuery('#error').html(e)
+      })
+  }
+  window.get_grid_details = (action, data ) => {
+    return jQuery.ajax({
+      type: "POST",
+      data: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      url: window.pg_global.root + jsObject.parts.root + '/v1/' + jsObject.parts.type + '/' + jsObject.parts.action,
+    })
+      .fail(function(e) {
+        console.log(e)
+        jQuery('#error').html(e)
+      })
+  }
+  window.api_post_global = ( type, action, data = [] ) => {
+    return window.api_fetch( `${window.pg_global.root}pg-api/v1/${type}/${action}`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    })
+  }
+  jQuery('#custom-style').empty().append(`
       #wrapper {
           height: ${window.innerHeight}px !important;
       }
@@ -228,13 +236,12 @@ window.addEventListener("load", function ($) {
     i++;
   }
 
-  let loop = 0;
-  let list = 0;
-  window.load_map_triggered = 0;
-  window
-    .get_page("get_grid")
-    .done(function (x) {
-      list = 1;
+  let loop = 0
+  let list = 0
+  window.load_map_triggered = 0
+  window.get_map_locations()
+    .done(function(x){
+      list = 1
 
       jsObject.grid_data = x.grid_data;
       jsObject.participants = x.participants;
@@ -244,17 +251,14 @@ window.addEventListener("load", function ($) {
         load_map();
       }
     })
-    .fail(function () {
-      console.log("Error getting grid data");
-      jsObject.grid_data = { data: {}, highest_value: 1 };
-    });
-  let data = {
-    hash: localStorage.getItem("pg_user_hash"),
-  };
-  window
-    .get_data_page("get_user_locations", data)
-    .done(function (user_locations) {
-      jsObject.user_locations = user_locations;
+    .fail(function(){
+      console.log('Error getting grid data')
+      jsObject.grid_data = {'data': {}, 'highest_value': 1 }
+    })
+
+  window.get_user_locations_prayer_for()
+    .done(function(user_locations){
+      jsObject.user_locations = user_locations
     })
     .fail(function () {
       console.log("Error getting user locations");
@@ -879,11 +883,10 @@ window.addEventListener("load", function ($) {
 
     show_location_details();
 
-    window
-      .get_data_page("get_grid_details", { grid_id: grid_id })
-      .done(function (response) {
-        if (!response) {
-          return;
+    window.get_grid_details( {grid_id: grid_id} )
+      .done(function(response){
+        if ( ! response ) {
+          return
         }
         window.report_content = response;
 
@@ -996,10 +999,9 @@ window.addEventListener("load", function ($) {
 
     jQuery("#offcanvas_location_details").offcanvas("show");
 
-    window
-      .get_data_page("get_grid_stats", { grid_id: grid_id })
-      .done(function (response) {
-        window.report_content = response;
+    window.get_grid_details( 'get_grid_stats', {grid_id: grid_id} )
+      .done(function(response){
+        window.report_content = response
 
         const communityStats = response.stats;
 
@@ -1209,27 +1211,27 @@ window.addEventListener("load", function ($) {
     window.celebrationFireworks();
   }
 
-  function update_map(grid_id) {
-    window.get_page("get_grid").done(function (x) {
-      console.log("reload");
-      // add stats
-      jsObject.grid_data = x.grid_data;
-      reload_load_grid(grid_id);
-    });
+  function update_map(grid_id){
+    window.get_map_locations()
+      .done(function(x){
+        console.log('reload')
+        // add stats
+        jsObject.grid_data = x.grid_data
+        reload_load_grid(grid_id)
+      })
   }
 
   function update_stats() {
-    window.get_page("get_stats").done(function (stats) {
-      jsObject.stats = stats;
-      jQuery(".completed").html(jsObject.stats.completed);
-      jQuery(".completed_percent").html(jsObject.stats.completed_percent);
-      jQuery(".remaining").html(jsObject.stats.remaining);
-      jQuery(".time_elapsed").html(
-        PG.DisplayTime(jsObject.stats.time_elapsed_data)
-      );
-      jQuery(".prayer_warriors").html(jsObject.stats.participants);
-      jQuery(".lap_pace").html(jsObject.stats.lap_pace_small);
-    });
+    window.get_stats()
+      .done(function(stats) {
+        jsObject.stats = stats
+        jQuery('.completed').html( jsObject.stats.completed )
+        jQuery('.completed_percent').html( jsObject.stats.completed_percent )
+        jQuery('.remaining').html( jsObject.stats.remaining )
+        jQuery('.time_elapsed').html( PG.DisplayTime( jsObject.stats.time_elapsed_data ) )
+        jQuery('.prayer_warriors').html( jsObject.stats.participants )
+        jQuery('.lap_pace').html( jsObject.stats.lap_pace_small )
+      })
   }
 
   function reload_load_grid(grid_id) {
