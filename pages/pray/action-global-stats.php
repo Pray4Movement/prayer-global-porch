@@ -71,7 +71,7 @@ class PG_Global_Prayer_App_Stats extends PG_Global_Prayer_App {
     }
 
     public function body(){
-        $current_lap = pg_current_global_lap();
+        $current_lap = Prayer_Stats::get_relay_current_lap();
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
 
         ?>
@@ -136,7 +136,7 @@ class PG_Global_Prayer_App_Stats extends PG_Global_Prayer_App {
         <script>
             let jsObject = [<?php echo json_encode([
                 'parts' => $this->parts,
-                'current_lap' => pg_current_global_lap(),
+                'current_lap' => Prayer_Stats::get_relay_current_lap(),
                 'translations' => [],
                 'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/nope.jpg',
                 'images_url' => pg_grid_image_url(),
@@ -231,21 +231,22 @@ class PG_Global_Prayer_App_Stats extends PG_Global_Prayer_App {
         $params = dt_recursive_sanitize_array( $params );
 
         $current_language = 'en';
-        $lap_stats = pg_global_stats_by_key( $params['parts']['public_key'] );
-        $global_race = pg_global_race_stats();
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $params['parts']['public_key'], $params['parts']['post_id'] );
+        $global_race = Prayer_Stats::stats_since_start_of_relay( $params['parts']['post_id'] );
 
         // Locations
         $participant_locations = $wpdb->get_results( $wpdb->prepare( "
-           SELECT r.label as location, COUNT(r.label) as count
-           FROM $wpdb->dt_reports r
-            WHERE r.post_type = 'laps'
-                AND r.type = 'prayer_app'
-            AND r.timestamp >= %d AND r.timestamp <= %d
+            SELECT r.label as location, COUNT(r.label) as count
+            FROM $wpdb->dt_reports r
+            WHERE r.post_type = 'pg_relays'
+            AND r.type = 'prayer_app'
+            AND r.lap_number = %d
+            AND r.post_id = %d
 			AND r.label IS NOT NULL
             GROUP BY r.label
 			ORDER BY count DESC
 			LIMIT 10
-        ", $lap_stats['start_time'], $lap_stats['end_time'] ), ARRAY_A );
+        ", $lap_stats['post_id'], $lap_stats['lap_number'] ), ARRAY_A );
         if ( empty( $participant_locations ) ) {
             $participant_locations = [];
         }

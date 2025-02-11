@@ -83,7 +83,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
                 'grid_data' => [],
                 'participants' => [],
                 'user_locations' => [],
-                'stats' => pg_global_stats_by_key( $this->parts['public_key'] ),
+                'stats' => Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] ),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                 'map_type' => 'binary',
                 'is_cta_feature_on' => true,
@@ -105,7 +105,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
 
     public function body(){
         $parts = $this->parts;
-        $lap_stats = pg_global_stats_by_key( $parts['public_key'] );
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] );
         DT_Mapbox_API::geocoder_scripts();
         ?>
         <style id="custom-style"></style>
@@ -294,7 +294,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
 
         switch ( $params['action'] ) {
             case 'get_stats':
-                return pg_global_stats_by_key( $params['parts']['public_key'] );
+                return Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] );
             case 'get_grid':
                 return [
                     'grid_data' => $this->get_grid( $params['parts'] ),
