@@ -74,7 +74,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
         if ( $url ) {
             $details['url'] = $url;
         }
-        $lap = pg_get_custom_lap_by_post_id( $this->parts['post_id'] );
+        $lap = Prayer_Stats::get_relay_current_lap( $this->parts['public_key'], $this->parts['post_id'] );
         $details['title'] = 'Prayer.Global '.$lap['title'].' '. esc_html( __( 'Map', 'prayer-global-porch' ) );
         pg_og_tags( $details );
 
@@ -84,7 +84,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                 'parts' => $this->parts,
                 'grid_data' => [],
                 'participants' => [],
-                'stats' => pg_custom_lap_stats_by_post_id( $this->parts['post_id'] ),
+                'stats' => Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] ),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                 'map_type' => 'binary',
                 'is_cta_feature_on' => !$lap['ctas_off'],
@@ -109,16 +109,16 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
 
     public function body(){
         $parts = $this->parts;
-        $lap_stats = pg_custom_lap_stats_by_post_id( $parts['post_id'] );
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $parts['public_key'], $parts['post_id'] );
         $now = time();
         $has_challenge_started = $lap_stats['start_time'] < $now;
         DT_Mapbox_API::geocoder_scripts();
 
         $pray_href = '/prayer_app/custom/' . esc_attr( $parts['public_key'] );
-        if ( $lap_stats['event_lap'] ) {
-            $domain_param = isset( $_SERVER['HTTP_HOST'] ) ? '&domain=' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
-            $pray_href = PG_API_ENDPOINT . '?relay=' . $parts['public_key'] . $domain_param;
-        }
+//        if ( $lap_stats['event_lap'] ) {
+//            $domain_param = isset( $_SERVER['HTTP_HOST'] ) ? '&domain=' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
+//            $pray_href = PG_API_ENDPOINT . '?relay=' . $parts['public_key'] . $domain_param;
+//        }
 
         ?>
         <style id="custom-style"></style>
@@ -338,6 +338,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
 
     public function endpoint( WP_REST_Request $request ) {
         $params = $request->get_params();
+        $params = dt_recursive_sanitize_array( $params );
 
         if ( ! isset( $params['parts'], $params['action'] ) ) {
             return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
@@ -345,7 +346,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
 
         switch ( $params['action'] ) {
             case 'get_stats':
-                return pg_custom_lap_stats_by_post_id( $params['parts']['post_id'] );
+                return Prayer_Stats::get_relay_current_lap_stats( $params['parts']['public_key'] );
             case 'get_grid':
                 return [
                     'grid_data' => $this->get_grid( $params['parts'] ),
@@ -366,107 +367,18 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
     }
 
     public function get_grid( $parts ) {
-        global $wpdb;
-
-        // map grid
-        $data_raw = $wpdb->get_results( $wpdb->prepare( "
-            SELECT
-                lg1.grid_id, SUM(r1.value) as value
-            FROM $wpdb->dt_location_grid lg1
-			JOIN $wpdb->dt_reports r1 ON r1.grid_id=lg1.grid_id AND r1.type = 'prayer_app' AND r1.post_id = %d AND ( r1.subtype = 'event' OR r1.subtype = 'custom' )
-            WHERE lg1.level = 0
-              AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
-              AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg1.grid_id
-            UNION ALL
-            SELECT
-                lg2.grid_id, SUM(r2.value) as value
-            FROM $wpdb->dt_location_grid lg2
-			JOIN $wpdb->dt_reports r2 ON r2.grid_id=lg2.grid_id AND r2.type = 'prayer_app' AND r2.post_id = %d AND ( r2.subtype = 'event' OR r2.subtype = 'custom' )
-            WHERE lg2.level = 1
-              AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg2.grid_id
-            UNION ALL
-            SELECT
-                lg3.grid_id, SUM(r3.value) as value
-            FROM $wpdb->dt_location_grid lg3
-			JOIN $wpdb->dt_reports r3 ON r3.grid_id=lg3.grid_id AND r3.type = 'prayer_app' AND r3.post_id = %d AND ( r3.subtype = 'event' OR r3.subtype = 'custom' )
-            WHERE lg3.level = 2
-              AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)
-          GROUP BY lg3.grid_id
-        ", $parts['post_id'], $parts['post_id'], $parts['post_id'] ), ARRAY_A );
-
-        $data = [];
-        foreach ( $data_raw as $row ) {
-            if ( ! isset( $data[$row['grid_id']] ) ) {
-                $data[$row['grid_id']] = (int) $row['value'] ?? 0;
-            }
-        }
-
+        $data = Prayer_Stats::get_relay_current_lap_map_stats( $parts['public_key'] );
         return [
             'data' => $data,
         ];
     }
 
     public function get_participants( $parts ){
-        global $wpdb;
-        $participants_raw = $wpdb->get_results( $wpdb->prepare( "
-           SELECT r.lng as longitude, r.lat as latitude, r.hash
-           FROM $wpdb->dt_reports r
-           LEFT JOIN $wpdb->dt_location_grid lg ON lg.grid_id=r.grid_id
-            WHERE r.post_type = 'laps'
-                AND r.type = 'prayer_app'
-                AND r.post_id = %d
-                AND r.hash IS NOT NULL
-        ", $parts['post_id'] ), ARRAY_A );
-        $participants = [];
-        if ( ! empty( $participants_raw ) ) {
-            foreach ( $participants_raw as $p ) {
-                if ( ! empty( $p['longitude'] ) ) {
-                    $participants[$p['hash']] = [
-                        'longitude' => (float) $p['longitude'],
-                        'latitude' => (float) $p['latitude']
-                    ];
-                }
-            }
-        }
-
-        return array_values( $participants );
+        return Prayer_Stats::get_relay_current_lap_map_participants( $parts['post_id'], $parts['public_key'] );
     }
 
     public function get_user_locations( $parts, $data ){
-        global $wpdb;
-        // Query based on hash
-        $hash = $data['hash'];
-        if ( empty( $hash ) ) {
-            return [];
-        }
-//        $lap_stats = pg_custom_lap_stats_by_post_id( $parts['post_id'] );
-
-        $user_locations_raw  = $wpdb->get_results( $wpdb->prepare( "
-               SELECT lg.longitude, lg.latitude
-               FROM $wpdb->dt_reports r
-               LEFT JOIN $wpdb->dt_location_grid lg ON lg.grid_id=r.grid_id
-               WHERE r.post_type = 'laps'
-                    AND r.type = 'prayer_app'
-                    AND r.hash = %s
-                    AND r.post_id = %s
-                    AND r.label IS NOT NULL
-            ", $hash, $parts['post_id'] ), ARRAY_A );
-
-        $user_locations = [];
-        if ( ! empty( $user_locations_raw ) ) {
-            foreach ( $user_locations_raw as $p ) {
-                if ( ! empty( $p['longitude'] ) ) {
-                    $user_locations[] = [
-                        'longitude' => (float) $p['longitude'],
-                        'latitude' => (float) $p['latitude']
-                    ];
-                }
-            }
-        }
-
-        return $user_locations;
+        return PG_User_API::get_user_locations_prayed_for( $parts['public_key'], $data['hash'] );
     }
 }
 PG_Custom_Prayer_App_Map::instance();
