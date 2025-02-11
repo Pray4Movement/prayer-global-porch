@@ -22,9 +22,7 @@ class Prayer_Global_Migration_0009 extends Prayer_Global_Migration {
         $query = $wpdb->query( "
             DELETE $wpdb->postmeta FROM $wpdb->postmeta
             JOIN $wpdb->posts ON ID = post_id AND post_type = 'pg_relays'
-            WHERE meta_key = 'prayer_app_global_magic_key'
-                OR meta_key = 'prayer_app_custom_magic_key'
-                OR meta_key = 'global_lap_number'
+            WHERE meta_key = 'global_lap_number'
         " );
         if ( $query === false ) {
             throw new \Exception( "Got error when updating table $wpdb->dt_reports." );
