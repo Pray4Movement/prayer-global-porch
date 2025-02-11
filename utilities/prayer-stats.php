@@ -10,7 +10,7 @@ class Prayer_Stats {
             WHERE relay_key = %s", $relay_key ) );
     }
 
-    public static function get_relay_current_lap( $relay_key = '49ba4c' ){
+    public static function get_relay_current_lap( $relay_key = '49ba4c', $relay_id = null ){
         /**
          * Example:
          *  [lap_number] => 5
@@ -18,25 +18,28 @@ class Prayer_Stats {
          *  [key] => d7dcd4
          *  [start_time] => 1651269768
          */
+        if ( empty( $relay_id ) ){
+            $relay_id = pg_get_relay_id( $relay_key );
+        }
         global $wpdb;
         $data = $wpdb->get_row( $wpdb->prepare(
             "SELECT 
             MIN(total) + 1 as lap_number,
-            MIN(epoch) as start_time,
-            ( SELECT pm.post_id
-                FROM $wpdb->postmeta pm
-                WHERE pm.meta_key = 'prayer_app_relay_key'
-                AND pm.meta_value = %s
-                ORDER BY pm.post_id DESC
-                LIMIT 1
-             ) as post_id
+            MIN(epoch) as start_time
             FROM $wpdb->dt_relays
-            WHERE relay_key = %s", $relay_key, $relay_key ), ARRAY_A );
+            WHERE relay_key = %s", $relay_key ), ARRAY_A );
+        $relay = DT_Posts::get_post( 'pg_relays', $relay_id, true, false );
         return [
+            'title' => $relay['title'],
             'lap_number' => (int) $data['lap_number'],
-            'post_id' => (int) $data['post_id'],
+            'post_id' => (int) $relay_id,
             'key' => $relay_key,
             'start_time' => (int) $data['start_time'],
+            'ctas_off' => isset( $relay['ctas_off'] ) ? $relay['ctas_off'] : false,
+            'event_lap' => isset( $relay['event_lap'] ) ? $relay['event_lap'] : false,
+            'single_lap' => isset( $relay['single_lap'] ) ? $relay['single_lap'] : false,
+            'visibility' => isset( $relay['visibility']['key'] ) ? $relay['visibility']['key'] : 'public',
+            'challenge_type' => isset( $relay['challenge_type']['key'] ) ? $relay['challenge_type']['key'] : 'ongoing',
         ];
     }
 
@@ -84,7 +87,7 @@ class Prayer_Stats {
     }
 
     public static function stats_since_start_of_relay( $relay_id ) {
-        $relay = DT_Posts::get_post( 'relays', $relay_id, true, false );
+        $relay = DT_Posts::get_post( 'pg_relays', $relay_id, true, false );
         $current_lap_number = self::get_relay_lap_number( $relay['prayer_app_relay_key'] );
 
         global $wpdb;
@@ -158,9 +161,9 @@ class Prayer_Stats {
         return $data;
     }
 
-    public static function get_relay_current_lap_map_participants( $relay_key = '49ba4c' ){
+    public static function get_relay_current_lap_map_participants( $relay_id, $relay_key ){
         global $wpdb;
-        $lap = self::get_relay_current_lap( $relay_key );
+        $lap_number = self::get_relay_lap_number( $relay_key );
         $locations = $wpdb->get_results( $wpdb->prepare(
             "SELECT r.lng as longitude, r.lat as latitude, r.hash
             FROM $wpdb->dt_reports r
@@ -168,7 +171,7 @@ class Prayer_Stats {
             AND lap_number = %d
             AND r.lng IS NOT NULL
             GROUP BY r.hash
-        ", $lap['post_id'], $lap['lap_number'] ), ARRAY_A );
+        ", $relay_id, $lap_number ), ARRAY_A );
 
         $data = [];
         foreach ( $locations as $location ){

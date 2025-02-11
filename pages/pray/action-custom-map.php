@@ -74,7 +74,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
         if ( $url ) {
             $details['url'] = $url;
         }
-        $lap = pg_get_custom_lap_by_post_id( $this->parts['post_id'] );
+        $lap = Prayer_Stats::get_relay_current_lap( $this->parts['public_key'], $this->parts['post_id'] );
         $details['title'] = 'Prayer.Global '.$lap['title'].' '. esc_html( __( 'Map', 'prayer-global-porch' ) );
         pg_og_tags( $details );
 
@@ -109,16 +109,16 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
 
     public function body(){
         $parts = $this->parts;
-        $lap_stats = pg_custom_lap_stats_by_post_id( $parts['post_id'] );
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $parts['public_key'], $parts['post_id'] );
         $now = time();
         $has_challenge_started = $lap_stats['start_time'] < $now;
         DT_Mapbox_API::geocoder_scripts();
 
         $pray_href = '/prayer_app/custom/' . esc_attr( $parts['public_key'] );
-        if ( $lap_stats['event_lap'] ) {
-            $domain_param = isset( $_SERVER['HTTP_HOST'] ) ? '&domain=' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
-            $pray_href = PG_API_ENDPOINT . '?relay=' . $parts['public_key'] . $domain_param;
-        }
+//        if ( $lap_stats['event_lap'] ) {
+//            $domain_param = isset( $_SERVER['HTTP_HOST'] ) ? '&domain=' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
+//            $pray_href = PG_API_ENDPOINT . '?relay=' . $parts['public_key'] . $domain_param;
+//        }
 
         ?>
         <style id="custom-style"></style>
@@ -374,7 +374,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
     }
 
     public function get_participants( $parts ){
-        return Prayer_Stats::get_relay_current_lap_map_participants( $parts['public_key'] );
+        return Prayer_Stats::get_relay_current_lap_map_participants( $parts['post_id'], $parts['public_key'] );
     }
 
     public function get_user_locations( $parts, $data ){

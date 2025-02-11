@@ -71,7 +71,6 @@ class PG_Global_Prayer_App_Stats extends PG_Global_Prayer_App {
     }
 
     public function body(){
-        $current_lap = Prayer_Stats::get_relay_current_lap();
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
 
         ?>
@@ -136,7 +135,6 @@ class PG_Global_Prayer_App_Stats extends PG_Global_Prayer_App {
         <script>
             let jsObject = [<?php echo json_encode([
                 'parts' => $this->parts,
-                'current_lap' => Prayer_Stats::get_relay_current_lap(),
                 'translations' => [],
                 'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/nope.jpg',
                 'images_url' => pg_grid_image_url(),
@@ -167,7 +165,6 @@ class PG_Global_Prayer_App_Stats extends PG_Global_Prayer_App {
 
                 window.api_post( 'stats', data )
                     .done( (x) => {
-                         console.log( x )
                         jQuery('.lap_number').html(x.lap_stats.lap_number)
                         jQuery('.minutes_prayed').html(x.lap_stats.minutes_prayed_formatted)
                         jQuery('.completed_percent').html(x.lap_stats.completed_percent)
