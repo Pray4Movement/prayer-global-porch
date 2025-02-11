@@ -46,12 +46,12 @@ class PG_Relays_Table {
     }
 
     public function last_lap_number_updated() : int {
-        $response = $this->mysqli->execute_query( "
+        $response = $this->mysqli->execute_query( '
             SELECT LAST_INSERT_ID();
-        " );
+        ' );
 
         if ( $response === false ) {
-            throw new Exception( "last insert ID not found for relay update" );
+            throw new Exception( 'last insert ID not found for relay update' );
         }
 
         return $response->fetch_column();

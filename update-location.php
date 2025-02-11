@@ -31,7 +31,7 @@ mysqli_report( MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT );
 //phpcs:ignore
 $conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
 
-if ($conn->connect_error) {
+if ( $conn->connect_error ) {
     send_response( array(
         'status' => 'error',
         'error' => 'Unable to make connection with DB',
@@ -40,7 +40,7 @@ if ($conn->connect_error) {
 
 $db_prefix = defined( 'DB_PREFIX' ) ? DB_PREFIX : 'wp_';
 
-$content = trim( file_get_contents( "php://input" ) );
+$content = trim( file_get_contents( 'php://input' ) );
 $decoded = json_decode( $content, true );
 
 if ( !is_array( $decoded ) ) {
@@ -75,7 +75,7 @@ try {
         'parts' => $parts,
         'user_location' => $user_location,
     ] );
-} catch (\Throwable $th) {
+} catch ( \Throwable $th ) {
     send_response( array(
         'status' => 'error',
         'error' => $th->getMessage(),
