@@ -122,7 +122,7 @@ class Prayer_Stats {
             "SELECT grid_id,
             IF ( total = %d, 1, 0 ) as completed
             FROM $wpdb->dt_relays
-            WHERE relay_id = %s
+            WHERE relay_key = %s
         ", $lap_number, $relay_key ), ARRAY_A );
 
         $data = [];
@@ -140,6 +140,7 @@ class Prayer_Stats {
             FROM $wpdb->dt_reports r
             WHERE post_id = %s
             AND lap_number = %d
+            AND r.lng IS NOT NULL
             GROUP BY r.hash
         ", $lap['post_id'], $lap['lap_number'] ), ARRAY_A );
 

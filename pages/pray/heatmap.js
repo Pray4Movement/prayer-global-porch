@@ -1229,7 +1229,7 @@ window.addEventListener("load", function ($) {
         jQuery('.completed_percent').html( jsObject.stats.completed_percent )
         jQuery('.remaining').html( jsObject.stats.remaining )
         jQuery('.time_elapsed').html( PG.DisplayTime( jsObject.stats.time_elapsed_data ) )
-        jQuery('.prayer_warriors').html( jsObject.stats.participants )
+        jQuery('.warriors').html( jsObject.stats.participants )
         jQuery('.lap_pace').html( jsObject.stats.lap_pace_small )
       })
   }
