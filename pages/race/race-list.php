@@ -54,6 +54,8 @@ class Prayer_Global_Porch_Stats_Race_List extends DT_Magic_Url_Base
 
             add_filter( 'dt_override_header_meta', function (){ return true;
             }, 100, 1 );
+
+            add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
         }
 
         if ( dt_is_rest() ) {
@@ -62,8 +64,19 @@ class Prayer_Global_Porch_Stats_Race_List extends DT_Magic_Url_Base
         }
     }
 
+    public function wp_enqueue_scripts() {
+        pg_enqueue_script( 'race-list-js', 'pages/race/race-list.js', [ 'jquery' ], true );
+        wp_enqueue_script( 'datatables', 'https://cdn.datatables.net/v/dt/dt-1.12.1/r-2.3.0/datatables.min.js', [ 'race-list-js' ], '4.0.1', true );
+    }
+
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        return [];
+        $allowed_js = [];
+
+
+        $allowed_js[] = 'jquery';
+        $allowed_js[] = 'datatables';
+        $allowed_js[] = 'race-list-js';
+        return $allowed_js;
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
@@ -77,18 +90,14 @@ class Prayer_Global_Porch_Stats_Race_List extends DT_Magic_Url_Base
         <script>
             let jsObject = [<?php echo json_encode([
                 'parts' => $this->parts,
-                'current_lap' => pg_current_global_lap(),
-                'global_race' => pg_global_race_stats(),
+                'current_lap' => Prayer_Stats::get_relay_current_lap_stats( '49ba4c' ),
+                'global_race' => Prayer_Stats::stats_since_start_of_relay( pg_get_relay_id( '49ba4c' ) ),
                 'translations' => [],
                 'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/nope.jpg',
                 'images_url' => pg_grid_image_url(),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
             ]) ?>][0]
         </script>
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/basic.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ) ) ?>" type="text/css" media="all">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/r-2.3.0/datatables.min.css"/>
-        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/r-2.3.0/datatables.min.js"></script>
-        <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>race-list.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'race-list.js' ) ) ?>"></script>
         <style>
             section {
                 margin-top: 110px;
@@ -177,25 +186,15 @@ class Prayer_Global_Porch_Stats_Race_List extends DT_Magic_Url_Base
 
          $data = [];
 
-        $results = $wpdb->get_results(
-            "
-                SELECT pm.post_id, p.post_title, pm2.meta_value as lap_number, pm3.meta_value as lap_key, pm4.meta_value as start_time, pm5.meta_value as end_time
-                FROM $wpdb->posts p
-                JOIN $wpdb->postmeta pm ON pm.post_id=p.ID AND pm.meta_key = 'type' AND pm.meta_value = 'global'
-                JOIN $wpdb->postmeta pm2 ON pm2.post_id=p.ID AND pm2.meta_key = 'global_lap_number'
-                LEFT JOIN $wpdb->postmeta pm3 ON pm3.post_id=p.ID AND pm3.meta_key = 'prayer_app_global_magic_key'
-                LEFT JOIN $wpdb->postmeta pm4 ON pm4.post_id=p.ID AND pm4.meta_key = 'start_time'
-                LEFT JOIN $wpdb->postmeta pm5 ON pm5.post_id=p.ID AND pm5.meta_key = 'end_time'
-                WHERE p.post_type = 'laps'
-                ORDER BY pm2.meta_value + 0 DESC
-             ", ARRAY_A );
-
-        foreach ( $results as $row ) {
-            $row['stats'] = pg_global_stats_by_lap_number( $row['lap_number'] );
-            $data[] = $row;
+        $lap_number = Prayer_Stats::get_relay_lap_number();
+        $relay_id = pg_get_relay_id( '49ba4c' );
+        for ( $i = 0; $i < $lap_number; $i++ ) {
+            $data[] = [
+                'lap_number' => $i + 1,
+                'stats' => Prayer_Stats::get_lap_stats( $relay_id, null, $i + 1 ),
+            ];
         }
-
-         return $data;
+        return $data;
     }
 }
 Prayer_Global_Porch_Stats_Race_List::instance();

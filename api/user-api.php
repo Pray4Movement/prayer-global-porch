@@ -41,6 +41,7 @@ class PG_User_API {
         DT_Route::post( $namespace, 'ip_location', [ $this, 'get_ip_location' ] );
         DT_Route::post( $namespace, 'details', [ $this, 'get_user' ] );
         DT_Route::post( $namespace, 'stats', [ $this, 'get_user_stats' ] );
+        DT_Route::post( $namespace, 'locations-prayed-for', [ $this, 'get_user_locations_prayed_for_endpoint' ] );
     }
 
     public function authorize_url( $authorized ){
@@ -99,6 +100,50 @@ class PG_User_API {
         $user_stats['total_locations'] = (int) $user_stats['total_locations'];
         $user_stats['total_minutes'] = (int) $user_stats['total_minutes'];
         return $user_stats;
+    }
+
+    public static function get_user_locations_prayed_for_endpoint( WP_REST_Request $request ){
+        $params = $request->get_params();
+        $params = dt_recursive_sanitize_array( $params );
+        if ( !isset( $params['parts']['public_key'] ) ){
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
+        }
+
+        $key = $params['parts']['public_key'];
+
+        $hash = $params['data']['hash'] ?? false;
+        if ( empty( $hash ) ) {
+            return [];
+        }
+
+        return self::get_user_locations_prayed_for( $key, $hash );
+    }
+
+    public static function get_user_locations_prayed_for( $key, $hash ){
+
+        $lap = Prayer_Stats::get_relay_current_lap( $key );
+
+        if ( empty( $hash ) ) {
+            return [];
+        }
+
+        global $wpdb;
+        $user_locations_raw  = $wpdb->get_results( $wpdb->prepare( "
+           SELECT lg.longitude, lg.latitude
+           FROM $wpdb->dt_reports r
+           INNER JOIN $wpdb->dt_location_grid lg ON lg.grid_id = r.grid_id
+           WHERE r.post_type = 'pg_relays'
+                AND r.type = 'prayer_app'
+                AND r.hash = %s
+                AND r.post_id = %d
+                AND r.lap_number = %d
+                AND r.label IS NOT NULL
+                AND lg.longitude IS NOT NULL
+                AND lg.latitude IS NOT NULL
+        ", $hash, $lap['post_id'], $lap['lap_number'] ), ARRAY_A );
+
+
+        return $user_locations_raw;
     }
 }
 PG_User_API::instance();

@@ -229,7 +229,7 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
              ", ARRAY_A );
 
         foreach ( $results as $row ){
-            $row['stats'] = pg_custom_lap_stats_by_post_id( $row['post_id'] );
+            $row['stats'] = Prayer_Stats::get_lap_stats( $row['post_id'] );
             $data[] = $row;
         }
 

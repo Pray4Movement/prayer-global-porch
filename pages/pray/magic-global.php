@@ -53,13 +53,12 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
             return;
         }
 
-        $post_id = pg_get_relay_id( $this->parts['public_key'] );
-        $this->parts['post_id'] = $post_id;
-
         // must be valid parts
         if ( !$this->check_parts_match( true ) ){
             return;
         }
+        $post_id = pg_get_relay_id( $this->parts['public_key'] );
+        $this->parts['post_id'] = $post_id;
 
         add_filter( 'dt_override_header_meta', function (){ return true;
         }, 1000, 1 );

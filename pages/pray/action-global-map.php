@@ -83,7 +83,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
                 'grid_data' => [],
                 'participants' => [],
                 'user_locations' => [],
-                'stats' => pg_global_stats_by_key( $this->parts['public_key'] ),
+                'stats' => Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] ),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                 'map_type' => 'binary',
                 'is_cta_feature_on' => true,
@@ -105,7 +105,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
 
     public function body(){
         $parts = $this->parts;
-        $lap_stats = pg_global_stats_by_key( $parts['public_key'] );
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] );
         DT_Mapbox_API::geocoder_scripts();
         ?>
         <style id="custom-style"></style>
@@ -294,7 +294,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
 
         switch ( $params['action'] ) {
             case 'get_stats':
-                return pg_global_stats_by_key( $params['parts']['public_key'] );
+                return Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] );
             case 'get_grid':
                 return [
                     'grid_data' => $this->get_grid( $params['parts'] ),
@@ -315,111 +315,18 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
     }
 
     public function get_grid( $parts ) {
-        global $wpdb;
-        $lap_stats = pg_global_stats_by_key( $parts['public_key'] );
-
-        // map grid
-        $data_raw = $wpdb->get_results( $wpdb->prepare( "
-            SELECT
-                lg1.grid_id, SUM(r1.value) as value
-            FROM $wpdb->dt_location_grid lg1
-			LEFT JOIN $wpdb->dt_reports r1 ON r1.grid_id=lg1.grid_id AND r1.type = 'prayer_app' AND r1.timestamp >= %d AND r1.timestamp <= %d AND ( r1.subtype = 'global' OR r1.subtype = 'custom' )
-            WHERE lg1.level = 0
-              AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
-              AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg1.grid_id
-            UNION ALL
-            SELECT
-                lg2.grid_id, SUM(r2.value) as value
-            FROM $wpdb->dt_location_grid lg2
-			LEFT JOIN $wpdb->dt_reports r2 ON r2.grid_id=lg2.grid_id AND r2.type = 'prayer_app' AND r2.timestamp >= %d AND r2.timestamp <= %d AND ( r2.subtype = 'global' OR r2.subtype = 'custom' )
-            WHERE lg2.level = 1
-              AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg2.grid_id
-            UNION ALL
-            SELECT
-                lg3.grid_id, SUM(r3.value) as value
-            FROM $wpdb->dt_location_grid lg3
-			LEFT JOIN $wpdb->dt_reports r3 ON r3.grid_id=lg3.grid_id AND r3.type = 'prayer_app' AND r3.timestamp >= %d AND r3.timestamp <= %d AND ( r3.subtype = 'global' OR r3.subtype = 'custom' )
-            WHERE lg3.level = 2
-              AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg3.grid_id
-        ", $lap_stats['start_time'], $lap_stats['end_time'], $lap_stats['start_time'], $lap_stats['end_time'], $lap_stats['start_time'], $lap_stats['end_time'] ), ARRAY_A );
-
-        $data = [];
-        foreach ( $data_raw as $row ) {
-            if ( ! isset( $data[$row['grid_id']] ) ) {
-                $data[$row['grid_id']] = (int) $row['value'] ?? 0;
-            }
-        }
-
+        $data = Prayer_Stats::get_relay_current_lap_map_stats( $parts['public_key'] );
         return [
             'data' => $data,
         ];
     }
 
     public function get_participants( $parts ){
-        global $wpdb;
-        $lap_stats = pg_global_stats_by_key( $parts['public_key'] );
-
-        $participants_raw = $wpdb->get_results( $wpdb->prepare( "
-           SELECT r.lng as longitude, r.lat as latitude, r.hash
-           FROM $wpdb->dt_reports r
-           LEFT JOIN $wpdb->dt_location_grid lg ON lg.grid_id=r.grid_id
-            WHERE r.post_type = 'laps'
-            AND r.type = 'prayer_app'
-            AND r.post_id = %d
-           AND r.timestamp >= %d AND r.timestamp <= %d AND r.hash IS NOT NULL
-        ", $parts['post_id'], $lap_stats['start_time'], $lap_stats['end_time'] ), ARRAY_A );
-        $participants = [];
-        if ( ! empty( $participants_raw ) ) {
-            foreach ( $participants_raw as $p ) {
-                if ( ! empty( $p['longitude'] ) ) {
-                    $participants[$p['hash']] = [
-                        'longitude' => (float) $p['longitude'],
-                        'latitude' => (float) $p['latitude']
-                    ];
-                }
-            }
-        }
-
-        return array_values( $participants );
+        return Prayer_Stats::get_relay_current_lap_map_participants( $parts['post_id'], $parts['public_key'] );
     }
 
     public function get_user_locations( $parts, $data ){
-        global $wpdb;
-        // Query based on hash
-        $hash = $data['hash'] ?? false;
-        if ( empty( $hash ) ) {
-            return [];
-        }
-        $lap_stats = pg_global_stats_by_key( $parts['public_key'] );
-
-        $user_locations_raw  = $wpdb->get_results( $wpdb->prepare( "
-               SELECT lg.longitude, lg.latitude
-               FROM $wpdb->dt_reports r
-               LEFT JOIN $wpdb->dt_location_grid lg ON lg.grid_id=r.grid_id
-               WHERE r.post_type = 'laps'
-                    AND r.type = 'prayer_app'
-                    AND r.hash = %s
-                    AND r.post_id = %d
-                AND r.timestamp >= %d AND r.timestamp <= %d
-                AND r.label IS NOT NULL
-            ", $hash, $parts['post_id'], $lap_stats['start_time'], $lap_stats['end_time'] ), ARRAY_A );
-
-        $user_locations = [];
-        if ( ! empty( $user_locations_raw ) ) {
-            foreach ( $user_locations_raw as $p ) {
-                if ( ! empty( $p['longitude'] ) ) {
-                    $user_locations[] = [
-                        'longitude' => (float) $p['longitude'],
-                        'latitude' => (float) $p['latitude']
-                    ];
-                }
-            }
-        }
-
-        return $user_locations;
+        return PG_User_API::get_user_locations_prayed_for( $parts['public_key'], $data['hash'] );
     }
 }
 PG_Global_Prayer_App_Map::instance();

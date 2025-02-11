@@ -48,12 +48,12 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
 
-        $lap = pg_get_custom_lap_by_post_id( $this->parts['post_id'] );
-        $title_words = preg_split( '/[\s\-_]+/', $lap['title'] );
+        $title = get_the_title( $this->parts['post_id'] );
+        $title_words = preg_split( '/[\s\-_]+/', $title );
 
-        $this->lap_title = $lap['title'];
-        if ( strlen( $lap['title'] ) < 6 ) {
-            $this->lap_title = $lap['title'];
+        $this->lap_title = $title;
+        if ( strlen( $title ) < 6 ) {
+            $this->lap_title = $title;
         } else if ( $title_words !== false ) {
             $little_words = [
                 'of',
@@ -102,7 +102,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header-event.php' );
 
-        $current_lap = pg_get_custom_lap_by_post_id( $this->parts['post_id'] );
+        $current_lap = Prayer_Stats::get_relay_current_lap( $this->parts['public_key'], $this->parts['post_id'] );
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
         if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
             ?>

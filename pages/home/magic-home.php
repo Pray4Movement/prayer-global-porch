@@ -175,9 +175,9 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
             return $data;
         }
 
-        $current_global_lap = Prayer_Stats::get_relay_current_lap();
-        $current_global_stats = Prayer_Stats::get_lap_stats( $current_global_lap['post_id'], $current_global_lap['lap_number'] );
-        $global_race = Prayer_Stats::stats_since_start_of_relay( $current_global_lap['post_id'] );
+        $current_global_stats = Prayer_Stats::get_relay_current_lap_stats( '49ba4c' );
+        $relay_id = pg_get_relay_id( '49ba4c' );
+        $global_race = Prayer_Stats::stats_since_start_of_relay( $relay_id );
 
         $data = [
             'current_time_elapsed' => $current_global_stats['time_elapsed'],

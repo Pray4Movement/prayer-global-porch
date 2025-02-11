@@ -15,28 +15,22 @@ window.addEventListener('load', function() {
       })
   }
 
-  console.log(jsObject)
-
   let content = jQuery('#content')
 
   window.api_post( 'get_global_list', {} )
     .done(function(data) {
       let html_content = ''
       jQuery.each( data, function(i,v){
-        end_time = v.stats.end_time_formatted
-        if( ! v.end_time ) {
-          end_time = 'running'
-        }
         html_content += `<tr>
-                      <td>${v.lap_number}</td>
-                      <th class="white">Lap #${v.lap_number}</th>
-                      <td>${ end_time }</td>
-                      <td>${v.stats.participants}</td>
-                      <td>${v.stats.time_elapsed_small}</td>
-                      <td>
-                         <a href="/prayer_app/global/${v.lap_key}/map">View Map</a>
-                      </td>
-                    </tr>`
+          <td>${v.lap_number}</td>
+          <th class="white">Lap #${v.lap_number}</th>
+          <td>${ v.stats.end_time_formatted || 'running' }</td>
+          <td>${v.stats.participants}</td>
+          <td>${v.stats.time_elapsed_small}</td>
+          <td>
+             <a href="/prayer_app/global/${v.lap_key}/map">View Map</a>
+          </td>
+        </tr>`
       })
 
       jQuery('#content').html(
@@ -55,19 +49,19 @@ window.addEventListener('load', function() {
                 </table>`
       )
 
-      jQuery('#list-table').DataTable({
-        lengthChange: false,
-        pageLength: 30,
-        pagingType: 'simple',
-        responsive: true,
-        order: [[0, 'desc']],
-        columnDefs: [
-          {
-            target: 0,
-            visible: false,
-          }
-        ],
-      });
+      // jQuery('#list-table').DataTable({
+      //   lengthChange: false,
+      //   pageLength: 30,
+      //   pagingType: 'simple',
+      //   responsive: true,
+      //   order: [[0, 'desc']],
+      //   columnDefs: [
+      //     {
+      //       target: 0,
+      //       visible: false,
+      //     }
+      //   ],
+      // });
     })
 
   jQuery('#totals_block').html(`Totals across all Laps: Total Intercessors: ${jsObject.global_race.participants}
