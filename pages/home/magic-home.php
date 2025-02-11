@@ -172,7 +172,7 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
 
         $data = get_transient( 'pg_home_stats' );
         if ( !empty( $data ) ) {
-//            return $data;
+            return $data;
         }
 
         $current_global_stats = Prayer_Stats::get_relay_current_lap_stats( '49ba4c' );
