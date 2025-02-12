@@ -224,6 +224,20 @@ class Prayer_Global_Relays_Post_Type extends DT_Module_Base {
                 'default'     => substr( md5( rand( 10000, 100000 ) ), 0, 3 ) . substr( md5( rand( 10000, 100000 ) ), 0, 3 ),
                 'tile' => 'details',
             ];
+            $fields['prayer_app_global_magic_key'] = [
+                'name'        => __( 'Global Key (TBD)', 'prayer-global-porch' ),
+                'description' => 'soon to be deprecated',
+                'type'        => 'text',
+                'default'     => '',
+                'tile' => 'details',
+            ];
+            $fields['prayer_app_custom_magic_key'] = [
+                'name'        => __( 'Custom Key (TBD)', 'prayer-global-porch' ),
+                'description' => 'soon to be deprecated',
+                'type'        => 'text',
+                'default'     => '',
+                'tile' => 'details',
+            ];
             $fields['visibility'] = [
                 'name' => __( 'Status', 'prayer-global-porch' ),
                 'type' => 'key_select',
@@ -396,6 +410,12 @@ class Prayer_Global_Relays_Post_Type extends DT_Module_Base {
             }
             if ( ! isset( $fields['prayer_app_relay_key'] ) || empty( $fields['prayer_app_relay_key'] ) ){
                 $fields['prayer_app_relay_key'] = substr( md5( rand( 10000, 100000 ) ), 0, 3 ) . substr( md5( rand( 10000, 100000 ) ), 0, 3 );
+            }
+            if ( ! isset( $fields['prayer_app_global_magic_key'] ) || empty( $fields['prayer_app_global_magic_key'] ) ){
+                $fields['prayer_app_global_magic_key'] = $fields['prayer_app_relay_key'];
+            }
+            if ( ! isset( $fields['prayer_app_custom_magic_key'] ) || empty( $fields['prayer_app_custom_magic_key'] ) ){
+                $fields['prayer_app_custom_magic_key'] = $fields['prayer_app_relay_key'];
             }
             if ( ! isset( $fields['start_date'] ) || empty( $fields['start_date'] ) ){
                 $fields['start_date'] = gmdate( 'Y-m-d H:i:s', time() );
