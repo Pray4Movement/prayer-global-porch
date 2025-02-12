@@ -458,7 +458,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
     }
 
     public function endpoint( WP_REST_Request $request ) {
-        $params = $request->get_params();
+        $params = pg_get_body_params( $request );
 
         if ( ! isset( $params['parts'], $params['action'], $params['data'] ) ) {
             return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
