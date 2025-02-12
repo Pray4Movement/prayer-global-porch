@@ -142,6 +142,7 @@ function _pg_format_duration( &$data, $time, $key_long, $key_short, $key_data = 
     if ( $time === 0 ) {
         $data[$key_long] = '--';
         $data[$key_short] = '--';
+        $data[$key_data] = [];
         return;
     }
     $days = floor( $time / 60 / 60 / 24 );
