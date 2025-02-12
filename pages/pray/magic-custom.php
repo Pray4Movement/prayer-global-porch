@@ -73,7 +73,11 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
         add_filter( 'dt_override_header_meta', function (){ return true;
         }, 1000, 1 );
 
-        $relay = DT_Posts::get_post( $this->post_type, $relay_post_id, true, false );
+        add_action( 'disciple_tools_loaded', [ $this, 'disciple_tools_loaded' ] );
+    }
+
+    public function disciple_tools_loaded(){
+        $relay = DT_Posts::get_post( $this->post_type, $this->parts['post_id'], true, false );
 
         $action = $this->parts['action'];
         // load different actions
@@ -101,7 +105,7 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
         }
 
         // set page title
-        $this->page_title = get_the_title( $this->parts['post_id'] );
+        $this->page_title = $relay['title'];
     }
 
     /* Setup $parts manually */

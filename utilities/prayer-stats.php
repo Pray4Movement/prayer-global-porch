@@ -30,7 +30,7 @@ class Prayer_Stats {
             WHERE relay_key = %s", $relay_key ), ARRAY_A );
 
         $data = [
-            'tile' => get_the_title( $relay_id ),
+            'title' => get_the_title( $relay_id ),
             'lap_number' => (int) $data['lap_number'],
             'post_id' => (int) $relay_id,
             'key' => $relay_key,
