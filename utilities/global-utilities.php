@@ -5160,21 +5160,6 @@ function pg_recursive_parse_args( $args, $defaults ) {
     return $new_args;
 }
 
-function pg_is_lap_complete( $post_id ) {
-    $complete = get_post_meta( $post_id, 'lap_completed', true );
-    if ( ! $complete ) {
-        global $wpdb;
-        $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT( DISTINCT( grid_id ) ) FROM $wpdb->dt_reports WHERE post_id = %d AND type = 'prayer_app' AND subtype = 'custom'", $post_id ) );
-        if ( $count >= PG_TOTAL_STATES ){
-            update_post_meta( $post_id, 'lap_completed', time() );
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return true;
-    }
-}
 
 function pg_og_tags( $details = [] ) {
     global $wp;

@@ -77,17 +77,16 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
     }
 
     public function disciple_tools_loaded(){
-        $relay = DT_Posts::get_post( $this->post_type, $this->parts['post_id'], true, false );
 
         $action = $this->parts['action'];
         // load different actions
         if ( empty( $action ) ) {
-            if ( !empty( $relay['single_lap'] ) && pg_is_lap_complete( $this->parts['post_id'] ) ) {
+            $status = get_post_meta( $this->parts['post_id'], 'status', true );
+            if ( $status === 'complete' ) {
                 wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/completed' );
                 exit;
-            } else {
-                require_once( 'action-custom-lap.php' );
             }
+            require_once( 'action-custom-lap.php' );
         } else if ( 'event' === $action ) {
             require_once( 'action-custom-event-lap.php' );
         } else if ( 'completed' === $action ) {
@@ -105,7 +104,7 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
         }
 
         // set page title
-        $this->page_title = $relay['title'];
+        $this->page_title = get_the_title( $this->parts['post_id'] );
     }
 
     /* Setup $parts manually */
