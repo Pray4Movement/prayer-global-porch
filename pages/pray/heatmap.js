@@ -376,6 +376,31 @@ window.addEventListener("load", function ($) {
   }
 
   function load_grid() {
+    let heatmap = [];
+    const min = 0; //Math.min(...Object.values(jsObject.grid_data.data));
+    const max = Math.max( Math.max(...Object.values(jsObject.grid_data.data)), 10 );
+    const range = max - min;
+    const step = range / 10;
+    const colors = [
+      "#aaa",
+      "#ffffe5",
+      "#f7fcb9",
+      "#d9f0a3",
+      "#addd8e",
+      "#78c679",
+      "#41ab5d",
+      "#238443",
+      "#006837",
+      "#004529",
+    ];
+    for (let i = 0; i < 10; i++) {
+      heatmap.push({
+        label: Math.floor( min + i * step ).toString(),
+        value: Math.floor(min + i * step ),
+        color: colors[i],
+      });
+    }
+
     window.previous_hover = false;
     const mapLayers = {
       binary: [
@@ -388,18 +413,7 @@ window.addEventListener("load", function ($) {
           color: green,
         },
       ],
-      heatmap: [
-        { label: "0", value: 0, color: "#aaa" },
-        { label: "1", value: 1, color: "#ffffe5" },
-        { label: "2", value: 2, color: "#f7fcb9" },
-        { label: "3", value: 3, color: "#d9f0a3" },
-        { label: "4", value: 4, color: "#addd8e" },
-        { label: "5", value: 5, color: "#78c679" },
-        { label: "6", value: 6, color: "#41ab5d" },
-        { label: "7", value: 7, color: "#238443" },
-        { label: "8", value: 8, color: "#006837" },
-        { label: "9+", value: 9, color: "#004529" },
-      ],
+      heatmap: heatmap,
     };
     const legendDiv = document.getElementById("map-legend");
 

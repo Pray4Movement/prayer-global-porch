@@ -99,7 +99,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
                 'parts' => $this->parts,
                 'grid_data' => [],
                 'participants' => [],
-                'stats' => Prayer_Stats::stats_since_start_of_relay( pg_get_relay_id( '49ba4c' ) ),
+                'stats' => $this->get_stats(),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                 'translations' => [],
                 'map_type' => $this->map_type,
@@ -120,7 +120,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
     }
 
     public function body(){
-        $lap_stats = Prayer_Stats::stats_since_start_of_relay( pg_get_relay_id( '49ba4c' ) );
+        $lap_stats = $this->get_stats();
         $finished_laps = number_format( (int) $lap_stats['lap_number'] - 1 );
         DT_Mapbox_API::geocoder_scripts();
         ?>
@@ -245,7 +245,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
 
         switch ( $params['action'] ) {
             case 'get_stats':
-                return Prayer_Stats::stats_since_start_of_relay( pg_get_relay_id( '49ba4c' ) );
+                return $this->get_stats();
             case 'get_grid':
                 return [
                     'grid_data' => $this->get_grid( $params['parts'] ),
@@ -272,8 +272,53 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
         }
     }
 
+    public function get_stats(){
+
+        global $wpdb;
+        $result = $wpdb->get_row( "
+            SELECT
+            MIN( r.timestamp ) as start_time,
+            MAX( r.timestamp ) as end_time,
+            COUNT( DISTINCT( r.grid_id ) ) as locations_completed,
+            SUM( r.value ) as minutes_prayed,
+            COUNT( DISTINCT( r.hash ) ) as participants,
+            COUNT( DISTINCT( r.label ) ) as participant_country_count
+            FROM $wpdb->dt_reports r
+            WHERE r.post_type = 'pg_relays'
+        ", ARRAY_A);
+
+
+        $global_lap = Prayer_Stats::get_relay_current_lap();
+        $data = [
+            'tile' => '',
+            'lap_number' => (int) $global_lap['lap_number'],
+            'start_time' => (int) $result['start_time'],
+            'end_time' => (int) $result['end_time'],
+            'on_going' => true,
+            'locations_completed' => (int) $result['locations_completed'],
+            'minutes_prayed' => (int) $result['minutes_prayed'],
+            'participants' => (int) $result['participants'],
+            'participant_country_count' => (int) $result['participant_country_count'],
+
+        ];
+        return _pg_stats_builder( $data );
+    }
+
     public function get_grid( $parts ) {
-        $data = Prayer_Stats::get_relay_all_map_stats();
+        global $wpdb;
+
+        $locations = $wpdb->get_results(
+            "SELECT grid_id, count(*) as completed
+            FROM $wpdb->dt_reports
+            WHERE post_type = 'pg_relays'
+            AND type = 'prayer_app'
+            GROUP BY grid_id
+        ", ARRAY_A );
+
+        $data = [];
+        foreach ( $locations as $location ){
+            $data[$location['grid_id']] = (int) $location['completed'];
+        }
 
         return [
             'data' => $data,
@@ -281,7 +326,22 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
     }
 
     public function get_participants( $parts ){
-        return Prayer_Stats::get_all_relay_participants();
+        global $wpdb;
+
+
+        $locations = $wpdb->get_results(
+            "SELECT r.lng as longitude, r.lat as latitude, r.hash
+            FROM $wpdb->dt_reports r
+            WHERE r.type = 'prayer_app'
+            AND r.lng IS NOT NULL
+            GROUP BY r.hash
+        ", ARRAY_A );
+
+        $data = [];
+        foreach ( $locations as $location ){
+            $data[] = [ 'longitude' => (float) $location['longitude'], 'latitude' => (float) $location['latitude'] ];
+        }
+        return $data;
     }
 
     public function get_user_locations( $parts, $data ){
@@ -300,7 +360,6 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
            WHERE r.post_type = 'pg_relays'
                 AND r.type = 'prayer_app'
                 AND r.hash = %s
-                AND r.post_id = %d
                 AND r.label IS NOT NULL
                 AND lg.longitude IS NOT NULL
                 AND lg.latitude IS NOT NULL
