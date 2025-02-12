@@ -74,8 +74,8 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
         if ( $url ) {
             $details['url'] = $url;
         }
-        $lap = Prayer_Stats::get_relay_current_lap( $this->parts['public_key'], $this->parts['post_id'] );
-        $details['title'] = 'Prayer.Global '.$lap['title'].' '. esc_html( __( 'Map', 'prayer-global-porch' ) );
+        $lap = Prayer_Stats::get_relay_current_lap( $this->parts['public_key'], $this->parts['post_id'], true );
+        $details['title'] = 'Prayer.Global '. $lap['title'] . ' ' . esc_html( __( 'Map', 'prayer-global-porch' ) );
         pg_og_tags( $details );
 
         ?>

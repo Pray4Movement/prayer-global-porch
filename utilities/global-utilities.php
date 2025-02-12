@@ -44,105 +44,7 @@ function pg_profile_icon() {
     return "<i class='icon pg-profile'></i>";
 }
 
-function pg_current_global_lap() : array {
-    global $wpdb;
-    /**
-     * Example:
-     *  [lap_number] => 5
-     *  [post_id] => 19
-     *  [key] => d7dcd4
-     *  [start_time] => 1651269768
-     */
-
-    /* It used to be stored in an option so that this function would be fast, as it is used all over the place */
-    // $lap = get_option( 'pg_current_global_lap', [] );
-
-    /* TODO: refactor this throughout the app. Maybe use the stats endpoint for this? */
-    /* This will be slower, but more accurate, but won't be being called for the mission critical stuff, so could be ok */
-    $global_relay = $wpdb->get_row( "
-        SELECT
-            pm.post_id as post_id,
-            pm1.meta_value as relay_key,
-            pm2.meta_value as start_time
-            #, MIN(r.total) as lap_number
-        FROM $wpdb->postmeta pm
-        JOIN $wpdb->postmeta pm1 ON pm.post_id = pm1.post_id AND pm1.meta_key = 'prayer_app_relay_key'
-        JOIN $wpdb->postmeta pm2 ON pm.post_id = pm2.post_id AND pm2.meta_key = 'start_time'
-        #JOIN $wpdb->dt_relays r ON r.relay_key = pm1.meta_value
-        WHERE pm.meta_key = 'type'
-        AND pm.meta_value = 'global'
-        #GROUP BY r.relay_key
-    ", ARRAY_A);
-
-    $result = [
-        'lap_number' => -1,
-        'post_id' => $global_relay['post_id'],
-        'key' => $global_relay['relay_key'],
-        'start_time' => $global_relay['start_time'],
-    ];
-
-    return $result;
-}
-
-function pg_current_custom_lap( int $post_id ) : array {
-    /* Search down the child lap tree to find the last lap that is active. That is the current custom lap. */
-    global $wpdb;
-
-    /* === THIS QUERY WORKS UP TO MYSQL 5.7 AND SHOULD BE REMOVED IN FAVOR OF BELOW QUERY WHEN MYSQL IS UPGRADED TO 8 === */
-/*     $results = $wpdb->get_results( $wpdb->prepare(
-        "SELECT
-            t.p2p_from,
-            @pv:= t.p2p_to p2p_to,
-            t.p2p_to as post_id
-        FROM ( SELECT * FROM wp_p2p ORDER BY p2p_from ASC ) t
-        JOIN ( SELECT @pv := %d ) tmp
-        WHERE p2p_type = 'parent-lap_to_child-lap'
-        AND t.p2p_from = @pv;",
-    $post_id ), ARRAY_A ); */
-
-    /* === THIS QUERY SHOULD BE USED WHEN THE MYSQL DB IS UPGRADED TO 8 IN FAVOR OF THE ABOVE ONE === */
-    $results = $wpdb->get_results( $wpdb->prepare(
-        "WITH RECURSIVE cte ( p2p_from_, p2p_to_ ) AS (
-            SELECT p2p_from, p2p_to FROM $wpdb->p2p WHERE p2p_from = %d AND p2p_type = 'parent-lap_to_child-lap'
-            UNION ALL
-            SELECT
-                c.p2p_to_, p.p2p_to
-            FROM
-                cte c
-            JOIN
-                $wpdb->p2p p
-            ON
-                c.p2p_to_ = p.p2p_from
-            AND
-                p.p2p_type = 'parent-lap_to_child-lap'
-        )
-        SELECT p2p_to_, p2p_from_, c.p2p_to_ as post_id
-        FROM cte c
-
-    ", [ $post_id ] ), ARRAY_A );
-
-    if ( is_wp_error( $results ) ) {
-        return [];
-    }
-
-    if ( empty( $results ) ) {
-        $current_lap_post_id = $post_id;
-    } else {
-        $current_lap_details = $results[ count( $results ) - 1 ];
-        $current_lap_post_id = $current_lap_details['post_id'];
-    }
-
-
-
-    $current_lap = pg_get_custom_lap_by_post_id( $current_lap_post_id );
-
-    if ( !$current_lap ) {
-        return [];
-    }
-
-    return $current_lap;
-}
-function pg_get_relay_id( string $public_key ) {
+function pg_get_relay_id( string $public_key = '49ba4c' ) {
     return pg_get_post_id( 'prayer_app_relay_key', $public_key );
 }
 function pg_get_post_id( string $meta_key, string $public_key ) {
@@ -159,64 +61,6 @@ function pg_get_post_id( string $meta_key, string $public_key ) {
         return $result;
     }
     return false;
-}
-
-
-/**
- * TODO: deprecate this in favour of relay system
- *
- * @param int|string $post_id
- *
- * @return array
- */
-function pg_get_custom_lap_by_post_id( $post_id ) {
-
-//    if ( wp_cache_get( __METHOD__. $post_id ) ) {
-//        return wp_cache_get( __METHOD__. $post_id );
-//    }
-
-    $result = DT_Posts::get_post( 'pg_relays', $post_id, true, false );
-
-    if ( is_wp_error( $result ) ) {
-        $lap = false;
-    } else if ( empty( $result ) ) {
-        $lap = false;
-    } else {
-        /* Not sure what this is doing... why does no end_time suggest it's ongoing?? */
-        $ongoing = false;
-        if ( empty( $result['end_time'] ) ) {
-            $result['end_time'] = time();
-            $ongoing = true;
-        }
-        $contacts = [];
-        if ( !empty( $result['contacts'] ) ) {
-            foreach ( $result['contacts'] as $contact ) {
-                $contacts[] = $contact['ID'];
-            }
-        }
-
-        $lap = [
-            'title' => $result['title'],
-            'lap_number' => (int) isset( $result['global_lap_number'] ) ? $result['global_lap_number'] : 1,
-            'post_id' => (int) $post_id,
-            'key' => $result['prayer_app_custom_magic_key'],
-            'relay_key' => $result['prayer_app_relay_key'],
-            'start_time' => (int) $result['start_time'],
-            'end_time' => (int) isset( $result['end_time'] ) ? $result['end_time'] : time(),
-            'on_going' => $ongoing,
-            'ctas_off' => isset( $result['ctas_off'] ) ? $result['ctas_off'] : false,
-            'event_lap' => isset( $result['event_lap'] ) ? $result['event_lap'] : false,
-            'single_lap' => isset( $result['single_lap'] ) ? $result['single_lap'] : false,
-            'visibility' => isset( $result['visibility']['key'] ) ? $result['visibility']['key'] : 'public',
-            'challenge_type' => isset( $result['challenge_type']['key'] ) ? $result['challenge_type']['key'] : 'ongoing',
-            'assigned_to' => isset( $result['assigned_to']['assigned-to'] ) ? $result['assigned_to']['assigned-to'] : null,
-            'contacts' => $contacts,
-        ];
-    }
-
-//    wp_cache_set( __METHOD__.$post_id, $lap );
-
-    return $lap;
 }
 
 function _pg_stats_builder( $data ) : array {
@@ -5316,21 +5160,6 @@ function pg_recursive_parse_args( $args, $defaults ) {
     return $new_args;
 }
 
-function pg_is_lap_complete( $post_id ) {
-    $complete = get_post_meta( $post_id, 'lap_completed', true );
-    if ( ! $complete ) {
-        global $wpdb;
-        $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT( DISTINCT( grid_id ) ) FROM $wpdb->dt_reports WHERE post_id = %d AND type = 'prayer_app' AND subtype = 'custom'", $post_id ) );
-        if ( $count >= PG_TOTAL_STATES ){
-            update_post_meta( $post_id, 'lap_completed', time() );
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return true;
-    }
-}
 
 function pg_og_tags( $details = [] ) {
     global $wp;

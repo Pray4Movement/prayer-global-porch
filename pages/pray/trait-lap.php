@@ -26,41 +26,37 @@ trait PG_Lap_Trait {
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header-event.php' );
 
-        $current_lap = pg_current_global_lap();
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
-        if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
-            ?>
-            <!-- Resources -->
-            <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3" defer></script>
-            <script>
-                let jsObject = [<?php echo json_encode([
-                    'parts' => $this->parts,
-                    'current_lap' => pg_current_global_lap(),
-                    'translations' => [
-                        'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
-                        'Keep Praying...' => __( 'Keep Praying...', 'prayer-global-porch' ),
-                        "Don't Know Jesus" => __( "Don't Know Jesus", 'prayer-global-porch' ),
-                        'Know About Jesus' => __( 'Know About Jesus', 'prayer-global-porch' ),
-                        'Know Jesus' => __( 'Know Jesus', 'prayer-global-porch' ),
-                        'Praying Paused' => __( 'Praying Paused', 'prayer-global-porch' ),
-                        'Great Job!' => __( 'Great Job!', 'prayer-global-porch' ),
-                        'Prayer Added!' => __( 'Prayer Added!', 'prayer-global-porch' ),
-                    ],
-                    'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
-                    'images_url' => pg_grid_image_url(),
-                    'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
-                    'current_url' => $current_url,
-                    'stats_url' => $current_url . 'stats',
-                    'map_url' => $current_url . 'map',
-                    'is_custom' => ( 'custom' === $this->parts['type'] ),
-                    'is_cta_feature_on' => true,
-                    'user_id' => get_current_user_id(),
-                    'cache_url' => 'https://s3.prayer.global/',
-                    'direct_api_url' => plugin_dir_url( dirname( __DIR__ ) ),
-                ]) ?>][0]
-            </script>
-            <?php
-        }
+        ?>
+        <!-- Resources -->
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3" defer></script>
+        <script>
+            let jsObject = [<?php echo json_encode([
+                'parts' => $this->parts,
+                'translations' => [
+                    'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
+                    'Keep Praying...' => __( 'Keep Praying...', 'prayer-global-porch' ),
+                    "Don't Know Jesus" => __( "Don't Know Jesus", 'prayer-global-porch' ),
+                    'Know About Jesus' => __( 'Know About Jesus', 'prayer-global-porch' ),
+                    'Know Jesus' => __( 'Know Jesus', 'prayer-global-porch' ),
+                    'Praying Paused' => __( 'Praying Paused', 'prayer-global-porch' ),
+                    'Great Job!' => __( 'Great Job!', 'prayer-global-porch' ),
+                    'Prayer Added!' => __( 'Prayer Added!', 'prayer-global-porch' ),
+                ],
+                'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
+                'images_url' => pg_grid_image_url(),
+                'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
+                'current_url' => $current_url,
+                'stats_url' => $current_url . 'stats',
+                'map_url' => $current_url . 'map',
+                'is_custom' => ( 'custom' === $this->parts['type'] ),
+                'is_cta_feature_on' => true,
+                'user_id' => get_current_user_id(),
+                'cache_url' => 'https://s3.prayer.global/',
+                'direct_api_url' => plugin_dir_url( dirname( __DIR__ ) ),
+            ]) ?>][0]
+        </script>
+        <?php
     }
 
     public function footer_javascript(){
@@ -139,7 +135,7 @@ trait PG_Lap_Trait {
                     <div class="skeleton" data-title></div>
                 </h2>
                 <p class="f-sm">
-                    <?php echo sprintf( esc_html__( 'In Prayer Relay %s', 'prayer-global-porch' ), esc_html( $this->lap_title ) ) ?>
+                    <?php echo sprintf( esc_html__( 'In Prayer Relay %s', 'prayer-global-porch' ), esc_html( $this->page_title ) ) ?>
                 </p>
             </div>
         </nav>

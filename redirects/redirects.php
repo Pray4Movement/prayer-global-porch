@@ -102,8 +102,7 @@ class Prayer_Global_Porch_Newest_Lap extends DT_Magic_Url_Base
     }
 
     public function redirect() {
-        $current_lap = pg_current_global_lap();
-        $link = '/prayer_app/global/' . $current_lap['key'];
+        $link = '/prayer_app/global/49ba4c';
         wp_redirect( $link );
         exit;
     }
@@ -199,8 +198,7 @@ class Prayer_Global_Porch_Newest_Lap_Location extends DT_Magic_Url_Base
     }
 
     public function redirect( $grid_id ) {
-        $current_lap = pg_current_global_lap();
-        $link = '/prayer_app/global/' . $current_lap['key'] . '/location?grid_id=' . $grid_id;
+        $link = '/prayer_app/global/49ba4c/location?grid_id=' . $grid_id;
         wp_redirect( $link );
         exit;
     }
@@ -240,8 +238,7 @@ class Prayer_Global_Porch_Newest_Lap_Stats extends DT_Magic_Url_Base
     }
 
     public function redirect() {
-        $current_lap = pg_current_global_lap();
-        $link = '/prayer_app/global/' . $current_lap['key'] . '/stats';
+        $link = '/prayer_app/global/49ba4c/stats';
         wp_redirect( $link );
         exit;
     }
@@ -282,8 +279,7 @@ class Prayer_Global_Porch_Newest_Lap_Map extends DT_Magic_Url_Base
     }
 
     public function redirect() {
-        $current_lap = pg_current_global_lap();
-        $link = '/prayer_app/global/' . $current_lap['key'] . '/map';
+        $link = '/prayer_app/global/49ba4c/map';
         wp_redirect( $link );
         exit;
     }

@@ -81,7 +81,6 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
                 'type' => $this->type,
                 'root' => $this->root,
             ],
-            'current_lap' => pg_current_global_lap(),
             'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
         ]) ?>][0]
 

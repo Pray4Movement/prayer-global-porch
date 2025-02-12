@@ -10,7 +10,7 @@ class Prayer_Stats {
             WHERE relay_key = %s", $relay_key ) );
     }
 
-    public static function get_relay_current_lap( $relay_key = '49ba4c', $relay_id = null ){
+    public static function get_relay_current_lap( $relay_key = '49ba4c', $relay_id = null, $with_details = false ){
         /**
          * Example:
          *  [lap_number] => 5
@@ -28,20 +28,43 @@ class Prayer_Stats {
             MIN(epoch) as start_time
             FROM $wpdb->dt_relays
             WHERE relay_key = %s", $relay_key ), ARRAY_A );
-        $relay = DT_Posts::get_post( 'pg_relays', $relay_id, true, false );
-        return [
-            'title' => $relay['title'],
+
+        $data = [
+            'title' => get_the_title( $relay_id ),
             'lap_number' => (int) $data['lap_number'],
             'post_id' => (int) $relay_id,
             'key' => $relay_key,
-            'start_time' => (int) $data['start_time'],
+            'start_time' => (int) $data['start_time']
+        ];
+
+        if ( $with_details ){
+            $relay = DT_Posts::get_post( 'pg_relays', $relay_id, true, false );
+            $data['ctas_off'] = isset( $relay['ctas_off'] ) ? $relay['ctas_off'] : false;
+            $data['event_lap'] = isset( $relay['event_lap'] ) ? $relay['event_lap'] : false;
+            $data['single_lap'] = isset( $relay['single_lap'] ) ? $relay['single_lap'] : false;
+            $data['visibility'] = isset( $relay['visibility']['key'] ) ? $relay['visibility']['key'] : 'public';
+            $data['challenge_type'] = isset( $relay['challenge_type']['key'] ) ? $relay['challenge_type']['key'] : 'ongoing';
+        }
+        return $data;
+    }
+    public static function get_relay_details( $relay_key = '49ba4c', $relay_id = null ){
+        if ( empty( $relay_id ) ){
+            $relay_id = pg_get_relay_id( $relay_key );
+        }
+        $relay = DT_Posts::get_post( 'pg_relays', $relay_id, true, false );
+        return [
+            'title' => $relay['title'],
+            'post_id' => (int) $relay_id,
+            'key' => $relay_key,
             'ctas_off' => isset( $relay['ctas_off'] ) ? $relay['ctas_off'] : false,
             'event_lap' => isset( $relay['event_lap'] ) ? $relay['event_lap'] : false,
             'single_lap' => isset( $relay['single_lap'] ) ? $relay['single_lap'] : false,
             'visibility' => isset( $relay['visibility']['key'] ) ? $relay['visibility']['key'] : 'public',
             'challenge_type' => isset( $relay['challenge_type']['key'] ) ? $relay['challenge_type']['key'] : 'ongoing',
+            'status' => $relay['status']['key'] ?? 'active',
         ];
     }
+
 
     public static function get_lap_stats( int $relay_id, $relay_key = null, int $lap_number = null ){
         $post_title = get_the_title( $relay_id );

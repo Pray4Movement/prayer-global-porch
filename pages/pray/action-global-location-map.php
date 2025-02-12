@@ -38,10 +38,8 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
         }
 
         // redirect to completed if not current global lap
-        $current_lap = pg_current_global_lap();
-        if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
-            add_action( 'dt_blank_body', [ $this, 'body' ] );
-        } else {
+        $current_lap = Prayer_Stats::get_relay_details( $this->parts['public_key'], $this->parts['post_id'] );
+        if ( $current_lap['status'] === 'complete' ) {
             wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/completed' );
             exit;
         }
@@ -329,7 +327,6 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
         <script>
             let jsObject = [<?php echo json_encode([
                 'parts' => $this->parts,
-                'current_lap' => pg_current_global_lap(),
                 'translations' => [
                     'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
                     'Keep Praying...' => __( 'Keep Praying...', 'prayer-global-porch' ),

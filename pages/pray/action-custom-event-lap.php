@@ -97,7 +97,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
         $url = new DT_URL( dt_get_url_path() );
         $grid_id = $url->query_params->has( 'grid_id' ) ? $url->query_params->get( 'grid_id' ) : 0;
 
-        $current_lap = Prayer_Stats::get_relay_current_lap( $this->parts['public_key'], $this->parts['post_id'] );
+        $current_lap = Prayer_Stats::get_relay_current_lap( $this->parts['public_key'], $this->parts['post_id'], true );
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
         if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
 
@@ -106,7 +106,6 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <script>
                 let jsObject = [<?php echo json_encode([
                     'parts' => $this->parts,
-                    'current_lap' => pg_current_global_lap(),
                     'translations' => [
                         'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
                         'keep_praying' => __( 'Keep Praying...', 'prayer-global-porch' ),
