@@ -121,8 +121,8 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
      * @param WP_REST_Request $request
      * @return array|bool|void|WP_Error
      */
-    public function endpoint( WP_REST_Request $request ) {        $params = $request->get_params();
-
+    public function endpoint( WP_REST_Request $request ) {
+        $params = pg_get_body_params( $request );
         if ( ! isset( $params['parts'], $params['action'] ) ) {
             return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }

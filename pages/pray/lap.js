@@ -200,7 +200,7 @@ function leavePraying() {
 }
 
 function getHomeUrl() {
-  return location.href + "/map";
+  return new URL(location.href).pathname + "/map";
 }
 function getMapUrl() {
   if (jsObject.is_cta_feature_on === true) {

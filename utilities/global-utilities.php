@@ -62,7 +62,10 @@ function pg_get_post_id( string $meta_key, string $public_key ) {
     }
     return false;
 }
-
+function pg_get_body_params( WP_REST_Request $request ) {
+    $body = $request->get_body();
+    return json_decode( $body, true );
+}
 function _pg_stats_builder( $data ) : array {
     /**
      * TIME CALCULATIONS
