@@ -30,7 +30,6 @@ trait PG_Lap_Trait {
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
         ?>
         <!-- Resources -->
-        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3" defer></script>
         <script>
             let jsObject = [<?php echo json_encode([
                 'parts' => $this->parts,
