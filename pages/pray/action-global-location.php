@@ -46,14 +46,13 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
         $this->if_rest_add_actions();
 
         // redirect to completed if not current global lap
-        $current_lap = pg_current_global_lap();
-        if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
-            add_action( 'dt_blank_body', [ $this, 'body' ] );
-        } else {
+        $current_lap = Prayer_Stats::get_relay_details( $this->parts['public_key'], $this->parts['post_id'] );
+        if ( $current_lap['status'] === 'complete' ) {
             wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/completed' );
             exit;
         }
 
+        add_action( 'dt_blank_body', [ $this, 'body' ] );
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );

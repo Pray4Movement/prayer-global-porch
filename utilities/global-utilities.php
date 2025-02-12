@@ -142,7 +142,7 @@ function pg_current_custom_lap( int $post_id ) : array {
 
     return $current_lap;
 }
-function pg_get_relay_id( string $public_key ) {
+function pg_get_relay_id( string $public_key = '49ba4c' ) {
     return pg_get_post_id( 'prayer_app_relay_key', $public_key );
 }
 function pg_get_post_id( string $meta_key, string $public_key ) {
