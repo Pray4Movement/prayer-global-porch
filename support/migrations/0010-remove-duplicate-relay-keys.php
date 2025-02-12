@@ -17,7 +17,6 @@ class Prayer_Global_Migration_0010 extends Prayer_Global_Migration {
     public function up() {
         global $wpdb;
         $wpdb->postmeta = $wpdb->prefix . 'postmeta';
-        $wpdb->posts = $wpdb->prefix . 'posts';
 
         $query = $wpdb->query( "
             DELETE FROM $wpdb->postmeta
