@@ -301,8 +301,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
 
         switch ( $params['action'] ) {
             case 'get_stats':
-                $lap_number = isset( $params['data'] ) && isset( $params['data']['lap_number'] ) ? $params['data']['lap_number'] : null;
-                return Prayer_Stats::get_relay_current_lap_stats( $params['parts']['public_key'], $params['parts']['post_id'], $lap_number );
+                return Prayer_Stats::get_relay_current_lap_stats( $params['parts']['public_key'], $params['parts']['post_id'], $params['data']['lap_number'] ?? null );
             case 'get_grid':
                 return [
                     'grid_data' => $this->get_grid( $params['data']['lap_number'] ?? null ),
