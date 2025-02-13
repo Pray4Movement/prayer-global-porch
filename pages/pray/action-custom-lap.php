@@ -471,8 +471,8 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 return $this->save_correction( $params['parts'], $params['data'] );
             case 'ip_location':
                 return $this->get_ip_location();
-            case 'increment_log':
-                return $this->increment_log( $params['parts'], $params['data'] );
+            case 'increment_prayer_time':
+                return $this->increment_prayer_time( $params['parts'], $params['data'] );
             default:
                 return new WP_Error( __METHOD__, 'Incorrect action', [ 'status' => 400 ] );
         }
@@ -483,7 +483,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
      * @param $data
      * @return int|WP_Error
      */
-    public function increment_log( $parts, $data ) {
+    public function increment_prayer_time( $parts, $data ) {
         if ( !isset( $parts['post_id'], $parts['root'], $parts['type'], $data['report_id'] ) ) {
             return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }

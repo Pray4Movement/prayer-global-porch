@@ -138,6 +138,8 @@ class PG_Relays_Table {
         if ( !$response ) {
             throw new ErrorException( 'Failed to insert report' );
         }
+
+        return $this->mysqli->insert_id;
     }
 
     public function get_next_grid_id( $relay_key ) {

@@ -159,8 +159,8 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['action'] ) {
-            case 'increment_log':
-                return $this->increment_log( $params['parts'], $params['data'] );
+            case 'increment_prayer_time':
+                return $this->increment_prayer_time( $params['parts'], $params['data'] );
             case 'correction':
                 return $this->save_correction( $params['parts'], $params['data'] );
             case 'ip_location':
