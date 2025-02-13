@@ -52,20 +52,16 @@ class PG_Relays_Table {
         }
         $lap_number = $this->last_lap_number_updated();
 
-        //check if we are on a new lap
-        if ( $lap_number_before_update != $lap_number ){
-            //check that we are not on a spike
-            $response = $this->mysqli->execute_query( "
-                SELECT MIN(total) + 1 as lap_number
-                FROM $this->relay_table
-                WHERE relay_key = ?
-            ", [ $relay_key ] );
-            $lap_number_after_update = $response->fetch_column();
+        $response = $this->mysqli->execute_query( "
+            SELECT MIN(total) + 1 as lap_number
+            FROM $this->relay_table
+            WHERE relay_key = ?
+        ", [ $relay_key ] );
+        $lap_number_after_update = $response->fetch_column();
 
-            //we have a new lap!
-            if ( $lap_number_before_update !== $lap_number_after_update ){
-                $this->new_lap_action( $relay_id );
-            }
+        //we have a new lap!
+        if ( $lap_number_before_update !== $lap_number_after_update ){
+            $this->new_lap_action( $relay_id );
         }
 
         return $lap_number;
@@ -183,10 +179,10 @@ class PG_Relays_Table {
 
     public function get_relay_id( $relay_key ) {
         $active_lap = $this->mysqli->execute_query( "
-            SELECT p.ID FROM $this->posts_table p
-                JOIN $this->postmeta_table pm ON pm.post_id = p.ID
-                WHERE pm.meta_key = 'prayer_app_relay_key'
-                AND pm.meta_value = ?
+            SELECT post_id
+            FROM $this->postmeta_table pm
+            WHERE pm.meta_key = 'prayer_app_relay_key'
+            AND pm.meta_value = ?
         ", [ $relay_key ] );
 
         if ( false === $active_lap ) {
