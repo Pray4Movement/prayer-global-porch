@@ -70,7 +70,7 @@ try {
     //@todo maybe include the relay id is the api call
     $relay_id = $relays_table->get_relay_id( $relay_key );
     $lap_number = $relays_table->update_relay_total( $relay_key, $grid_id, $relay_id );
-    $relays_table->log_prayer( $grid_id, $relay_key, [
+    $report_id = $relays_table->log_prayer( $grid_id, $relay_key, [
             'user_id' => $user_id,
             'lap_number' => $lap_number,
             'pace' => $pace,
@@ -89,4 +89,5 @@ try {
 
 send_response( array(
     'status' => 'ok',
+    'report_id' => $report_id,
 ) );

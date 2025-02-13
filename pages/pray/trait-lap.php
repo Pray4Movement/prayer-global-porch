@@ -383,7 +383,7 @@ trait PG_Lap_Trait {
      * @param $data
      * @return int|WP_Error
      */
-    public function increment_log( $parts, $data ) {
+    public function increment_prayer_time( $parts, $data ) {
         if ( !isset( $parts['post_id'], $parts['root'], $parts['type'], $data['report_id'] ) ) {
             return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
