@@ -79,16 +79,15 @@ class Prayer_Stats {
             $lap_number = $current_lap_number;
         }
 
-        $sql = "
-            SELECT
-            MIN( r.timestamp ) as start_time,
-            MAX( r.timestamp ) as end_time,
-            COUNT( DISTINCT( r.grid_id ) ) as locations_completed,
-            SUM( r.value ) as minutes_prayed,
-            COUNT( DISTINCT( r.hash ) ) as participants,
-            COUNT( DISTINCT( r.label ) ) as participant_country_count
-            FROM $wpdb->dt_reports r
-            WHERE r.post_type = 'pg_relays'
+        $sql = "SELECT
+                MIN( r.timestamp ) as start_time,
+                MAX( r.timestamp ) as end_time,
+                COUNT( DISTINCT( r.grid_id ) ) as locations_completed,
+                SUM( r.value ) as minutes_prayed,
+                COUNT( DISTINCT( r.hash ) ) as participants,
+                COUNT( DISTINCT( r.label ) ) as participant_country_count
+                FROM $wpdb->dt_reports r
+                WHERE r.post_type = 'pg_relays'
         ";
         $args = [];
 
@@ -125,8 +124,8 @@ class Prayer_Stats {
         $current_lap_number = self::get_relay_lap_number( $relay['prayer_app_relay_key'] );
 
         global $wpdb;
-        $result = $wpdb->get_row( $wpdb->prepare("
-            SELECT
+        $result = $wpdb->get_row( $wpdb->prepare(
+            "SELECT
             MIN( r.timestamp ) as start_time,
             MAX( r.timestamp ) as end_time,
             COUNT( DISTINCT( r.grid_id ) ) as locations_completed,
@@ -175,6 +174,33 @@ class Prayer_Stats {
         $data = [];
         foreach ( $locations as $location ){
             $data[$location['grid_id']] = (int) $location['completed'];
+        }
+        return $data;
+    }
+
+    /* The global lap has to look at the dt_reports table in order to find out what custom laps have
+    contributed to the completion of the map and stats */
+    public static function get_global_relay_map_stats( $lap_number = null ) {
+        global $wpdb;
+
+        if ( $lap_number === null ) {
+            $lap_number = self::get_relay_lap_number();
+        }
+
+        $locations = $wpdb->get_col( $wpdb->prepare(
+            "SELECT grid_id
+            FROM $wpdb->dt_reports
+            WHERE global_lap_number = %d
+            AND post_type = 'pg_relays'
+        ", $lap_number ) );
+        $data = pg_query_4770_locations();
+
+        foreach ( $data as $key ) {
+            if ( in_array( $key, $locations ) ) {
+                $data[$key] = 1;
+            } else {
+                $data[$key] = 0;
+            }
         }
         return $data;
     }

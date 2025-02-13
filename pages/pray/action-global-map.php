@@ -305,7 +305,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
                 return Prayer_Stats::get_relay_current_lap_stats( $params['parts']['public_key'], $params['parts']['post_id'], $lap_number );
             case 'get_grid':
                 return [
-                    'grid_data' => $this->get_grid( $params['parts'] ),
+                    'grid_data' => $this->get_grid( $params['parts']['public_key'], $params['data']['lap_number'] ?? null ),
                     'participants' => $this->get_participants( $params['parts'] ),
                 ];
             case 'get_grid_details':
@@ -322,8 +322,9 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
         }
     }
 
-    public function get_grid( $parts ) {
-        $data = Prayer_Stats::get_relay_current_lap_map_stats( $parts['public_key'] );
+    public function get_grid( $relay_key, $lap_number = null ) {
+        $current_lap_number = $lap_number ?? Prayer_Stats::get_relay_lap_number( $relay_key );
+        $data = Prayer_Stats::get_global_relay_map_stats( $current_lap_number );
         return [
             'data' => $data,
         ];

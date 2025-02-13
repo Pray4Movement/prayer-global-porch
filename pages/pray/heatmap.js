@@ -212,7 +212,9 @@ window.addEventListener("load", function ($) {
   let list = 0;
   window.load_map_triggered = 0;
   window
-    .get_page("get_grid")
+    .get_page("get_grid", {
+      lap_number: jsObject.stats.lap_number,
+    })
     .done(function (x) {
       list = 1;
 
@@ -1208,28 +1210,34 @@ window.addEventListener("load", function ($) {
   }
 
   function update_map(grid_id) {
-    window.get_page("get_grid").done(function (x) {
-      console.log("reload");
-      // add stats
-      jsObject.grid_data = x.grid_data;
-      reload_load_grid(grid_id);
-    });
+    window
+      .get_page("get_grid", {
+        lap_number: jsObject.stats.lap_number,
+      })
+      .done(function (x) {
+        console.log("reload");
+        // add stats
+        jsObject.grid_data = x.grid_data;
+        reload_load_grid(grid_id);
+      });
   }
 
   function update_stats() {
-    const lap_number = new URL(location.href).searchParams.get("lap");
-    const data = lap_number ? { lap_number } : null;
-    window.get_page("get_stats", data).done(function (stats) {
-      jsObject.stats = stats;
-      jQuery(".completed").html(jsObject.stats.completed);
-      jQuery(".completed_percent").html(jsObject.stats.completed_percent);
-      jQuery(".remaining").html(jsObject.stats.remaining);
-      jQuery(".time_elapsed").html(
-        PG.DisplayTime(jsObject.stats.time_elapsed_data)
-      );
-      jQuery(".prayer_warriors").html(jsObject.stats.participants);
-      jQuery(".lap_pace").html(jsObject.stats.lap_pace_small);
-    });
+    window
+      .get_page("get_stats", {
+        lap_number: jsObject.stats.lap_number,
+      })
+      .done(function (stats) {
+        jsObject.stats = stats;
+        jQuery(".completed").html(jsObject.stats.completed);
+        jQuery(".completed_percent").html(jsObject.stats.completed_percent);
+        jQuery(".remaining").html(jsObject.stats.remaining);
+        jQuery(".time_elapsed").html(
+          PG.DisplayTime(jsObject.stats.time_elapsed_data)
+        );
+        jQuery(".prayer_warriors").html(jsObject.stats.participants);
+        jQuery(".lap_pace").html(jsObject.stats.lap_pace_small);
+      });
   }
 
   function reload_load_grid(grid_id) {
