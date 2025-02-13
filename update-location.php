@@ -67,10 +67,11 @@ $parts = dt_recursive_sanitize_array( $decoded['parts'] ?? [] );
 $relays_table = new PG_Relays_Table( $conn, $db_prefix );
 
 try {
-    $lap_number = $relays_table->update_relay_total( $relay_key, $grid_id );
+    $updated_laps = $relays_table->update_relay_total( $relay_key, $grid_id );
     $relays_table->log_prayer( $grid_id, $relay_key, [
         'user_id' => $user_id,
-        'lap_number' => $lap_number,
+        'lap_number' => $updated_laps['lap_number'],
+        'global_lap_number' => $updated_laps['global_lap_number'],
         'pace' => $pace,
         'parts' => $parts,
         'user_location' => $user_location,

@@ -42,7 +42,54 @@ class PG_Relays_Table {
             throw new ErrorException( 'Failed to update relay total' );
         }
 
-        return $this->last_lap_number_updated();
+        $lap_number = $this->last_lap_number_updated();
+
+        if ( $relay_key !== '49ba4c' ) {
+            $response = $this->mysqli->execute_query( "
+                UPDATE $this->relay_table
+                SET total = LAST_INSERT_ID(total + 1)
+                WHERE relay_key = ?
+                AND grid_id = ?
+            ", [ '49ba4c', $grid_id ] );
+
+            if ( !$response ) {
+                throw new ErrorException( 'Failed to update relay total' );
+            }
+
+            global $wpdb;
+            $res = $this->mysqli->execute_query(
+                "SELECT MIN(total) + 1 as lap_number
+                FROM $this->relay_table
+                WHERE relay_key = '49ba4c'",
+            );
+            $global_lap_number = $res->fetch_column();
+        }
+        $lap_number = $this->last_lap_number_updated();
+
+//        if ( $relay_key !== '49ba4c' ) {
+//            $response = $this->mysqli->execute_query( "
+//                UPDATE $this->relay_table
+//                SET total = LAST_INSERT_ID(total + 1)
+//                WHERE relay_key = ?
+//                AND grid_id = ?
+//            ", [ '49ba4c', $grid_id ] );
+//
+//            if ( !$response ) {
+//                throw new ErrorException( 'Failed to update relay total' );
+//            }
+//
+//            global $wpdb;
+//            $res = $this->mysqli->execute_query(
+//                "SELECT MIN(total) + 1 as lap_number
+//                FROM $this->relay_table
+//                WHERE relay_key = '49ba4c'",
+//            );
+//            $global_lap_number = $res->fetch_column();
+//        }
+        return [
+            'lap_number' => $lap_number,
+            'global_lap_number' => $global_lap_number ?? $lap_number
+        ];
     }
 
     public function last_lap_number_updated() : int {
@@ -70,6 +117,7 @@ class PG_Relays_Table {
             'post_id' => $post_id,
             'post_type' => $parts['post_type'],
             'lap_number' => $lap_number,
+            'global_lap_number' => $data['global_lap_number'] ?? $lap_number,
 
             'type' => $parts['root'],
             'subtype' => $parts['type'],
@@ -103,6 +151,7 @@ class PG_Relays_Table {
                 post_id,
                 post_type,
                 lap_number,
+                global_lap_number,
                 type,
                 subtype,
                 payload,
@@ -116,12 +165,13 @@ class PG_Relays_Table {
                 hash
             )
             VALUES
-            ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
+            ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
         ", [
             $args['user_id'],
             $args['post_id'],
             $args['post_type'],
             $args['lap_number'],
+            $args['global_lap_number'],
             $args['type'],
             $args['subtype'],
             $args['payload'],
