@@ -374,7 +374,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
     }
 
     public function get_participants( $parts ){
-        return Prayer_Stats::get_relay_current_lap_map_participants( $parts['post_id'], $parts['public_key'] );
+        return Prayer_Stats::get_relay_lap_map_participants( $parts['post_id'], $parts['public_key'] );
     }
 
     public function get_user_locations( $parts, $data ){

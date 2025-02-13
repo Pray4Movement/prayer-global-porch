@@ -1,6 +1,7 @@
 <?php
 
 class Prayer_Stats {
+    public static $global_key = '49ba4c';
 
     public static function get_relay_lap_number( $relay_key = '49ba4c' ){
         global $wpdb;
@@ -91,7 +92,7 @@ class Prayer_Stats {
         ";
         $args = [];
 
-        if ( $relay_key === '49ba4c' ) {
+        if ( $relay_key === self::$global_key ) {
             $sql .= 'AND global_lap_number = %d';
             $args[] = $lap_number;
         } else {
@@ -178,51 +179,34 @@ class Prayer_Stats {
         return $data;
     }
 
-    public static function get_relay_all_map_stats( $relay_key = '49ba4c' ){
+    public static function get_relay_lap_map_participants( $relay_id, $relay_key, $lap_number = null ){
         global $wpdb;
-        $locations = $wpdb->get_results( $wpdb->prepare(
-            "SELECT grid_id,
-            total as completed
-            FROM $wpdb->dt_relays
-            WHERE relay_key = %s
-        ", $relay_key ), ARRAY_A );
 
-        $data = [];
-        foreach ( $locations as $location ){
-            $data[$location['grid_id']] = (int) $location['completed'];
+        if ( empty( $lap_number ) ) {
+            $lap_number = self::get_relay_lap_number( $relay_key );
         }
-        return $data;
-    }
 
-    public static function get_relay_current_lap_map_participants( $relay_id, $relay_key ){
-        global $wpdb;
-        $lap_number = self::get_relay_lap_number( $relay_key );
-        $locations = $wpdb->get_results( $wpdb->prepare(
-            "SELECT r.lng as longitude, r.lat as latitude, r.hash
+        $sql = "SELECT r.lng as longitude, r.lat as latitude, r.hash
             FROM $wpdb->dt_reports r
-            WHERE post_id = %s
-            AND lap_number = %d
-            AND r.lng IS NOT NULL
-            GROUP BY r.hash
-        ", $relay_id, $lap_number ), ARRAY_A );
+        ";
+        $args = [];
 
-        $data = [];
-        foreach ( $locations as $location ){
-            $data[] = [ 'longitude' => (float) $location['longitude'], 'latitude' => (float) $location['latitude'] ];
+        if ( $relay_key === self::$global_key ) {
+            $sql .= 'WHERE global_lap_number = %d';
+            $args[] = $lap_number;
+        } else {
+            $sql .= 'WHERE post_id = %s
+                    AND lap_number = %d';
+            $args[] = $relay_id;
+            $args[] = $lap_number;
         }
-        return $data;
-    }
 
-    public static function get_all_relay_participants( $relay_key = '49ba4c' ){
-        global $wpdb;
-        $relay_id = pg_get_relay_id( $relay_key );
-        $locations = $wpdb->get_results( $wpdb->prepare(
-            "SELECT r.lng as longitude, r.lat as latitude, r.hash
-            FROM $wpdb->dt_reports r
-            WHERE post_id = %s
-            AND r.lng IS NOT NULL
-            GROUP BY r.hash
-        ", $relay_id ), ARRAY_A );
+
+        $sql .= ' AND r.lng IS NOT NULL
+                GROUP BY r.hash';
+
+        //phpcs:ignore
+        $locations = $wpdb->get_results( $wpdb->prepare( $sql, $args ), ARRAY_A );
 
         $data = [];
         foreach ( $locations as $location ){
