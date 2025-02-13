@@ -67,6 +67,7 @@ class Prayer_Stats {
 
 
     public static function get_lap_stats( int $relay_id, $relay_key = null, int $lap_number = null ){
+        global $wpdb;
         $post_title = get_the_title( $relay_id );
 
         if ( empty( $relay_key ) ){
@@ -78,8 +79,7 @@ class Prayer_Stats {
             $lap_number = $current_lap_number;
         }
 
-        global $wpdb;
-        $result = $wpdb->get_row( $wpdb->prepare("
+        $sql = "
             SELECT
             MIN( r.timestamp ) as start_time,
             MAX( r.timestamp ) as end_time,
@@ -89,9 +89,20 @@ class Prayer_Stats {
             COUNT( DISTINCT( r.label ) ) as participant_country_count
             FROM $wpdb->dt_reports r
             WHERE r.post_type = 'pg_relays'
-            AND lap_number = %d
-            AND r.post_id = %d
-        ", $lap_number, $relay_id ), ARRAY_A);
+        ";
+        $args = [];
+
+        if ( $relay_key === '49ba4c' ) {
+            $sql .= 'AND global_lap_number = %d';
+            $args[] = $lap_number;
+        } else {
+            $sql .= 'AND lap_number = %d AND r.post_id = %d';
+            $args[] = $lap_number;
+            $args[] = $relay_id;
+        }
+
+        //phpcs:ignore
+        $result = $wpdb->get_row( $wpdb->prepare( $sql, $args ), ARRAY_A);
 
         $data = [
             'title' => $post_title,
