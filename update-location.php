@@ -67,14 +67,18 @@ $parts = dt_recursive_sanitize_array( $decoded['parts'] ?? [] );
 $relays_table = new PG_Relays_Table( $conn, $db_prefix );
 
 try {
-    $lap_number = $relays_table->update_relay_total( $relay_key, $grid_id );
+    //@todo maybe include the relay id is the api call
+    $relay_id = $relays_table->get_relay_id( $relay_key );
+    $lap_number = $relays_table->update_relay_total( $relay_key, $grid_id, $relay_id );
     $relays_table->log_prayer( $grid_id, $relay_key, [
-        'user_id' => $user_id,
-        'lap_number' => $lap_number,
-        'pace' => $pace,
-        'parts' => $parts,
-        'user_location' => $user_location,
-    ] );
+            'user_id' => $user_id,
+            'lap_number' => $lap_number,
+            'pace' => $pace,
+            'parts' => $parts,
+            'user_location' => $user_location
+        ],
+        $relay_id
+    );
 } catch ( \Throwable $th ) {
     send_response( array(
         'status' => 'error',
