@@ -43,7 +43,7 @@ class PG_Global_Prayer_App_Lap extends PG_Global_Prayer_App {
         $this->lap_title = 'Global';
 
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
-        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
+        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 200, 1 );
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
     }
     public function _header() {
@@ -74,9 +74,7 @@ class PG_Global_Prayer_App_Lap extends PG_Global_Prayer_App {
     }
 
     public function endpoint( WP_REST_Request $request ) {
-        $params = $request->get_params();
-
-        //dt_write_log( 'action-global-lap: ' . $_SERVER['REQUEST_URI'] . ' - ' .  $params['action'] );
+        $params = pg_get_body_params( $request );
 
         if ( ! isset( $params['parts'], $params['action'], $params['data'] ) ) {
             return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
@@ -85,8 +83,8 @@ class PG_Global_Prayer_App_Lap extends PG_Global_Prayer_App {
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['action'] ) {
-            case 'increment_log':
-                return $this->increment_log( $params['parts'], $params['data'] );
+            case 'increment_prayer_time':
+                return $this->increment_prayer_time( $params['parts'], $params['data'] );
             case 'correction':
                 return $this->save_correction( $params['parts'], $params['data'] );
             case 'ip_location':

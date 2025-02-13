@@ -47,7 +47,7 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
 
         add_action( 'dt_blank_body', [ $this, 'body' ] );
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
-        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
+        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 200, 1 );
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
 
         add_action( 'disciple_tools_loaded', [ $this, 'disciple_tools_loaded' ] );
@@ -159,8 +159,8 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['action'] ) {
-            case 'increment_log':
-                return $this->increment_log( $params['parts'], $params['data'] );
+            case 'increment_prayer_time':
+                return $this->increment_prayer_time( $params['parts'], $params['data'] );
             case 'correction':
                 return $this->save_correction( $params['parts'], $params['data'] );
             case 'ip_location':

@@ -68,7 +68,7 @@ $relays_table = new PG_Relays_Table( $conn, $db_prefix );
 
 try {
     $updated_laps = $relays_table->update_relay_total( $relay_key, $grid_id );
-    $relays_table->log_prayer( $grid_id, $relay_key, [
+    $report_id = $relays_table->log_prayer( $grid_id, $relay_key, [
         'user_id' => $user_id,
         'lap_number' => $updated_laps['lap_number'],
         'global_lap_number' => $updated_laps['global_lap_number'],
@@ -86,4 +86,5 @@ try {
 
 send_response( array(
     'status' => 'ok',
+    'report_id' => $report_id,
 ) );

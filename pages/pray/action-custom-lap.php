@@ -45,7 +45,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
         add_action( 'dt_blank_body', [ $this, 'body' ] );
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
-        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
+        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 200, 1 );
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
 
         $title = get_the_title( $this->parts['post_id'] );
@@ -76,10 +76,11 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        $allowed_js = [];
-        $allowed_js[] = 'lap-js';
-        $allowed_js[] = 'report-js';
-        return $allowed_js;
+        return [
+            'lap-js',
+            'report-js',
+            'global-functions',
+        ];
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
@@ -87,8 +88,8 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
     }
 
     public function wp_enqueue_scripts(){
-        pg_enqueue_script( 'report-js', 'pages/pray/report.js', [ 'jquery', 'global-functions' ], true );
-        pg_enqueue_script( 'lap-js', 'pages/pray/lap.js', [ 'jquery', 'global-functions', 'report-js' ], true );
+        pg_enqueue_script( 'report-js', 'pages/pray/report.js', [ 'global-functions' ], true );
+        pg_enqueue_script( 'lap-js', 'pages/pray/lap.js', [ 'global-functions', 'report-js' ], true );
     }
 
     public function _header() {
@@ -107,7 +108,6 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
             ?>
             <!-- Resources -->
-            <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3"></script>
             <script>
                 let jsObject = [<?php echo json_encode([
                     'parts' => $this->parts,
@@ -458,7 +458,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
     }
 
     public function endpoint( WP_REST_Request $request ) {
-        $params = $request->get_params();
+        $params = pg_get_body_params( $request );
 
         if ( ! isset( $params['parts'], $params['action'], $params['data'] ) ) {
             return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
@@ -471,8 +471,8 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 return $this->save_correction( $params['parts'], $params['data'] );
             case 'ip_location':
                 return $this->get_ip_location();
-            case 'increment_log':
-                return $this->increment_log( $params['parts'], $params['data'] );
+            case 'increment_prayer_time':
+                return $this->increment_prayer_time( $params['parts'], $params['data'] );
             default:
                 return new WP_Error( __METHOD__, 'Incorrect action', [ 'status' => 400 ] );
         }
@@ -483,7 +483,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
      * @param $data
      * @return int|WP_Error
      */
-    public function increment_log( $parts, $data ) {
+    public function increment_prayer_time( $parts, $data ) {
         if ( !isset( $parts['post_id'], $parts['root'], $parts['type'], $data['report_id'] ) ) {
             return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }

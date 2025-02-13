@@ -294,7 +294,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
 
         switch ( $params['action'] ) {
             case 'get_stats':
-                return Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] );
+                return Prayer_Stats::get_relay_current_lap_stats( $params['parts']['public_key'], $params['parts']['post_id'] );
             case 'get_grid':
                 return [
                     'grid_data' => $this->get_grid( $params['parts'] ),

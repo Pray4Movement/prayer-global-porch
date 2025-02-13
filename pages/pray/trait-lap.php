@@ -4,10 +4,11 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 trait PG_Lap_Trait {
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        $allowed_js = [];
-        $allowed_js[] = 'lap-js';
-        $allowed_js[] = 'report-js';
-        return $allowed_js;
+        return [
+            'lap-js',
+            'report-js',
+            'global-functions',
+        ];
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
@@ -17,8 +18,8 @@ trait PG_Lap_Trait {
     }
 
     public function wp_enqueue_scripts(){
-        pg_enqueue_script( 'report-js', 'pages/pray/report.js', [ 'jquery', 'global-functions' ], true );
-        pg_enqueue_script( 'lap-js', 'pages/pray/lap.js', [ 'jquery', 'global-functions', 'report-js' ], true );
+        pg_enqueue_script( 'report-js', 'pages/pray/report.js', [ 'global-functions' ], true );
+        pg_enqueue_script( 'lap-js', 'pages/pray/lap.js', [ 'global-functions', 'report-js' ], true );
 
         wp_enqueue_style( 'lap-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'lap.css', [], fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap.css' ), 'all' );
     }
@@ -29,7 +30,6 @@ trait PG_Lap_Trait {
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
         ?>
         <!-- Resources -->
-        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3" defer></script>
         <script>
             let jsObject = [<?php echo json_encode([
                 'parts' => $this->parts,
@@ -286,7 +286,7 @@ trait PG_Lap_Trait {
                     <div class="modal-footer">
                         <button type="button" class="btn" id="correction_submit_button">
                             <?php echo esc_html( __( 'Submit', 'prayer-global-porch' ) ) ?>
-                            <span class="loading-spinner correction_modal_spinner"></span>
+                            <div class="loading-spinner correction_modal_spinner"></div>
                         </button>
                     </div>
                 </div>
@@ -383,7 +383,7 @@ trait PG_Lap_Trait {
      * @param $data
      * @return int|WP_Error
      */
-    public function increment_log( $parts, $data ) {
+    public function increment_prayer_time( $parts, $data ) {
         if ( !isset( $parts['post_id'], $parts['root'], $parts['type'], $data['report_id'] ) ) {
             return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
