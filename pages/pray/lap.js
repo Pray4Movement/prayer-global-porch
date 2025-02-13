@@ -325,7 +325,7 @@ function startTimer(time) {
         {
           method: "POST",
           body: JSON.stringify({
-            action: "increment_log",
+            action: "increment_prayer_time",
             parts: jsObject.parts,
             data: {
               report_id: window.pg_report_id,
