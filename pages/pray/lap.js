@@ -258,6 +258,7 @@ function startTimer(time) {
     window.time = 0;
   }
 
+  window.tick = 0;
   window.pgInterval = setInterval(() => {
     window.time = window.time + 0.1;
 
@@ -282,6 +283,11 @@ function startTimer(time) {
           if (!res.ok) {
             throw Error(res.status + ": " + res.statusText);
           }
+          return res.json();
+        })
+        .then((json) => {
+          const { report_id } = json;
+          window.pg_report_id = report_id;
         })
         .catch((error) => {
           console.log(error);
@@ -305,6 +311,29 @@ function startTimer(time) {
       hide(prayingPanel);
 
       prayingProgress.style.width = 0;
+    }
+
+    if (window.finishedPraying) {
+      window.tick = window.tick + 0.1;
+    }
+    if (window.tick > 60) {
+      window.api_fetch(
+        window.pg_global.root +
+          jsObject.parts.root +
+          "/v1/" +
+          jsObject.parts.type,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            action: "increment_log",
+            parts: jsObject.parts,
+            data: {
+              report_id: window.pg_report_id,
+            },
+          }),
+        }
+      );
+      window.tick = 0;
     }
   }, 100);
 }
@@ -351,28 +380,23 @@ window.api_fetch = function (url, options = {}) {
     .then((result) => result.json());
 };
 
-window.api_post_global = (type, action, data = null) => {
-  return window.api_fetch(
-    `${window.pg_global.root}pg-api/v1/${type}/${action}`,
-    {
-      method: "POST",
-      body: data !== null ? JSON.stringify(data) : null,
-    }
-  );
-};
 function ip_location() {
-  window.api_post_global("user", "ip_location").then(function (location) {
-    window.user_location = [];
-    if (location) {
-      let pg_user_hash = localStorage.getItem("pg_user_hash");
-      if (!pg_user_hash || pg_user_hash === "undefined") {
-        localStorage.setItem("pg_user_hash", location.hash);
-      } else {
-        location.hash = pg_user_hash;
+  return window
+    .api_fetch(`${window.pg_global.root}pg-api/v1/user/ip_location`, {
+      method: "POST",
+    })
+    .then(function (location) {
+      window.user_location = [];
+      if (location) {
+        let pg_user_hash = localStorage.getItem("pg_user_hash");
+        if (!pg_user_hash || pg_user_hash === "undefined") {
+          localStorage.setItem("pg_user_hash", location.hash);
+        } else {
+          location.hash = pg_user_hash;
+        }
+        window.user_location = location;
       }
-      window.user_location = location;
-    }
-  });
+    });
 }
 
 /* Fly away the see more button after a little bit of scroll */
