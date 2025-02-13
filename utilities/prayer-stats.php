@@ -23,7 +23,7 @@ class Prayer_Stats {
         }
         global $wpdb;
         $data = $wpdb->get_row( $wpdb->prepare(
-            "SELECT 
+            "SELECT
             MIN(total) + 1 as lap_number,
             MIN(epoch) as start_time
             FROM $wpdb->dt_relays
@@ -144,11 +144,11 @@ class Prayer_Stats {
         return _pg_stats_builder( $data );
     }
 
-    public static function get_relay_current_lap_stats( $relay_key, $relay_id = null ){
+    public static function get_relay_current_lap_stats( $relay_key, $relay_id = null, $lap_number = null ){
         if ( empty( $relay_id ) ){
             $relay_id = pg_get_relay_id( $relay_key );
         }
-        return self::get_lap_stats( $relay_id, $relay_key );
+        return self::get_lap_stats( $relay_id, $relay_key, $lap_number );
     }
 
     public static function get_relay_current_lap_map_stats( $relay_key ){

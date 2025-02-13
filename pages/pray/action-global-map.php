@@ -76,6 +76,9 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
         $details['title'] = esc_html( sprintf( __( '%s Map', 'prayer-global-porch' ), 'Prayer.Global' ) );
         pg_og_tags( $details );
 
+        $url = new DT_URL( dt_get_url_path( false, true ) );
+        $lap_number = $url->query_params->has( 'lap' ) ? $url->query_params->get( 'lap' ) : null;
+
         ?>
         <script>
             let jsObject = [<?php echo json_encode([
@@ -83,7 +86,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
                 'grid_data' => [],
                 'participants' => [],
                 'user_locations' => [],
-                'stats' => Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] ),
+                'stats' => Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'], $lap_number ),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                 'map_type' => 'binary',
                 'is_cta_feature_on' => true,
@@ -105,7 +108,11 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
 
     public function body(){
         $parts = $this->parts;
-        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] );
+
+        $url = new DT_URL( dt_get_url_path( false, true ) );
+        $lap_number = $url->query_params->has( 'lap' ) ? $url->query_params->get( 'lap' ) : null;
+
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'], $lap_number );
         DT_Mapbox_API::geocoder_scripts();
         ?>
         <style id="custom-style"></style>
@@ -294,7 +301,8 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
 
         switch ( $params['action'] ) {
             case 'get_stats':
-                return Prayer_Stats::get_relay_current_lap_stats( $params['parts']['public_key'], $params['parts']['post_id'] );
+                $lap_number = isset( $params['data'] ) && isset( $params['data']['lap_number'] ) ? $params['data']['lap_number'] : null;
+                return Prayer_Stats::get_relay_current_lap_stats( $params['parts']['public_key'], $params['parts']['post_id'], $lap_number );
             case 'get_grid':
                 return [
                     'grid_data' => $this->get_grid( $params['parts'] ),

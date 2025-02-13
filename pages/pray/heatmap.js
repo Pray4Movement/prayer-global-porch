@@ -62,49 +62,29 @@ window.addEventListener("load", function ($) {
 
   let countdownInterval;
 
-  window.get_page = (action) => {
+  window.get_page = (action, data = null) => {
+    const body = { action: action, parts: jsObject.parts };
+    if (data !== null) {
+      body.data = data;
+    }
     return jQuery
-    .ajax({
-      type: "POST",
-      data: JSON.stringify({ action: action, parts: jsObject.parts }),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      url:
-        window.pg_global.root +
-        jsObject.parts.root +
-        "/v1/" +
-        jsObject.parts.type +
-        "/" +
-        jsObject.parts.action,
-    })
-    .fail(function (e) {
-      console.log(e);
-      jQuery("#error").html(e);
-    });
-  };
-  window.get_data_page = (action, data) => {
-    return jQuery
-    .ajax({
-      type: "POST",
-      data: JSON.stringify({
-        action: action,
-        parts: jsObject.parts,
-        data: data,
-      }),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      url:
-        window.pg_global.root +
-        jsObject.parts.root +
-        "/v1/" +
-        jsObject.parts.type +
-        "/" +
-        jsObject.parts.action,
-    })
-    .fail(function (e) {
-      console.log(e);
-      jQuery("#error").html(e);
-    });
+      .ajax({
+        type: "POST",
+        data: JSON.stringify(body),
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        url:
+          window.pg_global.root +
+          jsObject.parts.root +
+          "/v1/" +
+          jsObject.parts.type +
+          "/" +
+          jsObject.parts.action,
+      })
+      .fail(function (e) {
+        console.log(e);
+        jQuery("#error").html(e);
+      });
   };
   window.api_post_global = (type, action, data = []) => {
     return window.api_fetch(
@@ -145,77 +125,77 @@ window.addEventListener("load", function ($) {
     : null;
 
   pray_for_area_button &&
-  pray_for_area_button.on("click", () => {
-    if (!window.selected_grid_id) {
-      return;
-    }
-
-    const url = new URL(window.location.href);
-    const urlWithAction = url.pathname;
-    const urlWithoutAction = urlWithAction.split("/").slice(0, -1).join("/");
-
-    pray_for_area_content.innerHTML = `<iframe src="${urlWithoutAction}/location?grid_id=${window.selected_grid_id}" frameborder="0" id="pray-for-area-iframe"></iframe>`;
-
-    /* fit the iframe to the screen height */
-    const pray_for_area_iframe = document.getElementById(
-      "pray-for-area-iframe"
-    );
-    const verticalMargin =
-      getComputedStyle(pray_for_area_modal).getPropertyValue(
-        "--bs-modal-margin"
-      );
-    const screenHeight = window.innerHeight;
-    pray_for_area_iframe.style.height = `calc( ${screenHeight}px - 2 * ${verticalMargin} - 2px )`;
-
-    /* Attach eventListeners to prayer buttons */
-    pray_for_area_iframe.addEventListener("load", () => {
-      if (pray_for_area_iframe.getAttribute("src") === "") {
+    pray_for_area_button.on("click", () => {
+      if (!window.selected_grid_id) {
         return;
       }
 
-      const iframeDocument = pray_for_area_iframe.contentDocument;
-      const question_done_button =
-        iframeDocument.getElementById("question__yes_done");
-      const decision_leave_button =
-        iframeDocument.getElementById("decision__leave");
+      const url = new URL(window.location.href);
+      const urlWithAction = url.pathname;
+      const urlWithoutAction = urlWithAction.split("/").slice(0, -1).join("/");
 
-      decision_leave_button.addEventListener("click", () => {
-        close_iframe_modal();
+      pray_for_area_content.innerHTML = `<iframe src="${urlWithoutAction}/location?grid_id=${window.selected_grid_id}" frameborder="0" id="pray-for-area-iframe"></iframe>`;
+
+      /* fit the iframe to the screen height */
+      const pray_for_area_iframe = document.getElementById(
+        "pray-for-area-iframe"
+      );
+      const verticalMargin =
+        getComputedStyle(pray_for_area_modal).getPropertyValue(
+          "--bs-modal-margin"
+        );
+      const screenHeight = window.innerHeight;
+      pray_for_area_iframe.style.height = `calc( ${screenHeight}px - 2 * ${verticalMargin} - 2px )`;
+
+      /* Attach eventListeners to prayer buttons */
+      pray_for_area_iframe.addEventListener("load", () => {
+        if (pray_for_area_iframe.getAttribute("src") === "") {
+          return;
+        }
+
+        const iframeDocument = pray_for_area_iframe.contentDocument;
+        const question_done_button =
+          iframeDocument.getElementById("question__yes_done");
+        const decision_leave_button =
+          iframeDocument.getElementById("decision__leave");
+
+        decision_leave_button.addEventListener("click", () => {
+          close_iframe_modal();
+        });
+        question_done_button.addEventListener("click", () => {
+          close_iframe_modal();
+          celebrate_prayed_for_place(window.selected_grid_id);
+        });
       });
-      question_done_button.addEventListener("click", () => {
-        close_iframe_modal();
-        celebrate_prayed_for_place(window.selected_grid_id);
-      });
+
+      function close_iframe_modal() {
+        pray_for_area_iframe.setAttribute("src", "");
+        jQuery(pray_for_area_modal).modal("hide");
+      }
+
+      jQuery(pray_for_area_modal).modal("show");
+      hide_location_details();
     });
 
-    function close_iframe_modal() {
-      pray_for_area_iframe.setAttribute("src", "");
-      jQuery(pray_for_area_modal).modal("hide");
-    }
-
-    jQuery(pray_for_area_modal).modal("show");
-    hide_location_details();
-  });
-
   pray_for_area_modal &&
-  pray_for_area_modal.addEventListener("hidden.bs.modal", (event) => {
-    pray_for_area_content.innerHTML = "";
-  });
+    pray_for_area_modal.addEventListener("hidden.bs.modal", (event) => {
+      pray_for_area_content.innerHTML = "";
+    });
 
   settings_toggle &&
-  settings_toggle.addEventListener("hide.bs.dropdown", (e) => {
-    const cluster_participants_element = document.getElementById(
-      "cluster_participants"
-    );
-    const clustered =
-      cluster_participants_element.classList.contains("active");
+    settings_toggle.addEventListener("hide.bs.dropdown", (e) => {
+      const cluster_participants_element = document.getElementById(
+        "cluster_participants"
+      );
+      const clustered =
+        cluster_participants_element.classList.contains("active");
 
-    if (clustered) {
-      gtag("event", "chose_clustering");
-    } else {
-      gtag("event", "chose_nonclustering");
-    }
-  });
+      if (clustered) {
+        gtag("event", "chose_clustering");
+      } else {
+        gtag("event", "chose_nonclustering");
+      }
+    });
 
   let initialize_screen = jQuery(".initialize-progress");
   let grid_details_content = jQuery("#grid-details-content");
@@ -232,77 +212,77 @@ window.addEventListener("load", function ($) {
   let list = 0;
   window.load_map_triggered = 0;
   window
-  .get_page("get_grid")
-  .done(function (x) {
-    list = 1;
-
-    jsObject.grid_data = x.grid_data;
-    jsObject.participants = x.participants;
-
-    if (loop > 9 && list > 0 && window.load_map_triggered !== 1) {
-      window.load_map_triggered = 1;
-      load_map();
-    }
-  })
-  .fail(function () {
-    console.log("Error getting grid data");
-    jsObject.grid_data = { data: {}, highest_value: 1 };
-  });
-  let data = {
-    hash: localStorage.getItem("pg_user_hash"),
-  };
-  window
-  .get_data_page("get_user_locations", data)
-  .done(function (user_locations) {
-    jsObject.user_locations = user_locations;
-  })
-  .fail(function () {
-    console.log("Error getting user locations");
-    jsObject.user_locations = [];
-  });
-
-  let map;
-  jQuery.each(asset_list, function (i, v) {
-    jQuery
-    .ajax({
-      url: window.pg_global.mirror_url + "tiles/world/flat_states/" + v,
-      dataType: "json",
-      data: null,
-      cache: true,
-      beforeSend: function (xhr) {
-        if (xhr.overrideMimeType) {
-          xhr.overrideMimeType("application/json");
-        }
-      },
-    })
+    .get_page("get_grid")
     .done(function (x) {
-      loop++;
-      initialize_screen.val(loop);
+      list = 1;
 
-      if (1 === loop) {
-        jQuery("#initialize-people").show();
-      }
+      jsObject.grid_data = x.grid_data;
+      jsObject.participants = x.participants;
 
-      if (3 === loop) {
-        jQuery("#initialize-activity").show();
-      }
-
-      if (5 === loop) {
-        jQuery("#initialize-coffee").show();
-      }
-
-      if (8 === loop) {
-        jQuery("#initialize-dothis").show();
-      }
-
-      if (loop > 7 && list > 0 && window.load_map_triggered !== 1) {
+      if (loop > 9 && list > 0 && window.load_map_triggered !== 1) {
         window.load_map_triggered = 1;
         load_map();
       }
     })
     .fail(function () {
-      loop++;
+      console.log("Error getting grid data");
+      jsObject.grid_data = { data: {}, highest_value: 1 };
     });
+  let data = {
+    hash: localStorage.getItem("pg_user_hash"),
+  };
+  window
+    .get_page("get_user_locations", data)
+    .done(function (user_locations) {
+      jsObject.user_locations = user_locations;
+    })
+    .fail(function () {
+      console.log("Error getting user locations");
+      jsObject.user_locations = [];
+    });
+
+  let map;
+  jQuery.each(asset_list, function (i, v) {
+    jQuery
+      .ajax({
+        url: window.pg_global.mirror_url + "tiles/world/flat_states/" + v,
+        dataType: "json",
+        data: null,
+        cache: true,
+        beforeSend: function (xhr) {
+          if (xhr.overrideMimeType) {
+            xhr.overrideMimeType("application/json");
+          }
+        },
+      })
+      .done(function (x) {
+        loop++;
+        initialize_screen.val(loop);
+
+        if (1 === loop) {
+          jQuery("#initialize-people").show();
+        }
+
+        if (3 === loop) {
+          jQuery("#initialize-activity").show();
+        }
+
+        if (5 === loop) {
+          jQuery("#initialize-coffee").show();
+        }
+
+        if (8 === loop) {
+          jQuery("#initialize-dothis").show();
+        }
+
+        if (loop > 7 && list > 0 && window.load_map_triggered !== 1) {
+          window.load_map_triggered = 1;
+          load_map();
+        }
+      })
+      .fail(function () {
+        loop++;
+      });
   });
   function pan_to_user_location() {
     window.api_post_global("user", "ip_location").then(function (location) {
@@ -378,7 +358,10 @@ window.addEventListener("load", function ($) {
   function load_grid() {
     let heatmap = [];
     const min = 0; //Math.min(...Object.values(jsObject.grid_data.data));
-    const max = Math.max( Math.max(...Object.values(jsObject.grid_data.data)), 10 );
+    const max = Math.max(
+      Math.max(...Object.values(jsObject.grid_data.data)),
+      10
+    );
     const range = max - min;
     const step = range / 10;
     const colors = [
@@ -395,8 +378,8 @@ window.addEventListener("load", function ($) {
     ];
     for (let i = 0; i < 10; i++) {
       heatmap.push({
-        label: Math.floor( min + i * step ).toString(),
-        value: Math.floor(min + i * step ),
+        label: Math.floor(min + i * step).toString(),
+        value: Math.floor(min + i * step),
         color: colors[i],
       });
     }
@@ -432,71 +415,71 @@ window.addEventListener("load", function ($) {
 
     jQuery.each(asset_list, function (i, file) {
       jQuery
-      .ajax({
-        url: window.pg_global.mirror_url + "tiles/world/flat_states/" + file,
-        dataType: "json",
-        data: null,
-        cache: true,
-        beforeSend: function (xhr) {
-          if (xhr.overrideMimeType) {
-            xhr.overrideMimeType("application/json");
-          }
-        },
-      })
-      .done(function (geojson) {
-        /* load prayer grid layer */
-        map.on("load", function () {
-          jQuery.each(geojson.features, function (j, v) {
-            if (typeof jsObject.grid_data.data[v.id] !== "undefined") {
-              geojson.features[j].properties.value =
-                jsObject.grid_data.data[v.id];
-            } else {
-              geojson.features[j].properties.value = 0;
+        .ajax({
+          url: window.pg_global.mirror_url + "tiles/world/flat_states/" + file,
+          dataType: "json",
+          data: null,
+          cache: true,
+          beforeSend: function (xhr) {
+            if (xhr.overrideMimeType) {
+              xhr.overrideMimeType("application/json");
             }
-          });
+          },
+        })
+        .done(function (geojson) {
+          /* load prayer grid layer */
+          map.on("load", function () {
+            jQuery.each(geojson.features, function (j, v) {
+              if (typeof jsObject.grid_data.data[v.id] !== "undefined") {
+                geojson.features[j].properties.value =
+                  jsObject.grid_data.data[v.id];
+              } else {
+                geojson.features[j].properties.value = 0;
+              }
+            });
 
-          map.addSource(i.toString(), {
-            type: "geojson",
-            data: geojson,
-          });
-          map.addLayer({
-            id: i.toString() + "line",
-            type: "line",
-            source: i.toString(),
-            paint: {
-              "line-color": window.lineColor,
-              "line-width": 0.5,
-            },
-          });
-          map.addLayer(
-            {
-              id: i.toString() + "fills_heat",
-              type: "fill",
+            map.addSource(i.toString(), {
+              type: "geojson",
+              data: geojson,
+            });
+            map.addLayer({
+              id: i.toString() + "line",
+              type: "line",
               source: i.toString(),
               paint: {
-                ...fillColors,
+                "line-color": window.lineColor,
+                "line-width": 0.5,
               },
-            },
-            "waterway-label"
-          );
+            });
+            map.addLayer(
+              {
+                id: i.toString() + "fills_heat",
+                type: "fill",
+                source: i.toString(),
+                paint: {
+                  ...fillColors,
+                },
+              },
+              "waterway-label"
+            );
 
-          map.on("click", i.toString() + "fills_heat", function (e) {
-            const grid_id = e.features[0].id;
-            window.selected_grid_id = grid_id;
-            if (detailsType === "community_stats") {
-              load_grid_community_stats(grid_id);
-            } else if (detailsType === "location_details") {
-              load_grid_details(grid_id);
-            }
+            map.on("click", i.toString() + "fills_heat", function (e) {
+              const grid_id = e.features[0].id;
+              window.selected_grid_id = grid_id;
+              if (detailsType === "community_stats") {
+                load_grid_community_stats(grid_id);
+              } else if (detailsType === "location_details") {
+                load_grid_details(grid_id);
+              }
+            });
+            map.on("mouseenter", i.toString() + "fills_heat", () => {
+              map.getCanvas().style.cursor = "pointer";
+            });
+            map.on("mouseleave", i.toString() + "fills_heat", () => {
+              map.getCanvas().style.cursor = "";
+            });
           });
-          map.on("mouseenter", i.toString() + "fills_heat", () => {
-            map.getCanvas().style.cursor = "pointer";
-          });
-          map.on("mouseleave", i.toString() + "fills_heat", () => {
-            map.getCanvas().style.cursor = "";
-          });
-        });
-      }); /* ajax call */
+        }); /* ajax call */
     }); /* for each loop */
 
     images = [
@@ -680,8 +663,8 @@ window.addEventListener("load", function ($) {
             const style = map.getStyle();
 
             layerIds = style.layers
-            .filter(({ source }) => source === sourceId)
-            .map(({ id }) => id);
+              .filter(({ source }) => source === sourceId)
+              .map(({ id }) => id);
           } else {
             layerIds = [layerId];
           }
@@ -748,7 +731,8 @@ window.addEventListener("load", function ($) {
     );
     jQuery(".start_time").html(jsObject.stats.start_time_formatted);
 
-    update_stats();
+    /* We've just loaded the map with the current stats, so we don't need to load them again */
+    //update_stats();
 
     if (jsObject.stats.remaining_int < 1) {
       jQuery(".on-going.reveal-me").show();
@@ -783,10 +767,10 @@ window.addEventListener("load", function ($) {
     if (Date.now() < midnightOfChallengeDate) {
       const startDate = new Date(jsObject.stats.start_time * 1000);
       const startTime = startDate
-      .toLocaleTimeString()
-      .split(":")
-      .slice(0, 2)
-      .join(":");
+        .toLocaleTimeString()
+        .split(":")
+        .slice(0, 2)
+        .join(":");
 
       /* TODO: revert back to interval for seconds countdown */
       /*
@@ -886,178 +870,178 @@ window.addEventListener("load", function ($) {
   function load_grid_details(grid_id) {
     let div = jQuery("#grid_details_content");
     div
-    .empty()
-    .html(
-      `<div className="col-12"><span class="loading-spinner active"></span></div>`
-    );
+      .empty()
+      .html(
+        `<div className="col-12"><span class="loading-spinner active"></span></div>`
+      );
 
     show_location_details();
 
     window
-    .get_data_page("get_grid_details", { grid_id: grid_id })
-    .done(function (response) {
-      if (!response) {
-        return;
-      }
-      window.report_content = response;
+      .get_page("get_grid_details", { grid_id: grid_id })
+      .done(function (response) {
+        if (!response) {
+          return;
+        }
+        window.report_content = response;
 
-      console.log(response);
-      let bodies_1 = "";
-      let bodies_2 = "";
-      let bodies_3 = "";
-      i = 0;
-      while (i < response.location.percent_non_christians) {
-        bodies_1 += '<i class="ion-ios-body brand two-em"></i>';
-        i++;
-      }
-      i = 0;
-      while (i < response.location.percent_christian_adherents) {
-        bodies_2 += '<i class="ion-ios-body brand-lighter two-em"></i>';
-        i++;
-      }
-      i = 0;
-      while (i < response.location.percent_believers) {
-        bodies_3 += '<i class="ion-ios-body secondary two-em"></i>';
-        i++;
-      }
-      let admin_level =
-        response.location.admin_level_title.charAt(0).toUpperCase() +
-        response.location.admin_level_title.slice(1);
-      div.html(
-        `
+        console.log(response);
+        let bodies_1 = "";
+        let bodies_2 = "";
+        let bodies_3 = "";
+        i = 0;
+        while (i < response.location.percent_non_christians) {
+          bodies_1 += '<i class="ion-ios-body brand two-em"></i>';
+          i++;
+        }
+        i = 0;
+        while (i < response.location.percent_christian_adherents) {
+          bodies_2 += '<i class="ion-ios-body brand-lighter two-em"></i>';
+          i++;
+        }
+        i = 0;
+        while (i < response.location.percent_believers) {
+          bodies_3 += '<i class="ion-ios-body secondary two-em"></i>';
+          i++;
+        }
+        let admin_level =
+          response.location.admin_level_title.charAt(0).toUpperCase() +
+          response.location.admin_level_title.slice(1);
+        div.html(
+          `
           <div class="row">
               <div class="col-12">
                 <hr class="mt-0" />
                 <p><span class="stats-title two-em">${
-          response.location.full_name
-        }</span></p>
+                  response.location.full_name
+                }</span></p>
                 <p>${translations.one_believer_for_every.replace(
-          "%d",
-          numberWithCommas(
-            Math.ceil(
-              response.location.all_lost_int /
-              response.location.believers_int
-            )
-          )
-        )}</p>
+                  "%d",
+                  numberWithCommas(
+                    Math.ceil(
+                      response.location.all_lost_int /
+                        response.location.believers_int
+                    )
+                  )
+                )}</p>
                 <hr>
               </div>
               <div class="col-12">
                  <div class="row">
                     <div class="col-12 center">
                         <p><strong>${
-          translations["Don't Know Jesus"]
-        }</strong></p>
+                          translations["Don't Know Jesus"]
+                        }</strong></p>
                         <p>${bodies_1} <span>(${
-          response.location.non_christians
-        })</span></p>
+            response.location.non_christians
+          })</span></p>
                     </div>
                     <div class="col-12 center">
                         <p><strong>${
-          translations["Know about Jesus"]
-        }</strong></p>
+                          translations["Know about Jesus"]
+                        }</strong></p>
                         <p>${bodies_2} <span>(${
-          response.location.christian_adherents
-        })</span></p>
+            response.location.christian_adherents
+          })</span></p>
                     </div>
                     <div class="col-12 center">
                         <p><strong>${translations["Know Jesus"]}</strong></p>
                         <p>${bodies_3} <span>(${
-          response.location.believers
-        })</span></p>
+            response.location.believers
+          })</span></p>
                     </div>
                 </div>
                 <hr>
               </div>
               <div class="col-12">
                 ${translations.location_description1
-        .replace("%1$s", admin_level)
-        .replace("%2$s", response.location.full_name)
-        .replace("%3$s", response.location.population)}
+                  .replace("%1$s", admin_level)
+                  .replace("%2$s", response.location.full_name)
+                  .replace("%3$s", response.location.population)}
                 ${translations.location_description2
-        .replace("%1$s", response.location.name)
-        .replace("%2$s", response.location.believers)
-        .replace("%3$s", response.location.christian_adherents)
-        .replace("%4$s", response.location.non_christians)}
+                  .replace("%1$s", response.location.name)
+                  .replace("%2$s", response.location.believers)
+                  .replace("%3$s", response.location.christian_adherents)
+                  .replace("%4$s", response.location.non_christians)}
                 ${translations.location_description3
-        .replace("%1$s", response.location.name)
-        .replace("%2$s", response.location.peer_locations)
-        .replace("%3$s", response.location.admin_level_name_plural)}
+                  .replace("%1$s", response.location.name)
+                  .replace("%2$s", response.location.peer_locations)
+                  .replace("%3$s", response.location.admin_level_name_plural)}
                 <hr>
               </div>
               <div class="col-12">
                 ${translations.religion}: ${
-          response.location.primary_religion
-        }<br>
+            response.location.primary_religion
+          }<br>
                 ${translations.official_language}: ${
-          response.location.primary_language
-        }<br>
+            response.location.primary_language
+          }<br>
                 <hr>
               </div>
 
           </div>`
-      );
-    });
+        );
+      });
   }
 
   function load_grid_community_stats(grid_id) {
     let div = jQuery("#grid_details_content");
     div
-    .empty()
-    .html(
-      `<div className="col-12"><span class="loading-spinner active"></span></div>`
-    );
+      .empty()
+      .html(
+        `<div className="col-12"><span class="loading-spinner active"></span></div>`
+      );
 
     jQuery("#offcanvas_location_details").offcanvas("show");
 
     window
-    .get_data_page("get_grid_stats", { grid_id: grid_id })
-    .done(function (response) {
-      window.report_content = response;
+      .get_page("get_grid_stats", { grid_id: grid_id })
+      .done(function (response) {
+        window.report_content = response;
 
-      const communityStats = response.stats;
+        const communityStats = response.stats;
 
-      const totalNumberStats = [];
+        const totalNumberStats = [];
 
-      if (communityStats.times_prayed.me > 0) {
-        totalNumberStats.push({
-          value: communityStats.times_prayed.me,
-          icon: "body",
-          size: "medium",
-          color: "orange",
-        });
-      }
-      if (communityStats.times_prayed.community > 0) {
-        totalNumberStats.push({
-          value: communityStats.times_prayed.community,
-          icon: "body",
-          size: "medium",
-          color: "blue",
-        });
-      }
+        if (communityStats.times_prayed.me > 0) {
+          totalNumberStats.push({
+            value: communityStats.times_prayed.me,
+            icon: "body",
+            size: "medium",
+            color: "orange",
+          });
+        }
+        if (communityStats.times_prayed.community > 0) {
+          totalNumberStats.push({
+            value: communityStats.times_prayed.community,
+            icon: "body",
+            size: "medium",
+            color: "blue",
+          });
+        }
 
-      const totalTimeStats = [];
+        const totalTimeStats = [];
 
-      if (communityStats.time_prayed.me > 0) {
-        totalTimeStats.push({
-          value: communityStats.time_prayed.me,
-          icon: "time",
-          size: "medium",
-          color: "orange",
-        });
-      }
-      if (communityStats.time_prayed.community > 0) {
-        totalTimeStats.push({
-          value: communityStats.time_prayed.community,
-          icon: "time",
-          size: "medium",
-          color: "blue",
-        });
-      }
+        if (communityStats.time_prayed.me > 0) {
+          totalTimeStats.push({
+            value: communityStats.time_prayed.me,
+            icon: "time",
+            size: "medium",
+            color: "orange",
+          });
+        }
+        if (communityStats.time_prayed.community > 0) {
+          totalTimeStats.push({
+            value: communityStats.time_prayed.community,
+            icon: "time",
+            size: "medium",
+            color: "blue",
+          });
+        }
 
-      const myNumberStats =
-        communityStats.times_prayed.me > 0
-          ? `
+        const myNumberStats =
+          communityStats.times_prayed.me > 0
+            ? `
           <span>Me: ${PG.IconInfographic([
             {
               value: communityStats.times_prayed.me,
@@ -1066,10 +1050,10 @@ window.addEventListener("load", function ($) {
               color: "orange",
             },
           ])}</span>`
-          : "";
-      const communityNumberStats =
-        communityStats.times_prayed.community > 0
-          ? `
+            : "";
+        const communityNumberStats =
+          communityStats.times_prayed.community > 0
+            ? `
           <span>Community: ${PG.IconInfographic([
             {
               value: communityStats.times_prayed.community,
@@ -1078,10 +1062,10 @@ window.addEventListener("load", function ($) {
               color: "blue",
             },
           ])}</span>`
-          : "";
-      const myTimeStats =
-        communityStats.time_prayed.me > 0
-          ? `
+            : "";
+        const myTimeStats =
+          communityStats.time_prayed.me > 0
+            ? `
           <span>Me: ${PG.IconInfographic([
             {
               value: communityStats.time_prayed.me,
@@ -1090,11 +1074,11 @@ window.addEventListener("load", function ($) {
               color: "orange",
             },
           ])}</span>`
-          : "";
+            : "";
 
-      const communityTimeStats =
-        communityStats.time_prayed.community > 0
-          ? `
+        const communityTimeStats =
+          communityStats.time_prayed.community > 0
+            ? `
           <span>Community: ${PG.IconInfographic([
             {
               value: communityStats.time_prayed.community,
@@ -1103,38 +1087,38 @@ window.addEventListener("load", function ($) {
               color: "blue",
             },
           ])}</span>`
-          : "";
+            : "";
 
-      const handlePrimaryContent = ({ time_prayed_text }) =>
-        `${time_prayed_text}`;
-      const handleSecondaryContent = ({ is_mine, group_name }) =>
-        `${is_mine ? "Me in " + group_name : group_name}`;
+        const handlePrimaryContent = ({ time_prayed_text }) =>
+          `${time_prayed_text}`;
+        const handleSecondaryContent = ({ is_mine, group_name }) =>
+          `${is_mine ? "Me in " + group_name : group_name}`;
 
-      div.html(
-        `
+        div.html(
+          `
           <div class="row">
               <div class="col-12">
                 <h1 class="header-border-top">${
-          translations["Community Stats"]
-        }</h1>
+                  translations["Community Stats"]
+                }</h1>
                 <p><span class="stats-title two-em">${
-          response.location.full_name
-        }</span></p>
+                  response.location.full_name
+                }</span></p>
                 <hr />
                 <p><span class="two-em">${translations["Summary"]}</span></p>
                 <p>${translations["Times prayed for"]}: ${
-          communityStats.times_prayed.total
-        }</p>
+            communityStats.times_prayed.total
+          }</p>
 
                 ${PG.IconInfographic(totalNumberStats)}
 
                 <p>${translations["Total time prayed"]}: ${
-          communityStats.time_prayed.total
-        } ${
-          communityStats.time_prayed.total > 1
-            ? translations.minutes
-            : translations.minute
-        }</p>
+            communityStats.time_prayed.total
+          } ${
+            communityStats.time_prayed.total > 1
+              ? translations.minutes
+              : translations.minute
+          }</p>
 
                 ${PG.IconInfographic(totalTimeStats)}
 
@@ -1144,17 +1128,17 @@ window.addEventListener("load", function ($) {
                 <p><span class="two-em">${translations["Summary"]}</span></p>
 
                 ${PG.ActivityList(
-          communityStats.logs,
-          handlePrimaryContent,
-          handleSecondaryContent
-        )}
+                  communityStats.logs,
+                  handlePrimaryContent,
+                  handleSecondaryContent
+                )}
 
                 <hr />
               </div>
 
           </div>`
-      );
-    });
+        );
+      });
   }
 
   function getFillColors(mapType, layers) {
@@ -1233,7 +1217,9 @@ window.addEventListener("load", function ($) {
   }
 
   function update_stats() {
-    window.get_page("get_stats").done(function (stats) {
+    const lap_number = new URL(location.href).searchParams.get("lap");
+    const data = lap_number ? { lap_number } : null;
+    window.get_page("get_stats", data).done(function (stats) {
       jsObject.stats = stats;
       jQuery(".completed").html(jsObject.stats.completed);
       jQuery(".completed_percent").html(jsObject.stats.completed_percent);
@@ -1263,30 +1249,30 @@ window.addEventListener("load", function ($) {
 
     jQuery.each(asset_list, function (i, file) {
       jQuery
-      .ajax({
-        url: window.pg_global.mirror_url + "tiles/world/flat_states/" + file,
-        dataType: "json",
-        data: null,
-        cache: true,
-        beforeSend: function (xhr) {
-          if (xhr.overrideMimeType) {
-            xhr.overrideMimeType("application/json");
-          }
-        },
-      })
-      .done(function (geojson) {
-        /* load prayer grid layer */
-        jQuery.each(geojson.features, function (i, v) {
-          if (typeof jsObject.grid_data.data[v.id] !== "undefined") {
-            geojson.features[i].properties.value =
-              jsObject.grid_data.data[v.id];
-          } else {
-            geojson.features[i].properties.value = 0;
-          }
-        });
+        .ajax({
+          url: window.pg_global.mirror_url + "tiles/world/flat_states/" + file,
+          dataType: "json",
+          data: null,
+          cache: true,
+          beforeSend: function (xhr) {
+            if (xhr.overrideMimeType) {
+              xhr.overrideMimeType("application/json");
+            }
+          },
+        })
+        .done(function (geojson) {
+          /* load prayer grid layer */
+          jQuery.each(geojson.features, function (i, v) {
+            if (typeof jsObject.grid_data.data[v.id] !== "undefined") {
+              geojson.features[i].properties.value =
+                jsObject.grid_data.data[v.id];
+            } else {
+              geojson.features[i].properties.value = 0;
+            }
+          });
 
-        window.map.getSource(i.toString()).setData(geojson);
-      }); /* ajax call */
+          window.map.getSource(i.toString()).setData(geojson);
+        }); /* ajax call */
     }); /* for each loop */
   }
 
