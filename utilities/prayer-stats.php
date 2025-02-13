@@ -178,33 +178,6 @@ class Prayer_Stats {
         return $data;
     }
 
-    /* The global lap has to look at the dt_reports table in order to find out what custom laps have
-    contributed to the completion of the map and stats */
-    public static function get_global_relay_map_stats( $lap_number = null ) {
-        global $wpdb;
-
-        if ( $lap_number === null ) {
-            $lap_number = self::get_relay_lap_number();
-        }
-
-        $locations = $wpdb->get_col( $wpdb->prepare(
-            "SELECT grid_id
-            FROM $wpdb->dt_reports
-            WHERE global_lap_number = %d
-            AND post_type = 'pg_relays'
-        ", $lap_number ) );
-        $data = pg_query_4770_locations();
-
-        foreach ( $data as $key ) {
-            if ( in_array( $key, $locations ) ) {
-                $data[$key] = 1;
-            } else {
-                $data[$key] = 0;
-            }
-        }
-        return $data;
-    }
-
     public static function get_relay_all_map_stats( $relay_key = '49ba4c' ){
         global $wpdb;
         $locations = $wpdb->get_results( $wpdb->prepare(

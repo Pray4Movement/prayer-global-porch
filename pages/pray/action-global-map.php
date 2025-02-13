@@ -324,12 +324,39 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
 
     public function get_grid( $relay_key, $lap_number = null ) {
         $current_lap_number = $lap_number ?? Prayer_Stats::get_relay_lap_number( $relay_key );
-        $data = Prayer_Stats::get_global_relay_map_stats( $current_lap_number );
+        $data = $this->get_global_relay_map_stats( $current_lap_number );
         return [
             'data' => $data,
         ];
     }
 
+
+    /* The global lap has to look at the dt_reports table in order to find out what custom laps have
+    contributed to the completion of the map and stats */
+    public function get_global_relay_map_stats( $lap_number = null ) {
+        global $wpdb;
+
+        if ( $lap_number === null ) {
+            $lap_number = self::get_relay_lap_number();
+        }
+
+        $locations = $wpdb->get_col( $wpdb->prepare(
+            "SELECT grid_id
+            FROM $wpdb->dt_reports
+            WHERE global_lap_number = %d
+            AND post_type = 'pg_relays'
+        ", $lap_number ) );
+        $data = pg_query_4770_locations();
+
+        foreach ( $data as $key ) {
+            if ( in_array( $key, $locations ) ) {
+                $data[$key] = 1;
+            } else {
+                $data[$key] = 0;
+            }
+        }
+        return $data;
+    }
     public function get_participants( $parts ){
         return Prayer_Stats::get_relay_current_lap_map_participants( $parts['post_id'], $parts['public_key'] );
     }
