@@ -361,7 +361,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
     }
 
     public function get_user_locations( $parts, $data ){
-        return PG_User_API::get_user_locations_prayed_for( $parts['public_key'], $data['hash'] );
+        return PG_User_API::get_user_locations_prayed_for( $parts['public_key'], $data['hash'], $data['lap_number'] ?? null );
     }
 }
 PG_Global_Prayer_App_Map::instance();

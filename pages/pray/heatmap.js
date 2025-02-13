@@ -232,6 +232,7 @@ window.addEventListener("load", function ($) {
     });
   let data = {
     hash: localStorage.getItem("pg_user_hash"),
+    lap_number: jsObject.stats.lap_number,
   };
   window
     .get_page("get_user_locations", data)
