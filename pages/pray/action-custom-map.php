@@ -381,23 +381,15 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
     public function get_custom_relay_map_stats( $relay_key, $lap_number = null ) {
         global $wpdb;
 
-        if ( $lap_number === null ) {
-            $lap_number = Prayer_Stats::get_relay_lap_number();
+        $current_lap_number = Prayer_Stats::get_relay_lap_number( $relay_key );
+        if ( $lap_number === null || (int) $lap_number === $current_lap_number ) {
+            return Prayer_Stats::get_relay_current_lap_map_stats( $relay_key );
         }
 
-        $relay_id = pg_get_relay_id( $relay_key );
-
-        $locations = $wpdb->get_col( $wpdb->prepare(
-            "SELECT grid_id
-            FROM $wpdb->dt_reports
-            WHERE lap_number = %d
-            AND post_type = 'pg_relays'
-            AND post_id = %d
-        ", $lap_number, $relay_id ) );
         $data = pg_query_4770_locations();
 
         foreach ( $data as $key ) {
-            if ( in_array( $key, $locations ) ) {
+            if ( $lap_number < $current_lap_number ) {
                 $data[$key] = 1;
             } else {
                 $data[$key] = 0;

@@ -162,12 +162,10 @@ class Prayer_Stats {
         return self::get_lap_stats( $relay_id, $relay_key, $lap_number );
     }
 
-    public static function get_relay_current_lap_map_stats( $relay_key, $lap_number = null ){
+    public static function get_relay_current_lap_map_stats( $relay_key ){
         global $wpdb;
 
-        if ( empty( $lap_number ) ) {
-            $lap_number = self::get_relay_lap_number( $relay_key );
-        }
+        $lap_number = self::get_relay_lap_number( $relay_key );
         $locations = $wpdb->get_results( $wpdb->prepare(
             "SELECT grid_id,
             IF ( total = %d, 1, 0 ) as completed
