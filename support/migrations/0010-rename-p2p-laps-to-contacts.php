@@ -16,14 +16,12 @@ class Prayer_Global_Migration_0010 extends Prayer_Global_Migration {
      */
     public function up() {
         global $wpdb;
-        $wpdb->postmeta = $wpdb->prefix . 'postmeta';
+        $wpdb->p2p = $wpdb->prefix . 'p2p';
 
         $query = $wpdb->query( "
-            DELETE FROM $wpdb->postmeta
-            USING $wpdb->postmeta pm, $wpdb->postmeta pm1
-            WHERE pm.meta_id > pm1.meta_id
-            AND pm.meta_key = 'prayer_app_relay_key'
-            AND pm.post_id = pm1.post_id
+            UPDATE $wpdb->p2p
+            SET p2p_type = 'pg_relays_to_contacts'
+            WHERE p2p_type = 'laps_to_contacts'
         " );
         if ( $query === false ) {
             throw new \Exception( "Got error when updating table $wpdb->dt_reports." );

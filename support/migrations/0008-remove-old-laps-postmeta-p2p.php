@@ -9,7 +9,7 @@ require_once( 'abstract.php' );
 /**
  * Class Disciple_Tools_Migration_0000
  */
-class Prayer_Global_Migration_0007 extends Prayer_Global_Migration {
+class Prayer_Global_Migration_0008 extends Prayer_Global_Migration {
 
     /**
      * @throws \Exception  Got error when creating table $name.
