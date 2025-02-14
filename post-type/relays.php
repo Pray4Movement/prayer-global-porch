@@ -357,19 +357,8 @@ class Prayer_Global_Relays_Post_Type extends DT_Module_Base {
     }
 
     public function post_connection_added( $post_type, $post_id, $field_key, $value ){
-//        if ( $post_type === $this->post_type ){
-//            if ( $field_key === 'members' ){
-//                // @todo change 'members'
-//                // execute your code here, if field key match
-//            }
-//            if ( $field_key === 'coaches' ){
-//                // @todo change 'coaches'
-//                // execute your code here, if field key match
-//            }
-//        }
-//        if ( $post_type === 'contacts' && $field_key === $this->post_type ){
-//            // execute your code here, if a change is made in contacts and a field key is matched
-//        }
+        if ( $post_type === $this->post_type ){
+        }
     }
 
     //action when a post connection is removed during create or update
@@ -428,7 +417,21 @@ class Prayer_Global_Relays_Post_Type extends DT_Module_Base {
     }
 
     //action when a post has been created
-    public function dt_post_created( $post_type, $post_id, $initial_fields ) {}
+    public function dt_post_created( $post_type, $post_id, $initial_fields ) {
+        if ( $post_type === $this->post_type ) {
+            /* Create the 4770 rows in the relays table */
+            $relay_key = pg_get_relay_key( $post_id );
+
+            global $wpdb;
+            $wpdb->query( $wpdb->prepare( "
+                INSERT INTO $wpdb->dt_relays
+                (relay_key, grid_id, epoch)
+                SELECT %s as relay_key, grid_id, 0 as epoch
+                FROM $wpdb->dt_relays
+                WHERE relay_key = '49ba4c'
+            ", $relay_key ) );
+        }
+    }
 
     private static function get_my_status(){
         global $wpdb;

@@ -44,6 +44,21 @@ function pg_profile_icon() {
     return "<i class='icon pg-profile'></i>";
 }
 
+function pg_get_relay_key( int $relay_id ) {
+    global $wpdb;
+    $result = $wpdb->get_var( $wpdb->prepare( "
+        SELECT pm.meta_value
+        FROM $wpdb->postmeta as pm
+        WHERE pm.meta_key = %s
+        AND pm.post_id = %s
+        ORDER BY pm.post_id DESC
+        LIMIT 1
+    ", 'prayer_app_relay_key', $relay_id ) );
+    if ( ! empty( $result ) && ! is_wp_error( $result ) ){
+        return $result;
+    }
+    return false;
+}
 function pg_get_relay_id( string $public_key = '49ba4c' ) {
     return pg_get_post_id( 'prayer_app_relay_key', $public_key );
 }
