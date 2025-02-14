@@ -19,11 +19,12 @@ class Prayer_Global_Migration_0011 extends Prayer_Global_Migration {
         $wpdb->postmeta = $wpdb->prefix . 'postmeta';
 
         $query = $wpdb->query( "
-            DELETE pm FROM $wpdb->postmeta pm
-            JOIN $wpdb->postmeta pm1
-            ON pm.meta_id > pm1.meta_id
-            AND pm.post_id = pm1.post_id
-            WHERE pm.meta_key = 'prayer_app_relay_key'
+            DELETE pm1 FROM $wpdb->postmeta pm1
+            JOIN $wpdb->postmeta pm2
+            ON pm1.post_id = pm2.post_id
+            AND pm1.meta_key = 'prayer_app_relay_key'
+            AND pm2.meta_key = 'prayer_app_relay_key'
+            AND pm1.meta_id > pm2.meta_id;
         " );
         if ( $query === false ) {
             throw new \Exception( "Got error when updating table $wpdb->dt_reports." );
