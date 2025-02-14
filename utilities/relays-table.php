@@ -239,7 +239,6 @@ class PG_Relays_Table {
      * @return void
      */
     public function new_lap_action( $relay_id ){
-
         //check if this is a single lap relay
         $relay_type_query = $this->mysqli->execute_query( "
             SELECT meta_value
@@ -258,8 +257,5 @@ class PG_Relays_Table {
                 AND meta_key = 'status'
             ", [ $relay_id ] );
         }
-
-        //todo insert log?
-        //todo add hookable action? load wordpress?
     }
 }
