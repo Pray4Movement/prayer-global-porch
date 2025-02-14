@@ -65,27 +65,30 @@ class PG_Relays_Table {
         }
 
         if ( $relay_key !== '49ba4c' ) {
-            $response = $this->mysqli->execute_query( "
-                UPDATE $this->relay_table
-                SET total = LAST_INSERT_ID(total + 1)
-                WHERE relay_key = ?
-                AND grid_id = ?
-            ", [ '49ba4c', $grid_id ] );
-
-            if ( !$response ) {
-                throw new ErrorException( 'Failed to update relay total' );
-            }
-
-            global $wpdb;
             $res = $this->mysqli->execute_query(
                 "SELECT MIN(total) + 1 as lap_number
                 FROM $this->relay_table
                 WHERE relay_key = '49ba4c'",
             );
             $global_lap_number = $res->fetch_column();
+
+            $response = $this->mysqli->execute_query( "
+                UPDATE $this->relay_table
+                SET total = LAST_INSERT_ID(total + 1)
+                WHERE relay_key = '49ba4c'
+                AND grid_id = ?
+                AND total = ?
+            ", [ $grid_id, $global_lap_number - 1 ] );
+
+            if ( !$response ) {
+                throw new ErrorException( 'Failed to update relay total' );
+            }
         }
 
-        return $lap_number;
+        return [
+            'lap_number' => $lap_number,
+            'global_lap_number' => $global_lap_number ?? $lap_number,
+        ];
     }
 
     public function last_lap_number_updated() : int {
