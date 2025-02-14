@@ -117,6 +117,12 @@ class Prayer_Stats {
             'participants' => (int) $result['participants'],
             'participant_country_count' => (int) $result['participant_country_count'],
         ];
+
+        if ( $lap_number < $current_lap_number ) {
+            /* The laps should be 100% filled */
+            $data['locations_completed'] = 4770;
+        }
+
         return _pg_stats_builder( $data );
     }
 
