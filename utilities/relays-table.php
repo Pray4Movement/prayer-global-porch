@@ -16,6 +16,16 @@ class PG_Relays_Table {
         $this->postmeta_table = $db_prefix . 'postmeta';
     }
 
+    public function get_lap_number( $key ) {
+        $response = $this->mysqli->execute_query( "
+            SELECT MIN(total) + 1 as lap_number
+            FROM $this->relay_table
+            WHERE relay_key = ?
+        ", [ $key ] );
+
+        return $response->fetch_column() || 0;
+    }
+
     public function log_promise_timestamp( $relay_key, $grid_id ) {
         $response = $this->mysqli->execute_query( "
             UPDATE $this->relay_table
@@ -32,12 +42,7 @@ class PG_Relays_Table {
     /* https://www.sqlines.com/mysql/how-to/select-update-single-statement-race-condition */
     public function update_relay_total( $relay_key, $grid_id, $relay_id ) {
         //get the current lap number
-        $response = $this->mysqli->execute_query( "
-            SELECT MIN(total) + 1 as lap_number
-            FROM $this->relay_table
-            WHERE relay_key = ?
-        ", [ $relay_key ] );
-        $lap_number_before_update = $response->fetch_column();
+        $lap_number_before_update = $this->get_lap_number( $relay_key );
 
         //update the location's total
         $response = $this->mysqli->execute_query( "
@@ -52,12 +57,7 @@ class PG_Relays_Table {
         }
         $lap_number = $this->last_lap_number_updated();
 
-        $response = $this->mysqli->execute_query( "
-            SELECT MIN(total) + 1 as lap_number
-            FROM $this->relay_table
-            WHERE relay_key = ?
-        ", [ $relay_key ] );
-        $lap_number_after_update = $response->fetch_column();
+        $lap_number_after_update = $this->get_lap_number( $relay_key );
 
         //we have a new lap!
         if ( $lap_number_before_update !== $lap_number_after_update ){
@@ -65,16 +65,12 @@ class PG_Relays_Table {
         }
 
         if ( $relay_key !== '49ba4c' ) {
-            $res = $this->mysqli->execute_query(
-                "SELECT MIN(total) + 1 as lap_number
-                FROM $this->relay_table
-                WHERE relay_key = '49ba4c'",
-            );
-            $global_lap_number = $res->fetch_column();
+            $global_lap_number = $this->get_lap_number( '49ba4c' );
 
+            //only update global lap number if it counts towards the current global lap
             $response = $this->mysqli->execute_query( "
                 UPDATE $this->relay_table
-                SET total = LAST_INSERT_ID(total + 1)
+                SET total = total + 1
                 WHERE relay_key = '49ba4c'
                 AND grid_id = ?
                 AND total = ?
