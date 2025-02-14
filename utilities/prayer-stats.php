@@ -119,7 +119,7 @@ class Prayer_Stats {
         ];
 
         if ( $lap_number < $current_lap_number ) {
-            /* The laps should be 100% filled */
+            /* Past laps should be 100% filled */
             $data['locations_completed'] = 4770;
         }
 
