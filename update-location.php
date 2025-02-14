@@ -58,6 +58,7 @@ if ( !isset( $decoded['relay_key'] ) || !isset( $decoded['grid_id'] ) || !isset(
 }
 
 $relay_key = isset( $decoded['relay_key'] ) ? sanitize_text_field( stripslashes_deep( $decoded['relay_key'] ) ) : null;
+$relay_id = isset( $decoded['relay_id'] ) ? sanitize_text_field( stripslashes_deep( $decoded['relay_id'] ) ) : null;
 $grid_id = isset( $decoded['grid_id'] ) ? sanitize_text_field( stripslashes_deep( $decoded['grid_id'] ) ) : null;
 $user_id = isset( $decoded['user_id'] ) ? sanitize_text_field( stripslashes_deep( $decoded['user_id'] ) ) : null;
 $pace = isset( $decoded['pace'] ) ? sanitize_text_field( stripslashes_deep( $decoded['pace'] ) ) : 1;
@@ -67,14 +68,19 @@ $parts = dt_recursive_sanitize_array( $decoded['parts'] ?? [] );
 $relays_table = new PG_Relays_Table( $conn, $db_prefix );
 
 try {
-    $lap_number = $relays_table->update_relay_total( $relay_key, $grid_id );
+    if ( empty( $relay_id ) ) {
+        $relay_id = $relays_table->get_relay_id( $relay_key );
+    }
+    $lap_number = $relays_table->update_relay_total( $relay_key, $grid_id, $relay_id );
     $report_id = $relays_table->log_prayer( $grid_id, $relay_key, [
-        'user_id' => $user_id,
-        'lap_number' => $lap_number,
-        'pace' => $pace,
-        'parts' => $parts,
-        'user_location' => $user_location,
-    ] );
+            'user_id' => $user_id,
+            'lap_number' => $lap_number,
+            'pace' => $pace,
+            'parts' => $parts,
+            'user_location' => $user_location
+        ],
+        $relay_id
+    );
 } catch ( \Throwable $th ) {
     send_response( array(
         'status' => 'error',

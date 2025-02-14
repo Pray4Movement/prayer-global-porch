@@ -30,7 +30,16 @@ class PG_Relays_Table {
     }
 
     /* https://www.sqlines.com/mysql/how-to/select-update-single-statement-race-condition */
-    public function update_relay_total( $relay_key, $grid_id ) {
+    public function update_relay_total( $relay_key, $grid_id, $relay_id ) {
+        //get the current lap number
+        $response = $this->mysqli->execute_query( "
+            SELECT MIN(total) + 1 as lap_number
+            FROM $this->relay_table
+            WHERE relay_key = ?
+        ", [ $relay_key ] );
+        $lap_number_before_update = $response->fetch_column();
+
+        //update the location's total
         $response = $this->mysqli->execute_query( "
             UPDATE $this->relay_table
             SET total = LAST_INSERT_ID(total + 1)
@@ -41,8 +50,21 @@ class PG_Relays_Table {
         if ( !$response ) {
             throw new ErrorException( 'Failed to update relay total' );
         }
+        $lap_number = $this->last_lap_number_updated();
 
-        return $this->last_lap_number_updated();
+        $response = $this->mysqli->execute_query( "
+            SELECT MIN(total) + 1 as lap_number
+            FROM $this->relay_table
+            WHERE relay_key = ?
+        ", [ $relay_key ] );
+        $lap_number_after_update = $response->fetch_column();
+
+        //we have a new lap!
+        if ( $lap_number_before_update !== $lap_number_after_update ){
+            $this->new_lap_action( $relay_id );
+        }
+
+        return $lap_number;
     }
 
     public function last_lap_number_updated() : int {
@@ -57,8 +79,7 @@ class PG_Relays_Table {
         return $response->fetch_column();
     }
 
-    public function log_prayer( string $grid_id, string $relay_key, array $data ) {
-        $post_id = $this->get_relay_id( $relay_key );
+    public function log_prayer( string $grid_id, string $relay_key, array $data, int $relay_id ) {
         $user_id = $data['user_id'];
         $lap_number = $data['lap_number'];
         $pace = $data['pace'];
@@ -67,7 +88,7 @@ class PG_Relays_Table {
 
         $args = [
             // lap information
-            'post_id' => $post_id,
+            'post_id' => $relay_id,
             'post_type' => $parts['post_type'],
             'lap_number' => $lap_number,
 
@@ -156,15 +177,12 @@ class PG_Relays_Table {
         return $next_location['grid_id'];
     }
 
-    private function get_relay_id( $relay_key ) {
+    public function get_relay_id( $relay_key ) {
         $active_lap = $this->mysqli->execute_query( "
-            SELECT p.ID FROM $this->posts_table p
-                JOIN $this->postmeta_table pm ON pm.post_id = p.ID
-                JOIN $this->postmeta_table pm1 ON pm1.post_id = p.ID
-                WHERE pm.meta_key = 'prayer_app_relay_key'
-                AND pm.meta_value = ?
-                AND pm1.meta_key = 'status'
-                AND pm1.meta_value = 'active'
+            SELECT post_id
+            FROM $this->postmeta_table pm
+            WHERE pm.meta_key = 'prayer_app_relay_key'
+            AND pm.meta_value = ?
         ", [ $relay_key ] );
 
         if ( false === $active_lap ) {
@@ -212,5 +230,32 @@ class PG_Relays_Table {
 
         $random_index = mt_rand( 0, $length );
         return $items[$random_index];
+    }
+
+
+    /**
+     * What happens when a new lap is started
+     * @param $relay_id
+     * @return void
+     */
+    public function new_lap_action( $relay_id ){
+        //check if this is a single lap relay
+        $relay_type_query = $this->mysqli->execute_query( "
+            SELECT meta_value
+            FROM $this->postmeta_table
+            WHERE post_id = ?
+            AND meta_key = 'single_relay'
+            ", [ $relay_id ] );
+        $relay_type = $relay_type_query->fetch_column();
+
+        //if it is a single lap relay, update the status to complete
+        if ( $relay_type === '1' ){
+            $this->mysqli->execute_query( "
+                UPDATE $this->postmeta_table
+                SET meta_value = 'complete'
+                WHERE post_id = ?
+                AND meta_key = 'status'
+            ", [ $relay_id ] );
+        }
     }
 }

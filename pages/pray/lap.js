@@ -274,6 +274,7 @@ function startTimer(time) {
           user_id: jsObject.user_id || null,
           grid_id: jsObject.location.location.grid_id,
           relay_key: jsObject.parts.public_key,
+          relay_id: jsObject.parts.post_id,
           pace: window.pace,
           parts: jsObject.parts,
           user_location: window.user_location,
