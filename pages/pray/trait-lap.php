@@ -8,6 +8,7 @@ trait PG_Lap_Trait {
             'lap-js',
             'report-js',
             'global-functions',
+            'canvas-confetti',
         ];
     }
 

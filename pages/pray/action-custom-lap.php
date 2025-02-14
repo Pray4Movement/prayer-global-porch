@@ -80,6 +80,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             'lap-js',
             'report-js',
             'global-functions',
+            'canvas-confetti',
         ];
     }
 
