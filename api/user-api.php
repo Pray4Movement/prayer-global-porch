@@ -119,7 +119,8 @@ class PG_User_API {
         return self::get_user_locations_prayed_for( $key, $hash );
     }
 
-    public static function get_user_locations_prayed_for( $key, $hash ){
+    public static function get_user_locations_prayed_for( $key, $hash, $lap_number = null ){
+        global $wpdb;
 
         $lap = Prayer_Stats::get_relay_current_lap( $key );
 
@@ -127,20 +128,36 @@ class PG_User_API {
             return [];
         }
 
-        global $wpdb;
-        $user_locations_raw  = $wpdb->get_results( $wpdb->prepare( "
-           SELECT lg.longitude, lg.latitude
+        if ( empty( $lap_number ) ) {
+            $lap_number = $lap['lap_number'];
+        }
+
+        $sql = "SELECT lg.longitude, lg.latitude
            FROM $wpdb->dt_reports r
            INNER JOIN $wpdb->dt_location_grid lg ON lg.grid_id = r.grid_id
            WHERE r.post_type = 'pg_relays'
                 AND r.type = 'prayer_app'
                 AND r.hash = %s
-                AND r.post_id = %d
-                AND r.lap_number = %d
                 AND r.label IS NOT NULL
                 AND lg.longitude IS NOT NULL
                 AND lg.latitude IS NOT NULL
-        ", $hash, $lap['post_id'], $lap['lap_number'] ), ARRAY_A );
+        ";
+        $args = [
+            $hash,
+        ];
+
+        if ( $key === Prayer_Stats::$global_key ) {
+            $sql .= 'AND global_lap_number = %d';
+            $args[] = $lap_number;
+        } else {
+            $sql .= 'AND post_id = %s
+                    AND lap_number = %d';
+            $args[] = $lap['post_id'];
+            $args[] = $lap_number;
+        }
+
+        //phpcs:ignore
+        $user_locations_raw  = $wpdb->get_results( $wpdb->prepare( $sql, $args ), ARRAY_A );
 
 
         return $user_locations_raw;

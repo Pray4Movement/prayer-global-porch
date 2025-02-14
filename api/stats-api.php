@@ -38,7 +38,7 @@ class Prayer_Global_Stats_Api {
 
         $key = $params['parts']['public_key'];
         $map_data = Prayer_Stats::get_relay_current_lap_map_stats( $key );
-        $participants = Prayer_Stats::get_relay_current_lap_map_participants( $params['parts']['post_id'], $key );
+        $participants = Prayer_Stats::get_relay_lap_map_participants( $params['parts']['post_id'], $key );
 
         return [
             'grid_data' => [ 'data' => $map_data ],

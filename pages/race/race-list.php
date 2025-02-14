@@ -182,9 +182,9 @@ class Prayer_Global_Porch_Stats_Race_List extends DT_Magic_Url_Base
     }
 
     public function get_global_list() {
-         global $wpdb;
+        global $wpdb;
 
-         $data = [];
+        $data = [];
 
         $lap_number = Prayer_Stats::get_relay_lap_number();
         $relay_id = pg_get_relay_id( '49ba4c' );

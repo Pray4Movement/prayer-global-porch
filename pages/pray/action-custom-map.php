@@ -78,13 +78,15 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
         $details['title'] = 'Prayer.Global '. $lap['title'] . ' ' . esc_html( __( 'Map', 'prayer-global-porch' ) );
         pg_og_tags( $details );
 
+        $url = new DT_URL( dt_get_url_path( false, true ) );
+        $lap_number = $url->query_params->has( 'lap' ) ? $url->query_params->get( 'lap' ) : null;
         ?>
         <script>
             let jsObject = [<?php echo json_encode([
                 'parts' => $this->parts,
                 'grid_data' => [],
                 'participants' => [],
-                'stats' => Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] ),
+                'stats' => Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'], $lap_number ),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                 'map_type' => 'binary',
                 'is_cta_feature_on' => !$lap['ctas_off'],
@@ -109,7 +111,9 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
 
     public function body(){
         $parts = $this->parts;
-        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $parts['public_key'], $parts['post_id'] );
+        $url = new DT_URL( dt_get_url_path( false, true ) );
+        $lap_number = $url->query_params->has( 'lap' ) ? $url->query_params->get( 'lap' ) : null;
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $parts['public_key'], $parts['post_id'], $lap_number );
         $now = time();
         $has_challenge_started = $lap_stats['start_time'] < $now;
         DT_Mapbox_API::geocoder_scripts();
@@ -344,13 +348,14 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
             return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
+        $lap_number = $params['data']['lap_number'] ?? null;
         switch ( $params['action'] ) {
             case 'get_stats':
-                return Prayer_Stats::get_relay_current_lap_stats( $params['parts']['public_key'] );
+                return Prayer_Stats::get_relay_current_lap_stats( $params['parts']['public_key'], $params['parts']['post_id'], $lap_number );
             case 'get_grid':
                 return [
-                    'grid_data' => $this->get_grid( $params['parts'] ),
-                    'participants' => $this->get_participants( $params['parts'] ),
+                    'grid_data' => $this->get_grid( $params['parts'], $lap_number ),
+                    'participants' => $this->get_participants( $params['parts'], $lap_number ),
                 ];
             case 'get_grid_details':
                 if ( isset( $params['data']['grid_id'] ) ) {
@@ -358,7 +363,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                 }
                 return false;
             case 'get_participants':
-                return $this->get_participants( $params['parts'] );
+                return $this->get_participants( $params['parts'], $lap_number );
             case 'get_user_locations':
                 return $this->get_user_locations( $params['parts'], $params['data'] );
             default:
@@ -366,19 +371,39 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
         }
     }
 
-    public function get_grid( $parts ) {
-        $data = Prayer_Stats::get_relay_current_lap_map_stats( $parts['public_key'] );
+    public function get_grid( $parts, $lap_number ) {
+        $data = $this->get_custom_relay_map_stats( $parts['public_key'], $lap_number );
         return [
             'data' => $data,
         ];
     }
 
-    public function get_participants( $parts ){
-        return Prayer_Stats::get_relay_current_lap_map_participants( $parts['post_id'], $parts['public_key'] );
+    public function get_custom_relay_map_stats( $relay_key, $lap_number = null ) {
+        global $wpdb;
+
+        $current_lap_number = Prayer_Stats::get_relay_lap_number( $relay_key );
+        if ( $lap_number === null || (int) $lap_number === $current_lap_number ) {
+            return Prayer_Stats::get_relay_current_lap_map_stats( $relay_key );
+        }
+
+        $data = pg_query_4770_locations();
+
+        foreach ( $data as $key ) {
+            if ( $lap_number < $current_lap_number ) {
+                $data[$key] = 1;
+            } else {
+                $data[$key] = 0;
+            }
+        }
+        return $data;
+    }
+
+    public function get_participants( $parts, $lap_number = null ){
+        return Prayer_Stats::get_relay_lap_map_participants( $parts['post_id'], $parts['public_key'], $lap_number );
     }
 
     public function get_user_locations( $parts, $data ){
-        return PG_User_API::get_user_locations_prayed_for( $parts['public_key'], $data['hash'] );
+        return PG_User_API::get_user_locations_prayed_for( $parts['public_key'], $data['hash'], $data['lap_number'] ?? null );
     }
 }
 PG_Custom_Prayer_App_Map::instance();
