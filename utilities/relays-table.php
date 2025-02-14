@@ -244,11 +244,11 @@ class PG_Relays_Table {
                 SELECT *
                 FROM $this->relay_table
                 WHERE relay_key = '49ba4c'
-                AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ?)
+                AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c')
                 AND grid_id IN (
                   SELECT grid_id
                   FROM wp_dt_relays
-                  WHERE relay_key = 'a520de'
+                  WHERE relay_key = ?
                   AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ?)
                 )
                 ORDER BY epoch
