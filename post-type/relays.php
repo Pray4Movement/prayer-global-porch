@@ -272,9 +272,9 @@ class Prayer_Global_Relays_Post_Type extends DT_Module_Base {
                 'select_cannot_be_empty' => true,
                 'font-icon' => 'mdi mdi-arm-flex-outline',
             ];
-            $fields['single_relay'] = [
-                'name' => __( 'Single relay', 'prayer-global-porch' ),
-                'description' => __( 'Is this relay only to run once and then stop', 'prayer-global-porch' ),
+            $fields['single_lap'] = [
+                'name' => __( 'Single Lap', 'prayer-global-porch' ),
+                'description' => __( 'Is this relay only to run one lap and then stop', 'prayer-global-porch' ),
                 'type' => 'boolean',
                 'tile' => 'details',
                 'default' => false,

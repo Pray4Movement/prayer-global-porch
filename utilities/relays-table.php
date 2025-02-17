@@ -309,7 +309,7 @@ class PG_Relays_Table {
             SELECT meta_value
             FROM $this->postmeta_table
             WHERE post_id = ?
-            AND meta_key = 'single_relay'
+            AND meta_key = 'single_lap'
             ", [ $relay_id ] );
         $relay_type = $relay_type_query->fetch_column();
 
