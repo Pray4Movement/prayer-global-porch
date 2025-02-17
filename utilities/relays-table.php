@@ -223,19 +223,61 @@ class PG_Relays_Table {
      * @return array|object|null
      */
     private function query_needed_locations_not_recently_promised( string $relay_key ) {
-        $random_location_which_needs_prayer = $this->mysqli->execute_query( "
-            SELECT * FROM $this->relay_table
+        if ( $relay_key === '49ba4c' ) {
+            $random_location_which_needs_prayer = $this->mysqli->execute_query( "
+                SELECT * 
+                FROM $this->relay_table
                 WHERE relay_key = ?
-                AND epoch < ?
-                ORDER BY total, RAND()
+                AND total = ( SELECT MIN( total ) FROM $this->relay_table where relay_key = ? )
+                ORDER BY epoch
                 LIMIT 1
-        ", [ $relay_key, time() - 60 ] );
+            ", [ $relay_key, $relay_key ] );
 
-        if ( false === $random_location_which_needs_prayer ) {
-            throw new ErrorException( 'Failed to get *needed* location not recently promised' );
+            if ( false === $random_location_which_needs_prayer ) {
+                throw new ErrorException( 'Failed to get *needed* location not recently promised' );
+            }
+
+            $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
+        } else {
+            //get location and prioritize ones from relay 49ba4c
+            $random_location_which_needs_prayer = $this->mysqli->execute_query( "
+                SELECT *
+                FROM $this->relay_table
+                WHERE relay_key = '49ba4c'
+                AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c')
+                AND grid_id IN (
+                  SELECT grid_id
+                  FROM wp_dt_relays
+                  WHERE relay_key = ?
+                  AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ?)
+                )
+                ORDER BY epoch
+                LIMIT 1
+            ", [ $relay_key, $relay_key ] );
+
+            if ( false === $random_location_which_needs_prayer ) {
+                throw new ErrorException( 'Failed to get *needed* location not recently promised' );
+            }
+
+            $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
+
+            if ( empty( $locations ) ){
+                $random_location_which_needs_prayer = $this->mysqli->execute_query( "
+                    SELECT *
+                    FROM $this->relay_table
+                    WHERE relay_key = ?
+                    AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ?)
+                    ORDER BY epoch, RAND()
+                    LIMIT 1
+                ", [ $relay_key, $relay_key ] );
+            }
+            if ( false === $random_location_which_needs_prayer ) {
+                throw new ErrorException( 'Failed to get *needed* location not recently promised' );
+            }
+
+            $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
         }
 
-        $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
         $location = !empty( $locations ) ? $locations[0] : [];
         return $location;
     }
