@@ -13,12 +13,9 @@ function send_response( mixed $response, $code = 200 ) {
 
 function cors() {
 
-    // Allow from any origin
-    if ( isset( $_SERVER['HTTP_HOST'] ) ) {
-        header( 'Access-Control-Allow-Origin: ' . sanitize_text_field( stripslashes_deep( $_SERVER['HTTP_HOST'] ) ) );
-        header( 'Access-Control-Allow-Credentials: true' );
-        header( 'Access-Control-Max-Age: 86400' );    // cache for 1 day
-    }
+    header( 'Access-Control-Allow-Origin: staging.prayer.global, prayer.global' );
+    header( 'Access-Control-Allow-Credentials: true' );
+    header( 'Access-Control-Max-Age: 86400' );    // cache for 1 day
 
     // Access-Control headers are received during OPTIONS requests
     if ( isset( $_SERVER['REQUEST_METHOD'] ) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS' ) {
