@@ -13,9 +13,37 @@ function send_response( mixed $response, $code = 200 ) {
 
 function cors() {
 
-    header( 'Access-Control-Allow-Origin: https://staging.prayer.global' );
-    header( 'Access-Control-Allow-Credentials: true' );
-    header( 'Access-Control-Max-Age: 86400' );    // cache for 1 day
+    $allowed_origins = [
+        'https://prayer.global',
+        'https://staging.prayer.global',
+        'http://localhost:8000', // TODO: DELETE this for production
+    ];
+
+    //phpcs:ignore
+    $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
+    $origin = sanitize_text_field( stripslashes_deep( $origin ) );
+
+    // If no origin, try to extract it from referer
+    if ( empty( $origin ) && !empty( $_SERVER['HTTP_REFERER'] ) ) {
+        $referer_parts = parse_url( sanitize_text_field( stripslashes_deep( $_SERVER['HTTP_REFERER'] ) ) );
+        if ( $referer_parts && isset( $referer_parts['scheme'] ) && isset( $referer_parts['host'] ) ) {
+            $origin = $referer_parts['scheme'] . '://' . $referer_parts['host'];
+            if ( isset( $referer_parts['port'] ) ) {
+                $origin .= ':' . $referer_parts['port'];
+            }
+        }
+    }
+
+    if ( empty( $origin ) ) {
+        return false;
+    }
+    if ( in_array( $origin, $allowed_origins ) ) {
+        header( "Access-Control-Allow-Origin: $origin " );
+        header( 'Access-Control-Allow-Credentials: true' );
+        header( 'Access-Control-Max-Age: 86400' );    // cache for 1 day
+    } else {
+        return false;
+    }
 
     // Access-Control headers are received during OPTIONS requests
     if ( isset( $_SERVER['REQUEST_METHOD'] ) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS' ) {
@@ -31,4 +59,6 @@ function cors() {
 
         exit( 0 );
     }
+
+    return true;
 }

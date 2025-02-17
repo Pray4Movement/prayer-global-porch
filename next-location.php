@@ -13,7 +13,13 @@ require '../../../wp-config.php';
 require 'utilities/relays-table.php';
 require 'utilities/http-request.php';
 
-cors();
+$cors_passed = cors();
+
+if ( !$cors_passed ) {
+    send_response( [
+        'error' => "incorrect origin $origin",
+    ], 400 );
+}
 
 //phpcs:ignore
 mysqli_report( MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT );
