@@ -229,7 +229,7 @@ class PG_Relays_Table {
                 FROM $this->relay_table
                 WHERE relay_key = ?
                 AND total = ( SELECT MIN( total ) FROM $this->relay_table where relay_key = ? )
-                ORDER BY epoch
+                ORDER BY epoch, RAND()
                 LIMIT 1
             ", [ $relay_key, $relay_key ] );
 
@@ -251,7 +251,7 @@ class PG_Relays_Table {
                   WHERE relay_key = ?
                   AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ?)
                 )
-                ORDER BY epoch
+                ORDER BY epoch, RAND()
                 LIMIT 1
             ", [ $relay_key, $relay_key ] );
 
