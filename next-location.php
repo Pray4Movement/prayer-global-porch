@@ -13,6 +13,8 @@ require '../../../wp-config.php';
 require 'utilities/relays-table.php';
 require 'utilities/http-request.php';
 
+cors();
+
 //phpcs:ignore
 mysqli_report( MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT );
 //phpcs:ignore
