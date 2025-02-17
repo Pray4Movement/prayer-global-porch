@@ -223,8 +223,8 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
                 LEFT JOIN $wpdb->postmeta pm6 ON pm6.post_id=p.ID AND pm6.meta_key = 'global_lap_number'
                 LEFT JOIN $wpdb->postmeta pm7 ON pm7.post_id=p.ID AND pm7.meta_key = 'single_lap'
                 LEFT JOIN $wpdb->postmeta pm8 ON pm8.post_id=p.ID AND pm8.meta_key = 'event_lap'
-                WHERE p.post_type = 'laps'
-                AND pm5.meta_value = 'public' OR pm5.meta_value IS NULL OR pm5.meta_value = 'none'
+                WHERE p.post_type = 'pg_relays'
+                AND ( pm5.meta_value = 'public' OR pm5.meta_value IS NULL OR pm5.meta_value = 'none' )
                 ORDER BY p.post_title
              ", ARRAY_A );
 
