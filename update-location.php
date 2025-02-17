@@ -14,6 +14,8 @@ require '../../../wp-config.php';
 require 'utilities/relays-table.php';
 require 'utilities/http-request.php';
 
+cors();
+
 function dt_recursive_sanitize_array( array $array ) : array {
     foreach ( $array as $key => &$value ) {
         if ( is_array( $value ) ) {
