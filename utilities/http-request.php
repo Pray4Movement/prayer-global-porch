@@ -13,7 +13,7 @@ function send_response( mixed $response, $code = 200 ) {
 
 function cors() {
 
-    header( 'Access-Control-Allow-Origin: staging.prayer.global' );
+    header( 'Access-Control-Allow-Origin: https://staging.prayer.global' );
     header( 'Access-Control-Allow-Credentials: true' );
     header( 'Access-Control-Max-Age: 86400' );    // cache for 1 day
 
