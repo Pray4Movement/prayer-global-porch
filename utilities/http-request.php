@@ -19,9 +19,7 @@ function cors() {
         'http://localhost:8000', // TODO: DELETE this for production
     ];
 
-    //phpcs:ignore
-    $origin = $_SERVER['HTTP_ORIGIN'] ?? '';
-    $origin = sanitize_text_field( stripslashes_deep( $origin ) );
+    $origin = sanitize_text_field( stripslashes_deep( $_SERVER['HTTP_ORIGIN'] ?? '' ) );
 
     // If no origin, try to extract it from referer
     if ( empty( $origin ) && !empty( $_SERVER['HTTP_REFERER'] ) ) {
