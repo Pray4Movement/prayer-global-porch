@@ -357,8 +357,8 @@ class Prayer_Global_Relays_Post_Type extends DT_Module_Base {
     }
 
     public function post_connection_added( $post_type, $post_id, $field_key, $value ){
-        if ( $post_type === $this->post_type ){
-        }
+/*         if ( $post_type === $this->post_type ){
+        } */
     }
 
     //action when a post connection is removed during create or update
