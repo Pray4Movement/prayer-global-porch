@@ -271,6 +271,7 @@ function startTimer(time) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
+          nonce: jsObject.nonce,
           user_id: jsObject.user_id || null,
           grid_id: jsObject.location.location.grid_id,
           relay_key: jsObject.parts.public_key,
@@ -433,7 +434,7 @@ function waitForLocation() {
 
       const relayKey = jsObject.parts.public_key;
       return fetch(
-        `${jsObject.direct_api_url}/next-location.php?relay_key=${relayKey}`
+        `${jsObject.direct_api_url}/next-location.php?relay_key=${relayKey}&nonce=${jsObject.nonce}`
       )
         .then((response) => {
           if (!response.ok) {

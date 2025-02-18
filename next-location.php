@@ -3,8 +3,6 @@
 // SELECT total, COUNT(total) FROM 9VJS6H_dt_relays WHERE relay_key = '49ba4c' GROUP BY total ORDER BY total;
 // UPDATE 9VJS6H_dt_relays SET epoch = epoch - 60, total = 0 WHERE relay_key = '49ba4c';
 
-/* TODO: add cors and file protections */
-
 //this stops wp-settings from load everything
 define( 'SHORTINIT', true );
 
@@ -12,12 +10,22 @@ error_log( 'short-init complete' );
 require '../../../wp-config.php';
 require 'utilities/relays-table.php';
 require 'utilities/http-request.php';
+require 'utilities/pg-nonce.php';
 
 $cors_passed = cors();
 
 if ( !$cors_passed ) {
     send_response( [
         'error' => "incorrect origin $origin",
+    ], 400 );
+}
+
+$nonce = isset( $_GET['nonce'] ) ? sanitize_text_field( stripslashes_deep( $_GET['nonce'] ) ) : '';
+
+if ( !PG_Nonce::verify( $nonce, 'direct-api' ) ) {
+    send_response( [
+        'status' => 'error',
+        'error' => 'Unauthorized',
     ], 400 );
 }
 
@@ -30,7 +38,7 @@ if ( $conn->connect_error ) {
     send_response( array(
         'status' => 'error',
         'error' => 'Unable to make connection with DB',
-    ) );
+    ), 500 );
 }
 
 $db_prefix = defined( 'DB_PREFIX' ) ? DB_PREFIX : 'wp_';
