@@ -35,20 +35,6 @@ function dt_recursive_sanitize_array( array $array ) : array {
     return $array;
 }
 
-//phpcs:ignore
-mysqli_report( MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT );
-//phpcs:ignore
-$conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
-
-if ( $conn->connect_error ) {
-    send_response( array(
-        'status' => 'error',
-        'error' => 'Unable to make connection with DB',
-    ) );
-}
-
-$db_prefix = defined( 'DB_PREFIX' ) ? DB_PREFIX : 'wp_';
-
 $content = trim( file_get_contents( 'php://input' ) );
 $decoded = json_decode( $content, true );
 
@@ -82,6 +68,20 @@ $user_id = isset( $decoded['user_id'] ) ? sanitize_text_field( stripslashes_deep
 $pace = isset( $decoded['pace'] ) ? sanitize_text_field( stripslashes_deep( $decoded['pace'] ) ) : 1;
 $user_location = dt_recursive_sanitize_array( $decoded['user_location'] ?? [] );
 $parts = dt_recursive_sanitize_array( $decoded['parts'] ?? [] );
+
+//phpcs:ignore
+mysqli_report( MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT );
+//phpcs:ignore
+$conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
+
+if ( $conn->connect_error ) {
+    send_response( array(
+        'status' => 'error',
+        'error' => 'Unable to make connection with DB',
+    ) );
+}
+
+$db_prefix = defined( 'DB_PREFIX' ) ? DB_PREFIX : 'wp_';
 
 $relays_table = new PG_Relays_Table( $conn, $db_prefix );
 
