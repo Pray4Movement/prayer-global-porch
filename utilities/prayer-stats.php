@@ -118,6 +118,10 @@ class Prayer_Stats {
             'participant_country_count' => (int) $result['participant_country_count'],
         ];
 
+        if ( $lap_number === $current_lap_number ) {
+            $data['end_time'] = time();
+        }
+
         if ( $lap_number < $current_lap_number ) {
             /* Past laps should be 100% filled */
             $data['locations_completed'] = 4770;
