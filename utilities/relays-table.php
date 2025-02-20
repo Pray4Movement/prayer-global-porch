@@ -23,7 +23,9 @@ class PG_Relays_Table {
             WHERE relay_key = ?
         ", [ $key ] );
 
-        return $response->fetch_column() || 0;
+        $lap_number = $response->fetch_column();
+
+        return $lap_number ?? 0;
     }
 
     public function log_promise_timestamp( $relay_key, $grid_id ) {
@@ -225,7 +227,7 @@ class PG_Relays_Table {
     private function query_needed_locations_not_recently_promised( string $relay_key ) {
         if ( $relay_key === '49ba4c' ) {
             $random_location_which_needs_prayer = $this->mysqli->execute_query( "
-                SELECT * 
+                SELECT *
                 FROM $this->relay_table
                 WHERE relay_key = ?
                 AND total = ( SELECT MIN( total ) FROM $this->relay_table where relay_key = ? )
@@ -270,12 +272,13 @@ class PG_Relays_Table {
                     ORDER BY epoch, RAND()
                     LIMIT 1
                 ", [ $relay_key, $relay_key ] );
-            }
-            if ( false === $random_location_which_needs_prayer ) {
-                throw new ErrorException( 'Failed to get *needed* location not recently promised' );
-            }
 
-            $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
+                if ( false === $random_location_which_needs_prayer ) {
+                    throw new ErrorException( 'Failed to get *needed* location not recently promised' );
+                }
+
+                $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
+            }
         }
 
         $location = !empty( $locations ) ? $locations[0] : [];
