@@ -416,8 +416,18 @@ window.addEventListener('load', function($){
               'source': i.toString(),
               'paint': {
                 ...fillColors,
+                'fill-opacity': 0,
+                'fill-opacity-transition': {
+                  duration: 2000,
+                  delay: 300,
+                }
               }
             },'waterway-label' )
+            map.setPaintProperty(
+              i.toString() + 'fills_heat',
+              'fill-opacity',
+              1
+            )
 
             map.on('click', i.toString() + 'fills_heat', function (e) {
 
