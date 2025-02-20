@@ -178,10 +178,10 @@ class Prayer_Stats {
         $lap_number = self::get_relay_lap_number( $relay_key );
         $locations = $wpdb->get_results( $wpdb->prepare(
             "SELECT grid_id,
-            IF ( total = %d, 1, 0 ) as completed
+            IF ( total > %d, 1, 0 ) as completed
             FROM $wpdb->dt_relays
             WHERE relay_key = %s
-        ", $lap_number, $relay_key ), ARRAY_A );
+        ", $lap_number - 1, $relay_key ), ARRAY_A );
 
         $data = [];
         foreach ( $locations as $location ){
