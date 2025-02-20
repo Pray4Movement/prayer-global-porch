@@ -381,8 +381,10 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
     public function get_custom_relay_map_stats( $relay_key, $lap_number = null ) {
         global $wpdb;
 
+        $lap_number = (int) $lap_number;
+
         $current_lap_number = Prayer_Stats::get_relay_lap_number( $relay_key );
-        if ( $lap_number === null || (int) $lap_number === $current_lap_number ) {
+        if ( $lap_number === null || $lap_number === $current_lap_number ) {
             return Prayer_Stats::get_relay_current_lap_map_stats( $relay_key );
         }
 
