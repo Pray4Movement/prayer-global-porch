@@ -24,7 +24,7 @@ export const options = {
   },
 };
 
-const relay_key = "59261a";
+const relay_key = "49ba4c";
 const origin = "http://localhost:8000";
 const apiHost = `${origin}/wp-content/plugins/prayer-global-porch/`;
 
@@ -51,21 +51,23 @@ export default function () {
     console.log(response.body, locationId);
   }
 
+  return;
+
   http.post(
     `${apiHost}update-location.php`,
     JSON.stringify({
       user_id: 7,
       grid_id: locationId,
-      relay_key: "59261a",
-      relay_id: "1341",
+      relay_key: "49ba4c",
+      relay_id: "1321",
       pace: "1",
       parts: {
         root: "prayer_app",
-        type: "custom",
-        meta_key: "prayer_app_custom_magic_key",
-        public_key: "59261a",
+        type: "global",
+        meta_key: "prayer_app_global_magic_key",
+        public_key: "49ba4c",
         action: "",
-        post_id: "1341",
+        post_id: "1321",
         post_type: "pg_relays",
         instance_id: "",
       },

@@ -226,27 +226,49 @@ class PG_Relays_Table {
      */
     private function query_needed_locations_not_recently_promised( string $relay_key ) {
         if ( $relay_key === '49ba4c' ) {
-            $random_location_which_needs_prayer = $this->mysqli->execute_query( "
-                SELECT *
-                FROM $this->relay_table
-                WHERE relay_key = ?
-                AND total = ( SELECT MIN( total ) FROM $this->relay_table where relay_key = ? )
-                ORDER BY epoch, RAND()
-                LIMIT 1
-            ", [ $relay_key, $relay_key ] );
+            $random_location_which_needs_prayer = $this->mysqli->execute_query(
+                "UPDATE $this->relay_table
+                SET epoch = UNIX_TIMESTAMP(),
+                grid_id = LAST_INSERT_ID(grid_id)
+                WHERE id = (
+                    SELECT id
+                    FROM $this->relay_table
+                    WHERE relay_key = '49ba4c'
+                    ORDER BY CASE WHEN (
+                        total = (SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c')
+                        AND
+                        epoch < UNIX_TIMESTAMP()-30
+                    )
+                    THEN total
+                    ELSE epoch
+                    END,
+                    epoch, RAND()
+                    LIMIT 1
+                ) subquery
+            " );
 
             if ( false === $random_location_which_needs_prayer ) {
                 throw new ErrorException( 'Failed to get *needed* location not recently promised' );
             }
 
-            $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
+            $response = $this->mysqli->execute_query( '
+                SELECT LAST_INSERT_ID();
+            ' );
+
+            if ( $response === false ) {
+                throw new Exception( 'last insert ID not found for relay update' );
+            }
+
+            return [
+                'grid_id' => $response->fetch_column()
+            ];
         } else {
             //get location and prioritize ones from relay 49ba4c
             $random_location_which_needs_prayer = $this->mysqli->execute_query( "
                 SELECT *
                 FROM $this->relay_table
                 WHERE relay_key = '49ba4c'
-                AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c')
+                AND total = (SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c')
                 AND grid_id IN (
                   SELECT grid_id
                   FROM wp_dt_relays
