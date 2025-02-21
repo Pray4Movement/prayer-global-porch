@@ -293,7 +293,7 @@ class PG_Relays_Table {
             return null;
         }
 
-        $random_index = mt_rand( 0, $length );
+        $random_index = mt_rand( 0, $length - 1 );
         return $items[$random_index];
     }
 
