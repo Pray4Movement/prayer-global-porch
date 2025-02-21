@@ -228,10 +228,9 @@ class PG_Relays_Table {
                 SELECT * 
                 FROM $this->relay_table
                 WHERE relay_key = ?
-                AND total = ( SELECT MIN( total ) FROM $this->relay_table where relay_key = ? )
-                ORDER BY epoch, RAND()
+                ORDER BY ( epoch < UNIX_TIMESTAMP() - 30 ) DESC, total, epoch, RAND()
                 LIMIT 1
-            ", [ $relay_key, $relay_key ] );
+            ", [ $relay_key ] );
 
             if ( false === $random_location_which_needs_prayer ) {
                 throw new ErrorException( 'Failed to get *needed* location not recently promised' );

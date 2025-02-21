@@ -17,6 +17,8 @@ function cors() {
         'https://prayer.global',
         'https://staging.prayer.global',
         'http://localhost:8000', // TODO: DELETE this for production
+        'http://prayerglobal.lwp',
+        'https://prayerglobal.lwp',
     ];
 
     $origin = sanitize_text_field( stripslashes_deep( $_SERVER['HTTP_ORIGIN'] ?? '' ) );
