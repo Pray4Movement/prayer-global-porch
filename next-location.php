@@ -54,4 +54,5 @@ try {
 send_response( array(
     'status' => 'ok',
     'next_location' => $next_location,
+    $next_location
 ) );
