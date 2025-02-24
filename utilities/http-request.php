@@ -8,7 +8,7 @@
 function send_response( mixed $response, $code = 200, $location = null ) {
     header( 'Content-Type: application/json; charset=utf-8' );
     if ( $location ){
-        header( 'next_location: ' . $location );
+        header( 'X-Location: ' . $location );
     }
     http_response_code( $code );
     die( json_encode( $response ) );

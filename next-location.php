@@ -51,8 +51,11 @@ try {
     ), 400 );
 }
 
-send_response( array(
+send_response(
+    array(
     'status' => 'ok',
     'next_location' => $next_location,
+    ),
+    200,
     $next_location
-) );
+);
