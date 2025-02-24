@@ -30,9 +30,6 @@ if ( !PG_Nonce::verify( $nonce, 'direct-api' ) ) {
 }
 
 //phpcs:ignore
-$relay_key = isset( $_GET['relay_key'] ) && 1 === preg_match( '/[[:^alnum]]/', $_GET['relay_key'] ) ? $_GET['relay_key'] : '49ba4c';
-
-//phpcs:ignore
 mysqli_report( MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT );
 //phpcs:ignore
 $conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
@@ -46,10 +43,13 @@ if ( $conn->connect_error ) {
 
 $db_prefix = defined( 'DB_PREFIX' ) ? DB_PREFIX : 'wp_';
 
+//phpcs:ignore
+$relay_key = isset( $_GET['relay_key'] ) ? sanitize_text_field( stripslashes_deep( $_GET['relay_key'] ) ) : '49ba4c';
+
 $relays_table = new PG_Relays_Table( $conn, $db_prefix );
 
 try {
-    $next_location = $relays_table->get_next_grid_id( $relay_key );
+    $next_location = (int) $relays_table->get_next_grid_id( $relay_key );
     $relays_table->log_promise_timestamp( $relay_key, $next_location );
 } catch ( \Throwable $th ) {
     send_response( array(
