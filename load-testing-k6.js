@@ -61,35 +61,35 @@ export default function () {
     console.log(response.body, locationId);
   }
 
-
+  //check updates
 
   http.post(
     `${apiHost}update-location.php`,
     JSON.stringify({
-      user_id: 7,
-      grid_id: locationId,
-      relay_key: "49ba4c",
-      relay_id: "2103",
-      pace: "1",
-      parts: {
-        root: "prayer_app",
-        type: "global",
-        meta_key: "prayer_app_global_magic_key",
-        public_key: "49ba4c",
-        action: "",
-        post_id: "2103",
-        post_type: "pg_relays",
-        instance_id: "",
+      "user_id": 7,
+      "grid_id": locationId,
+      "relay_key": "49ba4c",
+      "relay_id": "2103",
+      "pace": "1",
+      "parts": {
+        "root": "prayer_app",
+        "type": "global",
+        "meta_key": "prayer_app_global_magic_key",
+        "public_key": "49ba4c",
+        "action": "",
+        "post_id": "2103",
+        "post_type": "pg_relays",
+        "instance_id": "",
       },
-      user_location: {
-        lng: "-1.886317",
-        lat: "52.489988",
-        level: "district",
-        label: "West Midlands, England, United Kingdom",
-        source: "user",
-        grid_id: "100130669",
-        country: "United Kingdom",
-        hash: "297ccde23b113613a1d3df3cf56bb120d6510dcb4e012713b671936f938f7c1f",
+      "user_location": {
+        "lng": "-1.886317",
+        "lat": "52.489988",
+        "level": "district",
+        "label": "West Midlands, England, United Kingdom",
+        "source": "user",
+        "grid_id": "100130669",
+        "country": "United Kingdom",
+        "hash": "297ccde23b113613a1d3df3cf56bb120d6510dcb4e012713b671936f938f7c1f",
       },
     }),
     {
