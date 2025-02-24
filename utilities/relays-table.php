@@ -224,13 +224,24 @@ class PG_Relays_Table {
      */
     private function query_needed_locations_not_recently_promised( string $relay_key ) {
         if ( $relay_key === '49ba4c' ) {
+            /**
+             * Prioritize locations that haven't been prayed for yet this lap
+             * and that have not been promised out in the last minute
+             * then prioritize locations given out the longest ago (grouped to avoid double promises)
+             */
             $random_location_which_needs_prayer = $this->mysqli->execute_query( "
                 SELECT * 
                 FROM $this->relay_table
                 WHERE relay_key = ?
-                ORDER BY ( epoch < UNIX_TIMESTAMP() - 30 ) DESC, total, epoch, RAND()
+                ORDER BY 
+                  case when
+                    epoch < UNIX_TIMESTAMP() - 60
+                    and total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ? ) 
+                  then 0 else 1 end,
+                  FLOOR( epoch / 30 ),
+                  RAND()
                 LIMIT 1
-            ", [ $relay_key ] );
+            ", [ $relay_key, $relay_key ] );
 
             if ( false === $random_location_which_needs_prayer ) {
                 throw new ErrorException( 'Failed to get *needed* location not recently promised' );
@@ -243,14 +254,19 @@ class PG_Relays_Table {
                 SELECT *
                 FROM $this->relay_table
                 WHERE relay_key = '49ba4c'
-                AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c')
                 AND grid_id IN (
                   SELECT grid_id
                   FROM wp_dt_relays
                   WHERE relay_key = ?
                   AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ?)
                 )
-                ORDER BY epoch, RAND()
+                ORDER BY 
+                  case when
+                    epoch < UNIX_TIMESTAMP() - 60
+                    and total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ? ) 
+                  then 0 else 1 end,
+                  FLOOR( epoch / 30 ),
+                  RAND()
                 LIMIT 1
             ", [ $relay_key, $relay_key ] );
 
@@ -265,8 +281,13 @@ class PG_Relays_Table {
                     SELECT *
                     FROM $this->relay_table
                     WHERE relay_key = ?
-                    AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ?)
-                    ORDER BY epoch, RAND()
+                    ORDER BY 
+                      case when
+                        epoch < UNIX_TIMESTAMP() - 60
+                        and total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ? ) 
+                      then 0 else 1 end,
+                      FLOOR( epoch / 30 ),
+                      RAND()
                     LIMIT 1
                 ", [ $relay_key, $relay_key ] );
             }
