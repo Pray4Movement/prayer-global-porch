@@ -27,13 +27,16 @@ trait PG_Lap_Trait {
 
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header-event.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '../utilities/pg-nonce.php' );
 
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
+        $nonce = PG_Nonce::create( 'direct-api' );
         ?>
         <!-- Resources -->
         <script>
             let jsObject = [<?php echo json_encode([
                 'parts' => $this->parts,
+                'nonce' => PG_Nonce::create( 'direct-api' ),
                 'translations' => [
                     'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
                     'Keep Praying...' => __( 'Keep Praying...', 'prayer-global-porch' ),

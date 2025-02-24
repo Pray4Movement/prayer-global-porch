@@ -44,7 +44,9 @@ function cors() {
     }
 
     // Access-Control headers are received during OPTIONS requests
-    if ( isset( $_SERVER['REQUEST_METHOD'] ) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS' ) {
+    // We are not using a pre-flight OPTIONS check
+
+/*     if ( isset( $_SERVER['REQUEST_METHOD'] ) && $_SERVER['REQUEST_METHOD'] === 'OPTIONS' ) {
 
         if ( isset( $_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'] ) ) {
             // may also be using PUT, PATCH, HEAD etc
@@ -56,7 +58,7 @@ function cors() {
         }
 
         exit( 0 );
-    }
+    } */
 
     return true;
 }
