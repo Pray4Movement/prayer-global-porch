@@ -260,12 +260,12 @@ class PG_Relays_Table {
                   SELECT grid_id
                   FROM wp_dt_relays
                   WHERE relay_key = ?
-                  AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ?)
+                  AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ? )
                 )
-                ORDER BY 
+                ORDER BY
                   case when
                     epoch < UNIX_TIMESTAMP() - 60
-                    and total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ? ) 
+                    and total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c' ) 
                   then 0 else 1 end,
                   FLOOR( epoch / 30 ),
                   RAND()
