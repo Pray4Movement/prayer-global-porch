@@ -61,11 +61,6 @@ class PG_Relays_Table {
 
         $lap_number_after_update = $this->get_lap_number( $relay_key );
 
-        //we have a new lap!
-        if ( $lap_number_before_update !== $lap_number_after_update ){
-            $this->new_lap_action( $relay_id );
-        }
-
         if ( $relay_key !== '49ba4c' ) {
             $global_lap_number = $this->get_lap_number( '49ba4c' );
 
@@ -81,6 +76,11 @@ class PG_Relays_Table {
             if ( !$response ) {
                 throw new ErrorException( 'Failed to update relay total' );
             }
+        }
+
+        //we have a new lap!
+        if ( $lap_number_before_update !== $lap_number_after_update ){
+            $this->new_lap_action( $relay_id );
         }
 
         return [
@@ -255,18 +255,20 @@ class PG_Relays_Table {
             $random_location_which_needs_prayer = $this->mysqli->execute_query( "
                 SELECT *
                 FROM $this->relay_table
-                WHERE relay_key = '49ba4c'
-                AND grid_id IN (
-                  SELECT grid_id
-                  FROM $this->relay_table
-                  WHERE relay_key = ?
-                  AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ? )
-                )
+                WHERE relay_key = ?
                 ORDER BY
                   case when
                     epoch < UNIX_TIMESTAMP() - 60
-                    and total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c' ) 
+                    and total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ? ) 
                   then 0 else 1 end,
+                  case when
+                   grid_id IN (
+                      SELECT grid_id
+                      FROM $this->relay_table
+                      WHERE relay_key = '49ba4c'
+                      AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c' )
+                    )
+                  then 0 else 1 end,  
                   FLOOR( epoch / 30 ),
                   RAND()
                 LIMIT 1
@@ -277,28 +279,6 @@ class PG_Relays_Table {
             }
 
             $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
-
-            if ( empty( $locations ) ){
-                $random_location_which_needs_prayer = $this->mysqli->execute_query( "
-                    SELECT *
-                    FROM $this->relay_table
-                    WHERE relay_key = ?
-                    ORDER BY 
-                      case when
-                        epoch < UNIX_TIMESTAMP() - 60
-                        and total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ? ) 
-                      then 0 else 1 end,
-                      FLOOR( epoch / 30 ),
-                      RAND()
-                    LIMIT 1
-                ", [ $relay_key, $relay_key ] );
-
-                if ( false === $random_location_which_needs_prayer ) {
-                    throw new ErrorException( 'Failed to get *needed* location not recently promised' );
-                }
-
-                $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
-            }
         }
 
         $location = !empty( $locations ) ? $locations[0] : [];
