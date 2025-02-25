@@ -63,14 +63,11 @@ window.addEventListener("load", function () {
     display_map,
   } = jsObject.translations;
 
-  window.getAuthUser(
-    (user) => {
-      write_main(user);
-    },
-    () => {
-      window.loginRedirect();
-    }
-  );
+  if (pg_global.is_logged_in) {
+    write_main(pg_global.user);
+  } else {
+    window.loginRedirect();
+  }
 
   jQuery("#delete-confirmation").on("keyup", (e) => {
     if (e.target.value === "delete") {

@@ -88,18 +88,15 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
         <script>
 
           window.addEventListener('load', function() {
-            window.getAuthUser(
-              () => {
+              if (pg_global.is_logged_in) {
                 const url = new URL(location.href)
                 const redirectTo = url.searchParams.get('redirect_to') || encodeURIComponent('/user_app/profile')
 
                 location.href = decodeURIComponent(redirectTo)
-              },
-              () => {
+              } else {
                 document.getElementById('login-ui').style.display = 'block'
                 document.getElementById('login-ui-loader').style.display = 'none'
               }
-            )
           })
 
         </script>

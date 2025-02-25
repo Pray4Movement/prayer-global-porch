@@ -138,16 +138,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         ?>
 
-        <section class="page-section flow" data-section="login" id="section-login">
-            <div class="container">
-                <div class="row justify-content-md-center text-center">
-                    <div class="flow" id="pg_content">
-                        <span class="loading-spinner active"></span>
-                    </div>
-                </div>
-            </div>
-
-
+        <pg-profile></pg-profile>
 
             <div class="modal fade" id="details-modal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -288,8 +279,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     </div>
                 </div>
             </div>
-
-        </section>
 
         <div class="offcanvas offcanvas-end" id="user-profile-details" data-bs-backdrop="true" data-bs-scroll="false">
             <div class="offcanvas__header">
