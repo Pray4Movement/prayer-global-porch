@@ -103,6 +103,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header-event.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '../utilities/pg-nonce.php' );
 
         $current_lap = Prayer_Stats::get_relay_current_lap( $this->parts['public_key'], $this->parts['post_id'], true );
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
@@ -112,6 +113,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <script>
                 let jsObject = [<?php echo json_encode([
                     'parts' => $this->parts,
+                    'nonce' => PG_Nonce::create( 'direct-api' ),
                     'translations' => [
                         'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
                         'Keep Praying...' => __( 'Keep Praying...', 'prayer-global-porch' ),

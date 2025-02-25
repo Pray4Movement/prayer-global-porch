@@ -23,7 +23,9 @@ class PG_Relays_Table {
             WHERE relay_key = ?
         ", [ $key ] );
 
-        return $response->fetch_column() || 0;
+        $lap_number = $response->fetch_column();
+
+        return $lap_number ?? 0;
     }
 
     public function log_promise_timestamp( $relay_key, $grid_id ) {
@@ -230,7 +232,7 @@ class PG_Relays_Table {
              * then prioritize locations given out the longest ago (grouped to avoid double promises)
              */
             $random_location_which_needs_prayer = $this->mysqli->execute_query( "
-                SELECT * 
+                SELECT *
                 FROM $this->relay_table
                 WHERE relay_key = ?
                 ORDER BY 
@@ -290,12 +292,13 @@ class PG_Relays_Table {
                       RAND()
                     LIMIT 1
                 ", [ $relay_key, $relay_key ] );
-            }
-            if ( false === $random_location_which_needs_prayer ) {
-                throw new ErrorException( 'Failed to get *needed* location not recently promised' );
-            }
 
-            $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
+                if ( false === $random_location_which_needs_prayer ) {
+                    throw new ErrorException( 'Failed to get *needed* location not recently promised' );
+                }
+
+                $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
+            }
         }
 
         $location = !empty( $locations ) ? $locations[0] : [];
@@ -313,7 +316,7 @@ class PG_Relays_Table {
             return null;
         }
 
-        $random_index = mt_rand( 0, $length );
+        $random_index = mt_rand( 0, $length - 1 );
         return $items[$random_index];
     }
 
