@@ -6,25 +6,22 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/prayer-global-"
 "porch\n"
 "POT-Creation-Date: 2024-09-26T15:16:54+00:00\n"
-"PO-Revision-Date: 2025-01-25 11:00+0000\n"
-"Last-Translator: Weblate Translation Memory <noreply-mt-weblate-translation-"
-"memory@weblate.org>\n"
-"Language-Team: Portuguese <https://translate.disciple.tools/projects/"
-"pray4movement/prayer-global/pt/>\n"
-"Language: pt\n"
+"PO-Revision-Date: 2024-11-13 13:27+0000\n"
+"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
+"Language-Team: Romanian <https://translate.disciple.tools/projects/"
+"pray4movement/prayer-global/ro_RO/>\n"
+"Language: ro_RO\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.9.2\n"
+"Plural-Forms: nplurals=3; plural=n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
+"20)) ? 1 : 2;\n"
+"X-Generator: Weblate 5.8.3\n"
 "X-Domain: prayer-global-porch\n"
 
 #: pages/404/404.php:121
-#, fuzzy
 msgid "Not where you meant to be? Try some of the links below (or above) to get back into the action..."
 msgstr ""
-"Não era aqui que você queria estar? Tente alguns os links abaixo (ou acima) "
-"para voltar à ação..."
 
 #: pages/404/404.php:130
 #: pages/about/about.php:116
@@ -37,16 +34,15 @@ msgstr ""
 #: pages/pray/nav-global-map.php:8
 #: pages/race/nav-race-map.php:15
 msgid "Start Praying"
-msgstr "Comece a orar"
+msgstr ""
 
 #: pages/404/404.php:131
-#, fuzzy
 msgid "The map"
-msgstr "O mapa"
+msgstr ""
 
 #: pages/404/404.php:132
 msgid "More stats"
-msgstr "Mais estatísticas"
+msgstr ""
 
 #: pages/404/404.php:133
 #: pages/assets/menu.php:57
@@ -58,32 +54,30 @@ msgstr ""
 
 #: pages/404/404.php:142
 msgid "Other interesting links"
-msgstr "Outros links interessantes"
+msgstr ""
 
 #: pages/404/404.php:150
 msgid "Anything to share/request? Please contact us :)"
-msgstr "Tem algum pedido/sugestão? Por favor entre em contato conosco :)"
+msgstr ""
 
 #: pages/404/404.php:151
 msgid "Where does all the data come from?"
-msgstr "De onde vêm todos esses dados?"
+msgstr ""
 
 #: pages/404/404.php:152
 msgid "Invites for sharing on social media"
-msgstr "Convites para compartilhar nas redes sociais"
+msgstr ""
 
 #: pages/about/about.php:90
 #: pages/assets/menu.php:74
 #: pages/assets/working-footer.php:18
+#, fuzzy
 msgid "About"
-msgstr "Sobre"
+msgstr "Despre"
 
 #: pages/about/about.php:92
-#, fuzzy
 msgid "%s seeks to encourage extraordinary prayer for the fulfillment of the Great Commission using technology."
 msgstr ""
-"%s procura encorajar a oração extraordinária para a realização da Grande "
-"Comissão usando tecnologia."
 
 #: pages/about/about.php:98
 #: pages/about/about.php:125
@@ -91,8 +85,9 @@ msgid "Historic Moment"
 msgstr ""
 
 #: pages/about/about.php:102
+#, fuzzy
 msgid "How it works"
-msgstr ""
+msgstr "Cum funcționează"
 
 #: pages/about/about.php:106
 #: pages/about/about.php:173
@@ -108,25 +103,21 @@ msgid "We know three things about our moment in history:"
 msgstr ""
 
 #: pages/about/about.php:130
-#, fuzzy
 msgid "(1) Never before in history have we been able to coordinate global prayer for the kingdom IN REALTIME!"
 msgstr ""
-"(1) Nunca na história coordenar orações globais para o reino EM TEMPO REAL"
 
 #: pages/about/about.php:133
-#, fuzzy
 msgid "(2) God has used technology for the advance of His kingdom (i.e. written language, Roman roads, printing presses, etc.), and is now using the Internet."
 msgstr ""
-"(2) Deus já usou tecnologia para o avanço de seu reino (como línguas "
-"escritas, ruas Romanas, Prensas, etc), e está usando a internet agora."
 
 #: pages/about/about.php:136
 msgid "(3) Extraordinary prayer is a foundational mark of all modern disciple multiplying movements."
 msgstr ""
 
 #: pages/about/about.php:148
+#, fuzzy
 msgid "How It Works"
-msgstr ""
+msgstr "Cum funcționează"
 
 #: pages/about/about.php:150
 msgid "Click on %1$sStart Praying%2$s."
@@ -215,8 +206,9 @@ msgstr ""
 
 #: pages/about/about.php:213
 #: pages/pray/stacker-positions.php:38
+#, fuzzy
 msgid "Faith Status"
-msgstr ""
+msgstr "Statutul Credinței"
 
 #: pages/about/about.php:216
 #: pages/assets/enqueue.php:83
@@ -287,8 +279,9 @@ msgid "Minutes"
 msgstr ""
 
 #: pages/assets/enqueue.php:61
+#, fuzzy
 msgid "Seconds"
-msgstr ""
+msgstr "Al doilea:"
 
 #: pages/assets/enqueue.php:67
 msgid "Join us in covering the world in prayer"
@@ -332,12 +325,14 @@ msgid "Community Stats"
 msgstr ""
 
 #: pages/assets/enqueue.php:90
+#, fuzzy
 msgid "Summary"
-msgstr ""
+msgstr "Rezumat"
 
 #: pages/assets/enqueue.php:91
+#, fuzzy
 msgid "Activity"
-msgstr ""
+msgstr "Activitate"
 
 #: pages/assets/enqueue.php:92
 msgid "Times prayed for"
@@ -358,16 +353,18 @@ msgid "minutes"
 msgstr ""
 
 #: pages/assets/menu.php:42
+#, fuzzy
 msgid "Status"
-msgstr ""
+msgstr "Stare"
 
 #: pages/assets/menu.php:48
 #: pages/challenges/active-list.php:83
 #: pages/pray/action-custom-lap.php:190
 #: pages/pray/action-custom-map.php:78
 #: pages/pray/trait-lap.php:285
+#, fuzzy
 msgid "Map"
-msgstr ""
+msgstr "Hartă"
 
 #: pages/assets/menu.php:66
 #: pages/assets/working-footer.php:15
@@ -381,8 +378,9 @@ msgstr ""
 
 #: pages/assets/share-modal.php:18
 #: pages/user/user-profile.php:86
+#, fuzzy
 msgid "Email"
-msgstr ""
+msgstr "E-mail"
 
 #: pages/assets/share-modal.php:22
 msgctxt "Link Copied"
@@ -390,8 +388,9 @@ msgid "Link %s"
 msgstr ""
 
 #: pages/assets/share-modal.php:22
+#, fuzzy
 msgid "Copied"
-msgstr ""
+msgstr "Copiat"
 
 #: pages/assets/share-modal.php:27
 #: pages/pray/action-custom-lap.php:211
@@ -401,8 +400,9 @@ msgstr ""
 #: pages/pray/trait-lap.php:206
 #: pages/user/user-profile.php:191
 #: pages/user/user-profile.php:264
+#, fuzzy
 msgid "Close"
-msgstr ""
+msgstr "Închide"
 
 #: pages/assets/working-footer.php:4
 msgctxt "Made with love by Gospel.Ambition"
@@ -421,8 +421,9 @@ msgstr ""
 
 #: pages/assets/working-footer.php:14
 #: pages/contact/magic-contact-us.php:82
+#, fuzzy
 msgid "Contact Us"
-msgstr ""
+msgstr "Contactele"
 
 #: pages/assets/working-footer.php:19
 #: pages/data-sources/magic-data-sources.php:87
@@ -444,8 +445,9 @@ msgid "Pray"
 msgstr ""
 
 #: pages/challenges/active-list.php:84
+#, fuzzy
 msgid "Sharing"
-msgstr ""
+msgstr "Împărtășirea"
 
 #: pages/challenges/active-list.php:85
 msgid "Display"
@@ -454,8 +456,9 @@ msgstr ""
 #: pages/challenges/active-list.php:86
 #: pages/user/user-profile.php:85
 #: pages/user/user-profile.php:161
+#, fuzzy
 msgid "Name"
-msgstr ""
+msgstr "Nume"
 
 #: pages/challenges/active-list.php:87
 #: pages/home/body.php:258
@@ -478,8 +481,9 @@ msgid "Time Elapsed"
 msgstr ""
 
 #: pages/challenges/active-list.php:89
+#, fuzzy
 msgid "Links"
-msgstr ""
+msgstr "Link-uri"
 
 #: pages/challenges/active-list.php:90
 msgid "- Lap %d"
@@ -495,8 +499,9 @@ msgstr ""
 
 #: pages/challenges/active-list.php:148
 #: pages/user/user-login.php:132
+#, fuzzy
 msgid "Login"
-msgstr ""
+msgstr "Intră"
 
 #: pages/challenges/active-list.php:154
 msgid "Active Relays"
@@ -529,8 +534,9 @@ msgstr ""
 
 #: pages/church/church.php:166
 #: pages/media/magic-media.php:108
+#, fuzzy
 msgid "Resources"
-msgstr ""
+msgstr "Resurse"
 
 #: pages/church/church.php:175
 msgid "Hosting your Prayer.Global event"
@@ -569,8 +575,9 @@ msgid "After the event"
 msgstr ""
 
 #: pages/church/church.php:240
+#, fuzzy
 msgid "FAQs"
-msgstr ""
+msgstr "Întrebări și Răspunsuri"
 
 #: pages/contact/magic-contact-us.php:84
 msgid "First, thank you for reaching out."
@@ -694,8 +701,9 @@ msgid "(aka. Christian Adherent) Someone who has access to the knowledge of Jesu
 msgstr ""
 
 #: pages/data-sources/magic-data-sources.php:158
+#, fuzzy
 msgid "Believer"
-msgstr ""
+msgstr "Credincios"
 
 #: pages/data-sources/magic-data-sources.php:158
 msgid "(aka. Disciple, Christian) Someone who has accepted in faith the knowledge of Jesus Christ and who has surrendered their life to Jesus as a personal savior."
@@ -706,8 +714,9 @@ msgid "Source and Method of Calculation"
 msgstr ""
 
 #: pages/data-sources/magic-data-sources.php:165
+#, fuzzy
 msgid "Source"
-msgstr ""
+msgstr "Surse"
 
 #: pages/data-sources/magic-data-sources.php:166
 #: pages/data-sources/magic-data-sources.php:195
@@ -748,8 +757,9 @@ msgid "More than the exact number, it is the distribution of knowledge of Jesus 
 msgstr ""
 
 #: pages/data-sources/magic-data-sources.php:193
+#, fuzzy
 msgid "People Group Data"
-msgstr ""
+msgstr "Detalii despre grupul de persoane"
 
 #: pages/data-sources/magic-data-sources.php:196
 msgid "International Mission Board - Global Research"
@@ -918,8 +928,9 @@ msgstr ""
 
 #: pages/home/body.php:17
 #: pages/home/body.php:24
+#, fuzzy
 msgid "Learn more"
-msgstr ""
+msgstr "Aflați mai multe"
 
 #: pages/home/body.php:40
 #: pages/home/body.php:125
@@ -974,9 +985,10 @@ msgid "Prayer Laps"
 msgstr ""
 
 #: pages/home/body.php:79
+#, fuzzy
 msgctxt "Payer Laps Completed"
 msgid "Completed"
-msgstr ""
+msgstr "Efectuat"
 
 #: pages/home/body.php:83
 msgid "Our ﬁrst global race started %1$s year and %2$s days ago and we’ve completed %3$s laps together so far."
@@ -1015,21 +1027,24 @@ msgid "Laps %s"
 msgstr ""
 
 #: pages/home/body.php:171
+#, fuzzy
 msgctxt "Laps Completed"
 msgid "Completed"
-msgstr ""
+msgstr "Efectuat"
 
 #: pages/home/body.php:203
+#, fuzzy
 msgid "Previous"
-msgstr ""
+msgstr "Anterior"
 
 #: pages/home/body.php:207
 #: pages/pray/action-custom-lap.php:181
 #: pages/pray/action-custom-lap.php:191
 #: pages/pray/trait-lap.php:274
 #: pages/pray/trait-lap.php:286
+#, fuzzy
 msgid "Next"
-msgstr ""
+msgstr "Următor →"
 
 #: pages/home/body.php:220
 msgid "Global Race Stats"
@@ -1066,9 +1081,10 @@ msgid "Places Covered"
 msgstr ""
 
 #: pages/home/body.php:278
+#, fuzzy
 msgctxt "10 of 4770"
 msgid "%1$s of %2$s"
-msgstr ""
+msgstr "%1$s în %2$s"
 
 #: pages/home/body.php:315
 msgid "Get the Mobile App"
@@ -1128,8 +1144,9 @@ msgstr ""
 #: pages/media/magic-media.php:160
 #: pages/media/magic-media.php:166
 #: pages/media/magic-media.php:172
+#, fuzzy
 msgid "Download"
-msgstr ""
+msgstr "Descarcă"
 
 #: pages/pray/action-custom-completed.php:112
 #: pages/pray/action-global-completed.php:107
@@ -1143,18 +1160,21 @@ msgstr ""
 
 #: pages/pray/action-custom-completed.php:126
 #: pages/pray/action-global-completed.php:121
+#, fuzzy
 msgid "Prayer"
-msgstr ""
+msgstr "Rugăciunea"
 
 #: pages/pray/action-custom-completed.php:132
 #: pages/pray/action-global-completed.php:127
+#, fuzzy
 msgid "Pace"
-msgstr ""
+msgstr "Ritmul"
 
 #: pages/pray/action-custom-completed.php:134
 #: pages/pray/action-global-completed.php:129
+#, fuzzy
 msgid "Start"
-msgstr ""
+msgstr "Start"
 
 #: pages/pray/action-custom-completed.php:135
 #: pages/pray/action-global-completed.php:130
@@ -1174,9 +1194,10 @@ msgstr ""
 
 #: pages/pray/action-custom-lap.php:117
 #: pages/pray/trait-lap.php:36
+#, fuzzy
 msgctxt "state of California"
 msgid "%1$s of %2$s"
-msgstr ""
+msgstr "%1$s în %2$s"
 
 #: pages/pray/action-custom-lap.php:118
 #: pages/pray/trait-lap.php:37
@@ -1200,8 +1221,9 @@ msgstr ""
 
 #: pages/pray/action-custom-lap.php:180
 #: pages/pray/trait-lap.php:273
+#, fuzzy
 msgid "Done"
-msgstr ""
+msgstr "Terminat"
 
 #: pages/pray/action-custom-lap.php:197
 #: pages/pray/trait-lap.php:115
@@ -1249,8 +1271,9 @@ msgstr ""
 
 #: pages/pray/action-custom-lap.php:238
 #: pages/pray/trait-lap.php:153
+#, fuzzy
 msgid "Are you sure you want to leave?"
-msgstr ""
+msgstr "Sigur doriți să ștergeți %s?"
 
 #: pages/pray/action-custom-lap.php:249
 #: pages/pray/trait-lap.php:164
@@ -1259,8 +1282,9 @@ msgstr ""
 
 #: pages/pray/action-custom-lap.php:250
 #: pages/pray/trait-lap.php:165
+#, fuzzy
 msgid "Leave"
-msgstr ""
+msgstr "Retrage-te"
 
 #: pages/pray/action-custom-lap.php:259
 #: pages/pray/trait-lap.php:174
@@ -1307,8 +1331,9 @@ msgstr ""
 #: pages/pray/action-custom-map.php:234
 #: pages/pray/action-global-map.php:209
 #: pages/pray/trait-lap.php:221
+#, fuzzy
 msgid "Submit"
-msgstr ""
+msgstr "Execută"
 
 #: pages/pray/action-custom-lap.php:328
 #: pages/pray/trait-lap.php:247
@@ -1329,29 +1354,33 @@ msgstr ""
 #: pages/pray/action-custom-map.php:122
 #: pages/pray/action-global-map.php:116
 #: pages/race/race-map.php:132
+#, fuzzy
 msgid "Loading the planet ..."
-msgstr ""
+msgstr "planul"
 
 #: pages/pray/action-custom-map-display.php:102
 #: pages/pray/action-custom-map.php:123
 #: pages/pray/action-global-map.php:117
 #: pages/race/race-map.php:133
+#, fuzzy
 msgid "Locating world population..."
-msgstr ""
+msgstr "Localizarea populației mondiale"
 
 #: pages/pray/action-custom-map-display.php:103
 #: pages/pray/action-custom-map.php:124
 #: pages/pray/action-global-map.php:118
 #: pages/race/race-map.php:134
+#, fuzzy
 msgid "Calculating movement activity..."
-msgstr ""
+msgstr "Calcularea activității de mișcare"
 
 #: pages/pray/action-custom-map-display.php:104
 #: pages/pray/action-custom-map.php:125
 #: pages/pray/action-global-map.php:119
 #: pages/race/race-map.php:135
+#, fuzzy
 msgid "Shamelessly brewing coffee..."
-msgstr ""
+msgstr "Prepararea fără rușine a cafelei"
 
 #: pages/pray/action-custom-map-display.php:105
 #: pages/pray/action-custom-map.php:126
@@ -1406,8 +1435,9 @@ msgstr ""
 #: pages/pray/action-custom-map.php:293
 #: pages/pray/action-global-map.php:269
 #: pages/user/user-profile.php:218
+#, fuzzy
 msgid "Start Time"
-msgstr ""
+msgstr "Timpul de începere"
 
 #: pages/pray/action-custom-map.php:297
 #: pages/pray/action-global-map.php:273
@@ -1453,8 +1483,9 @@ msgstr ""
 #: pages/pray/action-custom-tools.php:149
 #: pages/pray/action-custom-tools.php:170
 #: pages/pray/action-custom-tools.php:196
+#, fuzzy
 msgid "Copy"
-msgstr ""
+msgstr "Copie"
 
 #: pages/pray/action-custom-tools.php:161
 msgid "Display Map (60 Second Refresh)"
@@ -1482,8 +1513,9 @@ msgstr ""
 
 #: pages/pray/nav-global-map.php:9
 #: pages/user/user-profile.php:77
+#, fuzzy
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: pages/pray/nav-global-map.php:12
 #: pages/race/nav-race-map.php:16
@@ -1514,8 +1546,9 @@ msgstr ""
 #: pages/pray/stacker-positions.php:71
 #: pages/pray/stacker-positions.php:508
 #: pages/pray/stacker-positions.php:532
+#, fuzzy
 msgid "Believers"
-msgstr ""
+msgstr "Credincioși"
 
 #: pages/pray/stacker-positions.php:72
 msgid "Non-Christians - %1$s | Cultural Christians - %2$s | Believers - %3$s"
@@ -1650,9 +1683,10 @@ msgid "On average, %1$s babies will be born in the next 100 hours to families wh
 msgstr ""
 
 #: pages/pray/stacker-positions.php:345
+#, fuzzy
 msgctxt "section_label"
 msgid "count"
-msgstr ""
+msgstr "Numărătoare"
 
 #: pages/pray/stacker-positions.php:349
 msgid "On average, %1$s babies will be born in the next week to families who are far from God in %2$s."
@@ -1682,8 +1716,9 @@ msgstr ""
 
 #: pages/pray/stacker-positions.php:505
 #: pages/pray/stacker-text.php:939
+#, fuzzy
 msgid "Population"
-msgstr ""
+msgstr "Populația"
 
 #: pages/pray/stacker-positions.php:511
 msgid "Dominant Religion"
@@ -1692,8 +1727,9 @@ msgstr ""
 #: pages/pray/stacker-positions.php:514
 #: pages/pray/stacker-positions.php:535
 #: pages/pray/stacker-text.php:1313
+#, fuzzy
 msgid "Language"
-msgstr ""
+msgstr "Limba"
 
 #: pages/pray/stacker-text.php:14
 #: pages/pray/stacker-text.php:1388
@@ -1898,21 +1934,29 @@ msgid "Jesus, all authority was given to you, and you commanded all disciples in
 msgstr ""
 
 #: pages/pray/stacker-text.php:187
+#, fuzzy
 msgid "Matthew 28:18-20"
-msgstr ""
+msgstr "Matei 28:18-20"
 
 #: pages/pray/stacker-text.php:188
+#, fuzzy
 msgctxt "Matthew 28:18-20"
 msgid "All authority in heaven and on earth has been given to me. Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything I have commanded you. And surely I am with you always, to the very end of the age."
 msgstr ""
+"Isus S-a apropiat de ei şi le-a vorbit astfel: „Toată autoritatea Mi-a fost "
+"dată în cer şi pe pământ. 19 Prin urmare, duceţi-vă şi faceţi ucenici din "
+"toate neamurile, botezându-i în Numele Tatălui, al Fiului şi al Duhului "
+"Sfânt 20 şi învăţându-i să păzească tot ce v-am poruncit! Şi iată că Eu sunt "
+"cu voi[a] în toate zilele, până la sfârşitul veacului!“"
 
 #: pages/pray/stacker-text.php:192
 msgid "Father, help the %1$s believers in %2$s to be spiritually intentional with their relationships among their %3$s lost friends and neighbors."
 msgstr ""
 
 #: pages/pray/stacker-text.php:230
+#, fuzzy
 msgid "Person of Peace"
-msgstr ""
+msgstr "Omul Păcii"
 
 #: pages/pray/stacker-text.php:234
 msgid "Spirit, help the %1$s believers find a person of peace today among the %2$s lost neighbors around them. And help them start discovery bible studies in these unbelieving homes."
@@ -2098,8 +2142,9 @@ msgid "The Church"
 msgstr ""
 
 #: pages/pray/stacker-text.php:376
+#, fuzzy
 msgid "Church Planting"
-msgstr ""
+msgstr "Plantatori de biserici"
 
 #: pages/pray/stacker-text.php:380
 msgid "God, guide the %1$s believers in %2$s to multiply spiritual families that love you, love each other, and make disciples."
@@ -2891,8 +2936,9 @@ msgid "Primary Religion"
 msgstr ""
 
 #: pages/pray/stacker-text.php:1604
+#, fuzzy
 msgid "People Groups"
-msgstr ""
+msgstr "Grupuri de oameni"
 
 #: pages/pray/stacker-text.php:1676
 msgid "Local Leadership"
@@ -3094,8 +3140,9 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:1783
 #: pages/pray/stacker-text.php:2660
+#, fuzzy
 msgid "Matthew 28:19-20a"
-msgstr ""
+msgstr "Matei 28:18-20"
 
 #: pages/pray/stacker-text.php:1784
 #: pages/pray/stacker-text.php:2661
@@ -3567,8 +3614,9 @@ msgid "Jesus, remind the disciples in %1$s of %2$s to train each other to obey a
 msgstr ""
 
 #: pages/pray/stacker-text.php:2217
+#, fuzzy
 msgid "Matthew 28:20"
-msgstr ""
+msgstr "Matei 28:18-20"
 
 #: pages/pray/stacker-text.php:2218
 msgctxt "Matthew 28:20"
@@ -3743,8 +3791,9 @@ msgstr ""
 #: pages/pray/stacker-text.php:2347
 #: pages/pray/stacker-text.php:2353
 #: pages/pray/stacker-text.php:2360
+#, fuzzy
 msgid "Faith"
-msgstr ""
+msgstr "Credinţă"
 
 #: pages/pray/stacker-text.php:2348
 msgid "Spirit, teach the %1$s believers in %2$s that when they seek first your Kingdom and your righteousness, you will abundantly provide all they need."
@@ -3778,8 +3827,9 @@ msgstr ""
 
 #: pages/pray/stacker-text.php:2366
 #: pages/pray/stacker-text.php:2372
+#, fuzzy
 msgid "Faithfulness"
-msgstr ""
+msgstr "Credincioșia"
 
 #: pages/pray/stacker-text.php:2367
 msgid "Father, convict the %1$s believers in %2$s to be holy and righteous. Inspire them to gather in small groups for accountability and spiritual growth."
@@ -3790,8 +3840,9 @@ msgid "Lord, we know that you invest more in those who have been faithful with w
 msgstr ""
 
 #: pages/pray/stacker-text.php:2374
+#, fuzzy
 msgid "Matthew 25:28-29"
-msgstr ""
+msgstr "Matei 28:18-20"
 
 #: pages/pray/stacker-text.php:2375
 msgctxt "Matthew 25:28-29"
@@ -4320,9 +4371,10 @@ msgstr ""
 
 #: pages/pray/stacker.php:141
 #: pages/pray/stacker.php:211
+#, fuzzy
 msgctxt "abbreviation of 1 minute"
 msgid "1 min"
-msgstr ""
+msgstr "10 min"
 
 #: pages/pray/stacker.php:141
 #: pages/pray/stacker.php:212
@@ -4331,28 +4383,32 @@ msgid "%d mins"
 msgstr ""
 
 #: pages/pray/stacker.php:296
+#, fuzzy
 msgid "state"
-msgstr ""
+msgstr "Stat"
 
 #: pages/pray/stacker.php:297
 msgid "the state"
 msgstr ""
 
 #: pages/pray/stacker.php:298
+#, fuzzy
 msgid "states"
-msgstr ""
+msgstr "State"
 
 #: pages/pray/stacker.php:300
+#, fuzzy
 msgid "country"
-msgstr ""
+msgstr "Țară"
 
 #: pages/pray/stacker.php:301
 msgid "the country"
 msgstr ""
 
 #: pages/pray/stacker.php:302
+#, fuzzy
 msgid "countries"
-msgstr ""
+msgstr "Țări"
 
 #: pages/pray/stacker.php:304
 msgid "county"
@@ -4363,8 +4419,9 @@ msgid "the county"
 msgstr ""
 
 #: pages/pray/stacker.php:306
+#, fuzzy
 msgid "counties"
-msgstr ""
+msgstr "Județe"
 
 #: pages/pray/stacker.php:484
 msgid "Diaspora"
@@ -4446,8 +4503,9 @@ msgid "Get badges and more"
 msgstr ""
 
 #: pages/user/user-profile.php:74
+#, fuzzy
 msgid "Change"
-msgstr ""
+msgstr "Schimbare"
 
 #: pages/user/user-profile.php:75
 msgid "Please select a location"
@@ -4458,8 +4516,9 @@ msgid "(This is your estimated location)"
 msgstr ""
 
 #: pages/user/user-profile.php:78
+#, fuzzy
 msgid "Prayers"
-msgstr ""
+msgstr "Rugăciunea"
 
 #: pages/user/user-profile.php:79
 msgid "My Prayer Relays"
@@ -4478,16 +4537,19 @@ msgid "Consider giving to help us increase prayer for the world."
 msgstr ""
 
 #: pages/user/user-profile.php:84
+#, fuzzy
 msgid "Logout"
-msgstr ""
+msgstr "Deconectare"
 
 #: pages/user/user-profile.php:87
+#, fuzzy
 msgid "Location"
-msgstr ""
+msgstr "Locație"
 
 #: pages/user/user-profile.php:88
+#, fuzzy
 msgid "Locations"
-msgstr ""
+msgstr "Locații"
 
 #: pages/user/user-profile.php:89
 msgid "Communication Preferences"
@@ -4506,8 +4568,9 @@ msgid "Erase my account"
 msgstr ""
 
 #: pages/user/user-profile.php:94
+#, fuzzy
 msgid "Load more"
-msgstr ""
+msgstr "Incarca mai mult"
 
 #: pages/user/user-profile.php:95
 msgctxt "1 min for Paris, France"
@@ -4525,12 +4588,14 @@ msgid "New %s Relay"
 msgstr ""
 
 #: pages/user/user-profile.php:98
+#, fuzzy
 msgid "Public"
-msgstr ""
+msgstr "Public"
 
 #: pages/user/user-profile.php:99
+#, fuzzy
 msgid "Private"
-msgstr ""
+msgstr "Privat"
 
 #: pages/user/user-profile.php:100
 msgid "My Public Relays"
@@ -4558,8 +4623,9 @@ msgstr ""
 
 #: pages/user/user-profile.php:106
 #: pages/user/user-profile.php:238
+#, fuzzy
 msgid "Edit"
-msgstr ""
+msgstr "Editați"
 
 #: pages/user/user-profile.php:107
 msgid "Display Map"
@@ -4570,22 +4636,26 @@ msgid "Change Your Details"
 msgstr ""
 
 #: pages/user/user-profile.php:165
+#, fuzzy
 msgid "Select Location"
-msgstr ""
+msgstr "Selectați Locație"
 
 #: pages/user/user-profile.php:166
+#, fuzzy
 msgid "Delete Location"
-msgstr ""
+msgstr "Ștergeți locația"
 
 #: pages/user/user-profile.php:179
 #: pages/user/user-profile.php:236
 #: pages/user/user-profile.php:284
+#, fuzzy
 msgid "Cancel"
-msgstr ""
+msgstr "Anulare"
 
 #: pages/user/user-profile.php:180
+#, fuzzy
 msgid "Save"
-msgstr ""
+msgstr "Salvați"
 
 #: pages/user/user-profile.php:190
 msgid "Create Challenge"
@@ -4620,24 +4690,27 @@ msgid "Now"
 msgstr ""
 
 #: pages/user/user-profile.php:217
+#, fuzzy
 msgid "Start Date"
-msgstr ""
+msgstr "Data începerii"
 
 #: pages/user/user-profile.php:222
 msgid "Challenge End Date"
 msgstr ""
 
 #: pages/user/user-profile.php:224
+#, fuzzy
 msgid "End Date"
-msgstr ""
+msgstr "Data încheierii"
 
 #: pages/user/user-profile.php:230
 msgid "Single Lap"
 msgstr ""
 
 #: pages/user/user-profile.php:237
+#, fuzzy
 msgid "Create"
-msgstr ""
+msgstr "Crează"
 
 #: pages/user/user-profile.php:248
 msgid "Data Report"
@@ -4664,8 +4737,9 @@ msgid "Confirm delete"
 msgstr ""
 
 #: pages/user/user-profile.php:280
+#, fuzzy
 msgid "Delete"
-msgstr ""
+msgstr "Șterge"
 
 #: pages/user/user-profile.php:285
 msgid "I am sure"
