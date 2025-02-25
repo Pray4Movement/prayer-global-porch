@@ -106,7 +106,7 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
 
     public function body(){
         $parts = $this->parts;
-        $lap_stats = pg_custom_lap_stats_by_post_id( $parts['post_id'] );
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $parts['public_key'], $parts['post_id'] );
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' );
         ?>
         <style>

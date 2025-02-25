@@ -18,6 +18,7 @@ add_filter( 'dt_magic_url_base_allowed_js', function ( $allowed_js ){
         'jquery-easing',
         'jquery-waypoints',
         'umami',
+        'lit-bundle',
     ] );
 
     return $allowed_js;
@@ -38,6 +39,7 @@ add_action( 'wp_enqueue_scripts', function (){
 
     pg_enqueue_script( 'main-js', 'pages/assets/js/main.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );
     pg_enqueue_script( 'share-js', 'pages/assets/js/share.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );
+    pg_enqueue_script( 'lit-bundle', 'pages/assets/js/dist/assets/components-bundle.js', [], [ 'strategy' => 'defer' ] );
 
     wp_enqueue_script( 'bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js', [], '5.3.3', [ 'strategy' => 'defer' ] );
     wp_enqueue_script( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', [], '1.9.0', [ 'strategy' => 'defer' ] );

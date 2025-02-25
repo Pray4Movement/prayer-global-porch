@@ -1,78 +1,83 @@
 window.load_report_modal = () => {
+  const correction_modal = document.querySelector("#correction_modal");
+  const correction_button = document.querySelector("#correction_button");
+  const correction_close = document.querySelector("#correction_close");
 
-  let correction_modal = jQuery('#correction_modal')
-  let correction_button = jQuery('#correction_button')
-  let correction_close = jQuery('#correction_close')
+  const correction_title = document.querySelector("#correction_title");
+  const correction_select = document.querySelector("#correction_select");
+  const correction_submit = document.querySelector("#correction_submit_button");
+  const correction_spinner = document.querySelector(
+    ".loading-spinner.correction_modal_spinner"
+  );
+  const correction_error = document.querySelector("#correction_error");
+  const correction_response = document.querySelector("#correction_response");
 
-  let correction_field = jQuery('.correction_field')
-  let correction_title = jQuery('#correction_title')
-  let correction_select = jQuery('#correction_select')
-  let correction_submit = jQuery('#correction_submit_button')
-  let correction_spinner = jQuery('.loading-spinner.correction_modal_spinner')
-  let correction_error = jQuery('#correction_error')
-  let correction_response = jQuery('#correction_response')
+  correction_button.addEventListener("click", function () {
+    correction_title.innerHTML = `<strong>${jsObject.location.location.full_name}</strong>`;
+    correction_select.innerHTML = "";
+    correction_select.innerHTML += `<option value=""></option><option value="map">Map</option>`;
+    jsObject.location.list.forEach(function (v) {
+      correction_select.innerHTML += `<option value="${v.type}">${v.data.section_label}</option>`;
+    });
+    correction_select.innerHTML += `<option value="other">Other</option>`;
 
-  correction_button.on('click', function() {
-    console.log(window.report_content)
-    correction_title.html(`<strong>${window.report_content.location.full_name}</strong>`)
-    correction_select.empty()
-    correction_select.append(`<option value=""></option><option value="map">Map</option>`)
-    jQuery.each(window.report_content.list, function(i,v){
-      correction_select.append(`<option value="${v.type}">${v.data.section_label}</option>`)
-    })
-    correction_select.append(`<option value="other">Other</option>`)
+    correction_modal.classList.add("show");
+  });
+  correction_submit.removeEventListener("click", submitCorrection);
+  correction_submit.addEventListener("click", submitCorrection);
+  correction_close.addEventListener("click", closeCorrectionModal);
 
-    if (typeof correction_modal.modal === "function") {
-      correction_modal.modal('show')
-    } else if (typeof correction_modal.foundation === "function") {
-      correction_modal.foundation('open')
-    }
-
-  })
-  correction_submit.off('click')
-  correction_submit.on('click', function(){
-    correction_error.empty()
+  function submitCorrection() {
+    console.log("submitting");
+    correction_error.innerHTML = "";
 
     let data = {
-      grid_id: window.report_content.location.grid_id,
-      current_content: window.report_content,
+      grid_id: jsObject.location.location.grid_id,
+      current_content: jsObject.location,
       user: window.user_location,
-      language: 'en',
-      section: correction_select.val(),
-      section_label: jQuery('#correction_select option:selected').text(),
-      response: correction_response.val(),
+      language: "en",
+      section: correction_select.value,
+      section_label:
+        correction_select.options[correction_select.selectedIndex].textContent,
+      response: correction_response.value,
+    };
+
+    if (!data.response) {
+      correction_error.innerHTML = `You must enter a correction in order to submit.`;
+      return;
     }
 
-    if ( ! data.response ) {
-      correction_error.html(`You must enter a correction in order to submit.`)
-      return
-    }
+    correction_spinner.classList.add("active");
+    correction_submit.setAttribute("disabled", true);
 
-    correction_spinner.addClass('active')
-    correction_submit.prop('disabled', true)
-
-    jQuery.ajax({
-      type: "POST",
-      data: JSON.stringify({action: 'correction', parts: jsObject.parts, data: data}),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      url: window.pg_global.root + jsObject.parts.root + '/v1/' + jsObject.parts.type,
-    })
-      .done(function(x) {
-        console.log(x)
-        correction_modal.modal('hide')
-        correction_field.empty().val('')
-        correction_submit.prop('disabled', false)
-        correction_spinner.removeClass('active')
-      })
-
-  })
-  correction_close.on( 'click', function(){
-    correction_field.empty().val('')
-    correction_submit.prop('disabled', false)
-    correction_spinner.removeClass('active')
-  })
+    fetch(
+      window.pg_global.root +
+        jsObject.parts.root +
+        "/v1/" +
+        jsObject.parts.type,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          action: "correction",
+          parts: jsObject.parts,
+          data: data,
+        }),
+        headers: {
+          ContentType: "application/json; charset=utf-8",
+        },
+      }
+    ).then((response) => {
+      if (!response.ok) {
+      }
+      closeCorrectionModal();
+    });
+  }
+  function closeCorrectionModal() {
+    correction_modal.classList.remove("show");
+    correction_response.value = "";
+    correction_select.value = "";
+    correction_submit.removeAttribute("disabled");
+    correction_spinner.classList.remove("active");
+  }
   /** end correction report */
-
-}
-
+};

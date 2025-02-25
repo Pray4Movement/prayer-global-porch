@@ -81,8 +81,6 @@ class PG_Porch_404 extends DT_Magic_Url_Base
         <script>
             let jsObject = [<?php echo json_encode([
                 'parts' => $this->parts,
-                'current_lap' => pg_current_global_lap(),
-                'global_race' => pg_global_race_stats(),
                 'translations' => [],
                 'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/nope.jpg',
                 'images_url' => pg_grid_image_url(),
