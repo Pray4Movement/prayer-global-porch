@@ -258,7 +258,7 @@ class PG_Relays_Table {
                 WHERE relay_key = '49ba4c'
                 AND grid_id IN (
                   SELECT grid_id
-                  FROM wp_dt_relays
+                  FROM $this->relay_table
                   WHERE relay_key = ?
                   AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ? )
                 )
