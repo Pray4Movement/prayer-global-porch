@@ -9,7 +9,6 @@
 //this stops wp-settings from load everything
 define( 'SHORTINIT', true );
 
-error_log( 'short-init complete' );
 require '../../../wp-config.php';
 require 'utilities/relays-table.php';
 require 'utilities/http-request.php';
