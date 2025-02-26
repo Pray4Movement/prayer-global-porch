@@ -231,74 +231,101 @@ class PG_Relays_Table {
              * and that have not been promised out in the last minute
              * then prioritize locations given out the longest ago (grouped to avoid double promises)
              */
-            #$this->mysqli->query("SET TRANSACTION ISOLATION LEVEL READ COMMITTED");
-            $this->mysqli->begin_transaction();
-            try {
-                $grid_id_stmt = $this->mysqli->execute_query( "
-                    SELECT grid_id
+            $max_retries = 3;
+            $retry_count = 0;
+
+            while ( $retry_count < $max_retries ) {
+                // Get a candidate grid_id
+                $grid_id_stmt = $this->mysqli->execute_query("
+                    SELECT grid_id, epoch 
                     FROM $this->relay_table
                     WHERE relay_key = '49ba4c'
                     ORDER BY 
-                      case when
-                        epoch < UNIX_TIMESTAMP() - 60
-                        and total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c' ) 
-                      then 0 else 1 end,
-                      FLOOR( epoch / 30 ),
-                      RAND()
+                        CASE WHEN
+                            epoch < UNIX_TIMESTAMP() - 60
+                            AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c') 
+                        THEN 0 ELSE 1 END,
+                        FLOOR(epoch / 30),
+                        RAND()
                     LIMIT 1
-                " );
-                if ( false === $grid_id_stmt ){
-                    throw new ErrorException( 'Failed to get *needed* location not recently promised' );
-                }
-                $grid_id = $grid_id_stmt->fetch_column();
-                //update epoch
-                $this->mysqli->execute_query( "
+                ");
+
+                $row = $grid_id_stmt->fetch_assoc();
+                $grid_id = $row['grid_id'];
+                $old_epoch = $row['epoch'];
+
+                // Try to update with a condition that the epoch hasn't changed
+                $result = $this->mysqli->execute_query("
                     UPDATE $this->relay_table
                     SET epoch = UNIX_TIMESTAMP()
                     WHERE grid_id = ?
                     AND relay_key = '49ba4c'
-                ", [ $grid_id ] );
-                $this->mysqli->commit();
-            } catch ( \Throwable $th ) {
-                $this->mysqli->rollback();
-                throw $th;
-            }
-            $grid_id_stmt->close();
+                    AND epoch = ?
+                ", [ $grid_id, $old_epoch ] );
 
-            return [ 'grid_id' => $grid_id ];
+                // Check if update was successful
+                if ( $this->mysqli->affected_rows > 0 ) {
+                    return [ 'grid_id' => $grid_id ];
+
+                }
+                // If update failed, retry
+                $retry_count++;
+            }
+
+            return [];
         } else {
             //get location and prioritize ones from relay 49ba4c
-            $random_location_which_needs_prayer = $this->mysqli->execute_query( "
-                SELECT *
-                FROM $this->relay_table
-                WHERE relay_key = ?
-                ORDER BY
-                  case when
-                    epoch < UNIX_TIMESTAMP() - 60
-                    and total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ? ) 
-                  then 0 else 1 end,
-                  case when
-                   grid_id IN (
-                      SELECT grid_id
-                      FROM $this->relay_table
-                      WHERE relay_key = '49ba4c'
-                      AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c' )
-                    )
-                  then 0 else 1 end,  
-                  FLOOR( epoch / 30 ),
-                  RAND()
-                LIMIT 1
-            ", [ $relay_key, $relay_key ] );
+            $max_retries = 3;
+            $retry_count = 0;
 
-            if ( false === $random_location_which_needs_prayer ) {
-                throw new ErrorException( 'Failed to get *needed* location not recently promised' );
+            while ( $retry_count < $max_retries ) {
+                // Get a candidate grid_id
+                $grid_id_stmt = $this->mysqli->execute_query("
+                    SELECT *
+                    FROM $this->relay_table
+                    WHERE relay_key = ?
+                    ORDER BY
+                      case when
+                        epoch < UNIX_TIMESTAMP() - 60
+                        and total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ? ) 
+                      then 0 else 1 end,
+                      case when
+                       grid_id IN (
+                          SELECT grid_id
+                          FROM $this->relay_table
+                          WHERE relay_key = '49ba4c'
+                          AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c' )
+                        )
+                      then 0 else 1 end,  
+                      FLOOR( epoch / 30 ),
+                      RAND()
+                    LIMIT 1
+                ", [ $relay_key, $relay_key ] );
+
+                $row = $grid_id_stmt->fetch_assoc();
+                $grid_id = $row['grid_id'];
+                $old_epoch = $row['epoch'];
+
+                // Try to update with a condition that the epoch hasn't changed
+                $result = $this->mysqli->execute_query("
+                    UPDATE $this->relay_table
+                    SET epoch = UNIX_TIMESTAMP()
+                    WHERE grid_id = ?
+                    AND relay_key = ?
+                    AND epoch = ?
+                ", [ $grid_id, $relay_key, $old_epoch ] );
+
+                // Check if update was successful
+                if ( $this->mysqli->affected_rows > 0 ) {
+                    return [ 'grid_id' => $grid_id ];
+
+                }
+                // If update failed, retry
+                $retry_count++;
             }
 
-            $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
+            return [];
         }
-
-        $location = !empty( $locations ) ? $locations[0] : [];
-        return $location;
     }
 
     private function get_random_item( array $items ) {
