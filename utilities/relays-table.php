@@ -231,25 +231,41 @@ class PG_Relays_Table {
              * and that have not been promised out in the last minute
              * then prioritize locations given out the longest ago (grouped to avoid double promises)
              */
-            $random_location_which_needs_prayer = $this->mysqli->execute_query( "
-                SELECT *
-                FROM $this->relay_table
-                WHERE relay_key = ?
-                ORDER BY 
-                  case when
-                    epoch < UNIX_TIMESTAMP() - 60
-                    and total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ? ) 
-                  then 0 else 1 end,
-                  FLOOR( epoch / 30 ),
-                  RAND()
-                LIMIT 1
-            ", [ $relay_key, $relay_key ] );
+            $random_location_which_needs_prayer = $this->mysqli->multi_query( "
+                SET @grid_id := ( 
+                    SELECT grid_id
+                    FROM $this->relay_table
+                    WHERE relay_key = '49ba4c'
+                    ORDER BY 
+                      case when
+                        epoch < UNIX_TIMESTAMP() - 60
+                        and total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c' ) 
+                      then 0 else 1 end,
+                      FLOOR( epoch / 30 ),
+                      RAND()
+                    LIMIT 1
+                );
+                UPDATE $this->relay_table
+                SET epoch = UNIX_TIMESTAMP()
+                WHERE grid_id = @grid_id
+                AND relay_key = '49ba4c';
+                SELECT @grid_id as grid_id;
+            " );
 
             if ( false === $random_location_which_needs_prayer ) {
                 throw new ErrorException( 'Failed to get *needed* location not recently promised' );
             }
 
-            $locations = $random_location_which_needs_prayer->fetch_all( MYSQLI_ASSOC );
+            $grid_id = null;
+            do {
+                $result = $this->mysqli->store_result();
+                if ( $result ){
+                    $grid_id = $result->fetch_column();
+                }
+            } while ( $this->mysqli->next_result() );
+
+
+            return [ 'grid_id' => $grid_id ];
         } else {
             //get location and prioritize ones from relay 49ba4c
             $random_location_which_needs_prayer = $this->mysqli->execute_query( "

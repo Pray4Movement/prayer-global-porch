@@ -19,13 +19,15 @@ require 'utilities/pg-nonce.php';
 //    ], 400 );
 //}
 
-$nonce = isset( $_GET['nonce'] ) ? sanitize_text_field( stripslashes_deep( $_GET['nonce'] ) ) : '';
+if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ) {
+    $nonce = isset( $_GET['nonce'] ) ? sanitize_text_field( stripslashes_deep( $_GET['nonce'] ) ) : '';
 
-if ( !PG_Nonce::verify( $nonce, 'direct-api' ) ) {
-    send_response( [
-        'status' => 'error',
-        'error' => 'Unauthorized',
-    ], 400 );
+    if ( !PG_Nonce::verify( $nonce, 'direct-api' ) ) {
+        send_response( [
+            'status' => 'error',
+            'error' => 'Unauthorized',
+        ], 400 );
+    }
 }
 
 //phpcs:ignore
@@ -49,7 +51,7 @@ $relays_table = new PG_Relays_Table( $conn, $db_prefix );
 
 try {
     $next_location = (int) $relays_table->get_next_grid_id( $relay_key );
-    $relays_table->log_promise_timestamp( $relay_key, $next_location );
+//    $relays_table->log_promise_timestamp( $relay_key, $next_location );
 } catch ( \Throwable $th ) {
     send_response( array(
         'status' => 'error',
