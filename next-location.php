@@ -52,6 +52,7 @@ $relays_table = new PG_Relays_Table( $conn, $db_prefix );
 
 try {
     $next_location = (int) $relays_table->get_next_grid_id( $relay_key );
+    $relays_table->log_promise_timestamp( $relay_key, $next_location );
 } catch ( \Throwable $th ) {
     send_response( array(
         'status' => 'error',

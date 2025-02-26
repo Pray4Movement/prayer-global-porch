@@ -231,100 +231,57 @@ class PG_Relays_Table {
              * and that have not been promised out in the last minute
              * then prioritize locations given out the longest ago (grouped to avoid double promises)
              */
-            $max_retries = 3;
-            $retry_count = 0;
-
-            while ( $retry_count < $max_retries ) {
-                // Get a candidate grid_id
-                $grid_id_stmt = $this->mysqli->execute_query("
-                    SELECT grid_id, epoch 
-                    FROM $this->relay_table
-                    WHERE relay_key = '49ba4c'
-                    ORDER BY 
-                        CASE WHEN
-                            epoch < UNIX_TIMESTAMP() - 60
-                            AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c') 
-                        THEN 0 ELSE 1 END,
-                        FLOOR(epoch / 30),
-                        RAND()
-                    LIMIT 1
-                ");
-
-                $row = $grid_id_stmt->fetch_assoc();
-                $grid_id = $row['grid_id'];
-                $old_epoch = $row['epoch'];
-
-                // Try to update with a condition that the epoch hasn't changed
-                $result = $this->mysqli->execute_query("
-                    UPDATE $this->relay_table
-                    SET epoch = UNIX_TIMESTAMP()
-                    WHERE grid_id = ?
-                    AND relay_key = '49ba4c'
-                    AND epoch = ?
-                ", [ $grid_id, $old_epoch ] );
-
-                // Check if update was successful
-                if ( $this->mysqli->affected_rows > 0 ) {
-                    return [ 'grid_id' => $grid_id ];
-
-                }
-                // If update failed, retry
-                $retry_count++;
+            $locations = $this->mysqli->execute_query( "
+                SELECT grid_id
+                FROM $this->relay_table
+                WHERE relay_key = '49ba4c'
+                AND epoch < UNIX_TIMESTAMP() - 50
+                AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c' )
+                ORDER BY epoch
+                LIMIT 100
+            " );
+            if ( false === $locations ) {
+                throw new ErrorException( 'Failed to get *needed* location not recently promised' );
             }
+            $locations = $locations->fetch_all( MYSQLI_ASSOC );
+            if ( empty( $locations ) ) {
+                return [];
+            }
+            $locations = array_column( $locations, 'grid_id' );
+            //return random
+            $grid_id = $this->get_random_item( $locations );
 
-            return [];
+            return [ 'grid_id' => $grid_id ];
+
         } else {
             //get location and prioritize ones from relay 49ba4c
-            $max_retries = 3;
-            $retry_count = 0;
-
-            while ( $retry_count < $max_retries ) {
-                // Get a candidate grid_id
-                $grid_id_stmt = $this->mysqli->execute_query("
-                    SELECT *
+            $locations = $this->mysqli->execute_query("
+                SELECT *
+                FROM $this->relay_table
+                WHERE relay_key = ?
+                AND epoch < UNIX_TIMESTAMP() - 50
+                AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = ?)
+                ORDER BY 
+                CASE WHEN grid_id IN ( SELECT grid_id
                     FROM $this->relay_table
-                    WHERE relay_key = ?
-                    ORDER BY
-                      case when
-                        epoch < UNIX_TIMESTAMP() - 60
-                        and total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = ? ) 
-                      then 0 else 1 end,
-                      case when
-                       grid_id IN (
-                          SELECT grid_id
-                          FROM $this->relay_table
-                          WHERE relay_key = '49ba4c'
-                          AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c' )
-                        )
-                      then 0 else 1 end,  
-                      FLOOR( epoch / 30 ),
-                      RAND()
-                    LIMIT 1
-                ", [ $relay_key, $relay_key ] );
+                    WHERE relay_key = '49ba4c'
+                    AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c'))
+                then 0 else 1 end,
+                epoch
+                LIMIT 100;
+            ", [ $relay_key, $relay_key ] );
 
-                $row = $grid_id_stmt->fetch_assoc();
-                $grid_id = $row['grid_id'];
-                $old_epoch = $row['epoch'];
-
-                // Try to update with a condition that the epoch hasn't changed
-                $result = $this->mysqli->execute_query("
-                    UPDATE $this->relay_table
-                    SET epoch = UNIX_TIMESTAMP()
-                    WHERE grid_id = ?
-                    AND relay_key = ?
-                    AND epoch = ?
-                ", [ $grid_id, $relay_key, $old_epoch ] );
-
-                // Check if update was successful
-                if ( $this->mysqli->affected_rows > 0 ) {
-                    return [ 'grid_id' => $grid_id ];
-
-                }
-                // If update failed, retry
-                $retry_count++;
+            $locations = $locations->fetch_all( MYSQLI_ASSOC );
+            if ( false === $locations ) {
+                throw new ErrorException( 'Failed to get *needed* location not recently promised' );
             }
-
-            return [];
+            if ( empty( $locations ) ) {
+                return [];
+            }
+            $locations = array_column( $locations, 'grid_id' );
+            //return random
+            $grid_id = $this->get_random_item( $locations );
+            return [ 'grid_id' => $grid_id ];
         }
     }
 
