@@ -56,7 +56,7 @@ class Prayer_Global_Migration_0013 extends Prayer_Global_Migration {
          */
         $wpdb->query( $wpdb->prepare( "
             UPDATE $wpdb->dt_reports
-            SET lap_number = lap_number +2, global_lap_number = global_lap_number +2, 
+            SET lap_number = lap_number +2, global_lap_number = global_lap_number +2 
             WHERE lap_number >=  %d
             AND post_id = %d
         ", $current_lap_number -1, $relay_id ) );
