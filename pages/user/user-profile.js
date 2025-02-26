@@ -267,7 +267,7 @@ window.addEventListener("load", function () {
             </section>
         </div>`;
 
-    jQuery("#pg_content").html(pgContentHTML);
+    //jQuery("#pg_content").html(pgContentHTML);
 
     jQuery(".change-details").on("click", () => {
       setup_details_modal();

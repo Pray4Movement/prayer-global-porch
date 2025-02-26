@@ -5,6 +5,8 @@ export default defineConfig({
   build: {
     outDir: "pages/assets/js/dist", // Directory for build output relative to the config file
     emptyOutDir: true, // Empties the outDir on build
+    modulePreload: false,
+    sourcemap: true,
     rollupOptions: {
       input: ["pages/assets/js/src/components.ts"],
       output: {

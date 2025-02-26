@@ -78,7 +78,6 @@ add_action( 'wp_enqueue_scripts', function (){
     ] );
 }, 1000 );
 
-
 function pg_heatmap_scripts( $glass ){
     DT_Mapbox_API::load_mapbox_header_scripts();
     pg_enqueue_script( 'heatmap-js', 'pages/pray/heatmap.js', [ 'jquery', 'mapbox-gl' ], true );
@@ -110,6 +109,14 @@ add_filter( 'script_loader_tag', function ( $tag, $handle ){
 
     if ( $handle === 'umami' ) {
         return '<script defer src="https://umami.gospelambition.com/script.js" data-website-id="c8b2d630-e64a-4354-b03a-f92ac853153e"></script>';
+    }
+
+    if ( str_starts_with( $handle, 'lit-bundle' ) ) {
+        if ( str_contains( $tag, 'type=' ) ) {
+            $tag = preg_replace( '/type="text\/javascript"/', 'type="module"', $tag );
+        } else {
+            $tag = preg_replace( '/(.*)(><\/script>)/', '$1 type="module"$2', $tag );
+        }
     }
 
     return $tag;

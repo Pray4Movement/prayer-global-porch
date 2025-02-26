@@ -63,7 +63,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'mapbox-gl',
             'components-js',
             'user-profile-js',
-            'lit-bundle',
+            'lit-bundle-js',
         ];
     }
 
