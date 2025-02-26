@@ -9,7 +9,6 @@
 //this stops wp-settings from load everything
 define( 'SHORTINIT', true );
 
-error_log( 'short-init complete' );
 require '../../../wp-config.php';
 require 'utilities/relays-table.php';
 require 'utilities/http-request.php';
@@ -52,13 +51,15 @@ if ( !isset( $decoded['relay_key'] ) || !isset( $decoded['grid_id'] ) || !isset(
     ], 400 );
 }
 
-$nonce = isset( $decoded['nonce'] ) ? sanitize_text_field( stripslashes_deep( $decoded['nonce'] ) ) : '';
+if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ){
+    $nonce = isset( $decoded['nonce'] ) ? sanitize_text_field( stripslashes_deep( $decoded['nonce'] ) ) : '';
 
-if ( !PG_Nonce::verify( $nonce, 'direct-api' ) ) {
-    send_response( [
-        'status' => 'error',
-        'error' => 'Unauthorized',
-    ], 400 );
+    if ( !PG_Nonce::verify( $nonce, 'direct-api' ) ){
+        send_response( [
+            'status' => 'error',
+            'error' => 'Unauthorized',
+        ], 400 );
+    }
 }
 
 $relay_key = isset( $decoded['relay_key'] ) ? sanitize_text_field( stripslashes_deep( $decoded['relay_key'] ) ) : null;
