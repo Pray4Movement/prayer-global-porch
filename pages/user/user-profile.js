@@ -325,7 +325,7 @@ window.addEventListener("load", function () {
         }
       });
 
-    jQuery(".user-profile-link").on("click", () =>
+    /*     jQuery(".user-profile-link").on("click", () =>
       write_profile({
         name: jsObject.user.display_name,
         email: jsObject.user.user_email,
@@ -335,7 +335,7 @@ window.addEventListener("load", function () {
       })
     );
     jQuery(".user-prayers-link").on("click", () => write_prayers());
-    jQuery(".user-challenges-link").on("click", () => write_challenges());
+    jQuery(".user-challenges-link").on("click", () => write_challenges()); */
 
     /* Setup the mapbox search widget */
     window.write_input_widget();

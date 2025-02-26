@@ -138,7 +138,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         ?>
 
-        <pg-profile></pg-profile>
+        <pg-router></pg-router>
 
             <div class="modal fade" id="details-modal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
