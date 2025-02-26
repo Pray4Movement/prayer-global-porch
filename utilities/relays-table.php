@@ -231,8 +231,10 @@ class PG_Relays_Table {
              * and that have not been promised out in the last minute
              * then prioritize locations given out the longest ago (grouped to avoid double promises)
              */
-            $random_location_which_needs_prayer = $this->mysqli->multi_query( "
-                SET @grid_id := ( 
+            #$this->mysqli->query("SET TRANSACTION ISOLATION LEVEL READ COMMITTED");
+            $this->mysqli->begin_transaction();
+            try {
+                $grid_id_stmt = $this->mysqli->execute_query( "
                     SELECT grid_id
                     FROM $this->relay_table
                     WHERE relay_key = '49ba4c'
@@ -244,26 +246,24 @@ class PG_Relays_Table {
                       FLOOR( epoch / 30 ),
                       RAND()
                     LIMIT 1
-                );
-                UPDATE $this->relay_table
-                SET epoch = UNIX_TIMESTAMP()
-                WHERE grid_id = @grid_id
-                AND relay_key = '49ba4c';
-                SELECT @grid_id as grid_id;
-            " );
-
-            if ( false === $random_location_which_needs_prayer ) {
-                throw new ErrorException( 'Failed to get *needed* location not recently promised' );
-            }
-
-            $grid_id = null;
-            do {
-                $result = $this->mysqli->store_result();
-                if ( $result ){
-                    $grid_id = $result->fetch_column();
+                " );
+                if ( false === $grid_id_stmt ){
+                    throw new ErrorException( 'Failed to get *needed* location not recently promised' );
                 }
-            } while ( $this->mysqli->next_result() );
-
+                $grid_id = $grid_id_stmt->fetch_column();
+                //update epoch
+                $this->mysqli->execute_query( "
+                    UPDATE $this->relay_table
+                    SET epoch = UNIX_TIMESTAMP()
+                    WHERE grid_id = ?
+                    AND relay_key = '49ba4c'
+                ", [ $grid_id ] );
+                $this->mysqli->commit();
+            } catch ( \Throwable $th ) {
+                $this->mysqli->rollback();
+                throw $th;
+            }
+            $grid_id_stmt->close();
 
             return [ 'grid_id' => $grid_id ];
         } else {

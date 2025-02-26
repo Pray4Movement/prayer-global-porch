@@ -68,3 +68,4 @@ send_response(
     200,
     $next_location
 );
+$conn->close();
