@@ -14,13 +14,13 @@ require 'utilities/relays-table.php';
 require 'utilities/http-request.php';
 require 'utilities/pg-nonce.php';
 
-//$cors_passed = cors();
-//
-//if ( !$cors_passed ) {
-//    send_response( [
-//        'error' => 'incorrect origin',
-//    ], 400 );
-//}
+$cors_passed = cors();
+
+if ( !$cors_passed ) {
+    send_response( [
+        'error' => 'incorrect origin',
+    ], 400 );
+}
 
 function dt_recursive_sanitize_array( array $array ) : array {
     foreach ( $array as $key => &$value ) {

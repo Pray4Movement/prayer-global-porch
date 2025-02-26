@@ -11,13 +11,14 @@ require 'utilities/relays-table.php';
 require 'utilities/http-request.php';
 require 'utilities/pg-nonce.php';
 
-//$cors_passed = cors();
-//
-//if ( !$cors_passed ) {
-//    send_response( [
-//        'error' => "incorrect origin $origin",
-//    ], 400 );
-//}
+$cors_passed = cors();
+
+if ( !$cors_passed ) {
+    send_response( [
+        'error' => "incorrect origin $origin",
+    ], 400 );
+}
+
 
 if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ) {
     $nonce = isset( $_GET['nonce'] ) ? sanitize_text_field( stripslashes_deep( $_GET['nonce'] ) ) : '';
@@ -51,7 +52,6 @@ $relays_table = new PG_Relays_Table( $conn, $db_prefix );
 
 try {
     $next_location = (int) $relays_table->get_next_grid_id( $relay_key );
-//    $relays_table->log_promise_timestamp( $relay_key, $next_location );
 } catch ( \Throwable $th ) {
     send_response( array(
         'status' => 'error',
