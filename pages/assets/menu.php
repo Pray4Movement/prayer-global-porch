@@ -20,7 +20,7 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
                 <i class="icon pg-home"></i>
             </a>
             <div class="d-flex">
-                <a href="/user_app/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
+                <a href="/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
 
                     <?php if ( is_user_logged_in() ) : ?>
 

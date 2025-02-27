@@ -90,7 +90,7 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
           window.addEventListener('load', function() {
               if (pg_global.is_logged_in) {
                 const url = new URL(location.href)
-                const redirectTo = url.searchParams.get('redirect_to') || encodeURIComponent('/user_app/profile')
+                const redirectTo = url.searchParams.get('redirect_to') || encodeURIComponent('/profile')
 
                 location.href = decodeURIComponent(redirectTo)
               } else {

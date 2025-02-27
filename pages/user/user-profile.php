@@ -7,8 +7,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 class PG_User_App_Profile extends DT_Magic_Url_Base {
 
     public $page_title = 'User Profile';
-    public $root = 'user_app';
-    public $type = 'profile';
+    public $root = 'profile';
     private static $_instance = null;
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
@@ -26,22 +25,36 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
          * tests if other URL
          */
         $url = dt_get_url_path();
-        if ( strpos( $url, $this->root . '/' . $this->type ) === false ) {
+        if ( strpos( $url, $this->root ) !== 0 ) {
             return;
         }
-        /**
-         * tests magic link parts are registered and have valid elements
-         */
-/*         if ( !$this->check_parts_match( false ) ){
-            return;
-        } */
+
+        if ( !is_user_logged_in() ) {
+            wp_redirect( '/user_app/login' );
+            exit;
+        }
 
         // load if valid url
         add_action( 'dt_blank_body', [ $this, 'body' ] ); // body for no post key
+        add_action( 'dt_blank_head', [ $this, '_header' ] );
+        add_action( 'dt_blank_footer', [ $this, '_footer' ] );
+
+        add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
+        add_filter( 'dt_blank_access', '__return_true', 100, 1 );
+        add_filter( 'dt_allow_non_login_access', '__return_true', 100, 1 );
+        add_filter( 'dt_override_header_meta', '__return_true', 100, 1 );
+        add_filter( 'dt_templates_for_urls', [ $this, 'register_url' ], 199, 1 ); // registers url as valid once tests are passed
 
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
-        add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 99 );
+        add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 10 );
+    }
+
+    public function register_url( $template_for_url ){
+        $url = dt_get_url_path( true );
+        $url_parts = explode( '/', $url );
+        $template_for_url[join( '/', $url_parts )] = 'template-blank.php';
+        return $template_for_url;
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {

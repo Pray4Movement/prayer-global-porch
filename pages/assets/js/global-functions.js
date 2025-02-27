@@ -161,11 +161,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return false;
   }
 
-  window.loginRedirect = function () {
-    const redirect_to = encodeURIComponent(window.location.href);
-    window.location.href = `/user_app/login?redirect_to=${redirect_to}`;
-  };
-
   window.api_fetch = function (url, options = {}) {
     const opts = {
       method: "GET",

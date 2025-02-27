@@ -15,14 +15,6 @@ interface Location {
 
 @customElement("pg-dashboard")
 export class PgDashboard extends navigator(PageBase) {
-  constructor() {
-    super();
-
-    if (!window.pg_global.is_logged_in) {
-      window.loginRedirect();
-    }
-  }
-
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
 
@@ -67,7 +59,7 @@ export class PgDashboard extends navigator(PageBase) {
                 <div class="navbar-nav w-fit mx-auto">
                   <a
                     class="user-challenges-link nav-link uppercase px-1 py-4 d-flex justify-content-between align-items-center border-bottom border-1 border-dark"
-                    href="/user_app/profile/prayer-relays"
+                    href="/profile/prayer-relays"
                     @click=${(e: Event) => this.navigateToHref(e)}
                   >
                     <i class="icon pg-relay three-em"></i>
@@ -78,7 +70,7 @@ export class PgDashboard extends navigator(PageBase) {
                   </a>
                   <a
                     class="user-prayers-link nav-link uppercase px-1 py-4 d-flex justify-content-between align-items-center border-bottom border-1 border-dark"
-                    href="/user_app/profile/prayer-activity"
+                    href="/profile/prayer-activity"
                     @click=${(e: Event) => this.navigateToHref(e)}
                   >
                     <i class="icon pg-prayer three-em"></i>
@@ -87,7 +79,7 @@ export class PgDashboard extends navigator(PageBase) {
                   </a>
                   <a
                     class="user-profile-link nav-link uppercase px-1 py-4 d-flex justify-content-between align-items-center border-bottom border-top border-1 border-dark"
-                    href="/user_app/profile/profile-settings"
+                    href="/profile/profile-settings"
                     @click=${(e: Event) => this.navigateToHref(e)}
                   >
                     <i class="icon pg-profile three-em"></i>

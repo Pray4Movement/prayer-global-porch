@@ -9,6 +9,5 @@ declare global {
   interface Window {
     pg_global: any;
     jsObject: any;
-    loginRedirect(): void;
   }
 }

@@ -14,14 +14,6 @@ interface Location {
 
 @customElement("pg-settings")
 export class PgSettings extends PageBase {
-  constructor() {
-    super();
-
-    if (!window.pg_global.is_logged_in) {
-      window.loginRedirect();
-    }
-  }
-
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
 
