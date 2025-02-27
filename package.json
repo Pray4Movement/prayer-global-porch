@@ -38,7 +38,7 @@
     "vite": "^6.2.0"
   },
   "dependencies": {
-    "@lit-labs/router": "^0.1.4",
-    "lit": "^3.2.1"
+    "lit": "^3.2.1",
+    "lit-element-router": "^2.0.3"
   }
 }

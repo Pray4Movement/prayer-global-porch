@@ -1,6 +1,7 @@
 import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { PageBase } from "./page-base";
+import { navigator } from "lit-element-router";
 
 interface User {
   display_name: string;
@@ -13,7 +14,7 @@ interface Location {
 }
 
 @customElement("pg-dashboard")
-export class PgDashboard extends PageBase {
+export class PgDashboard extends navigator(PageBase) {
   constructor() {
     super();
 
@@ -25,6 +26,12 @@ export class PgDashboard extends PageBase {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
 
+  navigateToHref(event: Event) {
+    event.preventDefault();
+    const { href } = event.currentTarget as HTMLAnchorElement;
+    this.navigate(href);
+  }
+
   render() {
     return html`
       <div class="container">
@@ -33,16 +40,14 @@ export class PgDashboard extends PageBase {
             <div class="flow-medium">
               <section class="user__summary flow-small">
                 <div class="user__avatar">
-                  <span class="user__badge loading">
-                    <span class="loading-spinner active"></span>
-                  </span>
+                  <span class="user__badge"></span>
                 </div>
 
                 <div class="user__info">
                   <h2 class="user__full-name font-base uppercase">
                     ${this.user.display_name}
                   </h2>
-                  <p class="user__location">
+                  <div class="user__location flow-small">
                     <span class="user__location-label"
                       >${(this.user.location && this.user.location.label) ||
                       `<span class="loading-spinner active"></span>`}</span
@@ -55,7 +60,7 @@ export class PgDashboard extends PageBase {
                         ? this.translations.estimated_location
                         : ""}
                     </span>
-                  </p>
+                  </div>
                 </div>
               </section>
               <section class="profile-menu px-2 mt-5">
@@ -63,6 +68,7 @@ export class PgDashboard extends PageBase {
                   <a
                     class="user-challenges-link nav-link uppercase px-1 py-4 d-flex justify-content-between align-items-center border-bottom border-1 border-dark"
                     href="/user_app/profile/prayer-relays"
+                    @click=${(e: Event) => this.navigateToHref(e)}
                   >
                     <i class="icon pg-relay three-em"></i>
                     <span class="two-em px-3"
@@ -73,6 +79,7 @@ export class PgDashboard extends PageBase {
                   <a
                     class="user-prayers-link nav-link uppercase px-1 py-4 d-flex justify-content-between align-items-center border-bottom border-1 border-dark"
                     href="/user_app/profile/prayer-activity"
+                    @click=${(e: Event) => this.navigateToHref(e)}
                   >
                     <i class="icon pg-prayer three-em"></i>
                     <span class="two-em">${this.translations.prayers}</span>
@@ -81,6 +88,7 @@ export class PgDashboard extends PageBase {
                   <a
                     class="user-profile-link nav-link uppercase px-1 py-4 d-flex justify-content-between align-items-center border-bottom border-top border-1 border-dark"
                     href="/user_app/profile/profile-settings"
+                    @click=${(e: Event) => this.navigateToHref(e)}
                   >
                     <i class="icon pg-profile three-em"></i>
                     <span class="two-em">${this.translations.profile}</span>

@@ -1,32 +1,62 @@
 import { html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { PageBase } from "./page-base";
-import { Router } from "@lit-labs/router";
+import { router, navigator } from "lit-element-router";
 
 @customElement("pg-router")
-export class PgRouter extends PageBase {
-  private router = new Router(this, [
-    {
-      name: "dashboard",
-      path: "/user_app/profile",
-      render: () => html`<pg-dashboard></pg-dashboard>`,
-    },
-    {
-      name: "prayer-relays",
-      path: "/user_app/profile/prayer-relays",
-      render: () => html`<pg-relays></pg-relays>`,
-    },
-    {
-      name: "prayer-activity",
-      path: "/user_app/profile/prayer-activity",
-      render: () => html`<pg-activity></pg-activity>`,
-    },
-    {
-      name: "profile-settings",
-      path: "/user_app/profile/profile-settings",
-      render: () => html`<pg-settings></pg-settings>`,
-    },
-  ]);
+export class PgRouter extends navigator(router(PageBase)) {
+  static get properties() {
+    return {
+      route: { type: String },
+      params: { type: Object },
+      query: { type: Object },
+      data: { type: Object },
+    };
+  }
+  static get routes() {
+    return [
+      {
+        name: "dashboard",
+        pattern: "/user_app/profile",
+        data: {
+          render: () => html`<pg-dashboard></pg-dashboard>`,
+        },
+      },
+      {
+        name: "prayer-relays",
+        pattern: "/user_app/profile/prayer-relays",
+        data: {
+          render: () => html`<pg-relays></pg-relays>`,
+        },
+      },
+      {
+        name: "prayer-activity",
+        pattern: "/user_app/profile/prayer-activity",
+        data: {
+          render: () => html`<pg-activity></pg-activity>`,
+        },
+      },
+      {
+        name: "profile-settings",
+        pattern: "/user_app/profile/profile-settings",
+        data: {
+          render: () => html`<pg-settings></pg-settings>`,
+        },
+      },
+    ];
+  }
+
+  route: string = "";
+  params: any = {};
+  query: any = {};
+  data: any = {};
+
+  router(route: string, params: any, query: any, data: any) {
+    this.route = route;
+    this.params = params;
+    this.query = query;
+    this.data = data;
+  }
 
   render() {
     return html`
@@ -35,7 +65,7 @@ export class PgRouter extends PageBase {
         data-section="login"
         id="section-login"
       >
-        ${this.router.outlet()}
+        ${this.data?.render && this.data.render()}
       </section>
     `;
   }

@@ -27,16 +27,6 @@ export class PgActivity extends PageBase {
   translations: any = window.jsObject.translations;
 
   render() {
-    return html`
-      <section
-        class="page-section flow"
-        data-section="login"
-        id="section-login"
-      >
-        <div class="container">
-          <h2>Prayer Activity</h2>
-        </div>
-      </section>
-    `;
+    return html` <h2>Prayer Activity</h2> `;
   }
 }

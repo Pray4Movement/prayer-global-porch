@@ -26,14 +26,6 @@ export class PgRelays extends PageBase {
   translations: any = window.jsObject.translations;
 
   render() {
-    return html`
-      <section
-        class="page-section flow"
-        data-section="login"
-        id="section-login"
-      >
-        <h2>My Prayer Relays</h2>
-      </section>
-    `;
+    return html` <h2>My Prayer Relays</h2> `;
   }
 }

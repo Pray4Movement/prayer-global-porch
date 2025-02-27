@@ -9,7 +9,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
     public $page_title = 'User Profile';
     public $root = 'user_app';
     public $type = 'profile';
-    public $post_type = 'user';
     private static $_instance = null;
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
@@ -33,9 +32,9 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         /**
          * tests magic link parts are registered and have valid elements
          */
-        if ( !$this->check_parts_match( false ) ){
+/*         if ( !$this->check_parts_match( false ) ){
             return;
-        }
+        } */
 
         // load if valid url
         add_action( 'dt_blank_body', [ $this, 'body' ] ); // body for no post key
