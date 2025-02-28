@@ -45,18 +45,17 @@ export class PgDashboard extends navigator(PageBase) {
                       html`<span class="loading-spinner active"></span>`
                     }
                     </div>
-                    <button class="brand-lighter p-2 small">Edit</button>
-                      ${
-                        this.user.location && this.user.location.source === "ip"
-                          ? html`
-                              <span
-                                class="iplocation-message small d-block text-secondary"
-                              >
-                                ${this.translations.estimated_location}
-                              </span>
-                            `
-                          : ""
-                      }
+                    ${
+                      this.user.location && this.user.location.source === "ip"
+                        ? html`
+                            <span
+                              class="iplocation-message small d-block text-secondary"
+                            >
+                              ${this.translations.estimated_location}
+                            </span>
+                          `
+                        : ""
+                    }
                   </div>
                 </div>
               </section>
@@ -105,7 +104,7 @@ export class PgDashboard extends navigator(PageBase) {
                     href="/give"
                     target="_blank"
                   >
-                    ${this.translations.give} <i class="ion-android-open"></i>
+                    ${this.translations.give}
                   </a>
                 </div>
               </section>
