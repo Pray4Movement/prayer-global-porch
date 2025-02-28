@@ -18,6 +18,16 @@ export class PgSettings extends PageBase {
   translations: any = window.jsObject.translations;
 
   render() {
-    return html` <h2>Profile Settings</h2> `;
+    return html`
+      <div>
+        <h2>Profile Settings</h2>
+        <a
+          class="btn btn-small btn-outline-primary mt-3 uppercase"
+          href="/user_app/logout"
+        >
+          ${this.translations.logout}
+        </a>
+      </div>
+    `;
   }
 }

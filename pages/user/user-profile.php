@@ -48,6 +48,9 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 10 );
+        add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 5 ); // authorizes scripts
+        add_action( 'wp_print_footer_scripts', [ $this, 'print_scripts' ], 5 ); // authorizes scripts
+        add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
     }
 
     public function register_url( $template_for_url ){
@@ -84,11 +87,12 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         wp_localize_script( 'user-profile-js', 'jsObject', [
             'parts' => $this->parts,
             'translations' => [
+                'start_praying' => esc_html( __( 'Start Praying', 'prayer-global-porch' ) ),
                 'change' => esc_html( __( 'Change', 'prayer-global-porch' ) ),
                 'select_a_location' => esc_html( __( 'Please select a location', 'prayer-global-porch' ) ),
                 'estimated_location' => esc_html( __( '(This is your estimated location)', 'prayer-global-porch' ) ),
-                'profile' => esc_html( __( 'Profile', 'prayer-global-porch' ) ),
-                'prayers' => esc_html( __( 'Prayers', 'prayer-global-porch' ) ),
+                'profile' => esc_html( __( 'Profile Settings', 'prayer-global-porch' ) ),
+                'prayers' => esc_html( __( 'Prayer Activity', 'prayer-global-porch' ) ),
                 'challenges' => esc_html( __( 'My Prayer Relays', 'prayer-global-porch' ) ),
                 'are_you_enjoying_the_app' => esc_html( __( 'Are you enjoying this app?', 'prayer-global-porch' ) ),
                 'would_you_like_to_partner' => esc_html( __( 'Would you like to partner with us in helping others pray for the world?', 'prayer-global-porch' ) ),
@@ -128,7 +132,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
 
         ?>
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/prayer-global/style.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/fonts/prayer-global/style.css' ) ) ?>">
         <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3"></script>
         <style>
             #login_form input {

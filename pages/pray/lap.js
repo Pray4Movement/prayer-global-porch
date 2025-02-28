@@ -568,17 +568,17 @@ function _template_percent_3_circles(data) {
     <div class="block percent-3-circles-block">
         <h5>${data.section_label}</h5>
         <div class="switcher">
-            <div class="flow sm">
+            <div class="flow space-sm">
                 <p class="bold f-md">${data.label_1}</p>
                 <div class="pie" style="--p:${data.percent_1};--b:10px;--c:var(--pg-dark);">${data.percent_1}%</div>
                 <p class="f-lg">${data.population_1}</p>
             </div>
-            <div class="flow sm">
+            <div class="flow space-sm">
                 <p class="bold f-md">${data.label_2}</p>
                 <div class="pie" style="--p:${data.percent_2};--b:10px;--c:var(--pg-light);">${data.percent_2}%</div>
                 <p class="f-lg">${data.population_2}</p>
             </div>
-            <div class="flow sm">
+            <div class="flow space-sm">
                 <p class="bold f-md">${data.label_3}</p>
                 <div class="pie" style="--p:${data.percent_3};--b:10px;--c:var(--pg-orange);">${data.percent_3}%</div>
                 <p class="f-lg">${data.population_3}</p>
@@ -639,21 +639,21 @@ function _template_100_bodies_3_chart(data) {
       <div class="block 100-bodies-3-chart-block">
           <h5>${data.section_label}</h5>
           <div class="switcher">
-              <div class="flow sm">
+              <div class="flow space-sm">
                   <p class="bold">${data.label_1}</p>
                   <p class="f-xlg">
                       ${bodies_1}
                   </p>
                   <p class="f-lg">${data.population_1}</p>
               </div>
-              <div class="flow sm">
+              <div class="flow space-sm">
                   <p class="bold">${data.label_2}</p>
                   <p class="f-xlg">
                       ${bodies_2}
                   </p>
                   <p class="f-lg">${data.population_2}</p>
               </div>
-              <div class="flow sm">
+              <div class="flow space-sm">
                   <p class="bold">${data.label_3}</p>
                   <p class="f-xlg">
                       ${bodies_3}
@@ -729,19 +729,19 @@ function _template_4_fact_blocks(data) {
           <h5>${data.section_label}</h5>
           <p class="f-xlg">${data.focus_label}</p>
           <div class="switcher">
-              <div class="flow sm">
+              <div class="flow space-sm">
                   <p class="bold">${data.label_1}</p>
                   <p class="f-xlg">${data.value_1}</p>
               </div>
-              <div class="flow sm">
+              <div class="flow space-sm">
                   <p class="bold">${data.label_2}</p>
                   <p class="f-xlg">${data.value_2}</p>
               </div>
-              <div class="flow sm">
+              <div class="flow space-sm">
                   <p class="bold">${data.label_3}</p>
                   <p class="f-xlg">${data.value_3}</p>
               </div>
-              <div class="flow sm">
+              <div class="flow space-sm">
                   <p class="bold">${data.label_4}</p>
                   <p class="f-xlg">${data.value_4}</p>
               </div>
@@ -789,7 +789,7 @@ function _template_least_reached_block(data) {
   }
   return `
       <div class="block least-reached-block">
-          <div class="flow sm">
+          <div class="flow space-sm">
               <h5>${data.section_label}</h5>
               <p class="f-xlg">${data.focus_label}</p>
               ${
@@ -891,7 +891,7 @@ function _template_basic_block(data) {
         <button type="button" class="btn simple id-${data.id} with-icon" onclick="document.querySelector('#id-${data.id}').style.display = 'block';document.querySelector('.id-${data.id}').style.display = 'none';" >
             <span>${data.reference} </span> <svg width="1em" height="1em" viewBox="0 0 33 33"><use href="#pg-chevron-down"></use></svg>
         </button>
-        <div class="flow sm" id="id-${data.id}" style="display: none" >
+        <div class="flow space-sm" id="id-${data.id}" style="display: none" >
             <p class="block__verse">${data.verse}</p>
             <p class="f-normal">${data.reference}</p>
         </div>
