@@ -383,7 +383,7 @@ window.api_fetch = function (url, options = {}) {
 };
 
 function ip_location() {
-  const user_location = localStorage.getItem("user_location");
+  const user_location = localStorage.getItem("user_location2");
   window.user_location = user_location ? JSON.parse(user_location) : null;
   if ( !window.user_location || window.user_location === "undefined" ) {
     return window
