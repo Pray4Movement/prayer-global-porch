@@ -121,10 +121,13 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'view_join_other_relays' => esc_html__( 'View other public relays', 'prayer-global-porch' ),
                 'edit' => esc_html__( 'Edit', 'prayer-global-porch' ),
                 'display_map' => esc_html__( 'Display Map', 'prayer-global-porch' ),
+                'language' => esc_html__( 'Language', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),
             'user' => PG_User_API::get_user(),
+            'languages' => dt_get_available_languages( true, true ),
+            'current_language' => pg_get_current_lang(),
         ] );
     }
 

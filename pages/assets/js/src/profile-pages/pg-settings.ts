@@ -7,6 +7,16 @@ import { User } from "../interfaces";
 export class PgSettings extends PageBase {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
+  language: string = "";
+
+  constructor() {
+    super();
+
+    const languageCode = window.jsObject.current_language;
+    if (Object.keys(window.jsObject.languages).includes(languageCode)) {
+      this.language = window.jsObject.languages[languageCode].native_name;
+    }
+  }
 
   back() {
     history.back();
@@ -18,7 +28,7 @@ export class PgSettings extends PageBase {
         <button type="button" class="me-auto" @click=${this.back}>
           <i class="icon pg-chevron-left two-em"></i>
         </button>
-        <h3 class="mb-0 me-auto">Profile Settings</h3>
+        <h3 class="mb-0 me-auto">${this.translations.profile}</h3>
       </div>
       <div class="container-md stack">
         <table class="table">
@@ -44,6 +54,10 @@ export class PgSettings extends PageBase {
                     : ""}
                 </span>
               </td>
+            </tr>
+            <tr>
+              <td><strong>${this.translations.language}</strong></td>
+              <td>${this.language}</td>
             </tr>
           </tbody>
         </table>

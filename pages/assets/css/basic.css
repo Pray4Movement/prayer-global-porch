@@ -57,6 +57,7 @@
     --pg-brand-color-lighter: #2c599d;
     --pg-brand-color-lightest: #5c83c4;
     --pg-brand-color-highlight: #aec5eb;
+    --pg-brand-color-very-light: #F1F7FF;
     --pg-grey: #acabab;
     --pg-secondary-color: #f2944a;
     --pg-secondary-color-lighter: #edab77;
@@ -127,6 +128,9 @@ a.white {
 }
 strong {
     font-weight: bold;
+}
+.table {
+    border-color: var(--pg-brand-color-very-light);
 }
 hr {
     opacity: 1;
@@ -1319,7 +1323,7 @@ nav.navbar-home {
     padding: 0.5em 1em;
     background: white;
     z-index: 100;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid var(--pg-brand-color);
 }
 .offcanvas__header button {
     display: flex;
