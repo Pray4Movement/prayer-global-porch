@@ -36,7 +36,7 @@ if ( !isset( $decoded['relay_key'] ) || !isset( $decoded['grid_id'] ) || !isset(
     ], 400 );
 }
 
-if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ){
+if ( !defined( 'PG_DEBUG' ) || !PG_DEBUG ){
     $nonce = isset( $decoded['nonce'] ) ? pg_sanitize_text_field_custom( $decoded['nonce'] ) : '';
 
     if ( !PG_Nonce::verify( $nonce, 'direct-api' ) ){
