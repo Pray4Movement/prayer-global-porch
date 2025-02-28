@@ -59,15 +59,7 @@ export class PgRouter extends navigator(router(PageBase)) {
   }
 
   render() {
-    return html`
-      <section
-        class="page-section flow"
-        data-section="login"
-        id="section-login"
-      >
-        ${this.data?.render && this.data.render()}
-      </section>
-    `;
+    return html` ${this.data?.render && this.data.render()} `;
   }
 }
 

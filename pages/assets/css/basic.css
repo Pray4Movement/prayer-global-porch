@@ -448,7 +448,7 @@ input[type="radio"]:checked {
 /* Composition */
 
 .page {
-    margin-top: 6rem;
+    margin-top: 2rem;
     margin-bottom: 6rem;
 }
 .page-section {
@@ -1068,7 +1068,7 @@ button {
 
 /* Navbar styles */
 
-.pg-navbar {
+.pg-navbar[data-home] {
     position: absolute;
     top: 0;
     left: 0;

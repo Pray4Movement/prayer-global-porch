@@ -21,7 +21,7 @@ if ( '' === $url ) {
 $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'user_app' ) ? 'd-none' : '';
 
 ?>
-<nav class="pg-navbar navbar p-0 d-block <?php echo esc_html( $nav_class ) ?>" id="pg-navbar">
+<nav class="pg-navbar navbar p-0 d-block <?php echo esc_html( $nav_class ) ?>" id="pg-navbar" <?php echo $home_page === true ? 'data-home' : '' ?>>
 
     <?php if ( ( new PG_Feature_Flag( 'icom_banner' ) )->is_on() && true === $home_page ) : ?>
 

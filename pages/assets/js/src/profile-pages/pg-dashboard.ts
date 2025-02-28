@@ -26,7 +26,7 @@ export class PgDashboard extends navigator(PageBase) {
 
   render() {
     return html`
-      <div class="container-md">
+      <div class="container-md pb-10">
           <div class="stack" id="pg_content">
             <div class="stack-md">
               <section class="user__summary stack-sm">
