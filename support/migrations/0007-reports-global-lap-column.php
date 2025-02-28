@@ -36,31 +36,31 @@ class Prayer_Global_Migration_0007 extends Prayer_Global_Migration {
         //and end date of a global lap
         //set the global lap number of the report to match the global lap matched
         $wpdb->query(
-            "UPDATE wp_dt_reports r
+            "UPDATE $wpdb->dt_reports r
             JOIN (
                 SELECT
                     pm2.meta_value AS global_lap_number,
                     r.id AS report_id
-                FROM wp_posts p
-                JOIN wp_postmeta pm ON p.ID = pm.post_id AND pm.meta_key = 'start_time'
-                JOIN wp_postmeta pm1 ON p.ID = pm1.post_id AND pm1.meta_key = 'end_time'
-                JOIN wp_postmeta pm2 ON p.ID = pm2.post_id AND pm2.meta_key = 'global_lap_number'
-                JOIN wp_dt_reports r ON pm.meta_value <= r.timestamp AND r.timestamp <= pm1.meta_value
+                FROM $wpdb->posts p
+                JOIN $wpdb->postmeta pm ON p.ID = pm.post_id AND pm.meta_key = 'start_time'
+                JOIN $wpdb->postmeta pm1 ON p.ID = pm1.post_id AND pm1.meta_key = 'end_time'
+                JOIN $wpdb->postmeta pm2 ON p.ID = pm2.post_id AND pm2.meta_key = 'global_lap_number'
+                JOIN $wpdb->dt_reports r ON pm.meta_value <= r.timestamp AND r.timestamp <= pm1.meta_value
                 WHERE p.post_title LIKE 'Global #%'
                 AND p.post_type = 'laps'
             ) AS subquery ON r.id = subquery.report_id
             SET r.global_lap_number = subquery.global_lap_number;
         " );
         $wpdb->query(
-            "UPDATE wp_dt_reports r
+            "UPDATE $wpdb->dt_reports r
             JOIN (
                 SELECT
                     pm2.meta_value AS global_lap_number,
                     r.id AS report_id
-                FROM wp_posts p
-                JOIN wp_postmeta pm ON p.ID = pm.post_id AND pm.meta_key = 'start_time'
-                JOIN wp_postmeta pm2 ON p.ID = pm2.post_id AND pm2.meta_key = 'global_lap_number'
-                JOIN wp_dt_reports r ON pm.meta_value <= r.timestamp
+                FROM $wpdb->posts p
+                JOIN $wpdb->postmeta pm ON p.ID = pm.post_id AND pm.meta_key = 'start_time'
+                JOIN $wpdb->postmeta pm2 ON p.ID = pm2.post_id AND pm2.meta_key = 'global_lap_number'
+                JOIN $wpdb->dt_reports r ON pm.meta_value <= r.timestamp
                 WHERE p.post_title LIKE 'Global #%'
                 AND p.post_type = 'pg_relays'
             ) AS subquery ON r.id = subquery.report_id
