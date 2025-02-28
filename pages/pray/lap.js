@@ -383,22 +383,26 @@ window.api_fetch = function (url, options = {}) {
 };
 
 function ip_location() {
-  return window
-    .api_fetch(`${window.pg_global.root}pg-api/v1/user/ip_location`, {
-      method: "POST",
-    })
-    .then(function (location) {
-      window.user_location = [];
-      if (location) {
-        let pg_user_hash = localStorage.getItem("pg_user_hash");
-        if (!pg_user_hash || pg_user_hash === "undefined") {
-          localStorage.setItem("pg_user_hash", location.hash);
-        } else {
-          location.hash = pg_user_hash;
+  const user_location = localStorage.getItem("user_location");
+  window.user_location = user_location ? JSON.parse(user_location) : null;
+  if ( !window.user_location || window.user_location === "undefined" ) {
+    return window
+      .api_fetch(`${window.pg_global.root}pg-api/v1/user/ip_location`, {
+        method: "POST",
+      })
+      .then(function (location) {
+        if (location) {
+          localStorage.setItem("user_location", JSON.stringify(location));
+          let pg_user_hash = localStorage.getItem("pg_user_hash");
+          if (!pg_user_hash || pg_user_hash === "undefined") {
+            localStorage.setItem("pg_user_hash", location.hash);
+          } else {
+            location.hash = pg_user_hash;
+          }
+          window.user_location = location;
         }
-        window.user_location = location;
-      }
-    });
+      });
+  }
 }
 
 /* Fly away the see more button after a little bit of scroll */
