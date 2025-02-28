@@ -399,11 +399,15 @@ trait PG_Lap_Trait {
         }
 
         $new_value = (int) $report['value'] + 1;
-        /* update the report */
-        Disciple_Tools_Reports::update( [
-            'id' => $data['report_id'],
-            'value' => $new_value,
-        ] );
+        if ( $new_value <= 60 ){
+            /* update the report */
+            global $wpdb;
+            $wpdb->query( $wpdb->prepare( "
+                UPDATE $wpdb->dt_reports
+                SET value = value + 1
+                WHERE id = %d
+            ", $data['report_id'] ) );
+        }
 
         return $new_value;
     }
