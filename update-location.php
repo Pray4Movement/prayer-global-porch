@@ -4,17 +4,12 @@
     This is accessed by reading the php://input file stream
 */
 
-/* TODO: add cors and file protections */
-
-//this stops wp-settings from load everything
-define( 'SHORTINIT', true );
-
-require '../../../wp-config.php';
-require 'utilities/relays-table.php';
+require '../../../pg-wp-config.php';
+require 'utilities/security.php';
 require 'utilities/http-request.php';
-require 'utilities/pg-nonce.php';
+require 'utilities/relays-table.php';
 
-if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ){
+if ( !defined( 'PG_DEBUG' ) || !PG_DEBUG ){
     $cors_passed = cors();
 
     if ( !$cors_passed ) {
@@ -22,18 +17,6 @@ if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ){
             'error' => 'incorrect origin',
         ], 400 );
     }
-}
-
-function dt_recursive_sanitize_array( array $array ) : array {
-    foreach ( $array as $key => &$value ) {
-        if ( is_array( $value ) ) {
-            $value = dt_recursive_sanitize_array( $value );
-        }
-        else {
-            $value = sanitize_text_field( stripslashes_deep( $value ) );
-        }
-    }
-    return $array;
 }
 
 $content = trim( file_get_contents( 'php://input' ) );
@@ -54,7 +37,7 @@ if ( !isset( $decoded['relay_key'] ) || !isset( $decoded['grid_id'] ) || !isset(
 }
 
 if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ){
-    $nonce = isset( $decoded['nonce'] ) ? sanitize_text_field( stripslashes_deep( $decoded['nonce'] ) ) : '';
+    $nonce = isset( $decoded['nonce'] ) ? pg_sanitize_text_field_custom( $decoded['nonce'] ) : '';
 
     if ( !PG_Nonce::verify( $nonce, 'direct-api' ) ){
         send_response( [
@@ -64,16 +47,16 @@ if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ){
     }
 }
 
-$relay_key = isset( $decoded['relay_key'] ) ? sanitize_text_field( stripslashes_deep( $decoded['relay_key'] ) ) : null;
-$relay_id = isset( $decoded['relay_id'] ) ? sanitize_text_field( stripslashes_deep( $decoded['relay_id'] ) ) : null;
-$grid_id = isset( $decoded['grid_id'] ) ? sanitize_text_field( stripslashes_deep( $decoded['grid_id'] ) ) : null;
-$user_id = isset( $decoded['user_id'] ) ? sanitize_text_field( stripslashes_deep( $decoded['user_id'] ) ) : null;
-$pace = isset( $decoded['pace'] ) ? sanitize_text_field( stripslashes_deep( $decoded['pace'] ) ) : 1;
-$user_location = dt_recursive_sanitize_array( $decoded['user_location'] ?? [] );
-$parts = dt_recursive_sanitize_array( $decoded['parts'] ?? [] );
+$relay_key = isset( $decoded['relay_key'] ) ? pg_sanitize_text_field_custom( $decoded['relay_key'] ) : null;
+$relay_id = isset( $decoded['relay_id'] ) ? pg_sanitize_text_field_custom( $decoded['relay_id'] ) : null;
+$grid_id = isset( $decoded['grid_id'] ) ? pg_sanitize_text_field_custom( $decoded['grid_id'] ) : null;
+$user_id = isset( $decoded['user_id'] ) ? pg_sanitize_text_field_custom( $decoded['user_id'] ) : null;
+$pace = 1;
+$user_location = pg_sanitize_text_field_custom( $decoded['user_location'] ?? [] );
+$parts = pg_sanitize_text_field_custom( $decoded['parts'] ?? [] );
 
 //phpcs:ignore
-mysqli_report( MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT );
+//mysqli_report( MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT );
 //phpcs:ignore
 $conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
 
