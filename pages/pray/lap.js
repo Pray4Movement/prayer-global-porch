@@ -393,7 +393,6 @@ function ip_location() {
       .then(function (location) {
         if (location) {
           location.date_set = Date.now();
-          localStorage.setItem("user_location", JSON.stringify(location));
           let pg_user_hash = localStorage.getItem("pg_user_hash");
           if (!pg_user_hash || pg_user_hash === "undefined") {
             localStorage.setItem("pg_user_hash", location.hash);
@@ -401,6 +400,7 @@ function ip_location() {
             location.hash = pg_user_hash;
           }
           window.user_location = location;
+          localStorage.setItem("user_location", JSON.stringify(location));
         }
       });
   }
