@@ -2,16 +2,7 @@ import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { PageBase } from "./page-base";
 import { navigator } from "lit-element-router";
-
-interface User {
-  display_name: string;
-  location: Location;
-}
-
-interface Location {
-  source: string;
-  label: string;
-}
+import { User } from "../interfaces";
 
 @customElement("pg-dashboard")
 export class PgDashboard extends navigator(PageBase) {

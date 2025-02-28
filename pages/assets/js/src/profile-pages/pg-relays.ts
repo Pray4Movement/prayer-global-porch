@@ -1,16 +1,7 @@
 import { html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { PageBase } from "./page-base";
-
-interface User {
-  display_name: string;
-  location: Location;
-}
-
-interface Location {
-  source: string;
-  label: string;
-}
+import { User } from "../interfaces";
 
 @customElement("pg-relays")
 export class PgRelays extends PageBase {

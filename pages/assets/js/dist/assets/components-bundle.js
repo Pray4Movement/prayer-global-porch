@@ -108,6 +108,29 @@
         <h3 class="mb-0 me-auto">Profile Settings</h3>
       </div>
       <div class="container-md stack">
+        <table class="table">
+          <tbody>
+            <tr>
+              <td><strong>${this.translations.name_text}:</strong></td>
+              <td class="user__full-name">${this.user.display_name}</td>
+            </tr>
+            <tr>
+              <td><strong>${this.translations.email_text}:</strong></td>
+              <td>${this.user.user_email}</td>
+            </tr>
+            <tr>
+              <td><strong>${this.translations.location_text}:</strong></td>
+              <td>
+                <span class="user__location-label"
+                  >${this.user.location&&this.user.location.label||this.translations.select_a_location}</span
+                >
+                <span class="iplocation-message small d-block text-secondary">
+                  ${this.user.location&&this.user.location.source==="ip"?this.translations.estimated_location:""}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <a
           class="btn btn-small btn-outline-primary mt-3 uppercase"
           href="/user_app/logout"
