@@ -14,12 +14,14 @@ require 'utilities/relays-table.php';
 require 'utilities/http-request.php';
 require 'utilities/pg-nonce.php';
 
-$cors_passed = cors();
+if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ){
+    $cors_passed = cors();
 
-if ( !$cors_passed ) {
-    send_response( [
-        'error' => 'incorrect origin',
-    ], 400 );
+    if ( !$cors_passed ) {
+        send_response( [
+            'error' => 'incorrect origin',
+        ], 400 );
+    }
 }
 
 function dt_recursive_sanitize_array( array $array ) : array {
