@@ -34,11 +34,17 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
                     <?php endif; ?>
 
                 </a>
-                <div class="d-flex justify-content-end align-items-center mx-2">
 
-                    <?php require( __DIR__ . '/language-menu.php' ) ?>
+                <?php if ( !is_user_logged_in() ) : ?>
 
-                </div>
+                    <div class="d-flex justify-content-end align-items-center mx-2">
+
+                        <?php require( __DIR__ . '/language-menu.php' ) ?>
+
+                    </div>
+
+                <?php endif; ?>
+
                 <button type="button" class="icon-button p-0 two-rem d-flex ms-2" data-bs-dismiss="offcanvas" aria-label="Close">
                     <i class="icon pg-close"></i>
                 </button>
@@ -71,11 +77,10 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
 
                 <?php endif; ?>
 
-                <a class="nav-link" href="/give" target="_blank">
+                <a class="nav-link" href="/give">
                     <div class="nav-link__inner">
                         <i class="icon pg-give"></i>
                         <span><?php echo esc_html( __( 'Give', 'prayer-global-porch' ) ) ?></span>
-                        <i class="ion-android-open absolute right-0"></i>
                     </div>
                 </a>
 

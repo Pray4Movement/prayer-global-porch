@@ -71,11 +71,17 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
                 <?php endif; ?>
 
             </a>
-            <div class="d-flex justify-content-end align-items-center mx-2">
 
-                <?php require( __DIR__ . '/language-menu.php' ) ?>
+            <?php if ( !is_user_logged_in() ) : ?>
 
-            </div>
+                <div class="d-flex justify-content-end align-items-center mx-2">
+
+                    <?php require( __DIR__ . '/language-menu.php' ) ?>
+
+                </div>
+
+            <?php endif; ?>
+
             <button class="icon-button navbar-toggler mx-2 two-rem d-flex align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#probootstrap-navbar" aria-controls="probootstrap-navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="icon pg-menu"></i>
             </button>

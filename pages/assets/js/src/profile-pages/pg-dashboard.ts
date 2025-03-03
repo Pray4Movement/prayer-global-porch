@@ -93,7 +93,6 @@ export class PgDashboard extends navigator(PageBase) {
                     class="btn btn-small btn-primary-light uppercase"
                     data-reverse-color
                     href="/give"
-                    target="_blank"
                   >
                     ${this.translations.give}
                   </a>
