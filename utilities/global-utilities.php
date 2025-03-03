@@ -7,6 +7,7 @@ function pg_enabled_translations(){
             'po_code' => 'en_US',
             'datatables_url' => '',
             'firebase_code' => 'en',
+
         ],
         'fr_FR' => [
             'parent_code' => 'fr',
