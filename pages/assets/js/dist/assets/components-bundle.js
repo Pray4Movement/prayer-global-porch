@@ -153,12 +153,21 @@
             ${this.translations.send_general_emails_text}
           </label>
         </section>
-        <a
-          class="btn btn-small btn-outline-primary mt-3 uppercase"
-          href="/user_app/logout"
-        >
-          ${this.translations.logout}
-        </a>
+        <div class="stack-md align-items-stretch">
+          <a
+            class="btn btn-small btn-primary-light uppercase"
+            href="/user_app/logout"
+          >
+            ${this.translations.logout}
+          </a>
+          <button
+            class="btn btn-small btn-outline-primary uppercase"
+            href="/user_app/logout"
+            @click=${t=>this.deleteAccount(t)}
+          >
+            ${this.translations.delete_account}
+          </button>
+        </div>
       </div>
-    `}}nt=hr(Gt);J=$r(nt,0,"PgSettings",Jt,J);_r(nt,1,J);
+    `}deleteAccount(t){throw new Error("Method not implemented.")}}nt=hr(Gt);J=$r(nt,0,"PgSettings",Jt,J);_r(nt,1,J);
 //# sourceMappingURL=components-bundle.js.map

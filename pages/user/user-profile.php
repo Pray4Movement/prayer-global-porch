@@ -105,7 +105,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'locations_text' => esc_html( __( 'Locations', 'prayer-global-porch' ) ),
                 'communication_preferences' => esc_html( __( 'Communication Preferences', 'prayer-global-porch' ) ),
                 'send_general_emails_text' => wp_kses( sprintf( __( 'Send information about %1$s, %2$s, %3$s and other %4$s projects via email', 'prayer-global-porch' ), 'Prayer.Global', 'Zume', 'Pray4Movement', 'Gospel Ambition' ), 'post' ),
-                'erase_account' => esc_html( __( 'Erase my account', 'prayer-global-porch' ) ),
+                'delete_account' => esc_html( __( 'Delete my account', 'prayer-global-porch' ) ),
                 'minutes' => esc_html( __( 'Minutes', 'prayer-global-porch' ) ),
                 'load_more' => esc_html( __( 'Load more', 'prayer-global-porch' ) ),
                 'time_prayed_for' => esc_html( _x( '%1$s for %2$s', '1 min for Paris, France', 'prayer-global-porch' ) ),

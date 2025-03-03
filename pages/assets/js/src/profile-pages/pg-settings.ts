@@ -83,13 +83,25 @@ export class PgSettings extends PageBase {
             ${this.translations.send_general_emails_text}
           </label>
         </section>
-        <a
-          class="btn btn-small btn-outline-primary mt-3 uppercase"
-          href="/user_app/logout"
-        >
-          ${this.translations.logout}
-        </a>
+        <div class="stack-md align-items-stretch">
+          <a
+            class="btn btn-small btn-primary-light uppercase"
+            href="/user_app/logout"
+          >
+            ${this.translations.logout}
+          </a>
+          <button
+            class="btn btn-small btn-outline-primary uppercase"
+            href="/user_app/logout"
+            @click=${(event: Event) => this.deleteAccount(event)}
+          >
+            ${this.translations.delete_account}
+          </button>
+        </div>
       </div>
     `;
+  }
+  deleteAccount(event: Event) {
+    throw new Error("Method not implemented.");
   }
 }
