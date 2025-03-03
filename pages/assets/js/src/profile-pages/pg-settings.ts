@@ -68,7 +68,7 @@ export class PgSettings extends PageBase {
         </section>
         <hr />
         <section>
-          <h4>${this.translations.communication_preferences}</h4>
+          <h2 class="h5">${this.translations.communication_preferences}</h2>
           <div>
             <div class="form-check small">
               <input
