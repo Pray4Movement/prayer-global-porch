@@ -22,6 +22,10 @@ export class PgSettings extends PageBase {
     history.back();
   }
 
+  onSendGeneralEmailsChange(event: Event) {
+    console.log("Method not implemented.");
+  }
+
   render() {
     return html`
       <div class="offcanvas__header align-items-center lh-sm">
@@ -57,7 +61,7 @@ export class PgSettings extends PageBase {
                 </td>
               </tr>
               <tr>
-                <td><strong>${this.translations.language}</strong></td>
+                <td><strong>${this.translations.language}:</strong></td>
                 <td>${this.language}</td>
               </tr>
             </tbody>
@@ -67,21 +71,17 @@ export class PgSettings extends PageBase {
           </button>
         </section>
         <hr />
-        <section>
+        <section class="stack-sm">
           <h2 class="h5">${this.translations.communication_preferences}</h2>
-          <div>
-            <div class="form-check small">
-              <input
-                class="form-check-input user-check-preferences"
-                type="checkbox"
-                id="send_general_emails"
-                ?checked="${this.user.send_general_emails}"
-              />
-              <label class="form-check-label" for="send_general_emails">
-                ${this.translations.send_general_emails_text}
-              </label>
-            </div>
-          </div>
+          <label class="form-group" for="send_general_emails">
+            <input
+              type="checkbox"
+              id="send_general_emails"
+              ?checked="${this.user.send_general_emails}"
+              @change=${(event: Event) => this.onSendGeneralEmailsChange(event)}
+            />
+            ${this.translations.send_general_emails_text}
+          </label>
         </section>
         <a
           class="btn btn-small btn-outline-primary mt-3 uppercase"
