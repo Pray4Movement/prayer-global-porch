@@ -1,5 +1,5 @@
 import { html } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, state } from "lit/decorators.js";
 import { PageBase } from "./page-base";
 import { User } from "../interfaces";
 
@@ -8,6 +8,9 @@ export class PgSettings extends PageBase {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
   language: string = "";
+
+  @state()
+  showDeleteAccount: boolean = false;
 
   constructor() {
     super();
@@ -24,6 +27,10 @@ export class PgSettings extends PageBase {
 
   onSendGeneralEmailsChange(event: Event) {
     console.log("Method not implemented.");
+  }
+
+  openDeleteAccount() {
+    this.showDeleteAccount = true;
   }
 
   render() {
@@ -93,15 +100,58 @@ export class PgSettings extends PageBase {
           <button
             class="btn btn-small btn-outline-primary uppercase"
             href="/user_app/logout"
-            @click=${(event: Event) => this.deleteAccount(event)}
+            @click=${(event: Event) => this.openDeleteAccount(event)}
           >
             ${this.translations.delete_account}
           </button>
         </div>
       </div>
+
+      <pg-modal
+        ?open=${this.showDeleteAccount}
+        @close=${() => this.closeDeleteAccount()}
+      >
+        <div slot="title">
+          <h2 class="h5">${this.translations.delete_account}</h2>
+        </div>
+        <i slot="close-icon" class="icon pg-close brand-light two-em"></i>
+        <div slot="body">
+          <p>${this.translations.delete_account_confirmation}</p>
+          <p>${this.translations.delete_account_warning}</p>
+          <p>${this.translations.delete_account_confirm_proceed}</p>
+          <div class="mb-3">
+            <label for="delete-confirmation" class="form-label">
+              ${this.translations.confirm_delete}
+            </label>
+            <input
+              type="text"
+              class="form-control text-danger"
+              id="delete-confirmation"
+              placeholder="delete"
+            />
+          </div>
+        </div>
+        <div slot="footer">
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            @click=${() => this.closeDeleteAccount()}
+          >
+            ${this.translations.cancel}
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            id="delete-account-button"
+          >
+            ${this.translations.delete_account}
+          </button>
+        </div>
+      </pg-modal>
     `;
   }
-  deleteAccount(event: Event) {
-    throw new Error("Method not implemented.");
+
+  private closeDeleteAccount() {
+    this.showDeleteAccount = false;
   }
 }
