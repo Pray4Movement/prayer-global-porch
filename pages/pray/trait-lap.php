@@ -27,7 +27,7 @@ trait PG_Lap_Trait {
 
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header-event.php' );
-        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '../utilities/pg-nonce.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '../utilities/security.php' );
 
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
         $nonce = PG_Nonce::create( 'direct-api' );

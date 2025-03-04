@@ -1,5 +1,15 @@
 <?php
 
+function pg_sanitize_text_field_custom( $str ){
+    if ( is_array( $str ) ){
+        return array_map( 'pg_sanitize_text_field_custom', $str );
+    }
+
+    $str = preg_replace( '/[^a-zA-Z0-9_\-.]/', '', $str );
+
+    return $str;
+}
+
 /**
  * Create and verify time based nonces
  */
@@ -39,7 +49,7 @@ class PG_Nonce {
             return false;
         }
 
-        if ( $timestamp < time() - DAY_IN_SECONDS ) {
+        if ( $timestamp < time() - 86400 ) {
             return false;
         }
 
@@ -54,7 +64,7 @@ class PG_Nonce {
         $result = '';
         foreach ( array_keys( $_COOKIE ) as $key ) {
             if ( str_contains( 'wordpress_', $key ) && !str_contains( 'wordpress_logged_in', $key ) ) {
-                $result = !empty( $_COOKIE[$key] ) ? sanitize_text_field( stripslashes_deep( $_COOKIE[$key] ) ) : '';
+                $result = !empty( $_COOKIE[$key] ) ? pg_sanitize_text_field_custom( $_COOKIE[$key] ) : ''; //phpcs:ignore
             }
         }
         return $result;
