@@ -6,27 +6,27 @@
 //this stops wp-settings from load everything
 define( 'SHORTINIT', true );
 
-error_log( 'short-init complete' );
 require '../../../wp-config.php';
 require 'utilities/relays-table.php';
 require 'utilities/http-request.php';
 require 'utilities/pg-nonce.php';
 
-$cors_passed = cors();
+if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ) {
+    $cors_passed = cors();
 
-if ( !$cors_passed ) {
-    send_response( [
-        'error' => "incorrect origin $origin",
-    ], 400 );
-}
+    if ( !$cors_passed ) {
+        send_response( [
+            'error' => "incorrect origin $origin",
+        ], 400 );
+    }
+    $nonce = isset( $_GET['nonce'] ) ? sanitize_text_field( stripslashes_deep( $_GET['nonce'] ) ) : '';
 
-$nonce = isset( $_GET['nonce'] ) ? sanitize_text_field( stripslashes_deep( $_GET['nonce'] ) ) : '';
-
-if ( !PG_Nonce::verify( $nonce, 'direct-api' ) ) {
-    send_response( [
-        'status' => 'error',
-        'error' => 'Unauthorized',
-    ], 400 );
+    if ( !PG_Nonce::verify( $nonce, 'direct-api' ) ) {
+        send_response( [
+            'status' => 'error',
+            'error' => 'Unauthorized',
+        ], 400 );
+    }
 }
 
 //phpcs:ignore
@@ -59,7 +59,12 @@ try {
     ), 400 );
 }
 
-send_response( array(
+send_response(
+    array(
     'status' => 'ok',
     'next_location' => $next_location,
-) );
+    ),
+    200,
+    $next_location
+);
+$conn->close();

@@ -42,10 +42,12 @@ export default function () {
     }
   );
 
-  const locationId = response.body.substring(
-    response.body.length - 10,
-    response.body.length - 1
-  );
+  if (response.status !== 200) {
+    console.error("Failed to get next location", response);
+    return;
+  }
+  const body = JSON.parse(response.body);
+  const locationId = body.next_location;
 
   if (debug) {
     console.log(response.body, locationId);
