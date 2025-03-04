@@ -238,7 +238,7 @@ class PG_Relays_Table {
                 AND epoch < UNIX_TIMESTAMP() - 50
                 AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c' )
                 ORDER BY epoch
-                LIMIT 100
+                LIMIT 500
             " );
             if ( false === $locations ) {
                 throw new ErrorException( 'Failed to get *needed* location not recently promised' );
@@ -256,7 +256,7 @@ class PG_Relays_Table {
         } else {
             //get location and prioritize ones from relay 49ba4c
             $locations = $this->mysqli->execute_query("
-                SELECT *
+                SELECT grid_id
                 FROM $this->relay_table
                 WHERE relay_key = ?
                 AND epoch < UNIX_TIMESTAMP() - 50
@@ -268,7 +268,7 @@ class PG_Relays_Table {
                     AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c'))
                 then 0 else 1 end,
                 epoch
-                LIMIT 100;
+                LIMIT 500;
             ", [ $relay_key, $relay_key ] );
 
             $locations = $locations->fetch_all( MYSQLI_ASSOC );
