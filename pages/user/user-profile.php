@@ -104,7 +104,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'location_text' => esc_html( __( 'Location', 'prayer-global-porch' ) ),
                 'locations_text' => esc_html( __( 'Locations', 'prayer-global-porch' ) ),
                 'communication_preferences' => esc_html( __( 'Communication Preferences', 'prayer-global-porch' ) ),
-                'send_general_emails_text' => wp_kses( sprintf( __( 'Send information about %1$s, %2$s, %3$s and other %4$s projects via email', 'prayer-global-porch' ), 'Prayer.Global', 'Zume', 'Pray4Movement', 'Gospel Ambition' ), 'post' ),
                 'delete_account' => esc_html( __( 'Delete my account', 'prayer-global-porch' ) ),
                 'minutes' => esc_html( __( 'Minutes', 'prayer-global-porch' ) ),
                 'load_more' => esc_html( __( 'Load more', 'prayer-global-porch' ) ),
@@ -338,6 +337,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             ]
         );
         DT_Route::post( $namespace, 'delete_user', [ $this, 'delete_user' ] );
+        DT_Route::post( $namespace, 'update_user', [ $this, 'update_user_meta' ] );
     }
 
     public function endpoint( WP_REST_Request $request ) {
@@ -351,8 +351,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['action'] ) {
-            case 'update_user':
-                return $this->update_user_meta( $params['data'] );
             case 'activity':
                 return $this->get_user_activity( $params['data'] );
             case 'ip_location':
@@ -417,14 +415,20 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
     /**
      * Update the user's data
      *
-     * @param array $data
+     * @param WP_REST_Request $request
      * @return bool|WP_Error
      */
-    public function update_user_meta( $data ) {
+    public function update_user_meta( WP_REST_Request $request ) {
         $user_id = get_current_user_id();
 
         if ( !$user_id ) {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
+        }
+
+        $data = $request->get_param( 'data' );
+
+        if ( empty( $data ) ) {
+            return new WP_Error( __METHOD__, 'No data given', [ 'status' => 400, ] );
         }
 
         foreach ( $data as $meta_key => $meta_value ) {

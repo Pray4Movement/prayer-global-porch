@@ -29,7 +29,16 @@ export class PgSettings extends PageBase {
   }
 
   private onSendGeneralEmailsChange(event: Event) {
-    console.log("Method not implemented.");
+    const id = (event.target as HTMLInputElement).id;
+    const checked = (event.target as HTMLInputElement).checked;
+    window.api_fetch(`${window.pg_global.root}pg-api/v1/profile/update_user`, {
+      method: "POST",
+      body: JSON.stringify({
+        data: {
+          [id]: checked,
+        },
+      }),
+    });
   }
 
   private openDeleteAccount() {
@@ -42,14 +51,9 @@ export class PgSettings extends PageBase {
     window
       .api_fetch(`${window.pg_global.root}pg-api/v1/profile/delete_user`, {
         method: "POST",
-        body: JSON.stringify({
-          parts: window.jsObject.parts,
-        }),
       })
       .then((confirmed: boolean) => {
-        console.log(confirmed, "not confirmed");
-        return;
-        if (confirmed) {
+        if (confirmed === true) {
           window.location.href = "/";
         }
       });
