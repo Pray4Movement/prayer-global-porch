@@ -10,5 +10,6 @@ declare global {
   interface Window {
     pg_global: any;
     jsObject: any;
+    api_fetch: Function;
   }
 }

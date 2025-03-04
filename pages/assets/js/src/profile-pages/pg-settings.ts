@@ -12,6 +12,9 @@ export class PgSettings extends PageBase {
   @state()
   showDeleteAccount: boolean = false;
 
+  @state()
+  deleteInputValue: string = "";
+
   constructor() {
     super();
 
@@ -25,12 +28,32 @@ export class PgSettings extends PageBase {
     history.back();
   }
 
-  onSendGeneralEmailsChange(event: Event) {
+  private onSendGeneralEmailsChange(event: Event) {
     console.log("Method not implemented.");
   }
 
-  openDeleteAccount() {
+  private openDeleteAccount() {
     this.showDeleteAccount = true;
+  }
+  private closeDeleteAccount() {
+    this.showDeleteAccount = false;
+  }
+  private deleteAccount() {
+    window
+      .api_fetch(`${window.pg_global.root}pg-api/v1/profile`, {
+        method: "POST",
+        body: JSON.stringify({
+          action: "delete_user",
+          parts: window.jsObject.parts,
+        }),
+      })
+      .then((confirmed: boolean) => {
+        console.log(confirmed, "not confirmed");
+        return;
+        if (confirmed) {
+          window.location.href = "/";
+        }
+      });
   }
 
   render() {
@@ -100,7 +123,7 @@ export class PgSettings extends PageBase {
           <button
             class="btn btn-small btn-outline-primary uppercase"
             href="/user_app/logout"
-            @click=${(event: Event) => this.openDeleteAccount(event)}
+            @click=${() => this.openDeleteAccount()}
           >
             ${this.translations.delete_account}
           </button>
@@ -128,6 +151,10 @@ export class PgSettings extends PageBase {
               class="form-control text-danger"
               id="delete-confirmation"
               placeholder="delete"
+              @input=${(event: InputEvent) =>
+                (this.deleteInputValue = (
+                  event.target as HTMLInputElement
+                ).value)}
             />
           </div>
         </div>
@@ -143,15 +170,13 @@ export class PgSettings extends PageBase {
             type="button"
             class="btn btn-primary"
             id="delete-account-button"
+            ?disabled=${this.deleteInputValue !== "delete"}
+            @click=${() => this.deleteAccount()}
           >
             ${this.translations.delete_account}
           </button>
         </div>
       </pg-modal>
     `;
-  }
-
-  private closeDeleteAccount() {
-    this.showDeleteAccount = false;
   }
 }

@@ -31,12 +31,6 @@ add_action( 'dt_sso_login_extra_fields', function ( $extra_fields, $body ){
     }
 }, 10, 2 );
 
-add_action( 'pg_user_endpoint_data', function ( $params ){
-    if ( isset( $params['action'] ) && $params['action'] === 'update_user' && isset( $params['data']['tshirt'] ) ){
-        pg_icom_tshirt( !empty( $params['data']['tshirt'] ) );
-    }
-}, 10, 1 );
-
 function pg_connect_to_crm(){
 
     $key = Site_Link_System::get_site_key_by_dev_key( 'crm_connection' );

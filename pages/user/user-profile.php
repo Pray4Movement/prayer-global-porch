@@ -325,10 +325,10 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
      * @link https://github.com/DiscipleTools/disciple-tools-theme/wiki/Site-to-Site-Link for outside of wordpress authentication
      */
     public function add_endpoints() {
-        $namespace = $this->root . '/v1';
+        $namespace = 'pg-api/v1/' . $this->root;
         register_rest_route(
             $namespace,
-            '/'.$this->type,
+            '/api',
             [
                 [
                     'methods'  => 'POST',
@@ -349,13 +349,11 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         $params = dt_recursive_sanitize_array( $params );
 
-        do_action( 'pg_user_endpoint_data', $params );
-
         switch ( $params['action'] ) {
             case 'update_user':
                 return $this->update_user_meta( $params['data'] );
             case 'delete_user':
-                return $this->delete_user( $params['data'] );
+                return $this->delete_user();
             case 'activity':
                 return $this->get_user_activity( $params['data'] );
             case 'ip_location':
@@ -453,7 +451,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         return true;
     }
 
-    public function delete_user( $data ) {
+    public function delete_user() {
         $user_id = get_current_user_id();
 
         if ( !$user_id ) {

@@ -87,7 +87,7 @@ class PgModal extends LitElement {
         id=${this.modalId + "_modal"}
         tabindex="-1"
         aria-labelledby=${this.modalId + "_label"}
-        aria-hidden="true"
+        aria-hidden=${this.open ? "false" : "true"}
       >
         <div class="modal-dialog" role="document">
           <div class="modal-content">
