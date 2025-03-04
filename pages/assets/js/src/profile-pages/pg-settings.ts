@@ -40,10 +40,9 @@ export class PgSettings extends PageBase {
   }
   private deleteAccount() {
     window
-      .api_fetch(`${window.pg_global.root}pg-api/v1/profile`, {
+      .api_fetch(`${window.pg_global.root}pg-api/v1/profile/delete_user`, {
         method: "POST",
         body: JSON.stringify({
-          action: "delete_user",
           parts: window.jsObject.parts,
         }),
       })

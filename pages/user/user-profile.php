@@ -337,6 +337,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 ],
             ]
         );
+        DT_Route::post( $namespace, 'delete_user', [ $this, 'delete_user' ] );
     }
 
     public function endpoint( WP_REST_Request $request ) {
@@ -352,8 +353,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         switch ( $params['action'] ) {
             case 'update_user':
                 return $this->update_user_meta( $params['data'] );
-            case 'delete_user':
-                return $this->delete_user();
             case 'activity':
                 return $this->get_user_activity( $params['data'] );
             case 'ip_location':
