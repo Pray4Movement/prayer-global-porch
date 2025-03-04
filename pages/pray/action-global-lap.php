@@ -87,8 +87,6 @@ class PG_Global_Prayer_App_Lap extends PG_Global_Prayer_App {
                 return $this->increment_prayer_time( $params['parts'], $params['data'] );
             case 'correction':
                 return $this->save_correction( $params['parts'], $params['data'] );
-            case 'ip_location':
-                return $this->get_ip_location();
             default:
                 return new WP_Error( __METHOD__, 'Incorrect action', [ 'status' => 400 ] );
         }
