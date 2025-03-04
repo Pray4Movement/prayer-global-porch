@@ -195,6 +195,7 @@
       }
       .btn-close {
         display: flex;
+        cursor: pointer;
         font-size: inherit;
         background: none;
         border: none;
