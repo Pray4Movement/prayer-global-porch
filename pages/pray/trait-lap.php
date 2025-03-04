@@ -399,11 +399,15 @@ trait PG_Lap_Trait {
         }
 
         $new_value = (int) $report['value'] + 1;
-        /* update the report */
-        Disciple_Tools_Reports::update( [
-            'id' => $data['report_id'],
-            'value' => $new_value,
-        ] );
+        if ( $new_value <= 60 ){
+            /* update the report */
+            global $wpdb;
+            $wpdb->query( $wpdb->prepare( "
+                UPDATE $wpdb->dt_reports
+                SET value = value + 1
+                WHERE id = %d
+            ", $data['report_id'] ) );
+        }
 
         return $new_value;
     }
@@ -479,22 +483,5 @@ trait PG_Lap_Trait {
         $result = DT_Posts::create_post( 'feedback', $fields, true, false );
 
         return $result;
-    }
-
-    public function get_ip_location() {
-        if ( is_user_logged_in() ) {
-            $user_id = get_current_user_id();
-            $location_meta = get_user_meta( $user_id, PG_NAMESPACE . 'location', true );
-
-            return $location_meta;
-        } else {
-            $response = DT_Ipstack_API::get_location_grid_meta_from_current_visitor();
-            if ( $response ) {
-                $response['hash'] = hash( 'sha256', serialize( $response ) . mt_rand( 1000000, 10000000000000000 ) );
-                $array = array_reverse( explode( ', ', $response['label'] ) );
-                $response['country'] = $array[0] ?? '';
-            }
-            return $response;
-        }
     }
 }
