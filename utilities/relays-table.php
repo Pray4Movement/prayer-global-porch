@@ -43,6 +43,23 @@ class PG_Relays_Table {
 
     /* https://www.sqlines.com/mysql/how-to/select-update-single-statement-race-condition */
     public function update_relay_total( $relay_key, $grid_id, $relay_id ) {
+        if ( $relay_key !== '49ba4c' ) {
+            $global_lap_number = $this->get_lap_number( '49ba4c' );
+
+            //only update global lap number if it counts towards the current global lap
+            $response = $this->mysqli->execute_query( "
+                UPDATE $this->relay_table
+                SET total = total + 1
+                WHERE relay_key = '49ba4c'
+                AND grid_id = ?
+                AND total = ?
+            ", [ $grid_id, $global_lap_number - 1 ] );
+
+            if ( !$response ) {
+                throw new ErrorException( 'Failed to update relay total' );
+            }
+        }
+
         //get the current lap number
         $lap_number_before_update = $this->get_lap_number( $relay_key );
 
@@ -60,23 +77,6 @@ class PG_Relays_Table {
         $lap_number = $this->last_lap_number_updated();
 
         $lap_number_after_update = $this->get_lap_number( $relay_key );
-
-        if ( $relay_key !== '49ba4c' ) {
-            $global_lap_number = $this->get_lap_number( '49ba4c' );
-
-            //only update global lap number if it counts towards the current global lap
-            $response = $this->mysqli->execute_query( "
-                UPDATE $this->relay_table
-                SET total = total + 1
-                WHERE relay_key = '49ba4c'
-                AND grid_id = ?
-                AND total = ?
-            ", [ $grid_id, $global_lap_number - 1 ] );
-
-            if ( !$response ) {
-                throw new ErrorException( 'Failed to update relay total' );
-            }
-        }
 
         //we have a new lap!
         if ( $lap_number_before_update !== $lap_number_after_update ){
