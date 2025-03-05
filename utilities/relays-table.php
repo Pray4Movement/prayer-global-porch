@@ -196,7 +196,7 @@ class PG_Relays_Table {
         if ( empty( $next_location ) ) {
             require 'pg-query-4770-locations.php';
             $list_4770 = pg_query_4770_locations();
-            $next_location['grid_id'] = $this->get_random_item( $list_4770 );
+            return $this->get_random_item( $list_4770 );
         }
 
         return $next_location['grid_id'];
@@ -218,23 +218,6 @@ class PG_Relays_Table {
 
         return $active_lap_id;
     }
-
-    private function pg_array_to_sql( $values, $numeric = false ) {
-        if ( empty( $values ) ) {
-            return 'NULL';
-        }
-        foreach ( $values as &$val ) {
-            if ( '\N' === $val || empty( $val ) ) {
-                $val = 'NULL';
-            } elseif ( $numeric ){
-                $val = trim( $val );
-            } else {
-                $val = "'" .  trim( $val )  . "'";
-            }
-        }
-        return implode( ',', $values );
-    }
-
 
     /**
      * Get a random location that hasn't been prayed for and hasn't been recently promised
@@ -311,10 +294,6 @@ class PG_Relays_Table {
             $grid_id = $this->get_random_item( $locations );
             return [ 'grid_id' => $grid_id ];
         }
-    }
-
-    public static function __callStatic( string $name, array $arguments ){
-        // TODO: Implement __callStatic() method.
     }
 
     private function get_random_item( array $items ) {
