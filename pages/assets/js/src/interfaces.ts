@@ -15,4 +15,9 @@ export interface Language {
   po_code: string;
   datatabes_url: string;
   firebase_code: string;
+  native_name: string;
+  language: string;
+  english_name: string;
+  iso: Array<string>;
+  flag: string;
 }

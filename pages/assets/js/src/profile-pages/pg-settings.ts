@@ -7,17 +7,23 @@ import { Language, User } from "../interfaces";
 export class PgSettings extends PageBase {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
-  language: string = "";
+  currentLanguage: string = window.jsObject.current_language;
+  language: Language | null = null;
 
-  @state()
-  showDeleteAccount: boolean = false;
   @state()
   showEditAccount: boolean = false;
   @state()
   saving: boolean = false;
+  @state()
+  name: string = this.user.display_name;
+  @state()
+  location: string = this.user.location ? this.user.location.label : "";
 
   @state()
+  showDeleteAccount: boolean = false;
+  @state()
   deleteInputValue: string = "";
+
   @state()
   subscribing: boolean = false;
   @state()
@@ -28,7 +34,7 @@ export class PgSettings extends PageBase {
 
     const languageCode = window.jsObject.current_language;
     if (Object.keys(window.jsObject.languages).includes(languageCode)) {
-      this.language = window.jsObject.languages[languageCode].native_name;
+      this.language = window.jsObject.languages[languageCode] as Language;
     }
   }
 
@@ -132,7 +138,7 @@ export class PgSettings extends PageBase {
               </tr>
               <tr>
                 <td><strong>${this.translations.language}:</strong></td>
-                <td>${this.language}</td>
+                <td>${this.language?.native_name}</td>
               </tr>
             </tbody>
           </table>
@@ -283,26 +289,18 @@ export class PgSettings extends PageBase {
             <label for="language">
               ${this.translations.language}
               <select class="form-select" id="language">
-                ${Object.entries(window.jsObject.enabled_languages).map(
-                  ([code, language]) => {
-                    const dtLang =
-                      window.jsObject.languages[
-                        (language as Language).parent_code
-                      ];
-                    const currentLanguage = window.jsObject.current_language;
-                    if (dtLang.native_name) {
-                      const name = dtLang.native_name;
-                      return html`
-                        <option
-                          value=${code}
-                          ?selected=${currentLanguage === code}
-                        >
-                          ${dtLang.flag} ${name}
-                        </option>
-                      `;
-                    }
-                  }
-                )}
+                ${Object.entries(
+                  window.jsObject.enabled_languages as Record<string, Language>
+                ).map(([code, language]) => {
+                  return html`
+                    <option
+                      value=${code}
+                      ?selected=${this.currentLanguage === code}
+                    >
+                      ${language.flag} ${language.native_name}
+                    </option>
+                  `;
+                })}
               </select>
             </label>
           </div>

@@ -138,7 +138,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'logout_url' => esc_url( '/user_app/logout' ),
             'user' => PG_User_API::get_user(),
             'enabled_languages' => pg_enabled_translations(),
-            'languages' => dt_get_available_languages( true, true ),
             'current_language' => pg_get_current_lang(),
         ] );
     }
