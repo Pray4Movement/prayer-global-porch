@@ -308,13 +308,9 @@ class PG_Relays_Table {
                 WHERE relay_key = ?
                 AND epoch < UNIX_TIMESTAMP() - 5
                 AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = ?)
+                AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c')
                 AND grid_id NOT IN ( $mem_already_giving_out_sql )
                 ORDER BY 
-                CASE WHEN grid_id IN ( SELECT grid_id
-                    FROM $this->relay_table
-                    WHERE relay_key = '49ba4c'
-                    AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c'))
-                then 0 else 1 end,
                 epoch
                 LIMIT 500;
             ", [ $relay_key, $relay_key ] );
@@ -324,6 +320,20 @@ class PG_Relays_Table {
             }
             $locations = $locations->fetch_all( MYSQLI_ASSOC );
             if ( empty( $locations ) ) {
+                $locations = $this->mysqli->execute_query("
+                    SELECT grid_id
+                    FROM $this->relay_table
+                    WHERE relay_key = ?
+                    AND epoch < UNIX_TIMESTAMP() - 5
+                    AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = ?)
+                    AND grid_id NOT IN ( $mem_already_giving_out_sql )
+                    ORDER BY 
+                    epoch
+                    LIMIT 500;
+                ", [ $relay_key, $relay_key ] );
+                $locations = $locations->fetch_all( MYSQLI_ASSOC );
+            }
+            if ( empty( $locations ) ){
                 return [];
             }
             $locations = array_column( $locations, 'grid_id' );
