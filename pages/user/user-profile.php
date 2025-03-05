@@ -126,6 +126,9 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'delete_account_confirm_proceed' => __( 'If you are sure you want to proceed please type "delete" into the box below and click "I am sure" button', 'prayer-global-porch' ) ,
                 'confirm_delete' => __( 'Confirm delete', 'prayer-global-porch' ) ,
                 'cancel' => esc_html__( 'Cancel', 'prayer-global-porch' ),
+                'subscribe' => esc_html__( 'Subscribe to news', 'prayer-global-porch' ),
+                'subscribed' => esc_html__( 'Subscribed', 'prayer-global-porch' ),
+                'send_general_emails_text' => wp_kses( sprintf( __( 'Send information about %1$s, %2$s, %3$s and other %4$s projects via email', 'prayer-global-porch' ), 'Prayer.Global', 'Zume', 'Pray4Movement', 'Gospel Ambition' ), 'post' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),
@@ -337,7 +340,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             ]
         );
         DT_Route::post( $namespace, 'delete_user', [ $this, 'delete_user' ] );
-        DT_Route::post( $namespace, 'update_user', [ $this, 'update_user_meta' ] );
+        DT_Route::post( $namespace, 'subscribe_to_news', [ $this, 'subscribe_to_news' ] );
     }
 
     public function endpoint( WP_REST_Request $request ) {
@@ -412,6 +415,17 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         return get_user_by( 'login', $username );
     }
 
+    public function subscribe_to_news() {
+        $user_id = get_current_user_id();
+
+        if ( !$user_id ) {
+            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
+        }
+
+        pg_connect_to_crm();
+
+        return true;
+    }
     /**
      * Update the user's data
      *

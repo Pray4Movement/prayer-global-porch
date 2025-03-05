@@ -14,6 +14,10 @@ export class PgSettings extends PageBase {
 
   @state()
   deleteInputValue: string = "";
+  @state()
+  subscribing: boolean = false;
+  @state()
+  subscribed: boolean = false;
 
   constructor() {
     super();
@@ -28,17 +32,24 @@ export class PgSettings extends PageBase {
     history.back();
   }
 
-  private onSendGeneralEmailsChange(event: Event) {
-    const id = (event.target as HTMLInputElement).id;
-    const checked = (event.target as HTMLInputElement).checked;
-    window.api_fetch(`${window.pg_global.root}pg-api/v1/profile/update_user`, {
-      method: "POST",
-      body: JSON.stringify({
-        data: {
-          [id]: checked,
-        },
-      }),
-    });
+  private onSendGeneralEmailsChange() {
+    this.subscribing = true;
+    window
+      .api_fetch(
+        `${window.pg_global.root}pg-api/v1/profile/subscribe_to_news`,
+        {
+          method: "POST",
+        }
+      )
+      .then((response: boolean) => {
+        if (response === true) {
+          this.subscribed = true;
+        }
+        s;
+      })
+      .finally(() => {
+        this.subscribing = false;
+      });
   }
 
   private openDeleteAccount() {
@@ -106,16 +117,21 @@ export class PgSettings extends PageBase {
         <hr />
         <section class="stack-sm">
           <h2 class="h5">${this.translations.communication_preferences}</h2>
-          <label class="form-group" for="send_general_emails">
-            <input
-              type="checkbox"
-              id="send_general_emails"
-              ?checked="${this.user.send_general_emails}"
-              @change=${(event: Event) => this.onSendGeneralEmailsChange(event)}
-            />
-            ${this.translations.send_general_emails_text}
-          </label>
+          <p>${this.translations.send_general_emails_text}</p>
+          <button
+            class="btn btn-primary btn-small cluster s-sm"
+            @click=${this.onSendGeneralEmailsChange}
+            ?disabled=${this.subscribed || this.subscribing}
+          >
+            ${this.subscribed
+              ? this.translations.subscribed
+              : this.translations.subscribe}
+            ${this.subscribing
+              ? html` <span class="loading-spinner active"></span> `
+              : ""}
+          </button>
         </section>
+        <hr />
         <div class="stack-md align-items-stretch">
           <a
             class="btn btn-small btn-primary-light uppercase"

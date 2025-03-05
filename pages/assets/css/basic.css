@@ -922,6 +922,23 @@ input[type="radio"]:checked {
     max-width: var(--width-lg);
 }
 
+/* Cluster */
+.cluster {
+    display: flex;
+    gap: var(--space, 1rem);
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+/* Spacing */
+
+.s-sm {
+    --space: 0.5rem;
+}
+
+/* =========== */
+
 /* Page styles */
 .pg-accordion__toggle {
     display: block;
@@ -1027,6 +1044,12 @@ button {
     --bs-btn-padding-y: 1rem;
     --bs-btn-font-weight: bold;
     box-shadow: var(--small-box-shadow);
+}
+.btn:disabled {
+    --bs-btn-disabled-bg: var(--pg-grey);
+    --bs-btn-disabled-border-color: var(--pg-grey);
+    --bs-btn-disabled-hover-bg: var(--pg-grey);
+    --bs-btn-disabled-hover-border-color: var(--pg-grey);
 }
 .btn-small {
     --bs-btn-padding-y: 0.5rem;
