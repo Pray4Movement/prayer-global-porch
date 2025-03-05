@@ -281,11 +281,10 @@ class PG_Relays_Table {
                 SELECT grid_id
                 FROM $this->relay_table
                 WHERE relay_key = '49ba4c'
-                AND epoch < UNIX_TIMESTAMP() - 10
+                AND epoch < UNIX_TIMESTAMP() - 5
                 AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c' )
                 AND grid_id NOT IN ( $mem_already_giving_out_sql )
-                ORDER BY epoch,
-                RAND()
+                ORDER BY epoch
                 LIMIT 500
             " );
             if ( false === $locations ) {
@@ -307,7 +306,7 @@ class PG_Relays_Table {
                 SELECT grid_id
                 FROM $this->relay_table
                 WHERE relay_key = ?
-                AND epoch < UNIX_TIMESTAMP() - 10
+                AND epoch < UNIX_TIMESTAMP() - 5
                 AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = ?)
                 AND grid_id NOT IN ( $mem_already_giving_out_sql )
                 ORDER BY 
@@ -316,8 +315,7 @@ class PG_Relays_Table {
                     WHERE relay_key = '49ba4c'
                     AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c'))
                 then 0 else 1 end,
-                epoch,
-                RAND()
+                epoch
                 LIMIT 500;
             ", [ $relay_key, $relay_key ] );
 
