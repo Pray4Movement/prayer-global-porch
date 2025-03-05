@@ -213,6 +213,11 @@ class PG_Relays_Table {
         }
 
         if ( class_exists( 'Memcached' ) && $memcached_server ){
+            $recently_promised_locations = $memcached->get( $key );
+            // If no data exists, initialize an empty array
+            if ( $recently_promised_locations === false ) {
+                $recently_promised_locations = [];
+            }
             array_unshift( $recently_promised_locations, $next_location['grid_id'] );
             $recently_promised_locations = array_slice( $recently_promised_locations, 0, 100 );
             $memcached->set( $key, $recently_promised_locations, 3600 );
