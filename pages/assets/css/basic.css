@@ -937,6 +937,10 @@ input[type="radio"]:checked {
     --space: 0.5rem;
 }
 
+.pb-10 {
+    padding-bottom: 8rem;
+}
+
 /* =========== */
 
 /* Page styles */

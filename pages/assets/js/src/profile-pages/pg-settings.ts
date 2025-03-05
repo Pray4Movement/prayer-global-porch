@@ -11,6 +11,10 @@ export class PgSettings extends PageBase {
 
   @state()
   showDeleteAccount: boolean = false;
+  @state()
+  showEditAccount: boolean = false;
+  @state()
+  saving: boolean = false;
 
   @state()
   deleteInputValue: string = "";
@@ -32,7 +36,7 @@ export class PgSettings extends PageBase {
     history.back();
   }
 
-  private onSendGeneralEmailsChange() {
+  private subsribeToNews() {
     this.subscribing = true;
     window
       .api_fetch(
@@ -45,13 +49,35 @@ export class PgSettings extends PageBase {
         if (response === true) {
           this.subscribed = true;
         }
-        s;
       })
       .finally(() => {
         this.subscribing = false;
       });
   }
 
+  private openEditAccount() {
+    this.showEditAccount = true;
+  }
+  private closeEditAccount() {
+    this.showEditAccount = false;
+  }
+  private editAccount() {
+    // TO DO: implement account saving logic here
+    // For example, you could make an API call to save the account data
+    window
+      .api_fetch(`${window.pg_global.root}pg-api/v1/profile/save_account`, {
+        method: "POST",
+        body: JSON.stringify({
+          // include relevant account data here, e.g. user ID, display name, etc.
+        }),
+      })
+      .then((response: any) => {
+        // handle response from API call
+      })
+      .catch((error: any) => {
+        // handle error from API call
+      });
+  }
   private openDeleteAccount() {
     this.showDeleteAccount = true;
   }
@@ -78,7 +104,7 @@ export class PgSettings extends PageBase {
         </button>
         <h3 class="mb-0 me-auto">${this.translations.profile}</h3>
       </div>
-      <div class="container-md stack-md">
+      <div class="container-md stack-md pb-10">
         <section>
           <table class="table">
             <tbody>
@@ -110,7 +136,10 @@ export class PgSettings extends PageBase {
               </tr>
             </tbody>
           </table>
-          <button class="mx-auto d-block brand-lightest">
+          <button
+            class="mx-auto d-block brand-lightest"
+            @click=${this.openEditAccount}
+          >
             ${this.translations.edit}
           </button>
         </section>
@@ -120,7 +149,7 @@ export class PgSettings extends PageBase {
           <p>${this.translations.send_general_emails_text}</p>
           <button
             class="btn btn-primary btn-small cluster s-sm"
-            @click=${this.onSendGeneralEmailsChange}
+            @click=${this.subsribeToNews}
             ?disabled=${this.subscribed || this.subscribing}
           >
             ${this.subscribed
@@ -153,9 +182,7 @@ export class PgSettings extends PageBase {
         ?open=${this.showDeleteAccount}
         @close=${() => this.closeDeleteAccount()}
       >
-        <div slot="title">
-          <h2 class="h5">${this.translations.delete_account}</h2>
-        </div>
+        <h2 slot="title" class="h5">${this.translations.delete_account}</h2>
         <i slot="close-icon" class="icon pg-close brand-light two-em"></i>
         <div slot="body">
           <p>${this.translations.delete_account_confirmation}</p>
@@ -193,6 +220,79 @@ export class PgSettings extends PageBase {
             @click=${() => this.deleteAccount()}
           >
             ${this.translations.delete_account}
+          </button>
+        </div>
+      </pg-modal>
+
+      <pg-modal ?open=${this.showEditAccount} @close=${this.closeEditAccount}>
+        <h2 slot="title" class="h5">${this.translations.edit_account}</h2>
+        <i slot="close-icon" class="icon pg-close brand-light two-em"></i>
+        <div slot="body">
+          <div class="stack-md align-items-stretch">
+            <label for="name">
+              ${this.translations.name}
+              <input
+                required
+                type="text"
+                name="name"
+                id="name"
+                class="form-control"
+                placeholder=${this.translations.name}
+                value=${this.user.display_name}
+              />
+            </label>
+            <div id="mapbox-wrapper">
+              <div
+                id="mapbox-autocomplete"
+                class="mapbox-autocomplete"
+                data-autosubmit="false"
+                data-add-address="true"
+              >
+                <div class="input-group mb-2">
+                  <input
+                    id="mapbox-search"
+                    type="text"
+                    name="mapbox_search"
+                    class="form-control"
+                    autocomplete="off"
+                    placeholder=${this.translations.select_location}
+                  />
+                  <button
+                    id="mapbox-clear-autocomplete"
+                    class="btn btn-small btn-secondary d-flex align-items-center"
+                    type="button"
+                    title=${this.translations.delete_location}
+                    style=""
+                  >
+                    <i class="icon pg-close one-rem lh-small"></i>
+                  </button>
+                </div>
+                <div class="mapbox-error-message text-danger small"></div>
+                <div id="mapbox-spinner-button" style="display: none;">
+                  <span class="loading-spinner active"></span>
+                </div>
+                <div
+                  id="mapbox-autocomplete-list"
+                  class="mapbox-autocomplete-items"
+                ></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div slot="footer">
+          <button
+            type="button"
+            class="btn btn-outline-primary"
+            @click=${this.closeEditAccount}
+          >
+            ${this.translations.cancel}
+          </button>
+          <button
+            class="btn btn-primary"
+            ?disabled=${this.saving}
+            @click=${this.editAccount}
+          >
+            ${this.translations.save}
           </button>
         </div>
       </pg-modal>

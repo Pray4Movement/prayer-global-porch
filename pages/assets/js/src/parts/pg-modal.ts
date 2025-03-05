@@ -93,9 +93,9 @@ class PgModal extends LitElement {
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id=${this.modalId + "_label"}>
+              <div class="modal-title" id=${this.modalId + "_label"}>
                 <slot name="title"></slot>
-              </h5>
+              </div>
               <button
                 type="button"
                 class="btn-close"
