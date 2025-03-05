@@ -1,7 +1,7 @@
 import { html } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { PageBase } from "./page-base";
-import { User } from "../interfaces";
+import { Language, User } from "../interfaces";
 
 @customElement("pg-settings")
 export class PgSettings extends PageBase {
@@ -207,14 +207,14 @@ export class PgSettings extends PageBase {
         <div slot="footer">
           <button
             type="button"
-            class="btn btn-outline-primary"
+            class="btn btn-outline-primary btn-small"
             @click=${() => this.closeDeleteAccount()}
           >
             ${this.translations.cancel}
           </button>
           <button
             type="button"
-            class="btn btn-primary"
+            class="btn btn-primary btn-small"
             id="delete-account-button"
             ?disabled=${this.deleteInputValue !== "delete"}
             @click=${() => this.deleteAccount()}
@@ -228,9 +228,9 @@ export class PgSettings extends PageBase {
         <h2 slot="title" class="h5">${this.translations.edit_account}</h2>
         <i slot="close-icon" class="icon pg-close brand-light two-em"></i>
         <div slot="body">
-          <div class="stack-md align-items-stretch">
+          <div class="stack-sm align-items-stretch">
             <label for="name">
-              ${this.translations.name}
+              ${this.translations.name_text}
               <input
                 required
                 type="text"
@@ -241,54 +241,82 @@ export class PgSettings extends PageBase {
                 value=${this.user.display_name}
               />
             </label>
-            <div id="mapbox-wrapper">
-              <div
-                id="mapbox-autocomplete"
-                class="mapbox-autocomplete"
-                data-autosubmit="false"
-                data-add-address="true"
-              >
-                <div class="input-group mb-2">
-                  <input
-                    id="mapbox-search"
-                    type="text"
-                    name="mapbox_search"
-                    class="form-control"
-                    autocomplete="off"
-                    placeholder=${this.translations.select_location}
-                  />
-                  <button
-                    id="mapbox-clear-autocomplete"
-                    class="btn btn-small btn-secondary d-flex align-items-center"
-                    type="button"
-                    title=${this.translations.delete_location}
-                    style=""
-                  >
-                    <i class="icon pg-close one-rem lh-small"></i>
-                  </button>
-                </div>
-                <div class="mapbox-error-message text-danger small"></div>
-                <div id="mapbox-spinner-button" style="display: none;">
-                  <span class="loading-spinner active"></span>
-                </div>
+            <label for="mapbox-search">
+              ${this.translations.location_text}
+              <div id="mapbox-wrapper">
                 <div
-                  id="mapbox-autocomplete-list"
-                  class="mapbox-autocomplete-items"
-                ></div>
+                  id="mapbox-autocomplete"
+                  class="mapbox-autocomplete"
+                  data-autosubmit="false"
+                  data-add-address="true"
+                >
+                  <div class="input-group mb-2">
+                    <input
+                      id="mapbox-search"
+                      type="text"
+                      name="mapbox_search"
+                      class="form-control"
+                      autocomplete="off"
+                      placeholder=${this.translations.select_location}
+                    />
+                    <button
+                      id="mapbox-clear-autocomplete"
+                      class="btn btn-small btn-secondary d-flex align-items-center"
+                      type="button"
+                      title=${this.translations.delete_location}
+                      style=""
+                    >
+                      <i class="icon pg-close one-rem lh-small"></i>
+                    </button>
+                  </div>
+                  <div class="mapbox-error-message text-danger small"></div>
+                  <div id="mapbox-spinner-button" style="display: none;">
+                    <span class="loading-spinner active"></span>
+                  </div>
+                  <div
+                    id="mapbox-autocomplete-list"
+                    class="mapbox-autocomplete-items"
+                  ></div>
+                </div>
               </div>
-            </div>
+            </label>
+            <label for="language">
+              ${this.translations.language}
+              <select class="form-select" id="language">
+                ${Object.entries(window.jsObject.enabled_languages).map(
+                  ([code, language]) => {
+                    const dtLang =
+                      window.jsObject.languages[
+                        (language as Language).parent_code
+                      ];
+                    const currentLanguage = window.jsObject.current_language;
+                    if (dtLang.native_name) {
+                      const name = dtLang.native_name;
+                      return html`
+                        <option
+                          value=${code}
+                          ?selected=${currentLanguage === code}
+                        >
+                          ${dtLang.flag} ${name}
+                        </option>
+                      `;
+                    }
+                  }
+                )}
+              </select>
+            </label>
           </div>
         </div>
         <div slot="footer">
           <button
             type="button"
-            class="btn btn-outline-primary"
+            class="btn btn-outline-primary btn-small"
             @click=${this.closeEditAccount}
           >
             ${this.translations.cancel}
           </button>
           <button
-            class="btn btn-primary"
+            class="btn btn-primary btn-small"
             ?disabled=${this.saving}
             @click=${this.editAccount}
           >
