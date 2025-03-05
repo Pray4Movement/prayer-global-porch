@@ -190,37 +190,13 @@ class PG_Relays_Table {
 
     public function get_next_grid_id( $relay_key ) {
         /* Get locations which haven't been prayed for yet this lap, and haven't been promised in the last minute */
-        $key = 'last_100_results_' . $relay_key;
-        $recently_promised_locations = [];
-        $memcached_server = false;
-        if ( class_exists( 'Memcached' ) ) {
-            $memcached = new Memcached();
-            $memcached_server = $memcached->addServer( '127.0.0.1', 11211 );
-            $recently_promised_locations = $memcached->get( $key );
-            // If no data exists, initialize an empty array
-            if ( $recently_promised_locations === false ) {
-                $recently_promised_locations = [];
-            }
-        }
-
-        $next_location = $this->query_needed_locations_not_recently_promised( $relay_key, $recently_promised_locations );
+        $next_location = $this->query_needed_locations_not_recently_promised( $relay_key );
 
         /* IF even that fails, then just give a random location */
         if ( empty( $next_location ) ) {
             require 'pg-query-4770-locations.php';
             $list_4770 = pg_query_4770_locations();
             $next_location['grid_id'] = $this->get_random_item( $list_4770 );
-        }
-
-        if ( class_exists( 'Memcached' ) && $memcached_server ){
-            $recently_promised_locations = $memcached->get( $key );
-            // If no data exists, initialize an empty array
-            if ( $recently_promised_locations === false ) {
-                $recently_promised_locations = [];
-            }
-            array_unshift( $recently_promised_locations, $next_location['grid_id'] );
-            $recently_promised_locations = array_slice( $recently_promised_locations, 0, 100 );
-            $memcached->set( $key, $recently_promised_locations, 3600 );
         }
 
         return $next_location['grid_id'];
@@ -265,12 +241,7 @@ class PG_Relays_Table {
      * @param string $relay_key
      * @return array|object|null
      */
-    private function query_needed_locations_not_recently_promised( string $relay_key, $mem_already_giving_out = [] ) {
-        if ( empty( $mem_already_giving_out ) ) {
-            $mem_already_giving_out_sql = '1';
-        } else {
-            $mem_already_giving_out_sql = $this->pg_array_to_sql( $mem_already_giving_out );
-        }
+    private function query_needed_locations_not_recently_promised( string $relay_key ) {
         if ( $relay_key === '49ba4c' ) {
             /**
              * Prioritize locations that haven't been prayed for yet this lap
@@ -283,7 +254,6 @@ class PG_Relays_Table {
                 WHERE relay_key = '49ba4c'
                 AND epoch < UNIX_TIMESTAMP() - 5
                 AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c' )
-                AND grid_id NOT IN ( $mem_already_giving_out_sql )
                 ORDER BY epoch
                 LIMIT 500
             " );
@@ -309,8 +279,8 @@ class PG_Relays_Table {
                 WHERE r1.relay_key = ?
                 AND r1.epoch < UNIX_TIMESTAMP() - 5
                 AND r1.total = ( SELECT MIN(total) FROM $this->relay_table WHERE relay_key = ? )
+                AND r2.epoch < UNIX_TIMESTAMP() - 60 
                 AND r2.total = ( SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c' )
-                AND r1.grid_id NOT IN ( $mem_already_giving_out_sql )
                 ORDER BY 
                 r1.epoch
                 LIMIT 500;
@@ -327,7 +297,6 @@ class PG_Relays_Table {
                     WHERE relay_key = ?
                     AND epoch < UNIX_TIMESTAMP() - 5
                     AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = ?)
-                    AND grid_id NOT IN ( $mem_already_giving_out_sql )
                     ORDER BY 
                     epoch
                     LIMIT 500;
@@ -342,6 +311,10 @@ class PG_Relays_Table {
             $grid_id = $this->get_random_item( $locations );
             return [ 'grid_id' => $grid_id ];
         }
+    }
+
+    public static function __callStatic( string $name, array $arguments ){
+        // TODO: Implement __callStatic() method.
     }
 
     private function get_random_item( array $items ) {
