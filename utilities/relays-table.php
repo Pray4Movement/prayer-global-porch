@@ -308,7 +308,11 @@ class PG_Relays_Table {
                 WHERE relay_key = ?
                 AND epoch < UNIX_TIMESTAMP() - 5
                 AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = ?)
-                AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c')
+                AND grid_id IN (
+                    SELECT grid_id FROM $this->relay_table 
+                    WHERE relay_key = '49ba4c' 
+                    AND total = ( SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c' )
+                )
                 AND grid_id NOT IN ( $mem_already_giving_out_sql )
                 ORDER BY 
                 epoch
