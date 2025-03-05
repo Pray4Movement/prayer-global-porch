@@ -303,19 +303,16 @@ class PG_Relays_Table {
         } else {
             //get location and prioritize ones from relay 49ba4c
             $locations = $this->mysqli->execute_query("
-                SELECT grid_id
-                FROM $this->relay_table
-                WHERE relay_key = ?
-                AND epoch < UNIX_TIMESTAMP() - 5
-                AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = ?)
-                AND grid_id IN (
-                    SELECT grid_id FROM $this->relay_table 
-                    WHERE relay_key = '49ba4c' 
-                    AND total = ( SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c' )
-                )
-                AND grid_id NOT IN ( $mem_already_giving_out_sql )
+                SELECT r1.grid_id
+                FROM $this->relay_table r1
+                JOIN $this->relay_table r2 ON ( r2.relay_key = '49ba4c' AND r1.grid_id = r2.grid_id )
+                WHERE r1.relay_key = ?
+                AND r1.epoch < UNIX_TIMESTAMP() - 5
+                AND r1.total = ( SELECT MIN(total) FROM $this->relay_table WHERE relay_key = ? )
+                AND r2.total = ( SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c' )
+                AND r1.grid_id NOT IN ( $mem_already_giving_out_sql )
                 ORDER BY 
-                epoch
+                r1.epoch
                 LIMIT 500;
             ", [ $relay_key, $relay_key ] );
 
