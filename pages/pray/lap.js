@@ -387,11 +387,17 @@ function ip_location() {
   window.user_location = user_location ? JSON.parse(user_location) : null;
   if ( !window.user_location || window.user_location === "undefined" || ( window.user_location.date_set && window.user_location.date_set < Date.now() - 604800000 /*7 days in milliseconds*/ ) ) {
     return window
-      .api_fetch(`${window.pg_global.root}pg-api/v1/user/ip_location`, {
-        method: "POST",
+      .api_fetch(`https://geo.prayer.global/json`, {
+        method: "GET",
       })
-      .then(function (location) {
-        if (location) {
+      .then(function (response) {
+        if (response) {
+          const location = {
+            lat: response.location.latitude,
+            lng: response.location.longitude,
+            label: `${response.city?.names?.en}, ${response.country?.names?.en}`,
+            country: response.country?.names?.en,
+          }
           location.date_set = Date.now();
           let pg_user_hash = localStorage.getItem("pg_user_hash");
           if (!pg_user_hash || pg_user_hash === "undefined") {
