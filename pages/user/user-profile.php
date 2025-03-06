@@ -548,20 +548,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
     }
 
     public function save_details( WP_REST_Request $request ) {
-        $params = $request->get_params();
-
-        $params = dt_recursive_sanitize_array( $params );
-
-        if ( !isset( $params['location'], $params['display_name'] ) ) {
-            return new WP_Error( __METHOD__, 'Missing location or display_name', [ 'status' => 400 ] );
-        }
-
-        $location = $params['location'];
-        $display_name = $params['display_name'];
-
-        if ( !isset( $location['lat'], $location['lng'], $location['label'], $location['level'] ) ) {
-            return new WP_Error( __METHOD__, 'Missing lat, lng, label or level', [ 'status' => 400 ] );
-        }
 
         $user_id = get_current_user_id();
 
@@ -569,40 +555,58 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
         }
 
-        /* Get the grid_id for this lat lng */
-        $geocoder = new Location_Grid_Geocoder();
+        $params = $request->get_params();
 
-        $lat = (float) $location['lat'];
-        $lng = (float) $location['lng'];
-        $label = sanitize_text_field( wp_unslash( $location['label'] ) );
+        $params = dt_recursive_sanitize_array( $params );
 
-        $grid_row = $geocoder->get_grid_id_by_lnglat( $lng, $lat );
+        $result = [];
 
-        $old_location = get_user_meta( get_current_user_id(), PG_NAMESPACE . 'location', true );
+        if ( isset( $params['display_name'] ) ) {
+            $display_name = $params['display_name'];
 
-        $location['grid_id'] = $grid_row ? $grid_row['grid_id'] : false;
-        $location['lat'] = strval( $lat );
-        $location['lng'] = strval( $lng );
-        $location['country'] = $this->_extract_country_from_label( $label );
-        $location['hash'] = $old_location ? $old_location['hash'] : '';
+            $success = wp_update_user( [
+                'ID' => $user_id,
+                'display_name' => $display_name,
+            ] );
 
-        $this->update_user_meta( [
-            'location' => $location,
-        ] );
+            if ( is_wp_error( $success ) ) {
+                $display_name = '';
+            }
 
-        $return = wp_update_user( [
-            'ID' => $user_id,
-            'display_name' => $display_name,
-        ] );
-
-        if ( is_wp_error( $return ) ) {
-            $display_name = '';
+            $result['display_name'] = $display_name;
         }
 
-        return [
-            'location' => $location,
-            'display_name' => $display_name,
-        ];
+        if ( isset( $params['location'] ) ) {
+            $location = $params['location'];
+            if ( !isset( $location['lat'], $location['lng'], $location['label'], $location['level'] ) ) {
+                return new WP_Error( __METHOD__, 'Missing lat, lng, label or level', [ 'status' => 400 ] );
+            }
+
+            /* Get the grid_id for this lat lng */
+            $geocoder = new Location_Grid_Geocoder();
+
+            $lat = (float) $location['lat'];
+            $lng = (float) $location['lng'];
+            $label = sanitize_text_field( wp_unslash( $location['label'] ) );
+
+            $grid_row = $geocoder->get_grid_id_by_lnglat( $lng, $lat );
+
+            $old_location = get_user_meta( get_current_user_id(), PG_NAMESPACE . 'location', true );
+
+            $location['grid_id'] = $grid_row ? $grid_row['grid_id'] : false;
+            $location['lat'] = strval( $lat );
+            $location['lng'] = strval( $lng );
+            $location['country'] = $this->_extract_country_from_label( $label );
+            $location['hash'] = $old_location ? $old_location['hash'] : '';
+
+            $this->update_user_meta( [
+                'location' => $location,
+            ] );
+
+            $result['location'] = $location;
+        }
+
+        return $result;
     }
 
     public function link_anonymous_prayers( $data ) {
