@@ -11,5 +11,6 @@ declare global {
     pg_global: any;
     jsObject: any;
     api_fetch: Function;
+    location_data: any;
   }
 }

@@ -1,7 +1,7 @@
 import { html } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { PageBase } from "./page-base";
-import { Language, User } from "../interfaces";
+import { Language, Location, User } from "../interfaces";
 
 @customElement("pg-settings")
 export class PgSettings extends PageBase {
@@ -16,8 +16,6 @@ export class PgSettings extends PageBase {
   saving: boolean = false;
   @state()
   name: string = this.user.display_name;
-  @state()
-  location: string = this.user.location ? this.user.location.label : "";
 
   @state()
   showDeleteAccount: boolean = false;
@@ -69,19 +67,33 @@ export class PgSettings extends PageBase {
   }
   private editAccount() {
     // TO DO: implement account saving logic here
+    this.user.display_name = this.name;
+    this.saving = true;
+
+    const data: Record<string, any> = {
+      display_name: this.name,
+    };
+
+    if (
+      window.location_data &&
+      window.location_data.location_grid_meta &&
+      window.location_data.location_grid_meta.values &&
+      Array.isArray(window.location_data.location_grid_meta.values) &&
+      window.location_data.location_grid_meta.values.length > 0
+    ) {
+      data["location"] = window.location_data.location_grid_meta.values[0];
+      this.user = { ...this.user, location: data["location"] };
+    }
+
     // For example, you could make an API call to save the account data
     window
-      .api_fetch(`${window.pg_global.root}pg-api/v1/profile/save_account`, {
+      .api_fetch(`${window.pg_global.root}pg-api/v1/profile/save_details`, {
         method: "POST",
-        body: JSON.stringify({
-          // include relevant account data here, e.g. user ID, display name, etc.
-        }),
+        body: JSON.stringify(data),
       })
-      .then((response: any) => {
-        // handle response from API call
-      })
-      .catch((error: any) => {
-        // handle error from API call
+      .finally(() => {
+        this.closeEditAccount();
+        this.saving = false;
       });
   }
   private openDeleteAccount() {
@@ -100,6 +112,9 @@ export class PgSettings extends PageBase {
           window.location.href = "/";
         }
       });
+  }
+  handleChangeName(value: string) {
+    this.name = value;
   }
 
   render() {
@@ -245,6 +260,10 @@ export class PgSettings extends PageBase {
                 class="form-control"
                 placeholder=${this.translations.name}
                 value=${this.user.display_name}
+                @change=${(event: Event) =>
+                  this.handleChangeName(
+                    (event.target as HTMLInputElement).value
+                  )}
               />
             </label>
             <label for="mapbox-search">
@@ -290,7 +309,7 @@ export class PgSettings extends PageBase {
               ${this.translations.language}
               <select class="form-select" id="language">
                 ${Object.entries(
-                  window.jsObject.enabled_languages as Record<string, Language>
+                  window.jsObject.languages as Record<string, Language>
                 ).map(([code, language]) => {
                   return html`
                     <option

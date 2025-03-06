@@ -8,6 +8,10 @@ export interface User {
 export interface Location {
   source: string;
   label: string;
+  lat: number;
+  lng: number;
+  level: string;
+  grid_id: number;
 }
 
 export interface Language {

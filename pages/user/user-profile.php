@@ -137,7 +137,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),
             'user' => PG_User_API::get_user(),
-            'enabled_languages' => pg_enabled_translations(),
+            'languages' => pg_enabled_translations(),
             'current_language' => pg_get_current_lang(),
         ] );
     }
@@ -345,6 +345,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         );
         DT_Route::post( $namespace, 'delete_user', [ $this, 'delete_user' ] );
         DT_Route::post( $namespace, 'subscribe_to_news', [ $this, 'subscribe_to_news' ] );
+        DT_Route::post( $namespace, 'save_details', [ $this, 'save_details' ] );
     }
 
     public function endpoint( WP_REST_Request $request ) {
@@ -362,8 +363,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 return $this->get_user_activity( $params['data'] );
             case 'ip_location':
                 return $this->get_ip_location( $params['data'] );
-            case 'save_details':
-                return $this->save_details( $params['data'] );
             case 'link_anonymous_prayers':
                 return $this->link_anonymous_prayers( $params['data'] );
             case 'create_challenge':
@@ -433,20 +432,14 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
     /**
      * Update the user's data
      *
-     * @param WP_REST_Request $request
+     * @param array $data
      * @return bool|WP_Error
      */
-    public function update_user_meta( WP_REST_Request $request ) {
+    public function update_user_meta( $data ) {
         $user_id = get_current_user_id();
 
         if ( !$user_id ) {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
-        }
-
-        $data = $request->get_param( 'data' );
-
-        if ( empty( $data ) ) {
-            return new WP_Error( __METHOD__, 'No data given', [ 'status' => 400, ] );
         }
 
         foreach ( $data as $meta_key => $meta_value ) {
@@ -554,13 +547,17 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         return $data;
     }
 
-    public function save_details( $data ) {
-        if ( !isset( $data['location'], $data['display_name'] ) ) {
+    public function save_details( WP_REST_Request $request ) {
+        $params = $request->get_params();
+
+        $params = dt_recursive_sanitize_array( $params );
+
+        if ( !isset( $params['location'], $params['display_name'] ) ) {
             return new WP_Error( __METHOD__, 'Missing location or display_name', [ 'status' => 400 ] );
         }
 
-        $location = $data['location'];
-        $display_name = $data['display_name'];
+        $location = $params['location'];
+        $display_name = $params['display_name'];
 
         if ( !isset( $location['lat'], $location['lng'], $location['label'], $location['level'] ) ) {
             return new WP_Error( __METHOD__, 'Missing lat, lng, label or level', [ 'status' => 400 ] );
