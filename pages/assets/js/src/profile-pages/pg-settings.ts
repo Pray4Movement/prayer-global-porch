@@ -92,6 +92,11 @@ export class PgSettings extends PageBase {
         body: JSON.stringify(data),
       })
       .finally(() => {
+        if (this.language && this.language.po_code !== this.currentLanguage) {
+          const urlParams = new URLSearchParams(window.location.search);
+          urlParams.set("lang", this.language.po_code);
+          window.location.search = urlParams.toString();
+        }
         this.closeEditAccount();
         this.saving = false;
       });
@@ -115,6 +120,10 @@ export class PgSettings extends PageBase {
   }
   handleChangeName(value: string) {
     this.name = value;
+  }
+  handleChangeLanguage(event: Event) {
+    const selectedLanguage = (event.target as HTMLSelectElement).value;
+    this.language = window.jsObject.languages[selectedLanguage] ?? null;
   }
 
   render() {
@@ -307,7 +316,11 @@ export class PgSettings extends PageBase {
             </label>
             <label for="language">
               ${this.translations.language}
-              <select class="form-select" id="language">
+              <select
+                class="form-select"
+                id="language"
+                @click=${this.handleChangeLanguage}
+              >
                 ${Object.entries(
                   window.jsObject.languages as Record<string, Language>
                 ).map(([code, language]) => {
