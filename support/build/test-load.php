@@ -78,7 +78,7 @@ class Prayer_Global_Test_Load extends DT_Magic_Url_Base
     public function footer_javascript(){
         require_once( WP_CONTENT_DIR . '/plugins/prayer-global-porch/pages/assets/footer.php' );
 
-        $global_lap = pg_current_global_lap();
+        $global_lap = Prayer_Stats::get_relay_current_lap();
         global $wpdb;
         $jsobject = [
             'map_key' => DT_Mapbox_API::get_key(),

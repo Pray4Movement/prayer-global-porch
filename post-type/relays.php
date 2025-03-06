@@ -2,22 +2,22 @@
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 /**
- * Class Prayer_Global_Laps_Post_Type
+ * Class Prayer_Global_Relays_Post_Type
  * Load the core post type hooks into the Disciple.Tools system
  */
-class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
+class Prayer_Global_Relays_Post_Type extends DT_Module_Base {
 
     /**
      * Define post type variables
      * @todo update these variables with your post_type, module key, and names.
      * @var string
      */
-    public $post_type = 'laps';
-    public $module = 'laps_base';
-    public $single_name = 'Lap';
-    public $plural_name = 'Laps';
+    public $post_type = 'pg_relays';
+    public $module = 'relays_base';
+    public $single_name = 'relay';
+    public $plural_name = 'Relays';
     public static function post_type(){
-        return 'laps';
+        return 'pg_relays';
     }
 
     private static $_instance = null;
@@ -83,7 +83,7 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
             $expected_roles['prayer_warrior'] = [
 
                 'label' => __( 'Prayer Intercessor', 'prayer-global-porch' ),
-                'description' => 'Interacts with Laps and Feedback',
+                'description' => 'Interacts with Relays and Feedback',
                 'permissions' => []
             ];
         }
@@ -116,22 +116,23 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
 
             $fields['type'] = [
                 'name'        => __( 'Type', 'prayer-global-porch' ),
-                'description' => __( 'Type of Lap', 'prayer-global-porch' ),
+                'description' => __( 'Type of relay', 'prayer-global-porch' ),
                 'type'        => 'key_select',
                 'default'     => [
                     'custom' => [
                         'label' => __( 'Custom', 'prayer-global-porch' ),
-                        'description' => __( 'Custom laps', 'prayer-global-porch' ),
+                        'description' => __( 'Custom relays', 'prayer-global-porch' ),
+                        'default' => true,
                     ],
                     'global'   => [
                         'label' => __( 'Global (Auto)', 'prayer-global-porch' ),
-                        'description' => __( 'Do not manually create! System creates new laps when ready.', 'prayer-global-porch' ),
+                        'description' => __( 'Do not manually create! System creates new relays when ready.', 'prayer-global-porch' ),
+                        'hidden' => true,
                     ]
                 ],
                 'tile'     => 'status',
                 'icon' => get_template_directory_uri() . '/dt-assets/images/nametag.svg',
                 'default_color' => '#366184',
-                'show_in_table' => 1,
             ];
 
             $fields['status'] = [
@@ -172,7 +173,7 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
             ];
             $fields['ctas_off'] = [
                 'name' => __( 'Turn the CTAs off', 'prayer-global-porch' ),
-                'description' => __( 'Tick this box to turn the Call to Actions (CTAs) off for this lap', 'prayer-global-porch' ),
+                'description' => __( 'Tick this box to turn the Call to Actions (CTAs) off for this relay', 'prayer-global-porch' ),
                 'type' => 'boolean',
                 'tile' => 'status',
                 'default' => false,
@@ -216,26 +217,25 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
                 'hidden' => false,
             ];
 
-            $fields['global_lap_number'] = [
-                'name'        => __( 'Global Lap Number', 'prayer-global-porch' ),
-                'description' => '',
-                'type'        => 'text',
-                'default'     => '1',
-                'tile' => 'details',
-                'hidden' => false,
-            ];
-            $fields['prayer_app_global_magic_key'] = [
-                'name'        => __( 'Global Key', 'prayer-global-porch' ),
+            $fields['prayer_app_relay_key'] = [
+                'name'        => __( 'Relay Key', 'prayer-global-porch' ),
                 'description' => '',
                 'type'        => 'text',
                 'default'     => substr( md5( rand( 10000, 100000 ) ), 0, 3 ) . substr( md5( rand( 10000, 100000 ) ), 0, 3 ),
+                'tile' => 'details',
+            ];
+            $fields['prayer_app_global_magic_key'] = [
+                'name'        => __( 'Global Key (TBD)', 'prayer-global-porch' ),
+                'description' => 'soon to be deprecated',
+                'type'        => 'text',
+                'default'     => '',
                 'tile' => 'details',
             ];
             $fields['prayer_app_custom_magic_key'] = [
-                'name'        => __( 'Custom Key', 'prayer-global-porch' ),
-                'description' => '',
+                'name'        => __( 'Custom Key (TBD)', 'prayer-global-porch' ),
+                'description' => 'soon to be deprecated',
                 'type'        => 'text',
-                'default'     => substr( md5( rand( 10000, 100000 ) ), 0, 3 ) . substr( md5( rand( 10000, 100000 ) ), 0, 3 ),
+                'default'     => '',
                 'tile' => 'details',
             ];
             $fields['visibility'] = [
@@ -245,11 +245,11 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
                 'default' => [
                     'public'   => [
                         'label' => __( 'Public', 'prayer-global-porch' ),
-                        'description' => __( 'This lap is public and will show up on the public list of challenges', 'prayer-global-porch' ),
+                        'description' => __( 'This relay is public and will show up on the public list of challenges', 'prayer-global-porch' ),
                     ],
                     'private'   => [
                         'label' => __( 'Private', 'prayer-global-porch' ),
-                        'description' => __( "This lap is private and won't show up on the public list of challenges", 'prayer-global-porch' ),
+                        'description' => __( "This relay is private and won't show up on the public list of challenges", 'prayer-global-porch' ),
                     ],
                 ],
                 'select_cannot_be_empty' => true,
@@ -273,17 +273,17 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
                 'font-icon' => 'mdi mdi-arm-flex-outline',
             ];
             $fields['single_lap'] = [
-                'name' => __( 'Single lap', 'prayer-global-porch' ),
-                'description' => __( 'Is this lap only to run once and then stop', 'prayer-global-porch' ),
+                'name' => __( 'Single Lap', 'prayer-global-porch' ),
+                'description' => __( 'Is this relay only to run one lap and then stop', 'prayer-global-porch' ),
                 'type' => 'boolean',
                 'tile' => 'details',
                 'default' => false,
                 'in_create_form' => true,
                 'hidden' => false,
             ];
-            $fields['event_lap'] = [
-                'name' => __( 'Event lap', 'prayer-global-porch' ),
-                'description' => __( 'Is this lap to be run in an event', 'prayer-global-porch' ),
+            $fields['event_relay'] = [
+                'name' => __( 'Event relay', 'prayer-global-porch' ),
+                'description' => __( 'Is this relay to be run in an event', 'prayer-global-porch' ),
                 'type' => 'boolean',
                 'tile' => 'details',
                 'default' => false,
@@ -298,32 +298,10 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
                 'post_type' => 'contacts',
                 'p2p_direction' => 'to',
                 'p2p_key' => $this->post_type.'_to_contacts',
-                'tile' => 'other',
+                'tile' => 'status',
                 'icon' => get_template_directory_uri() . '/dt-assets/images/group-type.svg',
                 'create-icon' => get_template_directory_uri() . '/dt-assets/images/add-contact.svg',
                 'show_in_table' => 35
-            ];
-            $fields['parent_lap'] = [
-                'name' => __( 'Parent Lap', 'prayer-global-porch' ),
-                'description' => 'Which lap came before this one',
-                'type' => 'connection',
-                'post_type' => $this->post_type,
-                'p2p_direction' => 'to',
-                'p2p_key' => 'parent-lap_to_child-lap',
-                'tile' => 'other',
-                'icon' => get_template_directory_uri() . '/dt-assets/images/group-type.svg',
-                'create-icon' => get_template_directory_uri() . '/dt-assets/images/add-contact.svg',
-            ];
-            $fields['child_lap'] = [
-                'name' => __( 'Child Lap', 'prayer-global-porch' ),
-                'description' => 'Which lap came after this one',
-                'type' => 'connection',
-                'post_type' => $this->post_type,
-                'p2p_direction' => 'from',
-                'p2p_key' => 'parent-lap_to_child-lap',
-                'tile' => 'other',
-                'icon' => get_template_directory_uri() . '/dt-assets/images/group-type.svg',
-                'create-icon' => get_template_directory_uri() . '/dt-assets/images/add-contact.svg',
             ];
         }
 
@@ -379,19 +357,8 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
     }
 
     public function post_connection_added( $post_type, $post_id, $field_key, $value ){
-//        if ( $post_type === $this->post_type ){
-//            if ( $field_key === "members" ){
-//                // @todo change 'members'
-//                // execute your code here, if field key match
-//            }
-//            if ( $field_key === "coaches" ){
-//                // @todo change 'coaches'
-//                // execute your code here, if field key match
-//            }
-//        }
-//        if ( $post_type === "contacts" && $field_key === $this->post_type ){
-//            // execute your code here, if a change is made in contacts and a field key is matched
-//        }
+/*         if ( $post_type === $this->post_type ){
+        } */
     }
 
     //action when a post connection is removed during create or update
@@ -430,11 +397,14 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
             if ( ! isset( $fields['status'] ) || empty( $fields['status'] ) ){
                 $fields['status'] = 'active';
             }
+            if ( ! isset( $fields['prayer_app_relay_key'] ) || empty( $fields['prayer_app_relay_key'] ) ){
+                $fields['prayer_app_relay_key'] = substr( md5( rand( 10000, 100000 ) ), 0, 3 ) . substr( md5( rand( 10000, 100000 ) ), 0, 3 );
+            }
             if ( ! isset( $fields['prayer_app_global_magic_key'] ) || empty( $fields['prayer_app_global_magic_key'] ) ){
-                $fields['prayer_app_global_magic_key'] = substr( md5( rand( 10000, 100000 ) ), 0, 3 ) . substr( md5( rand( 10000, 100000 ) ), 0, 3 );
+                $fields['prayer_app_global_magic_key'] = $fields['prayer_app_relay_key'];
             }
             if ( ! isset( $fields['prayer_app_custom_magic_key'] ) || empty( $fields['prayer_app_custom_magic_key'] ) ){
-                $fields['prayer_app_custom_magic_key'] = substr( md5( rand( 10000, 100000 ) ), 0, 3 ) . substr( md5( rand( 10000, 100000 ) ), 0, 3 );
+                $fields['prayer_app_custom_magic_key'] = $fields['prayer_app_relay_key'];
             }
             if ( ! isset( $fields['start_date'] ) || empty( $fields['start_date'] ) ){
                 $fields['start_date'] = gmdate( 'Y-m-d H:i:s', time() );
@@ -447,32 +417,19 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
     }
 
     //action when a post has been created
-    public function dt_post_created( $post_type, $post_id, $initial_fields ){
+    public function dt_post_created( $post_type, $post_id, $initial_fields ) {
+        if ( $post_type === $this->post_type ) {
+            /* Create the 4770 rows in the relays table */
+            $relay_key = pg_get_relay_key( $post_id );
 
-        // creates initial global lap
-        if ( $post_type === $this->post_type && isset( $initial_fields['type'] ) && 'global' === $initial_fields['type'] ){
-            $lap = get_option( 'pg_current_global_lap' );
-            if ( empty( $lap ) ) {
-                $post = DT_Posts::get_post( $this->post_type, $post_id, false, false );
-                update_post_meta( $post_id, 'global_lap_number', 1 );
-                if ( ! isset( $post['prayer_app_global_magic_key'] ) ) {
-                    $key = substr( md5( rand( 10000, 100000 ) ), 0, 3 ) . substr( md5( rand( 10000, 100000 ) ), 0, 3 );
-                    update_post_meta( $post_id, 'prayer_app_global_magic_key', $key );
-                    $post['prayer_app_global_magic_key'] = $key;
-                }
-                if ( ! isset( $post['start_time'] ) ) {
-                    update_post_meta( $post_id, 'start_time', time() );
-                    update_post_meta( $post_id, 'start_date', time() );
-                    $post['start_time'] = time();
-                }
-                $lap = [
-                    'lap_number' => 1,
-                    'post_id' => $post['ID'],
-                    'key' => $post['prayer_app_global_magic_key'],
-                    'start_time' => $post['start_time'],
-                ];
-                update_option( 'pg_current_global_lap', $lap, true );
-            }
+            global $wpdb;
+            $wpdb->query( $wpdb->prepare( "
+                INSERT INTO $wpdb->dt_relays
+                (relay_key, grid_id, epoch)
+                SELECT %s as relay_key, grid_id, FLOOR(RAND() * 1001) as epoch
+                FROM $wpdb->dt_relays
+                WHERE relay_key = '49ba4c'
+            ", $relay_key ) );
         }
     }
 
@@ -662,17 +619,17 @@ class Prayer_Global_Laps_Post_Type extends DT_Module_Base {
                                     'subfilter' => true
                                 ];
                             }
-//                        foreach ( $fields["type"]["default"] as $type_key => $type_value ) {
+//                        foreach ( $fields['type']['default'] as $type_key => $type_value ) {
 //                            if ( isset( $active_counts[$type_key] ) ) {
-//                                $filters["filters"][] = [
-//                                    "ID" => 'all_' . $type_key,
-//                                    "tab" => 'all',
-//                                    "name" => $type_value["label"],
-//                                    "query" => [
+//                                $filters['filters'][] = [
+//                                    'ID' => 'all_' . $type_key,
+//                                    'tab' => 'all',
+//                                    'name' => $type_value['label'],
+//                                    'query' => [
 //                                        'status' => [ 'active' ],
 //                                        'sort' => 'name'
 //                                    ],
-//                                    "count" => $active_counts[$type_key],
+//                                    'count' => $active_counts[$type_key],
 //                                    'subfilter' => true
 //                                ];
 //                            }

@@ -459,7 +459,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     SELECT pm.meta_id FROM $wpdb->posts p
                     JOIN $wpdb->postmeta pm
                     ON p.ID = pm.post_id
-                    WHERE p.post_type = 'laps'
+                    WHERE p.post_type = 'pg_relays'
                     AND pm.meta_key = 'assigned_to'
                     AND pm.meta_value = %s
                 ) x
@@ -651,7 +651,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         $user_id = get_current_user_id();
 
-        if ( !$user_id || !DT_Posts::can_create( 'laps' ) ) {
+        if ( !$user_id || !DT_Posts::can_create( 'pg_relays' ) ) {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
         }
 
@@ -678,7 +678,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         $fields['type'] = 'custom';
         $fields['single_lap'] = (bool) $data['single_lap'];
 
-        $post = DT_Posts::create_post( 'laps', $fields );
+        $post = DT_Posts::create_post( 'pg_relays', $fields );
 
         return $post;
     }
@@ -694,9 +694,9 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
         }
 
-        $old_challenge = DT_Posts::get_post( 'laps', $data['post_id'] );
+        $old_challenge = DT_Posts::get_post( 'pg_relays', $data['post_id'] );
 
-        if ( !$old_challenge || !DT_Posts::can_update( 'laps', $data['post_id'] ) ) {
+        if ( !$old_challenge || !DT_Posts::can_update( 'pg_relays', $data['post_id'] ) ) {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
         }
 
@@ -726,7 +726,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             $fields['single_lap'] = (bool) $data['single_lap'];
         }
 
-        $post = DT_Posts::update_post( 'laps', $data['post_id'], $fields );
+        $post = DT_Posts::update_post( 'pg_relays', $data['post_id'], $fields );
 
         return $post;
     }
@@ -736,7 +736,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         $user_id = get_current_user_id();
 
-        if ( !$user_id || !DT_Posts::can_access( 'laps' ) ) {
+        if ( !$user_id || !DT_Posts::can_access( 'pg_relays' ) ) {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
         }
 
@@ -758,13 +758,13 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 LEFT JOIN $wpdb->postmeta pm7 ON pm7.post_id=p.ID AND pm7.meta_key = 'end_time'
                 LEFT JOIN $wpdb->postmeta pm8 ON pm8.post_id=p.ID AND pm8.meta_key = 'challenge_type'
                 LEFT JOIN $wpdb->postmeta pm9 ON pm9.post_id=p.ID AND pm9.meta_key = 'single_lap'
-                WHERE p.post_type = 'laps'
+                WHERE p.post_type = 'pg_relays'
                 AND pm5.meta_value = %s
                 ORDER BY p.post_title
              ", $user_meta_value, $visibility ), ARRAY_A );
 
         foreach ( $results as $row ) {
-            $row['stats'] = pg_custom_lap_stats_by_post_id( $row['post_id'] );
+            $row['stats'] = Prayer_Stats::get_lap_stats( $row['post_id'] );
             $data[] = $row;
         }
 

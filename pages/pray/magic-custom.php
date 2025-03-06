@@ -22,7 +22,7 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
         'event' => 'Event',
     ];
     public $show_bulk_send = false;
-    public $post_type = 'laps';
+    public $post_type = 'pg_relays';
     private $meta_key = '';
     public $show_app_tile = true;
     public $stats = [];
@@ -62,37 +62,52 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
             return;
         }
 
+        $relay_post_id = pg_get_relay_id( $this->parts['public_key'] );
+
+        if ( !$relay_post_id ) {
+            return;
+        }
+
+        $this->parts['post_id'] = $relay_post_id;
+
         add_filter( 'dt_override_header_meta', function (){ return true;
         }, 1000, 1 );
 
+        add_action( 'disciple_tools_loaded', [ $this, 'disciple_tools_loaded' ] );
+    }
+
+    public function disciple_tools_loaded(){
+
+        $action = $this->parts['action'];
         // load different actions
-        if ( empty( $this->parts['action'] ) ) {
-            if ( pg_is_lap_complete( $this->parts['post_id'] ) ) {
+        if ( empty( $action ) ) {
+            $status = get_post_meta( $this->parts['post_id'], 'status', true );
+            if ( $status === 'complete' ) {
                 wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/completed' );
                 exit;
-            } else {
-                require_once( 'action-custom-lap.php' );
             }
-        } else if ( 'event' === $this->parts['action'] ) {
+            require_once( 'action-custom-lap.php' );
+        } else if ( 'event' === $action ) {
             require_once( 'action-custom-event-lap.php' );
-        } else if ( 'completed' === $this->parts['action'] ) {
+        } else if ( 'completed' === $action ) {
             require_once( 'action-custom-completed.php' );
-        } else if ( 'map' === $this->parts['action'] ) {
+        } else if ( 'map' === $action ) {
             require_once( 'action-custom-map.php' );
-        } else if ( 'stats' === $this->parts['action'] ) {
+        } else if ( 'stats' === $action ) {
             require_once( 'action-custom-stats.php' );
-        } else if ( 'display' === $this->parts['action'] ) {
+        } else if ( 'display' === $action ) {
             require_once( 'action-custom-map-display.php' );
-        } else if ( 'tools' === $this->parts['action'] ) {
+        } else if ( 'tools' === $action ) {
             require_once( 'action-custom-tools.php' );
         } else {
             wp_redirect( trailingslashit( site_url() ) );
         }
 
         // set page title
-        $this->stats = pg_custom_lap_stats_by_post_id( $this->parts['post_id'] );
-        $this->page_title = $this->stats['title'] ?? 'Prayer Relay';
+        $this->page_title = get_the_title( $this->parts['post_id'] );
     }
+
+    /* Setup $parts manually */
 
     public function dt_settings_apps_list( $apps_list ) {
         $apps_list[$this->meta_key] = [
@@ -129,7 +144,7 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
      * @return array|bool|void|WP_Error
      */
     public function endpoint( WP_REST_Request $request ) {
-        $params = $request->get_params();
+        $params = pg_get_body_params( $request );
 
         if ( ! isset( $params['parts'], $params['action'] ) ) {
             return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );

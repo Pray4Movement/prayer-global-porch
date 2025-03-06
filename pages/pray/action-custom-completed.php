@@ -69,7 +69,7 @@ class PG_Custom_Prayer_App_Completed extends PG_Custom_Prayer_App {
         global $wpdb;
 
         $parts = $this->parts;
-        $lap_stats = pg_custom_lap_stats_by_post_id( $parts['post_id'] );
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $parts['public_key'], $parts['post_id'] );
 
         if ( empty( $lap_stats['end_time'] ) ) {
             $lap_stats['end_time'] = time();
@@ -79,7 +79,7 @@ class PG_Custom_Prayer_App_Completed extends PG_Custom_Prayer_App {
         }
         $participant_locations = $wpdb->get_results( $wpdb->prepare( "
            SELECT r.label as location, COUNT(r.label) as count
-           FROM wp_dt_reports r
+           FROM $wpdb->dt_reports r
             WHERE r.post_type = 'laps'
                 AND r.type = 'prayer_app'
             AND r.timestamp >= %d AND r.timestamp <= %d

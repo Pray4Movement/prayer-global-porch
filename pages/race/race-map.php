@@ -99,7 +99,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
                 'parts' => $this->parts,
                 'grid_data' => [],
                 'participants' => [],
-                'stats' => pg_global_race_stats(),
+                'stats' => $this->get_stats(),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                 'translations' => [],
                 'map_type' => $this->map_type,
@@ -120,8 +120,8 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
     }
 
     public function body(){
-        $lap_stats = pg_global_race_stats();
-        $finished_laps = number_format( (int) $lap_stats['number_of_laps'] - 1 );
+        $lap_stats = $this->get_stats();
+        $finished_laps = number_format( (int) $lap_stats['lap_number'] - 1 );
         DT_Mapbox_API::geocoder_scripts();
         ?>
         <style id="custom-style"></style>
@@ -245,7 +245,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
 
         switch ( $params['action'] ) {
             case 'get_stats':
-                return pg_global_race_stats();
+                return $this->get_stats();
             case 'get_grid':
                 return [
                     'grid_data' => $this->get_grid( $params['parts'] ),
@@ -272,48 +272,52 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
         }
     }
 
+    public function get_stats(){
+
+        global $wpdb;
+        $result = $wpdb->get_row( "
+            SELECT
+            MIN( r.timestamp ) as start_time,
+            MAX( r.timestamp ) as end_time,
+            COUNT( DISTINCT( r.grid_id ) ) as locations_completed,
+            SUM( r.value ) as minutes_prayed,
+            COUNT( DISTINCT( r.hash ) ) as participants,
+            COUNT( DISTINCT( r.label ) ) as participant_country_count
+            FROM $wpdb->dt_reports r
+            WHERE r.post_type = 'pg_relays'
+        ", ARRAY_A);
+
+
+        $global_lap = Prayer_Stats::get_relay_current_lap();
+        $data = [
+            'tile' => '',
+            'lap_number' => (int) $global_lap['lap_number'],
+            'start_time' => (int) $result['start_time'],
+            'end_time' => (int) $result['end_time'],
+            'on_going' => true,
+            'locations_completed' => (int) $result['locations_completed'],
+            'minutes_prayed' => (int) $result['minutes_prayed'],
+            'participants' => (int) $result['participants'],
+            'participant_country_count' => (int) $result['participant_country_count'],
+
+        ];
+        return _pg_stats_builder( $data );
+    }
+
     public function get_grid( $parts ) {
         global $wpdb;
-        $lap_stats = pg_global_race_stats();
 
-        // map grid
-        $data_raw = $wpdb->get_results( $wpdb->prepare( "
-            SELECT
-                lg1.grid_id, SUM(r1.value) as value
-            FROM $wpdb->dt_location_grid lg1
-			LEFT JOIN $wpdb->dt_reports r1 ON r1.grid_id=lg1.grid_id AND r1.type = 'prayer_app' AND r1.timestamp >= %d AND r1.timestamp <= %d
-            WHERE lg1.level = 0
-              AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
-              AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg1.grid_id
-            UNION ALL
-            SELECT
-                lg2.grid_id, SUM(r2.value) as value
-            FROM $wpdb->dt_location_grid lg2
-			LEFT JOIN $wpdb->dt_reports r2 ON r2.grid_id=lg2.grid_id AND r2.type = 'prayer_app' AND r2.timestamp >= %d AND r2.timestamp <= %d
-            WHERE lg2.level = 1
-              AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg2.grid_id
-            UNION ALL
-            SELECT
-                lg3.grid_id, SUM(r3.value) as value
-            FROM $wpdb->dt_location_grid lg3
-			LEFT JOIN $wpdb->dt_reports r3 ON r3.grid_id=lg3.grid_id AND r3.type = 'prayer_app' AND r3.timestamp >= %d AND r3.timestamp <= %d
-            WHERE lg3.level = 2
-              AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg3.grid_id
-        ", $lap_stats['start_time'], $lap_stats['end_time'], $lap_stats['start_time'], $lap_stats['end_time'], $lap_stats['start_time'], $lap_stats['end_time'] ), ARRAY_A );
+        $locations = $wpdb->get_results(
+            "SELECT grid_id, count(*) as completed
+            FROM $wpdb->dt_reports
+            WHERE post_type = 'pg_relays'
+            AND type = 'prayer_app'
+            GROUP BY grid_id
+        ", ARRAY_A );
 
         $data = [];
-        foreach ( $data_raw as $row ) {
-            //if ( ! isset( $data[$row['grid_id']] ) ) {
-            //    $data[$row['grid_id']] = (int) $row['value'] ?? 0;
-            //}
-            if ( ! isset( $data[$row['grid_id']] ) ) {
-                $data[$row['grid_id']] = 1 ?? 0;
-            } else {
-                $data[$row['grid_id']] = $data[$row['grid_id']] + 1;
-            }
+        foreach ( $locations as $location ){
+            $data[$location['grid_id']] = (int) $location['completed'];
         }
 
         return [
@@ -323,29 +327,21 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
 
     public function get_participants( $parts ){
         global $wpdb;
-        $lap_stats = pg_global_race_stats();
 
-        $participants_raw = $wpdb->get_results( $wpdb->prepare( "
-           SELECT r.lng as longitude, r.lat as latitude
-           FROM $wpdb->dt_reports r
-           LEFT JOIN $wpdb->dt_location_grid lg ON lg.grid_id=r.grid_id
-            WHERE r.post_type = 'laps'
-            AND r.type = 'prayer_app'
-           AND r.timestamp >= %d AND r.timestamp <= %d AND r.hash IS NOT NULL
-        ", $lap_stats['start_time'], $lap_stats['end_time'] ), ARRAY_A );
-        $participants = [];
-        if ( ! empty( $participants_raw ) ) {
-            foreach ( $participants_raw as $p ) {
-                if ( ! empty( $p['longitude'] ) ) {
-                    $participants[] = [
-                        'longitude' => (float) $p['longitude'],
-                        'latitude' => (float) $p['latitude']
-                    ];
-                }
-            }
+
+        $locations = $wpdb->get_results(
+            "SELECT r.lng as longitude, r.lat as latitude, r.hash
+            FROM $wpdb->dt_reports r
+            WHERE r.type = 'prayer_app'
+            AND r.lng IS NOT NULL
+            GROUP BY r.hash
+        ", ARRAY_A );
+
+        $data = [];
+        foreach ( $locations as $location ){
+            $data[] = [ 'longitude' => (float) $location['longitude'], 'latitude' => (float) $location['latitude'] ];
         }
-
-        return $participants;
+        return $data;
     }
 
     public function get_user_locations( $parts, $data ){
@@ -355,30 +351,21 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
         if ( empty( $hash ) ) {
             return [];
         }
+        $post_id = pg_get_relay_id( '49ba4c' );
 
         $user_locations_raw  = $wpdb->get_results( $wpdb->prepare( "
-               SELECT lg.longitude, lg.latitude
-               FROM $wpdb->dt_reports r
-               LEFT JOIN $wpdb->dt_location_grid lg ON lg.grid_id=r.grid_id
-               WHERE r.post_type = 'laps'
-                    AND r.type = 'prayer_app'
-                    AND r.hash = %s
+           SELECT lg.longitude, lg.latitude
+           FROM $wpdb->dt_reports r
+           INNER JOIN $wpdb->dt_location_grid lg ON lg.grid_id = r.grid_id
+           WHERE r.post_type = 'pg_relays'
+                AND r.type = 'prayer_app'
+                AND r.hash = %s
                 AND r.label IS NOT NULL
-            ", $hash ), ARRAY_A );
+                AND lg.longitude IS NOT NULL
+                AND lg.latitude IS NOT NULL
+        ", $hash, $post_id  ), ARRAY_A );
 
-        $user_locations = [];
-        if ( ! empty( $user_locations_raw ) ) {
-            foreach ( $user_locations_raw as $p ) {
-                if ( ! empty( $p['longitude'] ) ) {
-                    $user_locations[] = [
-                        'longitude' => (float) $p['longitude'],
-                        'latitude' => (float) $p['latitude']
-                    ];
-                }
-            }
-        }
-
-        return $user_locations;
+        return $user_locations_raw;
     }
 }
 Prayer_Global_Porch_Stats_Race_Map::instance();

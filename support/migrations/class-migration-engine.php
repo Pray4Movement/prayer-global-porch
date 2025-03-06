@@ -12,7 +12,7 @@ if ( !defined( 'ABSPATH' ) ) {
 class Prayer_Global_Migration_Engine
 {
 
-    public static $migration_number = 0;
+    public static $migration_number = 13;
 
     protected static $migrations = null;
 
@@ -101,7 +101,7 @@ class Prayer_Global_Migration_Engine
             self::sanity_check_expected_tables( $migration->get_expected_tables() );
 
             if ( !empty( get_transient( self::$lock_key ) ) ) {
-                throw new Disciple_Tools_Migration_Lock_Exception();
+                throw new Prayer_Global_Migration_Lock_Exception();
             }
             set_transient( self::$lock_key, '1', DAY_IN_SECONDS );
 
