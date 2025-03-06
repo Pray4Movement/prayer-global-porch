@@ -70,12 +70,17 @@ trait PG_Lap_Trait {
 
     public function body(): void {
 
+            $svg_manager = new SVG_Spritesheet_Manager();
+
+            $icons = [ 'pg-prayer', 'pg-pause', 'pg-start', 'pg-chevron-down', 'pg-settings' ];
+
+            $spritesheet_dir = $svg_manager->get_cached_spritesheet_dir( $icons, 'pg' );
         ?>
 
         <?php //phpcs:ignore ?>
         <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/ionicon-subset.svg' ); ?>
         <?php //phpcs:ignore ?>
-        <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/pgicon-subset.svg' ); ?>
+        <?php echo file_get_contents( $spritesheet_dir ); ?>
 
         <!-- navigation & widget -->
         <nav class="prayer-navbar">
