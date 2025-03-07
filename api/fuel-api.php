@@ -26,7 +26,8 @@ class Prayer_Global_Fuel_Api {
 
     public function get_fuel_stack( WP_REST_Request $request ){
         $params = $request->get_params();
-        return PG_Stacker::build_location_stack( $params['id'] );
+        $grid_id = sanitize_key( $params['id'] );
+        return PG_Stacker::build_location_stack( $grid_id );
     }
 }
 new Prayer_Global_Fuel_Api();
