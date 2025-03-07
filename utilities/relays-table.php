@@ -107,6 +107,7 @@ class PG_Relays_Table {
         $pace = $data['pace'];
         $parts = $data['parts'];
         $user_location = $data['user_location'];
+        $user_language = $data['user_language'];
 
         $args = [
             // lap information
@@ -125,7 +126,7 @@ class PG_Relays_Table {
             // user information
             'payload' => serialize( [
                 'user_location' => $user_location['label'] ?? null,
-                'user_language' => 'en' // @todo expand for other languages
+                'user_language' => $user_language ?? 'en_US',
             ] ),
             'lng' => $user_location['lng'] ?? null,
             'lat' => $user_location['lat'] ?? null,
@@ -137,7 +138,7 @@ class PG_Relays_Table {
         ];
 
         if ( empty( $args['hash'] ) ) {
-            $args['hash'] = hash( 'sha256', maybe_serialize( $args ) );
+            $args['hash'] = hash( 'sha256', serialize( $args ) );
         }
 
         $response = $this->mysqli->execute_query( "

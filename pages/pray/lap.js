@@ -265,6 +265,7 @@ function startTimer(time) {
     if (window.time > window.secondsTilLog && !window.alreadyLogged) {
       /* send log */
       const url = `${jsObject.direct_api_url}update-location.php`;
+      const user_language = `; ${document.cookie}`.split("; dt-magic-link-lang=")[1]?.split(";")[0];
       fetch(url, {
         method: "POST",
         headers: {
@@ -279,6 +280,7 @@ function startTimer(time) {
           pace: window.pace,
           parts: jsObject.parts,
           user_location: window.user_location,
+          language: user_language || "en_US",
         }),
       })
         .then((res) => {
@@ -392,26 +394,24 @@ function ip_location() {
       })
       .then(function (response) {
         if (response) {
-          const location = {
+          window.user_location = {
             lat: response.location.latitude,
             lng: response.location.longitude,
             label: `${response.city?.names?.en}, ${response.country?.names?.en}`,
             country: response.country?.names?.en,
+            date_set: Date.now()
           }
-          location.date_set = Date.now();
           let pg_user_hash = localStorage.getItem("pg_user_hash");
           if (!pg_user_hash || pg_user_hash === "undefined") {
-            localStorage.setItem("pg_user_hash", location.hash);
-          } else {
-            location.hash = pg_user_hash;
+            pg_user_hash = window.crypto.randomUUID()
+            localStorage.setItem("pg_user_hash", pg_user_hash);
           }
-          window.user_location = location;
-          localStorage.setItem("user_location", JSON.stringify(location));
+          window.user_location.hash = pg_user_hash;
+          localStorage.setItem("user_location", JSON.stringify(window.user_location));
         }
       });
   }
 }
-
 /* Fly away the see more button after a little bit of scroll */
 const seeMoreButton = document.querySelector("#see-more-button");
 if (window.scrollY < 100) {
