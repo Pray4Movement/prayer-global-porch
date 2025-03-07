@@ -135,8 +135,11 @@ export class PgSettings extends PageBase {
         <h3 class="mb-0 me-auto">${this.translations.profile}</h3>
       </div>
 
-      <div class="container-md stack-md pb-10">
-        <section>
+      <div class="container-md stack-md page">
+        <section class="stack-sm">
+          <div class="user__avatar">
+            <pg-avatar text=${this.user.display_name}></pg-avatar>
+          </div>
           <table class="table">
             <tbody>
               <tr>
