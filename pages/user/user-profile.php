@@ -8,6 +8,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
     public $page_title = 'User Profile';
     public $root = 'profile';
+    private string $spritesheet_url = '';
     private static $_instance = null;
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
@@ -33,6 +34,15 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             wp_redirect( '/user_app/login' );
             exit;
         }
+
+
+        $svg_manager = new SVG_Spritesheet_Manager();
+
+        $icons = [
+            'pg-go-logo',
+        ];
+
+        $this->spritesheet_url = $svg_manager->get_cached_spritesheet_url( $icons );
 
         // load if valid url
         add_action( 'dt_blank_body', [ $this, 'body' ] ); // body for no post key
@@ -139,14 +149,16 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'user' => PG_User_API::get_user(),
             'languages' => pg_enabled_translations(),
             'current_language' => pg_get_current_lang(),
+            'spritesheet_url' => $this->spritesheet_url,
         ] );
     }
 
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
-
         ?>
-        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3"></script>
+
+        <link rel="preload" href="<?php echo esc_url( $this->spritesheet_url ) ?>" as="image" type="image/svg+xml">
+        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3"></link>
         <style>
             #login_form input {
                 padding:.5em;

@@ -134,6 +134,7 @@ export class PgSettings extends PageBase {
         </button>
         <h3 class="mb-0 me-auto">${this.translations.profile}</h3>
       </div>
+
       <div class="container-md stack-md pb-10">
         <section>
           <table class="table">
@@ -173,8 +174,13 @@ export class PgSettings extends PageBase {
             ${this.translations.edit}
           </button>
         </section>
+
         <hr />
+
         <section class="stack-sm">
+          <svg class="brand-light icon-lg" fill="currentColor">
+            <use href="${window.jsObject.spritesheet_url}#pg-go-logo"></use>
+          </svg>
           <h2 class="h5">${this.translations.communication_preferences}</h2>
           <p>${this.translations.send_general_emails_text}</p>
           <button
@@ -190,7 +196,9 @@ export class PgSettings extends PageBase {
               : ""}
           </button>
         </section>
+
         <hr />
+
         <div class="stack-md align-items-stretch">
           <a
             class="btn btn-small btn-primary-light uppercase"

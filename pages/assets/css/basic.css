@@ -943,6 +943,11 @@ input[type="radio"]:checked {
 
 /* =========== */
 
+.icon-lg {
+    width: 4rem;
+    height: 4rem;
+}
+
 /* Page styles */
 .pg-accordion__toggle {
     display: block;
