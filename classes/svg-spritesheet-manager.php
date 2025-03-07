@@ -13,7 +13,9 @@ class SVG_Spritesheet_Manager {
         $this->cache_url = trailingslashit( $plugin_url ) . $cache_path;
 
         if ( !is_dir( $this->cache_dir ) ) {
-            mkdir( $this->cache_dir, 0755 );
+            $old_umask = umask( 0 );
+            mkdir( $this->cache_dir, 0775 );
+            umask( $old_umask );
         }
     }
 
@@ -68,6 +70,7 @@ class SVG_Spritesheet_Manager {
     private function save_spritesheet( array $icons, string $filename ) {
         $spritesheet = $this->generate_spritesheet( $icons );
         file_put_contents( $filename, $spritesheet );
+        chmod( $filename, 0664 );
     }
 
     private function generate_spritesheet( array $icons ) {
