@@ -184,7 +184,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
                     <?php else : ?>
 
-                        <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 33 33">
+                        <svg width="1em" height="1em">
                             <use href="#pg-prayer"></use>
                         </svg>
 

@@ -40,6 +40,9 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         $icons = [
             'pg-go-logo',
+            'pg-relay',
+            'pg-prayer',
+            'pg-settings',
         ];
 
         $this->spritesheet_url = $svg_manager->get_cached_spritesheet_url( $icons );

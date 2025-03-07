@@ -947,6 +947,10 @@ input[type="radio"]:checked {
     width: 4rem;
     height: 4rem;
 }
+.icon-md {
+    width: 2rem;
+    height: 2rem;
+}
 
 /* Page styles */
 .pg-accordion__toggle {

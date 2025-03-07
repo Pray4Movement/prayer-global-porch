@@ -63,7 +63,9 @@
                     href="/profile/prayer-relays"
                     @click=${n=>this.navigateToHref(n)}
                   >
-                    <i class="icon pg-relay two-rem"></i>
+                    <svg class="icon-md">
+                      <use href="${window.jsObject.spritesheet_url}#pg-relay"></use>
+                    </svg>
                     <span class="one-rem">
                       ${this.translations.challenges}
                     </span>
@@ -73,7 +75,9 @@
                     href="/profile/prayer-activity"
                     @click=${n=>this.navigateToHref(n)}
                   >
-                    <i class="icon pg-prayer two-rem"></i>
+                    <svg class="icon-md">
+                      <use href="${window.jsObject.spritesheet_url}#pg-prayer"></use>
+                    </svg>
                     <span class="one-rem">${this.translations.prayers}</span>
                   </a>
                   <a
@@ -81,7 +85,9 @@
                     href="/profile/profile-settings"
                     @click=${n=>this.navigateToHref(n)}
                   >
-                    <i class="icon pg-settings two-rem"></i>
+                    <svg class="icon-md">
+                      <use href="${window.jsObject.spritesheet_url}#pg-settings"></use>
+                    </svg>
                     <span class="one-rem">${this.translations.profile}</span>
                   </a>
                 </div>
