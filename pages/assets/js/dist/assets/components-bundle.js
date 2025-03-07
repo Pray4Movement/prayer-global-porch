@@ -28,7 +28,7 @@
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function E(n){return X({...n,state:!0,attribute:!1})}var qt=Object.defineProperty,Wt=Object.getOwnPropertyDescriptor,bt=(n,t,e,i)=>{for(var s=i>1?void 0:i?Wt(t,e):t,r=n.length-1,a;r>=0;r--)(a=n[r])&&(s=(i?a(t,e,s):a(s))||s);return i&&s&&qt(t,e,s),s};let L=class extends w{constructor(){super(...arguments),this.text=""}getInitials(n){return n.split(" ").map(t=>t[0]).join("").toUpperCase().slice(0,2)}render(){return p`
+ */function E(n){return X({...n,state:!0,attribute:!1})}var qt=Object.defineProperty,Wt=Object.getOwnPropertyDescriptor,bt=(n,t,e,i)=>{for(var s=i>1?void 0:i?Wt(t,e):t,r=n.length-1,a;r>=0;r--)(a=n[r])&&(s=(i?a(t,e,s):a(s))||s);return i&&s&&qt(t,e,s),s};let L=class extends w{constructor(){super(...arguments),this.text=""}updated(n){n.has("text")&&document.querySelectorAll("pg-avatar").forEach(e=>{e.text!==this.text&&(e.text=this.text)})}getInitials(n){const t=n.split(" ").map(e=>e[0]).join("").toUpperCase().slice(0,2);return t.length===0?"?":t}render(){return p`
       <div class="circle">
         <div>${this.getInitials(this.text)}</div>
       </div>
@@ -51,6 +51,9 @@
         justify-content: center;
         align-items: center;
         line-height: 1;
+      }
+      .circle > * {
+        min-width: 1em;
       }
     `];bt([X({type:String})],L.prototype,"text",2);L=bt([x("pg-avatar")],L);var Jt=Object.defineProperty,Ft=Object.getOwnPropertyDescriptor,yt=(n,t,e,i)=>{for(var s=i>1?void 0:i?Ft(t,e):t,r=n.length-1,a;r>=0;r--)(a=n[r])&&(s=(i?a(t,e,s):a(s))||s);return i&&s&&Jt(t,e,s),s};let B=class extends w{constructor(){super(...arguments),this.open=!1,this.modalId=this.generateId()}generateId(){return Array(6).fill("").map(()=>String.fromCharCode(97+Math.floor(Math.random()*26))).join("")}render(){return p`
       <div

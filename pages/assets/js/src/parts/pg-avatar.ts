@@ -1,5 +1,5 @@
-import { LitElement, html, css } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { LitElement, html, css, PropertyValues } from "lit";
+import { customElement, property, state } from "lit/decorators.js";
 
 @customElement("pg-avatar")
 export class PgAvatar extends LitElement {
@@ -24,19 +24,37 @@ export class PgAvatar extends LitElement {
         align-items: center;
         line-height: 1;
       }
+      .circle > * {
+        min-width: 1em;
+      }
     `,
   ];
 
   @property({ type: String })
   text: string = "";
 
+  updated(changedProperties: PropertyValues<this>) {
+    if (changedProperties.has("text")) {
+      const instances = document.querySelectorAll("pg-avatar");
+      instances.forEach((instance) => {
+        if (instance.text !== this.text) {
+          instance.text = this.text;
+        }
+      });
+    }
+  }
+
   getInitials(text: string) {
-    return text
+    const initials = text
       .split(" ")
       .map((name: string) => name[0])
       .join("")
       .toUpperCase()
       .slice(0, 2);
+    if (initials.length === 0) {
+      return "?";
+    }
+    return initials;
   }
   render() {
     return html`
