@@ -97,6 +97,10 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
     }
 
     public function wp_enqueue_scripts() {
+        if ( is_user_logged_in() ) {
+            $user = wp_get_current_user();
+            $gravatar_url = get_avatar_url( $user->user_login );
+        }
         wp_enqueue_script( 'user-profile-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-profile.js', [ 'jquery', 'components-js' ], filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-profile.js' ), true );
         wp_localize_script( 'user-profile-js', 'jsObject', [
             'parts' => $this->parts,
@@ -154,6 +158,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'languages' => pg_enabled_translations(),
             'current_language' => pg_get_current_lang(),
             'spritesheet_url' => $this->spritesheet_url,
+            'gravatar_url' => $gravatar_url,
         ] );
     }
 

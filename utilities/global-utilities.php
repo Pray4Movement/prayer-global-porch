@@ -46,9 +46,7 @@ function pg_profile_icon() {
     if ( is_user_logged_in() ) {
         $user = wp_get_current_user();
 
-        $gravatar_url = get_avatar_url( $user->user_login );
-
-        return '<div class="user__gravatar" style="background-image: url(\''.$gravatar_url.'\')"></div>';
+        return '<div class="user__avatar" size="small"><pg-avatar text="'.$user->display_name.'"></pg-avatar></div>';
     }
 
     return "<i class='icon pg-profile'></i>";

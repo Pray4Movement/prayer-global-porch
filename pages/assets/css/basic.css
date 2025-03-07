@@ -1748,6 +1748,12 @@ textarea[type="text"],
 
 .user__avatar {
     position: relative;
+    font-size: 2rem;
+    --pg-avatar-bg-color: var(--pg-brand-color-lighter);
+    color: white;
+}
+.user__avatar[size="small"] {
+    font-size: 1.2rem;
 }
 
 .user__badge {
