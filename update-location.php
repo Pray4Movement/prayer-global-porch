@@ -53,6 +53,7 @@ $grid_id = isset( $decoded['grid_id'] ) ? pg_sanitize_text_field_custom( $decode
 $user_id = isset( $decoded['user_id'] ) ? pg_sanitize_text_field_custom( $decoded['user_id'] ) : null;
 $pace = 1;
 $user_location = pg_sanitize_text_field_custom( $decoded['user_location'] ?? [] );
+$user_language = pg_sanitize_text_field_custom( $decoded['language'] ?? 'en_US' );
 $parts = pg_sanitize_text_field_custom( $decoded['parts'] ?? [] );
 
 //phpcs:ignore
@@ -82,7 +83,8 @@ try {
             'global_lap_number' => $updated_laps['global_lap_number'],
             'pace' => $pace,
             'parts' => $parts,
-            'user_location' => $user_location
+            'user_location' => $user_location,
+            'user_language' => $user_language,
         ],
         $relay_id
     );
