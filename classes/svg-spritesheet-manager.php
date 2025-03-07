@@ -72,11 +72,13 @@ class SVG_Spritesheet_Manager {
 
     private function generate_spritesheet( array $icons ) {
         $spritesheet = '<svg xmlns="http://www.w3.org/2000/svg" style="display:none">';
+        $spritesheet .= '<defs>';
 
         foreach ( $icons as $icon ) {
             $spritesheet .= $this->create_symbol( $icon );
         }
 
+        $spritesheet .= '</defs>';
         $spritesheet .= '</svg>';
 
         return $spritesheet;
@@ -106,7 +108,10 @@ class SVG_Spritesheet_Manager {
         if ( preg_match( '/viewBox=["\'](.*?)["\']/i', $icon_content, $matches ) ) {
             return $matches[1];
         }
-        return '0 0 24 24';
+        if ( preg_match( '/width=["\'](.*?)["\']/i', $icon_content, $width ) && preg_match( '/height=["\'](.*?)["\']/i', $icon_content, $height ) ) {
+            return '0 0 ' . $width[1] . ' ' . $height[1];
+        }
+        return '0 0 32 32';
     }
 
     // Extract the inner content, removing outer <svg> tags

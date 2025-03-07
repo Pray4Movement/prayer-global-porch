@@ -385,7 +385,13 @@ window.api_fetch = function (url, options = {}) {
 function ip_location() {
   const user_location = localStorage.getItem("user_location");
   window.user_location = user_location ? JSON.parse(user_location) : null;
-  if ( !window.user_location || window.user_location === "undefined" || ( window.user_location.date_set && window.user_location.date_set < Date.now() - 604800000 /*7 days in milliseconds*/ ) ) {
+  if (
+    !window.user_location ||
+    window.user_location === "undefined" ||
+    (window.user_location.date_set &&
+      window.user_location.date_set <
+        Date.now() - 604800000) /*7 days in milliseconds*/
+  ) {
     return window
       .api_fetch(`${window.pg_global.root}pg-api/v1/user/ip_location`, {
         method: "POST",
@@ -709,7 +715,7 @@ function _template_population_change_icon_block(data) {
   i = 0;
   while (i < data.count) {
     icon_list += `
-        <svg height="1em" width="1em" viewBox="0 0 512 512" class="${icon_color} ${font_size}">
+        <svg height="1em" width="1em" class="${icon_color} ${font_size}">
             <use href="#${icon}"></use>
         </svg>
     `;
@@ -823,7 +829,7 @@ function _template_content_block(data) {
       icolor = data.color;
     }
     icon = `
-        <svg class="icon-xlg ${icolor}" width="1em" height="1em" viewBox="0 0 512 512">
+        <svg class="icon-xlg ${icolor}" width="1em" height="1em">
             <use href="#${iclass}" ></use>
         </svg>
     `;
@@ -894,7 +900,7 @@ function _template_basic_block(data) {
   const reference = data.reference
     ? `
         <button type="button" class="btn simple id-${data.id} with-icon" onclick="document.querySelector('#id-${data.id}').style.display = 'block';document.querySelector('.id-${data.id}').style.display = 'none';" >
-            <span>${data.reference} </span> <svg width="1em" height="1em" viewBox="0 0 33 33"><use href="#pg-chevron-down"></use></svg>
+            <span>${data.reference} </span> <svg width="1em" height="1em"><use href="#pg-chevron-down"></use></svg>
         </button>
         <div class="flow space-sm" id="id-${data.id}" style="display: none" >
             <p class="block__verse">${data.verse}</p>
@@ -935,7 +941,7 @@ function BodyIcon(color) {
       : defaultColor;
 
   return `
-      <svg class="${iconColor}" width="1em" height="1em" viewBox="0 0 512 512">
+      <svg class="${iconColor}" width="1em" height="1em">
           <use href="#ion-ios-body"></use>
       </svg>
   `;
