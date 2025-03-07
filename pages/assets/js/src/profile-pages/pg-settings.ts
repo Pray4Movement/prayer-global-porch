@@ -221,7 +221,9 @@ export class PgSettings extends PageBase {
         @close=${() => this.closeDeleteAccount()}
       >
         <h2 slot="title" class="h5">${this.translations.delete_account}</h2>
-        <i slot="close-icon" class="icon pg-close brand-light two-em"></i>
+        <svg slot="close-icon" class="icon-md brand-light">
+          <use href="${window.jsObject.spritesheet_url}#pg-close"></use>
+        </svg>
         <div slot="body">
           <p>${this.translations.delete_account_confirmation}</p>
           <p>${this.translations.delete_account_warning}</p>
@@ -264,7 +266,9 @@ export class PgSettings extends PageBase {
 
       <pg-modal ?open=${this.showEditAccount} @close=${this.closeEditAccount}>
         <h2 slot="title" class="h5">${this.translations.edit_account}</h2>
-        <i slot="close-icon" class="icon pg-close brand-light two-em"></i>
+        <svg slot="close-icon" class="icon-md brand-light">
+          <use href="${window.jsObject.spritesheet_url}#pg-close"></use>
+        </svg>
         <div slot="body">
           <div class="stack-sm align-items-stretch">
             <label for="name">
@@ -308,7 +312,11 @@ export class PgSettings extends PageBase {
                       title=${this.translations.delete_location}
                       style=""
                     >
-                      <i class="icon pg-close one-rem lh-small"></i>
+                      <svg slot="close-icon" class="icon-sm white">
+                        <use
+                          href="${window.jsObject.spritesheet_url}#pg-close"
+                        ></use>
+                      </svg>
                     </button>
                   </div>
                   <div class="mapbox-error-message text-danger small"></div>

@@ -43,6 +43,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'pg-relay',
             'pg-prayer',
             'pg-settings',
+            'pg-close',
         ];
 
         $this->spritesheet_url = $svg_manager->get_cached_spritesheet_url( $icons );
@@ -103,7 +104,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'start_praying' => esc_html( __( 'Start Praying', 'prayer-global-porch' ) ),
                 'change' => esc_html( __( 'Change', 'prayer-global-porch' ) ),
                 'select_a_location' => esc_html( __( 'Please select a location', 'prayer-global-porch' ) ),
-                'select_location' => esc_html( __( 'Select Location', 'prayer-global-porch' ) ),
+                'select_location' => wp_kses( __( 'Select Location', 'prayer-global-porch' ), 'post' ),
                 'delete_location' => esc_html( __( 'Delete Location', 'prayer-global-porch' ) ),
                 'estimated_location' => esc_html( __( '(This is your estimated location)', 'prayer-global-porch' ) ),
                 'profile' => esc_html( __( 'Profile Settings', 'prayer-global-porch' ) ),

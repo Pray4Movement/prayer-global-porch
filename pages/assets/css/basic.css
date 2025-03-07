@@ -951,6 +951,10 @@ input[type="radio"]:checked {
     width: 2rem;
     height: 2rem;
 }
+.icon-sm {
+    width: 1.5rem;
+    height: 1.5rem;
+}
 
 /* Page styles */
 .pg-accordion__toggle {
