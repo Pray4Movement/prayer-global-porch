@@ -178,7 +178,7 @@ export class PgSettings extends PageBase {
         <hr />
 
         <section class="stack-sm">
-          <svg class="brand-light icon-lg" fill="currentColor">
+          <svg class="brand-light icon-lg">
             <use href="${window.jsObject.spritesheet_url}#pg-go-logo"></use>
           </svg>
           <h2 class="h5">${this.translations.communication_preferences}</h2>

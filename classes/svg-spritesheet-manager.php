@@ -100,7 +100,7 @@ class SVG_Spritesheet_Manager {
         $content = $this->extract_inner_content( $icon_content );
 
         return sprintf(
-            '<symbol id="%s" viewBox="%s">%s</symbol>',
+            '<symbol id="%s" viewBox="%s" fill="currentColor">%s</symbol>',
             $icon,
             $viewbox,
             $content

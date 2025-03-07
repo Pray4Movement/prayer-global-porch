@@ -158,7 +158,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         ?>
 
         <link rel="preload" href="<?php echo esc_url( $this->spritesheet_url ) ?>" as="image" type="image/svg+xml">
-        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3"></link>
         <style>
             #login_form input {
                 padding:.5em;
