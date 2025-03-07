@@ -7,9 +7,8 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 class PG_User_App_Profile extends DT_Magic_Url_Base {
 
     public $page_title = 'User Profile';
-    public $root = 'user_app';
-    public $type = 'profile';
-    public $post_type = 'user';
+    public $root = 'profile';
+    private string $spritesheet_url = '';
     private static $_instance = null;
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
@@ -27,22 +26,52 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
          * tests if other URL
          */
         $url = dt_get_url_path();
-        if ( strpos( $url, $this->root . '/' . $this->type ) === false ) {
+        if ( strpos( $url, $this->root ) !== 0 ) {
             return;
         }
-        /**
-         * tests magic link parts are registered and have valid elements
-         */
-        if ( !$this->check_parts_match( false ) ){
-            return;
+
+        if ( !is_user_logged_in() ) {
+            wp_redirect( '/user_app/login' );
+            exit;
         }
+
+
+        $svg_manager = new SVG_Spritesheet_Manager();
+
+        $icons = [
+            'pg-go-logo',
+            'pg-relay',
+            'pg-prayer',
+            'pg-settings',
+            'pg-close',
+        ];
+
+        $this->spritesheet_url = $svg_manager->get_cached_spritesheet_url( $icons );
 
         // load if valid url
         add_action( 'dt_blank_body', [ $this, 'body' ] ); // body for no post key
+        add_action( 'dt_blank_head', [ $this, '_header' ] );
+        add_action( 'dt_blank_footer', [ $this, '_footer' ] );
+
+        add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
+        add_filter( 'dt_blank_access', '__return_true', 100, 1 );
+        add_filter( 'dt_allow_non_login_access', '__return_true', 100, 1 );
+        add_filter( 'dt_override_header_meta', '__return_true', 100, 1 );
+        add_filter( 'dt_templates_for_urls', [ $this, 'register_url' ], 199, 1 ); // registers url as valid once tests are passed
 
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
-        add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 99 );
+        add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 10 );
+        add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 5 ); // authorizes scripts
+        add_action( 'wp_print_footer_scripts', [ $this, 'print_scripts' ], 5 ); // authorizes scripts
+        add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
+    }
+
+    public function register_url( $template_for_url ){
+        $url = dt_get_url_path( true );
+        $url_parts = explode( '/', $url );
+        $template_for_url[join( '/', $url_parts )] = 'template-blank.php';
+        return $template_for_url;
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
@@ -63,7 +92,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'mapbox-gl',
             'components-js',
             'user-profile-js',
-            'lit-bundle',
+            'lit-bundle-js',
         ];
     }
 
@@ -72,11 +101,14 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         wp_localize_script( 'user-profile-js', 'jsObject', [
             'parts' => $this->parts,
             'translations' => [
+                'start_praying' => esc_html( __( 'Start Praying', 'prayer-global-porch' ) ),
                 'change' => esc_html( __( 'Change', 'prayer-global-porch' ) ),
                 'select_a_location' => esc_html( __( 'Please select a location', 'prayer-global-porch' ) ),
+                'select_location' => wp_kses( __( 'Select Location', 'prayer-global-porch' ), 'post' ),
+                'delete_location' => esc_html( __( 'Delete Location', 'prayer-global-porch' ) ),
                 'estimated_location' => esc_html( __( '(This is your estimated location)', 'prayer-global-porch' ) ),
-                'profile' => esc_html( __( 'Profile', 'prayer-global-porch' ) ),
-                'prayers' => esc_html( __( 'Prayers', 'prayer-global-porch' ) ),
+                'profile' => esc_html( __( 'Profile Settings', 'prayer-global-porch' ) ),
+                'prayers' => esc_html( __( 'Prayer Activity', 'prayer-global-porch' ) ),
                 'challenges' => esc_html( __( 'My Prayer Relays', 'prayer-global-porch' ) ),
                 'are_you_enjoying_the_app' => esc_html( __( 'Are you enjoying this app?', 'prayer-global-porch' ) ),
                 'would_you_like_to_partner' => esc_html( __( 'Would you like to partner with us in helping others pray for the world?', 'prayer-global-porch' ) ),
@@ -88,8 +120,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'location_text' => esc_html( __( 'Location', 'prayer-global-porch' ) ),
                 'locations_text' => esc_html( __( 'Locations', 'prayer-global-porch' ) ),
                 'communication_preferences' => esc_html( __( 'Communication Preferences', 'prayer-global-porch' ) ),
-                'send_general_emails_text' => esc_html( sprintf( __( 'Send information about %1$s, %2$s, %3$s and other %4$s projects via email', 'prayer-global-porch' ), 'Prayer.Global', 'Zume', 'Pray4Movement', 'Gospel Ambition' ) ),
-                'erase_account' => esc_html( __( 'Erase my account', 'prayer-global-porch' ) ),
+                'edit_account' => esc_html__( 'Change Your Details', 'prayer-global-porch' ),
+                'delete_account' => esc_html( __( 'Delete my account', 'prayer-global-porch' ) ),
                 'minutes' => esc_html( __( 'Minutes', 'prayer-global-porch' ) ),
                 'load_more' => esc_html( __( 'Load more', 'prayer-global-porch' ) ),
                 'time_prayed_for' => esc_html( _x( '%1$s for %2$s', '1 min for Paris, France', 'prayer-global-porch' ) ),
@@ -105,19 +137,31 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'view_join_other_relays' => esc_html__( 'View other public relays', 'prayer-global-porch' ),
                 'edit' => esc_html__( 'Edit', 'prayer-global-porch' ),
                 'display_map' => esc_html__( 'Display Map', 'prayer-global-porch' ),
+                'language' => esc_html__( 'Language', 'prayer-global-porch' ),
+                'delete_account_confirmation' => esc_html__( 'This will delete your account from Prayer.Global.', 'prayer-global-porch' ),
+                'delete_account_warning' => esc_html__( 'You will lose all progress and data assosciated with your account', 'prayer-global-porch' ),
+                'delete_account_confirm_proceed' => __( 'If you are sure you want to proceed please type "delete" into the box below and click "I am sure" button', 'prayer-global-porch' ) ,
+                'confirm_delete' => __( 'Confirm delete', 'prayer-global-porch' ) ,
+                'cancel' => esc_html__( 'Cancel', 'prayer-global-porch' ),
+                'save' => esc_html__( 'Save', 'prayer-global-porch' ),
+                'subscribe' => esc_html__( 'Subscribe to news', 'prayer-global-porch' ),
+                'subscribed' => esc_html__( 'Subscribed', 'prayer-global-porch' ),
+                'send_general_emails_text' => wp_kses( sprintf( __( 'Send information about %1$s, %2$s, %3$s and other %4$s projects via email', 'prayer-global-porch' ), 'Prayer.Global', 'Zume', 'Pray4Movement', 'Gospel Ambition' ), 'post' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),
             'user' => PG_User_API::get_user(),
+            'languages' => pg_enabled_translations(),
+            'current_language' => pg_get_current_lang(),
+            'spritesheet_url' => $this->spritesheet_url,
         ] );
     }
 
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
-
         ?>
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/prayer-global/style.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/fonts/prayer-global/style.css' ) ) ?>">
-        <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3"></script>
+
+        <link rel="preload" href="<?php echo esc_url( $this->spritesheet_url ) ?>" as="image" type="image/svg+xml">
         <style>
             #login_form input {
                 padding:.5em;
@@ -138,16 +182,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         ?>
 
-        <section class="page-section flow" data-section="login" id="section-login">
-            <div class="container">
-                <div class="row justify-content-md-center text-center">
-                    <div class="flow" id="pg_content">
-                        <span class="loading-spinner active"></span>
-                    </div>
-                </div>
-            </div>
-
-
+        <pg-router></pg-router>
 
             <div class="modal fade" id="details-modal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
@@ -289,8 +324,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 </div>
             </div>
 
-        </section>
-
         <div class="offcanvas offcanvas-end" id="user-profile-details" data-bs-backdrop="true" data-bs-scroll="false">
             <div class="offcanvas__header">
                 <button type="button" data-bs-dismiss="offcanvas" style="text-align: start">
@@ -313,10 +346,10 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
      * @link https://github.com/DiscipleTools/disciple-tools-theme/wiki/Site-to-Site-Link for outside of wordpress authentication
      */
     public function add_endpoints() {
-        $namespace = $this->root . '/v1';
+        $namespace = 'pg-api/v1/' . $this->root;
         register_rest_route(
             $namespace,
-            '/'.$this->type,
+            '/api',
             [
                 [
                     'methods'  => 'POST',
@@ -325,6 +358,9 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 ],
             ]
         );
+        DT_Route::post( $namespace, 'delete_user', [ $this, 'delete_user' ] );
+        DT_Route::post( $namespace, 'subscribe_to_news', [ $this, 'subscribe_to_news' ] );
+        DT_Route::post( $namespace, 'save_details', [ $this, 'save_details' ] );
     }
 
     public function endpoint( WP_REST_Request $request ) {
@@ -337,19 +373,11 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         $params = dt_recursive_sanitize_array( $params );
 
-        do_action( 'pg_user_endpoint_data', $params );
-
         switch ( $params['action'] ) {
-            case 'update_user':
-                return $this->update_user_meta( $params['data'] );
-            case 'delete_user':
-                return $this->delete_user( $params['data'] );
             case 'activity':
                 return $this->get_user_activity( $params['data'] );
             case 'ip_location':
                 return $this->get_ip_location( $params['data'] );
-            case 'save_details':
-                return $this->save_details( $params['data'] );
             case 'link_anonymous_prayers':
                 return $this->link_anonymous_prayers( $params['data'] );
             case 'create_challenge':
@@ -405,6 +433,17 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         return get_user_by( 'login', $username );
     }
 
+    public function subscribe_to_news() {
+        $user_id = get_current_user_id();
+
+        if ( !$user_id ) {
+            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
+        }
+
+        pg_connect_to_crm();
+
+        return true;
+    }
     /**
      * Update the user's data
      *
@@ -441,7 +480,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         return true;
     }
 
-    public function delete_user( $data ) {
+    public function delete_user() {
         $user_id = get_current_user_id();
 
         if ( !$user_id ) {
@@ -523,17 +562,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         return $data;
     }
 
-    public function save_details( $data ) {
-        if ( !isset( $data['location'], $data['display_name'] ) ) {
-            return new WP_Error( __METHOD__, 'Missing location or display_name', [ 'status' => 400 ] );
-        }
-
-        $location = $data['location'];
-        $display_name = $data['display_name'];
-
-        if ( !isset( $location['lat'], $location['lng'], $location['label'], $location['level'] ) ) {
-            return new WP_Error( __METHOD__, 'Missing lat, lng, label or level', [ 'status' => 400 ] );
-        }
+    public function save_details( WP_REST_Request $request ) {
 
         $user_id = get_current_user_id();
 
@@ -541,40 +570,58 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
         }
 
-        /* Get the grid_id for this lat lng */
-        $geocoder = new Location_Grid_Geocoder();
+        $params = $request->get_params();
 
-        $lat = (float) $location['lat'];
-        $lng = (float) $location['lng'];
-        $label = sanitize_text_field( wp_unslash( $location['label'] ) );
+        $params = dt_recursive_sanitize_array( $params );
 
-        $grid_row = $geocoder->get_grid_id_by_lnglat( $lng, $lat );
+        $result = [];
 
-        $old_location = get_user_meta( get_current_user_id(), PG_NAMESPACE . 'location', true );
+        if ( isset( $params['display_name'] ) ) {
+            $display_name = $params['display_name'];
 
-        $location['grid_id'] = $grid_row ? $grid_row['grid_id'] : false;
-        $location['lat'] = strval( $lat );
-        $location['lng'] = strval( $lng );
-        $location['country'] = $this->_extract_country_from_label( $label );
-        $location['hash'] = $old_location ? $old_location['hash'] : '';
+            $success = wp_update_user( [
+                'ID' => $user_id,
+                'display_name' => $display_name,
+            ] );
 
-        $this->update_user_meta( [
-            'location' => $location,
-        ] );
+            if ( is_wp_error( $success ) ) {
+                $display_name = '';
+            }
 
-        $return = wp_update_user( [
-            'ID' => $user_id,
-            'display_name' => $display_name,
-        ] );
-
-        if ( is_wp_error( $return ) ) {
-            $display_name = '';
+            $result['display_name'] = $display_name;
         }
 
-        return [
-            'location' => $location,
-            'display_name' => $display_name,
-        ];
+        if ( isset( $params['location'] ) ) {
+            $location = $params['location'];
+            if ( !isset( $location['lat'], $location['lng'], $location['label'], $location['level'] ) ) {
+                return new WP_Error( __METHOD__, 'Missing lat, lng, label or level', [ 'status' => 400 ] );
+            }
+
+            /* Get the grid_id for this lat lng */
+            $geocoder = new Location_Grid_Geocoder();
+
+            $lat = (float) $location['lat'];
+            $lng = (float) $location['lng'];
+            $label = sanitize_text_field( wp_unslash( $location['label'] ) );
+
+            $grid_row = $geocoder->get_grid_id_by_lnglat( $lng, $lat );
+
+            $old_location = get_user_meta( get_current_user_id(), PG_NAMESPACE . 'location', true );
+
+            $location['grid_id'] = $grid_row ? $grid_row['grid_id'] : false;
+            $location['lat'] = strval( $lat );
+            $location['lng'] = strval( $lng );
+            $location['country'] = $this->_extract_country_from_label( $label );
+            $location['hash'] = $old_location ? $old_location['hash'] : '';
+
+            $this->update_user_meta( [
+                'location' => $location,
+            ] );
+
+            $result['location'] = $location;
+        }
+
+        return $result;
     }
 
     public function link_anonymous_prayers( $data ) {

@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "vite build --watch",
     "build": "vite build",
+    "clean": "rm ./pages/assets/js/dist/assets/*",
     "release": "./release.sh",
     "release:fix": "./release.sh --fix",
     "release:feature": "./release.sh --minor",
@@ -18,7 +19,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.nathinabob:Pray4Movement/prayer-global-porch.git"
+    "url": "git@github.com:Pray4Movement/prayer-global-porch.git"
   },
   "keywords": [
     "prayer"
@@ -33,9 +34,11 @@
     "jest-puppeteer": "^6.1.1",
     "puppeteer": "^19.2.2",
     "puppeteer-full-page-screenshot": "^1.2.2",
+    "typescript": "^5.7.3",
     "vite": "^6.2.0"
   },
   "dependencies": {
-    "lit": "^3.2.1"
+    "lit": "^3.2.1",
+    "lit-element-router": "^2.0.3"
   }
 }

@@ -114,7 +114,7 @@ class Prayer_Global_Porch_Stats_Race_List extends DT_Magic_Url_Base
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' );
         ?>
         <!-- content section -->
-        <section>
+        <section class="page">
             <div class="container pb-4">
                 <div class="row">
                     <div class="col-md text-center">

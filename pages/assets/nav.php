@@ -21,7 +21,7 @@ if ( '' === $url ) {
 $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'user_app' ) ? 'd-none' : '';
 
 ?>
-<nav class="pg-navbar navbar p-0 d-block <?php echo esc_html( $nav_class ) ?>" id="pg-navbar">
+<nav class="pg-navbar navbar p-0 d-block <?php echo esc_html( $nav_class ) ?>" id="pg-navbar" <?php echo $home_page === true ? 'data-home' : '' ?>>
 
     <?php if ( ( new PG_Feature_Flag( 'icom_banner' ) )->is_on() && true === $home_page ) : ?>
 
@@ -57,7 +57,7 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
         <h5 class="border border-brand-light offcanvas-title px-3 rounded navbar__title"><a href="/" class="brand-light navbar__title-link">Prayer.Global</a></h5>
 
         <div class="d-flex justify-content-end align-items-center">
-            <a href="/user_app/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
+            <a href="/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
 
                 <?php if ( is_user_logged_in() ) : ?>
 
@@ -71,11 +71,17 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
                 <?php endif; ?>
 
             </a>
-            <div class="d-flex justify-content-end align-items-center mx-2">
 
-                <?php require( __DIR__ . '/language-menu.php' ) ?>
+            <?php if ( !is_user_logged_in() ) : ?>
 
-            </div>
+                <div class="d-flex justify-content-end align-items-center mx-2">
+
+                    <?php require( __DIR__ . '/language-menu.php' ) ?>
+
+                </div>
+
+            <?php endif; ?>
+
             <button class="icon-button navbar-toggler mx-2 two-rem d-flex align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#probootstrap-navbar" aria-controls="probootstrap-navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="icon pg-menu"></i>
             </button>

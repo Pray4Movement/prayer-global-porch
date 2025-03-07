@@ -150,7 +150,7 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
 
         ?>
 
-        <section class="page-section mt-5 pb-10" data-section="about" id="section-about">
+        <section class="page pb-10" data-section="about" id="section-about">
             <div class="container">
                 <div class="row justify-content-md-center text-center mb-5">
                     <div class="col-lg-7">

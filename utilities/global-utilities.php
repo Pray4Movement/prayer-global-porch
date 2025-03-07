@@ -1,12 +1,13 @@
 <?php
 
 function pg_enabled_translations(){
-    return [
+    $enabled_translations = [
         'en_US' => [
             'parent_code' => 'en',
             'po_code' => 'en_US',
             'datatables_url' => '',
             'firebase_code' => 'en',
+
         ],
         'fr_FR' => [
             'parent_code' => 'fr',
@@ -15,6 +16,15 @@ function pg_enabled_translations(){
             'firebase_code' => 'fr',
         ],
     ];
+    $dt_languages = dt_get_available_languages( true, true );
+    $result = [];
+    foreach ( $enabled_translations as $code => $language ) {
+        $dt_lang = $dt_languages[$language['parent_code']] ?? [];
+        if ( isset( $dt_lang['native_name'] ) ) {
+            $result[$code] = array_merge( $language, $dt_lang );
+        }
+    }
+    return $result;
 }
 
 function pg_generate_key() {

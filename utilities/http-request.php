@@ -5,8 +5,11 @@
  * @param  mixed       $response The API response
  * @param  integer $code     The response code
  */
-function send_response( mixed $response, $code = 200 ) {
+function send_response( mixed $response, $code = 200, $location = null ) {
     header( 'Content-Type: application/json; charset=utf-8' );
+    if ( $location ){
+        header( 'X-Location: ' . $location );
+    }
     http_response_code( $code );
     die( json_encode( $response ) );
 }
@@ -17,6 +20,8 @@ function cors() {
         'https://prayer.global',
         'https://staging.prayer.global',
         'http://localhost:8000', // TODO: DELETE this for production
+        'http://prayerglobal.lwp',
+        'https://prayerglobal.lwp',
     ];
 
     $origin = sanitize_text_field( stripslashes_deep( $_SERVER['HTTP_ORIGIN'] ?? '' ) );

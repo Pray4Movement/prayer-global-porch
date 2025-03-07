@@ -70,12 +70,28 @@ trait PG_Lap_Trait {
 
     public function body(): void {
 
+        $svg_manager = new SVG_Spritesheet_Manager();
+
+        $icons = [
+            'ion-android-warning',
+            'ion-happy',
+            'ion-ios-body',
+            'ion-map',
+            'ion-sad',
+            'pg-chevron-down',
+            'pg-close',
+            'pg-pause',
+            'pg-play',
+            'pg-pray-hands-dark',
+            'pg-prayer',
+            'pg-settings',
+        ];
+
+        $spritesheet_dir = $svg_manager->get_cached_spritesheet_dir( $icons, 'pg' );
         ?>
 
         <?php //phpcs:ignore ?>
-        <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/ionicon-subset.svg' ); ?>
-        <?php //phpcs:ignore ?>
-        <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/pgicon-subset.svg' ); ?>
+        <?php echo file_get_contents( $spritesheet_dir ); ?>
 
         <!-- navigation & widget -->
         <nav class="prayer-navbar">
@@ -89,7 +105,7 @@ trait PG_Lap_Trait {
 
                     <?php else : ?>
 
-                        <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 33 33">
+                        <svg fill="currentColor" width="1em" height="1em" >
                             <use href="#pg-prayer"></use>
                         </svg>
 
@@ -102,17 +118,17 @@ trait PG_Lap_Trait {
                     <span class="praying__text uppercase font-weight-normal"></span>
                 </button>
                 <button type="button" class="btn btn-praying bg-dark" data-display="flex" id="praying__pause_button">
-                    <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 33 33">
+                    <svg fill="currentColor" width="1em" height="1em" >
                         <use href="#pg-pause"></use>
                     </svg>
                 </button>
                 <button type="button" class="btn btn-praying bg-dark" data-display="flex" id="praying__continue_button">
-                    <svg height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
-                        <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/start.svg#pg-icon' ) ?>"></use>
+                    <svg height="1em" width="1em" fill="currentColor" >
+                        <use href="#pg-play"></use>
                     </svg>
                 </button>
                 <button type="button" class="btn btn-praying bg-light" id="praying__open_options" data-bs-toggle="modal" data-bs-target="#option_filter">
-                    <svg height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
+                    <svg height="1em" width="1em" fill="currentColor" >
                         <use href="#pg-settings"></use>
                     </svg>
                 </button>
@@ -161,8 +177,8 @@ trait PG_Lap_Trait {
                     <div class="modal-header">
                         <h5 class="modal-title" id="option_filter_label"><?php echo esc_html__( 'Are you sure you want to leave?', 'prayer-global-porch' ) ?></h5>
                         <button type="button" id="decision__close" aria-label="<?php esc_attr( __( 'Close', 'prayer-global-porch' ) ) ?>">
-                            <svg class="f-xlg" height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
-                                <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/close.svg#pg-icon' ) ?>"></use>
+                            <svg class="f-xlg" height="1em" width="1em" fill="currentColor" >
+                                <use href="#pg-close"></use>
                             </svg>
                         </button>
                     </div>
@@ -185,7 +201,7 @@ trait PG_Lap_Trait {
                 </div>
                 <div class="population-info">
                     <div>
-                        <svg class="icon dark" width="0.75em" height="0.75em" viewBox="0 0 512 512">
+                        <svg class="icon dark" width="0.75em" height="0.75em">
                             <use href="#ion-ios-body"></use>
                         </svg>
                         <span class="no">
@@ -193,7 +209,7 @@ trait PG_Lap_Trait {
                         </span>
                     </div>
                     <div>
-                        <svg class="icon light" width="0.75em" height="0.75em" viewBox="0 0 512 512">
+                        <svg class="icon light" width="0.75em" height="0.75em">
                             <use href="#ion-ios-body"></use>
                         </svg>
                         <span class="neutral">
@@ -201,7 +217,7 @@ trait PG_Lap_Trait {
                         </span>
                     </div>
                     <div>
-                        <svg class="icon orange" width="0.75em" height="0.75em" viewBox="0 0 512 512">
+                        <svg class="icon orange" width="0.75em" height="0.75em">
                             <use href="#ion-ios-body"></use>
                         </svg>
                         <span class="yes">
@@ -212,7 +228,7 @@ trait PG_Lap_Trait {
             </div>
             <a href="#content-anchor" class="btn bg-orange" id="see-more-button" style="display: none">
                 <?php echo esc_html__( 'See more', 'prayer-global-porch' ) ?>
-                <svg viewBox="0 0 33 33" width="1em" height="1em" fill="currentColor">
+                <svg width="1em" height="1em" fill="currentColor">
                     <use href="#pg-chevron-down"></use>
                 </svg>
             </a>
@@ -251,8 +267,8 @@ trait PG_Lap_Trait {
             </div>
             <div class="container">
                 <div class="flow text-center">
-                    <svg class="f-xxlg" height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
-                        <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/pray-hands-dark.svg#pg-icon' ) ?>"></use>
+                    <svg class="f-xxlg" height="1em" width="1em" fill="currentColor" >
+                        <use href="#pg-pray-hands-dark"></use>
                     </svg>
                     <button type="button" class="btn outline" id="more_prayer_fuel"><?php echo esc_html__( 'Show More Guided Prayers', 'prayer-global-porch' ) ?><i class="icon pg-chevron-down"></i></button>
                     <button class="btn simple" id="correction_button"><?php echo esc_html__( 'Correction Needed?', 'prayer-global-porch' ) ?></button>
@@ -266,8 +282,8 @@ trait PG_Lap_Trait {
                     <div class="modal-header">
                         <h5 class="modal-title"><?php echo esc_html( __( 'Thank you! Leave us a correction below.', 'prayer-global-porch' ) ) ?></h5>
                         <button type="button" id="correction_close" data-bs-dismiss="modal" aria-label="<?php esc_attr( __( 'Close', 'prayer-global-porch' ) ) ?>">
-                            <svg class="f-xlg" height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
-                                <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/close.svg#pg-icon' ) ?>"></use>
+                            <svg class="f-xlg" height="1em" width="1em" fill="currentColor" >
+                                <use href="#pg-close"></use>
                             </svg>
                         </button>
                     </div>
@@ -302,8 +318,8 @@ trait PG_Lap_Trait {
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel"><?php echo esc_html__( 'Set Your Prayer Experience', 'prayer-global-porch' ) ?></h5>
                         <button type="button" id="option_filter_close" data-bs-dismiss="modal" aria-label="<?php esc_attr( __( 'Close', 'prayer-global-porch' ) ) ?>">
-                            <svg class="f-xlg" height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
-                                <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/close.svg#pg-icon' ) ?>"></use>
+                            <svg class="f-xlg" height="1em" width="1em" fill="currentColor" >
+                                <use href="#pg-close"></use>
                             </svg>
                         </button>
                     </div>
@@ -373,9 +389,7 @@ trait PG_Lap_Trait {
         ?>
 
         <button type="button" class="btn btn-praying bg-dark" id="decision__home">
-            <svg height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
-                <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/home.svg#pg-icon' ) ?>"></use>
-            </svg>
+            <?php echo esc_html__( 'Map', 'prayer-global-porch' ) ?>
         </button>
 
         <?php
@@ -399,11 +413,15 @@ trait PG_Lap_Trait {
         }
 
         $new_value = (int) $report['value'] + 1;
-        /* update the report */
-        Disciple_Tools_Reports::update( [
-            'id' => $data['report_id'],
-            'value' => $new_value,
-        ] );
+        if ( $new_value <= 60 ){
+            /* update the report */
+            global $wpdb;
+            $wpdb->query( $wpdb->prepare( "
+                UPDATE $wpdb->dt_reports
+                SET value = value + 1
+                WHERE id = %d
+            ", $data['report_id'] ) );
+        }
 
         return $new_value;
     }
@@ -479,22 +497,5 @@ trait PG_Lap_Trait {
         $result = DT_Posts::create_post( 'feedback', $fields, true, false );
 
         return $result;
-    }
-
-    public function get_ip_location() {
-        if ( is_user_logged_in() ) {
-            $user_id = get_current_user_id();
-            $location_meta = get_user_meta( $user_id, PG_NAMESPACE . 'location', true );
-
-            return $location_meta;
-        } else {
-            $response = DT_Ipstack_API::get_location_grid_meta_from_current_visitor();
-            if ( $response ) {
-                $response['hash'] = hash( 'sha256', serialize( $response ) . mt_rand( 1000000, 10000000000000000 ) );
-                $array = array_reverse( explode( ', ', $response['label'] ) );
-                $response['country'] = $array[0] ?? '';
-            }
-            return $response;
-        }
     }
 }

@@ -149,12 +149,28 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
     public function body(){
 
+        $svg_manager = new SVG_Spritesheet_Manager();
+
+        $icons = [
+            'ion-android-warning',
+            'ion-happy',
+            'ion-ios-body',
+            'ion-map',
+            'ion-sad',
+            'pg-chevron-down',
+            'pg-close',
+            'pg-pause',
+            'pg-play',
+            'pg-pray-hands-dark',
+            'pg-prayer',
+            'pg-settings',
+        ];
+
+        $spritesheet_dir = $svg_manager->get_cached_spritesheet_dir( $icons, 'pg' );
         ?>
 
         <?php //phpcs:ignore ?>
-        <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/ionicon-subset.svg' ); ?>
-        <?php //phpcs:ignore ?>
-        <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/pgicon-subset.svg' ); ?>
+        <?php echo file_get_contents( $spritesheet_dir ); ?>
 
         <!-- navigation & widget -->
         <nav class="prayer-navbar">
@@ -168,7 +184,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
                     <?php else : ?>
 
-                        <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 33 33">
+                        <svg width="1em" height="1em">
                             <use href="#pg-prayer"></use>
                         </svg>
 
@@ -472,8 +488,6 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         switch ( $params['action'] ) {
             case 'correction':
                 return $this->save_correction( $params['parts'], $params['data'] );
-            case 'ip_location':
-                return $this->get_ip_location();
             case 'increment_prayer_time':
                 return $this->increment_prayer_time( $params['parts'], $params['data'] );
             default:
@@ -498,11 +512,15 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         }
 
         $new_value = (int) $report['value'] + 1;
-        /* update the report */
-        Disciple_Tools_Reports::update( [
-            'id' => $data['report_id'],
-            'value' => $new_value,
-        ] );
+        if ( $new_value <= 60 ){
+            /* update the report */
+            global $wpdb;
+            $wpdb->query( $wpdb->prepare( "
+                UPDATE $wpdb->dt_reports
+                SET value = value + 1
+                WHERE id = %d
+            ", $data['report_id'] ) );
+        }
 
         return $new_value;
     }
@@ -576,22 +594,6 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         }
 
         return DT_Posts::create_post( 'feedback', $fields, true, false );
-    }
-
-    public function get_ip_location() {
-        if ( is_user_logged_in() ) {
-            $user_id = get_current_user_id();
-
-            return get_user_meta( $user_id, PG_NAMESPACE . 'location', true );
-        } else {
-            $response = DT_Ipstack_API::get_location_grid_meta_from_current_visitor();
-            if ( $response ) {
-                $response['hash'] = hash( 'sha256', serialize( $response ). mt_rand( 1000000, 10000000000000000 ) );
-                $array = array_reverse( explode( ', ', $response['label'] ) );
-                $response['country'] = $array[0] ?? '';
-            }
-            return $response;
-        }
     }
 }
 PG_Custom_Prayer_App_Lap::instance();
