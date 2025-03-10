@@ -44,6 +44,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'pg-prayer',
             'pg-settings',
             'pg-close',
+            'pg-streak',
         ];
 
         $this->spritesheet_url = $svg_manager->get_cached_spritesheet_url( $icons );
@@ -100,6 +101,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         if ( is_user_logged_in() ) {
             $user = wp_get_current_user();
             $gravatar_url = get_avatar_url( $user->user_login );
+            $user_stats = new User_Stats( $user->ID );
         }
         wp_enqueue_script( 'user-profile-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-profile.js', [ 'jquery', 'components-js' ], filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-profile.js' ), true );
         wp_localize_script( 'user-profile-js', 'jsObject', [
@@ -151,6 +153,9 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'subscribe' => esc_html__( 'Subscribe to news', 'prayer-global-porch' ),
                 'subscribed' => esc_html__( 'Subscribed', 'prayer-global-porch' ),
                 'send_general_emails_text' => wp_kses( sprintf( __( 'Send information about %1$s, %2$s, %3$s and other %4$s projects via email', 'prayer-global-porch' ), 'Prayer.Global', 'Zume', 'Pray4Movement', 'Gospel Ambition' ), 'post' ),
+                'prayer_activity' => esc_html__( 'Prayer Activity', 'prayer-global-porch' ),
+                'strengthen_text' => esc_html__( 'Strengthen your prayer life one day at a time!', 'prayer-global-porch' ),
+                'daily_streak' => esc_html__( 'Daily Prayer Streak', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),
@@ -158,7 +163,18 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'languages' => pg_enabled_translations(),
             'current_language' => pg_get_current_lang(),
             'spritesheet_url' => $this->spritesheet_url,
+            'icons_url' => trailingslashit( plugin_dir_url( __DIR__ ) ) . 'assets/images/icons' ,
             'gravatar_url' => $gravatar_url,
+            'stats' => [
+                'total_minutes_prayed' => $user_stats->total_minutes_prayed(),
+                'total_places_prayed' => $user_stats->total_places_prayed(),
+                'total_relays_part_of' => $user_stats->total_relays_part_of(),
+                'total_finished_relays_part_of' => $user_stats->total_finished_relays_part_of(),
+                'best_streak_in_days' => $user_stats->best_streak_in_days(),
+                'current_streak_in_days' => $user_stats->current_streak_in_days(),
+                'current_streak_in_weeks' => $user_stats->current_streak_in_weeks(),
+                'days_this_year' => $user_stats->days_this_year(),
+            ],
         ] );
     }
 

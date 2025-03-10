@@ -117,6 +117,7 @@ class Prayer_Global_Porch {
 
         require_once( 'utilities/global-utilities.php' );
         require_once( 'utilities/prayer-stats.php' );
+        require_once( 'utilities/user-stats.php' );
         require_once( 'utilities/enqueue-async.php' );
         require_once( 'utilities/login-functions.php' );
         require_once( 'classes/pg-feature-flag.php' );
