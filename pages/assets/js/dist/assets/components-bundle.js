@@ -162,43 +162,44 @@
             ${this.translations.strengthen_text}
           </h2>
 
-          <section class="stack-sm | activity-card lh-xsm">
-            <h3 class="activity-card__title">
-              ${this.translations.daily_streak}
-            </h3>
-            <div class="cluster">
-              <div
-                class="orange-gradient icon-xlg"
-                style="mask:url('${window.jsObject.icons_url}/pg-streak.svg') no-repeat 0 0/100% 100%;"
-              ></div>
-              <span class="f-lg font-weight-bold">30</span>
-            </div>
-            <div class="cluster | s-sm">
-              <svg class="brand-highlight icon-md">
-                <use href="${window.jsObject.spritesheet_url}#pg-streak"></use>
-              </svg>
-              <span class="fs-3 brand-highlight">47 Best</span>
-            </div>
-          </section>
+          <div class="switcher">
+            <section class="stack-sm | activity-card lh-xsm">
+              <h3 class="activity-card__title">
+                ${this.translations.daily_streak}
+              </h3>
+              <div class="cluster">
+                <div
+                  class="orange-gradient icon-xlg"
+                  style="mask:url('${window.jsObject.icons_url}/pg-streak.svg') no-repeat 0 0/100% 100%;"
+                ></div>
+                <span class="f-lg font-weight-bold">30</span>
+              </div>
+              <div class="cluster | s-sm">
+                <svg class="brand-highlight icon-md">
+                  <use
+                    href="${window.jsObject.spritesheet_url}#pg-streak"
+                  ></use>
+                </svg>
+                <span class="fs-3 brand-highlight">47 Best</span>
+              </div>
+            </section>
+            <section class="stack-sm activity-card lh-xsm">
+              <h3 class="activity-card__title">Weeks in a row</h3>
+              <span class="f-lg font-weight-bold">4</span>
+              <h3 class="activity-card__title">Days this year</h3>
+              <span class="f-lg font-weight-bold">56</span>
+            </section>
+          </div>
 
-          <section class="stack-sm activity-card lh-xsm">
-            <h3 class="activity-card__title">Weeks in a row</h3>
-            <span class="f-lg font-weight-bold">4</span>
-            <h3 class="activity-card__title">Days this year</h3>
-            <span class="f-lg font-weight-bold">56</span>
-          </section>
-
-          <section class="stack-sm activity-card lh-xsm">
-            <div class="activity-table">
-              <span>250</span>
-              <span>Minutes prayed</span>
-              <span>127</span>
-              <span>Places prayed for</span>
-              <span>3</span>
-              <span>Active laps</span>
-              <span>7</span>
-              <span>Laps finished</span>
-            </div>
+          <section class="activity-table activity-card">
+            <span>250</span>
+            <span>Minutes prayed</span>
+            <span>127</span>
+            <span>Places prayed for</span>
+            <span>3</span>
+            <span>Active laps</span>
+            <span>7</span>
+            <span>Laps finished</span>
           </section>
           <a class="btn btn-cta btn-lg" href="/newest/lap">
             ${this.translations.start_praying}
