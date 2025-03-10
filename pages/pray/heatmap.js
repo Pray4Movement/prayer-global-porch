@@ -82,7 +82,7 @@ window.addEventListener("load", function ($) {
           jsObject.parts.action,
       })
       .fail(function (e) {
-        console.log(e);
+        console.error(e);
         jQuery("#error").html(e);
       });
   };
@@ -227,7 +227,7 @@ window.addEventListener("load", function ($) {
       }
     })
     .fail(function () {
-      console.log("Error getting grid data");
+      console.error("Error getting grid data");
       jsObject.grid_data = { data: {}, highest_value: 1 };
     });
   let data = {
@@ -240,7 +240,7 @@ window.addEventListener("load", function ($) {
       jsObject.user_locations = user_locations;
     })
     .fail(function () {
-      console.log("Error getting user locations");
+      console.error("Error getting user locations");
       jsObject.user_locations = [];
     });
 
@@ -888,7 +888,6 @@ window.addEventListener("load", function ($) {
         }
         window.report_content = response;
 
-        console.log(response);
         let bodies_1 = "";
         let bodies_2 = "";
         let bodies_3 = "";

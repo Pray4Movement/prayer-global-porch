@@ -51,7 +51,6 @@ trait PG_Lap_Trait {
                 'images_url' => pg_grid_image_url(),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                 'current_url' => $current_url,
-                'stats_url' => $current_url . 'stats',
                 'map_url' => $current_url . 'map',
                 'is_custom' => ( 'custom' === $this->parts['type'] ),
                 'is_cta_feature_on' => true,

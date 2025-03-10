@@ -128,7 +128,6 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'images_url' => pg_grid_image_url(),
                     'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                     'current_url' => $current_url,
-                    'stats_url' => $current_url . 'stats',
                     'map_url' => $current_url . 'map',
                     'user_id' => get_current_user_id(),
                     'is_custom' => ( 'custom' === $this->parts['type'] ),
