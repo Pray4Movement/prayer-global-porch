@@ -62,6 +62,9 @@ export class PgActivity extends PageBase {
               <span>Laps finished</span>
             </div>
           </section>
+          <a class="btn btn-cta btn-lg" href="/newest/lap">
+            ${this.translations.start_praying}
+          </a>
         </div>
       </div>
     `;
