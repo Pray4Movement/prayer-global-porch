@@ -17,8 +17,8 @@ export class PgActivity extends PageBase {
         <h3 class="mb-0 me-auto">${this.translations.prayer_activity}</h3>
       </div>
 
-      <div class="brand-bg white">
-        <div class="container-md stack-md page px-3">
+      <div class="brand-bg white page px-3">
+        <div class="pg-container stack-md" data-grid data-small>
           <h2 class="text-center fs-3 font-base">
             ${this.translations.strengthen_text}
           </h2>
@@ -61,17 +61,27 @@ export class PgActivity extends PageBase {
             </section>
           </div>
 
-          <section class="activity-table activity-card">
-            <span>${window.jsObject.stats.total_minutes_prayed}</span>
-            <span>Minutes prayed</span>
-            <span>${window.jsObject.stats.total_places_prayed}</span>
-            <span>Places prayed for</span>
-            <span>${window.jsObject.stats.total_relays_part_of}</span>
-            <span>Active laps</span>
-            <span>${window.jsObject.stats.total_finished_relays_part_of}</span>
-            <span>Laps finished</span>
+          <section class="activity-card">
+            <table class="activity-table mx-auto">
+              <tr>
+                <td>${window.jsObject.stats.total_minutes_prayed}</td>
+                <td>Minutes prayed</td>
+              </tr>
+              <tr>
+                <td>${window.jsObject.stats.total_places_prayed}</td>
+                <td>Places prayed for</td>
+              </tr>
+              <tr>
+                <td>${window.jsObject.stats.total_relays_part_of}</td>
+                <td>Active laps</td>
+              </tr>
+              <tr>
+                <td>${window.jsObject.stats.total_finished_relays_part_of}</td>
+                <td>Laps finished</td>
+              </tr>
+            </table>
           </section>
-          <a class="btn btn-cta btn-lg" href="/newest/lap">
+          <a class="btn btn-cta btn-lg w-fit mx-auto" href="/newest/lap">
             ${this.translations.start_praying}
           </a>
         </div>
