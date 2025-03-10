@@ -9,9 +9,7 @@ $home_page = false;
 if ( '' === $url ) {
     $nav_class = 'navbar-home navbar-dark';
     $home_page = true;
-} else if ( str_contains( $url, 'stats' ) ||
-            str_contains( $url, 'about' ) ||
-            str_contains( $url, 'stats' ) ||
+} else if ( str_contains( $url, 'about' ) ||
             str_contains( $url, 'login' ) ||
             str_contains( $url, 'profile' )
 ) {

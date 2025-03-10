@@ -15,7 +15,6 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
     public $type_actions = [
         '' => 'Pray',
         'map' => 'Map',
-        'stats' => 'Stats',
         'location' => 'Location',
         'location-map' => 'Location Map',
     ];
@@ -67,9 +66,7 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
             require_once( 'action-global-lap.php' );
         } else if ( 'map' === $this->parts['action'] ) {
             require_once( 'action-global-map.php' );
-        } else if ( 'stats' === $this->parts['action'] ) {
-            require_once( 'action-global-stats.php' );
-        } else if ( 'location' === $this->parts['action'] ) {
+        }else if ( 'location' === $this->parts['action'] ) {
             require_once( 'action-global-location.php' );
         } else if ( 'location-map' === $this->parts['action'] ) {
             require_once( 'action-global-location-map.php' );
@@ -133,12 +130,6 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
                     return PG_Global_Prayer_App_Map::instance()->endpoint( $request );
                 }
                 return new WP_Error( __METHOD__, 'Class not loaded: PG_Global_Prayer_App_Map', [ 'status' => 400 ] );
-            case 'stats':
-                require_once( 'action-global-stats.php' );
-                if ( class_exists( 'PG_Global_Prayer_App_Stats' ) ) {
-                    return PG_Global_Prayer_App_Stats::instance()->endpoint( $request );
-                }
-                return new WP_Error( __METHOD__, 'Class not loaded: PG_Global_Prayer_App_Stats', [ 'status' => 400 ] );
             case 'location':
                 require_once( 'action-global-location.php' );
                 if ( class_exists( 'PG_Global_Prayer_App_Location' ) ) {

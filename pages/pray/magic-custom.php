@@ -15,7 +15,6 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
     public $type_actions = [
         '' => 'Pray',
         'map' => 'Map',
-        'stats' => 'Stats',
         'tools' => 'Tools',
         'display' => 'Display',
         'event' => 'Event',
@@ -90,8 +89,6 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
             require_once( 'action-custom-event-lap.php' );
         } else if ( 'map' === $action ) {
             require_once( 'action-custom-map.php' );
-        } else if ( 'stats' === $action ) {
-            require_once( 'action-custom-stats.php' );
         } else if ( 'display' === $action ) {
             require_once( 'action-custom-map-display.php' );
         } else if ( 'tools' === $action ) {
@@ -156,12 +153,6 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
                     return PG_Custom_Prayer_App_Map::instance()->endpoint( $request );
                 }
                 return new WP_Error( __METHOD__, 'Class not loaded: PG_Custom_Prayer_App_Map', [ 'status' => 400 ] );
-            case 'stats':
-                require_once( 'action-custom-stats.php' );
-                if ( class_exists( 'PG_Custom_Prayer_App_Stats' ) ) {
-                    return PG_Custom_Prayer_App_Stats::instance()->endpoint( $request );
-                }
-                return new WP_Error( __METHOD__, 'Class not loaded: PG_Custom_Prayer_App_Stats', [ 'status' => 400 ] );
             case 'tools':
                 require_once( 'action-custom-tools.php' );
                 if ( class_exists( 'PG_Custom_Prayer_App_Tools' ) ) {
