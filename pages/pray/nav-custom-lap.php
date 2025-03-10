@@ -3,7 +3,7 @@
 function pg_custom_lap_nav( $key ) {
 
     $url = dt_get_url_path();
-    $dark_nav_class = str_contains( $url, 'stats' ) || str_contains( $url, 'completed' ) ? 'navbar-dark' : '';
+    $dark_nav_class = str_contains( $url, 'stats' ) ? 'navbar-dark' : '';
 
     ?>
 

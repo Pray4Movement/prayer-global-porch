@@ -10,7 +10,6 @@ if ( '' === $url ) {
     $nav_class = 'navbar-home navbar-dark';
     $home_page = true;
 } else if ( str_contains( $url, 'stats' ) ||
-            str_contains( $url, 'completed' ) ||
             str_contains( $url, 'about' ) ||
             str_contains( $url, 'stats' ) ||
             str_contains( $url, 'login' ) ||

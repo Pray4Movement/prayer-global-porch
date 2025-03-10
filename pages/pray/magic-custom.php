@@ -16,7 +16,6 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
         '' => 'Pray',
         'map' => 'Map',
         'stats' => 'Stats',
-        'completed' => 'Completed',
         'tools' => 'Tools',
         'display' => 'Display',
         'event' => 'Event',
@@ -83,14 +82,12 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
         if ( empty( $action ) ) {
             $status = get_post_meta( $this->parts['post_id'], 'status', true );
             if ( $status === 'complete' ) {
-                wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/completed' );
+                wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/map' );
                 exit;
             }
             require_once( 'action-custom-lap.php' );
         } else if ( 'event' === $action ) {
             require_once( 'action-custom-event-lap.php' );
-        } else if ( 'completed' === $action ) {
-            require_once( 'action-custom-completed.php' );
         } else if ( 'map' === $action ) {
             require_once( 'action-custom-map.php' );
         } else if ( 'stats' === $action ) {
@@ -153,8 +150,6 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['parts']['action'] ) {
-            case 'completed':
-                return true;
             case 'map':
                 require_once( 'action-custom-map.php' );
                 if ( class_exists( 'PG_Custom_Prayer_App_Map' ) ) {

@@ -16,7 +16,6 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
         '' => 'Pray',
         'map' => 'Map',
         'stats' => 'Stats',
-        'completed' => 'Completed',
         'location' => 'Location',
         'location-map' => 'Location Map',
     ];
@@ -66,8 +65,6 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
         // load different actions
         if ( empty( $this->parts['action'] ) ) {
             require_once( 'action-global-lap.php' );
-        } else if ( 'completed' === $this->parts['action'] ) {
-            require_once( 'action-global-completed.php' );
         } else if ( 'map' === $this->parts['action'] ) {
             require_once( 'action-global-map.php' );
         } else if ( 'stats' === $this->parts['action'] ) {
@@ -130,8 +127,6 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['parts']['action'] ) {
-            case 'completed':
-                return true;
             case 'map':
                 require_once( 'action-global-map.php' );
                 if ( class_exists( 'PG_Global_Prayer_App_Map' ) ) {

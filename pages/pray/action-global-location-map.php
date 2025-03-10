@@ -40,7 +40,7 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
         // redirect to completed if not current global lap
         $current_lap = Prayer_Stats::get_relay_details( $this->parts['public_key'], $this->parts['post_id'] );
         if ( $current_lap['status'] === 'complete' ) {
-            wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/completed' );
+            wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/map' );
             exit;
         }
 
