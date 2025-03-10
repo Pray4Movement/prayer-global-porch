@@ -172,7 +172,9 @@
                   class="orange-gradient icon-xlg"
                   style="mask:url('${window.jsObject.icons_url}/pg-streak.svg') no-repeat 0 0/100% 100%;"
                 ></div>
-                <span class="f-lg font-weight-bold">30</span>
+                <span class="f-lg font-weight-bold"
+                  >${window.jsObject.stats.current_streak_in_days}</span
+                >
               </div>
               <div class="cluster | s-sm">
                 <svg class="brand-highlight icon-md">
@@ -180,14 +182,20 @@
                     href="${window.jsObject.spritesheet_url}#pg-streak"
                   ></use>
                 </svg>
-                <span class="fs-3 brand-highlight">47 Best</span>
+                <span class="fs-3 brand-highlight"
+                  >${window.jsObject.stats.best_streak_in_days} Best</span
+                >
               </div>
             </section>
             <section class="stack-sm activity-card lh-xsm">
               <h3 class="activity-card__title">Weeks in a row</h3>
-              <span class="f-lg font-weight-bold">4</span>
+              <span class="f-lg font-weight-bold"
+                >${window.jsObject.stats.current_streak_in_weeks}</span
+              >
               <h3 class="activity-card__title">Days this year</h3>
-              <span class="f-lg font-weight-bold">56</span>
+              <span class="f-lg font-weight-bold"
+                >${window.jsObject.stats.days_this_year}</span
+              >
             </section>
           </div>
 
