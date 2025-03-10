@@ -101,6 +101,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         if ( is_user_logged_in() ) {
             $user = wp_get_current_user();
             $gravatar_url = get_avatar_url( $user->user_login );
+            $user_stats = new User_Stats( $user->ID );
         }
         wp_enqueue_script( 'user-profile-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-profile.js', [ 'jquery', 'components-js' ], filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-profile.js' ), true );
         wp_localize_script( 'user-profile-js', 'jsObject', [
@@ -164,6 +165,16 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'spritesheet_url' => $this->spritesheet_url,
             'icons_url' => trailingslashit( plugin_dir_url( __DIR__ ) ) . 'assets/images/icons' ,
             'gravatar_url' => $gravatar_url,
+            'stats' => [
+                'total_minutes_prayed' => $user_stats->total_minutes_prayed(),
+                'total_places_prayed' => $user_stats->total_places_prayed(),
+                'total_relays_part_of' => $user_stats->total_relays_part_of(),
+                'total_finished_relays_part_of' => $user_stats->total_finished_relays_part_of(),
+                'best_streak_in_days' => $user_stats->best_streak_in_days(),
+                'current_streak_in_days' => $user_stats->current_streak_in_days(),
+                'current_streak_in_weeks' => $user_stats->current_streak_in_weeks(),
+                'days_this_year' => $user_stats->days_this_year(),
+            ],
         ] );
     }
 

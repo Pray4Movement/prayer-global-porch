@@ -54,13 +54,13 @@ export class PgActivity extends PageBase {
           </div>
 
           <section class="activity-table activity-card">
-            <span>250</span>
+            <span>${window.jsObject.stats.total_minutes_prayed}</span>
             <span>Minutes prayed</span>
-            <span>127</span>
+            <span>${window.jsObject.stats.total_places_prayed}</span>
             <span>Places prayed for</span>
-            <span>3</span>
+            <span>${window.jsObject.stats.total_relays_part_of}</span>
             <span>Active laps</span>
-            <span>7</span>
+            <span>${window.jsObject.stats.total_finished_relays_part_of}</span>
             <span>Laps finished</span>
           </section>
           <a class="btn btn-cta btn-lg" href="/newest/lap">
