@@ -50,7 +50,7 @@ class PG_Cron_Jobs {
                 AND total = 0
             ", $relay_key ) );
 
-            update_post_meta( $post_id, 'status', 'complete' );
+            update_post_meta( $post_id, 'status', 'inactive' );
         }
     }
 }
