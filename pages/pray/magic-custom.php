@@ -84,6 +84,13 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
                 wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/map' );
                 exit;
             }
+            if ( $status === 'inactive' ) {
+                //make active
+                update_post_meta( $this->parts['post_id'], 'status', 'active' );
+                //recreate missing dt_relays rows
+                $this->recreate_pg_relay();
+            }
+
             require_once( 'action-custom-lap.php' );
         } else if ( 'event' === $action ) {
             require_once( 'action-custom-event-lap.php' );
@@ -99,6 +106,21 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
 
         // set page title
         $this->page_title = get_the_title( $this->parts['post_id'] );
+    }
+
+    public function recreate_pg_relay() {
+        global $wpdb;
+        $wpdb->query( $wpdb->prepare( "
+            INSERT INTO $wpdb->dt_relays
+                (relay_key, grid_id, epoch)
+                SELECT %s as relay_key, grid_id, FLOOR(RAND() * 1001) as epoch
+                FROM $wpdb->dt_relays
+                WHERE relay_key = '49ba4c'
+                AND grid_id NOT IN (
+                    SELECT grid_id FROM $wpdb->dt_relays
+                    WHERE relay_key = %s
+                )
+        ", $this->parts['public_key'], $this->parts['public_key'] ) );
     }
 
     /* Setup $parts manually */
