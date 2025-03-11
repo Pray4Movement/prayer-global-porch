@@ -53,6 +53,5 @@ class PG_Cron_Jobs {
             update_post_meta( $post_id, 'status', 'complete' );
         }
     }
-
 }
 PG_Cron_Jobs::instance();
