@@ -115,6 +115,7 @@ class Prayer_Global_Porch {
         $wpdb->location_grid_names = 'location_grid_names';
         $wpdb->dt_relays = $wpdb->prefix . 'dt_relays';
 
+        require_once( 'utilities/cron-jobs.php' );
         require_once( 'utilities/global-utilities.php' );
         require_once( 'utilities/prayer-stats.php' );
         require_once( 'utilities/enqueue-async.php' );
