@@ -24,6 +24,13 @@ export class PgRelayItem extends OpenElement {
   @property({ type: String })
   relayType: RelayType = "global";
 
+  token = "";
+
+  override connectedCallback() {
+    super.connectedCallback();
+    this.token = this.name.replace(/\s+/g, "-");
+  }
+
   private renderIcon() {
     const iconMap = {
       private: "pg-private",
@@ -62,13 +69,29 @@ export class PgRelayItem extends OpenElement {
             ${this.renderIcon()}
           </div>
           <div class="stack-sm relay-item__actions">
-            <button>
+            <button
+              class="dropdown-toggle"
+              data-bs-toggle="dropdown"
+              data-bs-auto-close="true"
+              aria-expanded="false"
+              id="relay-item-actions-${this.token}"
+            >
               <svg class="white icon-sm">
                 <use
                   href="${this.spritesheetUrl}#ion-ellipsis-horizontal"
                 ></use>
               </svg>
             </button>
+            <ul
+              class="dropdown-menu"
+              aria-labelledby="relay-item-actions-${this.token}"
+            >
+              <li class="dropdown-item">${this.translations.map}</li>
+              <li class="dropdown-item">${this.translations.share}</li>
+              <li class="dropdown-item">${this.translations.display}</li>
+              <li class="dropdown-item">${this.translations.edit}</li>
+              <li class="dropdown-item">${this.translations.delete}</li>
+            </ul>
             <button class="btn btn-cta">${this.translations.pray}</button>
           </div>
         </div>

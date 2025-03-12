@@ -798,6 +798,9 @@ input[type="radio"]:checked {
 .relay-item .btn-cta {
     padding: 0.2rem 1rem;
 }
+.relay-item .dropdown-toggle::after {
+    display: none;
+}
 .relay-item[data-type="global"] {
     background-color: var(--pg-brand-color);
 }

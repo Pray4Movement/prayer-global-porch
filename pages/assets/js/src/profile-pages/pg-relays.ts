@@ -28,6 +28,11 @@ export class PgRelays extends OpenElement {
               .translations="${{
                 lap: this.translations.lap,
                 pray: this.translations.pray,
+                map: this.translations.map,
+                share: this.translations.share,
+                display: this.translations.display,
+                edit: this.translations.edit,
+                delete: this.translations.delete,
               }}"
               spritesheetUrl="${window.jsObject.spritesheet_url}"
             ></pg-relay-item>
@@ -39,6 +44,11 @@ export class PgRelays extends OpenElement {
               .translations="${{
                 lap: this.translations.lap,
                 pray: this.translations.pray,
+                map: this.translations.map,
+                share: this.translations.share,
+                display: this.translations.display,
+                edit: this.translations.edit,
+                delete: this.translations.delete,
               }}"
               spritesheetUrl="${window.jsObject.spritesheet_url}"
             ></pg-relay-item>
@@ -50,6 +60,11 @@ export class PgRelays extends OpenElement {
               .translations="${{
                 lap: this.translations.lap,
                 pray: this.translations.pray,
+                map: this.translations.map,
+                share: this.translations.share,
+                display: this.translations.display,
+                edit: this.translations.edit,
+                delete: this.translations.delete,
               }}"
               spritesheetUrl="${window.jsObject.spritesheet_url}"
             ></pg-relay-item>
