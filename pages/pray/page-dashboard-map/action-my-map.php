@@ -7,6 +7,7 @@ class PG_My_Map extends PG_Public_Page {
     public $rest_route = 'dashboard/map';
 
     public function __construct() {
+        $this->page_title = __( 'My Map', 'prayer-global-porch' );
         $current_page_path_matches = parent::__construct();
         if ( !$current_page_path_matches ) {
             return;
@@ -14,7 +15,6 @@ class PG_My_Map extends PG_Public_Page {
         /**
          * Register custom hooks here
          */
-
     }
 
     public function register_endpoints(){
@@ -239,7 +239,7 @@ class PG_My_Map extends PG_Public_Page {
 
         $stats = PG_User_API::get_my_stats();
 
-        $jsObject = [
+        $js_object = [
             'public_endpoint_url' => rest_url() . $this->rest_route,
             'grid_data' => $this->get_my_places_prayed_for(),
             'stats' => $stats,
@@ -247,8 +247,7 @@ class PG_My_Map extends PG_Public_Page {
             'map_type' => 'binary',
         ];
 
-
-        wp_localize_script( 'heatmap-js', 'jsObject', $jsObject );
+        wp_localize_script( 'heatmap-js', 'jsObject', $js_object );
 
         pg_enqueue_script( 'my-map-heatmap', 'pages/pray/page-dashboard-map/heatmap.js', [ 'heatmap-js' ] );
 
@@ -257,9 +256,9 @@ class PG_My_Map extends PG_Public_Page {
         wp_enqueue_style( 'google-fonts-2', 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap', [], '1' );
         wp_enqueue_style( 'bootstrap-css', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css', [], '5.2.3' );
         wp_enqueue_style( 'ionicons-css', 'https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css', [], '4.5.6' );
-        wp_enqueue_style( 'pg-styles-css',  Prayer_Global_Porch::get_url_path() . 'pages/assets/fonts/prayer-global/style.css', [], fileatime( Prayer_Global_Porch::get_dir_path() . 'pages/assets/fonts/prayer-global/style.css' ) );
-        wp_enqueue_style( 'basic-css',  Prayer_Global_Porch::get_url_path() . 'pages/assets/css/basic.css', [], fileatime( Prayer_Global_Porch::get_dir_path() . 'pages/assets/css/basic.css' ) );
-        wp_enqueue_style( 'heatmap-css',  Prayer_Global_Porch::get_url_path() . 'pages/pray/heatmap.css', [], fileatime( Prayer_Global_Porch::get_dir_path() . 'pages/pray/heatmap.css' ) );
+        wp_enqueue_style( 'pg-styles-css', Prayer_Global_Porch::get_url_path() . 'pages/assets/fonts/prayer-global/style.css', [], fileatime( Prayer_Global_Porch::get_dir_path() . 'pages/assets/fonts/prayer-global/style.css' ) );
+        wp_enqueue_style( 'basic-css', Prayer_Global_Porch::get_url_path() . 'pages/assets/css/basic.css', [], fileatime( Prayer_Global_Porch::get_dir_path() . 'pages/assets/css/basic.css' ) );
+        wp_enqueue_style( 'heatmap-css', Prayer_Global_Porch::get_url_path() . 'pages/pray/heatmap.css', [], fileatime( Prayer_Global_Porch::get_dir_path() . 'pages/pray/heatmap.css' ) );
 
 
         // function add_google_fonts_preconnect( $urls, $relation_type ) {
@@ -275,7 +274,6 @@ class PG_My_Map extends PG_Public_Page {
         //     return $urls;
         // }
         // add_filter( 'wp_resource_hints', 'add_google_fonts_preconnect', 10, 2 );
-        
     }
 
     /**
@@ -287,7 +285,7 @@ class PG_My_Map extends PG_Public_Page {
      * Adds printed scripts to header
      */
     public function header_javascript(){
-        $details['title'] = 'Prayer.Global ' . esc_html( __( $this->page_title, 'prayer-global-porch' ) );
+        $details['title'] = 'Prayer.Global ' . $this->page_title;
         pg_og_tags( $details );
 
         ?>
@@ -324,22 +322,21 @@ class PG_My_Map extends PG_Public_Page {
         $allowed_css[] = 'pg-styles-css';
         $allowed_css[] = 'basic-css';
         $allowed_css[] = 'ionicons-css';
-        
+
         $allowed_css[] = 'google-fonts';
         $allowed_css[] = 'google-fonts-2';
 
         return $allowed_css;
     }
-    
+
 
     public function get_my_places_prayed_for(){
         $results = PG_User_API::get_my_places_prayed_for();
-        return [ 
+        return [
             'grid_data' => [ 'data' =>$results ],
             'participants' => []
         ];
     }
-    
 }
 
 new PG_My_Map();
