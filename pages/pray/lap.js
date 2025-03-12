@@ -33,8 +33,10 @@ const closeModalButton = decisionLeaveModal.querySelector("#decision__close");
 const doneButton = questionPanel.querySelector("#question__yes_done");
 const nextButton = questionPanel.querySelector("#question__yes_next");
 
+const settingsModal = document.querySelector("#option_filter");
 const settingsButton = document.querySelector("#praying__open_options");
 const settingsDoneButton = document.querySelector("#option_filter_done");
+const settingsCloseButton = document.querySelector("#option_filter_close");
 const paceButtons = document.querySelectorAll(".pace-btn");
 
 const populationInfoNo = document.querySelector(".population-info .no");
@@ -99,8 +101,9 @@ function setupListeners() {
   doneButton.addEventListener("click", celebrateAndDone);
   nextButton?.addEventListener("click", celebrateAndNext);
 
-  settingsButton.addEventListener("click", () => toggleTimer(true));
-  settingsDoneButton.addEventListener("click", () => toggleTimer(false));
+  settingsButton.addEventListener("click", () => openSettings());
+  settingsDoneButton.addEventListener("click", () => closeSettings());
+  settingsCloseButton.addEventListener("click", () => closeSettings());
 
   welcomeScreenDoneButton.addEventListener("click", finishWelcome);
 }
@@ -140,6 +143,15 @@ function selectPaceOption(event) {
 function finishWelcome() {
   welcomeModal.classList.remove("show");
   localStorage.setItem("pg_viewed", true);
+  toggleTimer(false);
+}
+
+function openSettings() {
+  settingsModal.classList.add("show");
+  toggleTimer(true);
+}
+function closeSettings() {
+  settingsModal.classList.remove("show");
   toggleTimer(false);
 }
 
@@ -265,7 +277,9 @@ function startTimer(time) {
     if (window.time > window.secondsTilLog && !window.alreadyLogged) {
       /* send log */
       const url = `${jsObject.direct_api_url}update-location.php`;
-      const user_language = `; ${document.cookie}`.split("; dt-magic-link-lang=")[1]?.split(";")[0];
+      const user_language = `; ${document.cookie}`
+        .split("; dt-magic-link-lang=")[1]
+        ?.split(";")[0];
       fetch(url, {
         method: "POST",
         headers: {
@@ -387,7 +401,13 @@ window.api_fetch = function (url, options = {}) {
 function ip_location() {
   const user_location = localStorage.getItem("user_location");
   window.user_location = user_location ? JSON.parse(user_location) : null;
-  if ( !window.user_location || window.user_location === "undefined" || ( window.user_location.date_set && window.user_location.date_set < Date.now() - 604800000 /*7 days in milliseconds*/ ) ) {
+  if (
+    !window.user_location ||
+    window.user_location === "undefined" ||
+    (window.user_location.date_set &&
+      window.user_location.date_set <
+        Date.now() - 604800000) /*7 days in milliseconds*/
+  ) {
     return window
       .api_fetch(`https://geo.prayer.global/json`, {
         method: "GET",
@@ -399,15 +419,18 @@ function ip_location() {
             lng: response.location.longitude,
             label: `${response.city?.names?.en}, ${response.country?.names?.en}`,
             country: response.country?.names?.en,
-            date_set: Date.now()
-          }
+            date_set: Date.now(),
+          };
           let pg_user_hash = localStorage.getItem("pg_user_hash");
           if (!pg_user_hash || pg_user_hash === "undefined") {
-            pg_user_hash = window.crypto.randomUUID()
+            pg_user_hash = window.crypto.randomUUID();
             localStorage.setItem("pg_user_hash", pg_user_hash);
           }
           window.user_location.hash = pg_user_hash;
-          localStorage.setItem("user_location", JSON.stringify(window.user_location));
+          localStorage.setItem(
+            "user_location",
+            JSON.stringify(window.user_location)
+          );
         }
       });
   }

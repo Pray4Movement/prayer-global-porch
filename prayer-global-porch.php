@@ -115,6 +115,7 @@ class Prayer_Global_Porch {
         $wpdb->location_grid_names = 'location_grid_names';
         $wpdb->dt_relays = $wpdb->prefix . 'dt_relays';
 
+        require_once( 'utilities/cron-jobs.php' );
         require_once( 'utilities/global-utilities.php' );
         require_once( 'utilities/prayer-stats.php' );
         require_once( 'utilities/enqueue-async.php' );
@@ -143,6 +144,7 @@ class Prayer_Global_Porch {
         require_once( 'pages/data-sources/magic-data-sources.php' );
 
         // prayer_app
+        require_once( 'pages/pray/public-page-base.php' );
         require_once( 'pages/pray/magic-global.php' );
         require_once( 'pages/pray/magic-custom.php' );
         require_once( 'pages/pray/page-dashboard-map/action-my-map.php' );
