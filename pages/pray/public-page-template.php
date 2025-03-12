@@ -7,15 +7,13 @@ class MY_Public_Page extends PG_Public_Page {
     public $rest_route = 'my-page-api';
 
     public function __construct() {
-         $constructor = parent::__construct();
-         if ( !$constructor ) {
-             return;
-         }
-
+        $current_page_path_matches = parent::__construct();
+        if ( !$current_page_path_matches ) {
+            return;
+        }
          /**
          * Register custom hooks here
          */
-
     }
 
     public function register_endpoints(){
@@ -28,15 +26,14 @@ class MY_Public_Page extends PG_Public_Page {
     public function my_endpoint( WP_REST_Request $request ){
         return new WP_REST_Response( 'Hello World', 200 );
     }
-    
+
     public function wp_enqueue_scripts() {
-        
         //add styles
         //wp_enqueue_style( 'my-page-style', plugin_dir_url( __FILE__ ) . 'assets/css/my-page.css' );
-        
+
         //add scripts
         //wp_enqueue_script( 'my-page-script', plugin_dir_url( __FILE__ ) . 'assets/js/my-page.js' );
-        
+
         //add settings object
         // $settings = [
         //     'my_setting' => 'my_value',
@@ -45,8 +42,8 @@ class MY_Public_Page extends PG_Public_Page {
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        $allowed_js = [
-            'my-page-script'];
+        $allowed_js = [];
+        $allowed_js[] = 'my-page-script';
         return $allowed_js;
     }
 
