@@ -33,8 +33,10 @@ const closeModalButton = decisionLeaveModal.querySelector("#decision__close");
 const doneButton = questionPanel.querySelector("#question__yes_done");
 const nextButton = questionPanel.querySelector("#question__yes_next");
 
+const settingsModal = document.querySelector("#option_filter");
 const settingsButton = document.querySelector("#praying__open_options");
 const settingsDoneButton = document.querySelector("#option_filter_done");
+const settingsCloseButton = document.querySelector("#option_filter_close");
 const paceButtons = document.querySelectorAll(".pace-btn");
 
 const populationInfoNo = document.querySelector(".population-info .no");
@@ -99,8 +101,9 @@ function setupListeners() {
   doneButton.addEventListener("click", celebrateAndDone);
   nextButton?.addEventListener("click", celebrateAndNext);
 
-  settingsButton.addEventListener("click", () => toggleTimer(true));
-  settingsDoneButton.addEventListener("click", () => toggleTimer(false));
+  settingsButton.addEventListener("click", () => openSettings());
+  settingsDoneButton.addEventListener("click", () => closeSettings());
+  settingsCloseButton.addEventListener("click", () => closeSettings());
 
   welcomeScreenDoneButton.addEventListener("click", finishWelcome);
 }
@@ -140,6 +143,15 @@ function selectPaceOption(event) {
 function finishWelcome() {
   welcomeModal.classList.remove("show");
   localStorage.setItem("pg_viewed", true);
+  toggleTimer(false);
+}
+
+function openSettings() {
+  settingsModal.classList.add("show");
+  toggleTimer(true);
+}
+function closeSettings() {
+  settingsModal.classList.remove("show");
   toggleTimer(false);
 }
 
@@ -265,6 +277,9 @@ function startTimer(time) {
     if (window.time > window.secondsTilLog && !window.alreadyLogged) {
       /* send log */
       const url = `${jsObject.direct_api_url}update-location.php`;
+      const user_language = `; ${document.cookie}`
+        .split("; dt-magic-link-lang=")[1]
+        ?.split(";")[0];
       fetch(url, {
         method: "POST",
         headers: {
@@ -279,6 +294,7 @@ function startTimer(time) {
           pace: window.pace,
           parts: jsObject.parts,
           user_location: window.user_location,
+          language: user_language || "en_US",
         }),
       })
         .then((res) => {
@@ -393,25 +409,32 @@ function ip_location() {
         Date.now() - 604800000) /*7 days in milliseconds*/
   ) {
     return window
-      .api_fetch(`${window.pg_global.root}pg-api/v1/user/ip_location`, {
-        method: "POST",
+      .api_fetch(`https://geo.prayer.global/json`, {
+        method: "GET",
       })
-      .then(function (location) {
-        if (location) {
-          location.date_set = Date.now();
+      .then(function (response) {
+        if (response) {
+          window.user_location = {
+            lat: response.location.latitude,
+            lng: response.location.longitude,
+            label: `${response.city?.names?.en}, ${response.country?.names?.en}`,
+            country: response.country?.names?.en,
+            date_set: Date.now(),
+          };
           let pg_user_hash = localStorage.getItem("pg_user_hash");
           if (!pg_user_hash || pg_user_hash === "undefined") {
-            localStorage.setItem("pg_user_hash", location.hash);
-          } else {
-            location.hash = pg_user_hash;
+            pg_user_hash = window.crypto.randomUUID();
+            localStorage.setItem("pg_user_hash", pg_user_hash);
           }
-          window.user_location = location;
-          localStorage.setItem("user_location", JSON.stringify(location));
+          window.user_location.hash = pg_user_hash;
+          localStorage.setItem(
+            "user_location",
+            JSON.stringify(window.user_location)
+          );
         }
       });
   }
 }
-
 /* Fly away the see more button after a little bit of scroll */
 const seeMoreButton = document.querySelector("#see-more-button");
 if (window.scrollY < 100) {
@@ -465,7 +488,8 @@ function waitForLocation() {
       if (gridId) {
         //const jsonUrl = jsObject.json_folder + '100000002' + '.json'
         //const jsonUrl = jsObject.json_folder + '100000003' + '.json'
-        const jsonUrl = jsObject.cache_url + "json/" + gridId + ".json";
+        // const jsonUrl = jsObject.cache_url + "json/" + gridId + ".json";
+        const jsonUrl = `/wp-json/prayer-global/fuel/${gridId}`;
 
         return fetch(jsonUrl)
           .then((response) => {
@@ -579,17 +603,17 @@ function _template_percent_3_circles(data) {
     <div class="block percent-3-circles-block">
         <h5>${data.section_label}</h5>
         <div class="switcher">
-            <div class="flow space-sm">
+            <div class="flow sm">
                 <p class="bold f-md">${data.label_1}</p>
                 <div class="pie" style="--p:${data.percent_1};--b:10px;--c:var(--pg-dark);">${data.percent_1}%</div>
                 <p class="f-lg">${data.population_1}</p>
             </div>
-            <div class="flow space-sm">
+            <div class="flow sm">
                 <p class="bold f-md">${data.label_2}</p>
                 <div class="pie" style="--p:${data.percent_2};--b:10px;--c:var(--pg-light);">${data.percent_2}%</div>
                 <p class="f-lg">${data.population_2}</p>
             </div>
-            <div class="flow space-sm">
+            <div class="flow sm">
                 <p class="bold f-md">${data.label_3}</p>
                 <div class="pie" style="--p:${data.percent_3};--b:10px;--c:var(--pg-orange);">${data.percent_3}%</div>
                 <p class="f-lg">${data.population_3}</p>
@@ -650,21 +674,21 @@ function _template_100_bodies_3_chart(data) {
       <div class="block 100-bodies-3-chart-block">
           <h5>${data.section_label}</h5>
           <div class="switcher">
-              <div class="flow space-sm">
+              <div class="flow sm">
                   <p class="bold">${data.label_1}</p>
                   <p class="f-xlg">
                       ${bodies_1}
                   </p>
                   <p class="f-lg">${data.population_1}</p>
               </div>
-              <div class="flow space-sm">
+              <div class="flow sm">
                   <p class="bold">${data.label_2}</p>
                   <p class="f-xlg">
                       ${bodies_2}
                   </p>
                   <p class="f-lg">${data.population_2}</p>
               </div>
-              <div class="flow space-sm">
+              <div class="flow sm">
                   <p class="bold">${data.label_3}</p>
                   <p class="f-xlg">
                       ${bodies_3}
@@ -715,7 +739,7 @@ function _template_population_change_icon_block(data) {
   i = 0;
   while (i < data.count) {
     icon_list += `
-        <svg height="1em" width="1em" class="${icon_color} ${font_size}">
+        <svg height="1em" width="1em" viewBox="0 0 512 512" class="${icon_color} ${font_size}">
             <use href="#${icon}"></use>
         </svg>
     `;
@@ -740,19 +764,19 @@ function _template_4_fact_blocks(data) {
           <h5>${data.section_label}</h5>
           <p class="f-xlg">${data.focus_label}</p>
           <div class="switcher">
-              <div class="flow space-sm">
+              <div class="flow sm">
                   <p class="bold">${data.label_1}</p>
                   <p class="f-xlg">${data.value_1}</p>
               </div>
-              <div class="flow space-sm">
+              <div class="flow sm">
                   <p class="bold">${data.label_2}</p>
                   <p class="f-xlg">${data.value_2}</p>
               </div>
-              <div class="flow space-sm">
+              <div class="flow sm">
                   <p class="bold">${data.label_3}</p>
                   <p class="f-xlg">${data.value_3}</p>
               </div>
-              <div class="flow space-sm">
+              <div class="flow sm">
                   <p class="bold">${data.label_4}</p>
                   <p class="f-xlg">${data.value_4}</p>
               </div>
@@ -800,7 +824,7 @@ function _template_least_reached_block(data) {
   }
   return `
       <div class="block least-reached-block">
-          <div class="flow space-sm">
+          <div class="flow sm">
               <h5>${data.section_label}</h5>
               <p class="f-xlg">${data.focus_label}</p>
               ${
@@ -829,7 +853,7 @@ function _template_content_block(data) {
       icolor = data.color;
     }
     icon = `
-        <svg class="icon-xlg ${icolor}" width="1em" height="1em">
+        <svg class="icon-xlg ${icolor}" width="1em" height="1em" viewBox="0 0 512 512">
             <use href="#${iclass}" ></use>
         </svg>
     `;
@@ -900,9 +924,9 @@ function _template_basic_block(data) {
   const reference = data.reference
     ? `
         <button type="button" class="btn simple id-${data.id} with-icon" onclick="document.querySelector('#id-${data.id}').style.display = 'block';document.querySelector('.id-${data.id}').style.display = 'none';" >
-            <span>${data.reference} </span> <svg width="1em" height="1em"><use href="#pg-chevron-down"></use></svg>
+            <span>${data.reference} </span> <svg width="1em" height="1em" viewBox="0 0 33 33"><use href="#pg-chevron-down"></use></svg>
         </button>
-        <div class="flow space-sm" id="id-${data.id}" style="display: none" >
+        <div class="flow sm" id="id-${data.id}" style="display: none" >
             <p class="block__verse">${data.verse}</p>
             <p class="f-normal">${data.reference}</p>
         </div>
@@ -941,7 +965,7 @@ function BodyIcon(color) {
       : defaultColor;
 
   return `
-      <svg class="${iconColor}" width="1em" height="1em">
+      <svg class="${iconColor}" width="1em" height="1em" viewBox="0 0 512 512">
           <use href="#ion-ios-body"></use>
       </svg>
   `;

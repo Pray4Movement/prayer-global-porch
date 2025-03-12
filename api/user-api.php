@@ -73,6 +73,9 @@ class PG_User_API {
      */
     public static function get_user() {
         $user_id = get_current_user_id();
+        if ( empty( $user_id ) ) {
+            return [];
+        }
         $userdata = pg_get_user( $user_id, self::$allowed_user_meta );
 
         $userdata['stats'] = self::get_user_stats();

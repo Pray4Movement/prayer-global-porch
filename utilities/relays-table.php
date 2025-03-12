@@ -43,6 +43,23 @@ class PG_Relays_Table {
 
     /* https://www.sqlines.com/mysql/how-to/select-update-single-statement-race-condition */
     public function update_relay_total( $relay_key, $grid_id, $relay_id ) {
+        if ( $relay_key !== '49ba4c' ) {
+            $global_lap_number = $this->get_lap_number( '49ba4c' );
+
+            //only update global lap number if it counts towards the current global lap
+            $response = $this->mysqli->execute_query( "
+                UPDATE $this->relay_table
+                SET total = total + 1
+                WHERE relay_key = '49ba4c'
+                AND grid_id = ?
+                AND total = ?
+            ", [ $grid_id, $global_lap_number - 1 ] );
+
+            if ( !$response ) {
+                throw new ErrorException( 'Failed to update relay total' );
+            }
+        }
+
         //get the current lap number
         $lap_number_before_update = $this->get_lap_number( $relay_key );
 
@@ -61,26 +78,9 @@ class PG_Relays_Table {
 
         $lap_number_after_update = $this->get_lap_number( $relay_key );
 
-        if ( $relay_key !== '49ba4c' ) {
-            $global_lap_number = $this->get_lap_number( '49ba4c' );
-
-            //only update global lap number if it counts towards the current global lap
-            $response = $this->mysqli->execute_query( "
-                UPDATE $this->relay_table
-                SET total = total + 1
-                WHERE relay_key = '49ba4c'
-                AND grid_id = ?
-                AND total = ?
-            ", [ $grid_id, $global_lap_number - 1 ] );
-
-            if ( !$response ) {
-                throw new ErrorException( 'Failed to update relay total' );
-            }
-        }
-
         //we have a new lap!
         if ( $lap_number_before_update !== $lap_number_after_update ){
-            $this->new_lap_action( $relay_id );
+            $this->new_lap_action( $relay_id, $lap_number_before_update );
         }
 
         return [
@@ -107,6 +107,7 @@ class PG_Relays_Table {
         $pace = $data['pace'];
         $parts = $data['parts'];
         $user_location = $data['user_location'];
+        $user_language = $data['user_language'];
 
         $args = [
             // lap information
@@ -125,7 +126,7 @@ class PG_Relays_Table {
             // user information
             'payload' => serialize( [
                 'user_location' => $user_location['label'] ?? null,
-                'user_language' => 'en' // @todo expand for other languages
+                'user_language' => $user_language ?? 'en_US',
             ] ),
             'lng' => $user_location['lng'] ?? null,
             'lat' => $user_location['lat'] ?? null,
@@ -137,7 +138,7 @@ class PG_Relays_Table {
         ];
 
         if ( empty( $args['hash'] ) ) {
-            $args['hash'] = hash( 'sha256', maybe_serialize( $args ) );
+            $args['hash'] = hash( 'sha256', serialize( $args ) );
         }
 
         $response = $this->mysqli->execute_query( "
@@ -228,17 +229,17 @@ class PG_Relays_Table {
         if ( $relay_key === '49ba4c' ) {
             /**
              * Prioritize locations that haven't been prayed for yet this lap
-             * and that have not been promised out in the last minute
-             * then prioritize locations given out the longest ago (grouped to avoid double promises)
+             * and that have not been promised out recently
+             * then prioritize locations given out the longest ago
              */
             $locations = $this->mysqli->execute_query( "
                 SELECT grid_id
                 FROM $this->relay_table
                 WHERE relay_key = '49ba4c'
-                AND epoch < UNIX_TIMESTAMP() - 50
+                AND epoch < UNIX_TIMESTAMP() - 5
                 AND total = ( SELECT MIN(total) FROM $this->relay_table where relay_key = '49ba4c' )
                 ORDER BY epoch
-                LIMIT 100
+                LIMIT 500
             " );
             if ( false === $locations ) {
                 throw new ErrorException( 'Failed to get *needed* location not recently promised' );
@@ -256,26 +257,37 @@ class PG_Relays_Table {
         } else {
             //get location and prioritize ones from relay 49ba4c
             $locations = $this->mysqli->execute_query("
-                SELECT *
-                FROM $this->relay_table
-                WHERE relay_key = ?
-                AND epoch < UNIX_TIMESTAMP() - 50
-                AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = ?)
-                ORDER BY 
-                CASE WHEN grid_id IN ( SELECT grid_id
-                    FROM $this->relay_table
-                    WHERE relay_key = '49ba4c'
-                    AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c'))
-                then 0 else 1 end,
-                epoch
-                LIMIT 100;
+                SELECT r1.grid_id
+                FROM $this->relay_table r1
+                JOIN $this->relay_table r2 ON ( r2.relay_key = '49ba4c' AND r1.grid_id = r2.grid_id )
+                WHERE r1.relay_key = ?
+                AND r1.epoch < UNIX_TIMESTAMP() - 5
+                AND r1.total = ( SELECT MIN(total) FROM $this->relay_table WHERE relay_key = ? )
+                AND r2.epoch < UNIX_TIMESTAMP() - 60
+                AND r2.total = ( SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c' )
+                ORDER BY
+                r1.epoch
+                LIMIT 500;
             ", [ $relay_key, $relay_key ] );
 
-            $locations = $locations->fetch_all( MYSQLI_ASSOC );
             if ( false === $locations ) {
                 throw new ErrorException( 'Failed to get *needed* location not recently promised' );
             }
+            $locations = $locations->fetch_all( MYSQLI_ASSOC );
             if ( empty( $locations ) ) {
+                $locations = $this->mysqli->execute_query("
+                    SELECT grid_id
+                    FROM $this->relay_table
+                    WHERE relay_key = ?
+                    AND epoch < UNIX_TIMESTAMP() - 5
+                    AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = ?)
+                    ORDER BY
+                    epoch
+                    LIMIT 500;
+                ", [ $relay_key, $relay_key ] );
+                $locations = $locations->fetch_all( MYSQLI_ASSOC );
+            }
+            if ( empty( $locations ) ){
                 return [];
             }
             $locations = array_column( $locations, 'grid_id' );
@@ -306,7 +318,7 @@ class PG_Relays_Table {
      * @param $relay_id
      * @return void
      */
-    public function new_lap_action( $relay_id ){
+    public function new_lap_action( $relay_id, $new_lap_number ) {
         //check if this is a single lap relay
         $relay_type_query = $this->mysqli->execute_query( "
             SELECT meta_value
@@ -325,5 +337,21 @@ class PG_Relays_Table {
                 AND meta_key = 'status'
             ", [ $relay_id ] );
         }
+
+        //create a report for complete laps
+        $this->mysqli->execute_query( "
+            INSERT INTO $this->reports_table
+            (
+                post_id,
+                post_type,
+                type,
+                subtype,
+                value,
+                timestamp
+            )
+            VALUES
+            ( ?, ?, ?, ?, ?, ? )
+            ", [ $relay_id, 'pg_relays', 'lap_completed', '', $new_lap_number, time() ]
+        );
     }
 }

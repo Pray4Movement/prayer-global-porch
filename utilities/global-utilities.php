@@ -93,7 +93,7 @@ function _pg_stats_builder( $data ) : array {
     /**
      * TIME CALCULATIONS
      */
-    $now = $data['end_time'];
+    $now = $data['end_time'] ?? time();
     $time_difference = $now - $data['start_time'];
     _pg_format_duration( $data, $time_difference, 'time_elapsed', 'time_elapsed_small' );
 
@@ -153,7 +153,7 @@ function _pg_stats_builder( $data ) : array {
     $data['participants_int'] = $participants;
 
     $data['start_time_formatted'] = gmdate( 'M d, Y', $data['start_time'] );
-    $data['end_time_formatted'] = gmdate( 'M d, Y', $data['end_time'] );
+    $data['end_time_formatted'] = $data['end_time'] ? gmdate( 'M d, Y', $data['end_time'] ) : null;
     $data['timestamp'] = time();
 
     return $data;

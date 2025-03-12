@@ -63,9 +63,14 @@ window.addEventListener("load", function () {
     display_map,
   } = jsObject.translations;
 
-  if (pg_global.is_logged_in) {
-    write_main(pg_global.user);
-  }
+  window.getAuthUser(
+    (user) => {
+      write_main(user);
+    },
+    () => {
+      window.loginRedirect();
+    }
+  );
 
   jQuery("#delete-confirmation").on("keyup", (e) => {
     if (e.target.value === "delete") {
@@ -265,7 +270,7 @@ window.addEventListener("load", function () {
             </section>
         </div>`;
 
-    //jQuery("#pg_content").html(pgContentHTML);
+    jQuery("#pg_content").html(pgContentHTML);
 
     jQuery(".change-details").on("click", () => {
       setup_details_modal();
@@ -323,7 +328,7 @@ window.addEventListener("load", function () {
         }
       });
 
-    /*     jQuery(".user-profile-link").on("click", () =>
+    jQuery(".user-profile-link").on("click", () =>
       write_profile({
         name: jsObject.user.display_name,
         email: jsObject.user.user_email,
@@ -333,7 +338,7 @@ window.addEventListener("load", function () {
       })
     );
     jQuery(".user-prayers-link").on("click", () => write_prayers());
-    jQuery(".user-challenges-link").on("click", () => write_challenges()); */
+    jQuery(".user-challenges-link").on("click", () => write_challenges());
 
     /* Setup the mapbox search widget */
     window.write_input_widget();
