@@ -5,11 +5,11 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 /**
  * Base class for public pages
- * 
+ *
  * This class is used to create a base class for all public pages.
  * It is used to register the url, add the necessary filters, and add the necessary actions.
  * It is also used to check if the current url path is the same as the url path of the page.
- * 
+ *
  * Stub functions are provided to be overridden by the extending class. They are:
  * - register_endpoints()
  * - header_style()
@@ -34,17 +34,17 @@ abstract class PG_Public_Page {
             add_action( 'rest_api_init', [ $this, 'register_endpoints' ] );
             add_filter( 'dt_allow_rest_access', [ $this, 'authorize_url' ], 10, 1 );
         }
-        
+
         //if current url path is not this url path, return
         if ( $path !== $this->url_path ) {
             return false;
         }
-        
+
         add_filter( 'dt_templates_for_urls', [ $this, 'register_url' ], 199, 1 ); // registers url as valid once tests are passed
         add_filter( 'dt_allow_non_login_access', '__return_true', 100, 1 );
         add_action( 'dt_blank_access', '__return_true', 100, 1 );
         add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
-        add_filter( 'dt_override_header_meta', function (){ return true;}, 100, 1 );
+        add_filter( 'dt_override_header_meta', '__return_true', 100, 1 );
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 200, 1 );
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 200, 1 );
         add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 5 ); // authorizes scripts
@@ -75,7 +75,6 @@ abstract class PG_Public_Page {
         $path = get_theme_file_path( 'template-blank.php' );
         include( $path );
         die();
-
     }
 
     /**
@@ -141,7 +140,7 @@ abstract class PG_Public_Page {
      */
     public function print_scripts(){
         // @link /disciple-tools-theme/dt-assets/functions/enqueue-scripts.php
-        $allowed_js = apply_filters( 'dt_magic_url_base_allowed_js', []);
+        $allowed_js = apply_filters( 'dt_magic_url_base_allowed_js', [] );
 
         global $wp_scripts;
 
@@ -172,7 +171,7 @@ abstract class PG_Public_Page {
      */
     public function print_styles(){
         // @link /disciple-tools-theme/dt-assets/functions/enqueue-scripts.php
-        $allowed_css = apply_filters( 'dt_magic_url_base_allowed_css', []);
+        $allowed_css = apply_filters( 'dt_magic_url_base_allowed_css', [] );
 
         global $wp_styles;
         if ( isset( $wp_styles ) ) {
