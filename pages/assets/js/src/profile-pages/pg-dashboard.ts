@@ -1,11 +1,11 @@
 import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { PageBase } from "./page-base";
+import { OpenElement } from "./open-element";
 import { navigator } from "lit-element-router";
 import { User } from "../interfaces";
 
 @customElement("pg-dashboard")
-export class PgDashboard extends navigator(PageBase) {
+export class PgDashboard extends navigator(OpenElement) {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
 

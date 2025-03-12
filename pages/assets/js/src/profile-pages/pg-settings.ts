@@ -1,10 +1,10 @@
 import { html } from "lit";
 import { customElement, state } from "lit/decorators.js";
-import { PageBase } from "./page-base";
+import { OpenElement } from "./open-element";
 import { Language, Location, User } from "../interfaces";
 
 @customElement("pg-settings")
-export class PgSettings extends PageBase {
+export class PgSettings extends OpenElement {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
   currentLanguage: string = window.jsObject.current_language;

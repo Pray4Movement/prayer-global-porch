@@ -1,10 +1,10 @@
 import { html } from "lit";
 import { customElement } from "lit/decorators.js";
-import { PageBase } from "./page-base";
+import { OpenElement } from "./open-element";
 import { User } from "../interfaces";
 
 @customElement("pg-relays")
-export class PgRelays extends PageBase {
+export class PgRelays extends OpenElement {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
 
@@ -17,7 +17,45 @@ export class PgRelays extends PageBase {
         <h3 class="mb-0 me-auto">${this.translations.prayer_relays}</h3>
       </div>
 
-      <div class="white-bg page px-3"></div>
+      <div class="white-bg page px-3">
+        <div class="pg-container stack-md" data-small data-stretch>
+          <div role="list" class="stack-md relay-list" data-stretch>
+            <pg-relay-item
+              name="The Global lap"
+              lapNumber="33"
+              progress="30"
+              relayType="global"
+              .translations="${{
+                lap: this.translations.lap,
+                pray: this.translations.pray,
+              }}"
+              spritesheetUrl="${window.jsObject.spritesheet_url}"
+            ></pg-relay-item>
+            <pg-relay-item
+              name="Northside Christian Church"
+              lapNumber="2"
+              progress="60"
+              relayType="public"
+              .translations="${{
+                lap: this.translations.lap,
+                pray: this.translations.pray,
+              }}"
+              spritesheetUrl="${window.jsObject.spritesheet_url}"
+            ></pg-relay-item>
+            <pg-relay-item
+              name="My Private lap"
+              lapNumber="1"
+              progress="30"
+              relayType="private"
+              .translations="${{
+                lap: this.translations.lap,
+                pray: this.translations.pray,
+              }}"
+              spritesheetUrl="${window.jsObject.spritesheet_url}"
+            ></pg-relay-item>
+          </div>
+        </div>
+      </div>
     `;
   }
 }

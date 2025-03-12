@@ -1,10 +1,10 @@
 import { html } from "lit";
 import { customElement } from "lit/decorators.js";
-import { PageBase } from "./page-base";
+import { OpenElement } from "./open-element";
 import { router, navigator } from "lit-element-router";
 
 @customElement("pg-router")
-export class PgRouter extends navigator(router(PageBase)) {
+export class PgRouter extends navigator(router(OpenElement)) {
   static get properties() {
     return {
       route: { type: String },

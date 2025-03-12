@@ -1,10 +1,10 @@
 import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
-import { PageBase } from "./page-base";
+import { OpenElement } from "./open-element";
 import { User } from "../interfaces";
 
 @customElement("pg-activity")
-export class PgActivity extends PageBase {
+export class PgActivity extends OpenElement {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
 
@@ -45,16 +45,21 @@ export class PgActivity extends PageBase {
                   ></use>
                 </svg>
                 <span class="fs-3 brand-highlight"
-                  >${window.jsObject.stats.best_streak_in_days} Best</span
+                  >${window.jsObject.stats.best_streak_in_days}
+                  ${this.translations.best}</span
                 >
               </div>
             </section>
             <section class="stack-sm activity-card lh-xsm">
-              <h3 class="activity-card__title">Weeks in a row</h3>
+              <h3 class="activity-card__title">
+                ${this.translations.weeks_in_a_row}
+              </h3>
               <span class="f-lg font-weight-bold"
                 >${window.jsObject.stats.current_streak_in_weeks}</span
               >
-              <h3 class="activity-card__title">Days this year</h3>
+              <h3 class="activity-card__title">
+                ${this.translations.days_this_year}
+              </h3>
               <span class="f-lg font-weight-bold"
                 >${window.jsObject.stats.days_this_year}</span
               >
@@ -65,19 +70,19 @@ export class PgActivity extends PageBase {
             <table class="activity-table mx-auto">
               <tr>
                 <td>${window.jsObject.stats.total_minutes_prayed}</td>
-                <td>Minutes prayed</td>
+                <td>${this.translations.minutes_prayed}</td>
               </tr>
               <tr>
                 <td>${window.jsObject.stats.total_places_prayed}</td>
-                <td>Places prayed for</td>
+                <td>${this.translations.places_prayed_for}</td>
               </tr>
               <tr>
                 <td>${window.jsObject.stats.total_relays_part_of}</td>
-                <td>Active laps</td>
+                <td>${this.translations.active_laps}</td>
               </tr>
               <tr>
                 <td>${window.jsObject.stats.total_finished_relays_part_of}</td>
-                <td>Laps finished</td>
+                <td>${this.translations.finished_laps}</td>
               </tr>
             </table>
           </section>

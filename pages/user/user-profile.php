@@ -45,6 +45,10 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'pg-settings',
             'pg-close',
             'pg-streak',
+            'pg-logo-prayer',
+            'pg-private',
+            'pg-world-light',
+            'ion-ellipsis-horizontal',
         ];
 
         $this->spritesheet_url = $svg_manager->get_cached_spritesheet_url( $icons );
@@ -164,6 +168,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'active_laps' => esc_html__( 'Active Laps', 'prayer-global-porch' ),
                 'finished_laps' => esc_html__( 'Finished Laps', 'prayer-global-porch' ),
                 'prayer_relays' => esc_html__( 'Prayer Relays', 'prayer-global-porch' ),
+                'pray' => esc_html__( 'Pray', 'prayer-global-porch' ),
+                'lap' => esc_html__( 'Lap', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),
