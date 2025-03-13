@@ -26,6 +26,9 @@ export class PgRelayItem extends OpenElement {
   @property({ type: String })
   visibility: RelayVisibility = "public";
 
+  @property({ type: String })
+  urlRoot: string = "";
+
   token = "";
 
   override connectedCallback() {
@@ -89,13 +92,31 @@ export class PgRelayItem extends OpenElement {
               class="dropdown-menu"
               aria-labelledby="relay-item-actions-${this.token}"
             >
-              <li class="dropdown-item">${this.translations.map}</li>
-              <li class="dropdown-item">${this.translations.share}</li>
-              <li class="dropdown-item">${this.translations.display}</li>
-              <li class="dropdown-item">${this.translations.edit}</li>
-              <li class="dropdown-item">${this.translations.delete}</li>
+              <li>
+                <a class="dropdown-item" href="${this.urlRoot}/map">
+                  ${this.translations.map}
+                </a>
+              </li>
+              ${this.relayType === "custom"
+                ? html`
+                    <li>
+                      <a class="dropdown-item" href="${this.urlRoot}/tools">
+                        ${this.translations.share}
+                      </a>
+                    </li>
+                    <li>
+                      <a class="dropdown-item" href="${this.urlRoot}/display">
+                        ${this.translations.display}
+                      </a>
+                    </li>
+                    <li class="dropdown-item">${this.translations.edit}</li>
+                  `
+                : ""}
+              <li class="dropdown-item">${this.translations.remove}</li>
             </ul>
-            <button class="btn btn-cta">${this.translations.pray}</button>
+            <a href=${this.urlRoot} class="btn btn-cta"
+              >${this.translations.pray}</a
+            >
           </div>
         </div>
       </div>

@@ -61,9 +61,10 @@ export class PgRelays extends OpenElement {
                     share: this.translations.share,
                     display: this.translations.display,
                     edit: this.translations.edit,
-                    delete: this.translations.delete,
+                    remove: this.translations.remove,
                   }}"
                   spritesheetUrl="${window.jsObject.spritesheet_url}"
+                  urlRoot="/prayer_app/${relay.relay_type}/${relay.lap_key}"
                 ></pg-relay-item>
               `
             )}

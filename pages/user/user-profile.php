@@ -173,7 +173,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'map' => esc_html__( 'Map', 'prayer-global-porch' ),
                 'share' => esc_html__( 'Share', 'prayer-global-porch' ),
                 'display' => esc_html__( 'Display', 'prayer-global-porch' ),
-                'delete' => esc_html__( 'Remove From List', 'prayer-global-porch' ),
+                'remove' => esc_html__( 'Remove From List', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),
