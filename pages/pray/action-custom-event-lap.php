@@ -121,7 +121,6 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                     'json_folder' => plugin_dir_url( __DIR__ ) . 'assets/json/',
                     'current_url' => $current_url,
-                    'stats_url' => $current_url . 'stats',
                     'map_url' => $current_url . 'map',
                     'api_url' => PG_API_ENDPOINT,
                     'is_custom' => ( 'custom' === $this->parts['type'] ),

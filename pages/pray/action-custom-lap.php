@@ -103,7 +103,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header-event.php' );
-        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '../utilities/pg-nonce.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '../utilities/security.php' );
 
         $current_lap = Prayer_Stats::get_relay_current_lap( $this->parts['public_key'], $this->parts['post_id'], true );
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
@@ -128,7 +128,6 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'images_url' => pg_grid_image_url(),
                     'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                     'current_url' => $current_url,
-                    'stats_url' => $current_url . 'stats',
                     'map_url' => $current_url . 'map',
                     'user_id' => get_current_user_id(),
                     'is_custom' => ( 'custom' === $this->parts['type'] ),
@@ -149,28 +148,12 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
     public function body(){
 
-        $svg_manager = new SVG_Spritesheet_Manager();
-
-        $icons = [
-            'ion-android-warning',
-            'ion-happy',
-            'ion-ios-body',
-            'ion-map',
-            'ion-sad',
-            'pg-chevron-down',
-            'pg-close',
-            'pg-pause',
-            'pg-play',
-            'pg-pray-hands-dark',
-            'pg-prayer',
-            'pg-settings',
-        ];
-
-        $spritesheet_dir = $svg_manager->get_cached_spritesheet_dir( $icons, 'pg' );
         ?>
 
         <?php //phpcs:ignore ?>
-        <?php echo file_get_contents( $spritesheet_dir ); ?>
+        <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/ionicon-subset.svg' ); ?>
+        <?php //phpcs:ignore ?>
+        <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/pgicon-subset.svg' ); ?>
 
         <!-- navigation & widget -->
         <nav class="prayer-navbar">
@@ -184,7 +167,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
                     <?php else : ?>
 
-                        <svg width="1em" height="1em">
+                        <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 33 33">
                             <use href="#pg-prayer"></use>
                         </svg>
 

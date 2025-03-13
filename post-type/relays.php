@@ -426,7 +426,11 @@ class Prayer_Global_Relays_Post_Type extends DT_Module_Base {
             $wpdb->query( $wpdb->prepare( "
                 INSERT INTO $wpdb->dt_relays
                 (relay_key, grid_id, epoch)
+<<<<<<< HEAD
                 SELECT %s as relay_key, grid_id, 0 as epoch
+=======
+                SELECT %s as relay_key, grid_id, FLOOR(RAND() * 1001) as epoch
+>>>>>>> master
                 FROM $wpdb->dt_relays
                 WHERE relay_key = '49ba4c'
             ", $relay_key ) );

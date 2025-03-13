@@ -870,9 +870,14 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             ORDER BY pm.meta_value DESC,
             p.post_title ASC
         ", pg_get_relay_id( '49ba4c' ), $user_meta_value, $user_id, $user_meta_value ), ARRAY_A );
+<<<<<<< HEAD
 
         $hidden_relays = get_user_meta( $user_id, 'pg_hidden_relays' );
 
+=======
+        $hidden_relays = get_user_meta( $user_id, 'pg_hidden_relays' );
+
+>>>>>>> gamification
         foreach ( $all_relays as $row ) {
             $row['stats'] = Prayer_Stats::get_lap_stats( $row['post_id'] );
             $data[] = $row;
