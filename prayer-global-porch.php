@@ -122,6 +122,7 @@ class Prayer_Global_Porch {
         require_once( 'utilities/login-functions.php' );
         require_once( 'classes/pg-feature-flag.php' );
         require_once( 'classes/pg-flags.php' );
+        require_once( 'classes/public-page-base.php' );
         require_once( 'pages/assets/menu.php' );
         require_once( 'pages/pray/stacker-text.php' );
         require_once( 'pages/pray/stacker-positions.php' );
@@ -144,7 +145,6 @@ class Prayer_Global_Porch {
         require_once( 'pages/data-sources/magic-data-sources.php' );
 
         // prayer_app
-        require_once( 'pages/pray/public-page-base.php' );
         require_once( 'pages/pray/magic-global.php' );
         require_once( 'pages/pray/magic-custom.php' );
 
