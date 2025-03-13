@@ -6,8 +6,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/prayer-global-"
 "porch\n"
 "POT-Creation-Date: 2024-07-19T14:37:10+00:00\n"
-"PO-Revision-Date: 2024-07-22 16:39+0000\n"
-"Last-Translator: FarahDoumani <farahdoumani@gmail.com>\n"
+"PO-Revision-Date: 2024-10-30 09:00+0000\n"
+"Last-Translator: Kevin Fallah <kevin@christianlingua.com>\n"
 "Language-Team: Arabic <https://translate.disciple.tools/projects/"
 "pray4movement/prayer-global/ar/>\n"
 "Language: ar\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Weblate 5.8.1\n"
 "X-Domain: prayer-global-porch\n"
 
 #: pages/404/404.php:121
@@ -355,7 +355,6 @@ msgid "Hours"
 msgstr "ساعات"
 
 #: pages/assets/enqueue.php:60 pages/user/user-profile.php:93
-#, fuzzy
 msgid "Minutes"
 msgstr "دقائق"
 
@@ -441,9 +440,8 @@ msgid "minute"
 msgstr "دقيقة"
 
 #: pages/assets/enqueue.php:95 utilities/global-utilities.php:666
-#, fuzzy
 msgid "minutes"
-msgstr "الدقائق"
+msgstr "دقائق"
 
 #: pages/assets/menu.php:42
 #, fuzzy
@@ -7032,9 +7030,8 @@ msgid "View other public relays"
 msgstr "عرض المرحلات العامة الأخرى"
 
 #: pages/user/user-profile.php:106 pages/user/user-profile.php:238
-#, fuzzy
 msgid "Edit"
-msgstr "تغيير"
+msgstr "تعديل"
 
 #: pages/user/user-profile.php:107
 #, fuzzy
