@@ -35,18 +35,20 @@ export interface RelayStats {
   completed_percent: number;
 }
 
-export type GlobalRelay = {
+export interface BaseRelay {
   post_title: string;
+  stats: RelayStats;
+  lap_key: string;
+}
+
+export type GlobalRelay = BaseRelay & {
   relay_type: "global";
   visibility: "public";
-  stats: RelayStats;
 };
 
-export type CustomRelay = {
-  post_title: string;
+export type CustomRelay = BaseRelay & {
   relay_type: "custom";
   visibility: RelayVisibility;
-  stats: RelayStats;
 };
 
 export type Relay = GlobalRelay | CustomRelay;
