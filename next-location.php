@@ -3,23 +3,21 @@
 // SELECT total, COUNT(total) FROM 9VJS6H_dt_relays WHERE relay_key = '49ba4c' GROUP BY total ORDER BY total;
 // UPDATE 9VJS6H_dt_relays SET epoch = epoch - 60, total = 0 WHERE relay_key = '49ba4c';
 
-//this stops wp-settings from load everything
-define( 'SHORTINIT', true );
 
-require '../../../wp-config.php';
-require 'utilities/relays-table.php';
+require '../../../pg-wp-config.php';
+require 'utilities/security.php';
 require 'utilities/http-request.php';
-require 'utilities/pg-nonce.php';
+require 'utilities/relays-table.php';
 
-if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ) {
+if ( !defined( 'PG_DEBUG' ) || !PG_DEBUG ) {
     $cors_passed = cors();
 
     if ( !$cors_passed ) {
         send_response( [
-            'error' => "incorrect origin $origin",
+            'error' => 'incorrect origin',
         ], 400 );
     }
-    $nonce = isset( $_GET['nonce'] ) ? sanitize_text_field( stripslashes_deep( $_GET['nonce'] ) ) : '';
+    $nonce = isset( $_GET['nonce'] ) ? pg_sanitize_text_field_custom( $_GET['nonce'] ) : ''; //phpcs:ignore
 
     if ( !PG_Nonce::verify( $nonce, 'direct-api' ) ) {
         send_response( [
@@ -30,7 +28,7 @@ if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ) {
 }
 
 //phpcs:ignore
-mysqli_report( MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT );
+//mysqli_report( MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT );
 //phpcs:ignore
 $conn = new mysqli( DB_HOST, DB_USER, DB_PASSWORD, DB_NAME );
 
@@ -44,7 +42,7 @@ if ( $conn->connect_error ) {
 $db_prefix = defined( 'DB_PREFIX' ) ? DB_PREFIX : 'wp_';
 
 //phpcs:ignore
-$relay_key = isset( $_GET['relay_key'] ) ? sanitize_text_field( stripslashes_deep( $_GET['relay_key'] ) ) : '49ba4c';
+$relay_key = isset( $_GET['relay_key'] ) ? pg_sanitize_text_field_custom( $_GET['relay_key'] ) : '49ba4c';
 
 $relays_table = new PG_Relays_Table( $conn, $db_prefix );
 

@@ -146,7 +146,10 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
                 <div class="row">
                     <div class="col-md text-center brand-bg white py-4">
                         <h4><?php echo esc_html__( 'Want to create your own Prayer Relay?', 'prayer-global-porch' ) ?></h4>
-                        <a class="btn btn-cta two-rem has-icon cta-blue px-5 mt-4" href="/user_app/login"><?php echo esc_html( __( 'Login', 'prayer-global-porch' ) ) ?><i class="icon pg-chevron-right icon-end two-rem end-0 me-2"></i></a>
+                        <a class="btn btn-cta two-rem has-icon cta-blue px-5 mt-4" href="/user_app/login">
+                            <?php echo esc_html( is_user_logged_in() ? __( 'Profile', 'prayer-global-porch' ) : __( 'Login', 'prayer-global-porch' ) ) ?>
+                            <i class="icon pg-chevron-right icon-end two-rem end-0 me-2"></i>
+                        </a>
                     </div>
                 </div>
             </div>

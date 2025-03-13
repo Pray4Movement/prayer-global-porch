@@ -103,7 +103,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header-event.php' );
-        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '../utilities/pg-nonce.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '../utilities/security.php' );
 
         $current_lap = Prayer_Stats::get_relay_current_lap( $this->parts['public_key'], $this->parts['post_id'], true );
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
@@ -128,7 +128,6 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'images_url' => pg_grid_image_url(),
                     'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                     'current_url' => $current_url,
-                    'stats_url' => $current_url . 'stats',
                     'map_url' => $current_url . 'map',
                     'user_id' => get_current_user_id(),
                     'is_custom' => ( 'custom' === $this->parts['type'] ),
