@@ -126,7 +126,6 @@ class PG_Porch_404 extends DT_Magic_Url_Base
                         <ul style="list-style: none; padding-left: 0;">
                             <li><a href="/newest/lap"><?php echo esc_html__( 'Start Praying', 'prayer-global-porch' ) ?></a></li>
                             <li><a href="/newest/map"><?php echo esc_html__( 'The map', 'prayer-global-porch' ) ?></a></li>
-                            <li><a href="/newest/stats"><?php echo esc_html__( 'More stats', 'prayer-global-porch' ) ?></a></li>
                             <li><a href="/challenges/active"><?php echo esc_html__( 'Prayer Relays', 'prayer-global-porch' ) ?></a></li>
                         </ul>
                     </div>
