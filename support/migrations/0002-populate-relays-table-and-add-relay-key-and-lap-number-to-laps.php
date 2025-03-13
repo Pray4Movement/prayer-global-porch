@@ -158,8 +158,8 @@ class Prayer_Global_Migration_0002 extends Prayer_Global_Migration {
             CREATE PROCEDURE populate_relay_table_with_data(relay_key VARCHAR(20), lap_number INT, start_time VARCHAR(20))
             BEGIN
                 # Get all grid_ids into the relays table with a total of the number of completed laps so far
-                INSERT INTO $wpdb->dt_relays ( relay_id, grid_id, total )
-                SELECT relay_key as relay_id, r.grid_id, lap_number as total FROM $wpdb->dt_reports r
+                INSERT INTO $wpdb->dt_relays ( relay_id, grid_id, total, epoch )
+                SELECT relay_key as relay_id, r.grid_id, lap_number as total, FLOOR(RAND() * 1001) as epoch FROM $wpdb->dt_reports r
                 JOIN $wpdb->postmeta pm ON r.post_id = pm.post_id
                 WHERE pm.meta_key = 'prayer_app_relay_key'
                 AND pm.meta_value = '49ba4c'

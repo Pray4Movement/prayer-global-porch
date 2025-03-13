@@ -24,11 +24,11 @@ function cors() {
         'https://prayerglobal.lwp',
     ];
 
-    $origin = sanitize_text_field( stripslashes_deep( $_SERVER['HTTP_ORIGIN'] ?? '' ) );
+    $origin = $_SERVER['HTTP_ORIGIN'] ?? ''; //phpcs:ignore
 
     // If no origin, try to extract it from referer
     if ( empty( $origin ) && !empty( $_SERVER['HTTP_REFERER'] ) ) {
-        $referer_parts = parse_url( sanitize_text_field( stripslashes_deep( $_SERVER['HTTP_REFERER'] ) ) );
+        $referer_parts = parse_url( $_SERVER['HTTP_REFERER'] ); //phpcs:ignore
         if ( $referer_parts && isset( $referer_parts['scheme'] ) && isset( $referer_parts['host'] ) ) {
             $origin = $referer_parts['scheme'] . '://' . $referer_parts['host'];
             if ( isset( $referer_parts['port'] ) ) {

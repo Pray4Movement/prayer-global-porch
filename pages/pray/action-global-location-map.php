@@ -40,7 +40,7 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
         // redirect to completed if not current global lap
         $current_lap = Prayer_Stats::get_relay_details( $this->parts['public_key'], $this->parts['post_id'] );
         if ( $current_lap['status'] === 'complete' ) {
-            wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/completed' );
+            wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/map' );
             exit;
         }
 
@@ -344,7 +344,6 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
                 'images_url' => pg_grid_image_url(),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                 'current_url' => $current_url,
-                'stats_url' => $current_url . 'stats',
                 'map_url' => $current_url . 'map',
                 'is_custom' => ( 'custom' === $this->parts['type'] ),
                 'is_cta_feature_on' => true,

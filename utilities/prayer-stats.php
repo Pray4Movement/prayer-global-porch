@@ -104,23 +104,23 @@ class Prayer_Stats {
         //phpcs:ignore
         $result = $wpdb->get_row( $wpdb->prepare( $sql, $args ), ARRAY_A);
 
+        $ongoing = $lap_number === $current_lap_number;
+        $end_time = $ongoing ? null : (int) $result['end_time'];
+
         $data = [
             'title' => $post_title,
             'lap_number' => (int) $lap_number,
             'post_id' => (int) $relay_id,
             'key' => $relay_key,
             'start_time' => (int) $result['start_time'],
-            'end_time' => (int) $result['end_time'],
-            'on_going' => $lap_number === $current_lap_number,
+            'end_time' => $end_time,
+            'on_going' => $ongoing,
             'locations_completed' => (int) $result['locations_completed'],
             'minutes_prayed' => (int) $result['minutes_prayed'],
             'participants' => (int) $result['participants'],
             'participant_country_count' => (int) $result['participant_country_count'],
         ];
 
-        if ( $lap_number === $current_lap_number ) {
-            $data['end_time'] = time();
-        }
 
         if ( $lap_number < $current_lap_number ) {
             /* Past laps should be 100% filled */
