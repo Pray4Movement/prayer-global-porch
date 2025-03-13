@@ -1,8 +1,7 @@
 import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { OpenElement } from "../profile-pages/open-element";
-
-type RelayType = "private" | "public" | "global";
+import { RelayVisibility, RelayType } from "../interfaces";
 
 @customElement("pg-relay-item")
 export class PgRelayItem extends OpenElement {
@@ -24,6 +23,9 @@ export class PgRelayItem extends OpenElement {
   @property({ type: String })
   relayType: RelayType = "global";
 
+  @property({ type: String })
+  visibility: RelayVisibility = "public";
+
   token = "";
 
   override connectedCallback() {
@@ -33,9 +35,8 @@ export class PgRelayItem extends OpenElement {
 
   private renderIcon() {
     const iconMap = {
-      private: "pg-private",
-      public: "pg-world-light",
       global: "pg-logo-prayer",
+      custom: this.visibility === "private" ? "pg-private" : "pg-world-light",
     };
     const iconName = iconMap[this.relayType] || "pg-logo-prayer";
 
@@ -47,8 +48,10 @@ export class PgRelayItem extends OpenElement {
   }
 
   render() {
+    const displayType =
+      this.relayType === "custom" ? this.visibility : this.relayType;
     return html`
-      <div role="listitem" class="relay-item" data-type="${this.relayType}">
+      <div role="listitem" class="relay-item" data-type=${displayType}>
         <div class="relay-item__container">
           <div class="stack-sm relay-item__info">
             <span class="relay-item__name">${this.name}</span>

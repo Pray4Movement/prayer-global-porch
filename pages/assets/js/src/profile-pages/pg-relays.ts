@@ -1,12 +1,14 @@
 import { html } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, state } from "lit/decorators.js";
+import { repeat } from "lit/directives/repeat.js";
 import { OpenElement } from "./open-element";
-import { User } from "../interfaces";
+import { User, Relay } from "../interfaces";
 
 @customElement("pg-relays")
 export class PgRelays extends OpenElement {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
+  @state() relays: Relay[] = [];
 
   constructor() {
     super();
@@ -25,7 +27,8 @@ export class PgRelays extends OpenElement {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        const { relays, hidden_relays } = data;
+        this.relays = relays;
       });
   }
 
@@ -41,54 +44,29 @@ export class PgRelays extends OpenElement {
       <div class="white-bg page px-3">
         <div class="pg-container stack-md" data-small data-stretch>
           <div role="list" class="stack-md relay-list" data-stretch>
-            <pg-relay-item
-              name="The Global lap"
-              lapNumber="33"
-              progress="30"
-              relayType="global"
-              .translations="${{
-                lap: this.translations.lap,
-                pray: this.translations.pray,
-                map: this.translations.map,
-                share: this.translations.share,
-                display: this.translations.display,
-                edit: this.translations.edit,
-                delete: this.translations.delete,
-              }}"
-              spritesheetUrl="${window.jsObject.spritesheet_url}"
-            ></pg-relay-item>
-            <pg-relay-item
-              name="Northside Christian Church"
-              lapNumber="2"
-              progress="60"
-              relayType="public"
-              .translations="${{
-                lap: this.translations.lap,
-                pray: this.translations.pray,
-                map: this.translations.map,
-                share: this.translations.share,
-                display: this.translations.display,
-                edit: this.translations.edit,
-                delete: this.translations.delete,
-              }}"
-              spritesheetUrl="${window.jsObject.spritesheet_url}"
-            ></pg-relay-item>
-            <pg-relay-item
-              name="My Private lap"
-              lapNumber="1"
-              progress="30"
-              relayType="private"
-              .translations="${{
-                lap: this.translations.lap,
-                pray: this.translations.pray,
-                map: this.translations.map,
-                share: this.translations.share,
-                display: this.translations.display,
-                edit: this.translations.edit,
-                delete: this.translations.delete,
-              }}"
-              spritesheetUrl="${window.jsObject.spritesheet_url}"
-            ></pg-relay-item>
+            ${repeat(
+              this.relays,
+              (relay) => relay.post_title,
+              (relay) => html`
+                <pg-relay-item
+                  name="${relay.post_title}"
+                  lapNumber="${relay.stats.lap_number}"
+                  progress="${relay.stats.completed_percent}"
+                  relayType="${relay.relay_type}"
+                  visibility="${relay.visibility}"
+                  .translations="${{
+                    lap: this.translations.lap,
+                    pray: this.translations.pray,
+                    map: this.translations.map,
+                    share: this.translations.share,
+                    display: this.translations.display,
+                    edit: this.translations.edit,
+                    delete: this.translations.delete,
+                  }}"
+                  spritesheetUrl="${window.jsObject.spritesheet_url}"
+                ></pg-relay-item>
+              `
+            )}
           </div>
         </div>
       </div>
