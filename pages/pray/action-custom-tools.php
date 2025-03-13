@@ -109,12 +109,7 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
         $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $parts['public_key'], $parts['post_id'] );
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' );
         ?>
-        <style>
-            section {
-                margin-top: 110px;
-            }
-        </style>
-        <section>
+        <section class="page">
             <div class="container pb-4">
                 <div class="row">
                     <div class="col-md text-center">

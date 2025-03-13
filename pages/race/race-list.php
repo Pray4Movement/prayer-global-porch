@@ -98,11 +98,6 @@ class Prayer_Global_Porch_Stats_Race_List extends DT_Magic_Url_Base
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
             ]) ?>][0]
         </script>
-        <style>
-            section {
-                margin-top: 110px;
-            }
-        </style>
         <?php
     }
 
