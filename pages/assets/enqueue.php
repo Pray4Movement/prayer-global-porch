@@ -18,6 +18,7 @@ add_filter( 'dt_magic_url_base_allowed_js', function ( $allowed_js ){
         'jquery-easing',
         'jquery-waypoints',
         'umami',
+        'lit-bundle',
     ] );
 
     return $allowed_js;
@@ -38,6 +39,7 @@ add_action( 'wp_enqueue_scripts', function (){
 
     pg_enqueue_script( 'main-js', 'pages/assets/js/main.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );
     pg_enqueue_script( 'share-js', 'pages/assets/js/share.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );
+    pg_enqueue_script( 'lit-bundle', 'pages/assets/js/dist/assets/components-bundle.js', [ 'global-functions' ], [ 'strategy' => 'defer' ] );
 
     wp_enqueue_script( 'bootstrap', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js', [], '5.3.3', [ 'strategy' => 'defer' ] );
     wp_enqueue_script( 'slick', 'https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js', [], '1.9.0', [ 'strategy' => 'defer' ] );
@@ -76,7 +78,6 @@ add_action( 'wp_enqueue_scripts', function (){
     ] );
 }, 1000 );
 
-
 function pg_heatmap_scripts( $glass ){
     DT_Mapbox_API::load_mapbox_header_scripts();
     pg_enqueue_script( 'heatmap-js', 'pages/pray/heatmap.js', [ 'jquery', 'mapbox-gl' ], true );
@@ -108,6 +109,14 @@ add_filter( 'script_loader_tag', function ( $tag, $handle ){
 
     if ( $handle === 'umami' ) {
         return '<script defer src="https://umami.gospelambition.com/script.js" data-website-id="c8b2d630-e64a-4354-b03a-f92ac853153e"></script>';
+    }
+
+    if ( str_starts_with( $handle, 'lit-bundle' ) ) {
+        if ( str_contains( $tag, 'type=' ) ) {
+            $tag = preg_replace( '/type="text\/javascript"/', 'type="module"', $tag );
+        } else {
+            $tag = preg_replace( '/(.*)(><\/script>)/', '$1 type="module"$2', $tag );
+        }
     }
 
     return $tag;

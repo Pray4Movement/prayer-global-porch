@@ -94,7 +94,7 @@ class Prayer_Global_Give extends DT_Magic_Url_Base {
     public function body(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' ) ?>
 
-        <section class="page-section mt-5" data-section="give" id="section-give">
+        <section class="page" data-section="give" id="section-give">
             <div class="container flow">
                 <div class="row justify-content-md-center text-center mb-5 flow-small">
                     <div class="col col-md-8">

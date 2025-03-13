@@ -118,10 +118,12 @@ class Prayer_Global_Porch {
         require_once( 'utilities/cron-jobs.php' );
         require_once( 'utilities/global-utilities.php' );
         require_once( 'utilities/prayer-stats.php' );
+        require_once( 'utilities/user-stats.php' );
         require_once( 'utilities/enqueue-async.php' );
         require_once( 'utilities/login-functions.php' );
         require_once( 'classes/pg-feature-flag.php' );
         require_once( 'classes/pg-flags.php' );
+        require_once( 'classes/svg-spritesheet-manager.php' );
         require_once( 'classes/public-page-base.php' );
         require_once( 'pages/assets/menu.php' );
         require_once( 'pages/pray/stacker-text.php' );
