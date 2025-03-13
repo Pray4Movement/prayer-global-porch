@@ -1,4 +1,5 @@
 export interface User {
+  id: number;
   display_name: string;
   location: Location;
   user_email: string;
