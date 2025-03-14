@@ -198,7 +198,7 @@ class PG_User_API {
             $lap_number = $current_lap_number;
         }
         //phpcs:ignore
-        $result = $wpdb->get_row( $wpdb->prepare( 
+        $result = $wpdb->get_row( $wpdb->prepare(
             "SELECT
             MIN( r.timestamp ) as start_time,
             MAX( r.timestamp ) as end_time,

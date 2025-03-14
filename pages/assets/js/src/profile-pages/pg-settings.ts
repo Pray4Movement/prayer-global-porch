@@ -44,7 +44,7 @@ export class PgSettings extends OpenElement {
     this.subscribing = true;
     window
       .api_fetch(
-        `${window.pg_global.root}pg-api/v1/profile/subscribe_to_news`,
+        `${window.pg_global.root}pg-api/v1/dashboard/subscribe_to_news`,
         {
           method: "POST",
         }
@@ -87,7 +87,7 @@ export class PgSettings extends OpenElement {
 
     // For example, you could make an API call to save the account data
     window
-      .api_fetch(`${window.pg_global.root}pg-api/v1/profile/save_details`, {
+      .api_fetch(`${window.pg_global.root}pg-api/v1/dashboard/save_details`, {
         method: "POST",
         body: JSON.stringify(data),
       })
@@ -109,7 +109,7 @@ export class PgSettings extends OpenElement {
   }
   private deleteAccount() {
     window
-      .api_fetch(`${window.pg_global.root}pg-api/v1/profile/delete_user`, {
+      .api_fetch(`${window.pg_global.root}pg-api/v1/dashboard/delete_user`, {
         method: "POST",
       })
       .then((confirmed: boolean) => {
@@ -128,12 +128,7 @@ export class PgSettings extends OpenElement {
 
   render() {
     return html`
-      <div class="offcanvas__header align-items-center lh-sm">
-        <button type="button" class="me-auto" @click=${this.back}>
-          <i class="icon pg-chevron-left two-em"></i>
-        </button>
-        <h3 class="mb-0 me-auto">${this.translations.profile}</h3>
-      </div>
+      <pg-header title=${this.translations.profile}></pg-header>
 
       <div class="pg-container stack-md page">
         <section class="stack-sm">
@@ -181,7 +176,7 @@ export class PgSettings extends OpenElement {
         <hr />
 
         <section class="stack-sm">
-          <svg class="brand-light icon-lg">
+          <svg class="brand-light icon-xxlg">
             <use href="${window.jsObject.spritesheet_url}#pg-go-logo"></use>
           </svg>
           <h2 class="h5">${this.translations.communication_preferences}</h2>

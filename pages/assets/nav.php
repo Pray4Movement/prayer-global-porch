@@ -56,7 +56,7 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
         </div>
 
         <div class="d-flex justify-content-end align-items-center">
-            <a href="/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
+            <a href="/dashboard" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
 
                 <?php if ( is_user_logged_in() ) : ?>
 

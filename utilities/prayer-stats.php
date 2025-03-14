@@ -6,7 +6,7 @@ class Prayer_Stats {
     public static function get_relay_lap_number( $relay_key = '49ba4c' ){
         global $wpdb;
         return (int) $wpdb->get_var( $wpdb->prepare(
-            "SELECT MIN(total) + 1 as lap_number
+            "SELECT IFNULL(MIN(total) + 1, 1) as lap_number
             FROM $wpdb->dt_relays
             WHERE relay_key = %s", $relay_key ) );
     }

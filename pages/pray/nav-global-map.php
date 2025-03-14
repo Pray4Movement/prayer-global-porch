@@ -6,7 +6,7 @@
 
         <div class="d-flex justify-content-end align-items-center">
             <div><a class="btn btn-cta mx-2" href="/newest/lap/"><?php echo esc_html__( 'Start Praying', 'prayer-global-porch' ) ?></a></div>
-            <a href="/profile" class="icon-button mx-2 two-rem d-flex align-items-center white" title="<?php echo esc_attr__( 'Profile', 'prayer-global-porch' ) ?>" id="user-profile-link">
+            <a href="/dashboard" class="icon-button mx-2 two-rem d-flex align-items-center white" title="<?php echo esc_attr__( 'Profile', 'prayer-global-porch' ) ?>" id="user-profile-link">
 
                 <?php if ( is_user_logged_in() ) : ?>
 

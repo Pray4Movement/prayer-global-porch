@@ -26,3 +26,30 @@ export interface Language {
   iso: Array<string>;
   flag: string;
 }
+
+export type RelayVisibility = "private" | "public";
+export type RelayType = "global" | "custom";
+
+export interface RelayStats {
+  lap_number: number;
+  completed_percent: number;
+}
+
+export interface BaseRelay {
+  post_id: number;
+  post_title: string;
+  stats: RelayStats;
+  lap_key: string;
+}
+
+export type GlobalRelay = BaseRelay & {
+  relay_type: "global";
+  visibility: "public";
+};
+
+export type CustomRelay = BaseRelay & {
+  relay_type: "custom";
+  visibility: RelayVisibility;
+};
+
+export type Relay = GlobalRelay | CustomRelay;

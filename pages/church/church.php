@@ -129,7 +129,7 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
                                 <p>
                                     <?php echo esc_html__( 'You will also be given a custom URL, QR code and more to use in promoting your prayer lap. The unique URL will connect your church family directly to your group’s prayer lap.', 'prayer-global' ) ?>
                                 </p>
-                                <a class="btn btn-primary uppercase center d-block w-fit" role="button" href="/profile" target="_blank"><?php echo esc_html__( 'Create group lap', 'prayer-global' ) ?> <i class="ion-android-open"></i></a>
+                                <a class="btn btn-primary uppercase center d-block w-fit" role="button" href="/dashboard" target="_blank"><?php echo esc_html__( 'Create group lap', 'prayer-global' ) ?> <i class="ion-android-open"></i></a>
                             </div>
                             <div class="flow-small">
                                 <h3><?php echo esc_html( __( 'Cast vision and set a goal for your church', 'prayer-global-porch' ) ) ?></h3>
@@ -268,7 +268,7 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
                                 <p>
                                     <?php echo esc_html__( 'Login or Register on Prayer.Global to create your own group lap.', 'prayer-global' ) ?>
                                 </p>
-                                <a class="btn btn-primary uppercase center d-block w-fit mx-auto" role="button" href="/profile"><?php echo esc_html__( 'Create group lap', 'prayer-global' ) ?></a>
+                                <a class="btn btn-primary uppercase center d-block w-fit mx-auto" role="button" href="/dashboard"><?php echo esc_html__( 'Create group lap', 'prayer-global' ) ?></a>
                             </div>
                         </div>
                     </div>
