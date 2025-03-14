@@ -15,7 +15,7 @@ export class PgRelays extends OpenElement {
   constructor() {
     super();
 
-    fetch(window.pg_global.root + "pg-api/v1/profile/relays", {
+    fetch(window.pg_global.root + "pg-api/v1/dashboard/relays", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -40,7 +40,7 @@ export class PgRelays extends OpenElement {
 
   private async handleHide(relay: Relay) {
     const response = await fetch(
-      `${window.pg_global.root}pg-api/v1/profile/relays/hide?relay_id=${relay.post_id}`,
+      `${window.pg_global.root}pg-api/v1/dashboard/relays/hide?relay_id=${relay.post_id}`,
       {
         method: "POST",
         headers: {
@@ -56,7 +56,7 @@ export class PgRelays extends OpenElement {
 
   private async handleUnhide(relay: Relay) {
     const response = await fetch(
-      `${window.pg_global.root}pg-api/v1/profile/relays/unhide?relay_id=${relay.post_id}`,
+      `${window.pg_global.root}pg-api/v1/dashboard/relays/unhide?relay_id=${relay.post_id}`,
       {
         method: "POST",
         headers: {
@@ -148,7 +148,10 @@ export class PgRelays extends OpenElement {
                         </div>
                       `
                     : ""}
-                  <button class="stack-sm center text-center brand">
+                  <a
+                    class="stack-sm center text-center brand"
+                    href="/dashboard/new-relay"
+                  >
                     <svg class="icon-lg">
                       <use
                         href="${window.jsObject.spritesheet_url}#pg-plus"
@@ -157,7 +160,7 @@ export class PgRelays extends OpenElement {
                     <span class="uppercase"
                       >${this.translations.new_relay}</span
                     >
-                  </button>
+                  </a>
                 </div>
               `}
           ${this.hiddenRelays.length > 0

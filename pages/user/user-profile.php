@@ -7,7 +7,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 class PG_User_App_Profile extends DT_Magic_Url_Base {
 
     public $page_title = 'User Profile';
-    public $root = 'profile';
+    public $root = 'dashboard';
     private string $spritesheet_url = '';
     private static $_instance = null;
     public static function instance() {

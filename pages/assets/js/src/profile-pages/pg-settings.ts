@@ -44,7 +44,7 @@ export class PgSettings extends OpenElement {
     this.subscribing = true;
     window
       .api_fetch(
-        `${window.pg_global.root}pg-api/v1/profile/subscribe_to_news`,
+        `${window.pg_global.root}pg-api/v1/dashboard/subscribe_to_news`,
         {
           method: "POST",
         }
@@ -87,7 +87,7 @@ export class PgSettings extends OpenElement {
 
     // For example, you could make an API call to save the account data
     window
-      .api_fetch(`${window.pg_global.root}pg-api/v1/profile/save_details`, {
+      .api_fetch(`${window.pg_global.root}pg-api/v1/dashboard/save_details`, {
         method: "POST",
         body: JSON.stringify(data),
       })
@@ -109,7 +109,7 @@ export class PgSettings extends OpenElement {
   }
   private deleteAccount() {
     window
-      .api_fetch(`${window.pg_global.root}pg-api/v1/profile/delete_user`, {
+      .api_fetch(`${window.pg_global.root}pg-api/v1/dashboard/delete_user`, {
         method: "POST",
       })
       .then((confirmed: boolean) => {

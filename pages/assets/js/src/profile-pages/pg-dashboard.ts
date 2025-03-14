@@ -1,19 +1,12 @@
 import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { OpenElement } from "./open-element";
-import { navigator } from "lit-element-router";
 import { User } from "../interfaces";
 
 @customElement("pg-dashboard")
-export class PgDashboard extends navigator(OpenElement) {
+export class PgDashboard extends OpenElement {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
-
-  navigateToHref(event: Event) {
-    event.preventDefault();
-    const { href } = event.currentTarget as HTMLAnchorElement;
-    this.navigate(href);
-  }
 
   render() {
     return html`
@@ -53,11 +46,7 @@ export class PgDashboard extends navigator(OpenElement) {
               <hr>
               <section class="profile-menu">
                 <div class="w-fit mx-auto stack-md align-items-start">
-                  <a
-                    class="profile-link"
-                    href="/profile/prayer-relays"
-                    @click=${(e: Event) => this.navigateToHref(e)}
-                  >
+                  <nav-link href="/dashboard/relays" class="profile-link">
                     <svg class="icon-md">
                       <use href="${
                         window.jsObject.spritesheet_url
@@ -66,31 +55,23 @@ export class PgDashboard extends navigator(OpenElement) {
                     <span class="one-rem">
                       ${this.translations.challenges}
                     </span>
-                  </a>
-                  <a
-                    class="profile-link"
-                    href="/profile/prayer-activity"
-                    @click=${(e: Event) => this.navigateToHref(e)}
-                  >
+                  </nav-link>
+                  <nav-link href="/dashboard/activity" class="profile-link">
                     <svg class="icon-md">
                       <use href="${
                         window.jsObject.spritesheet_url
                       }#pg-prayer"></use>
                     </svg>
                     <span class="one-rem">${this.translations.prayers}</span>
-                  </a>
-                  <a
-                    class="profile-link"
-                    href="/profile/profile-settings"
-                    @click=${(e: Event) => this.navigateToHref(e)}
-                  >
+                  </nav-link>
+                  <nav-link href="/dashboard/settings" class="profile-link">
                     <svg class="icon-md">
                       <use href="${
                         window.jsObject.spritesheet_url
                       }#pg-settings"></use>
                     </svg>
                     <span class="one-rem">${this.translations.profile}</span>
-                  </a>
+                  </nav-link>
                 </div>
               </section>
               <hr>
