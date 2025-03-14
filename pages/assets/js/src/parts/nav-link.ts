@@ -15,7 +15,6 @@ export class NavLink extends navigator(LitElement) {
   `;
 
   @property({ type: String }) href = "";
-  @property({ type: String }) class = "";
 
   private handleClick(event: Event) {
     event.preventDefault();
@@ -25,7 +24,7 @@ export class NavLink extends navigator(LitElement) {
 
   render() {
     return html`
-      <a href="${this.href}" class="${this.class}" @click=${this.handleClick}>
+      <a href="${this.href}" @click=${this.handleClick}>
         <slot></slot>
       </a>
     `;

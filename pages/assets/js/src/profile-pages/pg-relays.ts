@@ -148,19 +148,18 @@ export class PgRelays extends OpenElement {
                         </div>
                       `
                     : ""}
-                  <a
-                    class="stack-sm center text-center brand"
-                    href="/dashboard/new-relay"
-                  >
-                    <svg class="icon-lg">
-                      <use
-                        href="${window.jsObject.spritesheet_url}#pg-plus"
-                      ></use>
-                    </svg>
-                    <span class="uppercase"
-                      >${this.translations.new_relay}</span
-                    >
-                  </a>
+                  <nav-link href="/dashboard/new-relay">
+                    <div class="stack-sm center text-center brand">
+                      <svg center text-center brandsvg class="icon-lg">
+                        <use
+                          href="${window.jsObject.spritesheet_url}#pg-plus"
+                        ></use>
+                      </svg>
+                      <span class="uppercase"
+                        >${this.translations.new_relay}</span
+                      >
+                    </div>
+                  </nav-link>
                 </div>
               `}
           ${this.hiddenRelays.length > 0

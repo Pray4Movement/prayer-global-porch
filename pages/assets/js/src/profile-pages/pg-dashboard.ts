@@ -46,31 +46,37 @@ export class PgDashboard extends OpenElement {
               <hr>
               <section class="profile-menu">
                 <div class="w-fit mx-auto stack-md align-items-start">
-                  <nav-link href="/dashboard/relays" class="profile-link">
-                    <svg class="icon-md">
-                      <use href="${
-                        window.jsObject.spritesheet_url
-                      }#pg-relay"></use>
-                    </svg>
-                    <span class="one-rem">
-                      ${this.translations.challenges}
-                    </span>
+                  <nav-link href="/dashboard/relays">
+                    <div class="profile-link">
+                      <svg class="icon-md">
+                        <use href="${
+                          window.jsObject.spritesheet_url
+                        }#pg-relay"></use>
+                      </svg>
+                      <span class="one-rem">
+                        ${this.translations.challenges}
+                      </span>
+                    </div>
                   </nav-link>
-                  <nav-link href="/dashboard/activity" class="profile-link">
-                    <svg class="icon-md">
-                      <use href="${
-                        window.jsObject.spritesheet_url
-                      }#pg-prayer"></use>
-                    </svg>
-                    <span class="one-rem">${this.translations.prayers}</span>
+                  <nav-link href="/dashboard/activity">
+                    <div class="profile-link">
+                      <svg class="icon-md">
+                        <use href="${
+                          window.jsObject.spritesheet_url
+                        }#pg-prayer"></use>
+                      </svg>
+                      <span class="one-rem">${this.translations.prayers}</span>
+                    </div>
                   </nav-link>
-                  <nav-link href="/dashboard/settings" class="profile-link">
-                    <svg class="icon-md">
-                      <use href="${
-                        window.jsObject.spritesheet_url
-                      }#pg-settings"></use>
-                    </svg>
-                    <span class="one-rem">${this.translations.profile}</span>
+                  <nav-link href="/dashboard/settings">
+                    <div class="profile-link">
+                      <svg class="icon-md">
+                        <use href="${
+                          window.jsObject.spritesheet_url
+                        }#pg-settings"></use>
+                      </svg>
+                      <span class="one-rem">${this.translations.profile}</span>
+                    </div>
                   </nav-link>
                 </div>
               </section>
