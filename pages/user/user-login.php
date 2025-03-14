@@ -421,13 +421,10 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
             if (typeof zxcvbn !== 'function') {
               return val.length >= 8 ? { score: 3 } : { score: 0 }
             }
-            return = zxcvbn(val);
+            return zxcvbn(val);
           }
 
         </script>
-        <?php // @codingStandardsIgnoreStart ?>
-            <script src=""></script>
-        <?php // @codingStandardsIgnoreEnd ?>
         <?php
     }
 
@@ -589,26 +586,53 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                 ?>
 
                 <section class="page-section pt-4" data-section="login" id="section-login">
-                    <div class="container">
-                        <div class="row justify-content-md-center text-center">
-                            <div class="col-lg-7" id="pg_content">
+                    <div class="container center">
+                        <div class="login-register-links">
+                            <a class="link-active" href="<?php echo esc_html( $login_url ); ?>"><?php esc_html_e( 'Login', 'prayer-global-porch' ); ?></a>
+                            <a href="<?php echo esc_html( $register_url ); ?>"><?php esc_html_e( 'Register', 'prayer-global-porch' ); ?></a>
+                        </div>
+                        <div class="card">
+                            <div id="pg_content">
                                 <h2 class=""><?php echo esc_html__( 'Login', 'prayer-global-porch' ) ?></h2>
                                 <div id="login-ui" style="display: none;">
                                     <?php echo do_shortcode( '[dt_firebase_login_ui lang_code="' . $lang . '"]' ) ?>
                                 </div>
+                                <hr>
+                                <ul class="w-fit text-align-left mx-auto">
+                                    <li><?php echo esc_html__( 'Join and create custom prayer relays', 'prayer-global-porch' ) ?></li>
+                                    <li><?php echo esc_html__( 'View your interactive prayer history', 'prayer-global-porch' ) ?></li>
+                                    <li><?php echo esc_html__( 'Prayer streaks, badges and more', 'prayer-global-porch' ) ?></li>
+                                </ul>
+                                <hr>
                                 <div id="login-ui-loader">
-                                    <span class="loading-spinner active"></span>
+                                    <span class="loading-spinner"></span>
+                                </div>
+                                <div id="login-buttons">
+                                    <div>
+                                        <button id="signin-google" class="google-button" data-provider-id="google.com">
+                                            <span style="margin-right: 10px">
+                                                <img alt="sign in with google"
+                                                     src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
+                                            </span>
+                                            <span><?php echo esc_html__( 'Sign in with Google', 'prayer-global-porch' ); ?></span>
+                                        </button>
+                                    </div>
+                                    <div class="separator"><?php echo esc_html__( 'OR', 'prayer-global-porch' ); ?></div>
+                                    <div>
+                                        <button id="register-password" class="email-button" data-provider-id="password">
+                                            <!--<span style="margin-right: 10px">-->
+                                            <!--    <img alt="sign in with google"-->
+                                            <!--         src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/mail.svg">-->
+                                            <!--</span>-->
+                                            <span><?php echo esc_html__( 'Continue with Email', 'prayer-global-porch' ); ?></span>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div class="login-links">
                                     <p>
-                                        <?php echo esc_html__( 'Not got an account?', 'prayer-global-porch' ) ?>
+                                        <?php echo esc_html__( 'Don\'t have an account?', 'prayer-global-porch' ) ?>
                                         <a href="<?php echo esc_url( $register_url ) ?>"><?php echo esc_html__( 'Register', 'prayer-global-porch' ) ?></a>
                                     </p>
-                                    <ul class="w-fit text-align-left mx-auto">
-                                        <li><?php echo esc_html__( 'See your prayer history', 'prayer-global-porch' ) ?></li>
-                                        <li><?php echo esc_html__( 'Create your own prayer relays', 'prayer-global-porch' ) ?></li>
-                                        <li><?php echo esc_html__( 'Get badges and more', 'prayer-global-porch' ) ?></li>
-                                    </ul>
                                 </div>
                             </div>
                         </div>
