@@ -177,6 +177,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'unhide' => esc_html__( 'Unhide', 'prayer-global-porch' ),
                 'hide_hidden_relays' => esc_html__( 'Hide Hidden Relays', 'prayer-global-porch' ),
                 'show_hidden_relays' => esc_html__( 'Show Hidden Relays', 'prayer-global-porch' ),
+                'no_custom_relays' => esc_html__( 'You have not created or joined any Prayer Relays yet.', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),

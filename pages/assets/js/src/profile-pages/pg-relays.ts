@@ -89,46 +89,67 @@ export class PgRelays extends OpenElement {
             ? html`<div class="center">
                 <span class="loading-spinner active"></span>
               </div>`
-            : ""}
-          <div role="list" class="stack-md relay-list" data-stretch>
-            ${repeat(
-              this.relays,
-              (relay) => relay.post_id,
-              (relay) => {
-                if (
-                  !this.showHiddenRelays &&
-                  this.hiddenRelays.includes(relay.post_id)
-                ) {
-                  return "";
-                }
-                return html`
-                  <pg-relay-item
-                    key="${relay.post_id}"
-                    name="${relay.post_title}"
-                    lapNumber="${relay.stats.lap_number}"
-                    progress="${relay.stats.completed_percent}"
-                    relayType="${relay.relay_type}"
-                    visibility="${relay.visibility}"
-                    ?hiddenRelay=${this.hiddenRelays.includes(relay.post_id)}
-                    .translations="${{
-                      lap: this.translations.lap,
-                      pray: this.translations.pray,
-                      map: this.translations.map,
-                      share: this.translations.share,
-                      display: this.translations.display,
-                      edit: this.translations.edit,
-                      hide: this.translations.hide,
-                      unhide: this.translations.unhide,
-                    }}"
-                    spritesheetUrl="${window.jsObject.spritesheet_url}"
-                    urlRoot="/prayer_app/${relay.relay_type}/${relay.lap_key}"
-                    @hide=${() => this.handleHide(relay)}
-                    @unhide=${() => this.handleUnhide(relay)}
-                  ></pg-relay-item>
-                `;
-              }
-            )}
-          </div>
+            : html`
+                <div role="list" class="stack-md relay-list" data-stretch>
+                  ${repeat(
+                    this.relays,
+                    (relay) => relay.post_id,
+                    (relay) => {
+                      if (
+                        !this.showHiddenRelays &&
+                        this.hiddenRelays.includes(relay.post_id)
+                      ) {
+                        return "";
+                      }
+                      return html`
+                        <pg-relay-item
+                          key="${relay.post_id}"
+                          name="${relay.post_title}"
+                          lapNumber="${relay.stats.lap_number}"
+                          progress="${relay.stats.completed_percent}"
+                          relayType="${relay.relay_type}"
+                          visibility="${relay.visibility}"
+                          ?hiddenRelay=${this.hiddenRelays.includes(
+                            relay.post_id
+                          )}
+                          .translations="${{
+                            lap: this.translations.lap,
+                            pray: this.translations.pray,
+                            map: this.translations.map,
+                            share: this.translations.share,
+                            display: this.translations.display,
+                            edit: this.translations.edit,
+                            hide: this.translations.hide,
+                            unhide: this.translations.unhide,
+                          }}"
+                          spritesheetUrl="${window.jsObject.spritesheet_url}"
+                          urlRoot="/prayer_app/${relay.relay_type}/${relay.lap_key}"
+                          @hide=${() => this.handleHide(relay)}
+                          @unhide=${() => this.handleUnhide(relay)}
+                        ></pg-relay-item>
+                      `;
+                    }
+                  )}
+                  ${!this.relays.some(
+                    (relay: Relay) => relay.relay_type === "custom"
+                  )
+                    ? html`
+                        <div
+                          class="stack-sm center | text-center | border-dashed lh-xsm"
+                        >
+                          <p class="font-weight-bold">
+                            ${this.translations.no_custom_relays}
+                          </p>
+                          <svg class="icon-md">
+                            <use
+                              href="${window.jsObject.spritesheet_url}#pg-relay"
+                            ></use>
+                          </svg>
+                        </div>
+                      `
+                    : ""}
+                </div>
+              `}
           ${this.hiddenRelays.length > 0
             ? html`
                 <div class="cluster ms-auto">
