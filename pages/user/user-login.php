@@ -65,52 +65,35 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                 flex-direction: column;
                 align-items: center;
             }
-
-            .bang-center {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-            }
-
-            .stack {
-                display: flex;
-                flex-direction: column;
-                justify-content: flex-start;
-            }
             .separator {
                 display: flex;
                 align-items: center;
                 text-align: center;
                 margin: 0 2em;
             }
-
             .separator::before,
             .separator::after {
                 content: '';
                 flex: 1;
                 border-bottom: 1px solid #000;
             }
-
             .separator:not(:empty)::before {
                 margin-right: .5em;
             }
-
             .separator:not(:empty)::after {
                 margin-left: .5em;
             }
-        </style>
 
-        <style>
-            #section-register.page-section, #section-login.page-section {
+            .login-section {
                 background-color: var(--pg-brand-color);
                 min-height: 100vh;
                 display: flex;
                 flex-direction: column;
-                justify-content: center;
                 max-width: 100vw;
-                padding: 1em
+                padding: 2em 0 5em 0;
+                margin: 0;
             }
-            .page-section .container {
+            .login-section .container {
                 max-width: calc(min(25rem, 100%));
                 padding: 0;
             }
@@ -138,27 +121,44 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                 border-radius: 10px;
                 padding: .5rem 1.5rem;
             }
-            .page-section hr {
+            .login-section hr {
                 border-top: 4px solid;
                 border-color: var(--pg-secondary-color);
-                margin: 2em 4em;
+                max-width: 80%;
+                margin: 2em auto;
             }
 
-            #pg_content{
+            #card-content {
                 padding: 1em;
             }
 
             /*desktop view */
             @media (min-width: 768px) {
-                #section-register.page-section, #section-login.page-section {
-                    padding: 2em;
-                }
-                .page-section .container {
-                    max-width: 40rem;
-                }
-                #pg_content{
+                #card-content {
                     padding: 2em 4em;
                 }
+                .login-section .container {
+                    max-width: 40rem;
+                }
+            }
+
+            .reasons-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 1em;
+            }
+            .reasons-list li {
+                display: flex;
+                align-items: center;
+                gap: 1em;
+            }
+
+            #extra_register_input_marketing {
+                display: inline-grid;
+                transform: none;
             }
 
             #login-buttons {
@@ -191,8 +191,8 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
             }
             #loginform {
                 display: flex;
+                flex-direction: column;
                 justify-content: space-between;
-                flex-wrap: wrap;
                 text-align: start;
                 gap: .7em;
             }
@@ -216,17 +216,6 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
 
             .form-error, .is-invalid-label {
                 color: #cc4b37;
-            }
-            .callout {
-                background-color: white;
-                border: 1px solid hsla(0,0%,4%,.25);
-            }
-            .callout.warning,
-            .callout.alert {
-                background-color: #f7e4e1;
-                color: #0a0a0a;
-                padding: 0.5rem 1rem;
-                border: 1px solid hsla(0,0%,4%,.25);
             }
             meter{
                 width:100%;
@@ -271,7 +260,7 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
         </script>
         <script type="module">
           import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js'
-          import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
+          import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
 
           const firebaseConfig = {
             apiKey: "AIzaSyCJEy7tJL_YSQPYH4H92_n0kQBhmYcj1l8",
@@ -297,7 +286,7 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                 body: JSON.stringify(result)
               })
               .then(() => {
-                location.href = '/user_app/profile'
+                location.href = '/profile'
               })
             }).catch((error) => {
               document.getElementById('login-error').innerText = error.message
@@ -305,123 +294,202 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
             });
           })
 
-          document.getElementById('register-password').addEventListener('click', () => {
-            document.getElementById('register-email-password-form').style.display = 'block'
-            document.getElementById('login-buttons').style.display = 'none'
-          })
-          document.getElementById('register-email-password-form-back').addEventListener('click', () => {
-            document.getElementById('register-email-password-form').style.display = 'none'
-            document.getElementById('login-buttons').style.display = 'block'
-          })
-
-          const strength = {
-            0: "Worst",
-            1: "Bad",
-            2: "Weak",
-            3: "Good",
-            4: "Strong"
-          }
-          const minStrength = 1
-          let isSubmitting = false
-
-          const form = document.getElementById('loginform')
-          const password = document.getElementById('password');
-          const password2 = document.getElementById('password2');
-          const passwordStrengthError = document.getElementById('password-error-too-weak')
-          const passwordsDontMatchError = document.getElementById('password-error-2')
-          const meter = document.getElementById('password-strength-meter');
-
-          password.addEventListener('input', function() {
-            const result = getPasswordStrength()
-            // Update the password strength meter
-            meter.value = result.score;
-
-            if ( result.score >= minStrength ) {
-              passwordStrengthError.style.display = 'none'
-            }
-          });
-
-          form.addEventListener('submit', function(event) {
-            const result = getPasswordStrength()
-
-            if ( result.score < minStrength ) {
-              event.preventDefault()
-              passwordStrengthError.style.display = 'block'
-              return
-            }
-
-            if (password.value !== password2.value) {
-              event.preventDefault()
-              passwordsDontMatchError.style.display = 'block'
-              return
-            }
-
-            if (isSubmitting) {
-              event.preventDefault()
-              return
-            }
-            event.preventDefault()
-
-            const submitButtenElement = document.querySelector('#register-submit')
-            submitButtenElement.querySelector('.loading-spinner').classList.add('active')
-            submitButtenElement.classList.add('disabled')
-            submitButtenElement.setAttribute('disabled', '')
-
-            isSubmitting = true
-
-            const email = event.target.email?.value
-            if (email === '') {
-              event.preventDefault()
-              return
-            }
-            const pass = event.target.password?.value
-            if (pass.value === '') {
-              event.preventDefault()
-              return
-            }
-
-            const name = event.target.name?.value || email
-
-            const auth = getAuth(app)
-            createUserWithEmailAndPassword(auth, email, pass)
-              .then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
-                user.displayName = name
-                fetch(`${rest_url}/session/login`, {
-                  method: 'POST',
-                  body: JSON.stringify(userCredential)
-                })
-                .then(() => {
-                  location.href = '/user_app/profile'
-                })
+          if( document.getElementById('section-register') ){
+              document.getElementById('register-password').addEventListener('click', () => {
+                document.getElementById('register-email-password-form').style.display = 'block'
+                document.getElementById('login-buttons').style.display = 'none'
               })
-              .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                //toggle the spinner and button
-                submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
-                submitButtenElement.classList.remove('disabled')
-                submitButtenElement.removeAttribute('disabled')
-                if ( errorCode === 'auth/email-already-in-use' ) {
-                  document.getElementById('login-error').innerText = '<?php echo esc_html__( 'Email already in use, please login instead.', 'prayer-global-porch' ) ?>'
-                } else {
-                  document.getElementById('login-error').innerText = errorMessage
-                }
-                //show the error message
-                document.getElementById('login-error').style.display = 'block'
-                isSubmitting = false
-              });
-          })
+              document.getElementById('register-email-password-form-back').addEventListener('click', () => {
+                document.getElementById('register-email-password-form').style.display = 'none'
+                document.getElementById('login-buttons').style.display = 'block'
+              })
 
-          function getPasswordStrength() {
-            const val = password.value;
-            if (typeof zxcvbn !== 'function') {
-              return val.length >= 8 ? { score: 3 } : { score: 0 }
-            }
-            return zxcvbn(val);
+              const strength = {
+                0: "Worst",
+                1: "Bad",
+                2: "Weak",
+                3: "Good",
+                4: "Strong"
+              }
+              const minStrength = 1
+              let isSubmitting = false
+
+              const form = document.getElementById('loginform')
+              const password_field = document.getElementById('password');
+              const password2 = document.getElementById('password2');
+              const passwordStrengthError = document.getElementById('password-error-too-weak')
+              const passwordsDontMatchError = document.getElementById('password-error-2')
+              const meter = document.getElementById('password-strength-meter');
+
+                function getPasswordStrength(p) {
+                    if (typeof zxcvbn !== 'function') {
+                      return p.length >= 8 ? 3 : 0
+                    }
+                    return zxcvbn(p).score;
+                }
+
+              password_field.addEventListener('input', function() {
+                const password = password_field.value;
+                const password_strength = getPasswordStrength(password);
+                // Update the password strength meter
+                meter.value = password_strength
+
+                if ( password_strength >= minStrength ) {
+                  passwordStrengthError.style.display = 'none'
+                }
+              });
+
+              form.addEventListener('submit', function(event) {
+                const password = password_field.value;
+                const password_strength = getPasswordStrength(password);
+
+                if ( password_strength < minStrength ) {
+                  event.preventDefault()
+                  passwordStrengthError.style.display = 'block'
+                  return
+                }
+
+                if (password_field.value !== password2.value) {
+                  event.preventDefault()
+                  passwordsDontMatchError.style.display = 'block'
+                  return
+                }
+
+                if (isSubmitting) {
+                  event.preventDefault()
+                  return
+                }
+                event.preventDefault()
+
+                const submitButtenElement = document.querySelector('#register-submit')
+                submitButtenElement.querySelector('.loading-spinner').classList.add('active')
+                submitButtenElement.classList.add('disabled')
+                submitButtenElement.setAttribute('disabled', '')
+
+                isSubmitting = true
+
+                const email = event.target.email?.value
+                if (email === '') {
+                  event.preventDefault()
+                  return
+                }
+                const pass = event.target.password?.value
+                if (pass.value === '') {
+                  event.preventDefault()
+                  return
+                }
+
+                const name = event.target.name?.value || email
+
+                const auth = getAuth(app)
+                createUserWithEmailAndPassword(auth, email, pass)
+                  .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    user.displayName = name
+                    fetch(`${rest_url}/session/login`, {
+                      method: 'POST',
+                      body: JSON.stringify(userCredential)
+                    })
+                    .then(() => {
+                      location.href = '/profile'
+                    })
+                  })
+                  .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    //toggle the spinner and button
+                    submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
+                    submitButtenElement.classList.remove('disabled')
+                    submitButtenElement.removeAttribute('disabled')
+                    if ( errorCode === 'auth/email-already-in-use' ) {
+                      document.getElementById('login-error').innerText = '<?php echo esc_html__( 'Email already in use, please login instead.', 'prayer-global-porch' ) ?>'
+                    } else {
+                      document.getElementById('login-error').innerText = errorMessage
+                    }
+                    //show the error message
+                    document.getElementById('login-error').style.display = 'block'
+                    isSubmitting = false
+                  });
+              })
           }
 
+
+          if( document.getElementById('section-login') ){
+            document.getElementById('register-password').addEventListener('click', () => {
+                document.getElementById('login-email-password-form').style.display = 'block'
+                document.getElementById('login-buttons').style.display = 'none'
+            })
+            document.getElementById('login-email-password-form-back').addEventListener('click', () => {
+                document.getElementById('login-email-password-form').style.display = 'none'
+                document.getElementById('login-buttons').style.display = 'block'
+            })
+
+            let isSubmitting = false
+            const form = document.getElementById('loginform')
+            const email_field = document.getElementById('email');
+            const password_field = document.getElementById('password');
+            const emailError = document.getElementById('email-error')
+            const passwordError = document.getElementById('password-error')
+
+            form.addEventListener('submit', function(event) {
+              if (email_field.value === '') {
+                event.preventDefault()
+                emailError.style.display = 'block'
+                return
+              }
+              if (password_field.value === '') {
+                event.preventDefault()
+                passwordError.style.display = 'block'
+                return
+              }
+
+              if (isSubmitting) {
+                event.preventDefault()
+                return
+              }
+              event.preventDefault()
+
+              const submitButtenElement = document.querySelector('#login-submit')
+              submitButtenElement.querySelector('.loading-spinner').classList.add('active')
+              submitButtenElement.classList.add('disabled')
+              submitButtenElement.setAttribute('disabled', '')
+
+              isSubmitting = true
+              const auth = getAuth(app)
+                signInWithEmailAndPassword(auth, email_field.value, password_field.value)
+                    .then((userCredential) => {
+                    // Signed in
+                    const user = userCredential.user;
+                    fetch(`${rest_url}/session/login`, {
+                        method: 'POST',
+                        body: JSON.stringify(userCredential)
+                    })
+                    .then(() => {
+                        location.href = '/profile'
+                    })
+                    })
+                    .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    //toggle the spinner and button
+                    submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
+                    submitButtenElement.classList.remove('disabled')
+                    submitButtenElement.removeAttribute('disabled')
+                    if ( errorCode === 'auth/wrong-password' ) {
+                        passwordError.style.display = 'block'
+                        passwordError.innerText = '<?php echo esc_html__( 'Invalid password. Please try again.', 'prayer-global-porch' ) ?>'
+                    } else if ( errorCode === 'auth/user-not-found' ) {
+                        emailError.style.display = 'block'
+                        emailError.innerText = '<?php echo esc_html__( 'Email not found. Please register.', 'prayer-global-porch' ) ?>'
+                    } else {
+                        document.getElementById('login-error').innerText = errorMessage
+                        document.getElementById('login-error').style.display = 'block'
+                    }
+                    isSubmitting = false
+                });
+            })
+        }
         </script>
         <?php
     }
@@ -443,33 +511,50 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
         $register_url = '/user_app/login?action=register';
         $register_url = !empty( $redirect_to ) ? $register_url . "&redirect_to=$redirect_to" : $register_url;
 
+        $svg_manager = new SVG_Spritesheet_Manager();
+        $icons = [
+            'pg-streak',
+            'pg-relay',
+            'pg-prayer',
+            'pg-go-logo',
+        ];
+        $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
+
         switch ( $action ) {
             case 'register':
-
                 ?>
-                <section class="page-section pt-4" data-section="register" id="section-register">
+                <section class="login-section pt-4" data-section="register" id="section-register">
                     <div class="container center">
                         <div class="login-register-links">
                             <a href="<?php echo esc_html( $login_url ); ?>"><?php esc_html_e( 'Login', 'prayer-global-porch' ); ?></a>
                             <a class="link-active" href="<?php echo esc_html( $register_url ); ?>"><?php esc_html_e( 'Register', 'prayer-global-porch' ); ?></a>
                         </div>
                         <div class="card">
-                            <div id="pg_content">
+                            <div id="card-content">
                                 <h2 class="pt-4 m-0"><?php echo esc_html__( 'Register', 'prayer-global-porch' ) ?></h2>
                                 <hr>
                                 <p class="center" style="font-size: larger"><?php echo esc_html__( 'Create your own free login', 'prayer-global-porch' ) ?></p>
-                                <ul class="w-fit text-align-left mx-auto">
-                                    <li><?php echo esc_html__( 'Join and create custom prayer relays', 'prayer-global-porch' ) ?></li>
-                                    <li><?php echo esc_html__( 'View your interactive prayer history', 'prayer-global-porch' ) ?></li>
-                                    <li><?php echo esc_html__( 'Prayer streaks, badges and more', 'prayer-global-porch' ) ?></li>
+                                <ul class="reasons-list w-fit text-align-left mx-auto">
+                                    <li>
+                                        <svg class="icon-sm"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-relay"></use></svg>
+                                        <?php echo esc_html__( 'Join and create custom prayer relays', 'prayer-global-porch' ) ?>
+                                    </li>
+                                    <li>
+                                        <svg class="icon-sm"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-prayer"></use></svg>
+                                        <?php echo esc_html__( 'View your interactive prayer history', 'prayer-global-porch' ) ?>
+                                    </li>
+                                    <li>
+                                        <svg class="icon-sm"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-streak"></use></svg>
+                                        <?php echo esc_html__( 'Prayer streaks, badges and more', 'prayer-global-porch' ) ?>
+                                    </li>
                                 </ul>
                                 <hr>
                                 <div class="flow-medium">
+                                    <svg class="icon-lg"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-go-logo"></use></svg>
                                     <div class="marketing-options" style="text-align: start">
-
                                         <div class="form-check small m-3">
-                                            <input class="form-check-input user-check-preferences" type="checkbox" id="extra_register_input_marketing" checked>
                                             <label class="form-check-label" for="extra_register_input_marketing">
+                                                <input type="checkbox" id="extra_register_input_marketing" checked>
                                                 <?php echo esc_html( __( 'Sign up for Prayer.Global news and opportunities, and occasional communication from Prayer.Tools and GospelAmbition.org', 'prayer-global-porch' ) ) ?>
                                             </label>
                                         </div>
@@ -502,7 +587,7 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                                     </button>
                                     <div class="wp_register_form">
                                         <div>
-                                            <form class="stack" id="loginform" action="" method="POST" data-abide>
+                                            <form id="loginform" action="" method="POST" data-abide>
                                                 <!--name-->
                                                 <div>
                                                     <label for="name">
@@ -534,23 +619,15 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                                                     <?php esc_html_e( 'Passwords do not match. Please, try again.', 'prayer-global-porch' ) ?>
                                                 </span>
                                                 </div>
-                                                <div data-abide-error class="warning banner" style="display: none;">
-                                                    <p><i class="fi-alert"></i><?php esc_html_e( 'There are some errors in your form.', 'prayer-global-porch' ) ?></p>
-                                                </div>
                                                 <?php wp_nonce_field( 'login_form', 'login_form_nonce' ) ?>
                                                 <div>
-                                                    <button
-                                                        class="btn w-100 btn-secondary"
-                                                        id="register-submit"
-                                                    >
+                                                    <button class="btn w-100 btn-secondary" id="register-submit">
                                                         <?php esc_html_e( 'Register', 'prayer-global-porch' ) ?>
                                                         <span class="loading-spinner"></span>
                                                     </button>
                                                 </div>
                                             </form>
                                         </div>
-
-
                                     </div>
                                 </div>
 
@@ -582,24 +659,29 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
             // intentionally fall through to default for login
             default:
                 ?>
-
-                <section class="page-section pt-4" data-section="login" id="section-login">
+                <section class="login-section pt-4" data-section="login" id="section-login">
                     <div class="container center">
                         <div class="login-register-links">
                             <a class="link-active" href="<?php echo esc_html( $login_url ); ?>"><?php esc_html_e( 'Login', 'prayer-global-porch' ); ?></a>
                             <a href="<?php echo esc_html( $register_url ); ?>"><?php esc_html_e( 'Register', 'prayer-global-porch' ); ?></a>
                         </div>
                         <div class="card">
-                            <div id="pg_content">
+                            <div id="card-content">
                                 <h2 class=""><?php echo esc_html__( 'Login', 'prayer-global-porch' ) ?></h2>
-                                <div id="login-ui" style="display: none;">
-                                    <?php echo do_shortcode( '[dt_firebase_login_ui lang_code="' . $lang . '"]' ) ?>
-                                </div>
                                 <hr>
-                                <ul class="w-fit text-align-left mx-auto">
-                                    <li><?php echo esc_html__( 'Join and create custom prayer relays', 'prayer-global-porch' ) ?></li>
-                                    <li><?php echo esc_html__( 'View your interactive prayer history', 'prayer-global-porch' ) ?></li>
-                                    <li><?php echo esc_html__( 'Prayer streaks, badges and more', 'prayer-global-porch' ) ?></li>
+                                <ul class="reasons-list w-fit text-align-left mx-auto">
+                                    <li>
+                                        <svg class="icon-sm"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-relay"></use></svg>
+                                        <?php echo esc_html__( 'Join and create custom prayer relays', 'prayer-global-porch' ) ?>
+                                    </li>
+                                    <li>
+                                        <svg class="icon-sm"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-prayer"></use></svg>
+                                        <?php echo esc_html__( 'View your interactive prayer history', 'prayer-global-porch' ) ?>
+                                    </li>
+                                    <li>
+                                        <svg class="icon-sm"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-streak"></use></svg>
+                                        <?php echo esc_html__( 'Prayer streaks, badges and more', 'prayer-global-porch' ) ?>
+                                    </li>
                                 </ul>
                                 <hr>
                                 <div id="login-ui-loader">
@@ -618,12 +700,50 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
                                     <div class="separator"><?php echo esc_html__( 'OR', 'prayer-global-porch' ); ?></div>
                                     <div>
                                         <button id="register-password" class="email-button" data-provider-id="password">
-                                            <!--<span style="margin-right: 10px">-->
-                                            <!--    <img alt="sign in with google"-->
-                                            <!--         src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/mail.svg">-->
-                                            <!--</span>-->
                                             <span><?php echo esc_html__( 'Continue with Email', 'prayer-global-porch' ); ?></span>
                                         </button>
+                                    </div>
+                                </div>
+                                <div id="login-email-password-form" style="display: none">
+                                    <button class="button btn btn-primary" id="login-email-password-form-back">
+                                        <?php esc_html_e( 'Back', 'prayer-global-porch' ); ?>
+                                    </button>
+                                    <div class="wp_register_form">
+                                        <div>
+                                            <form id="loginform" action="" method="POST" data-abide>
+                                                <div>
+                                                    <label for="email">
+                                                        <?php esc_html_e( 'Email', 'prayer-global-porch' ) ?>
+                                                    </label>
+                                                    <input class="input login-username" type="email" name="email" id="email" value="" aria-errormessage="email-error" required>
+                                                    <span class="form-error
+                                                            <?php echo ( $url->query_params->has( 'email_error' ) ? 'is-invalid-label' : '' ) ?>"
+                                                            id="email-error">
+                                                            <?php esc_html_e( 'Badly formatted email address', 'prayer-global-porch' ) ?>
+                                                    </span>
+                                                </div>
+                                                <div>
+                                                    <label for="password"><?php esc_html_e( 'Password', 'prayer-global-porch' ) ?></label>
+                                                    <input class="input login-password" type="password" id="password" name="password" aria-errormessage="password-error" required >
+                                                    <span class="form-error
+                                                            <?php echo ( $url->query_params->has( 'password_error' ) ? 'is-invalid-label' : '' ) ?>"
+                                                            id="password-error">
+                                                        <?php esc_html_e( 'Password is required', 'prayer-global-porch' ) ?>
+                                                    </span>
+                                                </div>
+                                                <div data-abide-error class="form-error" id="login-error" style="display: none;">
+                                                    <p><i class="fi-alert"></i><?php esc_html_e( 'There are some errors in your form.', 'prayer-global-porch' ) ?></p>
+                                                </div>
+                                                <?php wp_nonce_field( 'login_form', 'login_form_nonce' ) ?>
+
+                                                <div>
+                                                    <button class="btn w-100 btn-secondary" id="login-submit">
+                                                        <?php esc_html_e( 'Login', 'prayer-global-porch' ) ?>
+                                                        <span class="loading-spinner"></span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="login-links">

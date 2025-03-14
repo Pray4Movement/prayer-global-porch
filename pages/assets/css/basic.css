@@ -177,9 +177,7 @@ input[type="checkbox"] {
     height: 1.15em;
     border: 0.15em solid var(--pg-checkbox-color);
     border-radius: 0.25em;
-    transform: translateY(-0.075em);
-
-    display: grid;
+    display: inline-grid;
     place-content: center;
 }
 input[type="checkbox"]::before {
