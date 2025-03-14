@@ -214,6 +214,28 @@ class PG_Login extends PG_Public_Page {
             meter[value="2"]::-moz-meter-bar { background: yellow; }
             meter[value="3"]::-moz-meter-bar { background: orange; }
             meter[value="4"]::-moz-meter-bar { background: green; }
+
+            .login-modal {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0,0,0,0.5);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                display: none;
+            }
+            .login-modal-content {
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 5px;
+                max-width: 500px;
+                width: 90%;
+            }
         </style>
         <?php
     }
@@ -237,7 +259,7 @@ class PG_Login extends PG_Public_Page {
         </script>
         <script type="module">
           import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js'
-          import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
+          import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, getAdditionalUserInfo } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
 
           const firebaseConfig = {
             apiKey: "AIzaSyCJEy7tJL_YSQPYH4H92_n0kQBhmYcj1l8",
@@ -257,14 +279,41 @@ class PG_Login extends PG_Public_Page {
           document.getElementById('signin-google').addEventListener('click', () => {
             const auth = getAuth(app)
             const provider = new GoogleAuthProvider();
-            signInWithPopup(auth, provider).then((result) => {
-              fetch( `${rest_url}/session/login`, {
-                method: 'POST',
-                body: JSON.stringify(result)
-              })
-              .then(() => {
-                location.href = '/profile'
-              })
+            signInWithPopup(auth, provider).then((userCredential) => {
+                const AdditionalUserInfo = getAdditionalUserInfo(userCredential)
+                const is_new_user = AdditionalUserInfo.isNewUser;
+                if ( is_new_user ) {
+                    // Show modal asking about news signup
+                    const modal = document.getElementById('modal-news-signup')
+                    modal.style.display = 'flex';
+                    
+                    // Handle modal responses
+                    document.getElementById('modal-yes').addEventListener('click', () => {
+                      const marketing = true;
+                      completeLogin(userCredential, marketing);
+                      modal.style.display = 'none';
+                    });
+                    document.getElementById('modal-no').addEventListener('click', () => {
+                      const marketing = false;
+                      completeLogin(userCredential, marketing);
+                      modal.style.display = 'none';
+                    });
+                } else {
+                    completeLogin(userCredential, false);
+                }
+                // Function to complete the login process
+                function completeLogin(userCredential, marketing) {
+                  userCredential.extraData = {
+                    marketing: marketing
+                  }
+                  fetch(`${rest_url}/session/login`, {
+                    method: 'POST',
+                    body: JSON.stringify(userCredential)
+                  })
+                  .then(() => {
+                    location.href = '/profile';
+                  });
+                }
             }).catch((error) => {
               document.getElementById('login-error').innerText = error.message
               document.getElementById('login-error').style.display = 'block'
@@ -371,6 +420,20 @@ class PG_Login extends PG_Public_Page {
         ];
         $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
         ?>
+
+        <div class="login-modal" id="modal-news-signup">
+            <div class="login-modal-content">
+                <h3><?php echo esc_html__( 'Stay Updated', 'prayer-global-porch' ) ?></h3>
+                <p>
+                    <svg class="icon-md"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-go-logo"></use></svg>
+                    <?php echo esc_html__( 'Sign up for Prayer.Global news and opportunities, and occasional communication from Prayer.Tools and GospelAmbition.org', 'prayer-global-porch' ) ?>?
+                </p>
+                <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                    <button id="modal-no" class="button"><?php echo esc_html__( 'No Thanks', 'prayer-global-porch' ) ?></button>
+                    <button id="modal-yes" class="button button-primary"><?php echo esc_html__( 'Yes, Sign Me Up', 'prayer-global-porch' ) ?></button>
+                </div>
+            </div>
+        </div>
 
         <section class="login-section pt-4" data-section="login" id="section-login">
             <div class="container center">

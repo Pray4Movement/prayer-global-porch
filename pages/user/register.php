@@ -238,7 +238,7 @@ class PG_Register extends PG_Public_Page {
         </script>
         <script type="module">
           import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js'
-          import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
+          import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, sendEmailVerification } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
 
           const firebaseConfig = {
             apiKey: "AIzaSyCJEy7tJL_YSQPYH4H92_n0kQBhmYcj1l8",
@@ -256,12 +256,16 @@ class PG_Register extends PG_Public_Page {
 
           //handle sign in with Google
           document.getElementById('signin-google').addEventListener('click', () => {
+
             const auth = getAuth(app)
             const provider = new GoogleAuthProvider();
-            signInWithPopup(auth, provider).then((result) => {
+            signInWithPopup(auth, provider).then((userCredential) => {
+              userCredential.extraData = {
+                marketing: document.getElementById('extra_register_input_marketing').checked || false
+              }
               fetch( `${rest_url}/session/login`, {
                 method: 'POST',
-                body: JSON.stringify(result)
+                body: JSON.stringify(userCredential)
               })
               .then(() => {
                 location.href = '/profile'
@@ -364,6 +368,10 @@ class PG_Register extends PG_Public_Page {
             // Signed in
             const user = userCredential.user;
             user.displayName = name
+            sendEmailVerification(user)
+            userCredential.extraData = {
+                marketing: document.getElementById('extra_register_input_marketing').checked || false
+            }
             fetch(`${rest_url}/session/login`, {
               method: 'POST',
               body: JSON.stringify(userCredential)
