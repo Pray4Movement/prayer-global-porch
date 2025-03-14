@@ -162,7 +162,6 @@ class PG_User_API {
         //phpcs:ignore
         $user_locations_raw  = $wpdb->get_results( $wpdb->prepare( $sql, $args ), ARRAY_A );
 
-
         return $user_locations_raw;
     }
 }
