@@ -15,6 +15,7 @@ export class PgNewRelay extends OpenElement {
 
   render() {
     return html`
+      <pg-header title=${this.translations.new_relay}></pg-header>
       <div class="pg-container stack-md page">
         <h2>New Relay</h2>
         <!-- Stub for future implementation -->

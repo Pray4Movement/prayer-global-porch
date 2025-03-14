@@ -76,12 +76,7 @@ export class PgRelays extends OpenElement {
 
   render() {
     return html`
-      <div class="offcanvas__header align-items-center lh-sm">
-        <button type="button" class="me-auto" @click=${() => history.back()}>
-          <i class="icon pg-chevron-left two-em"></i>
-        </button>
-        <h3 class="mb-0 me-auto">${this.translations.prayer_relays}</h3>
-      </div>
+      <pg-header title=${this.translations.prayer_relays}></pg-header>
 
       <div class="white-bg page px-3">
         <div class="pg-container stack-md" data-small data-stretch>

@@ -128,12 +128,7 @@ export class PgSettings extends OpenElement {
 
   render() {
     return html`
-      <div class="offcanvas__header align-items-center lh-sm">
-        <button type="button" class="me-auto" @click=${this.back}>
-          <i class="icon pg-chevron-left two-em"></i>
-        </button>
-        <h3 class="mb-0 me-auto">${this.translations.profile}</h3>
-      </div>
+      <pg-header title=${this.translations.profile}></pg-header>
 
       <div class="pg-container stack-md page">
         <section class="stack-sm">

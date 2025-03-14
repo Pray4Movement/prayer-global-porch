@@ -49,6 +49,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'pg-logo-prayer',
             'pg-private',
             'pg-world-light',
+            'pg-chevron-left',
             'ion-ellipsis-horizontal',
         ];
 
