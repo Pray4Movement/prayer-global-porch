@@ -160,7 +160,8 @@ class Prayer_Global_Porch {
 
         // user
         require_once( 'pages/user/user-profile.php' );
-        require_once( 'pages/user/user-login.php' );
+        require_once( 'pages/user/login.php' );
+        require_once( 'pages/user/register.php' );
         require_once( 'pages/user/user-logout.php' );
 
         // Global API

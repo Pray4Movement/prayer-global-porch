@@ -42,14 +42,13 @@ class MY_Public_Page extends PG_Public_Page {
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        $allowed_js = [];
         $allowed_js[] = 'my-page-script';
         return $allowed_js;
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        $allowed_css = [];
-        return [];
+//        $allowed_css[] = 'css';
+        return $allowed_css;
     }
 
 
