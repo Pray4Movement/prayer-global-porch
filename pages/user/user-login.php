@@ -261,14 +261,12 @@ class PG_User_Login_Registration extends DT_Magic_Url_Base {
         <script>
           //check and redirect if the user is already logged in
           window.addEventListener('load', function() {
-            window.getAuthUser(
-              () => {
+              if (pg_global.is_logged_in) {
                 const url = new URL(location.href)
-                const redirectTo = url.searchParams.get('redirect_to') || encodeURIComponent('/user_app/profile')
+                const redirectTo = url.searchParams.get('redirect_to') || encodeURIComponent('/profile')
 
                 location.href = decodeURIComponent(redirectTo)
-              }, ()=>{}
-            )
+              }
           })
         </script>
         <script type="module">

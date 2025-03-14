@@ -86,6 +86,7 @@ function PGIconInfographic(stats) {
 }
 
 function PGDisplayTime(time) {
+  if ( time === undefined ) return ''
 
   const timeList = []
   const padNumber = (n) => window.padNumber(n, 2)

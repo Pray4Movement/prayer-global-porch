@@ -62,39 +62,43 @@ window.addEventListener("load", function ($) {
 
   let countdownInterval;
 
-  window.get_page = (action, data = null) => {
-    const body = { action: action, parts: jsObject.parts };
-    if (data !== null) {
-      body.data = data;
-    }
-    return jQuery
-      .ajax({
-        type: "POST",
-        data: JSON.stringify(body),
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        url:
-          window.pg_global.root +
-          jsObject.parts.root +
-          "/v1/" +
-          jsObject.parts.type +
-          "/" +
-          jsObject.parts.action,
-      })
-      .fail(function (e) {
-        console.error(e);
-        jQuery("#error").html(e);
-      });
-  };
-  window.api_post_global = (type, action, data = []) => {
-    return window.api_fetch(
-      `${window.pg_global.root}pg-api/v1/${type}/${action}`,
-      {
-        method: "POST",
-        body: JSON.stringify(data),
+  if ( window.get_page === undefined ){
+    window.get_page = (action, data = null) => {
+      const body = { action: action, parts: jsObject.parts };
+      if (data !== null) {
+        body.data = data;
       }
-    );
-  };
+      return jQuery
+        .ajax({
+          type: "POST",
+          data: JSON.stringify(body),
+          contentType: "application/json; charset=utf-8",
+          dataType: "json",
+          url:
+            window.pg_global.root +
+            jsObject.parts.root +
+            "/v1/" +
+            jsObject.parts.type +
+            "/" +
+            jsObject.parts.action,
+        })
+        .fail(function (e) {
+          console.error(e);
+          jQuery("#error").html(e);
+        });
+    };
+  }
+  if ( window.api_post_global === undefined ){
+    window.api_post_global = (type, action, data = []) => {
+      return window.api_fetch(
+        `${window.pg_global.root}pg-api/v1/${type}/${action}`,
+        {
+          method: "POST",
+          body: JSON.stringify(data),
+        }
+      );
+    };
+  }
   jQuery("#custom-style").empty().append(`
       #wrapper {
           height: ${window.innerHeight}px !important;
@@ -236,10 +240,10 @@ window.addEventListener("load", function ($) {
   };
   window
     .get_page("get_user_locations", data)
-    .done(function (user_locations) {
+    .then(function (user_locations) {
       jsObject.user_locations = user_locations;
     })
-    .fail(function () {
+    .catch(function () {
       console.error("Error getting user locations");
       jsObject.user_locations = [];
     });
@@ -870,7 +874,7 @@ window.addEventListener("load", function ($) {
     return `<span class="time-counter">${seconds}</span>`;
   }
 
-  function load_grid_details(grid_id) {
+  async function load_grid_details(grid_id) {
     let div = jQuery("#grid_details_content");
     div
       .empty()
@@ -880,110 +884,90 @@ window.addEventListener("load", function ($) {
 
     show_location_details();
 
-    window
-      .get_page("get_grid_details", { grid_id: grid_id })
-      .done(function (response) {
-        if (!response) {
-          return;
-        }
-        window.report_content = response;
+    const response = await jQuery
+    .ajax({
+      type: "GET",
+      contentType: "application/json; charset=utf-8",
+      dataType: "json",
+      url: window.pg_global.root + 'prayer-global/fuel/' + grid_id,
+    })
+    if (response.error) {
+      return;
+    }
+    console.log(response);
+    
+   
+    window.report_content = response;
 
-        let bodies_1 = "";
-        let bodies_2 = "";
-        let bodies_3 = "";
-        i = 0;
-        while (i < response.location.percent_non_christians) {
-          bodies_1 += '<i class="ion-ios-body brand two-em"></i>';
-          i++;
-        }
-        i = 0;
-        while (i < response.location.percent_christian_adherents) {
-          bodies_2 += '<i class="ion-ios-body brand-lighter two-em"></i>';
-          i++;
-        }
-        i = 0;
-        while (i < response.location.percent_believers) {
-          bodies_3 += '<i class="ion-ios-body secondary two-em"></i>';
-          i++;
-        }
-        let admin_level =
-          response.location.admin_level_title.charAt(0).toUpperCase() +
-          response.location.admin_level_title.slice(1);
-        div.html(
-          `
+    let bodies_1 = "";
+    let bodies_2 = "";
+    let bodies_3 = "";
+    
+    for (let i = 0; i < response.location.percent_non_christians; i++) {
+      bodies_1 += '<i class="ion-ios-body brand two-em"></i>';
+    }
+    console.log(bodies_1);
+    for (let i = 0; i < response.location.percent_christian_adherents; i++) {
+      bodies_2 += '<i class="ion-ios-body brand-lighter two-em"></i>';
+    }
+    for (let i = 0; i < response.location.percent_believers; i++) {
+      bodies_3 += '<i class="ion-ios-body secondary two-em"></i>';
+    }
+
+    let admin_level =
+      response.location.admin_level_title.charAt(0).toUpperCase() +
+      response.location.admin_level_title.slice(1);
+    div.html(`
+      <div class="row">
+        <div class="col-12">
+          <hr class="mt-0" />
+          <p><span class="stats-title two-em">${
+              response.location.full_name
+            }</span></p>
+          <p>${translations.one_believer_for_every.replace("%d", numberWithCommas( Math.ceil( response.location.all_lost_int /response.location.believers_int)))}</p>
+          <hr>
+        </div>
+        <div class="col-12">
           <div class="row">
-              <div class="col-12">
-                <hr class="mt-0" />
-                <p><span class="stats-title two-em">${
-                  response.location.full_name
-                }</span></p>
-                <p>${translations.one_believer_for_every.replace(
-                  "%d",
-                  numberWithCommas(
-                    Math.ceil(
-                      response.location.all_lost_int /
-                        response.location.believers_int
-                    )
-                  )
-                )}</p>
-                <hr>
-              </div>
-              <div class="col-12">
-                 <div class="row">
-                    <div class="col-12 center">
-                        <p><strong>${
-                          translations["Don't Know Jesus"]
-                        }</strong></p>
-                        <p>${bodies_1} <span>(${
-            response.location.non_christians
-          })</span></p>
-                    </div>
-                    <div class="col-12 center">
-                        <p><strong>${
-                          translations["Know about Jesus"]
-                        }</strong></p>
-                        <p>${bodies_2} <span>(${
-            response.location.christian_adherents
-          })</span></p>
-                    </div>
-                    <div class="col-12 center">
-                        <p><strong>${translations["Know Jesus"]}</strong></p>
-                        <p>${bodies_3} <span>(${
-            response.location.believers
-          })</span></p>
-                    </div>
-                </div>
-                <hr>
-              </div>
-              <div class="col-12">
-                ${translations.location_description1
-                  .replace("%1$s", admin_level)
-                  .replace("%2$s", response.location.full_name)
-                  .replace("%3$s", response.location.population)}
-                ${translations.location_description2
-                  .replace("%1$s", response.location.name)
-                  .replace("%2$s", response.location.believers)
-                  .replace("%3$s", response.location.christian_adherents)
-                  .replace("%4$s", response.location.non_christians)}
-                ${translations.location_description3
-                  .replace("%1$s", response.location.name)
-                  .replace("%2$s", response.location.peer_locations)
-                  .replace("%3$s", response.location.admin_level_name_plural)}
-                <hr>
-              </div>
-              <div class="col-12">
-                ${translations.religion}: ${
-            response.location.primary_religion
-          }<br>
-                ${translations.official_language}: ${
-            response.location.primary_language
-          }<br>
-                <hr>
-              </div>
+            <div class="col-12 center">
+              <p><strong>${translations["Don't Know Jesus"]}</strong></p>
+              <p>${bodies_1} <span>(${response.location.non_christians})</span></p>
+            </div>
+            <div class="col-12 center">
+              <p><strong>${translations["Know about Jesus"]}</strong></p>
+              <p>${bodies_2} <span>(${response.location.christian_adherents})</span></p>
+            </div>
 
-          </div>`
-        );
-      });
+            <div class="col-12 center">
+              <p><strong>${translations["Know Jesus"]}</strong></p>
+              <p>${bodies_3} <span>(${response.location.believers})</span></p>
+            </div>
+          </div>
+          <hr>
+          </div>
+          <div class="col-12">
+            ${translations.location_description1
+              .replace("%1$s", admin_level)
+              .replace("%2$s", response.location.full_name)
+              .replace("%3$s", response.location.population)}
+            ${translations.location_description2
+              .replace("%1$s", response.location.name)
+              .replace("%2$s", response.location.believers)
+              .replace("%3$s", response.location.christian_adherents)
+              .replace("%4$s", response.location.non_christians)}
+            ${translations.location_description3
+              .replace("%1$s", response.location.name)
+              .replace("%2$s", response.location.peer_locations)
+              .replace("%3$s", response.location.admin_level_name_plural)}
+            <hr>
+          </div>
+          <div class="col-12">
+            ${translations.religion}: ${response.location.primary_religion}<br>
+            ${translations.official_language}: ${response.location.primary_language}<br>
+            <hr>
+          </div>
+      </div>`
+    );
   }
 
   function load_grid_community_stats(grid_id) {

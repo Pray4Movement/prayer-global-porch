@@ -164,5 +164,68 @@ class PG_User_API {
 
         return $user_locations_raw;
     }
+
+
+    public static function get_my_places_prayed_for(){
+        global $wpdb;
+
+        $user_id = get_current_user_id();
+
+        $results = $wpdb->get_results( $wpdb->prepare( "
+            SELECT r.grid_id, count(r.grid_id) as count
+            FROM $wpdb->dt_reports r
+            WHERE r.user_id = %d
+            AND r.type = 'prayer_app'
+            AND r.post_type = 'pg_relays'
+            GROUP BY r.grid_id
+        ", $user_id ) );
+
+        $data = [];
+        foreach ( $results as $result ) {
+            $data[$result->grid_id] = (int) $result->count;
+        }
+        return $data;
+    }
+
+    public static function get_my_stats(){
+        global $wpdb;
+
+        $user_id = get_current_user_id();
+ 
+        $current_lap_number = 1;
+
+        if ( empty( $lap_number ) ){
+            $lap_number = $current_lap_number;
+        }
+        //phpcs:ignore
+        $result = $wpdb->get_row( $wpdb->prepare( 
+            "SELECT
+            MIN( r.timestamp ) as start_time,
+            MAX( r.timestamp ) as end_time,
+            COUNT( DISTINCT( r.grid_id ) ) as locations_completed,
+            SUM( r.value ) as minutes_prayed
+            FROM $wpdb->dt_reports r
+            WHERE r.post_type = 'pg_relays'
+            AND r.user_id = %d
+        ", $user_id ), ARRAY_A);
+
+        $data = [
+            'lap_number' => (int) $lap_number,
+            'start_time' => (int) $result['start_time'],
+            'locations_completed' => (int) $result['locations_completed'],
+            'minutes_prayed' => (int) $result['minutes_prayed'],
+            'on_going' => true,
+            'participants' => 1,
+            'end_time' => null,
+        ];
+
+
+        if ( $lap_number < $current_lap_number ) {
+            /* Past laps should be 100% filled */
+            $data['locations_completed'] = 4770;
+        }
+
+        return _pg_stats_builder( $data );
+    }
 }
 PG_User_API::instance();

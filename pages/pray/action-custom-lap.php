@@ -148,12 +148,28 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
     public function body(){
 
+        $svg_manager = new SVG_Spritesheet_Manager();
+
+        $icons = [
+            'ion-android-warning',
+            'ion-happy',
+            'ion-ios-body',
+            'ion-map',
+            'ion-sad',
+            'pg-chevron-down',
+            'pg-close',
+            'pg-pause',
+            'pg-play',
+            'pg-pray-hands-dark',
+            'pg-prayer',
+            'pg-settings',
+        ];
+
+        $spritesheet_dir = $svg_manager->get_cached_spritesheet_dir( $icons, 'pg' );
         ?>
 
         <?php //phpcs:ignore ?>
-        <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/ionicon-subset.svg' ); ?>
-        <?php //phpcs:ignore ?>
-        <?php echo file_get_contents( plugin_dir_path( __DIR__ ) . '/assets/images/pgicon-subset.svg' ); ?>
+        <?php echo file_get_contents( $spritesheet_dir ); ?>
 
         <!-- navigation & widget -->
         <nav class="prayer-navbar">
@@ -167,7 +183,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
                     <?php else : ?>
 
-                        <svg fill="currentColor" width="1em" height="1em" viewBox="0 0 33 33">
+                        <svg width="1em" height="1em">
                             <use href="#pg-prayer"></use>
                         </svg>
 
