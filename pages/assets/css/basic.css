@@ -807,6 +807,9 @@ input[type="radio"]:checked {
 .relay-item[data-type="public"] {
     background-color: var(--pg-brand-color);
 }
+.relay-item[data-hidden] {
+    background-color: var(--pg-grey);
+}
 .relay-item__container {
     position: relative;
     display: flex;

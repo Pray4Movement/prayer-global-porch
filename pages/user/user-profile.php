@@ -173,7 +173,10 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'map' => esc_html__( 'Map', 'prayer-global-porch' ),
                 'share' => esc_html__( 'Share', 'prayer-global-porch' ),
                 'display' => esc_html__( 'Display', 'prayer-global-porch' ),
-                'remove' => esc_html__( 'Remove From List', 'prayer-global-porch' ),
+                'hide' => esc_html__( 'Hide', 'prayer-global-porch' ),
+                'unhide' => esc_html__( 'Unhide', 'prayer-global-porch' ),
+                'hide_hidden_relays' => esc_html__( 'Hide Hidden Relays', 'prayer-global-porch' ),
+                'show_hidden_relays' => esc_html__( 'Show Hidden Relays', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),
@@ -401,6 +404,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         DT_Route::post( $namespace, 'subscribe_to_news', [ $this, 'subscribe_to_news' ] );
         DT_Route::post( $namespace, 'save_details', [ $this, 'save_details' ] );
         DT_Route::post( $namespace, 'relays', [ $this, 'get_relays' ] );
+        DT_Route::post( $namespace, 'relays/hide', [ $this, 'hide_relay' ] );
+        DT_Route::post( $namespace, 'relays/unhide', [ $this, 'unhide_relay' ] );
     }
 
     public function endpoint( WP_REST_Request $request ) {
@@ -882,6 +887,39 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'relays' => $data,
             'hidden_relays' => $hidden_relays,
         ];
+    }
+
+    public function hide_relay( WP_REST_Request $request ) {
+        $user_id = get_current_user_id();
+
+        if ( !$user_id || !DT_Posts::can_access( 'pg_relays' ) ) {
+            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
+        }
+
+        $relay_id = $request->get_param( 'relay_id' );
+
+        if ( !$relay_id ) {
+            return new WP_Error( __METHOD__, 'Relay ID is required', [ 'status' => 400 ] );
+        }
+
+        add_user_meta( $user_id, 'pg_hidden_relays', $relay_id );
+        return true;
+    }
+    public function unhide_relay( WP_REST_Request $request ) {
+        $user_id = get_current_user_id();
+
+        if ( !$user_id || !DT_Posts::can_access( 'pg_relays' ) ) {
+            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
+        }
+
+        $relay_id = $request->get_param( 'relay_id' );
+
+        if ( !$relay_id ) {
+            return new WP_Error( __METHOD__, 'Relay ID is required', [ 'status' => 400 ] );
+        }
+
+        delete_user_meta( $user_id, 'pg_hidden_relays', $relay_id );
+        return true;
     }
 }
 PG_User_App_Profile::instance();

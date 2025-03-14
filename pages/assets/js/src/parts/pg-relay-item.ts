@@ -29,6 +29,9 @@ export class PgRelayItem extends OpenElement {
   @property({ type: String })
   urlRoot: string = "";
 
+  @property({ type: Boolean })
+  hiddenRelay: boolean = false;
+
   token = "";
 
   override connectedCallback() {
@@ -54,7 +57,12 @@ export class PgRelayItem extends OpenElement {
     const displayType =
       this.relayType === "custom" ? this.visibility : this.relayType;
     return html`
-      <div role="listitem" class="relay-item" data-type=${displayType}>
+      <div
+        role="listitem"
+        class="relay-item"
+        data-type=${displayType}
+        ?data-hidden=${this.hiddenRelay}
+      >
         <div class="relay-item__container">
           <div class="stack-sm relay-item__info">
             <span class="relay-item__name">${this.name}</span>
@@ -112,7 +120,25 @@ export class PgRelayItem extends OpenElement {
                     <li class="dropdown-item">${this.translations.edit}</li>
                   `
                 : ""}
-              <li class="dropdown-item">${this.translations.remove}</li>
+              ${this.hiddenRelay
+                ? html`
+                    <li
+                      class="dropdown-item"
+                      @click=${() =>
+                        this.dispatchEvent(new CustomEvent("unhide"))}
+                    >
+                      ${this.translations.unhide}
+                    </li>
+                  `
+                : html`
+                    <li
+                      class="dropdown-item"
+                      @click=${() =>
+                        this.dispatchEvent(new CustomEvent("hide"))}
+                    >
+                      ${this.translations.hide}
+                    </li>
+                  `}
             </ul>
             <a href=${this.urlRoot} class="btn btn-cta"
               >${this.translations.pray}</a

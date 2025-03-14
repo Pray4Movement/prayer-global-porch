@@ -36,6 +36,7 @@ export interface RelayStats {
 }
 
 export interface BaseRelay {
+  post_id: number;
   post_title: string;
   stats: RelayStats;
   lap_key: string;
