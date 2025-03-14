@@ -458,6 +458,16 @@
                           </svg>
                         </div>
                       `}
+                  <button class="stack-sm center text-center brand">
+                    <svg class="icon-lg">
+                      <use
+                        href="${window.jsObject.spritesheet_url}#pg-plus"
+                      ></use>
+                    </svg>
+                    <span class="uppercase"
+                      >${this.translations.new_relay}</span
+                    >
+                  </button>
                 </div>
               `}
           ${this.hiddenRelays.length>0?u`
@@ -520,7 +530,7 @@
         <hr />
 
         <section class="stack-sm">
-          <svg class="brand-light icon-lg">
+          <svg class="brand-light icon-xxlg">
             <use href="${window.jsObject.spritesheet_url}#pg-go-logo"></use>
           </svg>
           <h2 class="h5">${this.translations.communication_preferences}</h2>

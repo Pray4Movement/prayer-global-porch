@@ -1087,13 +1087,17 @@ input[type="radio"]:checked {
 
 /* =========== */
 
-.icon-xlg {
+.icon-xxlg {
     width: 5rem;
     height: 5rem;
 }
-.icon-lg {
+.icon-xlg {
     width: 4rem;
     height: 4rem;
+}
+.icon-lg {
+    width: 3rem;
+    height: 3rem;
 }
 .icon-md {
     width: 2rem;

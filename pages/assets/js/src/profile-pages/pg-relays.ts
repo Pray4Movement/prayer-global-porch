@@ -148,6 +148,16 @@ export class PgRelays extends OpenElement {
                         </div>
                       `
                     : ""}
+                  <button class="stack-sm center text-center brand">
+                    <svg class="icon-lg">
+                      <use
+                        href="${window.jsObject.spritesheet_url}#pg-plus"
+                      ></use>
+                    </svg>
+                    <span class="uppercase"
+                      >${this.translations.new_relay}</span
+                    >
+                  </button>
                 </div>
               `}
           ${this.hiddenRelays.length > 0
