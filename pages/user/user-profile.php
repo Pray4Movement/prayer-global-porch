@@ -31,7 +31,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         }
 
         if ( !is_user_logged_in() ) {
-            wp_redirect( '/user_app/login' );
+            wp_redirect( '/login' );
             exit;
         }
 
