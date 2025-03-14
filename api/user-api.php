@@ -192,7 +192,7 @@ class PG_User_API {
         global $wpdb;
 
         $user_id = get_current_user_id();
- 
+
         $current_lap_number = 1;
 
         if ( empty( $lap_number ) ){

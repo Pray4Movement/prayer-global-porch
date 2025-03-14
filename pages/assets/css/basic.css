@@ -1335,6 +1335,10 @@ button {
     z-index: 100;
     padding: 1em 1em;
 }
+.pg-navbar .container{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
 
 .pg-navbar.scrolled {
     position: fixed;
