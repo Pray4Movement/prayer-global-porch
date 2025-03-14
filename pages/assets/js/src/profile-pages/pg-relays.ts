@@ -11,6 +11,7 @@ export class PgRelays extends OpenElement {
   @state() relays: Relay[] = [];
   @state() hiddenRelays: number[] = [];
   @state() showHiddenRelays: boolean = false;
+  @state() loading: boolean = true;
   constructor() {
     super();
 
@@ -31,6 +32,9 @@ export class PgRelays extends OpenElement {
         const { relays, hidden_relays } = data;
         this.relays = relays;
         this.hiddenRelays = hidden_relays;
+      })
+      .finally(() => {
+        this.loading = false;
       });
   }
 
@@ -81,16 +85,10 @@ export class PgRelays extends OpenElement {
 
       <div class="white-bg page px-3">
         <div class="pg-container stack-md" data-small data-stretch>
-          ${this.hiddenRelays.length > 0
-            ? html`
-                <div class="cluster ms-auto">
-                  <button @click=${() => this.toggleHiddenRelays()}>
-                    ${this.showHiddenRelays
-                      ? this.translations.hide_hidden_relays
-                      : this.translations.show_hidden_relays}
-                  </button>
-                </div>
-              `
+          ${this.loading
+            ? html`<div class="center">
+                <span class="loading-spinner active"></span>
+              </div>`
             : ""}
           <div role="list" class="stack-md relay-list" data-stretch>
             ${repeat(
@@ -131,6 +129,17 @@ export class PgRelays extends OpenElement {
               }
             )}
           </div>
+          ${this.hiddenRelays.length > 0
+            ? html`
+                <div class="cluster ms-auto">
+                  <button @click=${() => this.toggleHiddenRelays()}>
+                    ${this.showHiddenRelays
+                      ? this.translations.hide_hidden_relays
+                      : this.translations.show_hidden_relays}
+                  </button>
+                </div>
+              `
+            : ""}
         </div>
       </div>
     `;
