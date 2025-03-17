@@ -55,14 +55,10 @@ export class PgRelays extends OpenElement {
   }
 
   private async handleUnhide(relay: Relay) {
-    const response = await fetch(
+    const response = await window.api_fetch(
       `${window.pg_global.root}pg-api/v1/dashboard/relays/unhide?relay_id=${relay.post_id}`,
       {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-WP-Nonce": window.pg_global.nonce,
-        },
       }
     );
     if (response.ok) {
