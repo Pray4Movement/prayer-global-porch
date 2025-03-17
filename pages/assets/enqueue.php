@@ -28,6 +28,9 @@ add_filter( 'dt_magic_url_base_allowed_js', function ( $allowed_js ){
 function pg_enqueue_script( string $handle, string $rel_src, array $deps = array(), array|bool $args = false ) {
     wp_enqueue_script( $handle, Prayer_Global_Porch::get_url_path() . "$rel_src", $deps, filemtime( Prayer_Global_Porch::get_dir_path() . "$rel_src" ), $args );
 }
+function pg_enqueue_style( string $handle, string $rel_src, array $deps = array(), array|bool $args = false ) {
+    wp_enqueue_style( $handle, Prayer_Global_Porch::get_url_path() . "$rel_src", $deps, filemtime( Prayer_Global_Porch::get_dir_path() . "$rel_src" ), $args );
+}
 
 add_action( 'wp_enqueue_scripts', function (){
 
@@ -108,7 +111,7 @@ function pg_heatmap_scripts( $glass ){
 add_filter( 'script_loader_tag', function ( $tag, $handle ){
 
     if ( $handle === 'umami' ) {
-        return '<script defer src="https://umami.gospelambition.com/script.js" data-website-id="c8b2d630-e64a-4354-b03a-f92ac853153e"></script>';
+        return '<script defer src="https://umami.gospelambition.com/script.js" data-website-id="c8b2d630-e64a-4354-b03a-f92ac853153e"></script>'; //phpcs:ignore
     }
 
     if ( str_starts_with( $handle, 'lit-bundle' ) ) {
@@ -125,6 +128,21 @@ add_filter( 'script_loader_tag', function ( $tag, $handle ){
 
 /**
  * Enqueue styles
- * https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css
- *
  */
+add_action( 'wp_enqueue_scripts', function () {
+    wp_enqueue_style( 'bootstrap-css', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css', [], '5.2.3' );
+    wp_enqueue_style( 'ionicons-css', 'https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css', [], '4.5.6' );
+    pg_enqueue_style( 'pg-styles-css', 'pages/assets/fonts/prayer-global/style.css', [ 'bootstrap-css' ] );
+    pg_enqueue_style( 'basic-css', 'pages/assets/css/basic.css', [ 'bootstrap-css' ] );
+} );
+
+
+add_action( 'dt_magic_url_base_allowed_css', function ( $allowed_css ){
+    $allowed_css = [];
+    $allowed_css[] = 'basic-css';
+    $allowed_css[] = 'bootstrap-css';
+    $allowed_css[] = 'ionicons-css';
+    $allowed_css[] = 'pg-styles-css';
+
+    return $allowed_css;
+}, 5, 1 );
