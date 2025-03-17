@@ -575,8 +575,8 @@ class PG_Register extends PG_Public_Page {
                         <hr>
                         <div class="flow-medium">
                             <svg class="icon-lg"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-go-logo"></use></svg>
-                            <div class="marketing-options" style="text-align: start">
-                                <div class="form-check small m-3">
+                            <div class="marketing-options" style="text-align: start; max-width:20rem;">
+                                <div class="form-check small">
                                     <label class="form-check-label" for="extra_register_input_marketing">
                                         <input type="checkbox" id="extra_register_input_marketing" checked>
                                         <?php echo esc_html( __( 'Sign up for Prayer.Global news and opportunities, and occasional communication from Prayer.Tools and GospelAmbition.org', 'prayer-global-porch' ) ) ?>
