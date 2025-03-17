@@ -12,8 +12,6 @@ class PG_Register extends PG_Public_Page {
     public $rest_route = 'pg/register';
 
     public function __construct() {
-        add_filter( 'dt_login_continue', [ $this, 'dt_login_continue' ], 10, 3 ); //load this on all requests
-
         $current_page_path_matches = parent::__construct();
         if ( !$current_page_path_matches ) {
             return;
@@ -118,11 +116,6 @@ class PG_Register extends PG_Public_Page {
         } catch ( \Exception $e ) {
             return new WP_Error( 'registration_failed', $e->getMessage(), [ 'status' => 400 ] );
         }
-    }
-
-    public function dt_login_continue( $continue, $body, $payload ) {
-
-        return $continue;
     }
 
     public function wp_enqueue_scripts() {
