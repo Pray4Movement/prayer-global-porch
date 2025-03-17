@@ -251,7 +251,6 @@ class PG_My_Map extends PG_Public_Page {
 
         pg_enqueue_script( 'my-map-heatmap', 'pages/pray/page-dashboard-map/heatmap.js', [ 'heatmap-js' ] );
 
-        wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400', [], '1' );
         wp_enqueue_style( 'google-fonts-2', 'https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap', [], '1' );
         wp_enqueue_style( 'heatmap-css', Prayer_Global_Porch::get_url_path() . 'pages/pray/heatmap.css', [], fileatime( Prayer_Global_Porch::get_dir_path() . 'pages/pray/heatmap.css' ) );
 
@@ -312,7 +311,6 @@ class PG_My_Map extends PG_Public_Page {
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
         $allowed_css[] = 'mapbox-gl-css';
         $allowed_css[] = 'heatmap-css';
-        $allowed_css[] = 'google-fonts';
         $allowed_css[] = 'google-fonts-2';
         return $allowed_css;
     }

@@ -134,6 +134,7 @@ add_action( 'wp_enqueue_scripts', function () {
     wp_enqueue_style( 'ionicons-css', 'https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css', [], '4.5.6' );
     pg_enqueue_style( 'pg-styles-css', 'pages/assets/fonts/prayer-global/style.css', [ 'bootstrap-css' ] );
     pg_enqueue_style( 'basic-css', 'pages/assets/css/basic.css', [ 'bootstrap-css' ] );
+    wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400', [], '1' );
 } );
 
 
@@ -143,6 +144,7 @@ add_action( 'dt_magic_url_base_allowed_css', function ( $allowed_css ){
     $allowed_css[] = 'bootstrap-css';
     $allowed_css[] = 'ionicons-css';
     $allowed_css[] = 'pg-styles-css';
+    $allowed_css[] = 'google-fonts';
 
     return $allowed_css;
 }, 5, 1 );
