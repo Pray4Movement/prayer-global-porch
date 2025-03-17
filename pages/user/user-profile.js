@@ -64,7 +64,7 @@ window.addEventListener("load", function () {
   } = jsObject.translations;
 
   if (pg_global.is_logged_in) {
-    write_main(pg_global.user);
+    //write_main(pg_global.user);
   }
 
   jQuery("#delete-confirmation").on("keyup", (e) => {

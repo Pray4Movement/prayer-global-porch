@@ -543,6 +543,7 @@ input[type="radio"]:checked {
 
 /* Stack */
 
+.stack-xsm,
 .stack-sm,
 .stack-md,
 .stack {
@@ -561,11 +562,15 @@ input[type="radio"]:checked {
     align-items: stretch;
 }
 
+.stack-xsm > *,
 .stack-sm > *,
 .stack-md > *,
 .stack > * {
     margin-top: 0;
     margin-bottom: 0;
+}
+.stack-xsm > * + * {
+    margin-top: var(--pg-flow-size, 0.5rem);
 }
 .stack-sm > * + * {
     margin-top: var(--pg-flow-size, 1rem);

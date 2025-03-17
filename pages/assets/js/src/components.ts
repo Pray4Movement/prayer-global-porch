@@ -17,5 +17,7 @@ declare global {
     jsObject: any;
     api_fetch: Function;
     location_data: any;
+    toDateInputFormat: (timestamp: number) => string;
+    toTimeInputFormat: (timestamp: number) => string;
   }
 }
