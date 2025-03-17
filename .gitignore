@@ -1,4 +1,15 @@
-vendor/*
+vendor/squizlabs/*
+vendor/wp-coding-standards/*
+vendor/dealerdirect/*
+vendor/phpcsstandards/*
+vendor/google/cloud-core
+vendor/google/cloud-logging
+vendor/google/cloud-storage
+vendor/google/common-protos
+vendor/google/gax
+vendor/google/grpc-gcp
+vendor/google/longrunning
+vendor/google/protobuf
 maps/*
 support/build/json-files
 node_modules/*

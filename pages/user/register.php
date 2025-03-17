@@ -1,11 +1,19 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
+require_once plugin_dir_path( __DIR__ ) . '../vendor/autoload.php';
+
+use Kreait\Firebase\Factory;
+use Kreait\Firebase\ServiceAccount;
+
 class PG_Register extends PG_Public_Page {
     public $url_path = 'register';
     public $page_title = 'Register';
+    public $rest_route = 'pg/register';
 
     public function __construct() {
+        add_filter( 'dt_login_continue', [ $this, 'dt_login_continue' ], 10, 3 ); //load this on all requests
+
         $current_page_path_matches = parent::__construct();
         if ( !$current_page_path_matches ) {
             return;
@@ -15,12 +23,118 @@ class PG_Register extends PG_Public_Page {
          */
     }
 
+    public function register_endpoints(){
+        register_rest_route( $this->rest_route, '/password', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'register_with_password' ],
+        ] );
+    }
+
+    public function register_with_password( $request ){
+        $body = $request->get_body();
+        $body = json_decode( $body );
+
+        //cloudflare turnstile verification if enabled
+        $cf_secret = get_option( 'dt_cloudflare_secret_key', '' );
+        $cf_site_key = get_option( 'dt_cloudflare_site_key', '' );
+        if ( !empty( $cf_secret ) && !empty( $cf_site_key ) ){
+            if ( !isset( $body->extra_data->turnstile_token ) ) {
+                return new WP_Error( 'turnstile_error', 'Turnstile token not found', [ 'status' => 401 ] );
+            }
+
+            $ip = sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ?? '' ) );
+            $url = 'https://challenges.cloudflare.com/turnstile/v0/siteverify';
+            $response = wp_remote_post( $url, [
+                'body' => [
+                    'secret' => $cf_secret,
+                    'response' => $body->extra_data->turnstile_token,
+                    'remoteip' => $ip,
+                ],
+            ] );
+
+            if ( is_wp_error( $response ) ) {
+                return new WP_Error( 'turnstile_error', 'Failed to verify Turnstile token', [ 'status' => 500 ] );
+            }
+            $response_body = json_decode( wp_remote_retrieve_body( $response ), true );
+            if ( empty( $response_body['success'] ) ){
+                return new WP_Error( 'turnstile_error', 'Failed to verify Turnstile token', [ 'status' => 500 ] );
+            }
+        }
+
+        try {
+            // Get Firebase credentials from WordPress options
+            $firebase_credentials = get_option( 'pg_firebase_credentials' );
+            if ( empty( $firebase_credentials ) ){
+                return new WP_Error( 'firebase_error', 'Firebase credentials not configured', [ 'status' => 500 ] );
+            }
+
+            // Initialize Firebase Admin SDK
+            $factory = ( new Factory() )
+                ->withServiceAccount( $firebase_credentials );
+
+            $auth = $factory->createAuth();
+
+            // Create user with email and password
+            $user_properties = [
+                'email' => $body->email,
+                'password' => $body->password,
+                'displayName' => $body->name ?? $body->email,
+                'emailVerified' => false,
+            ];
+
+            $created_user = $auth->createUser( $user_properties );
+
+            // Send email verification
+            $auth->sendEmailVerificationLink( $created_user->email );
+
+            // Create WordPress user
+            $payload = [
+                'user_id' => $created_user->uid,
+                'email' => $created_user->email,
+                'name' => $created_user->displayName, //phpcs:ignore
+                'firebase' => [
+                    'identities' => $created_user->providerData, //phpcs:ignore
+                    'sign_in_provider' => 'password'
+                ]
+            ];
+
+            $user_manager = new DT_Login_User_Manager( $payload );
+            $response = $user_manager->login();
+
+            if ( isset( $body->extra_data ) ) {
+                do_action( 'dt_sso_login_extra_fields', (array) $body->extra_data, (array) $body );
+            }
+
+            if ( is_wp_error( $response ) ) {
+                return $response;
+            }
+
+            return new WP_REST_Response([
+                'status' => 200,
+                'message' => 'Registration successful. Please check your email to verify your account.',
+                'data' => $response
+            ]);
+
+        } catch ( \Exception $e ) {
+            return new WP_Error( 'registration_failed', $e->getMessage(), [ 'status' => 400 ] );
+        }
+    }
+
+    public function dt_login_continue( $continue, $body, $payload ) {
+
+        return $continue;
+    }
+
     public function wp_enqueue_scripts() {
         wp_enqueue_script( 'pass-strength', 'https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js', [], '4.2.0', true );
         wp_enqueue_script( 'user-mobile-login', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-mobile-login.js', [], fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-mobile-login.js' ), [ 'strategy' => 'defer' ] );
+        wp_enqueue_script( 'cloudflare-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], 'v0', [ 'strategy' => 'defer' ] );
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
+        $allowed_js[] = 'cloudflare-turnstile';
+        $allowed_js[] = 'pass-strength';
+        $allowed_js[] = 'user-mobile-login';
         return $allowed_js;
     }
 
@@ -362,39 +476,49 @@ class PG_Register extends PG_Public_Page {
 
           const name = event.target.name?.value || email
 
-          const auth = getAuth(app)
-          createUserWithEmailAndPassword(auth, email, pass)
-          .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            user.displayName = name
-            sendEmailVerification(user)
-            userCredential.extraData = {
-                marketing: document.getElementById('extra_register_input_marketing').checked || false
-            }
-            fetch(`${rest_url}/session/login`, {
-              method: 'POST',
-              body: JSON.stringify(userCredential)
-            })
-            .then(() => {
-              location.href = '/profile'
-            })
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            //toggle the spinner and button
+          // Get the Turnstile token
+          const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]').value;
+          if (!turnstileResponse) {
+            document.getElementById('login-error').innerText = '<?php echo esc_html__( 'Please complete the security check.', 'prayer-global-porch' ) ?>'
+            document.getElementById('login-error').style.display = 'block'
             submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
             submitButtenElement.classList.remove('disabled')
             submitButtenElement.removeAttribute('disabled')
-            if ( errorCode === 'auth/email-already-in-use' ) {
-              document.getElementById('login-error').innerText = '<?php echo esc_html__( 'Email already in use, please login instead.', 'prayer-global-porch' ) ?>'
-            } else {
-              document.getElementById('login-error').innerText = errorMessage
-            }
-            //show the error message
-            document.getElementById('login-error').style.display = 'block'
             isSubmitting = false
+            return
+          }
+
+          // Send registration data to our endpoint
+          fetch(`${window.pg_global.root}pg/register/password`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: email,
+              password: pass,
+              name: name,
+              extra_data: {
+                marketing: document.getElementById('extra_register_input_marketing').checked || false,
+                turnstile_token: turnstileResponse
+              }
+            })
+          })
+          .then((response) => {
+            return response.ok ? response.json() : Promise.reject(response);
+          })
+          .then(() => {
+            location.href = '/profile'
+          })
+          .catch((response) => {
+            response.json().then((error) => {
+              document.getElementById('login-error').innerText = error.message
+              document.getElementById('login-error').style.display = 'block'
+              submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
+              submitButtenElement.classList.remove('disabled')
+              submitButtenElement.removeAttribute('disabled')
+              isSubmitting = false
+            })
           });
         })
         </script>
@@ -519,6 +643,7 @@ class PG_Register extends PG_Public_Page {
                                                     <?php esc_html_e( 'Passwords do not match. Please, try again.', 'prayer-global-porch' ) ?>
                                                 </span>
                                         </div>
+                                        <div class="cf-turnstile" data-sitekey="<?php echo esc_attr( get_option( 'dt_cloudflare_site_key' ) ); ?>" data-theme="light"></div>
                                         <?php wp_nonce_field( 'login_form', 'login_form_nonce' ) ?>
                                         <div>
                                             <button class="btn w-100 btn-secondary" id="register-submit">
