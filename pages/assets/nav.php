@@ -11,6 +11,7 @@ if ( '' === $url ) {
     $home_page = true;
 } else if ( str_contains( $url, 'about' ) ||
             str_contains( $url, 'login' ) ||
+            str_contains( $url, 'register' ) ||
             str_contains( $url, 'profile' )
 ) {
     $nav_class = 'navbar-dark';

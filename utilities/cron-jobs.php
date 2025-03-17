@@ -25,7 +25,7 @@ class PG_Cron_Jobs {
     public function pg_daily_cron_job() {
         // get the relays with post_type = 'pg_relays' that have a recent record in the dt_reports table in the last month
         global $wpdb;
-        $to_archive = $wpdb->get_results("
+        $to_archive = $wpdb->get_results( $wpdb->prepare( "
             SELECT ID FROM $wpdb->posts p
             INNER JOIN $wpdb->postmeta pm ON ( pm.post_id = p.ID AND pm.meta_key = 'status' AND pm.meta_value = 'active' )
             WHERE post_type = 'pg_relays'
@@ -34,7 +34,8 @@ class PG_Cron_Jobs {
                 WHERE timestamp > UNIX_TIMESTAMP() - 30*24*60*60
                 AND post_type = 'pg_relays' and type = 'prayer_app'
             )
-        ", ARRAY_A );
+            AND p.post_date > %s
+        ", gmdate( 'Y-m-d', strtotime( time() - DAY_IN_SECONDS ) )  ), ARRAY_A );
 
         // archive the relays
         foreach ( $to_archive as $relay ) {
