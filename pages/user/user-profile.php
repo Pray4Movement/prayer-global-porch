@@ -190,6 +190,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'advanced' => esc_html__( 'Advanced Options', 'prayer-global-porch' ),
                 'create' => esc_html__( 'Create', 'prayer-global-porch' ),
                 'start_date' => esc_html__( 'Start Date', 'prayer-global-porch' ),
+                'end_date' => esc_html__( 'End Date', 'prayer-global-porch' ),
                 'now' => esc_html__( 'Now', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,

@@ -20,6 +20,10 @@ export class PgNewRelay extends OpenElement {
   startDate: string = "";
   @state()
   startTime: string = "";
+  @state()
+  endDate: string = "";
+  @state()
+  endTime: string = "";
 
   constructor() {
     super();
@@ -46,18 +50,35 @@ export class PgNewRelay extends OpenElement {
     this.title = value;
   }
 
+  handleDateTimeChange(
+    event: Event,
+    field: "startDate" | "startTime" | "endDate" | "endTime"
+  ) {
+    const value = (event.target as HTMLInputElement).value;
+    this[field] = value;
+  }
+
   onSubmit(event: Event) {
     event.preventDefault();
-    const startDate =
-      new Date(`${this.startDate} ${this.startTime}`).getTime() / 1000;
+    const body: any = {
+      title: this.title,
+      visibility: this.type,
+    };
+
+    if (this.startDate && this.startTime) {
+      body.start_date =
+        new Date(`${this.startDate} ${this.startTime}`).getTime() / 1000;
+    }
+
+    if (this.endDate && this.endTime) {
+      body.end_date =
+        new Date(`${this.endDate} ${this.endTime}`).getTime() / 1000;
+    }
+
     window
       .api_fetch(window.pg_global.root + "pg-api/v1/dashboard/create_relay", {
         method: "POST",
-        body: JSON.stringify({
-          title: this.title,
-          visibility: this.type,
-          start_date: startDate,
-        }),
+        body: JSON.stringify(body),
       })
       .then((data: any) => {
         window.location.href = "/dashboard/relays";
@@ -171,18 +192,44 @@ export class PgNewRelay extends OpenElement {
                           </div>
                           <div class="cluster">
                             <input
-                              required
                               type="date"
                               name="start-date"
                               id="start-date"
                               value=${this.startDate}
+                              @input=${(e: Event) =>
+                                this.handleDateTimeChange(e, "startDate")}
                             />
                             <input
-                              required
                               type="time"
                               name="start-time"
                               id="start-time"
                               value=${this.startTime}
+                              @input=${(e: Event) =>
+                                this.handleDateTimeChange(e, "startTime")}
+                            />
+                          </div>
+                        </label>
+                        <label
+                          for="end-date"
+                          class="stack-xsm align-items-start"
+                        >
+                          ${this.translations.end_date}
+                          <div class="cluster">
+                            <input
+                              type="date"
+                              name="end-date"
+                              id="end-date"
+                              value=${this.endDate}
+                              @input=${(e: Event) =>
+                                this.handleDateTimeChange(e, "endDate")}
+                            />
+                            <input
+                              type="time"
+                              name="end-time"
+                              id="end-time"
+                              value=${this.endTime}
+                              @input=${(e: Event) =>
+                                this.handleDateTimeChange(e, "endTime")}
                             />
                           </div>
                         </label>
