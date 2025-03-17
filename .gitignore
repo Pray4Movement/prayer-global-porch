@@ -16,3 +16,4 @@ node_modules/*
 composer.lock
 support/build/connect_params.json
 test/visual/__image_snapshots__/__diff_output__
+.DS_Store

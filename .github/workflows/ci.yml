@@ -62,13 +62,11 @@ jobs:
         with:
           files: |
             **/*.php
+            !**/vendor/**/*.php
 
       - name: List all changed files
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            if [[ "$file" == *"/vendor/"* ]]; then
-              continue
-            fi
             echo "$file was changed"
           done
 
