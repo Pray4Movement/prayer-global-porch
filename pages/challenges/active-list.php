@@ -68,7 +68,7 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return $allowed_css;
     }
 
     public function wp_enqueue_scripts(){
