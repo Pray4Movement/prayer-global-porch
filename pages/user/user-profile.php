@@ -192,6 +192,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'start_date' => esc_html__( 'Start Date', 'prayer-global-porch' ),
                 'end_date' => esc_html__( 'End Date', 'prayer-global-porch' ),
                 'now' => esc_html__( 'Now', 'prayer-global-porch' ),
+                'single_lap_relay' => esc_html__( 'Single Lap', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),
@@ -784,7 +785,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         $fields['assigned_to'] = $user_id;
         $fields['type'] = 'custom';
-        $fields['single_lap'] = (bool) $data['single_lap'];
+        $fields['single_lap'] = (bool) $data['single_lap'] ?? false;
 
         $post = DT_Posts::create_post( 'pg_relays', $fields );
 

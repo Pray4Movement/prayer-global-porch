@@ -5,9 +5,6 @@ import { navigator } from "lit-element-router";
 @customElement("nav-link")
 export class NavLink extends navigator(LitElement) {
   static styles = css`
-    :host {
-      display: inline-block;
-    }
     a {
       color: inherit;
       text-decoration: inherit;

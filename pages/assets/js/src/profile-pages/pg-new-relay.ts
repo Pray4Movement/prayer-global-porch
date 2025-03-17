@@ -24,6 +24,8 @@ export class PgNewRelay extends OpenElement {
   endDate: string = "";
   @state()
   endTime: string = "";
+  @state()
+  isSingle: boolean = false;
 
   constructor() {
     super();
@@ -65,14 +67,19 @@ export class PgNewRelay extends OpenElement {
       visibility: this.type,
     };
 
-    if (this.startDate && this.startTime) {
+    if (this.startDate) {
+      const startTime = this.startTime ? this.startTime : "00:00";
       body.start_date =
-        new Date(`${this.startDate} ${this.startTime}`).getTime() / 1000;
+        new Date(`${this.startDate} ${startTime}`).getTime() / 1000;
     }
 
-    if (this.endDate && this.endTime) {
-      body.end_date =
-        new Date(`${this.endDate} ${this.endTime}`).getTime() / 1000;
+    if (this.endDate) {
+      const endTime = this.endTime ? this.endTime : "23:59";
+      body.end_date = new Date(`${this.endDate} ${endTime}`).getTime() / 1000;
+    }
+
+    if (this.isSingle) {
+      body.single_lap = true;
     }
 
     window
@@ -101,7 +108,7 @@ export class PgNewRelay extends OpenElement {
   render() {
     return html`
       <pg-header title=${this.translations.new_relay}></pg-header>
-      <div class="pg-container page">
+      <div class="pg-container page" data-small>
         ${this.step === "choose-option"
           ? html`
               <div class="stack-md mx-auto w-fit align-items-start">
@@ -150,7 +157,10 @@ export class PgNewRelay extends OpenElement {
                   </svg>
                   ${this.getTitle()}
                 </h5>
-                <form class="stack-sm w-100" @submit=${this.onSubmit}>
+                <form
+                  class="stack-sm align-items-start w-100"
+                  @submit=${this.onSubmit}
+                >
                   <label for="title" class="w-100">
                     ${this.translations.title}
                     <input
@@ -232,6 +242,17 @@ export class PgNewRelay extends OpenElement {
                                 this.handleDateTimeChange(e, "endTime")}
                             />
                           </div>
+                        </label>
+                        <label class="form-group">
+                          <input
+                            type="checkbox"
+                            ?checked=${this.isSingle}
+                            @change=${(e: Event) =>
+                              (this.isSingle = (
+                                e.target as HTMLInputElement
+                              ).checked)}
+                          />
+                          ${this.translations.single_lap_relay}
                         </label>
                       `}
                   <div class="cluster ms-auto">
