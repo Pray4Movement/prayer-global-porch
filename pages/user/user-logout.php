@@ -47,7 +47,7 @@ class PG_User_Logout extends DT_Magic_Url_Base {
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return $allowed_css;
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {

@@ -298,10 +298,9 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [
-            'lap-css',
-            'mapbox-gl-css',
-        ];
+        $allowed_css[] = 'lap-css';
+        $allowed_css[] = 'mapbox-gl-css';
+        return $allowed_css;
     }
 
     public function wp_enqueue_scripts(){

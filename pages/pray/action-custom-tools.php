@@ -44,7 +44,7 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return $allowed_css;
     }
 
     public function _header() {
