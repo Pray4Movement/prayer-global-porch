@@ -144,17 +144,17 @@ class PG_Login extends PG_Public_Page {
                 transform: none;
             }
 
-            #login-buttons {
+            .login-buttons {
                 display: flex;
                 flex-direction: column;
                 gap: 1em;
                 margin: 1em;
             }
-            #login-buttons img {
+            .login-buttons img {
                 width: 1.5em;
                 height: 1.5em;
             }
-            #login-buttons button {
+            .login-buttons button {
                 border-radius: 15px;
                 padding: .5rem 2rem;
                 display: flex;
@@ -172,20 +172,19 @@ class PG_Login extends PG_Public_Page {
                 color: var(--pg-brand-color);
                 border: 1px solid var(--pg-brand-color);
             }
-            #loginform {
+            .loginform {
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
                 text-align: start;
                 gap: .7em;
             }
-            #loginform input{
+            .loginform label {
+               width: 100%;
+            }
+            .loginform input{
                 display: block;
                 width: 100%;
-                border: 2px solid var(--pg-grey);
-                border-radius: 10px;
-                padding: 5px 10px;
-                box-shadow: rgba(0,0,0,0.1) 0 3px 4px 1px;
                 color: black;
             }
             .login-username, .login-password {
@@ -223,7 +222,6 @@ class PG_Login extends PG_Public_Page {
                 width: 100%;
                 height: 100%;
                 background-color: rgba(0,0,0,0.5);
-                display: flex;
                 align-items: center;
                 justify-content: center;
                 z-index: 1000;
@@ -466,7 +464,7 @@ class PG_Login extends PG_Public_Page {
                         <div id="login-ui-loader">
                             <span class="loading-spinner"></span>
                         </div>
-                        <div id="login-buttons">
+                        <div id="login-buttons" class="login-buttons">
                             <div>
                                 <button id="signin-google" class="google-button" data-provider-id="google.com">
                                     <span style="margin-right: 10px">
@@ -489,12 +487,12 @@ class PG_Login extends PG_Public_Page {
                             </button>
                             <div class="wp_register_form">
                                 <div>
-                                    <form id="loginform" action="" method="POST" data-abide>
+                                    <form id="loginform" class="loginform" action="" method="POST" data-abide>
                                         <div>
                                             <label for="email">
                                                 <?php esc_html_e( 'Email', 'prayer-global-porch' ) ?>
+                                                <input class="input login-username" type="email" name="email" id="email" value="" aria-errormessage="email-error" required>
                                             </label>
-                                            <input class="input login-username" type="email" name="email" id="email" value="" aria-errormessage="email-error" required>
                                             <span class="form-error
                                                     <?php echo ( $url->query_params->has( 'email_error' ) ? 'is-invalid-label' : '' ) ?>"
                                                   id="email-error">
@@ -502,8 +500,10 @@ class PG_Login extends PG_Public_Page {
                                             </span>
                                         </div>
                                         <div>
-                                            <label for="password"><?php esc_html_e( 'Password', 'prayer-global-porch' ) ?></label>
-                                            <input class="input login-password" type="password" id="password" name="password" aria-errormessage="password-error" required >
+                                            <label for="password"><?php esc_html_e( 'Password', 'prayer-global-porch' ) ?>
+                                                <input class="input login-password" type="password" id="password" name="password" aria-errormessage="password-error" required >
+
+                                            </label>
                                             <span class="form-error
                                                     <?php echo ( $url->query_params->has( 'password_error' ) ? 'is-invalid-label' : '' ) ?>"
                                                   id="password-error">
