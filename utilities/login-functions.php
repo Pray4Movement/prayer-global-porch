@@ -41,7 +41,7 @@ function pg_connect_to_crm(){
     $site_key = md5( $key['token'] . $key['site1'] . $key['site2'] );
     $transfer_token = Site_Link_System::create_transfer_token_for_site( $site_key );
 
-    $url = 'https://' . $key['site2'] . '/wp-json/dt-posts/v2/contacts?duplicate_check=true';
+    $url = 'https://' . $key['site2'] . '/wp-json/dt-posts/v2/contacts?check_for_duplicates=contact_email';
 
     $current_user = wp_get_current_user();
 
