@@ -337,7 +337,7 @@ class PG_Register extends PG_Public_Page {
           window.addEventListener('load', function() {
             if (pg_global.is_logged_in) {
               const url = new URL(location.href)
-              const redirectTo = url.searchParams.get('redirect_to') || encodeURIComponent('/profile')
+              const redirectTo = url.searchParams.get('redirect_to') || encodeURIComponent('/dashboard')
 
               location.href = decodeURIComponent(redirectTo)
             }
@@ -375,7 +375,7 @@ class PG_Register extends PG_Public_Page {
                 body: JSON.stringify(userCredential)
               })
               .then(() => {
-                location.href = '/profile'
+                location.href = '/dashboard'
               })
             }).catch((error) => {
               document.getElementById('login-error').innerText = error.message
@@ -501,7 +501,7 @@ class PG_Register extends PG_Public_Page {
             return response.ok ? response.json() : Promise.reject(response);
           })
           .then(() => {
-            location.href = '/profile'
+            location.href = '/dashboard'
           })
           .catch((response) => {
             response.json().then((error) => {
