@@ -529,6 +529,11 @@ input[type="radio"]:checked {
 /* Composition */
 /* =========== */
 
+.three-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
 .flow > * + * {
     margin-top: var(--pg-flow-size, 4rem);
 }
@@ -1355,7 +1360,7 @@ button {
     z-index: 100;
     padding: 1em 1em;
 }
-.pg-navbar .container{
+.pg-navbar .container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
@@ -1425,13 +1430,21 @@ nav.navbar-home {
 .pg-navmenu .btn-cta {
     font-size: 1.5rem;
 }
+.navbar__title {
+    justify-self: center;
+    text-transform: unset;
+    font-weight: 400;
+    font-size: 1.3rem;
+}
 @media (max-width: 576px) {
     .navbar__cta {
         order: 2;
         width: 100%;
     }
     .navbar__title {
-        display: none;
+        visibility: hidden;
+        width: 0;
+        height: 0;
     }
 }
 

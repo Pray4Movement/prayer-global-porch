@@ -11,7 +11,6 @@ if ( '' === $url ) {
     $home_page = true;
 } else if ( str_contains( $url, 'about' ) ||
             str_contains( $url, 'login' ) ||
-            str_contains( $url, 'register' ) ||
             str_contains( $url, 'profile' )
 ) {
     $nav_class = 'navbar-dark';
@@ -47,14 +46,12 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
 
     <?php endif; ?>
 
-    <div class="container py-3 flex-nowrap">
+    <div class="container py-3">
         <button class="p-0 icon-button share-button two-rem d-flex" data-toggle="modal" data-target="#exampleModal">
             <i class="icon pg-share"></i>
         </button>
 
-        <div class="d-flex justify-content-center">
-            <h5 class="border border-brand-light offcanvas-title px-3 rounded navbar__title"><a href="/" class="brand-light navbar__title-link">Prayer.Global</a></h5>
-        </div>
+        <h5 class="border border-brand-light offcanvas-title px-3 rounded navbar__title"><a href="/" class="brand-light navbar__title-link">Prayer.Global</a></h5>
 
         <div class="d-flex justify-content-end align-items-center">
             <a href="/dashboard" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
