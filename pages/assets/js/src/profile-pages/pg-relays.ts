@@ -63,9 +63,8 @@ export class PgRelays extends OpenElement {
         method: "POST",
       }
     );
-    if (response.ok) {
-      this.hiddenRelays = this.hiddenRelays.filter((r) => r !== relay.post_id);
-    }
+    this.hiddenRelays = this.hiddenRelays.filter((r) => r !== relay.post_id);
+    console.log(this.hiddenRelays);
   }
 
   private openEditRelayModal(relayId: number) {
