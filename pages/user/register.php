@@ -60,57 +60,47 @@ class PG_Register extends PG_Public_Page {
         }
 
         try {
-            // Get Firebase credentials from WordPress options
-            $firebase_credentials = get_option( 'pg_firebase_credentials' );
-            if ( empty( $firebase_credentials ) ){
-                return new WP_Error( 'firebase_error', 'Firebase credentials not configured', [ 'status' => 500 ] );
+            // Check if user already exists
+            if ( email_exists( $body->email ) ) {
+                return new WP_Error( 'user_exists', 'A user with this email already exists', [ 'status' => 400 ] );
             }
 
-            // Initialize Firebase Admin SDK
-            $factory = ( new Factory() )
-                ->withServiceAccount( $firebase_credentials );
-
-            $auth = $factory->createAuth();
-
-            // Create user with email and password
-            $user_properties = [
-                'email' => $body->email,
-                'password' => $body->password,
-                'displayName' => $body->name ?? $body->email,
-                'emailVerified' => false,
-            ];
-
-            $created_user = $auth->createUser( $user_properties );
-
-            // Send email verification
-            $auth->sendEmailVerificationLink( $created_user->email );
-
             // Create WordPress user
-            $payload = [
-                'user_id' => $created_user->uid,
-                'email' => $created_user->email,
-                'name' => $created_user->displayName, //phpcs:ignore
-                'firebase' => [
-                    'identities' => $created_user->providerData, //phpcs:ignore
-                    'sign_in_provider' => 'password'
-                ]
-            ];
+            $user_id = wp_create_user( 
+                sanitize_user( $body->email ), 
+                $body->password, 
+                sanitize_email( $body->email )
+            );
 
-            $user_manager = new DT_Login_User_Manager( $payload );
-            $response = $user_manager->login();
+            if ( is_wp_error( $user_id ) ) {
+                return new WP_Error( 'registration_failed', $user_id->get_error_message(), [ 'status' => 400 ] );
+            }
 
+            // Set user display name
+            wp_update_user( [
+                'ID' => $user_id,
+                'display_name' => $body->name ?? $body->email,
+                'first_name' => $body->name ?? '',
+            ] );
+
+            // Log user in
+            wp_set_auth_cookie( $user_id, true );
+
+            // Process marketing preference from extra_data
             if ( isset( $body->extra_data ) ) {
                 do_action( 'dt_sso_login_extra_fields', (array) $body->extra_data, (array) $body );
             }
 
-            if ( is_wp_error( $response ) ) {
-                return $response;
-            }
+            // Send verification email (optional)
+            // TODO: Implement email verification if needed
 
             return new WP_REST_Response([
                 'status' => 200,
-                'message' => 'Registration successful. Please check your email to verify your account.',
-                'data' => $response
+                'message' => 'Registration successful.',
+                'data' => [
+                    'user_id' => $user_id,
+                    'email' => $body->email
+                ]
             ]);
 
         } catch ( \Exception $e ) {
@@ -345,7 +335,7 @@ class PG_Register extends PG_Public_Page {
         </script>
         <script type="module">
           import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js'
-          import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, sendEmailVerification } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
+          import { getAuth, GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
 
           const firebaseConfig = {
             apiKey: "AIzaSyCJEy7tJL_YSQPYH4H92_n0kQBhmYcj1l8",
@@ -363,7 +353,6 @@ class PG_Register extends PG_Public_Page {
 
           //handle sign in with Google
           document.getElementById('signin-google').addEventListener('click', () => {
-
             const auth = getAuth(app)
             const provider = new GoogleAuthProvider();
             signInWithPopup(auth, provider).then((userCredential) => {
@@ -383,137 +372,137 @@ class PG_Register extends PG_Public_Page {
             });
           })
 
-        document.getElementById('register-password').addEventListener('click', () => {
-          document.getElementById('register-email-password-form').style.display = 'block'
-          document.getElementById('login-buttons').style.display = 'none'
-        })
-        document.getElementById('register-email-password-form-back').addEventListener('click', () => {
-          document.getElementById('register-email-password-form').style.display = 'none'
-          document.getElementById('login-buttons').style.display = 'block'
-        })
-
-        const strength = {
-          0: "Worst",
-          1: "Bad",
-          2: "Weak",
-          3: "Good",
-          4: "Strong"
-        }
-        const minStrength = 1
-        let isSubmitting = false
-
-        const form = document.getElementById('loginform')
-        const password_field = document.getElementById('password');
-        const password2 = document.getElementById('password2');
-        const passwordStrengthError = document.getElementById('password-error-too-weak')
-        const passwordsDontMatchError = document.getElementById('password-error-2')
-        const meter = document.getElementById('password-strength-meter');
-
-        function getPasswordStrength(p) {
-          if (typeof zxcvbn !== 'function') {
-            return p.length >= 8 ? 3 : 0
-          }
-          return zxcvbn(p).score;
-        }
-
-        password_field.addEventListener('input', function() {
-          const password = password_field.value;
-          const password_strength = getPasswordStrength(password);
-          // Update the password strength meter
-          meter.value = password_strength
-
-          if ( password_strength >= minStrength ) {
-            passwordStrengthError.style.display = 'none'
-          }
-        });
-
-        form.addEventListener('submit', function(event) {
-          const password = password_field.value;
-          const password_strength = getPasswordStrength(password);
-
-          if ( password_strength < minStrength ) {
-            event.preventDefault()
-            passwordStrengthError.style.display = 'block'
-            return
-          }
-
-          if (password_field.value !== password2.value) {
-            event.preventDefault()
-            passwordsDontMatchError.style.display = 'block'
-            return
-          }
-
-          if (isSubmitting) {
-            event.preventDefault()
-            return
-          }
-          event.preventDefault()
-
-          const submitButtenElement = document.querySelector('#register-submit')
-          submitButtenElement.querySelector('.loading-spinner').classList.add('active')
-          submitButtenElement.classList.add('disabled')
-          submitButtenElement.setAttribute('disabled', '')
-
-          isSubmitting = true
-
-          const email = event.target.email?.value
-          if (email === '') {
-            event.preventDefault()
-            return
-          }
-          const pass = event.target.password?.value
-          if (pass.value === '') {
-            event.preventDefault()
-            return
-          }
-
-          const name = event.target.name?.value || email
-
-          // Get the Turnstile token
-          const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]').value;
-          if (!turnstileResponse) {
-            document.getElementById('login-error').innerText = '<?php echo esc_html__( 'Please complete the security check.', 'prayer-global-porch' ) ?>'
-            document.getElementById('login-error').style.display = 'block'
-            submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
-            submitButtenElement.classList.remove('disabled')
-            submitButtenElement.removeAttribute('disabled')
-            isSubmitting = false
-            return
-          }
-
-          // Send registration data to our endpoint
-          fetch(`${window.pg_global.root}pg/register/password`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: email,
-              password: pass,
-              name: name,
-              extra_data: {
-                marketing: document.getElementById('extra_register_input_marketing').checked || false,
-                turnstile_token: turnstileResponse
-              }
-            })
+          document.getElementById('register-password').addEventListener('click', () => {
+            document.getElementById('register-email-password-form').style.display = 'block'
+            document.getElementById('login-buttons').style.display = 'none'
           })
-          .then((response) => {
-            return response.ok ? response.json() : Promise.reject(response);
+          document.getElementById('register-email-password-form-back').addEventListener('click', () => {
+            document.getElementById('register-email-password-form').style.display = 'none'
+            document.getElementById('login-buttons').style.display = 'block'
           })
-          .then(() => {
-            location.href = '/dashboard'
-          })
-          .catch((response) => {
-            response.json().then((error) => {
-              document.getElementById('login-error').innerText = error.message
+
+          const strength = {
+            0: "Worst",
+            1: "Bad",
+            2: "Weak",
+            3: "Good",
+            4: "Strong"
+          }
+          const minStrength = 1
+          let isSubmitting = false
+
+          const form = document.getElementById('loginform')
+          const password_field = document.getElementById('password');
+          const password2 = document.getElementById('password2');
+          const passwordStrengthError = document.getElementById('password-error-too-weak')
+          const passwordsDontMatchError = document.getElementById('password-error-2')
+          const meter = document.getElementById('password-strength-meter');
+
+          function getPasswordStrength(p) {
+            if (typeof zxcvbn !== 'function') {
+              return p.length >= 8 ? 3 : 0
+            }
+            return zxcvbn(p).score;
+          }
+
+          password_field.addEventListener('input', function() {
+            const password = password_field.value;
+            const password_strength = getPasswordStrength(password);
+            // Update the password strength meter
+            meter.value = password_strength
+
+            if ( password_strength >= minStrength ) {
+              passwordStrengthError.style.display = 'none'
+            }
+          });
+
+          form.addEventListener('submit', function(event) {
+            const password = password_field.value;
+            const password_strength = getPasswordStrength(password);
+
+            if ( password_strength < minStrength ) {
+              event.preventDefault()
+              passwordStrengthError.style.display = 'block'
+              return
+            }
+
+            if (password_field.value !== password2.value) {
+              event.preventDefault()
+              passwordsDontMatchError.style.display = 'block'
+              return
+            }
+
+            if (isSubmitting) {
+              event.preventDefault()
+              return
+            }
+            event.preventDefault()
+
+            const submitButtenElement = document.querySelector('#register-submit')
+            submitButtenElement.querySelector('.loading-spinner').classList.add('active')
+            submitButtenElement.classList.add('disabled')
+            submitButtenElement.setAttribute('disabled', '')
+
+            isSubmitting = true
+
+            const email = event.target.email?.value
+            if (email === '') {
+              event.preventDefault()
+              return
+            }
+            const pass = event.target.password?.value
+            if (pass === '') {
+              event.preventDefault()
+              return
+            }
+
+            const name = event.target.name?.value || email
+
+            // Get the Turnstile token
+            const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]').value;
+            if (!turnstileResponse) {
+              document.getElementById('login-error').innerText = '<?php echo esc_html__( 'Please complete the security check.', 'prayer-global-porch' ) ?>'
               document.getElementById('login-error').style.display = 'block'
               submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
               submitButtenElement.classList.remove('disabled')
               submitButtenElement.removeAttribute('disabled')
               isSubmitting = false
+              return
+            }
+
+            // Send registration data to our endpoint
+            fetch(`${window.pg_global.root}pg/register/password`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email: email,
+                password: pass,
+                name: name,
+                extra_data: {
+                  marketing: document.getElementById('extra_register_input_marketing').checked || false,
+                  turnstile_token: turnstileResponse
+                }
+              })
             })
-          });
-        })
+            .then((response) => {
+              return response.ok ? response.json() : Promise.reject(response);
+            })
+            .then(() => {
+              location.href = '/dashboard'
+            })
+            .catch((response) => {
+              response.json().then((error) => {
+                document.getElementById('login-error').innerText = error.message
+                document.getElementById('login-error').style.display = 'block'
+                submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
+                submitButtenElement.classList.remove('disabled')
+                submitButtenElement.removeAttribute('disabled')
+                isSubmitting = false
+              })
+            });
+          })
         </script>
         <?php
     }

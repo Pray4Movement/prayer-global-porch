@@ -4,6 +4,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 class PG_Login extends PG_Public_Page {
     public $url_path = 'login';
     public $page_title = 'Login';
+    public $rest_route = 'pg/login';
 
     public function __construct() {
         $current_page_path_matches = parent::__construct();
@@ -13,6 +14,54 @@ class PG_Login extends PG_Public_Page {
         /**
          * Register custom hooks here
          */
+    }
+
+    public function register_endpoints() {
+        register_rest_route( $this->rest_route, '/wp-login', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'wp_login_endpoint' ],
+        ] );
+    }
+
+    /**
+     * Login the user using WordPress authentication
+     * @param WP_REST_Request $request
+     * @return WP_REST_Response|WP_Error
+     */
+    public function wp_login_endpoint( WP_REST_Request $request ) {
+        $body = $request->get_body();
+        $body = json_decode( $body );
+
+        if ( !isset( $body->email ) || !isset( $body->password ) ) {
+            return new WP_Error( 'bad_request', 'Email and password are required', [ 'status' => 400 ] );
+        }
+
+        // Find the WordPress user by email
+        $user = get_user_by( 'email', $body->email );
+        
+        if ( !$user ) {
+            return new WP_Error( 'invalid_credentials', 'Invalid email or password', [ 'status' => 401 ] );
+        }
+
+        // Check the password
+        $check = wp_check_password( $body->password, $user->user_pass, $user->ID );
+        
+        if ( !$check ) {
+            return new WP_Error( 'invalid_credentials', 'Invalid email or password', [ 'status' => 401 ] );
+        }
+
+        // Set the auth cookie for the user
+        wp_set_auth_cookie( $user->ID, true );
+
+        return new WP_REST_Response( [
+            'status' => 200,
+            'message' => 'Login successful',
+            'data' => [
+                'user_id' => $user->ID,
+                'email' => $user->user_email,
+                'display_name' => $user->display_name
+            ]
+        ] );
     }
 
     public function wp_enqueue_scripts() {
@@ -359,39 +408,108 @@ class PG_Login extends PG_Public_Page {
               submitButtenElement.setAttribute('disabled', '')
 
               isSubmitting = true
-              const auth = getAuth(app)
-              signInWithEmailAndPassword(auth, email_field.value, password_field.value)
-              .then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
-                fetch(`${rest_url}/session/login`, {
-                  method: 'POST',
-                  body: JSON.stringify(userCredential)
-                })
-                .then(() => {
-                  location.href = '/dashboard'
+              
+              // First try WordPress authentication
+              fetch(`${window.pg_global.root}pg/login/wp-login`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  email: email_field.value,
+                  password: password_field.value
                 })
               })
-              .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                //toggle the spinner and button
-                submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
-                submitButtenElement.classList.remove('disabled')
-                submitButtenElement.removeAttribute('disabled')
-                if ( errorCode === 'auth/wrong-password' ) {
-                  passwordError.style.display = 'block'
-                  passwordError.innerText = '<?php echo esc_html__( 'Invalid password. Please try again.', 'prayer-global-porch' ) ?>'
-                } else if ( errorCode === 'auth/user-not-found' ) {
-                  emailError.style.display = 'block'
-                  emailError.innerText = '<?php echo esc_html__( 'Email not found. Please register.', 'prayer-global-porch' ) ?>'
-                } else {
-                  document.getElementById('login-error').innerText = errorMessage
-                  document.getElementById('login-error').style.display = 'block'
+              .then((response) => {
+                if (!response.ok) {
+                  return Promise.reject(response);
                 }
-                isSubmitting = false
+                return response.json();
+              })
+              .then((data) => {
+                // WordPress authentication successful
+                console.log("WordPress authentication successful");
+                location.href = '/dashboard';
+              })
+              .catch((error) => {
+                // If WordPress auth fails, try Firebase (legacy users)
+                console.log("WordPress authentication failed, trying Firebase...");
+                
+                let wordpressErrorMessage = "";
+                
+                // Try to parse the error response if it exists
+                if (error.json) {
+                  error.json().then((errorData) => {
+                    console.log("WordPress auth error:", errorData);
+                    wordpressErrorMessage = errorData.message;
+                    // If the error is from WordPress auth, we'll continue to Firebase fallback
+                    // but store the error in case Firebase also fails
+                  }).catch(() => {
+                    // JSON parsing error, continue to Firebase silently
+                  });
+                }
+                
+                const auth = getAuth(app)
+                signInWithEmailAndPassword(auth, email_field.value, password_field.value)
+                .then((userCredential) => {
+                  // Signed in with Firebase
+                  console.log("Firebase authentication successful (legacy account)");
+                  const user = userCredential.user;
+                  fetch(`${rest_url}/session/login`, {
+                    method: 'POST',
+                    body: JSON.stringify(userCredential)
+                  })
+                  .then(() => {
+                    location.href = '/dashboard'
+                  })
+                  .catch((fetchError) => {
+                    // Failed to make the login request after Firebase auth
+                    console.error("Firebase token validation error:", fetchError);
+                    handleAuthError({ code: 'fetch_error', message: 'Error validating credentials' });
+                  });
+                })
+                .catch((firebaseError) => {
+                  // Both WordPress and Firebase auth failed
+                  console.error("All authentication methods failed:", firebaseError);
+                  
+                  // If WordPress returned an "invalid_credentials" error, prioritize that message
+                  // instead of showing the Firebase-specific error
+                  if (wordpressErrorMessage && wordpressErrorMessage.includes("Invalid email or password")) {
+                    handleAuthError({ 
+                      code: 'invalid_credentials', 
+                      message: wordpressErrorMessage || 'Invalid email or password'
+                    });
+                  } else {
+                    handleAuthError(firebaseError);
+                  }
+                });
               });
             })
+            
+            // Helper function to handle authentication errors
+            function handleAuthError(error) {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              
+              // Toggle the spinner and button
+              document.querySelector('#login-submit .loading-spinner').classList.remove('active')
+              document.querySelector('#login-submit').classList.remove('disabled')
+              document.querySelector('#login-submit').removeAttribute('disabled')
+              isSubmitting = false;
+              
+              // Show specific error messages based on the error code
+              if (errorCode === 'auth/wrong-password' || errorCode === 'invalid_credentials') {
+                // Use a generic error message for both WordPress and Firebase invalid credential errors
+                document.getElementById('login-error').innerText = '<?php echo esc_html__('Invalid email or password. Please try again.', 'prayer-global-porch') ?>'
+                document.getElementById('login-error').style.display = 'block'
+              } else if (errorCode === 'auth/user-not-found') {
+                emailError.style.display = 'block'
+                emailError.innerText = '<?php echo esc_html__('Email not found. Please register.', 'prayer-global-porch') ?>'
+              } else {
+                document.getElementById('login-error').innerText = errorMessage || '<?php echo esc_html__('Authentication failed. Please try again or register for an account.', 'prayer-global-porch') ?>'
+                document.getElementById('login-error').style.display = 'block'
+              }
+            }
           }
         </script>
         <?php
