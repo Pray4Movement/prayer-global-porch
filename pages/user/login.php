@@ -21,6 +21,11 @@ class PG_Login extends PG_Public_Page {
             'methods' => 'POST',
             'callback' => [ $this, 'wp_login_endpoint' ],
         ] );
+        
+        register_rest_route( $this->rest_route, '/reset-password', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'reset_password_endpoint' ],
+        ] );
     }
 
     /**
@@ -61,6 +66,62 @@ class PG_Login extends PG_Public_Page {
                 'email' => $user->user_email,
                 'display_name' => $user->display_name
             ]
+        ] );
+    }
+    
+    /**
+     * Handle password reset requests
+     * @param WP_REST_Request $request
+     * @return WP_REST_Response|WP_Error
+     */
+    public function reset_password_endpoint( WP_REST_Request $request ) {
+        $body = $request->get_body();
+        $body = json_decode( $body );
+        
+        if ( !isset( $body->email ) ) {
+            return new WP_Error( 'bad_request', 'Email is required', [ 'status' => 400 ] );
+        }
+        
+        $user_data = get_user_by( 'email', $body->email );
+        
+        // If the user exists, generate and send the reset email
+        if ( $user_data ) {
+            // Generate a password reset key
+            $key = get_password_reset_key( $user_data );
+            if ( is_wp_error( $key ) ) {
+                // Don't expose the error, just log it
+                error_log( 'Error generating password reset key: ' . $key->get_error_message() );
+            } else {
+                // Send email with reset link
+                $reset_url = add_query_arg( [
+                    'action' => 'rp',
+                    'key' => $key,
+                    'login' => rawurlencode( $user_data->user_login )
+                ], wp_login_url() );
+                
+                $message = __( 'Someone has requested a password reset for the following account:', 'prayer-global-porch' ) . "\r\n\r\n";
+                $message .= network_home_url( '/' ) . "\r\n\r\n";
+                $message .= sprintf( __( 'Username: %s', 'prayer-global-porch' ), $user_data->user_login ) . "\r\n\r\n";
+                $message .= __( 'If this was a mistake, just ignore this email and nothing will happen.', 'prayer-global-porch' ) . "\r\n\r\n";
+                $message .= __( 'To reset your password, visit the following address:', 'prayer-global-porch' ) . "\r\n\r\n";
+                $message .= $reset_url . "\r\n";
+                
+                $title = __( 'Password Reset Request', 'prayer-global-porch' );
+                
+                $sent = wp_mail( $user_data->user_email, $title, $message );
+                
+                if ( !$sent ) {
+                    // Don't expose the error, just log it
+                    error_log( 'Error sending password reset email to: ' . $user_data->user_email );
+                }
+            }
+        }
+        
+        // Always return a success message, regardless of whether the email exists
+        // This prevents user enumeration by not revealing if an email exists in the system
+        return new WP_REST_Response( [
+            'status' => 200,
+            'message' => 'If a matching account was found, a password reset email has been sent'
         ] );
     }
 
@@ -283,6 +344,32 @@ class PG_Login extends PG_Public_Page {
                 max-width: 500px;
                 width: 90%;
             }
+
+            .login-links {
+                text-align: center;
+                margin-top: 1em;
+            }
+            .login-links p {
+                margin-bottom: 0.5em;
+            }
+            
+            #reset-password-form {
+                display: none;
+                margin-top: 1em;
+                max-width: 20rem;
+            }
+            
+            .reset-success-message {
+                color: green;
+                font-weight: bold;
+                display: none;
+                margin-top: 1em;
+                text-align: center;
+            }
+
+            #reset-password-back {
+                margin-bottom: 1.5em;
+            }
         </style>
         <?php
     }
@@ -306,7 +393,7 @@ class PG_Login extends PG_Public_Page {
         </script>
         <script type="module">
           import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js'
-          import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, getAdditionalUserInfo } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
+          import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, getAdditionalUserInfo, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
 
           const firebaseConfig = {
             apiKey: "AIzaSyCJEy7tJL_YSQPYH4H92_n0kQBhmYcj1l8",
@@ -510,6 +597,100 @@ class PG_Login extends PG_Public_Page {
                 document.getElementById('login-error').style.display = 'block'
               }
             }
+
+            // Password reset handlers
+            const forgotPasswordLink = document.getElementById('forgot-password-link');
+            const resetPasswordContainer = document.getElementById('reset-password-form');
+            const resetPasswordForm = document.getElementById('reset-password-form-element');
+            const resetPasswordBackButton = document.getElementById('reset-password-back');
+            const resetPasswordSubmit = document.getElementById('reset-password-submit');
+            const resetEmail = document.getElementById('reset-email');
+            const resetEmailError = document.getElementById('reset-email-error');
+            const resetSuccessMessage = document.getElementById('reset-success-message');
+            
+            if (forgotPasswordLink) {
+              forgotPasswordLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('login-email-password-form').style.display = 'none';
+                document.getElementById('login-buttons').style.display = 'none';
+                resetPasswordContainer.style.display = 'block';
+              });
+            }
+            
+            if (resetPasswordBackButton) {
+              resetPasswordBackButton.addEventListener('click', () => {
+                resetPasswordContainer.style.display = 'none';
+                document.getElementById('login-email-password-form').style.display = 'block';
+                resetSuccessMessage.style.display = 'none';
+                resetEmailError.style.display = 'none';
+              });
+            }
+            
+            if (resetPasswordForm) {
+              resetPasswordForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                if (resetEmail.value === '') {
+                  resetEmailError.style.display = 'block';
+                  resetEmailError.innerText = '<?php echo esc_html__( 'Email is required', 'prayer-global-porch' ) ?>';
+                  return;
+                }
+                
+                resetPasswordSubmit.querySelector('.loading-spinner').classList.add('active');
+                resetPasswordSubmit.classList.add('disabled');
+                resetPasswordSubmit.setAttribute('disabled', '');
+                resetEmailError.style.display = 'none';
+                
+                // Try WordPress password reset first
+                fetch(`${window.pg_global.root}pg/login/reset-password`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    email: resetEmail.value
+                  })
+                })
+                .then(response => {
+                  if (!response.ok) {
+                    return Promise.reject(response);
+                  }
+                  return response.json();
+                })
+                .then(data => {
+                  // WordPress reset successful
+                  console.log("WordPress password reset email sent");
+                  resetSuccessMessage.style.display = 'block';
+                  resetPasswordSubmit.querySelector('.loading-spinner').classList.remove('active');
+                  resetPasswordSubmit.classList.remove('disabled');
+                  resetPasswordSubmit.removeAttribute('disabled');
+                })
+                .catch(error => {
+                  // If WordPress reset fails, try Firebase (legacy users)
+                  console.log("WordPress reset failed, trying Firebase...");
+                  
+                  const auth = getAuth(app);
+                  sendPasswordResetEmail(auth, resetEmail.value)
+                    .then(() => {
+                      // Firebase reset email sent
+                      console.log("Firebase password reset email sent");
+                      resetSuccessMessage.style.display = 'block';
+                    })
+                    .catch((firebaseError) => {
+                      // Both reset methods failed
+                      console.error("All password reset methods failed:", firebaseError);
+                      
+                      resetEmailError.innerText = '<?php echo esc_html__( 'No account found with that email address', 'prayer-global-porch' ) ?>';
+                      resetEmailError.style.display = 'block';
+                    })
+                    .finally(() => {
+                      resetPasswordSubmit.querySelector('.loading-spinner').classList.remove('active');
+                      resetPasswordSubmit.classList.remove('disabled');
+                      resetPasswordSubmit.removeAttribute('disabled');
+                    });
+                });
+              });
+            }
           }
         </script>
         <?php
@@ -643,10 +824,43 @@ class PG_Login extends PG_Public_Page {
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Password Reset Form -->
+                        <div id="reset-password-form">
+                            <button class="button btn btn-primary" id="reset-password-back">
+                                <?php esc_html_e( 'Back to Login', 'prayer-global-porch' ); ?>
+                            </button>
+                            <h4><?php esc_html_e( 'Reset Password', 'prayer-global-porch' ); ?></h4>
+                            <p><?php esc_html_e( 'Enter your email address and we\'ll send you a link to reset your password.', 'prayer-global-porch' ); ?></p>
+                            <form id="reset-password-form-element" class="loginform" action="" method="POST" data-abide>
+                                <div>
+                                    <label for="reset-email">
+                                        <?php esc_html_e( 'Email', 'prayer-global-porch' ) ?>
+                                        <input class="input" type="email" name="reset-email" id="reset-email" value="" aria-errormessage="reset-email-error" required>
+                                    </label>
+                                    <span class="form-error" id="reset-email-error">
+                                        <?php esc_html_e( 'Please enter a valid email address', 'prayer-global-porch' ) ?>
+                                    </span>
+                                </div>
+                                <div>
+                                    <button class="btn w-100 btn-secondary" id="reset-password-submit">
+                                        <?php esc_html_e( 'Send Reset Link', 'prayer-global-porch' ) ?>
+                                        <span class="loading-spinner"></span>
+                                    </button>
+                                </div>
+                            </form>
+                            <div class="reset-success-message" id="reset-success-message">
+                                <?php esc_html_e( 'Password reset link has been sent to your email address.', 'prayer-global-porch' ) ?>
+                            </div>
+                        </div>
+                        
                         <div class="login-links">
                             <p>
                                 <?php echo esc_html__( 'Don\'t have an account?', 'prayer-global-porch' ) ?>
                                 <a href="<?php echo esc_url( $register_url ) ?>"><?php echo esc_html__( 'Register', 'prayer-global-porch' ) ?></a>
+                            </p>
+                            <p>
+                                <a href="#" id="forgot-password-link"><?php echo esc_html__( 'Forgot Password?', 'prayer-global-porch' ) ?></a>
                             </p>
                         </div>
                     </div>
