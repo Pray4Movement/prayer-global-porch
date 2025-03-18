@@ -17,31 +17,36 @@ export class PgRouter extends navigator(router(OpenElement)) {
     return [
       {
         name: "dashboard",
-        pattern: "/profile",
+        pattern: "/dashboard",
         data: {
           render: () => html`<pg-dashboard></pg-dashboard>`,
         },
       },
       {
         name: "prayer-relays",
-        pattern: "/profile/prayer-relays",
+        pattern: "/dashboard/relays",
         data: {
           render: () => html`<pg-relays></pg-relays>`,
         },
       },
       {
         name: "prayer-activity",
-        pattern: "/profile/prayer-activity",
+        pattern: "/dashboard/activity",
         data: {
           render: () => html`<pg-activity></pg-activity>`,
         },
       },
       {
         name: "profile-settings",
-        pattern: "/profile/profile-settings",
+        pattern: "/dashboard/settings",
         data: {
           render: () => html`<pg-settings></pg-settings>`,
         },
+      },
+      {
+        name: "new-relay",
+        pattern: "/dashboard/new-relay",
+        data: { render: () => html`<pg-new-relay></pg-new-relay>` },
       },
     ];
   }

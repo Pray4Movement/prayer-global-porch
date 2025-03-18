@@ -87,12 +87,8 @@ class PG_Porch_404 extends DT_Magic_Url_Base
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
             ]) ?>][0]
         </script>
-        <style>
-            section {
-                margin-top: 110px;
-            }
-        </style>
         <?php
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/footer.php' );
     }
 
     public function footer_javascript(){
@@ -103,7 +99,7 @@ class PG_Porch_404 extends DT_Magic_Url_Base
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' );
         ?>
         <!-- content section -->
-        <section class="page-section">
+        <section class="page">
             <div class="container pb-4">
                 <div class="row">
                     <div class="col-md text-center">
