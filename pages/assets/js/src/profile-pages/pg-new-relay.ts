@@ -42,9 +42,9 @@ export class PgNewRelay extends OpenElement {
       <div class="pg-container page" data-small>
         ${this.step === "choose-option"
           ? html`
-              <div class="stack-md mx-auto w-fit align-items-start">
+              <div class="seperated-list mx-auto w-fit align-items-start">
                 <button
-                  class="profile-link"
+                  class="profile-link p-4"
                   @click=${() => (location.href = "/relays")}
                 >
                   <svg class="icon-md">
@@ -55,7 +55,7 @@ export class PgNewRelay extends OpenElement {
                   ${this.translations.join_a_relay}
                 </button>
                 <button
-                  class="profile-link"
+                  class="profile-link p-4"
                   @click=${() => this.createRelay("public")}
                 >
                   <svg class="icon-md">
@@ -66,7 +66,7 @@ export class PgNewRelay extends OpenElement {
                   ${this.translations.new_public_relay}
                 </button>
                 <button
-                  class="profile-link"
+                  class="profile-link p-4"
                   @click=${() => this.createRelay("private")}
                 >
                   <svg class="icon-md">

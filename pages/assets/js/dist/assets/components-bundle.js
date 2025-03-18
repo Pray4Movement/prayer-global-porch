@@ -514,9 +514,9 @@
       <pg-header title=${this.translations.new_relay}></pg-header>
       <div class="pg-container page" data-small>
         ${this.step==="choose-option"?d`
-              <div class="stack-md mx-auto w-fit align-items-start">
+              <div class="seperated-list mx-auto w-fit align-items-start">
                 <button
-                  class="profile-link"
+                  class="profile-link p-4"
                   @click=${()=>location.href="/relays"}
                 >
                   <svg class="icon-md">
@@ -527,7 +527,7 @@
                   ${this.translations.join_a_relay}
                 </button>
                 <button
-                  class="profile-link"
+                  class="profile-link p-4"
                   @click=${()=>this.createRelay("public")}
                 >
                   <svg class="icon-md">
@@ -538,7 +538,7 @@
                   ${this.translations.new_public_relay}
                 </button>
                 <button
-                  class="profile-link"
+                  class="profile-link p-4"
                   @click=${()=>this.createRelay("private")}
                 >
                   <svg class="icon-md">
