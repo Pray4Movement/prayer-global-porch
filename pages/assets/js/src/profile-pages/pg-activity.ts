@@ -10,12 +10,7 @@ export class PgActivity extends OpenElement {
 
   render() {
     return html`
-      <div class="offcanvas__header align-items-center lh-sm">
-        <button type="button" class="me-auto" @click=${() => history.back()}>
-          <i class="icon pg-chevron-left two-em"></i>
-        </button>
-        <h3 class="mb-0 me-auto">${this.translations.prayer_activity}</h3>
-      </div>
+      <pg-header title=${this.translations.prayer_activity}></pg-header>
 
       <div class="brand-bg white page px-3">
         <div class="pg-container stack-md" data-grid data-small>

@@ -205,4 +205,39 @@ document.addEventListener("DOMContentLoaded", function () {
       callback();
     }, timeIncrement);
   };
+
+  /**
+   * Converts a timestamp in seconds to a date input format.
+   *
+   * @param {number} timestamp - The timestamp to convert.
+   * @returns {string} The date input format.
+   */
+  window.toDateInputFormat = function (timestamp) {
+    const date = new Date(Number(timestamp) * 1000);
+    let isoString;
+    try {
+      isoString = date.toISOString();
+    } catch (error) {
+      isoString = "";
+    }
+    const isoDate = isoString.split("T")[0];
+    return isoDate;
+  };
+
+  /**
+   * Converts a timestamp in seconds to a time input format.
+   *
+   * @param {number} timestamp - The timestamp to convert.
+   * @returns {string} The time input format.
+   */
+  window.toTimeInputFormat = function (timestamp) {
+    const date = new Date(Number(timestamp) * 1000);
+    let timeString;
+    try {
+      timeString = date.toTimeString().split(":").slice(0, 2).join(":");
+    } catch (error) {
+      timeString = "";
+    }
+    return timeString;
+  };
 });

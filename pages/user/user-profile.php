@@ -7,7 +7,7 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 class PG_User_App_Profile extends DT_Magic_Url_Base {
 
     public $page_title = 'User Profile';
-    public $root = 'profile';
+    public $root = 'dashboard';
     private string $spritesheet_url = '';
     private static $_instance = null;
     public static function instance() {
@@ -42,12 +42,15 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'pg-go-logo',
             'pg-relay',
             'pg-prayer',
+            'pg-plus',
             'pg-settings',
             'pg-close',
             'pg-streak',
             'pg-logo-prayer',
             'pg-private',
             'pg-world-light',
+            'pg-info',
+            'pg-chevron-left',
             'ion-ellipsis-horizontal',
         ];
 
@@ -172,7 +175,29 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'map' => esc_html__( 'Map', 'prayer-global-porch' ),
                 'share' => esc_html__( 'Share', 'prayer-global-porch' ),
                 'display' => esc_html__( 'Display', 'prayer-global-porch' ),
-                'delete' => esc_html__( 'Remove From List', 'prayer-global-porch' ),
+                'hide' => esc_html__( 'Hide', 'prayer-global-porch' ),
+                'unhide' => esc_html__( 'Unhide', 'prayer-global-porch' ),
+                'hide_hidden_relays' => esc_html__( 'Hide Hidden Relays', 'prayer-global-porch' ),
+                'show_hidden_relays' => esc_html__( 'Show Hidden Relays', 'prayer-global-porch' ),
+                'no_custom_relays' => esc_html__( 'You have not created or joined any Prayer Relays yet.', 'prayer-global-porch' ),
+                'new_relay' => esc_html__( 'New Prayer Relay', 'prayer-global-porch' ),
+                'new_public_relay' => esc_html__( 'New Public Relay', 'prayer-global-porch' ),
+                'new_private_relay' => esc_html__( 'New Private Relay', 'prayer-global-porch' ),
+                'create_public_relay' => esc_html__( 'Create Public Relay', 'prayer-global-porch' ),
+                'create_private_relay' => esc_html__( 'Create Private Relay', 'prayer-global-porch' ),
+                'join_a_relay' => esc_html__( 'Join a Relay', 'prayer-global-porch' ),
+                'title' => esc_html__( 'Relay Title', 'prayer-global-porch' ),
+                'advanced' => esc_html__( 'Advanced Options', 'prayer-global-porch' ),
+                'create' => esc_html__( 'Create', 'prayer-global-porch' ),
+                'start_date' => esc_html__( 'Start Date', 'prayer-global-porch' ),
+                'end_date' => esc_html__( 'End Date', 'prayer-global-porch' ),
+                'now' => esc_html__( 'Now', 'prayer-global-porch' ),
+                'single_lap_relay' => esc_html__( 'Single Lap', 'prayer-global-porch' ),
+                'update' => esc_html__( 'Update', 'prayer-global-porch' ),
+                'edit_relay' => esc_html__( 'Edit Relay', 'prayer-global-porch' ),
+                'join_a_relay_info' => esc_html__( 'Find and join a public prayer relay created by individuals, churches or organizations.', 'prayer-global-porch' ),
+                'create_public_relay_info' => esc_html__( 'Start your own public relay for anyone to find and join.', 'prayer-global-porch' ),
+                'create_private_relay_info' => esc_html__( 'Create a private relay, hidden from the public list, and share it with friends, family, or the church.', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),
@@ -400,6 +425,10 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         DT_Route::post( $namespace, 'subscribe_to_news', [ $this, 'subscribe_to_news' ] );
         DT_Route::post( $namespace, 'save_details', [ $this, 'save_details' ] );
         DT_Route::post( $namespace, 'relays', [ $this, 'get_relays' ] );
+        DT_Route::post( $namespace, 'relays/hide', [ $this, 'hide_relay' ] );
+        DT_Route::post( $namespace, 'relays/unhide', [ $this, 'unhide_relay' ] );
+        DT_Route::post( $namespace, 'create_relay', [ $this, 'create_relay' ] );
+        DT_Route::post( $namespace, 'edit_relay', [ $this, 'edit_relay' ] );
     }
 
     public function endpoint( WP_REST_Request $request ) {
@@ -419,10 +448,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 return $this->get_ip_location( $params['data'] );
             case 'link_anonymous_prayers':
                 return $this->link_anonymous_prayers( $params['data'] );
-            case 'create_challenge':
-                return $this->create_challenge( $params['data'] );
-            case 'edit_challenge':
-                return $this->edit_challenge( $params['data'] );
             default:
                 return $params;
         }
@@ -729,20 +754,23 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         return $label;
     }
 
-    public function create_challenge( $data ) {
-        if ( !isset( $data['title'], $data['visibility'], $data['challenge_type'] ) ) {
-            return new WP_Error( __METHOD__, 'Challenge Title, visibility or type missing', [ 'status' => 400 ] );
-        }
-
+    public function create_relay( WP_REST_Request $request ) {
         $user_id = get_current_user_id();
 
         if ( !$user_id || !DT_Posts::can_create( 'pg_relays' ) ) {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
         }
 
+        $params = $request->get_json_params();
+        $data = dt_recursive_sanitize_array( $params );
+
+        if ( !isset( $data['title'] ) ) {
+            return new WP_Error( __METHOD__, 'Challenge Title', [ 'status' => 400 ] );
+        }
+
         $title = sanitize_text_field( wp_unslash( $data['title'] ) );
-        $challenge_type = sanitize_text_field( wp_unslash( $data['challenge_type'] ) );
-        $visibility = sanitize_text_field( wp_unslash( $data['visibility'] ) );
+        $challenge_type = sanitize_text_field( wp_unslash( $data['challenge_type'] ) ) ?? 'ongoing_challenge';
+        $visibility = sanitize_text_field( wp_unslash( $data['visibility'] ) ) ?? 'public';
 
         $fields = [
             'title' => $title,
@@ -761,27 +789,32 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         $fields['assigned_to'] = $user_id;
         $fields['type'] = 'custom';
-        $fields['single_lap'] = (bool) $data['single_lap'];
+        $fields['single_lap'] = (bool) $data['single_lap'] ?? false;
 
         $post = DT_Posts::create_post( 'pg_relays', $fields );
 
         return $post;
     }
 
-    public function edit_challenge( $data ) {
-        if ( !isset( $data['post_id'] ) ) {
-            return new WP_Error( __METHOD__, 'Challenge post_id is missing', [ 'status' => 400 ] );
-        }
-
+    public function edit_relay( WP_REST_Request $request ) {
         $user_id = get_current_user_id();
 
         if ( !$user_id ) {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
         }
 
-        $old_challenge = DT_Posts::get_post( 'pg_relays', $data['post_id'] );
+        $params = $request->get_json_params();
+        $data = dt_recursive_sanitize_array( $params );
 
-        if ( !$old_challenge || !DT_Posts::can_update( 'pg_relays', $data['post_id'] ) ) {
+        if ( !isset( $data['relay_id'] ) ) {
+            return new WP_Error( __METHOD__, 'relay_id is missing', [ 'status' => 400 ] );
+        }
+
+        $relay_id = $data['relay_id'];
+
+        $old_challenge = DT_Posts::get_post( 'pg_relays', $relay_id );
+
+        if ( !$old_challenge || !DT_Posts::can_update( 'pg_relays', $relay_id ) ) {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
         }
 
@@ -811,7 +844,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             $fields['single_lap'] = (bool) $data['single_lap'];
         }
 
-        $post = DT_Posts::update_post( 'pg_relays', $data['post_id'], $fields );
+        $post = DT_Posts::update_post( 'pg_relays', $relay_id, $fields );
 
         return $post;
     }
@@ -881,6 +914,39 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'relays' => $data,
             'hidden_relays' => $hidden_relays,
         ];
+    }
+
+    public function hide_relay( WP_REST_Request $request ) {
+        $user_id = get_current_user_id();
+
+        if ( !$user_id || !DT_Posts::can_access( 'pg_relays' ) ) {
+            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
+        }
+
+        $relay_id = $request->get_param( 'relay_id' );
+
+        if ( !$relay_id ) {
+            return new WP_Error( __METHOD__, 'Relay ID is required', [ 'status' => 400 ] );
+        }
+
+        add_user_meta( $user_id, 'pg_hidden_relays', $relay_id );
+        return true;
+    }
+    public function unhide_relay( WP_REST_Request $request ) {
+        $user_id = get_current_user_id();
+
+        if ( !$user_id || !DT_Posts::can_access( 'pg_relays' ) ) {
+            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
+        }
+
+        $relay_id = $request->get_param( 'relay_id' );
+
+        if ( !$relay_id ) {
+            return new WP_Error( __METHOD__, 'Relay ID is required', [ 'status' => 400 ] );
+        }
+
+        delete_user_meta( $user_id, 'pg_hidden_relays', $relay_id );
+        return true;
     }
 }
 PG_User_App_Profile::instance();

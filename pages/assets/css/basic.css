@@ -541,6 +541,7 @@ input[type="radio"]:checked {
 
 /* Stack */
 
+.stack-xsm,
 .stack-sm,
 .stack-md,
 .stack {
@@ -559,11 +560,15 @@ input[type="radio"]:checked {
     align-items: stretch;
 }
 
+.stack-xsm > *,
 .stack-sm > *,
 .stack-md > *,
 .stack > * {
     margin-top: 0;
     margin-bottom: 0;
+}
+.stack-xsm > * + * {
+    margin-top: var(--pg-flow-size, 0.5rem);
 }
 .stack-sm > * + * {
     margin-top: var(--pg-flow-size, 1rem);
@@ -784,6 +789,9 @@ input[type="radio"]:checked {
         font-size: 32px;
     }
 }
+.seperated-list > * + * {
+    border-top: 1px solid var(--pg-grey);
+}
 
 /* Blocks */
 
@@ -804,6 +812,9 @@ input[type="radio"]:checked {
 }
 .relay-item[data-type="public"] {
     background-color: var(--pg-brand-color);
+}
+.relay-item[data-hidden] {
+    background-color: var(--pg-grey);
 }
 .relay-item__container {
     position: relative;
@@ -833,6 +844,13 @@ input[type="radio"]:checked {
     width: 2rem;
     height: 2rem;
 }
+
+.border-dashed {
+    border-radius: 10px;
+    padding: 1rem;
+    border: 1px dashed var(--pg-grey);
+}
+
 .user__banner {
     background-color: #ffd84c;
     padding: 1em 0;
@@ -1075,13 +1093,17 @@ input[type="radio"]:checked {
 
 /* =========== */
 
-.icon-xlg {
+.icon-xxlg {
     width: 5rem;
     height: 5rem;
 }
-.icon-lg {
+.icon-xlg {
     width: 4rem;
     height: 4rem;
+}
+.icon-lg {
+    width: 3rem;
+    height: 3rem;
 }
 .icon-md {
     width: 2rem;
@@ -1336,7 +1358,7 @@ button {
     z-index: 100;
     padding: 1em 1em;
 }
-.pg-navbar .container{
+.pg-navbar .container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
@@ -1406,13 +1428,21 @@ nav.navbar-home {
 .pg-navmenu .btn-cta {
     font-size: 1.5rem;
 }
+.navbar__title {
+    justify-self: center;
+    text-transform: unset;
+    font-weight: 400;
+    font-size: 1.3rem;
+}
 @media (max-width: 576px) {
     .navbar__cta {
         order: 2;
         width: 100%;
     }
     .navbar__title {
-        display: none;
+        visibility: hidden;
+        width: 0;
+        height: 0;
     }
 }
 

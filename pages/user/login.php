@@ -249,7 +249,7 @@ class PG_Login extends PG_Public_Page {
           window.addEventListener('load', function() {
             if (pg_global.is_logged_in) {
               const url = new URL(location.href)
-              const redirectTo = url.searchParams.get('redirect_to') || encodeURIComponent('/profile')
+              const redirectTo = url.searchParams.get('redirect_to') || encodeURIComponent('/dashboard')
 
               location.href = decodeURIComponent(redirectTo)
             }
@@ -284,7 +284,7 @@ class PG_Login extends PG_Public_Page {
                     // Show modal asking about news signup
                     const modal = document.getElementById('modal-news-signup')
                     modal.style.display = 'flex';
-                    
+
                     // Handle modal responses
                     document.getElementById('modal-yes').addEventListener('click', () => {
                       const marketing = true;
@@ -309,7 +309,7 @@ class PG_Login extends PG_Public_Page {
                     body: JSON.stringify(userCredential)
                   })
                   .then(() => {
-                    location.href = '/profile';
+                    location.href = '/dashboard';
                   });
                 }
             }).catch((error) => {
@@ -369,7 +369,7 @@ class PG_Login extends PG_Public_Page {
                   body: JSON.stringify(userCredential)
                 })
                 .then(() => {
-                  location.href = '/profile'
+                  location.href = '/dashboard'
                 })
               })
               .catch((error) => {
@@ -426,7 +426,7 @@ class PG_Login extends PG_Public_Page {
                     <svg class="icon-md"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-go-logo"></use></svg>
                 </h3>
                 <p>
-                    
+
                     <?php echo esc_html__( 'Sign up for Prayer.Global news and opportunities, and occasional communication from Prayer.Tools and GospelAmbition.org', 'prayer-global-porch' ) ?>?
                 </p>
                 <div style="display: flex; justify-content: space-between; margin-top: 20px; gap: 1rem;">
