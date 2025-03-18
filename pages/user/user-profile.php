@@ -49,6 +49,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'pg-logo-prayer',
             'pg-private',
             'pg-world-light',
+            'pg-info',
             'pg-chevron-left',
             'ion-ellipsis-horizontal',
         ];
@@ -194,6 +195,9 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'single_lap_relay' => esc_html__( 'Single Lap', 'prayer-global-porch' ),
                 'update' => esc_html__( 'Update', 'prayer-global-porch' ),
                 'edit_relay' => esc_html__( 'Edit Relay', 'prayer-global-porch' ),
+                'join_a_relay_info' => esc_html__( 'Find and join a public prayer relay created by individuals, churches or organizations.', 'prayer-global-porch' ),
+                'create_public_relay_info' => esc_html__( 'Start your own public relay for anyone to find and join.', 'prayer-global-porch' ),
+                'create_private_relay_info' => esc_html__( 'Create a private relay, hidden from the public list, and share it with friends, family, or the church.', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),

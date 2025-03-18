@@ -10,6 +10,8 @@ export class PgNewRelay extends OpenElement {
   step: string = "choose-option";
   @state()
   type: string = "";
+  @state()
+  openInfo: string = "";
 
   constructor() {
     super();
@@ -36,46 +38,128 @@ export class PgNewRelay extends OpenElement {
       : this.translations.create_private_relay;
   }
 
+  private async handleOpenInfo(event: Event, type: string) {
+    event.stopImmediatePropagation();
+    if (this.openInfo !== type) {
+      this.openInfo = type;
+    } else {
+      this.openInfo = "";
+    }
+  }
+
+  private handleNavigate() {
+    location.href = "/relays";
+  }
+
   render() {
     return html`
       <pg-header title=${this.translations.new_relay}></pg-header>
       <div class="pg-container page" data-small>
         ${this.step === "choose-option"
           ? html`
-              <div class="seperated-list mx-auto w-fit align-items-start">
-                <button
-                  class="profile-link p-4"
-                  @click=${() => (location.href = "/relays")}
+              <div class="seperated-list mx-auto align-items-start">
+                <div
+                  class="stack-sm align-items-stretch text-center px-2 py-4 w-100"
                 >
-                  <svg class="icon-md">
-                    <use
-                      href="${window.jsObject.spritesheet_url}#pg-relay"
-                    ></use>
-                  </svg>
-                  ${this.translations.join_a_relay}
-                </button>
-                <button
-                  class="profile-link p-4"
-                  @click=${() => this.createRelay("public")}
+                  <div
+                    class="profile-link"
+                    role="button"
+                    @click=${this.handleNavigate}
+                  >
+                    <svg class="icon-md">
+                      <use
+                        href="${window.jsObject.spritesheet_url}#pg-relay"
+                      ></use>
+                    </svg>
+                    <span>${this.translations.join_a_relay}</span>
+                    <button
+                      class="ms-auto d-inline-block p-2"
+                      @click=${(event: Event) =>
+                        this.handleOpenInfo(event, "join")}
+                    >
+                      <svg class="icon-sm">
+                        <use
+                          href="${window.jsObject.spritesheet_url}#pg-info"
+                        ></use>
+                      </svg>
+                    </button>
+                  </div>
+                  ${this.openInfo === "join"
+                    ? html`
+                        <p class="info-text">
+                          ${this.translations.join_a_relay_info}
+                        </p>
+                      `
+                    : ""}
+                </div>
+                <div
+                  class="stack-sm align-items-stretch text-center px-2 py-4 w-100"
                 >
-                  <svg class="icon-md">
-                    <use
-                      href="${window.jsObject.spritesheet_url}#pg-world-light"
-                    ></use>
-                  </svg>
-                  ${this.translations.new_public_relay}
-                </button>
-                <button
-                  class="profile-link p-4"
-                  @click=${() => this.createRelay("private")}
+                  <div
+                    class="profile-link"
+                    role="button"
+                    @click=${() => this.createRelay("public")}
+                  >
+                    <svg class="icon-md">
+                      <use
+                        href="${window.jsObject.spritesheet_url}#pg-world-light"
+                      ></use>
+                    </svg>
+                    <span>${this.translations.new_public_relay}</span>
+                    <button
+                      class="ms-auto d-inline-block p-2"
+                      @click=${(event: Event) =>
+                        this.handleOpenInfo(event, "create-public")}
+                    >
+                      <svg class="icon-sm">
+                        <use
+                          href="${window.jsObject.spritesheet_url}#pg-info"
+                        ></use>
+                      </svg>
+                    </button>
+                  </div>
+                  ${this.openInfo === "create-public"
+                    ? html`
+                        <p class="info-text">
+                          ${this.translations.create_public_relay_info}
+                        </p>
+                      `
+                    : ""}
+                </div>
+                <div
+                  class="stack-sm align-items-stretch text-center px-2 py-4 w-100"
                 >
-                  <svg class="icon-md">
-                    <use
-                      href="${window.jsObject.spritesheet_url}#pg-private"
-                    ></use>
-                  </svg>
-                  ${this.translations.new_private_relay}
-                </button>
+                  <div
+                    class="profile-link"
+                    role="button"
+                    @click=${() => this.createRelay("private")}
+                  >
+                    <svg class="icon-md">
+                      <use
+                        href="${window.jsObject.spritesheet_url}#pg-private"
+                      ></use>
+                    </svg>
+                    <span>${this.translations.new_private_relay}</span>
+                    <button
+                      class="ms-auto d-inline-block p-2"
+                      @click=${(event: Event) =>
+                        this.handleOpenInfo(event, "create-private")}
+                    >
+                      <svg class="icon-sm">
+                        <use
+                          href="${window.jsObject.spritesheet_url}#pg-info"
+                        ></use>
+                      </svg>
+                    </button>
+                  </div>
+                  ${this.openInfo === "create-private"
+                    ? html`
+                        <p class="info-text">
+                          ${this.translations.create_private_relay_info}
+                        </p>
+                      `
+                    : ""}
+                </div>
               </div>
             `
           : ""}
