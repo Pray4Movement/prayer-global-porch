@@ -529,11 +529,6 @@ input[type="radio"]:checked {
 /* Composition */
 /* =========== */
 
-.three-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
 .flow > * + * {
     margin-top: var(--pg-flow-size, 4rem);
 }
