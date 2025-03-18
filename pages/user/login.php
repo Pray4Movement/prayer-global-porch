@@ -423,14 +423,15 @@ class PG_Login extends PG_Public_Page {
 
         <div class="login-modal" id="modal-news-signup">
             <div class="login-modal-content">
-                <h3><?php echo esc_html__( 'Stay Updated', 'prayer-global-porch' ) ?>
-                <svg class="icon-md"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-go-logo"></use></svg>
-            </h3>
+                <h3 class="d-flex align-items-center gap-2">
+                    <?php echo esc_html__( 'Stay Updated', 'prayer-global-porch' ) ?>
+                    <svg class="icon-md"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-go-logo"></use></svg>
+                </h3>
                 <p>
                     
                     <?php echo esc_html__( 'Sign up for Prayer.Global news and opportunities, and occasional communication from Prayer.Tools and GospelAmbition.org', 'prayer-global-porch' ) ?>?
                 </p>
-                <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+                <div style="display: flex; justify-content: space-between; margin-top: 20px; gap: 1rem;">
                     <button id="modal-no" class="btn btn-outline-primary btn-small"><?php echo esc_html__( 'No Thanks', 'prayer-global-porch' ) ?></button>
                     <button id="modal-yes" class="btn btn-primary btn-small"><?php echo esc_html__( 'Yes, Sign Me Up', 'prayer-global-porch' ) ?></button>
                 </div>
