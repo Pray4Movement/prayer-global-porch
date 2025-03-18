@@ -30,7 +30,7 @@ class Prayer_Global_Porch_ICOM_Tshirt_Signup extends DT_Magic_Url_Base
     }
 
     public function redirect() {
-        $link = '/user_app/login?action=register';
+        $link = '/register';
         wp_redirect( $link );
         exit;
     }

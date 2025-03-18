@@ -31,7 +31,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         }
 
         if ( !is_user_logged_in() ) {
-            wp_redirect( '/user_app/login' );
+            wp_redirect( '/login' );
             exit;
         }
 
@@ -82,11 +82,10 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [
-            'porch-user-style-css',
-            'jquery-ui-site-css',
-            'foundations-css',
-        ];
+        $allowed_css[] = 'porch-user-style-css';
+        $allowed_css[] = 'jquery-ui-site-css';
+        $allowed_css[] = 'foundations-css';
+        return $allowed_css;
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
