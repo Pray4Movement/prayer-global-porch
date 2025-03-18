@@ -21,7 +21,7 @@ class PG_Login extends PG_Public_Page {
             'methods' => 'POST',
             'callback' => [ $this, 'wp_login_endpoint' ],
         ] );
-        
+
         register_rest_route( $this->rest_route, '/reset-password', [
             'methods' => 'POST',
             'callback' => [ $this, 'reset_password_endpoint' ],
@@ -68,27 +68,27 @@ class PG_Login extends PG_Public_Page {
             ]
         ] );
     }
-    
+
     /**
      * Handle password reset requests
      * @param WP_REST_Request $request
      * @return WP_REST_Response|WP_Error
      */
-    public function reset_password_endpoint( WP_REST_Request $request ) {
+    public function reset_password_endpoint( WP_REST_Request $request ){
         $body = $request->get_body();
         $body = json_decode( $body );
-        
-        if ( !isset( $body->email ) ) {
+
+        if ( !isset( $body->email ) ){
             return new WP_Error( 'bad_request', 'Email is required', [ 'status' => 400 ] );
         }
-        
+
         $user_data = get_user_by( 'email', $body->email );
-        
+
         // If the user exists, generate and send the reset email
-        if ( $user_data ) {
+        if ( $user_data ){
             // Generate a password reset key
             $key = get_password_reset_key( $user_data );
-            if ( is_wp_error( $key ) ) {
+            if ( is_wp_error( $key ) ){
                 // Don't expose the error, just log it
                 error_log( 'Error generating password reset key: ' . $key->get_error_message() );
             } else {
@@ -98,25 +98,25 @@ class PG_Login extends PG_Public_Page {
                     'key' => $key,
                     'login' => rawurlencode( $user_data->user_login )
                 ], wp_login_url() );
-                
+
                 $message = __( 'Someone has requested a password reset for the following account:', 'prayer-global-porch' ) . "\r\n\r\n";
                 $message .= network_home_url( '/' ) . "\r\n\r\n";
                 $message .= sprintf( __( 'Username: %s', 'prayer-global-porch' ), $user_data->user_login ) . "\r\n\r\n";
                 $message .= __( 'If this was a mistake, just ignore this email and nothing will happen.', 'prayer-global-porch' ) . "\r\n\r\n";
                 $message .= __( 'To reset your password, visit the following address:', 'prayer-global-porch' ) . "\r\n\r\n";
                 $message .= $reset_url . "\r\n";
-                
+
                 $title = __( 'Password Reset Request', 'prayer-global-porch' );
-                
+
                 $sent = wp_mail( $user_data->user_email, $title, $message );
-                
-                if ( !$sent ) {
+
+                if ( !$sent ){
                     // Don't expose the error, just log it
                     error_log( 'Error sending password reset email to: ' . $user_data->user_email );
                 }
             }
         }
-        
+
         // Always return a success message, regardless of whether the email exists
         // This prevents user enumeration by not revealing if an email exists in the system
         return new WP_REST_Response( [
