@@ -72,7 +72,7 @@ class PG_Porch_404 extends DT_Magic_Url_Base
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return $allowed_css;
     }
 
     public function header_javascript(){
@@ -87,7 +87,6 @@ class PG_Porch_404 extends DT_Magic_Url_Base
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
             ]) ?>][0]
         </script>
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/basic.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ) ) ?>" type="text/css" media="all">
         <style>
             section {
                 margin-top: 110px;

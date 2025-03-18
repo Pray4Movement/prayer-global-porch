@@ -78,7 +78,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return $allowed_css;
     }
 
     public function wp_enqueue_scripts(){}
