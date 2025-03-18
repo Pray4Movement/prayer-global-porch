@@ -56,15 +56,17 @@
         min-width: 1em;
       }
     `];Nt([y({type:String})],G.prototype,"text",2);G=Nt([f("pg-avatar")],G);class j extends S{constructor(){super()}createRenderRoot(){return this}}var pe=Object.defineProperty,ue=Object.getOwnPropertyDescriptor,Mt=(s,t,e,a)=>{for(var i=a>1?void 0:a?ue(t,e):t,r=s.length-1,n;r>=0;r--)(n=s[r])&&(i=(a?n(t,e,i):n(i))||i);return a&&i&&pe(t,e,i),i};let ct=class extends j{constructor(){super(...arguments),this.title=""}render(){return d`
-      <div class="offcanvas__header align-items-center lh-sm">
-        <button type="button" class="me-auto" @click=${()=>history.back()}>
-          <svg class="icon-md">
-            <use
-              href="${window.jsObject.spritesheet_url}#pg-chevron-left"
-            ></use>
-          </svg>
-        </button>
-        <h3 class="mb-0 me-auto">${this.title}</h3>
+      <div class="offcanvas__header lh-sm">
+        <div class="container d-flex align-items-center">
+          <button type="button" class="me-auto" @click=${()=>history.back()}>
+            <svg class="icon-md">
+              <use
+                href="${window.jsObject.spritesheet_url}#pg-chevron-left"
+              ></use>
+            </svg>
+          </button>
+          <h3 class="mb-0 me-auto">${this.title}</h3>
+        </div>
       </div>
     `}};Mt([y({type:String})],ct.prototype,"title",2);ct=Mt([f("pg-header")],ct);var ge=Object.defineProperty,me=Object.getOwnPropertyDescriptor,Ht=(s,t,e,a)=>{for(var i=a>1?void 0:a?me(t,e):t,r=s.length-1,n;r>=0;r--)(n=s[r])&&(i=(a?n(t,e,i):n(i))||i);return a&&i&&ge(t,e,i),i};let Y=class extends S{constructor(){super(...arguments),this.open=!1,this.modalId=this.generateId()}generateId(){return Array(6).fill("").map(()=>String.fromCharCode(97+Math.floor(Math.random()*26))).join("")}render(){return d`
       <div
