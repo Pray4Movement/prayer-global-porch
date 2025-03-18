@@ -40,6 +40,9 @@ export interface BaseRelay {
   post_title: string;
   stats: RelayStats;
   lap_key: string;
+  start_time: number;
+  end_time: number;
+  single_lap: boolean;
 }
 
 export type GlobalRelay = BaseRelay & {

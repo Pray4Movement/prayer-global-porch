@@ -12,6 +12,8 @@ export class PgRelays extends OpenElement {
   @state() hiddenRelays: number[] = [];
   @state() showHiddenRelays: boolean = false;
   @state() loading: boolean = true;
+  @state() editRelayModalOpen: boolean = false;
+  @state() editRelay: Relay | null = null;
   constructor() {
     super();
 
@@ -66,8 +68,17 @@ export class PgRelays extends OpenElement {
     }
   }
 
+  private openEditRelayModal(relayId: number) {
+    this.editRelayModalOpen = true;
+    this.editRelay = this.relays.find((r) => r.post_id === relayId) || null;
+  }
+
   private toggleHiddenRelays() {
     this.showHiddenRelays = !this.showHiddenRelays;
+  }
+
+  private closeModal(modalId: string) {
+    this.editRelayModalOpen = false;
   }
 
   render() {
@@ -117,6 +128,7 @@ export class PgRelays extends OpenElement {
                           urlRoot="/prayer_app/${relay.relay_type}/${relay.lap_key}"
                           @hide=${() => this.handleHide(relay)}
                           @unhide=${() => this.handleUnhide(relay)}
+                          @edit=${() => this.openEditRelayModal(relay.post_id)}
                         ></pg-relay-item>
                       `;
                     }
@@ -164,6 +176,29 @@ export class PgRelays extends OpenElement {
                 </div>
               `
             : ""}
+          <pg-modal
+            id="edit-relay-modal"
+            ?open=${this.editRelayModalOpen}
+            @close=${() => this.closeModal("edit-relay-modal")}
+          >
+            <h2 slot="title" class="h5 cluster">
+              <svg class="icon-md">
+                <use
+                  href="${window.jsObject.spritesheet_url}#${this.editRelay
+                    ?.visibility === "private"
+                    ? "pg-private"
+                    : "pg-world-light"}"
+                ></use>
+              </svg>
+              ${this.translations.edit_relay}
+            </h2>
+            <pg-relay-form
+              slot="body"
+              edit
+              .relay=${this.editRelay}
+              @cancel=${() => this.closeModal("edit-relay-modal")}
+            ></pg-relay-form>
+          </pg-modal>
         </div>
       </div>
     `;

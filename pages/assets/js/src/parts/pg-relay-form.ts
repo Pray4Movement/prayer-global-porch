@@ -1,10 +1,17 @@
-import { html } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { html, PropertyValues } from "lit";
+import { customElement, state, property } from "lit/decorators.js";
 import { OpenElement } from "../profile-pages/open-element";
+import { Relay } from "../interfaces";
 
 @customElement("pg-relay-form")
 export class PgRelayForm extends OpenElement {
   translations: any = window.jsObject.translations;
+
+  @property({ type: Boolean })
+  edit: boolean = false;
+
+  @property({ type: Object })
+  relay: Relay | null = null;
 
   @state()
   type: string = "";
@@ -23,8 +30,28 @@ export class PgRelayForm extends OpenElement {
   @state()
   isSingle: boolean = false;
 
-  constructor() {
-    super();
+  shouldUpdate(changedProperties: PropertyValues) {
+    if (changedProperties.has("relay") && this.relay !== null) {
+      this.title = this.relay.post_title;
+      this.type = this.relay.visibility;
+      if (this.relay.start_time) {
+        this.startDate = window.toDateInputFormat(this.relay.start_time);
+        this.startTime = window.toTimeInputFormat(this.relay.start_time);
+      }
+      if (this.relay.end_time) {
+        this.endDate = window.toDateInputFormat(this.relay.end_time);
+        this.endTime = window.toTimeInputFormat(this.relay.end_time);
+      }
+      this.isSingle = this.relay.single_lap;
+    }
+    return super.shouldUpdate(changedProperties);
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    if (this.edit) {
+      this.showAdvancedOptions = true;
+    }
   }
 
   handleChangeTitle(value: string) {
@@ -61,8 +88,16 @@ export class PgRelayForm extends OpenElement {
       body.single_lap = true;
     }
 
+    if (this.edit && this.relay !== null) {
+      body.relay_id = this.relay.post_id;
+    }
+
+    const url = this.edit
+      ? window.pg_global.root + "pg-api/v1/dashboard/edit_relay"
+      : window.pg_global.root + "pg-api/v1/dashboard/create_relay";
+
     window
-      .api_fetch(window.pg_global.root + "pg-api/v1/dashboard/create_relay", {
+      .api_fetch(url, {
         method: "POST",
         body: JSON.stringify(body),
       })
@@ -92,6 +127,7 @@ export class PgRelayForm extends OpenElement {
             id="title"
             class="form-control"
             placeholder=${this.translations.title}
+            value=${this.title}
             @input=${(event: Event) =>
               this.handleChangeTitle((event.target as HTMLInputElement).value)}
           />
@@ -170,15 +206,22 @@ export class PgRelayForm extends OpenElement {
         <div class="cluster ms-auto">
           <button
             class="btn btn-outline-primary btn-small"
+            type="button"
             @click=${() => this.dispatchEvent(new CustomEvent("cancel"))}
           >
             ${this.translations.cancel}
           </button>
           <button class="btn btn-primary btn-small">
-            ${this.translations.create}
+            ${this.edit ? this.translations.update : this.translations.create}
           </button>
         </div>
       </form>
     `;
+  }
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    "pg-relay-form": PgRelayForm;
   }
 }

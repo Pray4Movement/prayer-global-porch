@@ -117,13 +117,21 @@ export class PgRelayItem extends OpenElement {
                         ${this.translations.display}
                       </a>
                     </li>
-                    <li class="dropdown-item">${this.translations.edit}</li>
+                    <li
+                      class="dropdown-item"
+                      role="button"
+                      @click=${() =>
+                        this.dispatchEvent(new CustomEvent("edit"))}
+                    >
+                      ${this.translations.edit}
+                    </li>
                   `
                 : ""}
               ${this.hiddenRelay
                 ? html`
                     <li
                       class="dropdown-item"
+                      role="button"
                       @click=${() =>
                         this.dispatchEvent(new CustomEvent("unhide"))}
                     >
@@ -133,6 +141,7 @@ export class PgRelayItem extends OpenElement {
                 : html`
                     <li
                       class="dropdown-item"
+                      role="button"
                       @click=${() =>
                         this.dispatchEvent(new CustomEvent("hide"))}
                     >

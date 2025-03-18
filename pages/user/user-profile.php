@@ -193,6 +193,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'end_date' => esc_html__( 'End Date', 'prayer-global-porch' ),
                 'now' => esc_html__( 'Now', 'prayer-global-porch' ),
                 'single_lap_relay' => esc_html__( 'Single Lap', 'prayer-global-porch' ),
+                'update' => esc_html__( 'Update', 'prayer-global-porch' ),
+                'edit_relay' => esc_html__( 'Edit Relay', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),
@@ -423,6 +425,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         DT_Route::post( $namespace, 'relays/hide', [ $this, 'hide_relay' ] );
         DT_Route::post( $namespace, 'relays/unhide', [ $this, 'unhide_relay' ] );
         DT_Route::post( $namespace, 'create_relay', [ $this, 'create_relay' ] );
+        DT_Route::post( $namespace, 'edit_relay', [ $this, 'edit_relay' ] );
     }
 
     public function endpoint( WP_REST_Request $request ) {
@@ -442,8 +445,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 return $this->get_ip_location( $params['data'] );
             case 'link_anonymous_prayers':
                 return $this->link_anonymous_prayers( $params['data'] );
-            case 'edit_challenge':
-                return $this->edit_challenge( $params['data'] );
             default:
                 return $params;
         }
@@ -792,20 +793,25 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         return $post;
     }
 
-    public function edit_challenge( $data ) {
-        if ( !isset( $data['post_id'] ) ) {
-            return new WP_Error( __METHOD__, 'Challenge post_id is missing', [ 'status' => 400 ] );
-        }
-
+    public function edit_relay( WP_REST_Request $request ) {
         $user_id = get_current_user_id();
 
         if ( !$user_id ) {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
         }
 
-        $old_challenge = DT_Posts::get_post( 'pg_relays', $data['post_id'] );
+        $params = $request->get_json_params();
+        $data = dt_recursive_sanitize_array( $params );
 
-        if ( !$old_challenge || !DT_Posts::can_update( 'pg_relays', $data['post_id'] ) ) {
+        if ( !isset( $data['relay_id'] ) ) {
+            return new WP_Error( __METHOD__, 'relay_id is missing', [ 'status' => 400 ] );
+        }
+
+        $relay_id = $data['relay_id'];
+
+        $old_challenge = DT_Posts::get_post( 'pg_relays', $relay_id );
+
+        if ( !$old_challenge || !DT_Posts::can_update( 'pg_relays', $relay_id ) ) {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
         }
 
@@ -835,7 +841,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             $fields['single_lap'] = (bool) $data['single_lap'];
         }
 
-        $post = DT_Posts::update_post( 'pg_relays', $data['post_id'], $fields );
+        $post = DT_Posts::update_post( 'pg_relays', $relay_id, $fields );
 
         return $post;
     }
