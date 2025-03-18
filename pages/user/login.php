@@ -38,14 +38,14 @@ class PG_Login extends PG_Public_Page {
 
         // Find the WordPress user by email
         $user = get_user_by( 'email', $body->email );
-        
+
         if ( !$user ) {
             return new WP_Error( 'invalid_credentials', 'Invalid email or password', [ 'status' => 401 ] );
         }
 
         // Check the password
         $check = wp_check_password( $body->password, $user->user_pass, $user->ID );
-        
+
         if ( !$check ) {
             return new WP_Error( 'invalid_credentials', 'Invalid email or password', [ 'status' => 401 ] );
         }
@@ -408,7 +408,7 @@ class PG_Login extends PG_Public_Page {
               submitButtenElement.setAttribute('disabled', '')
 
               isSubmitting = true
-              
+
               // First try WordPress authentication
               fetch(`${window.pg_global.root}pg/login/wp-login`, {
                 method: 'POST',
@@ -434,9 +434,9 @@ class PG_Login extends PG_Public_Page {
               .catch((error) => {
                 // If WordPress auth fails, try Firebase (legacy users)
                 console.log("WordPress authentication failed, trying Firebase...");
-                
+
                 let wordpressErrorMessage = "";
-                
+
                 // Try to parse the error response if it exists
                 if (error.json) {
                   error.json().then((errorData) => {
@@ -448,7 +448,7 @@ class PG_Login extends PG_Public_Page {
                     // JSON parsing error, continue to Firebase silently
                   });
                 }
-                
+
                 const auth = getAuth(app)
                 signInWithEmailAndPassword(auth, email_field.value, password_field.value)
                 .then((userCredential) => {
@@ -471,12 +471,12 @@ class PG_Login extends PG_Public_Page {
                 .catch((firebaseError) => {
                   // Both WordPress and Firebase auth failed
                   console.error("All authentication methods failed:", firebaseError);
-                  
+
                   // If WordPress returned an "invalid_credentials" error, prioritize that message
                   // instead of showing the Firebase-specific error
                   if (wordpressErrorMessage && wordpressErrorMessage.includes("Invalid email or password")) {
-                    handleAuthError({ 
-                      code: 'invalid_credentials', 
+                    handleAuthError({
+                      code: 'invalid_credentials',
                       message: wordpressErrorMessage || 'Invalid email or password'
                     });
                   } else {
@@ -485,28 +485,28 @@ class PG_Login extends PG_Public_Page {
                 });
               });
             })
-            
+
             // Helper function to handle authentication errors
             function handleAuthError(error) {
               const errorCode = error.code;
               const errorMessage = error.message;
-              
+
               // Toggle the spinner and button
               document.querySelector('#login-submit .loading-spinner').classList.remove('active')
               document.querySelector('#login-submit').classList.remove('disabled')
               document.querySelector('#login-submit').removeAttribute('disabled')
               isSubmitting = false;
-              
+
               // Show specific error messages based on the error code
               if (errorCode === 'auth/wrong-password' || errorCode === 'invalid_credentials') {
                 // Use a generic error message for both WordPress and Firebase invalid credential errors
-                document.getElementById('login-error').innerText = '<?php echo esc_html__('Invalid email or password. Please try again.', 'prayer-global-porch') ?>'
+                document.getElementById('login-error').innerText = '<?php echo esc_html__( 'Invalid email or password. Please try again.', 'prayer-global-porch' ) ?>'
                 document.getElementById('login-error').style.display = 'block'
               } else if (errorCode === 'auth/user-not-found') {
                 emailError.style.display = 'block'
-                emailError.innerText = '<?php echo esc_html__('Email not found. Please register.', 'prayer-global-porch') ?>'
+                emailError.innerText = '<?php echo esc_html__( 'Email not found. Please register.', 'prayer-global-porch' ) ?>'
               } else {
-                document.getElementById('login-error').innerText = errorMessage || '<?php echo esc_html__('Authentication failed. Please try again or register for an account.', 'prayer-global-porch') ?>'
+                document.getElementById('login-error').innerText = errorMessage || '<?php echo esc_html__( 'Authentication failed. Please try again or register for an account.', 'prayer-global-porch' ) ?>'
                 document.getElementById('login-error').style.display = 'block'
               }
             }

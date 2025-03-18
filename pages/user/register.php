@@ -66,9 +66,9 @@ class PG_Register extends PG_Public_Page {
             }
 
             // Create WordPress user
-            $user_id = wp_create_user( 
-                sanitize_user( $body->email ), 
-                $body->password, 
+            $user_id = wp_create_user(
+                sanitize_user( $body->email ),
+                $body->password,
                 sanitize_email( $body->email )
             );
 
