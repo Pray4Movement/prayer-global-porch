@@ -138,7 +138,6 @@ class PG_Register extends PG_Public_Page {
      */
     public function header_style(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
-        
     }
 
     /**
