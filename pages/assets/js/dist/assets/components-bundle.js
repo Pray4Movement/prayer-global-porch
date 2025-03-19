@@ -166,6 +166,9 @@
         border: none;
       }
     `];Lt([$({type:Boolean})],tt.prototype,"open",2);tt=Lt([f("pg-modal")],tt);var we=Object.defineProperty,Ae=Object.getOwnPropertyDescriptor,Bt=(s,t,e,a)=>{for(var i=a>1?void 0:a?Ae(t,e):t,r=s.length-1,n;r>=0;r--)(n=s[r])&&(i=(a?n(t,e,i):n(i))||i);return a&&i&&we(t,e,i),i};let et=class extends _t(E){constructor(){super(),this.href="",this.setAttribute("tabindex","0"),this.setAttribute("role","link"),this.addEventListener("click",this.handleClick),this.addEventListener("keydown",this.handleKeydown)}handleClick(s){s.preventDefault();const{href:t}=s.currentTarget;this.navigate(t)}handleKeydown(s){(s.key==="Enter"||s.key===" ")&&(s.preventDefault(),this.navigate(this.href))}render(){return d` <slot></slot> `}};et.styles=ut`
+    :host {
+      cursor: pointer;
+    }
     a {
       color: inherit;
       text-decoration: inherit;
