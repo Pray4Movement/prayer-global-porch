@@ -54,13 +54,12 @@ export class PgRelayItem extends OpenElement {
   }
 
   render() {
-    const displayType =
-      this.relayType === "custom" ? this.visibility : this.relayType;
     return html`
       <div
         role="listitem"
         class="relay-item"
-        data-type=${displayType}
+        data-type=${this.relayType}
+        data-visibility=${this.visibility}
         ?data-hidden=${this.hiddenRelay}
       >
         <div class="relay-item__container">
@@ -149,9 +148,9 @@ export class PgRelayItem extends OpenElement {
                     </li>
                   `}
             </ul>
-            <a href=${this.urlRoot} class="btn btn-cta"
-              >${this.translations.pray}</a
-            >
+            <a href=${this.urlRoot} class="btn btn-cta">
+              ${this.translations.pray}
+            </a>
           </div>
         </div>
       </div>
