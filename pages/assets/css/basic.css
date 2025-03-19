@@ -1628,6 +1628,9 @@ nav.navbar-home {
     margin-top: 8px;
 }
 
+.offcanvas {
+    --bs-offcanvas-color: var(--pg-brand-color-light);
+}
 .offcanvas__header {
     position: sticky;
     display: flex;
