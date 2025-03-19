@@ -496,7 +496,7 @@
               <div class="flow-small">
                 ${this.loading?d`<span class="loading-spinner active"></span>`:this.relays.map(s=>d`
                           <div
-                            class="repel relay-item"
+                            class="repel relay-item align-items-center"
                             data-type=${s.relay_type}
                             data-visibility=${s.visibility}
                           >

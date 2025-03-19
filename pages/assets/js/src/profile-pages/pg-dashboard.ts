@@ -119,7 +119,7 @@ export class PgDashboard extends OpenElement {
                     : this.relays.map(
                         (relay) => html`
                           <div
-                            class="repel relay-item"
+                            class="repel relay-item align-items-center"
                             data-type=${relay.relay_type}
                             data-visibility=${relay.visibility}
                           >
