@@ -851,10 +851,6 @@ input[type="radio"]:checked {
     border: 1px dashed var(--pg-grey);
 }
 
-.border-rounded {
-    border-radius: 8px;
-}
-
 .user__banner {
     background-color: #ffd84c;
     padding: 1em 0;
