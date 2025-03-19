@@ -287,8 +287,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['action'] ) {
-            case 'activity':
-                return $this->get_user_activity( $params['data'] );
             case 'ip_location':
                 return $this->get_ip_location( $params['data'] );
             case 'link_anonymous_prayers':
@@ -423,19 +421,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         return true;
     }
 
-    public function get_user_activity( $data ) {
-        $user_id = get_current_user_id();
-
-        if ( !$user_id ) {
-            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
-        }
-
-        $offset = isset( $data['offset'] ) ? (int) $data['offset'] : 0;
-        $limit = isset( $data['limit'] ) ? (int) $data['limit'] : 50;
-
-        $activity = PG_Stacker::build_user_location_stats( null, $offset, $limit );
-        return $activity;
-    }
     public function get_ip_location( $data ) {
         $user_id = get_current_user_id();
 
