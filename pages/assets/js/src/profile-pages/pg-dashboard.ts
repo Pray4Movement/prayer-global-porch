@@ -1,12 +1,41 @@
 import { html } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement, state } from "lit/decorators.js";
 import { OpenElement } from "./open-element";
-import { User } from "../interfaces";
+import { User, Relay } from "../interfaces";
 
 @customElement("pg-dashboard")
 export class PgDashboard extends OpenElement {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
+  @state() relays: Relay[] = [];
+  @state() loading: boolean = true;
+
+  constructor() {
+    super();
+
+    fetch(window.pg_global.root + "pg-api/v1/dashboard/relays", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-WP-Nonce": window.pg_global.nonce,
+      },
+      body: JSON.stringify({
+        data: {
+          user_id: this.user.id,
+        },
+      }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const { relays, hidden_relays } = data;
+        this.relays = relays.filter(
+          (relay: Relay) => !hidden_relays.includes(relay.post_id)
+        );
+      })
+      .finally(() => {
+        this.loading = false;
+      });
+  }
 
   render() {
     return html`
@@ -80,10 +109,36 @@ export class PgDashboard extends OpenElement {
                   </nav-link>
                 </div>
               </section>
+
               <hr>
-              <a class="btn btn-cta mx-2 two-rem" href="/newest/lap/">
-                ${this.translations.start_praying}
-              </a>
+
+              <div class="flow-small">
+                ${
+                  this.loading
+                    ? html`<span class="loading-spinner active"></span>`
+                    : this.relays.map(
+                        (relay) => html`
+                          <div
+                            class="repel relay-item"
+                            data-type=${relay.relay_type}
+                            data-visibility=${relay.visibility}
+                          >
+                            ${relay.post_title}
+
+                            <a
+                              href=${`/prayer_app/${relay.relay_type}/${relay.lap_key}`}
+                              class="btn btn-cta"
+                            >
+                              ${this.translations.pray}
+                            </a>
+                          </div>
+                        `
+                      )
+                }
+              </div>
+
+              <hr>
+
               <section class="text-center">
                 <p>${this.translations.are_you_enjoying_the_app}</p>
                 <p>${this.translations.would_you_like_to_partner}</p>

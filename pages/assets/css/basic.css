@@ -810,7 +810,7 @@ input[type="radio"]:checked {
 .relay-item[data-type="global"] {
     background-color: var(--pg-brand-color);
 }
-.relay-item[data-type="public"] {
+.relay-item[data-visibility="public"] {
     background-color: var(--pg-brand-color);
 }
 .relay-item[data-hidden] {
@@ -849,6 +849,10 @@ input[type="radio"]:checked {
     border-radius: 10px;
     padding: 1rem;
     border: 1px dashed var(--pg-grey);
+}
+
+.border-rounded {
+    border-radius: 8px;
 }
 
 .user__banner {
