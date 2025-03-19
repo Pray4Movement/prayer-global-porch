@@ -489,7 +489,7 @@ class PG_Login extends PG_Public_Page {
                                 <div>
                                     <form id="loginform" class="loginform" action="" method="POST" data-abide>
                                         <div>
-                                            <label for="email" class="form-group">
+                                            <label for="email">
                                                 <?php esc_html_e( 'Email', 'prayer-global-porch' ) ?>
                                                 <input class="input login-username" type="email" name="email" id="email" value="" aria-errormessage="email-error" required>
                                             </label>
