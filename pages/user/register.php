@@ -16,6 +16,10 @@ class PG_Register extends PG_Public_Page {
         if ( !$current_page_path_matches ) {
             return;
         }
+        if ( is_user_logged_in() ){
+            wp_redirect( home_url( '/dashboard' ) );
+            exit;
+        }
         /**
          * Register custom hooks here
          */
