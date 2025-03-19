@@ -86,6 +86,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         $allowed_css[] = 'porch-user-style-css';
         $allowed_css[] = 'jquery-ui-site-css';
         $allowed_css[] = 'foundations-css';
+        $allowed_css[] = 'dt-components-css';
         return $allowed_css;
     }
 
@@ -95,11 +96,10 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'jquery-ui',
             'foundations-js',
             'porch-user-site-js',
-            'mapbox-search-widget',
-            'mapbox-gl',
             'components-js',
             'user-profile-js',
             'lit-bundle-js',
+            'dt-components',
         ];
     }
 
@@ -109,6 +109,9 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             $gravatar_url = get_avatar_url( $user->user_login );
             $user_stats = new User_Stats( $user->ID );
         }
+        dt_theme_enqueue_script( 'dt-components', 'dt-assets/build/components/index.js', [] );
+        dt_theme_enqueue_style( 'dt-components-css', 'dt-assets/build/css/light.min.css', [] );
+
         wp_enqueue_script( 'user-profile-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-profile.js', [ 'jquery', 'components-js' ], filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-profile.js' ), true );
         wp_localize_script( 'user-profile-js', 'jsObject', [
             'parts' => $this->parts,
@@ -218,6 +221,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'days_this_year' => $user_stats->days_this_year(),
             ],
         ] );
+
     }
 
     public function header_javascript(){
@@ -238,49 +242,14 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
     }
 
     public function body(){
-        DT_Mapbox_API::load_mapbox_search_widget();
-        DT_Mapbox_API::mapbox_search_widget_css();
+        // DT_Mapbox_API::load_mapbox_search_widget();
+        // DT_Mapbox_API::mapbox_search_widget_css();
 
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' );
 
         ?>
 
         <pg-router></pg-router>
-
-            <div class="modal fade" id="details-modal" tabindex="-1" aria-labelledby="detailsModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title fs-5" id="detailsModalLabel"><?php echo esc_html__( 'Change Your Details', 'prayer-global-porch' ) ?></h5>
-                            <button type="button" class="d-flex brand-light" data-bs-dismiss="modal" aria-label="Close">
-                                <i class="icon pg-close two-em"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <input required type="text" name="name" id="display_name" class="mb-4 form-control" placeholder="<?php echo esc_attr__( 'Name', 'prayer-global-porch' ) ?>">
-                            <div id="mapbox-wrapper">
-                                <div id="mapbox-autocomplete" class="mapbox-autocomplete" data-autosubmit="false" data-add-address="true">
-                                    <div class="input-group mb-2">
-                                            <input required id="mapbox-search" type="text" name="mapbox_search" class="form-control" autocomplete="off" placeholder="<?php echo esc_attr__( 'Select Location', 'prayer-global-porch' ) ?>" />
-                                            <button id="mapbox-clear-autocomplete" class="btn btn-small btn-secondary d-flex align-items-center" type="button" title="<?php echo esc_attr__( 'Delete Location', 'prayer-global-porch' ) ?>" style="">
-                                            <i class="icon pg-close one-rem lh-small"></i>
-                                        </button>
-                                    </div>
-                                    <div class="mapbox-error-message text-danger small"></div>
-                                    <div id="mapbox-spinner-button" style="display: none;">
-                                        <span class="" style="border-radius: 50%;width: 24px;height: 24px;border: 0.25rem solid lightgrey;border-top-color: black;animation: spin 1s infinite linear;display: inline-block;"></span>
-                                    </div>
-                                    <div id="mapbox-autocomplete-list" class="mapbox-autocomplete-items"></div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-small btn-outline-primary cancel-user-details" data-bs-dismiss="modal"><?php echo esc_html__( 'Cancel', 'prayer-global-porch' ) ?></button>
-                            <button type="button" class="btn btn-small btn-primary save-user-details"><?php echo esc_html__( 'Save', 'prayer-global-porch' ) ?></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             <div class="modal fade" id="create-challenge-modal" tabindex="-1" aria-labelledby="createChallengeLabel" aria-hidden="true">
                 <div class="modal-dialog">

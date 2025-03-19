@@ -72,6 +72,8 @@ export class PgSettings extends OpenElement {
 
     const data: Record<string, any> = {
       display_name: this.name,
+      location: this.user.location,
+      language: this.language?.po_code,
     };
 
     if (
@@ -124,6 +126,14 @@ export class PgSettings extends OpenElement {
   handleChangeLanguage(event: Event) {
     const selectedLanguage = (event.target as HTMLSelectElement).value;
     this.language = window.jsObject.languages[selectedLanguage] ?? null;
+    console.log(this.language);
+  }
+
+  handleChangeLocation(event: Event) {
+    const selectedLocation = (event.target as HTMLInputElement).value;
+    if ( selectedLocation[0] ) {
+      this.user.location = selectedLocation[0];
+    }
   }
 
   render() {
@@ -285,55 +295,27 @@ export class PgSettings extends OpenElement {
                   )}
               />
             </label>
-            <label for="mapbox-search">
+
+
+            <label for="location">
               ${this.translations.location_text}
-              <div id="mapbox-wrapper">
-                <div
-                  id="mapbox-autocomplete"
-                  class="mapbox-autocomplete"
-                  data-autosubmit="false"
-                  data-add-address="true"
-                >
-                  <div class="input-group mb-2">
-                    <input
-                      id="mapbox-search"
-                      type="text"
-                      name="mapbox_search"
-                      class="form-control"
-                      autocomplete="off"
-                      placeholder=${this.translations.select_location}
-                    />
-                    <button
-                      id="mapbox-clear-autocomplete"
-                      class="btn btn-small btn-secondary d-flex align-items-center"
-                      type="button"
-                      title=${this.translations.delete_location}
-                      style=""
-                    >
-                      <svg slot="close-icon" class="icon-sm white">
-                        <use
-                          href="${window.jsObject.spritesheet_url}#pg-close"
-                        ></use>
-                      </svg>
-                    </button>
-                  </div>
-                  <div class="mapbox-error-message text-danger small"></div>
-                  <div id="mapbox-spinner-button" style="display: none;">
-                    <span class="loading-spinner active"></span>
-                  </div>
-                  <div
-                    id="mapbox-autocomplete-list"
-                    class="mapbox-autocomplete-items"
-                  ></div>
-                </div>
-              </div>
+              <dt-location-map
+                name="location"
+                .value="${[this.user.location]}"
+                mapbox-token=${window.pg_global.map_key}
+                mapboxToken=${window.pg_global.map_key}
+                limit="1"
+                @change=${this.handleChangeLocation}
+                onchange=${this.handleChangeLocation}
+              ></dt-location-map>
             </label>
+
             <label for="language">
               ${this.translations.language}
               <select
                 class="form-select"
                 id="language"
-                @click=${this.handleChangeLanguage}
+                @change=${this.handleChangeLanguage}
               >
                 ${Object.entries(
                   window.jsObject.languages as Record<string, Language>
