@@ -221,7 +221,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'days_this_year' => $user_stats->days_this_year(),
             ],
         ] );
-
     }
 
     public function header_javascript(){
