@@ -53,7 +53,10 @@ export class PgNewRelay extends OpenElement {
 
   render() {
     return html`
-      <pg-header title=${this.translations.new_relay}></pg-header>
+      <pg-header
+        backUrl="/dashboard/relays"
+        title=${this.translations.new_relay}
+      ></pg-header>
       <div class="pg-container page" data-small>
         ${this.step === "choose-option"
           ? html`

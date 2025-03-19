@@ -4,19 +4,134 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 class PG_Login extends PG_Public_Page {
     public $url_path = 'login';
     public $page_title = 'Login';
+    public $rest_route = 'pg/login';
 
     public function __construct() {
         $current_page_path_matches = parent::__construct();
         if ( !$current_page_path_matches ) {
             return;
         }
+        if ( is_user_logged_in() ){
+            wp_redirect( home_url( '/dashboard' ) );
+            exit;
+        }
         /**
          * Register custom hooks here
          */
     }
 
+    public function register_endpoints() {
+        register_rest_route( $this->rest_route, '/wp-login', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'wp_login_endpoint' ],
+        ] );
+
+        register_rest_route( $this->rest_route, '/reset-password', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'reset_password_endpoint' ],
+        ] );
+    }
+
+    /**
+     * Login the user using WordPress authentication
+     * @param WP_REST_Request $request
+     * @return WP_REST_Response|WP_Error
+     */
+    public function wp_login_endpoint( WP_REST_Request $request ) {
+        $body = $request->get_body();
+        $body = json_decode( $body );
+
+        if ( !isset( $body->email ) || !isset( $body->password ) ) {
+            return new WP_Error( 'bad_request', 'Email and password are required', [ 'status' => 400 ] );
+        }
+
+        // Find the WordPress user by email
+        $user = get_user_by( 'email', $body->email );
+
+        if ( !$user ) {
+            return new WP_Error( 'invalid_credentials', 'Invalid email or password', [ 'status' => 401 ] );
+        }
+
+        // Check the password
+        $check = wp_check_password( $body->password, $user->user_pass, $user->ID );
+
+        if ( !$check ) {
+            return new WP_Error( 'invalid_credentials', 'Invalid email or password', [ 'status' => 401 ] );
+        }
+
+        // Set the auth cookie for the user
+        wp_set_auth_cookie( $user->ID, true );
+
+        return new WP_REST_Response( [
+            'status' => 200,
+            'message' => 'Login successful',
+            'data' => [
+                'user_id' => $user->ID,
+                'email' => $user->user_email,
+                'display_name' => $user->display_name
+            ]
+        ] );
+    }
+
+    /**
+     * Handle password reset requests
+     * @param WP_REST_Request $request
+     * @return WP_REST_Response|WP_Error
+     */
+    public function reset_password_endpoint( WP_REST_Request $request ){
+        $body = $request->get_body();
+        $body = json_decode( $body );
+
+        if ( !isset( $body->email ) ){
+            return new WP_Error( 'bad_request', 'Email is required', [ 'status' => 400 ] );
+        }
+
+        $user_data = get_user_by( 'email', $body->email );
+
+        // If the user exists, generate and send the reset email
+        if ( $user_data ){
+            // Generate a password reset key
+            $key = get_password_reset_key( $user_data );
+            if ( is_wp_error( $key ) ){
+                // Don't expose the error, just log it
+                error_log( 'Error generating password reset key: ' . $key->get_error_message() );
+            } else {
+                // Send email with reset link
+                $reset_url = add_query_arg( [
+                    'action' => 'rp',
+                    'key' => $key,
+                    'login' => rawurlencode( $user_data->user_login )
+                ], wp_login_url() );
+
+                $message = __( 'Someone has requested a password reset for the following account:', 'prayer-global-porch' ) . "\r\n\r\n";
+                $message .= network_home_url( '/' ) . "\r\n\r\n";
+                $message .= sprintf( __( 'Username: %s', 'prayer-global-porch' ), $user_data->user_login ) . "\r\n\r\n";
+                $message .= __( 'If this was a mistake, just ignore this email and nothing will happen.', 'prayer-global-porch' ) . "\r\n\r\n";
+                $message .= __( 'To reset your password, visit the following address:', 'prayer-global-porch' ) . "\r\n\r\n";
+                $message .= $reset_url . "\r\n";
+
+                $title = __( 'Password Reset Request', 'prayer-global-porch' );
+
+                $sent = wp_mail( $user_data->user_email, $title, $message );
+
+                if ( !$sent ){
+                    // Don't expose the error, just log it
+                    error_log( 'Error sending password reset email to: ' . $user_data->user_email );
+                }
+            }
+        }
+
+        // Always return a success message, regardless of whether the email exists
+        // This prevents user enumeration by not revealing if an email exists in the system
+        return new WP_REST_Response( [
+            'status' => 200,
+            'message' => 'If a matching account was found, a password reset email has been sent'
+        ] );
+    }
+
     public function wp_enqueue_scripts() {
         wp_enqueue_script( 'user-mobile-login', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-mobile-login.js', [], fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-mobile-login.js' ), [ 'strategy' => 'defer' ] );
+        wp_enqueue_style( 'pg-login-style', plugin_dir_url( __FILE__ ) . 'login.css', array(), filemtime( plugin_dir_path( __FILE__ ) . 'login.css' ) );
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -24,6 +139,7 @@ class PG_Login extends PG_Public_Page {
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
+        $allowed_css[] = 'pg-login-style';
         return $allowed_css;
     }
 
@@ -38,204 +154,6 @@ class PG_Login extends PG_Public_Page {
      */
     public function header_style(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
-        ?>
-        <style>
-            .center:not(.absolute) {
-                box-sizing: content-box;
-                margin-left: auto;
-                margin-right: auto;
-                display:flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            .separator {
-                display: flex;
-                align-items: center;
-                text-align: center;
-                margin: 0 2em;
-            }
-            .separator::before,
-            .separator::after {
-                content: '';
-                flex: 1;
-                border-bottom: 1px solid #000;
-            }
-            .separator:not(:empty)::before {
-                margin-right: .5em;
-            }
-            .separator:not(:empty)::after {
-                margin-left: .5em;
-            }
-
-            .login-section {
-                background-color: var(--pg-brand-color);
-                min-height: 100vh;
-                display: flex;
-                flex-direction: column;
-                max-width: 100vw;
-                padding: 2em 0 5em 0;
-                margin: 0;
-            }
-            .login-section .container {
-                max-width: calc(min(25rem, 100%));
-                padding: 0;
-            }
-            .card {
-                background-color: white;
-                border-radius: 10px;
-            }
-            .login-register-links {
-                width: 100%;
-                display: flex;
-                justify-content: space-evenly;
-                align-items: center;
-                margin: 1em 0;
-            }
-            .login-register-links a.link-active {
-                background-color: white;
-                color: var(--pg-brand-color);
-            }
-            .login-register-links a {
-                background-color: var(--pg-brand-color);
-                cursor: pointer;
-                text-decoration: none;
-                color: white;
-                border: 1px solid white;
-                border-radius: 10px;
-                padding: .5rem 1.5rem;
-            }
-            .login-section hr {
-                border-top: 4px solid;
-                border-color: var(--pg-secondary-color);
-                max-width: 80%;
-                margin: 2em auto;
-            }
-
-            #card-content {
-                padding: 1em;
-            }
-
-            /*desktop view */
-            @media (min-width: 768px) {
-                #card-content {
-                    padding: 2em 4em;
-                }
-                .login-section .container {
-                    max-width: 40rem;
-                }
-            }
-
-            .reasons-list {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-                display: flex;
-                flex-direction: column;
-                gap: 1em;
-            }
-            .reasons-list li {
-                display: flex;
-                align-items: center;
-                gap: 1em;
-            }
-
-            #extra_register_input_marketing {
-                display: inline-grid;
-                transform: none;
-            }
-
-            .login-buttons {
-                display: flex;
-                flex-direction: column;
-                gap: 1em;
-                margin: 1em;
-            }
-            .login-buttons img {
-                width: 1.5em;
-                height: 1.5em;
-            }
-            .login-buttons button {
-                border-radius: 15px;
-                padding: .5rem 2rem;
-                display: flex;
-                align-items: center;
-                justify-self: center;
-                width: 100%;
-                justify-content: center;
-            }
-            .google-button {
-                background-color: var(--pg-brand-color);
-                color: white;
-            }
-            .email-button {
-                background-color: white;
-                color: var(--pg-brand-color);
-                border: 1px solid var(--pg-brand-color);
-            }
-            .loginform {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                text-align: start;
-                gap: .7em;
-            }
-            .loginform label {
-               width: 100%;
-            }
-            .loginform input{
-                display: block;
-                width: 100%;
-                color: black;
-            }
-            .login-username, .login-password {
-                width: 100%;
-            }
-            .form-error {
-                display: none;
-                font-size: 1rem;
-                font-weight: 700;
-            }
-
-            .form-error, .is-invalid-label {
-                color: #cc4b37;
-            }
-            meter{
-                width:100%;
-            }
-            /* Webkit based browsers */
-            meter[value="1"]::-webkit-meter-optimum-value { background: red; }
-            meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
-            meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
-            meter[value="4"]::-webkit-meter-optimum-value { background: green; }
-
-            /* Gecko based browsers */
-            meter[value="1"]::-moz-meter-bar { background: red; }
-            meter[value="2"]::-moz-meter-bar { background: yellow; }
-            meter[value="3"]::-moz-meter-bar { background: orange; }
-            meter[value="4"]::-moz-meter-bar { background: green; }
-
-            .login-modal {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: 100%;
-                height: 100%;
-                background-color: rgba(0,0,0,0.5);
-                align-items: center;
-                justify-content: center;
-                z-index: 1000;
-                display: none;
-            }
-            .login-modal-content {
-                background-color: #fff;
-                padding: 20px;
-                border-radius: 5px;
-                max-width: 500px;
-                width: 90%;
-            }
-        </style>
-        <?php
     }
 
     /**
@@ -257,7 +175,7 @@ class PG_Login extends PG_Public_Page {
         </script>
         <script type="module">
           import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js'
-          import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, getAdditionalUserInfo } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
+          import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithEmailAndPassword, getAdditionalUserInfo, sendPasswordResetEmail } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
 
           const firebaseConfig = {
             apiKey: "AIzaSyCJEy7tJL_YSQPYH4H92_n0kQBhmYcj1l8",
@@ -359,39 +277,202 @@ class PG_Login extends PG_Public_Page {
               submitButtenElement.setAttribute('disabled', '')
 
               isSubmitting = true
-              const auth = getAuth(app)
-              signInWithEmailAndPassword(auth, email_field.value, password_field.value)
-              .then((userCredential) => {
-                // Signed in
-                const user = userCredential.user;
-                fetch(`${rest_url}/session/login`, {
-                  method: 'POST',
-                  body: JSON.stringify(userCredential)
-                })
-                .then(() => {
-                  location.href = '/dashboard'
+
+              // First try WordPress authentication
+              fetch(`${window.pg_global.root}pg/login/wp-login`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  email: email_field.value,
+                  password: password_field.value
                 })
               })
-              .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                //toggle the spinner and button
-                submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
-                submitButtenElement.classList.remove('disabled')
-                submitButtenElement.removeAttribute('disabled')
-                if ( errorCode === 'auth/wrong-password' ) {
-                  passwordError.style.display = 'block'
-                  passwordError.innerText = '<?php echo esc_html__( 'Invalid password. Please try again.', 'prayer-global-porch' ) ?>'
-                } else if ( errorCode === 'auth/user-not-found' ) {
-                  emailError.style.display = 'block'
-                  emailError.innerText = '<?php echo esc_html__( 'Email not found. Please register.', 'prayer-global-porch' ) ?>'
-                } else {
-                  document.getElementById('login-error').innerText = errorMessage
-                  document.getElementById('login-error').style.display = 'block'
+              .then((response) => {
+                if (!response.ok) {
+                  return Promise.reject(response);
                 }
-                isSubmitting = false
+                return response.json();
+              })
+              .then((data) => {
+                // WordPress authentication successful
+                console.log("WordPress authentication successful");
+                location.href = '/dashboard';
+              })
+              .catch((error) => {
+                // If WordPress auth fails, try Firebase (legacy users)
+                console.log("WordPress authentication failed, trying Firebase...");
+
+                let wordpressErrorMessage = "";
+
+                // Try to parse the error response if it exists
+                if (error.json) {
+                  error.json().then((errorData) => {
+                    console.log("WordPress auth error:", errorData);
+                    wordpressErrorMessage = errorData.message;
+                    // If the error is from WordPress auth, we'll continue to Firebase fallback
+                    // but store the error in case Firebase also fails
+                  }).catch(() => {
+                    // JSON parsing error, continue to Firebase silently
+                  });
+                }
+
+                const auth = getAuth(app)
+                signInWithEmailAndPassword(auth, email_field.value, password_field.value)
+                .then((userCredential) => {
+                  // Signed in with Firebase
+                  console.log("Firebase authentication successful (legacy account)");
+                  const user = userCredential.user;
+                  fetch(`${rest_url}/session/login`, {
+                    method: 'POST',
+                    body: JSON.stringify(userCredential)
+                  })
+                  .then(() => {
+                    location.href = '/dashboard'
+                  })
+                  .catch((fetchError) => {
+                    // Failed to make the login request after Firebase auth
+                    console.error("Firebase token validation error:", fetchError);
+                    handleAuthError({ code: 'fetch_error', message: 'Error validating credentials' });
+                  });
+                })
+                .catch((firebaseError) => {
+                  // Both WordPress and Firebase auth failed
+                  console.error("All authentication methods failed:", firebaseError);
+
+                  // If WordPress returned an "invalid_credentials" error, prioritize that message
+                  // instead of showing the Firebase-specific error
+                  if (wordpressErrorMessage && wordpressErrorMessage.includes("Invalid email or password")) {
+                    handleAuthError({
+                      code: 'invalid_credentials',
+                      message: wordpressErrorMessage || 'Invalid email or password'
+                    });
+                  } else {
+                    handleAuthError(firebaseError);
+                  }
+                });
               });
             })
+
+            // Helper function to handle authentication errors
+            function handleAuthError(error) {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+
+              // Toggle the spinner and button
+              document.querySelector('#login-submit .loading-spinner').classList.remove('active')
+              document.querySelector('#login-submit').classList.remove('disabled')
+              document.querySelector('#login-submit').removeAttribute('disabled')
+              isSubmitting = false;
+
+              // Show specific error messages based on the error code
+              if (errorCode === 'auth/wrong-password' || errorCode === 'invalid_credentials') {
+                // Use a generic error message for both WordPress and Firebase invalid credential errors
+                document.getElementById('login-error').innerText = '<?php echo esc_html__( 'Invalid email or password. Please try again.', 'prayer-global-porch' ) ?>'
+                document.getElementById('login-error').style.display = 'block'
+              } else if (errorCode === 'auth/user-not-found') {
+                emailError.style.display = 'block'
+                emailError.innerText = '<?php echo esc_html__( 'Email not found. Please register.', 'prayer-global-porch' ) ?>'
+              } else {
+                document.getElementById('login-error').innerText = errorMessage || '<?php echo esc_html__( 'Authentication failed. Please try again or register for an account.', 'prayer-global-porch' ) ?>'
+                document.getElementById('login-error').style.display = 'block'
+              }
+            }
+
+            // Password reset handlers
+            const forgotPasswordLink = document.getElementById('forgot-password-link');
+            const resetPasswordContainer = document.getElementById('reset-password-form');
+            const resetPasswordForm = document.getElementById('reset-password-form-element');
+            const resetPasswordBackButton = document.getElementById('reset-password-back');
+            const resetPasswordSubmit = document.getElementById('reset-password-submit');
+            const resetEmail = document.getElementById('reset-email');
+            const resetEmailError = document.getElementById('reset-email-error');
+            const resetSuccessMessage = document.getElementById('reset-success-message');
+            
+            if (forgotPasswordLink) {
+              forgotPasswordLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.getElementById('login-email-password-form').style.display = 'none';
+                document.getElementById('login-buttons').style.display = 'none';
+                resetPasswordContainer.style.display = 'block';
+              });
+            }
+            
+            if (resetPasswordBackButton) {
+              resetPasswordBackButton.addEventListener('click', () => {
+                resetPasswordContainer.style.display = 'none';
+                document.getElementById('login-email-password-form').style.display = 'block';
+                resetSuccessMessage.style.display = 'none';
+                resetEmailError.style.display = 'none';
+              });
+            }
+            
+            if (resetPasswordForm) {
+              resetPasswordForm.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                if (resetEmail.value === '') {
+                  resetEmailError.style.display = 'block';
+                  resetEmailError.innerText = '<?php echo esc_html__( 'Email is required', 'prayer-global-porch' ) ?>';
+                  return;
+                }
+                
+                resetPasswordSubmit.querySelector('.loading-spinner').classList.add('active');
+                resetPasswordSubmit.classList.add('disabled');
+                resetPasswordSubmit.setAttribute('disabled', '');
+                resetEmailError.style.display = 'none';
+                
+                // Try WordPress password reset first
+                fetch(`${window.pg_global.root}pg/login/reset-password`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    email: resetEmail.value
+                  })
+                })
+                .then(response => {
+                  if (!response.ok) {
+                    return Promise.reject(response);
+                  }
+                  return response.json();
+                })
+                .then(data => {
+                  // WordPress reset successful
+                  console.log("WordPress password reset email sent");
+                  resetSuccessMessage.style.display = 'block';
+                  resetPasswordSubmit.querySelector('.loading-spinner').classList.remove('active');
+                  resetPasswordSubmit.classList.remove('disabled');
+                  resetPasswordSubmit.removeAttribute('disabled');
+                })
+                .catch(error => {
+                  // If WordPress reset fails, try Firebase (legacy users)
+                  console.log("WordPress reset failed, trying Firebase...");
+                  
+                  const auth = getAuth(app);
+                  sendPasswordResetEmail(auth, resetEmail.value)
+                    .then(() => {
+                      // Firebase reset email sent
+                      console.log("Firebase password reset email sent");
+                      resetSuccessMessage.style.display = 'block';
+                    })
+                    .catch((firebaseError) => {
+                      // Both reset methods failed
+                      console.error("All password reset methods failed:", firebaseError);
+                      
+                      resetEmailError.innerText = '<?php echo esc_html__( 'No account found with that email address', 'prayer-global-porch' ) ?>';
+                      resetEmailError.style.display = 'block';
+                    })
+                    .finally(() => {
+                      resetPasswordSubmit.querySelector('.loading-spinner').classList.remove('active');
+                      resetPasswordSubmit.classList.remove('disabled');
+                      resetPasswordSubmit.removeAttribute('disabled');
+                    });
+                });
+              });
+            }
           }
         </script>
         <?php
@@ -525,10 +606,43 @@ class PG_Login extends PG_Public_Page {
                                 </div>
                             </div>
                         </div>
+                        
+                        <!-- Password Reset Form -->
+                        <div id="reset-password-form">
+                            <button class="button btn btn-primary" id="reset-password-back">
+                                <?php esc_html_e( 'Back to Login', 'prayer-global-porch' ); ?>
+                            </button>
+                            <h4><?php esc_html_e( 'Reset Password', 'prayer-global-porch' ); ?></h4>
+                            <p><?php esc_html_e( 'Enter your email address and we\'ll send you a link to reset your password.', 'prayer-global-porch' ); ?></p>
+                            <form id="reset-password-form-element" class="loginform" action="" method="POST" data-abide>
+                                <div>
+                                    <label for="reset-email">
+                                        <?php esc_html_e( 'Email', 'prayer-global-porch' ) ?>
+                                        <input class="input" type="email" name="reset-email" id="reset-email" value="" aria-errormessage="reset-email-error" required>
+                                    </label>
+                                    <span class="form-error" id="reset-email-error">
+                                        <?php esc_html_e( 'Please enter a valid email address', 'prayer-global-porch' ) ?>
+                                    </span>
+                                </div>
+                                <div>
+                                    <button class="btn w-100 btn-secondary" id="reset-password-submit">
+                                        <?php esc_html_e( 'Send Reset Link', 'prayer-global-porch' ) ?>
+                                        <span class="loading-spinner"></span>
+                                    </button>
+                                </div>
+                            </form>
+                            <div class="reset-success-message" id="reset-success-message">
+                                <?php esc_html_e( 'Password reset link has been sent to your email address.', 'prayer-global-porch' ) ?>
+                            </div>
+                        </div>
+                        
                         <div class="login-links">
                             <p>
                                 <?php echo esc_html__( 'Don\'t have an account?', 'prayer-global-porch' ) ?>
                                 <a href="<?php echo esc_url( $register_url ) ?>"><?php echo esc_html__( 'Register', 'prayer-global-porch' ) ?></a>
+                            </p>
+                            <p>
+                                <a href="#" id="forgot-password-link"><?php echo esc_html__( 'Forgot Password?', 'prayer-global-porch' ) ?></a>
                             </p>
                         </div>
                     </div>

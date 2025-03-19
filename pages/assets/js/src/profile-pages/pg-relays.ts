@@ -82,7 +82,10 @@ export class PgRelays extends OpenElement {
 
   render() {
     return html`
-      <pg-header title=${this.translations.prayer_relays}></pg-header>
+      <pg-header
+        backUrl="/dashboard"
+        title=${this.translations.prayer_relays}
+      ></pg-header>
 
       <div class="white-bg page px-3">
         <div class="pg-container stack-md" data-small data-stretch>

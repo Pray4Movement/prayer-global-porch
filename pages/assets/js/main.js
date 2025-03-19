@@ -16,12 +16,11 @@ window.addEventListener("DOMContentLoaded", function () {
   var scrollWindow = function () {
     let wasDarkNav = false;
     $(window).scroll(function () {
-      var $w = $(this),
-        st = $w.scrollTop(),
+      var st = window.scrollY,
         navbar = $(".pg-navbar"),
         sd = $(".js-scroll-wrap");
 
-      if (st > 150) {
+      if (st > 300) {
         if (!navbar.hasClass("scrolled")) {
           navbar.addClass("scrolled");
         }

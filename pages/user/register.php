@@ -16,6 +16,10 @@ class PG_Register extends PG_Public_Page {
         if ( !$current_page_path_matches ) {
             return;
         }
+        if ( is_user_logged_in() ){
+            wp_redirect( home_url( '/dashboard' ) );
+            exit;
+        }
         /**
          * Register custom hooks here
          */
@@ -60,57 +64,47 @@ class PG_Register extends PG_Public_Page {
         }
 
         try {
-            // Get Firebase credentials from WordPress options
-            $firebase_credentials = get_option( 'pg_firebase_credentials' );
-            if ( empty( $firebase_credentials ) ){
-                return new WP_Error( 'firebase_error', 'Firebase credentials not configured', [ 'status' => 500 ] );
+            // Check if user already exists
+            if ( email_exists( $body->email ) ) {
+                return new WP_Error( 'user_exists', 'A user with this email already exists', [ 'status' => 400 ] );
             }
 
-            // Initialize Firebase Admin SDK
-            $factory = ( new Factory() )
-                ->withServiceAccount( $firebase_credentials );
-
-            $auth = $factory->createAuth();
-
-            // Create user with email and password
-            $user_properties = [
-                'email' => $body->email,
-                'password' => $body->password,
-                'displayName' => $body->name ?? $body->email,
-                'emailVerified' => false,
-            ];
-
-            $created_user = $auth->createUser( $user_properties );
-
-            // Send email verification
-            $auth->sendEmailVerificationLink( $created_user->email );
-
             // Create WordPress user
-            $payload = [
-                'user_id' => $created_user->uid,
-                'email' => $created_user->email,
-                'name' => $created_user->displayName, //phpcs:ignore
-                'firebase' => [
-                    'identities' => $created_user->providerData, //phpcs:ignore
-                    'sign_in_provider' => 'password'
-                ]
-            ];
+            $user_id = wp_create_user(
+                sanitize_user( $body->email ),
+                $body->password,
+                sanitize_email( $body->email )
+            );
 
-            $user_manager = new DT_Login_User_Manager( $payload );
-            $response = $user_manager->login();
+            if ( is_wp_error( $user_id ) ) {
+                return new WP_Error( 'registration_failed', $user_id->get_error_message(), [ 'status' => 400 ] );
+            }
 
+            // Set user display name
+            wp_update_user( [
+                'ID' => $user_id,
+                'display_name' => $body->name ?? $body->email,
+                'first_name' => $body->name ?? '',
+            ] );
+
+            // Log user in
+            wp_set_auth_cookie( $user_id, true );
+
+            // Process marketing preference from extra_data
             if ( isset( $body->extra_data ) ) {
                 do_action( 'dt_sso_login_extra_fields', (array) $body->extra_data, (array) $body );
             }
 
-            if ( is_wp_error( $response ) ) {
-                return $response;
-            }
+            // Send verification email (optional)
+            // TODO: Implement email verification if needed
 
             return new WP_REST_Response([
                 'status' => 200,
-                'message' => 'Registration successful. Please check your email to verify your account.',
-                'data' => $response
+                'message' => 'Registration successful.',
+                'data' => [
+                    'user_id' => $user_id,
+                    'email' => $body->email
+                ]
             ]);
 
         } catch ( \Exception $e ) {
@@ -122,6 +116,7 @@ class PG_Register extends PG_Public_Page {
         wp_enqueue_script( 'pass-strength', 'https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js', [], '4.2.0', true );
         wp_enqueue_script( 'user-mobile-login', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-mobile-login.js', [], fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-mobile-login.js' ), [ 'strategy' => 'defer' ] );
         wp_enqueue_script( 'cloudflare-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], 'v0', [ 'strategy' => 'defer' ] );
+        wp_enqueue_style( 'pg-register-style', plugin_dir_url( __FILE__ ) . 'login.css', array(), filemtime( plugin_dir_path( __FILE__ ) . 'login.css' ) );
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -132,6 +127,7 @@ class PG_Register extends PG_Public_Page {
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
+        $allowed_css[] = 'pg-register-style';
         return $allowed_css;
     }
 
@@ -146,184 +142,6 @@ class PG_Register extends PG_Public_Page {
      */
     public function header_style(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
-        ?>
-        <style>
-            .center:not(.absolute) {
-                box-sizing: content-box;
-                margin-left: auto;
-                margin-right: auto;
-                display:flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            .separator {
-                display: flex;
-                align-items: center;
-                text-align: center;
-                margin: 0 2em;
-            }
-            .separator::before,
-            .separator::after {
-                content: '';
-                flex: 1;
-                border-bottom: 1px solid #000;
-            }
-            .separator:not(:empty)::before {
-                margin-right: .5em;
-            }
-            .separator:not(:empty)::after {
-                margin-left: .5em;
-            }
-
-            .login-section {
-                background-color: var(--pg-brand-color);
-                min-height: 100vh;
-                display: flex;
-                flex-direction: column;
-                max-width: 100vw;
-                padding: 2em 0 5em 0;
-                margin: 0;
-            }
-            .login-section .container {
-                max-width: calc(min(25rem, 100%));
-                padding: 0;
-            }
-            .card {
-                background-color: white;
-                border-radius: 10px;
-            }
-            .login-register-links {
-                width: 100%;
-                display: flex;
-                justify-content: space-evenly;
-                align-items: center;
-                margin: 1em 0;
-            }
-            .login-register-links a.link-active {
-                background-color: white;
-                color: var(--pg-brand-color);
-            }
-            .login-register-links a {
-                background-color: var(--pg-brand-color);
-                cursor: pointer;
-                text-decoration: none;
-                color: white;
-                border: 1px solid white;
-                border-radius: 10px;
-                padding: .5rem 1.5rem;
-            }
-            .login-section hr {
-                border-top: 4px solid;
-                border-color: var(--pg-secondary-color);
-                max-width: 80%;
-                margin: 2em auto;
-            }
-
-            #card-content {
-                padding: 1em;
-            }
-
-            /*desktop view */
-            @media (min-width: 768px) {
-                #card-content {
-                    padding: 2em 4em;
-                }
-                .login-section .container {
-                    max-width: 40rem;
-                }
-            }
-
-            .reasons-list {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-                display: flex;
-                flex-direction: column;
-                gap: 1em;
-            }
-            .reasons-list li {
-                display: flex;
-                align-items: center;
-                gap: 1em;
-            }
-
-            #extra_register_input_marketing {
-                display: inline-grid;
-                transform: none;
-            }
-
-            #login-buttons {
-                display: flex;
-                flex-direction: column;
-                gap: 1em;
-                margin: 1em;
-            }
-            #login-buttons img {
-                width: 1.5em;
-                height: 1.5em;
-            }
-            #login-buttons button {
-                border-radius: 15px;
-                padding: .5rem 2rem;
-                display: flex;
-                align-items: center;
-                justify-self: center;
-                width: 100%;
-                justify-content: center;
-            }
-            .google-button {
-                background-color: var(--pg-brand-color);
-                color: white;
-            }
-            .email-button {
-                background-color: white;
-                color: var(--pg-brand-color);
-                border: 1px solid var(--pg-brand-color);
-            }
-            #loginform {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                text-align: start;
-                gap: .7em;
-            }
-            #loginform input{
-                display: block;
-                width: 100%;
-                border: 2px solid var(--pg-grey);
-                border-radius: 10px;
-                padding: 5px 10px;
-                box-shadow: rgba(0,0,0,0.1) 0 3px 4px 1px;
-                color: black;
-            }
-            .login-username, .login-password {
-                width: 100%;
-            }
-            .form-error {
-                display: none;
-                font-size: 1rem;
-                font-weight: 700;
-            }
-
-            .form-error, .is-invalid-label {
-                color: #cc4b37;
-            }
-            meter{
-                width:100%;
-            }
-            /* Webkit based browsers */
-            meter[value="1"]::-webkit-meter-optimum-value { background: red; }
-            meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
-            meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
-            meter[value="4"]::-webkit-meter-optimum-value { background: green; }
-
-            /* Gecko based browsers */
-            meter[value="1"]::-moz-meter-bar { background: red; }
-            meter[value="2"]::-moz-meter-bar { background: yellow; }
-            meter[value="3"]::-moz-meter-bar { background: orange; }
-            meter[value="4"]::-moz-meter-bar { background: green; }
-        </style>
-        <?php
     }
 
     /**
@@ -345,7 +163,7 @@ class PG_Register extends PG_Public_Page {
         </script>
         <script type="module">
           import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js'
-          import { getAuth, GoogleAuthProvider, signInWithPopup, createUserWithEmailAndPassword, sendEmailVerification } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
+          import { getAuth, GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
 
           const firebaseConfig = {
             apiKey: "AIzaSyCJEy7tJL_YSQPYH4H92_n0kQBhmYcj1l8",
@@ -363,7 +181,6 @@ class PG_Register extends PG_Public_Page {
 
           //handle sign in with Google
           document.getElementById('signin-google').addEventListener('click', () => {
-
             const auth = getAuth(app)
             const provider = new GoogleAuthProvider();
             signInWithPopup(auth, provider).then((userCredential) => {
@@ -383,137 +200,137 @@ class PG_Register extends PG_Public_Page {
             });
           })
 
-        document.getElementById('register-password').addEventListener('click', () => {
-          document.getElementById('register-email-password-form').style.display = 'block'
-          document.getElementById('login-buttons').style.display = 'none'
-        })
-        document.getElementById('register-email-password-form-back').addEventListener('click', () => {
-          document.getElementById('register-email-password-form').style.display = 'none'
-          document.getElementById('login-buttons').style.display = 'block'
-        })
-
-        const strength = {
-          0: "Worst",
-          1: "Bad",
-          2: "Weak",
-          3: "Good",
-          4: "Strong"
-        }
-        const minStrength = 1
-        let isSubmitting = false
-
-        const form = document.getElementById('loginform')
-        const password_field = document.getElementById('password');
-        const password2 = document.getElementById('password2');
-        const passwordStrengthError = document.getElementById('password-error-too-weak')
-        const passwordsDontMatchError = document.getElementById('password-error-2')
-        const meter = document.getElementById('password-strength-meter');
-
-        function getPasswordStrength(p) {
-          if (typeof zxcvbn !== 'function') {
-            return p.length >= 8 ? 3 : 0
-          }
-          return zxcvbn(p).score;
-        }
-
-        password_field.addEventListener('input', function() {
-          const password = password_field.value;
-          const password_strength = getPasswordStrength(password);
-          // Update the password strength meter
-          meter.value = password_strength
-
-          if ( password_strength >= minStrength ) {
-            passwordStrengthError.style.display = 'none'
-          }
-        });
-
-        form.addEventListener('submit', function(event) {
-          const password = password_field.value;
-          const password_strength = getPasswordStrength(password);
-
-          if ( password_strength < minStrength ) {
-            event.preventDefault()
-            passwordStrengthError.style.display = 'block'
-            return
-          }
-
-          if (password_field.value !== password2.value) {
-            event.preventDefault()
-            passwordsDontMatchError.style.display = 'block'
-            return
-          }
-
-          if (isSubmitting) {
-            event.preventDefault()
-            return
-          }
-          event.preventDefault()
-
-          const submitButtenElement = document.querySelector('#register-submit')
-          submitButtenElement.querySelector('.loading-spinner').classList.add('active')
-          submitButtenElement.classList.add('disabled')
-          submitButtenElement.setAttribute('disabled', '')
-
-          isSubmitting = true
-
-          const email = event.target.email?.value
-          if (email === '') {
-            event.preventDefault()
-            return
-          }
-          const pass = event.target.password?.value
-          if (pass.value === '') {
-            event.preventDefault()
-            return
-          }
-
-          const name = event.target.name?.value || email
-
-          // Get the Turnstile token
-          const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]').value;
-          if (!turnstileResponse) {
-            document.getElementById('login-error').innerText = '<?php echo esc_html__( 'Please complete the security check.', 'prayer-global-porch' ) ?>'
-            document.getElementById('login-error').style.display = 'block'
-            submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
-            submitButtenElement.classList.remove('disabled')
-            submitButtenElement.removeAttribute('disabled')
-            isSubmitting = false
-            return
-          }
-
-          // Send registration data to our endpoint
-          fetch(`${window.pg_global.root}pg/register/password`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: email,
-              password: pass,
-              name: name,
-              extra_data: {
-                marketing: document.getElementById('extra_register_input_marketing').checked || false,
-                turnstile_token: turnstileResponse
-              }
-            })
+          document.getElementById('register-password').addEventListener('click', () => {
+            document.getElementById('register-email-password-form').style.display = 'block'
+            document.getElementById('login-buttons').style.display = 'none'
           })
-          .then((response) => {
-            return response.ok ? response.json() : Promise.reject(response);
+          document.getElementById('register-email-password-form-back').addEventListener('click', () => {
+            document.getElementById('register-email-password-form').style.display = 'none'
+            document.getElementById('login-buttons').style.display = 'block'
           })
-          .then(() => {
-            location.href = '/dashboard'
-          })
-          .catch((response) => {
-            response.json().then((error) => {
-              document.getElementById('login-error').innerText = error.message
+
+          const strength = {
+            0: "Worst",
+            1: "Bad",
+            2: "Weak",
+            3: "Good",
+            4: "Strong"
+          }
+          const minStrength = 1
+          let isSubmitting = false
+
+          const form = document.getElementById('loginform')
+          const password_field = document.getElementById('password');
+          const password2 = document.getElementById('password2');
+          const passwordStrengthError = document.getElementById('password-error-too-weak')
+          const passwordsDontMatchError = document.getElementById('password-error-2')
+          const meter = document.getElementById('password-strength-meter');
+
+          function getPasswordStrength(p) {
+            if (typeof zxcvbn !== 'function') {
+              return p.length >= 8 ? 3 : 0
+            }
+            return zxcvbn(p).score;
+          }
+
+          password_field.addEventListener('input', function() {
+            const password = password_field.value;
+            const password_strength = getPasswordStrength(password);
+            // Update the password strength meter
+            meter.value = password_strength
+
+            if ( password_strength >= minStrength ) {
+              passwordStrengthError.style.display = 'none'
+            }
+          });
+
+          form.addEventListener('submit', function(event) {
+            const password = password_field.value;
+            const password_strength = getPasswordStrength(password);
+
+            if ( password_strength < minStrength ) {
+              event.preventDefault()
+              passwordStrengthError.style.display = 'block'
+              return
+            }
+
+            if (password_field.value !== password2.value) {
+              event.preventDefault()
+              passwordsDontMatchError.style.display = 'block'
+              return
+            }
+
+            if (isSubmitting) {
+              event.preventDefault()
+              return
+            }
+            event.preventDefault()
+
+            const submitButtenElement = document.querySelector('#register-submit')
+            submitButtenElement.querySelector('.loading-spinner').classList.add('active')
+            submitButtenElement.classList.add('disabled')
+            submitButtenElement.setAttribute('disabled', '')
+
+            isSubmitting = true
+
+            const email = event.target.email?.value
+            if (email === '') {
+              event.preventDefault()
+              return
+            }
+            const pass = event.target.password?.value
+            if (pass === '') {
+              event.preventDefault()
+              return
+            }
+
+            const name = event.target.name?.value || email
+
+            // Get the Turnstile token
+            const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]').value;
+            if (!turnstileResponse) {
+              document.getElementById('login-error').innerText = '<?php echo esc_html__( 'Please complete the security check.', 'prayer-global-porch' ) ?>'
               document.getElementById('login-error').style.display = 'block'
               submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
               submitButtenElement.classList.remove('disabled')
               submitButtenElement.removeAttribute('disabled')
               isSubmitting = false
+              return
+            }
+
+            // Send registration data to our endpoint
+            fetch(`${window.pg_global.root}pg/register/password`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({
+                email: email,
+                password: pass,
+                name: name,
+                extra_data: {
+                  marketing: document.getElementById('extra_register_input_marketing').checked || false,
+                  turnstile_token: turnstileResponse
+                }
+              })
             })
-          });
-        })
+            .then((response) => {
+              return response.ok ? response.json() : Promise.reject(response);
+            })
+            .then(() => {
+              location.href = '/dashboard'
+            })
+            .catch((response) => {
+              response.json().then((error) => {
+                document.getElementById('login-error').innerText = error.message
+                document.getElementById('login-error').style.display = 'block'
+                submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
+                submitButtenElement.classList.remove('disabled')
+                submitButtenElement.removeAttribute('disabled')
+                isSubmitting = false
+              })
+            });
+          })
         </script>
         <?php
     }
@@ -577,7 +394,7 @@ class PG_Register extends PG_Public_Page {
                                 </div>
                             </div>
                         </div>
-                        <div id="login-buttons">
+                        <div id="login-buttons" class="login-buttons">
                             <div>
                                 <button id="signin-google" class="google-button" data-provider-id="google.com">
                                             <span style="margin-right: 10px">
@@ -604,7 +421,7 @@ class PG_Register extends PG_Public_Page {
                             </button>
                             <div class="wp_register_form">
                                 <div>
-                                    <form id="loginform" action="" method="POST" data-abide>
+                                    <form id="loginform" class="loginform" action="" method="POST" data-abide>
                                         <!--name-->
                                         <div>
                                             <label for="name">

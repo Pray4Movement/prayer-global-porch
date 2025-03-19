@@ -10,7 +10,10 @@ export class PgActivity extends OpenElement {
 
   render() {
     return html`
-      <pg-header title=${this.translations.prayer_activity}></pg-header>
+      <pg-header
+        backUrl="/dashboard"
+        title=${this.translations.prayer_activity}
+      ></pg-header>
 
       <div class="brand-bg white page px-3">
         <div class="pg-container stack-md" data-grid data-small>
