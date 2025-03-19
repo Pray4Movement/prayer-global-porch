@@ -33,6 +33,26 @@ window.pg_js = {
   },
 };
 
+window.api_fetch = function (url, options = {}) {
+  const opts = {
+    method: "GET",
+    ...options,
+  };
+
+  if (!Object.prototype.hasOwnProperty.call(options, "headers")) {
+    opts.headers = {};
+  }
+
+  opts.headers["Content-Type"] = "application/json";
+  opts.headers["X-WP-Nonce"] = pg_global.nonce;
+
+  return fetch(url, opts)
+    .then((result) => {
+      return result;
+    })
+    .then((result) => result.json());
+};
+
 document.addEventListener("DOMContentLoaded", function () {
   window.schoolPride = function () {
     var end = Date.now() + 3 * 1000;
@@ -160,26 +180,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     return false;
   }
-
-  window.api_fetch = function (url, options = {}) {
-    const opts = {
-      method: "GET",
-      ...options,
-    };
-
-    if (!Object.prototype.hasOwnProperty.call(options, "headers")) {
-      opts.headers = {};
-    }
-
-    opts.headers["Content-Type"] = "application/json";
-    opts.headers["X-WP-Nonce"] = pg_global.nonce;
-
-    return fetch(url, opts)
-      .then((result) => {
-        return result;
-      })
-      .then((result) => result.json());
-  };
 
   /**
    * Adds leading zeros to a number to create a string that is length long.

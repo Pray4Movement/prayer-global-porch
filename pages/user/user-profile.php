@@ -429,6 +429,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         DT_Route::post( $namespace, 'relays/unhide', [ $this, 'unhide_relay' ] );
         DT_Route::post( $namespace, 'create_relay', [ $this, 'create_relay' ] );
         DT_Route::post( $namespace, 'edit_relay', [ $this, 'edit_relay' ] );
+        DT_Route::post( $namespace, 'link_anonymous_prayers', [ $this, 'link_anonymous_prayers' ] );
+        DT_Route::post( $namespace, 'save_location', [ $this, 'save_location' ] );
     }
 
     public function endpoint( WP_REST_Request $request ) {
@@ -446,8 +448,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 return $this->get_user_activity( $params['data'] );
             case 'ip_location':
                 return $this->get_ip_location( $params['data'] );
-            case 'link_anonymous_prayers':
-                return $this->link_anonymous_prayers( $params['data'] );
             default:
                 return $params;
         }
@@ -686,9 +686,17 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         return $result;
     }
 
-    public function link_anonymous_prayers( $data ) {
+    public function link_anonymous_prayers( WP_REST_Request $request ) {
 
-        if ( ! isset( $data['user_id'], $data['hash'] ) ) {
+        $user_id = get_current_user_id();
+
+        if ( !$user_id ) {
+            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
+        }
+
+        $data = $request->get_params();
+
+        if ( $data['hash'] ) {
             return new WP_Error( __METHOD__, 'user_id or hash missing', [ 'status' => 400, ] );
         }
 
@@ -716,6 +724,23 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'has_updates' => $has_updates,
             'number_of_updates' => $updates,
         ];
+    }
+
+    public function save_location( WP_REST_Request $request ) {
+        $user_id = get_current_user_id();
+
+        if ( !$user_id ) {
+            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
+        }
+
+        $params = $request->get_params();
+
+        $params = dt_recursive_sanitize_array( $params );
+
+
+        $this->update_user_meta( $params );
+
+        return true;
     }
 
     /**

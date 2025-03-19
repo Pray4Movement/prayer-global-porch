@@ -8,6 +8,18 @@ export class PgDashboard extends OpenElement {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
 
+  async connectedCallback() {
+    super.connectedCallback();
+
+    //if no location is saved on the user, get it from the IP and save it to the user
+    if ( !this.user.location_hash.length ) {
+      await this.getLocationFromIP();
+    }
+    //link anonymous prayers to the user
+    //@todo save the user id locacally so this happens automatically
+    await this.link_anonymous_prayers();
+  }
+
   render() {
     return html`
       <div class="pg-container page">
@@ -102,5 +114,70 @@ export class PgDashboard extends OpenElement {
         </div>
       </div>
     `;
+  }
+
+  private async getLocationFromIP() {
+    let user = this.user;
+    const saved_location = localStorage.getItem("user_location");
+    user.location = saved_location ? JSON.parse(saved_location) : null;
+    if (user.location?.hash) {
+      user.location_hash = user.location.hash;
+    }
+
+    if (
+      !user.location ||
+      (user.location.date_set &&
+        user.location.date_set <
+        Date.now() - 604800000) /*7 days in milliseconds*/
+      ) {
+        await window
+        window.api_fetch(`https://geo.prayer.global/json`, {
+          method: "GET",
+        })
+        .then((response:any) => {
+          if (response) {
+            const locationData = {
+              lat: response.location.latitude,
+              lng: response.location.longitude,
+              label: `${response.city?.names?.en}, ${response.country?.names?.en}`,
+              country: response.country?.names?.en,
+              date_set: Date.now(),
+              source: "ip",
+            };
+            
+            let pg_user_hash = localStorage.getItem("pg_user_hash");
+            if (!pg_user_hash || pg_user_hash === "undefined") {
+              pg_user_hash = window.crypto.randomUUID();
+              localStorage.setItem("pg_user_hash", pg_user_hash);
+            }
+            
+            // Add hash to location data before saving to localStorage
+            const savedData = {...locationData, location_hash: pg_user_hash};
+            localStorage.setItem("user_location", JSON.stringify(savedData));
+            
+            // Update the user's location
+            user.location = locationData;
+          }
+        });
+    }
+    window.api_fetch(`${window.pg_global.root}pg-api/v1/dashboard/save_location`, {
+      method: "POST",
+      body: JSON.stringify({
+        location_hash: this.user.location_hash,
+        location: this.user.location,
+      }),
+    });
+    this.user = user;
+    this.requestUpdate();
+  }
+
+  private async link_anonymous_prayers() {
+    const url = `${window.pg_global.root}pg-api/v1/dashboard/link_anonymous_prayers`;
+    window.api_fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        location_hash: this.user.location_hash,
+      }),
+    });
   }
 }
