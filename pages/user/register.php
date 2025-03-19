@@ -112,6 +112,7 @@ class PG_Register extends PG_Public_Page {
         wp_enqueue_script( 'pass-strength', 'https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js', [], '4.2.0', true );
         wp_enqueue_script( 'user-mobile-login', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-mobile-login.js', [], fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-mobile-login.js' ), [ 'strategy' => 'defer' ] );
         wp_enqueue_script( 'cloudflare-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], 'v0', [ 'strategy' => 'defer' ] );
+        wp_enqueue_style( 'pg-register-style', plugin_dir_url( __FILE__ ) . 'login.css', array(), filemtime( plugin_dir_path( __FILE__ ) . 'login.css' ) );
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -122,6 +123,7 @@ class PG_Register extends PG_Public_Page {
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
+        $allowed_css[] = 'pg-register-style';
         return $allowed_css;
     }
 
@@ -136,184 +138,7 @@ class PG_Register extends PG_Public_Page {
      */
     public function header_style(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
-        ?>
-        <style>
-            .center:not(.absolute) {
-                box-sizing: content-box;
-                margin-left: auto;
-                margin-right: auto;
-                display:flex;
-                flex-direction: column;
-                align-items: center;
-            }
-            .separator {
-                display: flex;
-                align-items: center;
-                text-align: center;
-                margin: 0 2em;
-            }
-            .separator::before,
-            .separator::after {
-                content: '';
-                flex: 1;
-                border-bottom: 1px solid #000;
-            }
-            .separator:not(:empty)::before {
-                margin-right: .5em;
-            }
-            .separator:not(:empty)::after {
-                margin-left: .5em;
-            }
-
-            .login-section {
-                background-color: var(--pg-brand-color);
-                min-height: 100vh;
-                display: flex;
-                flex-direction: column;
-                max-width: 100vw;
-                padding: 2em 0 5em 0;
-                margin: 0;
-            }
-            .login-section .container {
-                max-width: calc(min(25rem, 100%));
-                padding: 0;
-            }
-            .card {
-                background-color: white;
-                border-radius: 10px;
-            }
-            .login-register-links {
-                width: 100%;
-                display: flex;
-                justify-content: space-evenly;
-                align-items: center;
-                margin: 1em 0;
-            }
-            .login-register-links a.link-active {
-                background-color: white;
-                color: var(--pg-brand-color);
-            }
-            .login-register-links a {
-                background-color: var(--pg-brand-color);
-                cursor: pointer;
-                text-decoration: none;
-                color: white;
-                border: 1px solid white;
-                border-radius: 10px;
-                padding: .5rem 1.5rem;
-            }
-            .login-section hr {
-                border-top: 4px solid;
-                border-color: var(--pg-secondary-color);
-                max-width: 80%;
-                margin: 2em auto;
-            }
-
-            #card-content {
-                padding: 1em;
-            }
-
-            /*desktop view */
-            @media (min-width: 768px) {
-                #card-content {
-                    padding: 2em 4em;
-                }
-                .login-section .container {
-                    max-width: 40rem;
-                }
-            }
-
-            .reasons-list {
-                list-style: none;
-                padding: 0;
-                margin: 0;
-                display: flex;
-                flex-direction: column;
-                gap: 1em;
-            }
-            .reasons-list li {
-                display: flex;
-                align-items: center;
-                gap: 1em;
-            }
-
-            #extra_register_input_marketing {
-                display: inline-grid;
-                transform: none;
-            }
-
-            #login-buttons {
-                display: flex;
-                flex-direction: column;
-                gap: 1em;
-                margin: 1em;
-            }
-            #login-buttons img {
-                width: 1.5em;
-                height: 1.5em;
-            }
-            #login-buttons button {
-                border-radius: 15px;
-                padding: .5rem 2rem;
-                display: flex;
-                align-items: center;
-                justify-self: center;
-                width: 100%;
-                justify-content: center;
-            }
-            .google-button {
-                background-color: var(--pg-brand-color);
-                color: white;
-            }
-            .email-button {
-                background-color: white;
-                color: var(--pg-brand-color);
-                border: 1px solid var(--pg-brand-color);
-            }
-            #loginform {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                text-align: start;
-                gap: .7em;
-            }
-            #loginform input{
-                display: block;
-                width: 100%;
-                border: 2px solid var(--pg-grey);
-                border-radius: 10px;
-                padding: 5px 10px;
-                box-shadow: rgba(0,0,0,0.1) 0 3px 4px 1px;
-                color: black;
-            }
-            .login-username, .login-password {
-                width: 100%;
-            }
-            .form-error {
-                display: none;
-                font-size: 1rem;
-                font-weight: 700;
-            }
-
-            .form-error, .is-invalid-label {
-                color: #cc4b37;
-            }
-            meter{
-                width:100%;
-            }
-            /* Webkit based browsers */
-            meter[value="1"]::-webkit-meter-optimum-value { background: red; }
-            meter[value="2"]::-webkit-meter-optimum-value { background: yellow; }
-            meter[value="3"]::-webkit-meter-optimum-value { background: orange; }
-            meter[value="4"]::-webkit-meter-optimum-value { background: green; }
-
-            /* Gecko based browsers */
-            meter[value="1"]::-moz-meter-bar { background: red; }
-            meter[value="2"]::-moz-meter-bar { background: yellow; }
-            meter[value="3"]::-moz-meter-bar { background: orange; }
-            meter[value="4"]::-moz-meter-bar { background: green; }
-        </style>
-        <?php
+        
     }
 
     /**
@@ -566,7 +391,7 @@ class PG_Register extends PG_Public_Page {
                                 </div>
                             </div>
                         </div>
-                        <div id="login-buttons">
+                        <div id="login-buttons" class="login-buttons">
                             <div>
                                 <button id="signin-google" class="google-button" data-provider-id="google.com">
                                             <span style="margin-right: 10px">
@@ -593,7 +418,7 @@ class PG_Register extends PG_Public_Page {
                             </button>
                             <div class="wp_register_form">
                                 <div>
-                                    <form id="loginform" action="" method="POST" data-abide>
+                                    <form id="loginform" class="loginform" action="" method="POST" data-abide>
                                         <!--name-->
                                         <div>
                                             <label for="name">
