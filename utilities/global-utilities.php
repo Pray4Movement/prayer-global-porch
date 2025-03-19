@@ -1,5 +1,7 @@
 <?php
 
+use Google\Auth\HttpHandler\HttpHandlerFactory;
+
 function pg_enabled_translations(){
     $enabled_translations = [
         'en_US' => [
@@ -50,6 +52,44 @@ function pg_profile_icon() {
     }
 
     return "<i class='icon pg-profile'></i>";
+}
+function pg_streak_icon() {
+
+    if ( ! is_user_logged_in() ) {
+        return;
+    }
+
+    $user_stats = new User_Stats( get_current_user_id() );
+    $current_streak = $user_stats->current_streak_in_days();
+    $icon_url = plugins_url( 'pages/assets/images/icons/pg-streak.svg', __DIR__ );
+
+    ?>
+
+
+            <a href="/dashboard/activity" class="streak-link">
+                <div class="cluster gap-xsm">
+                    <div
+                        class="brand-light-bg icon-md streak-icon-highlight"
+                        style="mask:url('<?php echo esc_url( $icon_url ); ?>') no-repeat 0 0/100% 100%;"
+                    ></div>
+                    <span class="f-sm font-weight-bold">
+                        <?php echo esc_html( $current_streak ); ?>
+                    </span>
+                </div>
+            </a>
+
+            <script>
+                window.addEventListener('DOMContentLoaded', () => {
+                    const streakIcon = document.querySelector('.streak-icon-highlight');
+                    if (streakIcon) {
+                        streakIcon.addEventListener('animationend', () => {
+                            streakIcon.classList.remove('streak-icon-highlight');
+                        });
+                    }
+                });
+            </script>
+
+    <?php
 }
 
 function pg_get_relay_key( int $relay_id ) {

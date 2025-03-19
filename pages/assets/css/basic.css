@@ -1117,6 +1117,16 @@ input[type="radio"]:checked {
 .f-lg {
     font-size: 3.5rem;
 }
+.f-md {
+    font-size: 2rem;
+}
+.f-sm {
+    font-size: 1.5rem;
+}
+
+.gap-xsm {
+    gap: 0.25rem;
+}
 
 /* Page styles */
 .pg-accordion__toggle {
@@ -1412,6 +1422,13 @@ nav.navbar-home {
     --bs-navbar-brand-color: white;
     --bs-navbar-brand-hover-color: #b2dcff;
 }
+.navbar-dark .brand-light-bg {
+    background-color: white;
+}
+.navbar-dark .streak-link {
+    color: white;
+}
+
 .navbar-toggler {
     --bs-navbar-toggler-font-size: 30px;
     padding: 0;
@@ -2114,4 +2131,41 @@ input[type="password"],
 .time-counter {
     font-family: "Roboto Mono", monospace;
     font-weight: 300;
+}
+
+@keyframes streak-highlight {
+    0% {
+        background-position: 50% 40%;
+    }
+    25% {
+        background-position: 60% 55%;
+    }
+    50% {
+        background-position: 70% 45%;
+    }
+    90% {
+        background-position: 80% 50%;
+    }
+    100% {
+        background-position: 100% 50%;
+    }
+}
+
+.streak-icon-highlight {
+    background-image: radial-gradient(
+        circle,
+        #ffb858 0%,
+        #ea7519 5%,
+        #ffb858 10%,
+        #ea7519 15%,
+        #ffb858 20%,
+        #ea7519 25%,
+        #ffb858 30%,
+        #ea7519 35%,
+        #ffb858 40%,
+        white 80%,
+        white 100%
+    );
+    background-size: 1200% 1200%;
+    animation: streak-highlight 2.5s ease-out forwards;
 }
