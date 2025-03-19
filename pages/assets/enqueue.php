@@ -50,7 +50,9 @@ add_action( 'wp_enqueue_scripts', function (){
     wp_enqueue_script( 'jquery-waypoints', 'https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js', [ 'jquery' ], '4.0.1', [ 'strategy' => 'defer' ] );
     wp_enqueue_script( 'jquery-easing', 'https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js', [ 'jquery' ], '1.4.1', [ 'strategy' => 'defer' ] );
 
-    wp_enqueue_script( 'umami', 'https://umami.gospelambition.com/script.js', [], 1, [ 'strategy' => 'defer', ] );
+    if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ) {
+        wp_enqueue_script( 'umami', 'https://umami.gospelambition.com/script.js', [], 1, [ 'strategy' => 'defer', ] );
+    }
 
 
     wp_localize_script( 'global-functions', 'pg_global', [

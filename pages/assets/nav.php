@@ -48,9 +48,14 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
     <?php endif; ?>
 
     <div class="container py-3">
-        <button class="p-0 icon-button share-button two-rem d-flex" data-toggle="modal" data-target="#exampleModal">
-            <i class="icon pg-share"></i>
-        </button>
+        <div class="cluster">
+            <button class="p-0 icon-button share-button two-rem d-flex" data-toggle="modal" data-target="#exampleModal">
+                <i class="icon pg-share"></i>
+            </button>
+
+            <?php pg_streak_icon(); ?>
+
+        </div>
 
         <h5 class="border border-brand-light offcanvas-title px-3 rounded navbar__title"><a href="/" class="brand-light navbar__title-link">Prayer.Global</a></h5>
 

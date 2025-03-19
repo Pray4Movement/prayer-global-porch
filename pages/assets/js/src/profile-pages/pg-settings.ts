@@ -138,7 +138,10 @@ export class PgSettings extends OpenElement {
 
   render() {
     return html`
-      <pg-header title=${this.translations.profile}></pg-header>
+      <pg-header
+        backUrl="/dashboard"
+        title=${this.translations.profile}
+      ></pg-header>
 
       <div class="pg-container stack-md page">
         <section class="stack-sm">
