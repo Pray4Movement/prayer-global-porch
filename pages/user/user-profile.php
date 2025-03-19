@@ -69,7 +69,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
-        add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 10 );
+        add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 1000 );
         add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 5 ); // authorizes scripts
         add_action( 'wp_print_footer_scripts', [ $this, 'print_scripts' ], 5 ); // authorizes scripts
         add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
@@ -109,8 +109,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             $gravatar_url = get_avatar_url( $user->user_login );
             $user_stats = new User_Stats( $user->ID );
         }
-        wp_enqueue_script( 'user-profile-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-profile.js', [ 'jquery', 'components-js' ], filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-profile.js' ), true );
-        wp_localize_script( 'user-profile-js', 'jsObject', [
+        wp_localize_script( 'components-js', 'jsObject', [
             'parts' => $this->parts,
             'translations' => [
                 'start_praying' => esc_html( __( 'Start Praying', 'prayer-global-porch' ) ),
