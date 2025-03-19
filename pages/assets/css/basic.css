@@ -2144,13 +2144,13 @@ input[type="password"],
         background-position: 60% 55%;
     }
     50% {
-        background-position: 70% 45%;
+        background-position: 70% 75%;
     }
     90% {
-        background-position: 80% 50%;
+        background-position: 80% 80%;
     }
     100% {
-        background-position: 100% 50%;
+        background-position: 100% 100%;
     }
 }
 
@@ -2169,6 +2169,23 @@ input[type="password"],
         white 80%,
         white 100%
     );
-    background-size: 1200% 1200%;
+    background-size: 1000% 1000%;
     animation: streak-highlight 2.5s ease-out forwards;
+}
+
+.streak-icon-highlight[data-streak-secure="true"] {
+    background-image: radial-gradient(
+        circle,
+        #ffb858 0%,
+        #ea7519 10%,
+        #ffb858 20%,
+        #ea7519 30%,
+        #ffb858 40%,
+        #ea7519 50%,
+        #ffb858 60%,
+        #ea7519 70%,
+        #ffb858 80%,
+        #ea7519 90%,
+        #ffb858 100%
+    );
 }

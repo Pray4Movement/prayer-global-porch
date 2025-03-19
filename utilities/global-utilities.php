@@ -61,6 +61,7 @@ function pg_streak_icon() {
 
     $user_stats = new User_Stats( get_current_user_id() );
     $current_streak = $user_stats->current_streak_in_days();
+    $is_streak_secure = $user_stats->streak_secure();
     $icon_url = plugins_url( 'pages/assets/images/icons/pg-streak.svg', __DIR__ );
 
     ?>
@@ -70,6 +71,7 @@ function pg_streak_icon() {
                 <div class="cluster gap-xsm">
                     <div
                         class="brand-light-bg icon-md streak-icon-highlight"
+                        <?php echo $is_streak_secure ? 'data-streak-secure="true"' : ''; ?>
                         style="mask:url('<?php echo esc_url( $icon_url ); ?>') no-repeat 0 0/100% 100%;"
                     ></div>
                     <span class="f-sm font-weight-bold">
@@ -83,6 +85,9 @@ function pg_streak_icon() {
                     const streakIcon = document.querySelector('.streak-icon-highlight');
                     if (streakIcon) {
                         streakIcon.addEventListener('animationend', () => {
+                            if (streakIcon.dataset.streakSecure === "true") {
+                                return
+                            }
                             streakIcon.classList.remove('streak-icon-highlight');
                         });
                     }
