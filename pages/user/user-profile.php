@@ -92,9 +92,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
         return [
-            'jquery',
-            'jquery-ui',
-            'foundations-js',
             'porch-user-site-js',
             'components-js',
             'user-profile-js',
