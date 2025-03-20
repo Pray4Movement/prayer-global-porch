@@ -70,32 +70,19 @@ class Prayer_Global_Relays_Post_Type extends DT_Module_Base {
      */
     public function dt_set_roles_and_permissions( $expected_roles ){
 
-        if ( !isset( $expected_roles['multiplier'] ) ){
-            $expected_roles['multiplier'] = [
-
-                'label' => __( 'Multiplier', 'prayer-global-porch' ),
-                'description' => 'Interacts with Contacts and Groups',
-                'permissions' => []
-            ];
-        }
-
         if ( !isset( $expected_roles['prayer_warrior'] ) ){
             $expected_roles['prayer_warrior'] = [
 
-                'label' => __( 'Prayer Intercessor', 'prayer-global-porch' ),
+                'label' => __( 'Prayer Warrior', 'prayer-global-porch' ),
                 'description' => 'Interacts with Relays and Feedback',
                 'permissions' => []
             ];
         }
+        $expected_roles['prayer_warrior']['permissions']['access_disciple_tools'] = false;
 
-        // if the user can access contact they also can access this post type
-        foreach ( $expected_roles as $role => $role_value ){
-            if ( isset( $expected_roles[$role]['permissions']['access_contacts'] ) && $expected_roles[$role]['permissions']['access_contacts'] ){
-                $expected_roles[$role]['permissions']['access_' . $this->post_type ] = true;
-                $expected_roles[$role]['permissions']['create_' . $this->post_type] = true;
-                $expected_roles[$role]['permissions']['update_' . $this->post_type] = true;
-            }
-        }
+        $expected_roles['prayer_warrior']['permissions']['access_' . $this->post_type ] = true;
+        $expected_roles['prayer_warrior']['permissions']['create_' . $this->post_type] = true;
+        $expected_roles['prayer_warrior']['permissions']['update_' . $this->post_type] = true;
 
         if ( isset( $expected_roles['administrator'] ) ){
             $expected_roles['administrator']['permissions']['view_any_'.$this->post_type ] = true;

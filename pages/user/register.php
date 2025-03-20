@@ -85,7 +85,7 @@ class PG_Register extends PG_Public_Page {
                 'ID' => $user_id,
                 'display_name' => $body->name ?? $body->email,
                 'first_name' => $body->name ?? '',
-                'role' => 'multiplier'
+                'role' => 'prayer_warrior'
             ] );
 
             // Log user in
