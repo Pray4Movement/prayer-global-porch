@@ -293,12 +293,9 @@ class PG_Login extends PG_Public_Page {
                 if (!response.ok) {
                   return Promise.reject(response);
                 }
-                return response.json();
-              })
-              .then((data) => {
                 // WordPress authentication successful
                 console.log("WordPress authentication successful");
-                location.href = '/dashboard';
+                return response.json();
               })
               .catch((error) => {
                 // If WordPress auth fails, try Firebase (legacy users)
@@ -319,40 +316,63 @@ class PG_Login extends PG_Public_Page {
                 }
 
                 const auth = getAuth(app)
-                signInWithEmailAndPassword(auth, email_field.value, password_field.value)
-                .then((userCredential) => {
-                  // Signed in with Firebase
-                  console.log("Firebase authentication successful (legacy account)");
-                  const user = userCredential.user;
-                  fetch(`${rest_url}/session/login`, {
-                    method: 'POST',
-                    body: JSON.stringify(userCredential)
-                  })
-                  .then(() => {
-                    location.href = '/dashboard'
-                  })
-                  .catch((fetchError) => {
-                    // Failed to make the login request after Firebase auth
-                    console.error("Firebase token validation error:", fetchError);
-                    handleAuthError({ code: 'fetch_error', message: 'Error validating credentials' });
-                  });
-                })
-                .catch((firebaseError) => {
-                  // Both WordPress and Firebase auth failed
-                  console.error("All authentication methods failed:", firebaseError);
+                return signInWithEmailAndPassword(auth, email_field.value, password_field.value)
+                    .then((userCredential) => {
+                      // Signed in with Firebase
+                      console.log("Firebase authentication successful (legacy account)");
+                      const user = userCredential.user;
+                      return fetch(`${rest_url}/session/login`, {
+                            method: 'POST',
+                            body: JSON.stringify(userCredential)
+                          })
+                          .then(() => {
+                            return user
+                          })
+                          .catch((fetchError) => {
+                            // Failed to make the login request after Firebase auth
+                            console.error("Firebase token validation error:", fetchError);
+                            handleAuthError({ code: 'fetch_error', message: 'Error validating credentials' });
+                          });
+                    })
+                    .catch((firebaseError) => {
+                      // Both WordPress and Firebase auth failed
+                      console.error("All authentication methods failed:", firebaseError);
 
-                  // If WordPress returned an "invalid_credentials" error, prioritize that message
-                  // instead of showing the Firebase-specific error
-                  if (wordpressErrorMessage && wordpressErrorMessage.includes("Invalid email or password")) {
-                    handleAuthError({
-                      code: 'invalid_credentials',
-                      message: wordpressErrorMessage || 'Invalid email or password'
+                      // If WordPress returned an "invalid_credentials" error, prioritize that message
+                      // instead of showing the Firebase-specific error
+                      if (wordpressErrorMessage && wordpressErrorMessage.includes("Invalid email or password")) {
+                        handleAuthError({
+                          code: 'invalid_credentials',
+                          message: wordpressErrorMessage || 'Invalid email or password'
+                        });
+                      } else {
+                        handleAuthError(firebaseError);
+                      }
                     });
-                  } else {
-                    handleAuthError(firebaseError);
-                  }
-                });
-              });
+              })
+              .then( async (user) => {
+                //implemente onesignal user login
+
+                console.log(user)
+                if (window.isMedianApp) {
+                  await window.median.oneSignal.login(user.id);
+
+                  const info = await window.median.oneSignal.info();
+
+                  //implement sending onesignal info to api
+                  fetch(`${rest_url}/user/update-onesignal-data`, {
+                    method: 'POST',
+                    body: JSON.stringify({
+                      onesignal_user_id: info.userId,
+                      onesignal_external_id: info.externalUserId
+                    })
+                  })
+                }
+
+              })
+              .then((data) => {
+                location.href = '/dashboard';
+              })
             })
 
             // Helper function to handle authentication errors
@@ -389,7 +409,7 @@ class PG_Login extends PG_Public_Page {
             const resetEmail = document.getElementById('reset-email');
             const resetEmailError = document.getElementById('reset-email-error');
             const resetSuccessMessage = document.getElementById('reset-success-message');
-            
+
             if (forgotPasswordLink) {
               forgotPasswordLink.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -398,7 +418,7 @@ class PG_Login extends PG_Public_Page {
                 resetPasswordContainer.style.display = 'block';
               });
             }
-            
+
             if (resetPasswordBackButton) {
               resetPasswordBackButton.addEventListener('click', () => {
                 resetPasswordContainer.style.display = 'none';
@@ -407,22 +427,22 @@ class PG_Login extends PG_Public_Page {
                 resetEmailError.style.display = 'none';
               });
             }
-            
+
             if (resetPasswordForm) {
               resetPasswordForm.addEventListener('submit', function(event) {
                 event.preventDefault();
-                
+
                 if (resetEmail.value === '') {
                   resetEmailError.style.display = 'block';
                   resetEmailError.innerText = '<?php echo esc_html__( 'Email is required', 'prayer-global-porch' ) ?>';
                   return;
                 }
-                
+
                 resetPasswordSubmit.querySelector('.loading-spinner').classList.add('active');
                 resetPasswordSubmit.classList.add('disabled');
                 resetPasswordSubmit.setAttribute('disabled', '');
                 resetEmailError.style.display = 'none';
-                
+
                 // Try WordPress password reset first
                 fetch(`${window.pg_global.root}pg/login/reset-password`, {
                   method: 'POST',
@@ -450,7 +470,7 @@ class PG_Login extends PG_Public_Page {
                 .catch(error => {
                   // If WordPress reset fails, try Firebase (legacy users)
                   console.log("WordPress reset failed, trying Firebase...");
-                  
+
                   const auth = getAuth(app);
                   sendPasswordResetEmail(auth, resetEmail.value)
                     .then(() => {
@@ -461,7 +481,7 @@ class PG_Login extends PG_Public_Page {
                     .catch((firebaseError) => {
                       // Both reset methods failed
                       console.error("All password reset methods failed:", firebaseError);
-                      
+
                       resetEmailError.innerText = '<?php echo esc_html__( 'No account found with that email address', 'prayer-global-porch' ) ?>';
                       resetEmailError.style.display = 'block';
                     })
@@ -606,7 +626,7 @@ class PG_Login extends PG_Public_Page {
                                 </div>
                             </div>
                         </div>
-                        
+
                         <!-- Password Reset Form -->
                         <div id="reset-password-form">
                             <button class="button btn btn-primary" id="reset-password-back">
@@ -635,7 +655,7 @@ class PG_Login extends PG_Public_Page {
                                 <?php esc_html_e( 'Password reset link has been sent to your email address.', 'prayer-global-porch' ) ?>
                             </div>
                         </div>
-                        
+
                         <div class="login-links">
                             <p>
                                 <?php echo esc_html__( 'Don\'t have an account?', 'prayer-global-porch' ) ?>
