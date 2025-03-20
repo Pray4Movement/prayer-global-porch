@@ -69,7 +69,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
-        add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 10 );
+        add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 1000 );
         add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 5 ); // authorizes scripts
         add_action( 'wp_print_footer_scripts', [ $this, 'print_scripts' ], 5 ); // authorizes scripts
         add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
@@ -112,8 +112,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         dt_theme_enqueue_script( 'dt-components', 'dt-assets/build/components/index.js', [] );
         dt_theme_enqueue_style( 'dt-components-css', 'dt-assets/build/css/light.min.css', [] );
 
-        wp_enqueue_script( 'user-profile-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-profile.js', [ 'jquery', 'components-js' ], filemtime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-profile.js' ), true );
-        wp_localize_script( 'user-profile-js', 'jsObject', [
+        wp_localize_script( 'components-js', 'jsObject', [
             'parts' => $this->parts,
             'translations' => [
                 'start_praying' => esc_html( __( 'Start Praying', 'prayer-global-porch' ) ),
@@ -250,125 +249,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         <pg-router></pg-router>
 
-            <div class="modal fade" id="create-challenge-modal" tabindex="-1" aria-labelledby="createChallengeLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title fs-5" id="createChallengeLabel" data-visibility=""><?php echo esc_html__( 'Create Challenge', 'prayer-global-porch' ) ?></h5>
-                            <button type="button" class="d-flex brand-light" data-bs-dismiss="modal" aria-label="<?php echo esc_attr__( 'Close', 'prayer-global-porch' ) ?>">
-                                <i class="icon pg-close two-em"></i>
-                            </button>
-                        </div>
-                        <form action="" id="challenge-form">
-                            <div class="modal-body pb-0">
-                                <!-- Buttons group for choosing which type of challenge to start -->
-                                <div class="btn-group-vertical mb-3 w-100" role="group" aria-label="<?php esc_attr( __( 'Choose type of challenge', 'prayer-global-porch' ) ) ?>">
-                                    <input type="radio" class="btn-check ongoing-challenge-button" name="challenge-type" id="ongoing_challenge" autocomplete="off" required>
-                                    <label class="btn btn-small btn-outline-secondary challenge-type" for="ongoing_challenge" role="button"><?php echo esc_html__( 'On-going Prayer Relay', 'prayer-global-porch' ) ?></label>
-                                    <input type="radio" class="btn-check timed-challenge-button" name="challenge-type" id="timed_challenge" autocomplete="off" required/>
-                                    <label class="btn btn-small btn-outline-secondary challenge-type" for="timed_challenge" role="button"><?php echo esc_html__( 'Timed Prayer Relay', 'prayer-global-porch' ) ?></label>
-                                </div>
-
-                                <input type="hidden" id="challenge-visibility">
-                                <input type="hidden" id="challenge-modal-action" value="create">
-                                <input type="hidden" id="challenge-post-id">
-
-                                <!-- Form for inputs to go into -->
-                                <div class="mb-3 challenge-title-group">
-                                    <label for="challenge-title" class="form-label"><?php echo esc_html__( 'Challenge Title', 'prayer-global-porch' ) ?></label>
-                                    <input class="form-control" type="text" id="challenge-title" placeholder="<?php esc_attr( __( 'Give your challenge a unique name', 'prayer-global-porch' ) ) ?>" required>
-                                </div>
-                                <div class="mb-3 challenge-start-date-group">
-                                    <label for="challenge-start-date" class="form-label"><?php echo esc_html__( 'Challenge Start Date', 'prayer-global-porch' ) ?></label><button type="button" class="btn btn-xsmall btn-outline-secondary ms-3" id="set-challenge-start-to-now"><?php echo esc_html__( 'Now', 'prayer-global-porch' ) ?></button>
-                                    <div class="d-flex">
-                                        <input class="form-control" type="date" id="challenge-start-date" placeholder="<?php esc_attr( __( 'Start Date', 'prayer-global-porch' ) ) ?>" required>
-                                        <input class="form-control" type="time" id="challenge-start-time" placeholder="<?php esc_attr( __( 'Start Time', 'prayer-global-porch' ) ) ?>" required>
-                                    </div>
-                                </div>
-                                <div class="mb-3 challenge-end-date-group">
-                                    <label for="challenge-end-date" class="form-label"><?php echo esc_html__( 'Challenge End Date', 'prayer-global-porch' ) ?></label>
-                                    <div class="d-flex">
-                                        <input class="form-control" type="date" id="challenge-end-date" placeholder="<?php esc_attr( __( 'End Date', 'prayer-global-porch' ) ) ?>">
-                                        <input class="form-control" type="time" id="challenge-end-time" placeholder="<?php esc_attr( __( 'End Time', 'prayer-global-porch' ) ) ?>">
-                                    </div>
-                                    <div class="text-danger form-text" id="challenge-help-text"></div>
-                                </div>
-                                <div class="challenge-single-lap-group">
-                                    <label for="challenge-single-lap" class="form-check-label"><?php echo esc_html__( 'Single Lap', 'prayer-global-porch' ) ?></label>
-                                    <input type="checkbox" value="" class="form-check-input" id="challenge-single-lap">
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <span class="loading-spinner challenge-loading"></span>
-                                <button class="btn btn-small btn-outline-primary cancel-new-challenge-button" data-bs-dismiss="modal" type="button"><?php echo esc_html__( 'Cancel', 'prayer-global-porch' ) ?></button>
-                                <button class="btn btn-small btn-primary create-new-challenge-button"><?php echo esc_html__( 'Create', 'prayer-global-porch' ) ?></button>
-                                <button class="btn btn-small btn-primary edit-challenge-button"><?php echo esc_html__( 'Edit', 'prayer-global-porch' ) ?></button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="modal fade" id="user-data-report" tabindex="-1" aria-labelledby="userDataReportModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                        <h5 class="modal-title fs-5" id="userDataReportModalLabel"><?php echo esc_html__( 'Data Report', 'prayer-global-porch' ) ?></h5>
-                            <button type="button" class="d-flex brand-light" data-bs-dismiss="modal" aria-label="Close">
-                                <i class="icon pg-close two-em"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="modal fade" id="erase-user-account-modal" tabindex="-1" aria-labelledby="eraseUserModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title fs-5" id="eraseUserModalLabel"><?php echo esc_html__( 'Erase Account', 'prayer-global-porch' ) ?></h5>
-                            <button class="d-flex brand-light" data-bs-dismiss="modal" aria-label="<?php echo esc_attr__( 'Close', 'prayer-global-porch' ) ?>">
-                                <i class="icon pg-close two-em"></i>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <p>
-                                <?php echo esc_html( __( 'This will delete your account from Prayer.Global.', 'prayer-global-porch' ) ) ?>
-                            </p>
-                            <p>
-                                <?php echo esc_html( __( 'You will lose all progress and data assosciated with your account', 'prayer-global-porch' ) ) ?>
-                            </p>
-                            <p>
-                                <?php echo esc_html( __( 'If you are sure you want to proceed please type "delete" into the box below and click "I am sure" button', 'prayer-global-porch' ) ) ?>
-                            </p>
-                            <div class="mb-3">
-                                <label for="delete-confirmation" class="form-label"><?php echo esc_html__( 'Confirm delete', 'prayer-global-porch' ) ?></label>
-                                <input type="text" class="form-control text-danger" id="delete-confirmation" placeholder="<?php esc_attr( __( 'Delete', 'prayer-global-porch' ) ) ?>">
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="btn btn-primary" data-bs-dismiss="modal" type="button"><?php echo esc_html__( 'Cancel', 'prayer-global-porch' ) ?></button>
-                            <button class="btn btn-danger" id="confirm-user-account-delete" disabled><?php echo esc_html__( 'I am sure', 'prayer-global-porch' ) ?></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        <div class="offcanvas offcanvas-end" id="user-profile-details" data-bs-backdrop="true" data-bs-scroll="false">
-            <div class="offcanvas__header">
-                <button type="button" data-bs-dismiss="offcanvas" style="text-align: start">
-                    <i class="icon pg-chevron-right three-em"></i>
-                </button>
-            </div>
-            <div class="offcanvas__content px-0">
-                <div class="container">
-                    <div class="row justify-content-md-center">
-                        <div class="flow-medium" id="user-details-content"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <?php
     }
 
@@ -412,8 +292,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['action'] ) {
-            case 'activity':
-                return $this->get_user_activity( $params['data'] );
             case 'ip_location':
                 return $this->get_ip_location( $params['data'] );
             default:
@@ -546,19 +424,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         return true;
     }
 
-    public function get_user_activity( $data ) {
-        $user_id = get_current_user_id();
-
-        if ( !$user_id ) {
-            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
-        }
-
-        $offset = isset( $data['offset'] ) ? (int) $data['offset'] : 0;
-        $limit = isset( $data['limit'] ) ? (int) $data['limit'] : 50;
-
-        $activity = PG_Stacker::build_user_location_stats( null, $offset, $limit );
-        return $activity;
-    }
     public function get_ip_location( $data ) {
         $user_id = get_current_user_id();
 
