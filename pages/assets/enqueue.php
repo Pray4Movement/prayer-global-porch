@@ -33,7 +33,25 @@ function pg_enqueue_style( string $handle, string $rel_src, array $deps = array(
 }
 
 add_action( 'wp_enqueue_scripts', function (){
+    //only include scripts if the current page is a blank template
+    $url_path = dt_get_url_path( true );
+    $template = apply_filters( 'dt_templates_for_urls', [] );
+    if ( !empty( $url_path ) && ( !isset( $template[$url_path] ) || $template[$url_path] !== 'template-blank.php' ) ) {
+        return;
+    }
+    /**
+     * Enqueue styles
+     */
+    wp_enqueue_style( 'bootstrap-css', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css', [], '5.2.3' );
+    wp_enqueue_style( 'ionicons-css', 'https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css', [], '4.5.6' );
+    pg_enqueue_style( 'pg-styles-css', 'pages/assets/fonts/prayer-global/style.css', [ 'bootstrap-css' ] );
+    pg_enqueue_style( 'basic-css', 'pages/assets/css/basic.css', [ 'bootstrap-css' ] );
+    wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400', [], '1' );
 
+
+    /**
+     * Enqueue scripts
+     */
     wp_deregister_script( 'jquery' );
     wp_enqueue_script( 'jquery', 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js', [], '3.7.1', [ 'strategy' => 'defer' ] );
     wp_enqueue_script( 'canvas-confetti', 'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js', [], '1.5.1', [ 'strategy' => 'defer' ] );
@@ -127,17 +145,6 @@ add_filter( 'script_loader_tag', function ( $tag, $handle ){
     return $tag;
 }, 10, 2 );
 
-
-/**
- * Enqueue styles
- */
-add_action( 'wp_enqueue_scripts', function () {
-    wp_enqueue_style( 'bootstrap-css', 'https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.2/css/bootstrap.min.css', [], '5.2.3' );
-    wp_enqueue_style( 'ionicons-css', 'https://cdnjs.cloudflare.com/ajax/libs/ionicons/4.5.6/css/ionicons.min.css', [], '4.5.6' );
-    pg_enqueue_style( 'pg-styles-css', 'pages/assets/fonts/prayer-global/style.css', [ 'bootstrap-css' ] );
-    pg_enqueue_style( 'basic-css', 'pages/assets/css/basic.css', [ 'bootstrap-css' ] );
-    wp_enqueue_style( 'google-fonts', 'https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400', [], '1' );
-} );
 
 
 add_action( 'dt_magic_url_base_allowed_css', function ( $allowed_css ){
