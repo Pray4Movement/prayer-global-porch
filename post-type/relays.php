@@ -84,6 +84,14 @@ class Prayer_Global_Relays_Post_Type extends DT_Module_Base {
         $expected_roles['prayer_warrior']['permissions']['create_' . $this->post_type] = true;
         $expected_roles['prayer_warrior']['permissions']['update_' . $this->post_type] = true;
 
+        foreach ( $expected_roles as $role => $role_value ){
+            if ( isset( $expected_roles[$role]['permissions']['access_contacts'] ) && $expected_roles[$role]['permissions']['access_contacts'] ){
+                $expected_roles[$role]['permissions']['access_' . $this->post_type ] = true;
+                $expected_roles[$role]['permissions']['create_' . $this->post_type] = true;
+                $expected_roles[$role]['permissions']['update_' . $this->post_type] = true;
+            }
+        }
+
         if ( isset( $expected_roles['administrator'] ) ){
             $expected_roles['administrator']['permissions']['view_any_'.$this->post_type ] = true;
             $expected_roles['administrator']['permissions']['update_any_'.$this->post_type ] = true;
