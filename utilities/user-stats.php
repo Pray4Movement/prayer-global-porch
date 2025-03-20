@@ -41,6 +41,19 @@ class User_Stats {
             ", $this->user_id ) );
     }
 
+    public function streak_secure(): bool {
+        global $wpdb;
+
+        $last_prayed_timestamp = (int) $wpdb->get_var( $wpdb->prepare(
+            "SELECT MAX( r.timestamp ) as last_prayed
+                FROM $wpdb->dt_reports r
+                WHERE r.user_id = %s
+                AND r.post_type = 'pg_relays'
+            ", $this->user_id ) );
+
+        return time() - $last_prayed_timestamp < self::$day_in_seconds;
+    }
+
     /* Count Number of places prayed for */
     public function total_places_prayed(): int {
         global $wpdb;

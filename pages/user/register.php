@@ -80,11 +80,12 @@ class PG_Register extends PG_Public_Page {
                 return new WP_Error( 'registration_failed', $user_id->get_error_message(), [ 'status' => 400 ] );
             }
 
-            // Set user display name
+            // Set user display name and role
             wp_update_user( [
                 'ID' => $user_id,
                 'display_name' => $body->name ?? $body->email,
                 'first_name' => $body->name ?? '',
+                'role' => 'multiplier'
             ] );
 
             // Log user in

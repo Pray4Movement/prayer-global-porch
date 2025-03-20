@@ -2,6 +2,7 @@ export interface User {
   id: number;
   display_name: string;
   location: Location;
+  location_hash: string;
   user_email: string;
   send_general_emails: boolean;
 }
@@ -9,10 +10,13 @@ export interface User {
 export interface Location {
   source: string;
   label: string;
+  country: string;
   lat: number;
   lng: number;
-  level: string;
-  grid_id: number;
+  level?: string;
+  grid_id?: number;
+  date_set?: number;
+  hash?: string;
 }
 
 export interface Language {
