@@ -1,7 +1,6 @@
 document.addEventListener("DOMContentLoaded", async function () {
   if (window.isMedianApp) {
     if (pg_global.is_logged_in && !window.isMedianAppLoggedIn) {
-      window.isMedianAppLoggedIn = true;
       try {
         await window.median.oneSignal.login(pg_global.user.email);
 
@@ -20,6 +19,8 @@ document.addEventListener("DOMContentLoaded", async function () {
             onesignal_external_id: info.externalUserId,
             onesignal_subscription_id: info.subscriptionId,
           }),
+        }).then(() => {
+          window.isMedianAppLoggedIn = true;
         });
       } catch (error) {
         // silently fail here, but with a message to glitchtip of the error
