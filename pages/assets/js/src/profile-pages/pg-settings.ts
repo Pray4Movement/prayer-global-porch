@@ -131,8 +131,8 @@ export class PgSettings extends OpenElement {
 
   handleChangeLocation(event: Event) {
     const selectedLocation = (event.target as HTMLInputElement).value;
-    if ( selectedLocation[0] ) {
-      this.user.location = selectedLocation[0];
+    if (selectedLocation[0]) {
+      this.user.location = selectedLocation[0] as unknown as Location;
     }
   }
 
@@ -298,7 +298,6 @@ export class PgSettings extends OpenElement {
                   )}
               />
             </label>
-
 
             <label for="location">
               ${this.translations.location_text}

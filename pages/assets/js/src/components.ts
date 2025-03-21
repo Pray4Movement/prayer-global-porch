@@ -20,5 +20,6 @@ declare global {
     location_data: any;
     toDateInputFormat: (timestamp: number) => string;
     toTimeInputFormat: (timestamp: number) => string;
+    isMobile: () => boolean;
   }
 }

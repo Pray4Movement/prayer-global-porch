@@ -79,6 +79,12 @@
     --white-gradient: linear-gradient(white, 90%, transparent);
     --blue-gradient: linear-gradient(#5a81c0, #3f5b88);
     --small-box-shadow: rgba(0, 0, 0, 0.1) 0 3px 4px 1px;
+    /* Web component variables */
+    --dt-form-text-color: var(--bs-gray-600);
+    --dt-form-padding: 5px 10px;
+    --dt-text-disabled-background-color: var(--bs-gray-200);
+    --dt-text-disabled-color: var(--bs-gray-600);
+    --dt-form-input-box-shadow: rgba(0, 0, 0, 0.1) 0 3px 4px 1px;
 }
 html {
     font-size: 1em;
@@ -163,6 +169,16 @@ hr {
     display: grid;
     grid-template-columns: 1em auto;
     gap: 0.5em;
+}
+dt-location-map {
+    font-family: var(--pg-font-family-base);
+    --dt-location-map-border-color: var(--pg-grey);
+    --dt-location-map-border-radius: 8px;
+    --dt-location-map-button-color: var(--pg-brand-color-light);
+    --dt-location-map-button-hover-background-color: var(
+        --pg-brand-color-light
+    );
+    --dt-location-map-background-color: white;
 }
 input[type="checkbox"] {
     --pg-checkbox-color: currentColor;
@@ -1627,7 +1643,11 @@ nav.navbar-home {
 .activity-log__body {
     margin-top: 8px;
 }
-
+.page-header {
+    padding: 0.5em 1em;
+    background: white;
+    border-bottom: 1px solid var(--pg-brand-color);
+}
 .offcanvas {
     --bs-offcanvas-color: var(--pg-brand-color-light);
 }

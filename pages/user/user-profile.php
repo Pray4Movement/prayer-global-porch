@@ -60,6 +60,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         add_action( 'dt_blank_body', [ $this, 'body' ] ); // body for no post key
         add_action( 'dt_blank_head', [ $this, '_header' ] );
         add_action( 'dt_blank_footer', [ $this, '_footer' ] );
+        add_action( 'dt_blank_title', [ $this, 'page_tab_title' ] );
 
         add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
         add_filter( 'dt_blank_access', '__return_true', 100, 1 );
@@ -73,6 +74,10 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 5 ); // authorizes scripts
         add_action( 'wp_print_footer_scripts', [ $this, 'print_scripts' ], 5 ); // authorizes scripts
         add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
+    }
+
+    public function page_tab_title(){
+        return __( 'User Profile', 'prayer-global-porch' );
     }
 
     public function register_url( $template_for_url ){
@@ -122,9 +127,9 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'prayers' => esc_html( __( 'Prayer Activity', 'prayer-global-porch' ) ),
                 'challenges' => esc_html( __( 'My Prayer Relays', 'prayer-global-porch' ) ),
                 'are_you_enjoying_the_app' => esc_html( __( 'Are you enjoying this app?', 'prayer-global-porch' ) ),
-                'would_you_like_to_partner' => esc_html( __( 'Would you like to partner with us in helping others pray for the world?', 'prayer-global-porch' ) ),
+                'would_you_like_to_partner' => esc_html( __( 'Partner with us in helping others pray for the world!', 'prayer-global-porch' ) ),
                 'consider_giving' => esc_html( __( 'Consider giving to help us increase prayer for the world.', 'prayer-global-porch' ) ),
-                'give' => esc_html( __( 'Give', 'prayer-global-porch' ) ),
+                'donate' => esc_html( __( 'Donate', 'prayer-global-porch' ) ),
                 'logout' => esc_html( __( 'Logout', 'prayer-global-porch' ) ),
                 'name_text' => esc_html( __( 'Name', 'prayer-global-porch' ) ),
                 'email_text' => esc_html( __( 'Email', 'prayer-global-porch' ) ),

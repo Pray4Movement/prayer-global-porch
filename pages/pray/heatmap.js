@@ -1,8 +1,6 @@
 window.addEventListener("load", function ($) {
-  const isMobile = window.pg_js.isMobile();
-  const translations = window.pg_js.escapeObject(
-    window.pg_heatmap.translations
-  );
+  const isMobile = window.isMobile();
+  const translations = window.escapeObject(window.pg_heatmap.translations);
 
   const red = "rgba(255,0,0, .7)";
   const green = "rgba(0,128,0, .9)";
@@ -62,7 +60,7 @@ window.addEventListener("load", function ($) {
 
   let countdownInterval;
 
-  if ( window.get_page === undefined ){
+  if (window.get_page === undefined) {
     window.get_page = (action, data = null) => {
       const body = { action: action, parts: jsObject.parts };
       if (data !== null) {
@@ -88,7 +86,7 @@ window.addEventListener("load", function ($) {
         });
     };
   }
-  if ( window.api_post_global === undefined ){
+  if (window.api_post_global === undefined) {
     window.api_post_global = (type, action, data = []) => {
       return window.api_fetch(
         `${window.pg_global.root}pg-api/v1/${type}/${action}`,
@@ -884,25 +882,23 @@ window.addEventListener("load", function ($) {
 
     show_location_details();
 
-    const response = await jQuery
-    .ajax({
+    const response = await jQuery.ajax({
       type: "GET",
       contentType: "application/json; charset=utf-8",
       dataType: "json",
-      url: window.pg_global.root + 'prayer-global/fuel/' + grid_id,
-    })
+      url: window.pg_global.root + "prayer-global/fuel/" + grid_id,
+    });
     if (response.error) {
       return;
     }
     console.log(response);
-    
-   
+
     window.report_content = response;
 
     let bodies_1 = "";
     let bodies_2 = "";
     let bodies_3 = "";
-    
+
     for (let i = 0; i < response.location.percent_non_christians; i++) {
       bodies_1 += '<i class="ion-ios-body brand two-em"></i>';
     }
@@ -922,9 +918,16 @@ window.addEventListener("load", function ($) {
         <div class="col-12">
           <hr class="mt-0" />
           <p><span class="stats-title two-em">${
-              response.location.full_name
-            }</span></p>
-          <p>${translations.one_believer_for_every.replace("%d", numberWithCommas( Math.ceil( response.location.all_lost_int /response.location.believers_int)))}</p>
+            response.location.full_name
+          }</span></p>
+          <p>${translations.one_believer_for_every.replace(
+            "%d",
+            numberWithCommas(
+              Math.ceil(
+                response.location.all_lost_int / response.location.believers_int
+              )
+            )
+          )}</p>
           <hr>
         </div>
         <div class="col-12">
@@ -963,11 +966,12 @@ window.addEventListener("load", function ($) {
           </div>
           <div class="col-12">
             ${translations.religion}: ${response.location.primary_religion}<br>
-            ${translations.official_language}: ${response.location.primary_language}<br>
+            ${
+              translations.official_language
+            }: ${response.location.primary_language}<br>
             <hr>
           </div>
-      </div>`
-    );
+      </div>`);
   }
 
   function load_grid_community_stats(grid_id) {
