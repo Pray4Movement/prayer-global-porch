@@ -1627,7 +1627,11 @@ nav.navbar-home {
 .activity-log__body {
     margin-top: 8px;
 }
-
+.page-header {
+    padding: 0.5em 1em;
+    background: white;
+    border-bottom: 1px solid var(--pg-brand-color);
+}
 .offcanvas {
     --bs-offcanvas-color: var(--pg-brand-color-light);
 }
