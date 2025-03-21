@@ -916,7 +916,6 @@
               />
             </label>
 
-
             <label for="location">
               ${this.translations.location_text}
               <dt-location-map
