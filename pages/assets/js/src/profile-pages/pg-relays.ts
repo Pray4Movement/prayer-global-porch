@@ -64,7 +64,6 @@ export class PgRelays extends OpenElement {
       }
     );
     this.hiddenRelays = this.hiddenRelays.filter((r) => r !== relay.post_id);
-    console.log(this.hiddenRelays);
   }
 
   private openEditRelayModal(relayId: number) {
@@ -116,6 +115,7 @@ export class PgRelays extends OpenElement {
                           ?hiddenRelay=${this.hiddenRelays.includes(
                             relay.post_id
                           )}
+                          ?isOwner=${relay.is_owner === "1"}
                           .translations="${{
                             lap: this.translations.lap,
                             pray: this.translations.pray,
