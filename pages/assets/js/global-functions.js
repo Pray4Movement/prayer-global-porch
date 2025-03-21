@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", async function () {
-  if (window.isMedianApp) {
+  if (window.median && window.median.oneSignal) {
     if (pg_global.is_logged_in && !window.isMedianAppLoggedIn) {
       try {
         await window.median.oneSignal.login(pg_global.user.email);
