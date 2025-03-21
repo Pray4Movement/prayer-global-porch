@@ -179,7 +179,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     <?php if ( is_user_logged_in() ) : ?>
 
                         <?php //phpcs:ignore ?>
-                        <?php echo pg_profile_icon() ?>
+                        <?php echo pg_profile_icon( true ) ?>
 
                     <?php else : ?>
 

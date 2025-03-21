@@ -15,26 +15,29 @@
 }
 
 @font-face {
-    font-family: 'Europa';
-    src: url('../assets/fonts/Europa/Europa-Regular.eot');
-    src: url('../assets/fonts/Europa/Europa-Regular.eot?#iefix') format('embedded-opentype'),
-        url('../assets/fonts/Europa/Europa-Regular.woff2') format('woff2'),
-        url('../assets/fonts/Europa/Europa-Regular.woff') format('woff'),
-        url('../assets/fonts/Europa/Europa-Regular.ttf') format('truetype'),
-        url('../assets/fonts/Europa/Europa-Regular.svg#Europa-Regular') format('svg');
+    font-family: "Europa";
+    src: url("../assets/fonts/Europa/Europa-Regular.eot");
+    src: url("../assets/fonts/Europa/Europa-Regular.eot?#iefix")
+            format("embedded-opentype"),
+        url("../assets/fonts/Europa/Europa-Regular.woff2") format("woff2"),
+        url("../assets/fonts/Europa/Europa-Regular.woff") format("woff"),
+        url("../assets/fonts/Europa/Europa-Regular.ttf") format("truetype"),
+        url("../assets/fonts/Europa/Europa-Regular.svg#Europa-Regular")
+            format("svg");
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
-    font-family: 'Europa';
-    src: url('../assets/fonts/Europa/Europa-Bold.eot');
-    src: url('../assets/fonts/Europa/Europa-Bold.eot?#iefix') format('embedded-opentype'),
-        url('../assets/fonts/Europa/Europa-Bold.woff2') format('woff2'),
-        url('../assets/fonts/Europa/Europa-Bold.woff') format('woff'),
-        url('../assets/fonts/Europa/Europa-Bold.ttf') format('truetype'),
-        url('../assets/fonts/Europa/Europa-Bold.svg#Europa-Bold') format('svg');
+    font-family: "Europa";
+    src: url("../assets/fonts/Europa/Europa-Bold.eot");
+    src: url("../assets/fonts/Europa/Europa-Bold.eot?#iefix")
+            format("embedded-opentype"),
+        url("../assets/fonts/Europa/Europa-Bold.woff2") format("woff2"),
+        url("../assets/fonts/Europa/Europa-Bold.woff") format("woff"),
+        url("../assets/fonts/Europa/Europa-Bold.ttf") format("truetype"),
+        url("../assets/fonts/Europa/Europa-Bold.svg#Europa-Bold") format("svg");
     font-weight: bold;
     font-style: normal;
     font-display: swap;
@@ -73,8 +76,8 @@ img {
     border-radius: 10px;
 }
 .bg-img {
-    width:200px;
-    height:200px;
+    width: 200px;
+    height: 200px;
     background-size: cover;
     background-repeat: no-repeat;
 }
@@ -126,7 +129,7 @@ img {
 }
 .switcher > * {
     flex: 1;
-    flex-basis: calc( ( var(--switcher-max-width, 30rem) - 100% ) * 1000 );
+    flex-basis: calc((var(--switcher-max-width, 30rem) - 100%) * 1000);
 }
 .grow0 {
     flex-grow: 0;
@@ -176,7 +179,9 @@ img {
 }
 
 /* ## Form controls */
-input, textarea, select {
+input,
+textarea,
+select {
     font-size: 1rem;
     font-weight: 300;
     color: #495057;
@@ -188,7 +193,9 @@ input, textarea, select {
     border-radius: 0.375rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-input:focus, textarea:focus, select:focus {
+input:focus,
+textarea:focus,
+select:focus {
     border-color: var(--pg-highlight);
     box-shadow: 0 0 0 0.25rem rgba(92, 131, 196, 0.25);
 }
@@ -316,7 +323,7 @@ textarea {
     background: var(--pg-grey-hover);
 }
 #praying__continue_button {
-    display:none;
+    display: none;
 }
 .praying__progress {
     position: absolute;
@@ -338,19 +345,14 @@ textarea {
     margin-bottom: 8rem;
 }
 
-.user__gravatar {
-    display: inline-block;
-    width: 1em;
-    height: 1em;
-    border-radius: 1000px;
-    background-position: center;
-    background-size: cover;
+.user__avatar {
+    position: relative;
+    font-size: 2rem;
+    --pg-avatar-bg-color: var(--pg-dark);
+    color: white;
 }
-.user__gravatar:hover,
-.user__gravatar:active,
-.user__gravatar:focus {
-    border: 2px solid white;
-    transition: all 100ms ease-in;
+.user__avatar[size="small"] {
+    font-size: 1.2rem;
 }
 /* ## Modal */
 .modal {
@@ -429,9 +431,19 @@ textarea {
     display: none;
 }
 @keyframes bounce {
-    0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
-    40% {transform: translateY(-1.5rem);}
-    60% {transform: translateY(-0.75rem);}
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translateY(0);
+    }
+    40% {
+        transform: translateY(-1.5rem);
+    }
+    60% {
+        transform: translateY(-0.75rem);
+    }
 }
 #more_prayer_fuel {
     display: flex;
@@ -571,9 +583,17 @@ textarea {
     position: absolute;
     border-radius: 50%;
     inset: 0;
-    background: conic-gradient(var(--c) calc(var(--p)* 1%), #F6F6F6 0);
-    -webkit-mask: radial-gradient(farthest-side, #0000 calc(99% - var(--b)), #000 calc(100% - var(--b)));
-    mask: radial-gradient(farthest-side, #0000 calc(99% - var(--b)), #000 calc(100% - var(--b)));
+    background: conic-gradient(var(--c) calc(var(--p) * 1%), #f6f6f6 0);
+    -webkit-mask: radial-gradient(
+        farthest-side,
+        #0000 calc(99% - var(--b)),
+        #000 calc(100% - var(--b))
+    );
+    mask: radial-gradient(
+        farthest-side,
+        #0000 calc(99% - var(--b)),
+        #000 calc(100% - var(--b))
+    );
 }
 
 /* Utility */
@@ -639,22 +659,26 @@ textarea {
 }
 
 .loading-spinner {
-  display: none;
-  width: 20px;
-  height: 20px;
-  border: 3px solid rgba(255,255,255,.3);
-  border-radius: 50%;
-  border-top-color: #fff;
-  animation: spin 1s ease-in-out infinite;
-  -webkit-animation: spin 1s ease-in-out infinite;
+    display: none;
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: spin 1s ease-in-out infinite;
+    -webkit-animation: spin 1s ease-in-out infinite;
 }
 .loading-spinner.active {
     display: inline-block;
 }
 
 @keyframes spin {
-  to { -webkit-transform: rotate(360deg); }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
 }
 @-webkit-keyframes spin {
-  to { -webkit-transform: rotate(360deg); }
+    to {
+        -webkit-transform: rotate(360deg);
+    }
 }
