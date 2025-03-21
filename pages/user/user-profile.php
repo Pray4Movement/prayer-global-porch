@@ -60,6 +60,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         add_action( 'dt_blank_body', [ $this, 'body' ] ); // body for no post key
         add_action( 'dt_blank_head', [ $this, '_header' ] );
         add_action( 'dt_blank_footer', [ $this, '_footer' ] );
+        add_action( 'dt_blank_title', [ $this, 'page_tab_title' ] );
 
         add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
         add_filter( 'dt_blank_access', '__return_true', 100, 1 );
@@ -73,6 +74,10 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 5 ); // authorizes scripts
         add_action( 'wp_print_footer_scripts', [ $this, 'print_scripts' ], 5 ); // authorizes scripts
         add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
+    }
+
+    public function page_tab_title(){
+        return __( 'User Profile', 'prayer-global-porch' );
     }
 
     public function register_url( $template_for_url ){
