@@ -355,20 +355,24 @@ class PG_Login extends PG_Public_Page {
 
                 console.log(user)
                 if (window.isMedianApp) {
-                  await window.median.oneSignal.login(user.id);
+                  try {
+                    await window.median.oneSignal.login(user.id);
 
-                  const info = await window.median.oneSignal.info();
+                      const info = await window.median.oneSignal.info();
 
-                  //implement sending onesignal info to api
-                  fetch(`${rest_url}/user/update-onesignal-data`, {
-                    method: 'POST',
-                    body: JSON.stringify({
-                      onesignal_user_id: info.userId,
-                      onesignal_external_id: info.externalUserId
-                    })
-                  })
+                      //implement sending onesignal info to api
+                      await fetch(`${rest_url}/user/update-onesignal-data`, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                          onesignal_user_id: info.userId,
+                          onesignal_external_id: info.externalUserId
+                        })
+                      })
+                  } catch (error) {
+                      // silently fail here, but with a message to glitchtip of the error
+                      console.error("Error updating onesignal data:", error);
+                  }
                 }
-
               })
               .then((data) => {
                 location.href = '/dashboard';
