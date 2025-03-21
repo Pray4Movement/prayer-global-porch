@@ -67,9 +67,11 @@ document.getElementById("signin-google").addEventListener("click", () => {
         fetch(`${rest_url}/session/login`, {
           method: "POST",
           body: JSON.stringify(userCredential),
-        }).then(() => {
-          location.href = "/dashboard";
-        });
+        })
+          .then(() => registerOnesignalUser(userCredential.user.email))
+          .then(() => {
+            location.href = "/dashboard";
+          });
       }
     })
     .catch((error) => {
@@ -126,6 +128,37 @@ if (document.getElementById("section-login")) {
 
     isSubmitting = true;
 
+    function handleAuthError(error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+
+      // Toggle the spinner and button
+      document
+        .querySelector("#login-submit .loading-spinner")
+        .classList.remove("active");
+      document.querySelector("#login-submit").classList.remove("disabled");
+      document.querySelector("#login-submit").removeAttribute("disabled");
+      isSubmitting = false;
+
+      // Show specific error messages based on the error code
+      if (
+        errorCode === "auth/wrong-password" ||
+        errorCode === "invalid_credentials"
+      ) {
+        // Use a generic error message for both WordPress and Firebase invalid credential errors
+        document.getElementById("login-error").innerText =
+          jsObject.translations.invalid_credentials;
+        document.getElementById("login-error").style.display = "block";
+      } else if (errorCode === "auth/user-not-found") {
+        emailError.style.display = "block";
+        emailError.innerText = jsObject.translations.email_not_found;
+      } else {
+        document.getElementById("login-error").innerText =
+          errorMessage || jsObject.translations.auth_failed;
+        document.getElementById("login-error").style.display = "block";
+      }
+    }
+
     // First try WordPress authentication
     fetch(`${window.pg_global.root}pg/login/wp-login`, {
       method: "POST",
@@ -145,6 +178,7 @@ if (document.getElementById("section-login")) {
         console.log("WordPress authentication successful");
         return response.json();
       })
+      .then(({ data }) => data.email)
       .catch((error) => {
         // If WordPress auth fails, try Firebase (legacy users)
         console.log("WordPress authentication failed, trying Firebase...");
@@ -181,7 +215,7 @@ if (document.getElementById("section-login")) {
               body: JSON.stringify(userCredential),
             })
               .then(() => {
-                return user;
+                return userCredential.user.email;
               })
               .catch((fetchError) => {
                 // Failed to make the login request after Firebase auth
@@ -211,30 +245,7 @@ if (document.getElementById("section-login")) {
             }
           });
       })
-      .then(async (user) => {
-        //implemente onesignal user login
-
-        console.log(user);
-        if (window.isMedianApp) {
-          try {
-            await window.median.oneSignal.login(user.id);
-
-            const info = await window.median.oneSignal.info();
-
-            //implement sending onesignal info to api
-            await fetch(`${rest_url}/user/update-onesignal-data`, {
-              method: "POST",
-              body: JSON.stringify({
-                onesignal_user_id: info.userId,
-                onesignal_external_id: info.externalUserId,
-              }),
-            });
-          } catch (error) {
-            // silently fail here, but with a message to glitchtip of the error
-            console.error("Error updating onesignal data:", error);
-          }
-        }
-      })
+      .then(async (email) => registerOnesignalUser(email))
       .then((data) => {
         location.href = "/dashboard";
       });
@@ -352,33 +363,24 @@ if (document.getElementById("section-login")) {
   }
 }
 
-function handleAuthError(error) {
-  const errorCode = error.code;
-  const errorMessage = error.message;
+async function registerOnesignalUser(email) {
+  if (window.isMedianApp) {
+    try {
+      await window.median.oneSignal.login(email);
 
-  // Toggle the spinner and button
-  document
-    .querySelector("#login-submit .loading-spinner")
-    .classList.remove("active");
-  document.querySelector("#login-submit").classList.remove("disabled");
-  document.querySelector("#login-submit").removeAttribute("disabled");
-  isSubmitting = false;
+      const info = await window.median.oneSignal.info();
 
-  // Show specific error messages based on the error code
-  if (
-    errorCode === "auth/wrong-password" ||
-    errorCode === "invalid_credentials"
-  ) {
-    // Use a generic error message for both WordPress and Firebase invalid credential errors
-    document.getElementById("login-error").innerText =
-      jsObject.translations.invalid_credentials;
-    document.getElementById("login-error").style.display = "block";
-  } else if (errorCode === "auth/user-not-found") {
-    emailError.style.display = "block";
-    emailError.innerText = jsObject.translations.email_not_found;
-  } else {
-    document.getElementById("login-error").innerText =
-      errorMessage || jsObject.translations.auth_failed;
-    document.getElementById("login-error").style.display = "block";
+      //implement sending onesignal info to api
+      await fetch(`${rest_url}/user/update-onesignal-data`, {
+        method: "POST",
+        body: JSON.stringify({
+          onesignal_user_id: info.userId,
+          onesignal_external_id: info.externalUserId,
+        }),
+      });
+    } catch (error) {
+      // silently fail here, but with a message to glitchtip of the error
+      console.error("Error updating onesignal data:", error);
+    }
   }
 }
