@@ -133,7 +133,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                 </div>
             </div>
             <div id="map-wrapper">
-                <div class="brand-bg white navbar-dark" id="head_block">
+                <div class="brand-bg white navbar-dark navbar" id="head_block">
                     <div class="d-flex align-items-center justify-content-between gap-2">
 
                         <div class="cluster">
