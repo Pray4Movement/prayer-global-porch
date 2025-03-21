@@ -161,7 +161,7 @@ export class PgDashboard extends OpenElement {
                     data-reverse-color
                     href="/give"
                   >
-                    ${this.translations.give}
+                    ${this.translations.donate}
                   </a>
                 </div>
               </section>
