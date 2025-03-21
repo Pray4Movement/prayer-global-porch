@@ -238,12 +238,13 @@ class PG_User_API {
         }
 
         $body = json_decode( $request->get_body() );
-        if ( !isset( $body->onesignal_user_id ) || !isset( $body->onesignal_external_id ) ) {
+        if ( !isset( $body->onesignal_user_id ) || !isset( $body->onesignal_external_id ) || !isset( $body->onesignal_subscription_id ) )  {
             return new WP_Error( __METHOD__, 'Missing required fields', [ 'status' => 400 ] );
         }
 
         update_user_meta( $user_id, PG_NAMESPACE . 'onesignal_user_id', sanitize_text_field( $body->onesignal_user_id ) );
         update_user_meta( $user_id, PG_NAMESPACE . 'onesignal_external_id', sanitize_text_field( $body->onesignal_external_id ) );
+        update_user_meta( $user_id, PG_NAMESPACE . 'onesignal_subscription_id', sanitize_text_field( $body->onesignal_subscription_id ) );
 
         return new WP_REST_Response([
             'status' => 200,

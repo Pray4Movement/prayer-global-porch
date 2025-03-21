@@ -67,11 +67,9 @@ document.getElementById("signin-google").addEventListener("click", () => {
         fetch(`${rest_url}/session/login`, {
           method: "POST",
           body: JSON.stringify(userCredential),
-        })
-          .then(() => registerOnesignalUser(userCredential.user.email))
-          .then(() => {
-            location.href = "/dashboard";
-          });
+        }).then(() => {
+          location.href = "/dashboard";
+        });
       }
     })
     .catch((error) => {
@@ -245,7 +243,6 @@ if (document.getElementById("section-login")) {
             }
           });
       })
-      .then(async (email) => registerOnesignalUser(email))
       .then((data) => {
         location.href = "/dashboard";
       });
@@ -360,27 +357,5 @@ if (document.getElementById("section-login")) {
             });
         });
     });
-  }
-}
-
-async function registerOnesignalUser(email) {
-  if (window.isMedianApp) {
-    try {
-      await window.median.oneSignal.login(email);
-
-      const info = await window.median.oneSignal.info();
-
-      //implement sending onesignal info to api
-      await fetch(`${rest_url}/user/update-onesignal-data`, {
-        method: "POST",
-        body: JSON.stringify({
-          onesignal_user_id: info.userId,
-          onesignal_external_id: info.externalUserId,
-        }),
-      });
-    } catch (error) {
-      // silently fail here, but with a message to glitchtip of the error
-      console.error("Error updating onesignal data:", error);
-    }
   }
 }

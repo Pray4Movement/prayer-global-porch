@@ -1,3 +1,43 @@
+/* We need to run the onesignal init script here. It should check if the user is logged in in WP and if so, use that user's email to login to onesignal. */
+/* We don't want the script to run if the user has already logged in to onesignal. */
+
+document.addEventListener("DOMContentLoaded", async function () {
+  if (
+    pg_global.is_logged_in &&
+    window.isMedianApp &&
+    !window.isMedianAppLoggedIn
+  ) {
+    window.isMedianAppLoggedIn = true;
+    try {
+      await window.median.oneSignal.login(pg_global.user.email);
+
+      const info = await window.median.oneSignal.info();
+      console.log("info", info);
+      window.onesignal_info = info;
+
+      await fetch(`${pg_global.root}pg-api/v1/user/onesignal`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-WP-Nonce": pg_global.nonce,
+        },
+        body: JSON.stringify({
+          onesignal_user_id: info.userId,
+          onesignal_external_id: info.externalUserId,
+          onesignal_subscription_id: info.subscriptionId,
+        }),
+      });
+    } catch (error) {
+      // silently fail here, but with a message to glitchtip of the error
+      console.error("Error updating onesignal data:", error);
+    }
+  } else {
+    const info = await window.median.oneSignal.info();
+    console.log("info", info);
+    window.onesignal_info = info;
+  }
+});
+
 window.pg_js = {
   escapeObject(obj) {
     return Object.fromEntries(
