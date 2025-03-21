@@ -41,7 +41,7 @@ export class PgDashboard extends OpenElement {
     super.connectedCallback();
 
     //if no location is saved on the user, get it from the IP and save it to the user
-    if ( !this.user.location_hash.length ) {
+    if (!this.user.location_hash.length) {
       await this.getLocationFromIP();
     }
     //link anonymous prayers to the user
@@ -125,6 +125,7 @@ export class PgDashboard extends OpenElement {
               <hr>
 
               <div class="flow-small">
+                <h3 class="text-center">${this.translations.prayer_relays}</h3>
                 ${
                   this.loading
                     ? html`<span class="loading-spinner active"></span>`
@@ -160,7 +161,7 @@ export class PgDashboard extends OpenElement {
                     data-reverse-color
                     href="/give"
                   >
-                    ${this.translations.give}
+                    ${this.translations.donate}
                   </a>
                 </div>
               </section>
@@ -182,12 +183,13 @@ export class PgDashboard extends OpenElement {
       !this.user.location ||
       (this.user.location.date_set &&
         this.user.location.date_set <
-        Date.now() - 604800000) /*7 days in milliseconds*/
-      ) {
-        await window.api_fetch(`https://geo.prayer.global/json`, {
+          Date.now() - 604800000) /*7 days in milliseconds*/
+    ) {
+      await window
+        .api_fetch(`https://geo.prayer.global/json`, {
           method: "GET",
         })
-        .then((response:any) => {
+        .then((response: any) => {
           if (response) {
             const locationData = {
               lat: response.location.latitude,
@@ -199,7 +201,7 @@ export class PgDashboard extends OpenElement {
             };
             // Update the user's location
             this.user.location = locationData;
-            
+
             let pg_user_hash = localStorage.getItem("pg_user_hash");
             if (!pg_user_hash || pg_user_hash === "undefined") {
               pg_user_hash = window.crypto.randomUUID();
@@ -207,19 +209,25 @@ export class PgDashboard extends OpenElement {
               this.user.location_hash = pg_user_hash;
             }
             this.user.location.hash = pg_user_hash;
-            
-            localStorage.setItem("user_location", JSON.stringify(this.user.location));
+
+            localStorage.setItem(
+              "user_location",
+              JSON.stringify(this.user.location)
+            );
           }
         });
     }
 
-    await window.api_fetch(`${window.pg_global.root}pg-api/v1/dashboard/save_location`, {
-      method: "POST",
-      body: JSON.stringify({
-        location_hash: this.user.location_hash,
-        location: this.user.location,
-      }),
-    });
+    await window.api_fetch(
+      `${window.pg_global.root}pg-api/v1/dashboard/save_location`,
+      {
+        method: "POST",
+        body: JSON.stringify({
+          location_hash: this.user.location_hash,
+          location: this.user.location,
+        }),
+      }
+    );
     this.requestUpdate();
   }
 

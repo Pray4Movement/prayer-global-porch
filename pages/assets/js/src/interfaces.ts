@@ -47,6 +47,7 @@ export interface BaseRelay {
   start_time: number;
   end_time: number;
   single_lap: boolean;
+  is_owner: string;
 }
 
 export type GlobalRelay = BaseRelay & {

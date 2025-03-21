@@ -13,7 +13,7 @@ export class PgHeader extends navigator(OpenElement) {
 
   render() {
     return html`
-      <div class="offcanvas__header lh-sm">
+      <div class="page-header">
         <div class="container d-flex align-items-center">
           <button
             type="button"

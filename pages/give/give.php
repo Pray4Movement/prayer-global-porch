@@ -5,12 +5,12 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 class Prayer_Global_Give extends DT_Magic_Url_Base {
     public $magic = false;
     public $parts = false;
-    public $page_title = 'Global Prayer - Give';
+    public $page_title = 'Global Prayer - Donate';
     public $root = 'give';
     public $type = '';
-    public $type_name = 'Global Prayer - Give';
+    public $type_name = 'Global Prayer - Donate';
     public static $token = 'content_app_give';
-    public $post_type = 'laps';
+    public $post_type = 'relays';
 
     private static $_instance = null;
     public static function instance() {
@@ -52,9 +52,15 @@ class Prayer_Global_Give extends DT_Magic_Url_Base {
 
             add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
             add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
+            add_filter( 'dt_templates_for_urls', [ $this, 'register_url' ], 199, 1 ); // registers url as valid once tests are passed
 
             add_filter( 'dt_allow_rest_access', [ $this, 'authorize_url' ], 10, 1 );
         }
+    }
+
+    public function register_url( $template_for_url ){
+        $template_for_url[$this->root] = 'template-blank.php';
+        return $template_for_url;
     }
 
     public function authorize_url( $authorized ){
@@ -98,7 +104,7 @@ class Prayer_Global_Give extends DT_Magic_Url_Base {
             <div class="container flow">
                 <div class="row justify-content-md-center text-center mb-5 flow-small">
                     <div class="col col-md-8">
-                        <h2 class=""><?php echo esc_html( __( 'Give', 'prayer-global-porch' ) ) ?></h2>
+                        <h2 class=""><?php echo esc_html( __( 'Donate', 'prayer-global-porch' ) ) ?></h2>
                         <i class="icon pg-give icon-large brand-light"></i>
                         <h4><?php echo esc_html( __( 'To Prayer.Global', 'prayer-global-porch' ) ) ?></h4>
                         <p>
@@ -109,7 +115,7 @@ class Prayer_Global_Give extends DT_Magic_Url_Base {
 
                 <div class="row justify-content-md-center text-center flow-small brand-bg white py-4">
                     <div class="col col-md-8">
-                    <h4><?php echo esc_html( __( 'Give Online', 'prayer-global-porch' ) ) ?></h4>
+                    <h4><?php echo esc_html( __( 'Donate Online', 'prayer-global-porch' ) ) ?></h4>
 
                         <!--spinner-->
                         <div id="give-loading-spinner" class="text-center" style="padding-top: 50px">
@@ -130,7 +136,7 @@ class Prayer_Global_Give extends DT_Magic_Url_Base {
 
                 <div class="row justify-content-md-center text-center">
                     <div class="col col-md-8">
-                        <h4><?php echo esc_html( __( 'Give by Check', 'prayer-global-porch' ) ) ?></h4>
+                        <h4><?php echo esc_html( __( 'Donate by Check', 'prayer-global-porch' ) ) ?></h4>
                         <p>
                             <strong><?php echo esc_html( __( 'Note:', 'prayer-global-porch' ) ) ?></strong> <?php echo esc_html( __( "If you'd like to avoid the 3% fee that credit card companies charge everyone, you can send tax deductible donations via check to:", 'prayer-global-porch' ) ) ?>
                         </p>

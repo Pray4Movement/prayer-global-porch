@@ -80,7 +80,7 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
                 <a class="nav-link" href="/give">
                     <div class="nav-link__inner">
                         <i class="icon pg-give"></i>
-                        <span><?php echo esc_html( __( 'Give', 'prayer-global-porch' ) ) ?></span>
+                        <span><?php echo esc_html( __( 'Donate', 'prayer-global-porch' ) ) ?></span>
                     </div>
                 </a>
 
