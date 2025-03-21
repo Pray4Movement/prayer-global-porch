@@ -1,3 +1,38 @@
+document.addEventListener("DOMContentLoaded", async function () {
+  if (window.isMedianApp) {
+    if (pg_global.is_logged_in && !window.isMedianAppLoggedIn) {
+      try {
+        await window.median.oneSignal.login(pg_global.user.email);
+
+        const info = await window.median.oneSignal.info();
+        console.log("info", info);
+        window.onesignal_info = info;
+
+        await fetch(`${pg_global.root}pg-api/v1/user/onesignal`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "X-WP-Nonce": pg_global.nonce,
+          },
+          body: JSON.stringify({
+            onesignal_user_id: info.userId,
+            onesignal_external_id: info.externalUserId,
+            onesignal_subscription_id: info.subscriptionId,
+          }),
+        }).then(() => {
+          window.isMedianAppLoggedIn = true;
+        });
+      } catch (error) {
+        // silently fail here, but with a message to glitchtip of the error
+        console.error("Error updating onesignal data:", error);
+      }
+    } else {
+      const info = await window.median.oneSignal.info();
+      console.log("info", info);
+      window.onesignal_info = info;
+    }
+  }
+});
 window.escapeObject = function (obj) {
   return Object.fromEntries(
     Object.entries(obj).map(([key, value]) => {
