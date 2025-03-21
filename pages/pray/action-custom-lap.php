@@ -202,7 +202,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                 </button>
                 <button type="button" class="btn btn-praying bg-dark" data-display="flex" id="praying__continue_button">
                     <svg height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
-                        <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/start.svg#pg-icon' ) ?>"></use>
+                        <use href="#pg-play"></use>
                     </svg>
                 </button>
                 <button type="button" class="btn btn-praying bg-light" id="praying__open_options" data-bs-toggle="modal" data-bs-target="#option_filter">
@@ -221,9 +221,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <div class="container" id="decision-panel">
                 <div class="btn-group decision" role="group" aria-label="Decision Button">
                     <button type="button" class="btn btn-praying bg-dark" id="decision__home">
-                        <svg height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
-                            <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/home.svg#pg-icon' ) ?>"></use>
-                        </svg>
+                        <?php echo esc_html__( 'Map', 'prayer-global-porch' ) ?>
                     </button>
                 </div>
             </div>
