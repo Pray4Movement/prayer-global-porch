@@ -16,6 +16,7 @@ class PG_User_API {
         'tshirt',
         'onesignal_user_id',
         'onesignal_external_id',
+        'onesignal_subscription_id',
     ];
 
     private static $_instance = null;
