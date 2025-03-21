@@ -375,24 +375,6 @@ class Prayer_Global_CTA_Post_Type {
      */
     public function dt_set_roles_and_permissions( $expected_roles ){
 
-        if ( !isset( $expected_roles['multiplier'] ) ){
-            $expected_roles['multiplier'] = [
-
-                'label' => __( 'Multiplier', 'prayer-global-porch' ),
-                'description' => 'Interacts with Contacts and Groups',
-                'permissions' => []
-            ];
-        }
-
-        // if the user can access contact they also can access this post type
-        foreach ( $expected_roles as $role => $role_value ){
-            if ( isset( $expected_roles[$role]['permissions']['access_contacts'] ) && $expected_roles[$role]['permissions']['access_contacts'] ){
-                $expected_roles[$role]['permissions']['access_' . $this->post_type ] = true;
-                $expected_roles[$role]['permissions']['create_' . $this->post_type] = true;
-                $expected_roles[$role]['permissions']['update_' . $this->post_type] = true;
-            }
-        }
-
         if ( isset( $expected_roles['administrator'] ) ){
             $expected_roles['administrator']['permissions']['dt_all_admin_'.$this->post_type ] = true;
             $expected_roles['administrator']['permissions']['wp_api_allowed_user'] = true;
