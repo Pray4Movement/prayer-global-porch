@@ -114,11 +114,18 @@ export class PgRelayItem extends OpenElement {
                         ${this.translations.share}
                       </a>
                     </li>
-                    <li>
-                      <a class="dropdown-item" href="${this.urlRoot}/display">
-                        ${this.translations.display}
-                      </a>
-                    </li>
+                    ${!window.isMobile()
+                      ? html`
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              href="${this.urlRoot}/display"
+                            >
+                              ${this.translations.display}
+                            </a>
+                          </li>
+                        `
+                      : ""}
                     ${this.isOwner
                       ? html` <li
                           class="dropdown-item"

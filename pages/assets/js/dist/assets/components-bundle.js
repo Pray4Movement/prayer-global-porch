@@ -236,11 +236,16 @@
                         ${this.translations.share}
                       </a>
                     </li>
-                    <li>
-                      <a class="dropdown-item" href="${this.urlRoot}/display">
-                        ${this.translations.display}
-                      </a>
-                    </li>
+                    ${window.isMobile()?"":h`
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              href="${this.urlRoot}/display"
+                            >
+                              ${this.translations.display}
+                            </a>
+                          </li>
+                        `}
                     ${this.isOwner?h` <li
                           class="dropdown-item"
                           role="button"
