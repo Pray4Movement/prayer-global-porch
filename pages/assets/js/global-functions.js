@@ -11,18 +11,11 @@ async function median_library_ready() {
         console.log("info", info);
         window.onesignal_info = info;
 
-        await fetch(`${pg_global.root}pg-api/v1/user/onesignal`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-WP-Nonce": pg_global.nonce,
-          },
-          body: JSON.stringify({
-            onesignal_user_id: info.userId,
-            onesignal_external_id: info.externalUserId,
-            onesignal_subscription_id: info.subscriptionId,
-          }),
-        }).then(() => {
+        await postOneSignalData(
+          info.userId,
+          info.externalUserId,
+          info.subscriptionId
+        ).then(() => {
           console.log("updated onesignal data");
           window.isMedianAppLoggedIn = true;
         });
@@ -30,12 +23,38 @@ async function median_library_ready() {
         // silently fail here, but with a message to glitchtip of the error
         console.error("Error updating onesignal data:", error);
       }
-    } else {
+    }
+
+    if (!pg_global.is_logged_in && window.isMedianAppAnonymouslyLoggedIn) {
       console.log("getting logged out onesignal info");
+      await window.median.onesignal.login();
       const info = await window.median.onesignal.info();
       console.log("info", info);
       window.onesignal_info = info;
+
+      await postOneSignalData(
+        info.userId,
+        info.externalUserId,
+        info.subscriptionId
+      ).then(() => {
+        console.log("updated onesignal data for non logged in user");
+        window.isMedianAppAnonymouslyLoggedIn = true;
+      });
     }
+  }
+  function postOneSignalData(userId, externalUserId, subscriptionId) {
+    return fetch(`${pg_global.root}pg-api/v1/user/onesignal`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-WP-Nonce": pg_global.nonce,
+      },
+      body: JSON.stringify({
+        onesignal_user_id: userId || null,
+        onesignal_external_id: externalUserId || null,
+        onesignal_subscription_id: subscriptionId || null,
+      }),
+    });
   }
 }
 /* In case this JS is loaded after the median library */

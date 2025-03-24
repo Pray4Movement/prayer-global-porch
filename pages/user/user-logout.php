@@ -80,6 +80,7 @@ class PG_User_Logout extends DT_Magic_Url_Base {
                 if (window.isMedianApp) {
                     window.median.oneSignal.logout().then(function() {
                         window.isMedianAppLoggedIn = false;
+                        window.isMedianAppAnonymouslyLoggedIn = false;
                         window.location.href = "<?php echo esc_url( $redirect_to ); ?>";
                     });
                 } else {
