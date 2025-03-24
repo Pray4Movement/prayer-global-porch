@@ -25,7 +25,7 @@ async function median_library_ready() {
       }
     }
 
-    if (!pg_global.is_logged_in && window.isMedianAppAnonymouslyLoggedIn) {
+    if (!pg_global.is_logged_in && !window.isMedianAppAnonymouslyLoggedIn) {
       console.log("getting logged out onesignal info");
       await window.median.onesignal.login();
       const info = await window.median.onesignal.info();
