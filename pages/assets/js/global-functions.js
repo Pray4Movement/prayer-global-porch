@@ -1,13 +1,13 @@
 async function median_library_ready() {
   console.log(JSON.stringify(window.median));
-  if (window.median && window.median.oneSignal) {
+  if (window.median && window.median.onesignal) {
     console.log("median and onesignal exist");
     if (pg_global.is_logged_in && !window.isMedianAppLoggedIn) {
       console.log("we are logged in and not logged in to median");
       try {
-        await window.median.oneSignal.login(pg_global.user.email);
+        await window.median.onesignal.login(pg_global.user.email);
 
-        const info = await window.median.oneSignal.info();
+        const info = await window.median.onesignal.info();
         console.log("info", info);
         window.onesignal_info = info;
 
@@ -32,7 +32,7 @@ async function median_library_ready() {
       }
     } else {
       console.log("getting logged out onesignal info");
-      const info = await window.median.oneSignal.info();
+      const info = await window.median.onesignal.info();
       console.log("info", info);
       window.onesignal_info = info;
     }
