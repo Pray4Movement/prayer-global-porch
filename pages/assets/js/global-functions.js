@@ -1,7 +1,9 @@
 document.addEventListener("DOMContentLoaded", async function () {
   console.log(JSON.stringify(window.median));
   if (window.median && window.median.oneSignal) {
+    console.log("median and onesignal exist");
     if (pg_global.is_logged_in && !window.isMedianAppLoggedIn) {
+      console.log("we are logged in and not logged in to median");
       try {
         await window.median.oneSignal.login(pg_global.user.email);
 
@@ -21,6 +23,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             onesignal_subscription_id: info.subscriptionId,
           }),
         }).then(() => {
+          console.log("updated onesignal data");
           window.isMedianAppLoggedIn = true;
         });
       } catch (error) {
@@ -28,6 +31,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         console.error("Error updating onesignal data:", error);
       }
     } else {
+      console.log("getting logged out onesignal info");
       const info = await window.median.oneSignal.info();
       console.log("info", info);
       window.onesignal_info = info;
