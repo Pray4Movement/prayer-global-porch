@@ -13,9 +13,9 @@ async function median_library_ready() {
         window.onesignal_info = info;
 
         await postOneSignalData(
-          info.userId,
-          info.externalUserId,
-          info.subscriptionId
+          info.oneSignalId,
+          info.externalId,
+          info.subscription.id
         ).then(() => {
           console.log("updated onesignal data");
           window.isMedianAppLoggedIn = true;

@@ -243,9 +243,13 @@ class PG_User_API {
             return new WP_Error( __METHOD__, 'Missing required fields', [ 'status' => 400 ] );
         }
 
-        update_user_meta( $user_id, PG_NAMESPACE . 'onesignal_user_id', sanitize_text_field( $body->onesignal_user_id ) );
-        update_user_meta( $user_id, PG_NAMESPACE . 'onesignal_external_id', sanitize_text_field( $body->onesignal_external_id ) );
-        update_user_meta( $user_id, PG_NAMESPACE . 'onesignal_subscription_id', sanitize_text_field( $body->onesignal_subscription_id ) );
+        $user_id = $body->onesignal_user_id ?? null;
+        $external_id = $body->onesignal_external_id ?? null;
+        $subscription_id = $body->onesignal_subscription_id ?? null;
+
+        update_user_meta( $user_id, PG_NAMESPACE . 'onesignal_user_id', sanitize_text_field( $user_id ) );
+        update_user_meta( $user_id, PG_NAMESPACE . 'onesignal_external_id', sanitize_text_field( $external_id ) );
+        update_user_meta( $user_id, PG_NAMESPACE . 'onesignal_subscription_id', sanitize_text_field( $subscription_id ) );
 
         return new WP_REST_Response([
             'status' => 200,
