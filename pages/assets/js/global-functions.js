@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", async function () {
+async function median_library_ready() {
   console.log(JSON.stringify(window.median));
   if (window.median && window.median.oneSignal) {
     console.log("median and onesignal exist");
@@ -37,7 +37,11 @@ document.addEventListener("DOMContentLoaded", async function () {
       window.onesignal_info = info;
     }
   }
-});
+}
+/* In case this JS is loaded after the median library */
+if (window.median) {
+  median_library_ready();
+}
 window.escapeObject = function (obj) {
   return Object.fromEntries(
     Object.entries(obj).map(([key, value]) => {
