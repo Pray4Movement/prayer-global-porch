@@ -1,11 +1,9 @@
 async function median_library_ready() {
-  console.log(JSON.stringify(window.median));
   if (window.median && window.median.onesignal) {
     console.log("median and onesignal exist");
     if (pg_global.is_logged_in && !window.isMedianAppLoggedIn) {
       console.log("we are logged in and not logged in to median");
       try {
-        console.log(pg_global);
         await window.median.onesignal.login(pg_global.user.user_email);
 
         const info = await window.median.onesignal.info();

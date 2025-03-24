@@ -239,9 +239,6 @@ class PG_User_API {
         }
 
         $body = json_decode( $request->get_body() );
-        if ( !isset( $body->onesignal_user_id ) || !isset( $body->onesignal_external_id ) || !isset( $body->onesignal_subscription_id ) ) {
-            return new WP_Error( __METHOD__, 'Missing required fields', [ 'status' => 400 ] );
-        }
 
         $user_id = $body->onesignal_user_id ?? null;
         $external_id = $body->onesignal_external_id ?? null;
