@@ -14,6 +14,9 @@ class PG_User_API {
         'location_hash',
         'send_general_emails',
         'tshirt',
+        'onesignal_user_id',
+        'onesignal_external_id',
+        'onesignal_subscription_id',
     ];
 
     private static $_instance = null;
@@ -42,6 +45,7 @@ class PG_User_API {
         DT_Route::post( $namespace, 'details', [ $this, 'get_user' ] );
         DT_Route::post( $namespace, 'stats', [ $this, 'get_user_stats' ] );
         DT_Route::post( $namespace, 'locations-prayed-for', [ $this, 'get_user_locations_prayed_for_endpoint' ] );
+        DT_Route::post( $namespace, 'onesignal', [ $this, 'update_onesignal_data' ] );
     }
 
     public function authorize_url( $authorized ){
@@ -226,6 +230,27 @@ class PG_User_API {
         }
 
         return _pg_stats_builder( $data );
+    }
+
+    public function update_onesignal_data( WP_REST_Request $request ) {
+        $user_id = get_current_user_id();
+        if ( !$user_id ) {
+            return new WP_Error( __METHOD__, 'Unauthorized', [ 'status' => 401 ] );
+        }
+
+        $body = json_decode( $request->get_body() );
+        if ( !isset( $body->onesignal_user_id ) || !isset( $body->onesignal_external_id ) || !isset( $body->onesignal_subscription_id ) ) {
+            return new WP_Error( __METHOD__, 'Missing required fields', [ 'status' => 400 ] );
+        }
+
+        update_user_meta( $user_id, PG_NAMESPACE . 'onesignal_user_id', sanitize_text_field( $body->onesignal_user_id ) );
+        update_user_meta( $user_id, PG_NAMESPACE . 'onesignal_external_id', sanitize_text_field( $body->onesignal_external_id ) );
+        update_user_meta( $user_id, PG_NAMESPACE . 'onesignal_subscription_id', sanitize_text_field( $body->onesignal_subscription_id ) );
+
+        return new WP_REST_Response([
+            'status' => 200,
+            'message' => 'OneSignal data updated successfully'
+        ]);
     }
 }
 PG_User_API::instance();

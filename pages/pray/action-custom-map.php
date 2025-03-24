@@ -133,7 +133,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                 </div>
             </div>
             <div id="map-wrapper">
-                <div class="brand-bg white navbar-dark" id="head_block">
+                <div class="brand-bg white navbar-dark navbar" id="head_block">
                     <div class="d-flex align-items-center justify-content-between gap-2">
 
                         <div class="cluster">
@@ -324,7 +324,8 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                     </div>
                 </div>
                 <div class="row">
-                    <a href="/" class="btn btn-small btn-outline-primary w-fit mb-2 d-block m-auto"><?php echo esc_html__( 'Leave this relay', 'prayer-global-porch' ) ?></a>
+                    <?php $url = is_user_logged_in() ? '/dashboard' : '/' ?>
+                    <a href="<?php echo esc_url( $url ) ?>" class="btn btn-small btn-outline-primary w-fit mb-2 d-block m-auto"><?php echo esc_html__( 'Leave this relay', 'prayer-global-porch' ) ?></a>
                 </div>
             </div>
         </div>

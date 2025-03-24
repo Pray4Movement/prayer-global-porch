@@ -32,6 +32,9 @@ export class PgRelayItem extends OpenElement {
   @property({ type: Boolean })
   hiddenRelay: boolean = false;
 
+  @property({ type: Boolean })
+  isOwner: boolean = false;
+
   token = "";
 
   override connectedCallback() {
@@ -111,19 +114,28 @@ export class PgRelayItem extends OpenElement {
                         ${this.translations.share}
                       </a>
                     </li>
-                    <li>
-                      <a class="dropdown-item" href="${this.urlRoot}/display">
-                        ${this.translations.display}
-                      </a>
-                    </li>
-                    <li
-                      class="dropdown-item"
-                      role="button"
-                      @click=${() =>
-                        this.dispatchEvent(new CustomEvent("edit"))}
-                    >
-                      ${this.translations.edit}
-                    </li>
+                    ${!window.isMobile()
+                      ? html`
+                          <li>
+                            <a
+                              class="dropdown-item"
+                              href="${this.urlRoot}/display"
+                            >
+                              ${this.translations.display}
+                            </a>
+                          </li>
+                        `
+                      : ""}
+                    ${this.isOwner
+                      ? html` <li
+                          class="dropdown-item"
+                          role="button"
+                          @click=${() =>
+                            this.dispatchEvent(new CustomEvent("edit"))}
+                        >
+                          ${this.translations.edit}
+                        </li>`
+                      : ""}
                   `
                 : ""}
               ${this.hiddenRelay

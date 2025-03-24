@@ -44,9 +44,40 @@ function pg_grid_images_version(){
 function pg_jp_images_version(){
     return get_option( 'pg_jp_images_version' );
 }
-function pg_profile_icon() {
+function pg_profile_icon( $manual = false ) {
     if ( is_user_logged_in() ) {
         $user = wp_get_current_user();
+
+        if ( $manual ) {
+            // get initials of the users display name
+            $initials = explode( ' ', $user->display_name );
+            $initials = substr( $initials[0], 0, 1 ) . substr( $initials[1], 0, 1 );
+            $initials = strtoupper( $initials );
+            $return = '<style>
+                .circle {
+                    position: relative;
+                    border-radius: 1000px;
+                    aspect-ratio: 1;
+                    padding: 0.3em;
+                    background-color: var(--pg-avatar-bg-color, #ccc);
+                    color: inherit;
+                    text-align: center;
+                    font-family: var(--pg-font-family-title);
+                    font-size: inherit;
+
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    line-height: 1;
+                }
+                .circle > * {
+                    min-width: 1em;
+                }
+                </style>
+                ';
+            $return .= '<div class="user__avatar" size="small"><div class="circle"><div>'.$initials.'</div></div></div>';
+            return $return;
+        }
 
         return '<div class="user__avatar" size="small"><pg-avatar text="'.$user->display_name.'"></pg-avatar></div>';
     }
