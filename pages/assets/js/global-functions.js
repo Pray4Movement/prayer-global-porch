@@ -6,7 +6,7 @@ async function median_library_ready() {
       console.log("we are logged in and not logged in to median");
       try {
         console.log(pg_global);
-        await window.median.onesignal.login(pg_global.user.email);
+        await window.median.onesignal.login(pg_global.user.user_email);
 
         const info = await window.median.onesignal.info();
         console.log("info", info);
@@ -24,23 +24,6 @@ async function median_library_ready() {
         // silently fail here, but with a message to glitchtip of the error
         console.error("Error updating onesignal data:", error);
       }
-    }
-
-    if (!pg_global.is_logged_in && !window.isMedianAppAnonymouslyLoggedIn) {
-      console.log("getting logged out onesignal info");
-      await window.median.onesignal.login();
-      const info = await window.median.onesignal.info();
-      console.log("info", info);
-      window.onesignal_info = info;
-
-      await postOneSignalData(
-        info.userId,
-        info.externalUserId,
-        info.subscriptionId
-      ).then(() => {
-        console.log("updated onesignal data for non logged in user");
-        window.isMedianAppAnonymouslyLoggedIn = true;
-      });
     }
   }
   function postOneSignalData(userId, externalUserId, subscriptionId) {
