@@ -13,11 +13,11 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
   signInWithEmailAndPassword,
-  getAdditionalUserInfo,
   sendPasswordResetEmail,
 } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
 import app from "firebase-app";
+import { signInSuccessWithAuthResult } from "./utilities";
 
 let rest_url = jsObject.rest_url;
 
@@ -27,39 +27,7 @@ document.getElementById("signin-google").addEventListener("click", () => {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
     .then((userCredential) => {
-      const AdditionalUserInfo = getAdditionalUserInfo(userCredential);
-      const is_new_user = AdditionalUserInfo.isNewUser;
-      if (is_new_user) {
-        // Show modal asking about news signup
-        const modal = document.getElementById("modal-news-signup");
-        modal.style.display = "flex";
-
-        // Handle modal responses
-        document.getElementById("modal-yes").addEventListener("click", () => {
-          const marketing = true;
-          completeLogin(userCredential, marketing);
-          modal.style.display = "none";
-        });
-        document.getElementById("modal-no").addEventListener("click", () => {
-          const marketing = false;
-          completeLogin(userCredential, marketing);
-          modal.style.display = "none";
-        });
-      } else {
-        completeLogin(userCredential, false);
-      }
-      // Function to complete the login process
-      function completeLogin(userCredential, marketing) {
-        userCredential.extraData = {
-          marketing: marketing,
-        };
-        fetch(`${rest_url}/session/login`, {
-          method: "POST",
-          body: JSON.stringify(userCredential),
-        }).then(() => {
-          location.href = "/dashboard";
-        });
-      }
+      signInSuccessWithAuthResult(userCredential);
     })
     .catch((error) => {
       document.getElementById("login-error").innerText = error.message;
@@ -196,7 +164,6 @@ if (document.getElementById("section-login")) {
           .then((userCredential) => {
             // Signed in with Firebase
             console.log("Firebase authentication successful (legacy account)");
-            const user = userCredential.user;
             return fetch(`${rest_url}/session/login`, {
               method: "POST",
               body: JSON.stringify(userCredential),

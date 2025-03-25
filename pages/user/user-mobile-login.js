@@ -3,6 +3,7 @@ import {
   getAuth,
   GoogleAuthProvider,
 } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+import { signInSuccessWithAuthResult } from "./utilities";
 
 jQuery(document).ready(function () {
   /* We can access all of the top level constants and functions declared in login-shortcodes.php for the login shortcode */
