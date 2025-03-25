@@ -124,7 +124,7 @@ export class PgDashboard extends OpenElement {
 
               <hr>
 
-              <div class="flow-small">
+              <div class="pg-container flow-small">
                 <h3 class="text-center">${this.translations.prayer_relays}</h3>
                 ${
                   this.loading
