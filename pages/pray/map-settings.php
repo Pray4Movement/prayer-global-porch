@@ -3,7 +3,7 @@
         <button type="button" class="btn btn-light blue-border dropdown-toggle icon-toggle" data-bs-auto-close="outside" data-bs-toggle="dropdown" aria-expanded="false" data-bs-offset="0,10">
             <i class="icon pg-settings" name="settings" style="font-size: 2em"></i>
         </button>
-        <div class="dropdown-menu center p-2">
+        <div class="dropdown-menu text-center p-2">
             <div class="d-flex align-items-center justify-content-between mb-2">
                 <strong><?php echo esc_html__( 'Participants', 'prayer-global-porch' ) ?></strong>
                 <button class="map-toggle mx-0 ms-2" data-source-id="participants" id="toggle_participants">

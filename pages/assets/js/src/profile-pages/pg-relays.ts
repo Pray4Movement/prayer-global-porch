@@ -89,7 +89,7 @@ export class PgRelays extends OpenElement {
       <div class="white-bg page px-3">
         <div class="pg-container stack-md" data-small data-stretch>
           ${this.loading
-            ? html`<div class="center">
+            ? html`<div class="text-center">
                 <span class="loading-spinner active"></span>
               </div>`
             : html`
@@ -154,8 +154,8 @@ export class PgRelays extends OpenElement {
                       `
                     : ""}
                   <nav-link href="/dashboard/new-relay">
-                    <div class="stack-sm center text-center brand">
-                      <svg center text-center brandsvg class="icon-lg">
+                    <div class="stack-sm brand">
+                      <svg class="icon-lg">
                         <use
                           href="${window.jsObject.spritesheet_url}#pg-plus"
                         ></use>

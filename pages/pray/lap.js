@@ -863,7 +863,7 @@ function _template_content_block(data) {
           <h5>${data.section_label}</h5>
           <p class="f-xlg">${data.focus_label}</p>
           ${icon}
-          <div class="w-75 center">
+          <div class="w-75 text-center">
               <p class="f-lg">${data.section_summary}</p>
               <p class="f-xlg">${data.prayer}</p>
           </div>

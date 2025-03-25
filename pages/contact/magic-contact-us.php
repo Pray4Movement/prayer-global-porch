@@ -214,7 +214,7 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
                                 </button>
                             </p>
                         </form>
-                        <div id="form-confirm" class="section-header" style="display: none; text-align: center;">
+                        <div id="form-confirm" class="section-header" style="display: none; text-align: text-center;">
                             <h3 class="section-subtitle"><?php esc_html_e( 'Thank you', 'prayer-global-porch' ); ?></h3>
                         </div>
                     </div>

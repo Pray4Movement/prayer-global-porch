@@ -122,7 +122,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
         <style id="custom-style"></style>
         <div id="map-content">
             <div id="initialize-screen">
-                <div id="initialize-spinner-wrapper" class="center">
+                <div id="initialize-spinner-wrapper" class="text-center">
                     <progress class="success initialize-progress" max="46" value="0"></progress><br>
                     <?php echo esc_html__( 'Loading the planet ...', 'prayer-global-porch' ) ?><br>
                     <span id="initialize-people" style="display:none;"><?php echo esc_html__( 'Locating world population...', 'prayer-global-porch' ) ?></span><br>
@@ -141,13 +141,13 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
                 <div id="foot_block">
                     <div class="map-overlay" id="map-legend" data-map-type="<?php echo esc_attr( $this->map_type ) ?>"></div>
                     <div class="row g-0 justify-content-center">
-                        <div class="col col-12 center">
+                        <div class="col col-12 text-center">
                             <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_stats">
                                 <i class="icon pg-chevron-up three-em blue"></i>
                             </button>
                             <div class="one-em uppercase font-weight-bold"><?php echo esc_html__( 'Race Map Stats', 'prayer-global-porch' ) ?></div>
                         </div>
-                        <div class="col col-6 col-md-3 center ">
+                        <div class="col col-6 col-md-3 text-center ">
                             <div class="blue-bg white blue-border rounded-start d-flex align-items-center justify-content-around py-1">
                                 <i class="icon pg-prayer three-em"></i>
                                 <div class="two-em stats-figure">
@@ -156,7 +156,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
                             </div>
                             <span class="uppercase small"><?php echo esc_html__( 'Intercessors', 'prayer-global-porch' ) ?></span><br>
                         </div>
-                        <div class="col col-6 col-md-3 center ">
+                        <div class="col col-6 col-md-3 text-center ">
                             <div class="white-bg blue blue-border rounded-end d-flex align-items-center justify-content-around py-1">
                                 <i class="icon pg-world-arrow three-em"></i>
                                 <div class="two-em stats-figure">
@@ -166,7 +166,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
                             <span class="uppercase small"><?php echo esc_html__( 'World Prayer Coverage', 'prayer-global-porch' ) ?></span><br>
                         </div>
                         <div class="col d-none d-md-block col-md-1"></div>
-                        <div class="col d-none d-md-block col-md-3 center ">
+                        <div class="col d-none d-md-block col-md-3 text-center ">
                             <div class="white-bg blue d-flex align-items-center justify-content-around">
                                 <div class="two-em stats-figure time_elapsed">
                                     0
@@ -183,8 +183,8 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
             <div class="row offcanvas__content" id="grid_details_content"></div>
         </div>
         <div class="offcanvas offcanvas-bottom" id="offcanvas_stats">
-            <div class="center offcanvas__header"><button type="button" data-bs-toggle="offcanvas"><i class="icon pg-chevron-down three-em"></i></button></div>
-            <div class="row center uppercase offcanvas__content">
+            <div class="text-center offcanvas__header"><button type="button" data-bs-toggle="offcanvas"><i class="icon pg-chevron-down three-em"></i></button></div>
+            <div class="row text-center uppercase offcanvas__content">
                 <div class="col col-12">
                     <div class="two-em font-weight-bold"><?php echo esc_html__( 'Race Map Stats', 'prayer-global-porch' ) ?></div>
                 </div>

@@ -70,7 +70,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
     </div>
     <div class="position-relative" id="story4">
         <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/desktop-story-background-04.jpg" alt="">
-        <div class="brand-light desktop-story__container text-right-40 container center">
+        <div class="brand-light desktop-story__container text-right-40 container text-center">
             <h2 class="font-title mb-3"><?php echo esc_html__( 'Current Status', 'prayer-global-porch' ) ?><i class="icon pg-logo-prayer ms-3"></i></h2>
             <div class="two-col-sm gap-2">
                 <div class="brand-lighter-bg white rounded-4 mx-auto mb-2 w-fit pt-4 pb-2 px-3 pb-0">
@@ -98,13 +98,13 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
             <p class="pb-3">
                 <?php echo sprintf( esc_html__( 'With each prayer lap we complete, we are that much closer to ushering in God’s Kingdom and the return of Jesus Christ! %sClick Start Praying to start your Prayer.Global experience today!', 'prayer-global-porch' ), '<br>' ) ?>
             </p>
-            <div class="center align-self-end">
+            <div class="text-center align-self-end">
                 <h2 class="font-title"><?php echo esc_html__( 'Ready. Set.', 'prayer-global-porch' ) ?><i class="icon pg-logo-prayer d-none"></i></h2>
                 <div class="mb-2"><a class="btn btn-cta mx-2 two-rem" href="/newest/lap/"><?php echo esc_html__( 'Start Praying', 'prayer-global-porch' ) ?></a></div>
                 <i class="icon pg-logo-prayer icon-medium d-block"></i>
             </div>
         </div>
-        <div class="white desktop-story__container text-left text-bottom container center mt-5">
+        <div class="white desktop-story__container text-left text-bottom container text-center mt-5">
             <h2 class="font-title mb-0">Prayer.Global</h2>
             <h3><?php echo esc_html( __( 'Cover the World in Prayer', 'prayer-global-porch' ) ) ?></h3>
         </div>
@@ -215,7 +215,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
     <div class="container">
         <div class="row justify-content-center">
             <div class="col col-md-9 col-lg-8 col-xl-6">
-                <div class="flow pg-card brand-lighter center uppercase mb-3">
+                <div class="flow pg-card brand-lighter text-center uppercase mb-3">
                     <i class="icon pg-race icon-large d-block pt-4"></i>
                     <h2 class="mb-0"><?php echo esc_html( __( 'Global Race Stats', 'prayer-global-porch' ) ) ?></h2>
 
@@ -243,7 +243,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
                 <a href="/race_app/race_list/" role="button" class="btn smoothscroll btn-primary uppercase flex-grow-1"><?php echo esc_html( __( 'Race List', 'prayer-global-porch' ) ) ?></a>
                 </div>
 
-                <div class="flow pg-card brand-bg white center uppercase mb-5">
+                <div class="flow pg-card brand-bg white text-center uppercase mb-5">
                     <i class="icon pg-world-arrow icon-large pt-4 d-block"></i>
                     <h1 class="mb-0 lh-xsm"><?php echo sprintf( esc_html__( 'Lap %s', 'prayer-global-porch' ), '<span class="global-lap-number">' ) ?><span class="loading-spinner active"></span></span></h1>
 
@@ -283,7 +283,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
                     </a>
                 </div>
 
-                <div class="mb-3 mx-auto center"><a class="btn btn-cta two-em" href="/newest/lap/"><?php echo esc_html( __( 'Start Praying', 'prayer-global-porch' ) ) ?></a></div>
+                <div class="mb-3 mx-auto text-center"><a class="btn btn-cta two-em" href="/newest/lap/"><?php echo esc_html( __( 'Start Praying', 'prayer-global-porch' ) ) ?></a></div>
             </div>
         </div>
     </div>

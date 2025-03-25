@@ -76,7 +76,7 @@ class Prayer_Global_About extends DT_Magic_Url_Base
 
 
 
-        <section class="page center" data-section="about" id="section-about">
+        <section class="page text-center" data-section="about" id="section-about">
             <a href="#" class="text-decoration-none btn-top hide"><i class="icon pg-chevron-up"></i></a>
             <div class="container px-4">
                 <div class="row justify-content-md-center text-center">
@@ -111,7 +111,7 @@ class Prayer_Global_About extends DT_Magic_Url_Base
 
             </div>
         </section>
-        <section class="page-section center mt-0 pb-4" id="historic-moment">
+        <section class="page-section text-center mt-0 pb-4" id="historic-moment">
             <div class="container px-4">
                 <div class="row justify-content-md-center text-center">
                     <div class="col-lg-8 flow-medium">
@@ -134,7 +134,7 @@ class Prayer_Global_About extends DT_Magic_Url_Base
                 </div>
             </div>
         </section>
-        <section class="page-section center white brand-bg mt-0 pb-4" id="how-it-works">
+        <section class="page-section text-center white brand-bg mt-0 pb-4" id="how-it-works">
             <div class="container px-4 font-weight-bold">
                 <div class="row justify-content-md-center text-center">
                     <div class="col-lg-8 flow-medium">
@@ -159,7 +159,7 @@ class Prayer_Global_About extends DT_Magic_Url_Base
                 </div>
             </div>
         </section>
-        <section class="page-section center mt-0 pb-4" id="global-race">
+        <section class="page-section text-center mt-0 pb-4" id="global-race">
             <div class="container px-4">
                 <div class="row justify-content-md-center text-center">
                     <div class="col-lg-8 flow-medium">
@@ -224,7 +224,7 @@ class Prayer_Global_About extends DT_Magic_Url_Base
                 </div>
             </div>
         </section>
-        <section class="page-section center white brand-bg mb-5 mt-0" id="prayer-challenge">
+        <section class="page-section text-center white brand-bg mb-5 mt-0" id="prayer-challenge">
             <div class="container px-4 font-weight-bold">
                 <div class="row justify-content-md-center text-center">
                     <div class="col-lg-8 flow-medium">

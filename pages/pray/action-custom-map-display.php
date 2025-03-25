@@ -93,7 +93,7 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
         <style id="custom-style"></style>
         <div id="map-content">
             <div id="initialize-screen">
-                <div id="initialize-spinner-wrapper" class="center">
+                <div id="initialize-spinner-wrapper" class="text-center">
                     <progress class="success initialize-progress" max="46" value="0"></progress><br>
                     <?php echo esc_html__( 'Loading the planet ...', 'prayer-global-porch' ) ?><br>
                     <span id="initialize-people" style="display:none;"><?php echo esc_html__( 'Locating world population...', 'prayer-global-porch' ) ?></span><br>
@@ -104,7 +104,7 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
             </div>
             <div id="map-wrapper">
                 <div id="head_block_wrapper">
-                    <div id="head_block_display" class="center brand-bg white relative">
+                    <div id="head_block_display" class="text-center brand-bg white relative">
                         <h2 class="uppercase"><?php echo esc_html( sprintf( __( '%s Prayer Relay', 'prayer-global-porch' ), $lap_stats['title'] ) ) ?></h2>
                         <h4 class="uppercase"><?php echo esc_html__( 'Cover The World In Prayer', 'prayer-global-porch' ) ?></h4>
                         <h4 class="uppercase lap-number"><?php echo esc_html__( 'Lap:', 'prayer-global-porch' ) ?> <span><?php echo esc_html( $lap_stats['lap_number'] ) ?></span></h4>
@@ -113,7 +113,7 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
                 <span class="loading-spinner active"></span>
                 <div id='map'></div>
                 <div id="foot_block">
-                    <div class="row d-flex justify-content-between center gap-5 flex-nowrap">
+                    <div class="row d-flex justify-content-between text-center gap-5 flex-nowrap">
                         <div class="col col-sm-3" id="qr-cell"></div>
                         <div class="w-auto flex-1">
                             <div class="blue-bg white blue-border rounded d-flex align-items-center justify-content-around font-weight-bold">
@@ -145,14 +145,14 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
                         <div class=""></div>
                     </div>
                     <div id="qr-code-block">
-                        <div class="two-em center uppercase"><?php echo esc_html__( 'Pray with us', 'prayer-global-porch' ) ?></div>
+                        <div class="two-em text-center uppercase"><?php echo esc_html__( 'Pray with us', 'prayer-global-porch' ) ?></div>
                         <?php if ( !empty( $lap_stats['event_lap'] ) ) : ?>
                             <!--Event relay-->
                             <img class="qr-code-image" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&amp;data=https://api.prayer.global/?relay=<?php echo esc_html( $lap_stats['key'] ) ?>">
                         <?php else : ?>
                             <img class="qr-code-image" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&amp;data=<?php echo esc_url( get_site_url() ) ?>/prayer_app/custom/<?php echo esc_html( $lap_stats['key'] ) ?>">
                         <?php endif; ?>
-                        <div class="center uppercase"><?php echo esc_html__( 'Turn the map from dark to light', 'prayer-global-porch' ) ?></div>
+                        <div class="text-center uppercase"><?php echo esc_html__( 'Turn the map from dark to light', 'prayer-global-porch' ) ?></div>
                     </div>
                 </div>
             </div>
