@@ -688,7 +688,7 @@
 
       <div class="white-bg page px-3">
         <div class="pg-container stack-md" data-small data-stretch>
-          ${this.loading?h`<div class="center">
+          ${this.loading?h`<div class="text-center">
                 <span class="loading-spinner active"></span>
               </div>`:h`
                 <div role="list" class="stack-md relay-list" data-stretch>
@@ -726,7 +726,7 @@
                       `}
                   <nav-link href="/dashboard/new-relay">
                     <div class="stack-sm center text-center brand">
-                      <svg center text-center brandsvg class="icon-lg">
+                      <svg class="center text-center brandsvg icon-lg">
                         <use
                           href="${window.jsObject.spritesheet_url}#pg-plus"
                         ></use>

@@ -119,18 +119,18 @@ class Prayer_Global_Porch_Stats_Race_List extends DT_Magic_Url_Base
                 </div>
             </div>
             <div class="container data-table uppercase" id="content"><span class="loading-spinner active"></span></div>
-            <div class="container center">
+            <div class="container text-center">
                 <div class="row">
-                    <div class="col center">
+                    <div class="col text-center">
                         <hr>
                         <div id="totals_block"></div>
                         <hr>
                     </div>
                 </div>
             </div>
-            <div class="container center">
+            <div class="container text-center">
                 <div class="row">
-                    <div class="col center">
+                    <div class="col text-center">
                         <a href="/race_app/race_map/" role="button" class="btn smoothscroll btn-xl btn-primary rounded"><?php echo esc_html__( 'Race Map', 'prayer-global-porch' ) ?></a>
                     </div>
                 </div>

@@ -116,7 +116,7 @@ class Prayer_Global_Style_Guide extends DT_Magic_Url_Base
                     <h3 class="font-base">Europa</h3>
                     <p class="font-base">abcdefghijklmnopqrstuvwxyz1234567890!"£$%^&*()\=+$[{}]/?|</p>
                 </div>
-                <div class="row justify-content-md-center center mb-5">
+                <div class="row justify-content-md-center text-center mb-5">
                     <h2 class="">Headings</h2>
 
                     <h1>Header 1</h1>

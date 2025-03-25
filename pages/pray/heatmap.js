@@ -932,16 +932,16 @@ window.addEventListener("load", function ($) {
         </div>
         <div class="col-12">
           <div class="row">
-            <div class="col-12 center">
+            <div class="col-12 text-center">
               <p><strong>${translations["Don't Know Jesus"]}</strong></p>
               <p>${bodies_1} <span>(${response.location.non_christians})</span></p>
             </div>
-            <div class="col-12 center">
+            <div class="col-12 text-center">
               <p><strong>${translations["Know about Jesus"]}</strong></p>
               <p>${bodies_2} <span>(${response.location.christian_adherents})</span></p>
             </div>
 
-            <div class="col-12 center">
+            <div class="col-12 text-center">
               <p><strong>${translations["Know Jesus"]}</strong></p>
               <p>${bodies_3} <span>(${response.location.believers})</span></p>
             </div>

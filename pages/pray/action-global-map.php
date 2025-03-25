@@ -113,7 +113,7 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
         <style id="custom-style"></style>
         <div id="map-content">
             <div id="initialize-screen">
-                <div id="initialize-spinner-wrapper" class="center">
+                <div id="initialize-spinner-wrapper" class="text-center">
                     <progress class="success initialize-progress" max="46" value="0"></progress><br>
                     <?php echo esc_html__( 'Loading the planet ...', 'prayer-global-porch' ) ?><br>
                     <span id="initialize-people" style="display:none;"><?php echo esc_html__( 'Locating world population...', 'prayer-global-porch' ) ?></span><br>
@@ -135,20 +135,20 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
                 <div id="foot_block">
                     <div class="map-overlay" id="map-legend"></div>
                     <div class="row g-0 justify-content-center">
-                        <div class="col col-12 center">
+                        <div class="col col-12 text-center">
                             <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_stats">
                                 <i class="icon pg-chevron-up three-em blue"></i>
                             </button>
                             <div class="one-em uppercase font-weight-bold"><?php echo sprintf( esc_html__( 'Lap %s Stats', 'prayer-global-porch' ), esc_html( $lap_stats['lap_number'] ) ) ?></div>
                         </div>
-                        <div class="col col-sm-6 col-lg-2 center">
+                        <div class="col col-sm-6 col-lg-2 text-center">
                             <div class="blue-bg white blue-border rounded-start d-flex align-items-center justify-content-around py-1">
                                 <i class="icon pg-world-light three-em"></i>
                                 <div class="two-em white stats-figure remaining"></div>
                             </div>
                             <span class="uppercase small"><?php echo esc_html__( 'Places Remaining', 'prayer-global-porch' ) ?></span><br>
                         </div>
-                        <div class="col col-sm-6 col-lg-2 center">
+                        <div class="col col-sm-6 col-lg-2 text-center">
                             <div class="white-bg blue blue-border rounded-end d-flex align-items-center justify-content-around py-1">
                                 <i class="icon pg-world-light three-em"></i>
                                 <div class="two-em stats-figure completed"></div>
@@ -156,14 +156,14 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
                             <span class="uppercase small"><?php echo esc_html__( 'Places Covered', 'prayer-global-porch' ) ?></span><br>
                         </div>
                         <div class="col col-lg-1 d-none d-lg-block"></div>
-                        <div class="col col-sm-6 col-lg-2 center d-none d-lg-block">
+                        <div class="col col-sm-6 col-lg-2 text-center d-none d-lg-block">
                             <div class="secondary-bg white secondary-border rounded-start d-flex align-items-center justify-content-around py-1">
                                 <i class="icon pg-prayer three-em"></i>
                                 <div class="two-em stats-figure warriors"></div>
                             </div>
                             <span class="uppercase small"><?php echo esc_html__( 'Intercessors', 'prayer-global-porch' ) ?></span><br>
                         </div>
-                        <div class="col col-sm-6 col-lg-2 center d-none d-lg-block">
+                        <div class="col col-sm-6 col-lg-2 text-center d-none d-lg-block">
                             <div class="blue-bg white blue-border rounded-end d-flex align-items-center justify-content-around py-1">
                                 <i class="icon pg-world-arrow three-em"></i>
                                 <div class="two-em stats-figure"><span class="completed_percent">0</span>%</div>
@@ -218,12 +218,12 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
             </button>
         </div>
         <div class="offcanvas offcanvas-bottom" id="offcanvas_stats">
-            <div class="center offcanvas__header d-flex justify-content-center align-items-center">
+            <div class="text-center offcanvas__header d-flex justify-content-center align-items-center">
                 <button type="button" data-bs-dismiss="offcanvas">
                     <i class="icon pg-chevron-down blue three-em"></i>
                 </button>
             </div>
-            <div class="container center uppercase pt-3">
+            <div class="container text-center uppercase pt-3">
                 <div class="row g-0 justify-content-center">
                     <div class="col col-12">
                         <div class="two-em font-weight-bold"><?php echo sprintf( esc_html__( 'Lap %s Stats', 'prayer-global-porch' ), esc_html( $lap_stats['lap_number'] ) ) ?></div>
@@ -244,14 +244,14 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
                     </div>
                 </div>
                 <div class="row g-0 justify-content-center mt-4">
-                    <div class="col col-6 col-sm-5 col-md-4 col-xl-3 center">
+                    <div class="col col-6 col-sm-5 col-md-4 col-xl-3 text-center">
                         <div class="secondary-bg white secondary-border rounded-start d-flex align-items-center justify-content-between px-3">
                             <i class="icon pg-prayer three-em"></i>
                             <div class="two-em stats-figure warriors"></div>
                         </div>
                         <span class="uppercase small"><?php echo esc_html__( 'Intercessors', 'prayer-global-porch' ) ?></span><br>
                     </div>
-                    <div class="col col-6 col-sm-5 col-md-4 col-xl-3 center">
+                    <div class="col col-6 col-sm-5 col-md-4 col-xl-3 text-center">
                         <div class="blue-bg white blue-border rounded-end d-flex align-items-center justify-content-between px-3">
                             <i class="icon pg-world-arrow three-em"></i>
                             <div class="two-em stats-figure"><span class="completed_percent">0</span>%</div>

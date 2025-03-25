@@ -1333,7 +1333,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                             <h5>${data.section_label}</h5>
                             <p class="f-xlg">${data.focus_label}</p>
                             ${icon}
-                            <div class="w-75 center">
+                            <div class="w-75 text-center">
                                 <p class="f-lg">${data.section_summary}</p>
                                 <p class="f-xlg">${data.prayer}</p>
                             </div>
@@ -1515,7 +1515,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <div class="w-100" ></div>
             <div class="container flow sm text-center">
                 <p class="tutorial uc f-xlg lh-1" id="tutorial-location"><?php echo esc_html__( 'Pray for', 'prayer-global-porch' ) ?></p>
-                <h2 class="lh-1 center bold w-75 f-md" id="location-name">
+                <h2 class="lh-1 text-center bold w-75 f-md" id="location-name">
                     <div class="skeleton" data-title></div>
                 </h2>
                 <p class="f-sm">

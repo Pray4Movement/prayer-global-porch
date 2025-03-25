@@ -51,7 +51,7 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
             </div>
         </div>
         <div class="offcanvas-body">
-            <div class="navbar-nav justify-content-end center uppercase brand-light" id="nav-links">
+            <div class="navbar-nav justify-content-end text-center uppercase brand-light" id="nav-links">
 
                 <a class="nav-link" href="<?php echo ( $url !== '' ) ? esc_url( trailingslashit( site_url() ) ) : '' ?>#section-lap">
                     <div class="nav-link__inner">

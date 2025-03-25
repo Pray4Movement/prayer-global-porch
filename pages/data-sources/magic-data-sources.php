@@ -84,7 +84,7 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
                 <div class="row g-0">
 
                     <!-- Item -->
-                    <div class="col-12 center">
+                    <div class="col-12 text-center">
                         <p>
                             <?php echo esc_html( __( 'We acknowledge that there is no way to possess 100% accurate knowledge of the faith status or location status of every person in the world.', 'prayer-global-porch' ) ) ?>
                         </p>
@@ -96,7 +96,7 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
                         </p>
                     </div>
 
-                    <div class="center" style="padding:1em;border:2px solid gray;">
+                    <div class="text-center" style="padding:1em;border:2px solid gray;">
                         <h4><?php echo esc_html__( 'Recommended Resource:', 'prayer-global-porch' ) ?> <a href="https://locationgrid.app">Location Grid Project</a></h4>
                         <p>
                             <?php echo esc_html( sprintf( __( '%1$s is build on %2$s open source software, and %2$s mapping and geolocation system is an open source project called %3$s. The %3$s is a geographic framework of world locations and polygons for disciple making movement saturation efforts.', 'prayer-global-porch' ), 'Prayer.Global', 'Disciple.Tools', 'Location Grid Project' ) ) ?>

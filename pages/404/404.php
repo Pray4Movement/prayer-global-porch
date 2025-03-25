@@ -107,17 +107,17 @@ class PG_Porch_404 extends DT_Magic_Url_Base
                     </div>
                 </div>
             </div>
-            <div class="container center">
+            <div class="container text-center">
                 <div class="row">
-                    <div class="col center">
+                    <div class="col text-center">
                         <p><?php echo esc_html__( 'Not where you meant to be? Try some of the links below (or above) to get back into the action...', 'prayer-global-porch' ) ?></p>
                     </div>
                 </div>
             </div>
             <hr>
-            <div class="container center">
+            <div class="container text-center">
                 <div class="row">
-                    <div class="col center">
+                    <div class="col text-center">
                         <ul style="list-style: none; padding-left: 0;">
                             <li><a href="/newest/lap"><?php echo esc_html__( 'Start Praying', 'prayer-global-porch' ) ?></a></li>
                             <li><a href="/newest/map"><?php echo esc_html__( 'The map', 'prayer-global-porch' ) ?></a></li>
@@ -134,9 +134,9 @@ class PG_Porch_404 extends DT_Magic_Url_Base
                     </div>
                 </div>
             </div>
-            <div class="container center">
+            <div class="container text-center">
                 <div class="row">
-                    <div class="col center">
+                    <div class="col text-center">
                         <ul style="list-style: none; padding-left: 0;">
                             <li><a href="/prayer_app/contact_us/"><?php echo esc_html__( 'Anything to share/request? Please contact us :)', 'prayer-global-porch' ) ?></a></li>
                             <li><a href="/content_app/data_sources"><?php echo esc_html__( 'Where does all the data come from?', 'prayer-global-porch' ) ?></a></li>

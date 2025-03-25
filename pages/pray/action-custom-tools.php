@@ -120,17 +120,17 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
             <div class="container" id="content">
 
                 <div class="row ">
-                    <div class="col center">
+                    <div class="col text-center">
                         <hr>
                     </div>
                 </div>
                 <div class="row ">
-                    <div class="col center p-3">
+                    <div class="col text-center p-3">
                         <h3><?php echo esc_html( sprintf( __( '%s Relay Map', 'prayer-global-porch' ), $lap_stats['title'] ) ) ?></h3>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col col-6 col-md-4 col-lg-3 center">
+                    <div class="col col-6 col-md-4 col-lg-3 text-center">
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&amp;data=<?php echo esc_url( get_site_url() ) ?>/prayer_app/custom/<?php echo esc_html( $lap_stats['key'] ) ?>/map" style="width: 100%;max-width:400px;"><br><br>
                     </div>
                 </div>
@@ -146,12 +146,12 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
 
 
                 <div class="row ">
-                    <div class="col center">
+                    <div class="col text-center">
                         <hr>
                     </div>
                 </div>
                 <div class="row ">
-                    <div class="col center p-3">
+                    <div class="col text-center p-3">
                         <h3><?php echo esc_html__( 'Display Map (60 Second Refresh)', 'prayer-global-porch' ) ?></h3>
                     </div>
                 </div>
@@ -167,17 +167,17 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
 
 
                 <div class="row ">
-                    <div class="col center">
+                    <div class="col text-center">
                         <hr>
                     </div>
                 </div>
                 <div class="row ">
-                    <div class="col center p-3">
+                    <div class="col text-center p-3">
                         <h3><?php echo esc_html( sprintf( __( 'App Stores: %s App', 'prayer-global-porch' ), 'Prayer.Global' ) ) ?></h3>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col col-6 col-md-4 col-lg-3 center">
+                    <div class="col col-6 col-md-4 col-lg-3 text-center">
                         <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) . 'assets/images/prayer.global.app.png' ) ?>" style="width: 100%;max-width:400px;"><br><br>
                     </div>
                 </div>

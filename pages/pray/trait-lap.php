@@ -150,7 +150,7 @@ trait PG_Lap_Trait {
             <div class="w-100" ></div>
             <div class="container flow space-sm text-center">
                 <p class="tutorial uc f-xlg lh-1" id="tutorial-location"><?php echo esc_html__( 'Pray for', 'prayer-global-porch' ) ?></p>
-                <h2 class="lh-1 center bold w-75 f-md" id="location-name">
+                <h2 class="lh-1 text-center bold w-75 f-md" id="location-name">
                     <div class="skeleton" data-title></div>
                 </h2>
                 <p class="f-sm">
@@ -335,7 +335,7 @@ trait PG_Lap_Trait {
                             <button type="button" class="btn pace-btn" id="pace__15" value="15"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 15 ) ) ?></button>
                         </div>
                     </div>
-                    <div class="modal-footer center">
+                    <div class="modal-footer text-center">
                         <button type="button" class="btn btn-primary" id="option_filter_done" data-bs-dismiss="modal"><?php echo esc_html__( "Let's Go!", 'prayer-global-porch' ) ?></button>
                     </div>
                 </div>
@@ -345,20 +345,20 @@ trait PG_Lap_Trait {
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
-                        <h5 class="center"><?php echo esc_html( sprintf( __( 'How %s works', 'prayer-global-porch' ), 'Prayer.Global' ) ) ?></h5>
-                        <h4 class="center"><?php echo esc_html( __( 'Step 1', 'prayer-global-porch' ) ) ?></h4>
+                        <h5 class="text-center"><?php echo esc_html( sprintf( __( 'How %s works', 'prayer-global-porch' ), 'Prayer.Global' ) ) ?></h5>
+                        <h4 class="text-center"><?php echo esc_html( __( 'Step 1', 'prayer-global-porch' ) ) ?></h4>
                         <p>
                             <?php echo esc_html( __( 'Pray over the location provided using the maps, photos, prayers, people group info, and facts.', 'prayer-global-porch' ) ) ?>
                         </p>
 
-                        <h4 class="center"><?php echo esc_html( __( 'Step 2', 'prayer-global-porch' ) ) ?></h4>
+                        <h4 class="text-center"><?php echo esc_html( __( 'Step 2', 'prayer-global-porch' ) ) ?></h4>
                         <p>
                             <?php echo esc_html( __( 'Pray for one minute (or longer) as the Spirit leads.', 'prayer-global-porch' ) ) ?>
                         </p>
                         <p>
                             <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/welcome-keep.png" style="opacity:0.5;" class="img-fluid" />
                         </p>
-                        <h4 class="center"><?php echo esc_html( __( 'Step 3', 'prayer-global-porch' ) ) ?></h4>
+                        <h4 class="text-center"><?php echo esc_html( __( 'Step 3', 'prayer-global-porch' ) ) ?></h4>
                         <p>
                             <?php echo sprintf( esc_html( __( 'Click Done to see your impact on the map or %sclick Next to pray for another location', 'prayer-global-porch' ) ), '<br>' ) ?>
                         </p>
