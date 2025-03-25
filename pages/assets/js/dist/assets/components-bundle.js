@@ -725,8 +725,8 @@
                         </div>
                       `}
                   <nav-link href="/dashboard/new-relay">
-                    <div class="stack-sm center text-center brand">
-                      <svg class="center text-center brandsvg icon-lg">
+                    <div class="stack-sm brand">
+                      <svg class="icon-lg">
                         <use
                           href="${window.jsObject.spritesheet_url}#pg-plus"
                         ></use>

@@ -282,9 +282,6 @@ input[type="radio"]:checked {
     border-color: var(--pg-brand-color-highlight);
     box-shadow: 0 0 0 0.25rem rgba(92, 131, 196, 0.25);
 }
-.center {
-    text-align: center;
-}
 .left-align {
     text-align: left;
 }
@@ -544,6 +541,12 @@ input[type="radio"]:checked {
 /* =========== */
 /* Composition */
 /* =========== */
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .flow > * + * {
     margin-top: var(--pg-flow-size, 4rem);
