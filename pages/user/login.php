@@ -165,7 +165,6 @@ class PG_Login extends PG_Public_Page {
             let jsObject = [<?php echo json_encode([
                 'rest_url' => esc_url( rest_url( 'dt/v1' ) ),
                 'translations' => [
-                    'add' => __( 'Add Magic', 'disciple_tools' ),
                     'invalid_credentials' => esc_html__( 'Invalid email or password. Please try again.', 'prayer-global-porch' ),
                     'email_not_found' => esc_html__( 'Email not found. Please register.', 'prayer-global-porch' ),
                     'auth_failed' => esc_html__( 'Authentication failed. Please try again or register for an account.', 'prayer-global-porch' ),
@@ -249,7 +248,7 @@ class PG_Login extends PG_Public_Page {
                         </div>
                         <div id="login-buttons" class="login-buttons">
                             <div>
-                                <button id="signin-google" class="google-button" data-provider-id="google.com">
+                                <button id="signin-google" data-type="login" class="google-button" data-provider-id="google.com">
                                     <span style="margin-right: 10px">
                                         <img alt="sign in with google"
                                              src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">

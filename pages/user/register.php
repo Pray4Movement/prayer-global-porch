@@ -115,7 +115,6 @@ class PG_Register extends PG_Public_Page {
 
     public function wp_enqueue_scripts() {
         wp_enqueue_script( 'pass-strength', 'https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js', [], '4.2.0', true );
-        wp_enqueue_script( 'user-mobile-login', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-mobile-login.js', [], fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-mobile-login.js' ), [ 'strategy' => 'defer' ] );
         wp_enqueue_script( 'cloudflare-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], 'v0', [ 'strategy' => 'defer' ] );
         wp_enqueue_style( 'pg-register-style', plugin_dir_url( __FILE__ ) . 'login.css', array(), filemtime( plugin_dir_path( __FILE__ ) . 'login.css' ) );
     }
@@ -123,7 +122,6 @@ class PG_Register extends PG_Public_Page {
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
         $allowed_js[] = 'cloudflare-turnstile';
         $allowed_js[] = 'pass-strength';
-        $allowed_js[] = 'user-mobile-login';
         return $allowed_js;
     }
 
@@ -162,177 +160,17 @@ class PG_Register extends PG_Public_Page {
             }
           })
         </script>
-        <script type="module">
-          import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js'
-          import { getAuth, GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js'
-
-          const firebaseConfig = {
-            apiKey: "AIzaSyCJEy7tJL_YSQPYH4H92_n0kQBhmYcj1l8",
-            authDomain: "auth.prayer.global",
-            projectId: "prayer-global-dbbaa",
-            storageBucket: "prayer-global-dbbaa.firebasestorage.app",
-            messagingSenderId: "764994067122",
-            appId: "1:764994067122:web:a8d34e86451c0d966947ab",
-            measurementId: "G-HTYNN26M7X"
-          };
-
-          // Initialize Firebase
-          const app = initializeApp(firebaseConfig);
-          let rest_url = '<?php echo esc_url( rest_url( 'dt/v1' ) ) ?>';
-
-          //handle sign in with Google
-          document.getElementById('signin-google').addEventListener('click', () => {
-            const auth = getAuth(app)
-            const provider = new GoogleAuthProvider();
-            signInWithPopup(auth, provider).then((userCredential) => {
-              userCredential.extraData = {
-                marketing: document.getElementById('extra_register_input_marketing').checked || false
-              }
-              fetch( `${rest_url}/session/login`, {
-                method: 'POST',
-                body: JSON.stringify(userCredential)
-              })
-              .then(() => {
-                location.href = '/dashboard'
-              })
-            }).catch((error) => {
-              document.getElementById('login-error').innerText = error.message
-              document.getElementById('login-error').style.display = 'block'
-            });
-          })
-
-          document.getElementById('register-password').addEventListener('click', () => {
-            document.getElementById('register-email-password-form').style.display = 'block'
-            document.getElementById('login-buttons').style.display = 'none'
-          })
-          document.getElementById('register-email-password-form-back').addEventListener('click', () => {
-            document.getElementById('register-email-password-form').style.display = 'none'
-            document.getElementById('login-buttons').style.display = 'block'
-          })
-
-          const strength = {
-            0: "Worst",
-            1: "Bad",
-            2: "Weak",
-            3: "Good",
-            4: "Strong"
-          }
-          const minStrength = 1
-          let isSubmitting = false
-
-          const form = document.getElementById('loginform')
-          const password_field = document.getElementById('password');
-          const password2 = document.getElementById('password2');
-          const passwordStrengthError = document.getElementById('password-error-too-weak')
-          const passwordsDontMatchError = document.getElementById('password-error-2')
-          const meter = document.getElementById('password-strength-meter');
-
-          function getPasswordStrength(p) {
-            if (typeof zxcvbn !== 'function') {
-              return p.length >= 8 ? 3 : 0
-            }
-            return zxcvbn(p).score;
-          }
-
-          password_field.addEventListener('input', function() {
-            const password = password_field.value;
-            const password_strength = getPasswordStrength(password);
-            // Update the password strength meter
-            meter.value = password_strength
-
-            if ( password_strength >= minStrength ) {
-              passwordStrengthError.style.display = 'none'
-            }
-          });
-
-          form.addEventListener('submit', function(event) {
-            const password = password_field.value;
-            const password_strength = getPasswordStrength(password);
-
-            if ( password_strength < minStrength ) {
-              event.preventDefault()
-              passwordStrengthError.style.display = 'block'
-              return
-            }
-
-            if (password_field.value !== password2.value) {
-              event.preventDefault()
-              passwordsDontMatchError.style.display = 'block'
-              return
-            }
-
-            if (isSubmitting) {
-              event.preventDefault()
-              return
-            }
-            event.preventDefault()
-
-            const submitButtenElement = document.querySelector('#register-submit')
-            submitButtenElement.querySelector('.loading-spinner').classList.add('active')
-            submitButtenElement.classList.add('disabled')
-            submitButtenElement.setAttribute('disabled', '')
-
-            isSubmitting = true
-
-            const email = event.target.email?.value
-            if (email === '') {
-              event.preventDefault()
-              return
-            }
-            const pass = event.target.password?.value
-            if (pass === '') {
-              event.preventDefault()
-              return
-            }
-
-            const name = event.target.name?.value || email
-
-            // Get the Turnstile token
-            const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]').value;
-            if (!turnstileResponse) {
-              document.getElementById('login-error').innerText = '<?php echo esc_html__( 'Please complete the security check.', 'prayer-global-porch' ) ?>'
-              document.getElementById('login-error').style.display = 'block'
-              submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
-              submitButtenElement.classList.remove('disabled')
-              submitButtenElement.removeAttribute('disabled')
-              isSubmitting = false
-              return
-            }
-
-            // Send registration data to our endpoint
-            fetch(`${window.pg_global.root}pg/register/password`, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({
-                email: email,
-                password: pass,
-                name: name,
-                extra_data: {
-                  marketing: document.getElementById('extra_register_input_marketing').checked || false,
-                  turnstile_token: turnstileResponse
-                }
-              })
-            })
-            .then((response) => {
-              return response.ok ? response.json() : Promise.reject(response);
-            })
-            .then(() => {
-              location.href = '/dashboard'
-            })
-            .catch((response) => {
-              response.json().then((error) => {
-                document.getElementById('login-error').innerText = error.message
-                document.getElementById('login-error').style.display = 'block'
-                submitButtenElement.querySelector('.loading-spinner').classList.remove('active')
-                submitButtenElement.classList.remove('disabled')
-                submitButtenElement.removeAttribute('disabled')
-                isSubmitting = false
-              })
-            });
-          })
+        <script>
+            let jsObject = [<?php echo json_encode([
+                'rest_url' => esc_url( rest_url( 'dt/v1' ) ),
+                'translations' => [
+                   'turnstile_error' => esc_html__( 'Please complete the security check.', 'prayer-global-porch' ),
+                ],
+            ]) ?>][0]
         </script>
+        <script type="module" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) . 'register.js' ); ?>"></script>
+        <script type="module" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-mobile-login.js' ); ?>"></script>
+
         <?php
     }
     /**
@@ -397,7 +235,7 @@ class PG_Register extends PG_Public_Page {
                         </div>
                         <div id="login-buttons" class="login-buttons">
                             <div>
-                                <button id="signin-google" class="google-button" data-provider-id="google.com">
+                                <button id="signin-google" data-type="register" class="google-button" data-provider-id="google.com">
                                             <span style="margin-right: 10px">
                                                 <img alt="sign in with google"
                                                      src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg">
