@@ -197,7 +197,7 @@ class PG_Register extends PG_Public_Page {
         ?>
 
         <section class="login-section pt-4" data-section="register" id="section-register">
-            <div class="container text-center">
+            <div class="container center text-center">
                 <div class="login-register-links">
                     <a href="<?php echo esc_html( $login_url ); ?>"><?php esc_html_e( 'Login', 'prayer-global-porch' ); ?></a>
                     <a class="link-active" href="#"><?php esc_html_e( 'Register', 'prayer-global-porch' ); ?></a>
