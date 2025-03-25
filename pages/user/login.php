@@ -130,7 +130,6 @@ class PG_Login extends PG_Public_Page {
     }
 
     public function wp_enqueue_scripts() {
-        wp_enqueue_script( 'user-mobile-login', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-mobile-login.js', [], fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'user-mobile-login.js' ), [ 'strategy' => 'defer' ] );
         wp_enqueue_style( 'pg-login-style', plugin_dir_url( __FILE__ ) . 'login.css', array(), filemtime( plugin_dir_path( __FILE__ ) . 'login.css' ) );
     }
 
@@ -176,6 +175,7 @@ class PG_Login extends PG_Public_Page {
             ]) ?>][0]
         </script>
         <script type="module" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) . 'login.js' ); ?>"></script>
+        <script type="module" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-mobile-login.js' ); ?>"></script>
 
         <?php
     }

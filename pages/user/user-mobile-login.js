@@ -1,45 +1,30 @@
+import app from "./firebase-app";
+import {
+  getAuth,
+  GoogleAuthProvider,
+} from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
+
 jQuery(document).ready(function () {
-  const waitForElement = window.waitForElement
   /* We can access all of the top level constants and functions declared in login-shortcodes.php for the login shortcode */
-  const googleButtonSelector = ".firebaseui-idp-google";
-  const facebookButtonSelector = ".firebaseui-idp-facebook";
-  const linkAccountButtonSelector = ".firebaseui-id-submit"
+  const googleButtonSelector = "#signin-google";
 
-  const isGoNative = navigator.userAgent.indexOf("gonative") >= 0;
+  const isMedian = navigator.userAgent.indexOf("gonative") >= 0;
 
-  if (isGoNative) {
-    waitForElement(googleButtonSelector, () =>
-      initialiseMobileButton(
-        googleButtonSelector,
-        "google",
-        providerLoginCallback
-      )
+  if (isMedian) {
+    initialiseMobileButton(
+      googleButtonSelector,
+      "google",
+      providerLoginCallback
     );
-    waitForElementContainingText(linkAccountButtonSelector, 'google', () => {
-      initialiseMobileButton(
-        linkAccountButtonSelector,
-        'google',
-        providerLoginCallback
-      )
-    })
-    waitForElement(facebookButtonSelector, () =>
-      initialiseMobileButton(
-        facebookButtonSelector,
-        "facebook",
-        providerLoginCallback
-      )
-    );
-    waitForElementContainingText(linkAccountButtonSelector, 'facebook', () => {
-      initialiseMobileButton(
-        linkAccountButtonSelector,
-        'facebook',
-        providerLoginCallback
-      )
-    })
   }
 
   function initialiseMobileButton(selector, socialProvider, callback) {
     console.log(`initialising ${socialProvider} mobile button`);
+
+    if (!["google", "facebook"].includes(socialProvider)) {
+      console.log("social Provider not recognized");
+      return;
+    }
     const buttonElement = document.querySelector(selector);
 
     const buttonClone = buttonElement.cloneNode(true);
@@ -47,33 +32,10 @@ jQuery(document).ready(function () {
 
     buttonElement.remove();
 
-    if (socialProvider === "google") {
-      buttonClone.onclick = () =>
-        gonative.socialLogin.google.login({ callback: callback });
-    } else if (socialProvider === "facebook") {
-      buttonClone.onclick = () =>
-        gonative.socialLogin.facebook.login({ callback: callback });
-    }
+    buttonClone.onclick = () =>
+      window.median.socialLogin[socialProvider].login({ callback: callback });
 
     parentNode.appendChild(buttonClone);
-  }
-
-  function waitForElementContainingText(selector, text, callback) {
-    console.log('waiting for element containing text', selector, text)
-    const timeIncrement = 200
-
-    const ticker = setInterval(() => {
-      const element = document.querySelector(selector)
-
-      if (!element) return
-
-      const elementText = element.innerHTML
-      if (!elementText.toLowerCase().includes(text)) return
-
-      clearInterval(ticker)
-
-      callback()
-    }, timeIncrement)
   }
 
   function providerLoginCallback(response) {
@@ -91,7 +53,6 @@ jQuery(document).ready(function () {
 
     if (token) {
       console.log("we have an idToken", token);
-      const { GoogleAuthProvider, FacebookAuthProvider } = firebase.auth;
 
       let credential;
 
@@ -104,15 +65,16 @@ jQuery(document).ready(function () {
 
       console.log("attempting signIn with credential", credential);
 
+      const auth = getAuth(app);
       // Sign in with credential from the Google user.
       auth
         .signInWithCredential(credential)
-        .then((authResult) => {
+        .then((userCredential) => {
           /* Then we will send *that* token to WP to exchange for a token :O) */
 
-          console.log("signInWithCredential response", authResult);
+          console.log("signInWithCredential response", userCredential);
 
-          return signInSuccessWithAuthResult(authResult);
+          return signInSuccessWithAuthResult(userCredential);
         })
         .catch((error) => {
           // Handle Errors here.
