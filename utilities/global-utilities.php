@@ -86,10 +86,6 @@ function pg_profile_icon( $manual = false ) {
 }
 function pg_streak_icon() {
 
-    if ( ! is_user_logged_in() ) {
-        return;
-    }
-
     $user_stats = new User_Stats( get_current_user_id() );
     $current_streak = $user_stats->current_streak_in_days();
     $is_streak_secure = $user_stats->streak_secure();

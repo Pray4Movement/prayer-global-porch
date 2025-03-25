@@ -240,7 +240,7 @@ class PG_Login extends PG_Public_Page {
                             </li>
                             <li>
                                 <svg class="icon-sm"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-streak"></use></svg>
-                                <?php echo esc_html__( 'Prayer streaks, badges and more', 'prayer-global-porch' ) ?>
+                                <?php echo esc_html__( 'Prayer streaks and more', 'prayer-global-porch' ) ?>
                             </li>
                         </ul>
                         <hr>
