@@ -16,8 +16,8 @@ import {
   sendPasswordResetEmail,
 } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 
-import app from "./firebase-app.js";
-import { signInSuccessWithAuthResult } from "./utilities.js";
+import app from "@pg/firebase-app";
+import { signInSuccessWithAuthResult } from "@pg/utilities";
 
 let rest_url = jsObject.rest_url;
 

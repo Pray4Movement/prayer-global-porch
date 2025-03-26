@@ -131,6 +131,24 @@ class PG_Login extends PG_Public_Page {
 
     public function wp_enqueue_scripts() {
         wp_enqueue_style( 'pg-login-style', plugin_dir_url( __FILE__ ) . 'login.css', array(), filemtime( plugin_dir_path( __FILE__ ) . 'login.css' ) );
+
+        wp_enqueue_script_module( 'pg-login-script', plugin_dir_url( __FILE__ ) . 'login.js', array( '@pg/utilities', '@pg/firebase-app' ), filemtime( plugin_dir_path( __FILE__ ) . 'login.js' ) );
+        wp_enqueue_script_module( 'pg-user-mobile-login-script', plugin_dir_url( __FILE__ ) . 'user-mobile-login.js', array( '@pg/utilities', '@pg/firebase-app' ), filemtime( plugin_dir_path( __FILE__ ) . 'user-mobile-login.js' ) );
+
+        // enqueue_script_module for utilities.js and firebase-app.js, using @pg namespace, and include in above module scripts deps array
+        wp_enqueue_script_module( '@pg/utilities', plugin_dir_url( __FILE__ ) . 'utilities.js', array(), filemtime( plugin_dir_path( __FILE__ ) . 'utilities.js' ) );
+        wp_enqueue_script_module( '@pg/firebase-app', plugin_dir_url( __FILE__ ) . 'firebase-app.js', array(), filemtime( plugin_dir_path( __FILE__ ) . 'firebase-app.js' ) );
+
+        wp_localize_script( 'global-functions', 'jsObject', [
+            'rest_url' => esc_url( rest_url( 'dt/v1' ) ),
+            'translations' => [
+                'invalid_credentials' => esc_html__( 'Invalid email or password. Please try again.', 'prayer-global-porch' ),
+                'email_not_found' => esc_html__( 'Email not found. Please register.', 'prayer-global-porch' ),
+                'auth_failed' => esc_html__( 'Authentication failed. Please try again or register for an account.', 'prayer-global-porch' ),
+                'email_required' => esc_html__( 'Email is required', 'prayer-global-porch' ),
+                'no_account_found' => esc_html__( 'No account found with that email address', 'prayer-global-porch' ),
+            ],
+        ] );
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -161,20 +179,6 @@ class PG_Login extends PG_Public_Page {
     public function footer_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/footer.php' );
         ?>
-        <script>
-            let jsObject = [<?php echo json_encode([
-                'rest_url' => esc_url( rest_url( 'dt/v1' ) ),
-                'translations' => [
-                    'invalid_credentials' => esc_html__( 'Invalid email or password. Please try again.', 'prayer-global-porch' ),
-                    'email_not_found' => esc_html__( 'Email not found. Please register.', 'prayer-global-porch' ),
-                    'auth_failed' => esc_html__( 'Authentication failed. Please try again or register for an account.', 'prayer-global-porch' ),
-                    'email_required' => esc_html__( 'Email is required', 'prayer-global-porch' ),
-                    'no_account_found' => esc_html__( 'No account found with that email address', 'prayer-global-porch' ),
-                ],
-            ]) ?>][0]
-        </script>
-        <script type="module" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) . 'login.js' ); ?>"></script>
-        <script type="module" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-mobile-login.js' ); ?>"></script>
 
         <?php
     }
