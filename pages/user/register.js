@@ -4,7 +4,7 @@ import {
   signInWithPopup,
 } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import app from "./firebase-app.js";
-import { signInSuccessWithAuthResult } from "./utilities";
+import { signInSuccessWithAuthResult } from "./utilities.js";
 
 //handle sign in with Google
 document.getElementById("signin-google").addEventListener("click", () => {
