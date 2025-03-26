@@ -39,14 +39,14 @@ if (document.getElementById("section-login")) {
   document.getElementById("register-password").addEventListener("click", () => {
     document.getElementById("login-email-password-form").style.display =
       "block";
-    document.getElementById("login-buttons").style.display = "none";
+    document.getElementById("login-buttons").classList.add("hidden");
   });
   document
     .getElementById("login-email-password-form-back")
     .addEventListener("click", () => {
       document.getElementById("login-email-password-form").style.display =
         "none";
-      document.getElementById("login-buttons").style.display = "block";
+      document.getElementById("login-buttons").classList.remove("hidden");
     });
 
   let isSubmitting = false;

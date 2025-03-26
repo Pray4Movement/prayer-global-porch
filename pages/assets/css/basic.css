@@ -403,6 +403,9 @@ input[type="radio"]:checked {
 }
 
 /* Utilities */
+.hidden {
+    display: none !important;
+}
 .green {
     color: green;
 }
