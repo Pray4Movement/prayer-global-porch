@@ -2,6 +2,7 @@ import app from "./firebase-app.js";
 import {
   getAuth,
   GoogleAuthProvider,
+  signInWithCredential,
 } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { signInSuccessWithAuthResult } from "./utilities.js";
 
@@ -70,8 +71,7 @@ jQuery(document).ready(function () {
       const auth = getAuth(app);
       console.log("auth", auth);
       // Sign in with credential from the Google user.
-      auth
-        .signInWithCredential(credential)
+      signInWithCredential(auth, credential)
         .then((userCredential) => {
           /* Then we will send *that* token to WP to exchange for a token :O) */
 
