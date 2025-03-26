@@ -11,8 +11,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 class PG_Streak_Handler {
     private array $milestone_days = [7, 14, 30, 60, 100];
     private array $push_enabled_milestones = [];
+    private static ?PG_Streak_Handler $instance = null;
 
-    public function __construct() {
+    /**
+     * Get singleton instance
+     */
+    public static function instance(): self {
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
+
+    /**
+     * Constructor
+     */
+    private function __construct() {
         // Hook into prayer session completion
         add_action('pg_prayer_session_completed', [$this, 'handle_prayer_session'], 10, 1);
 
@@ -21,6 +35,16 @@ class PG_Streak_Handler {
             wp_schedule_event(strtotime('tomorrow midnight'), 'daily', 'pg_daily_streak_check');
         }
         add_action('pg_daily_streak_check', [$this, 'check_all_streaks']);
+
+        // Register deactivation hook
+        register_deactivation_hook(__FILE__, [$this, 'deactivate']);
+    }
+
+    /**
+     * Clean up on deactivation
+     */
+    public function deactivate(): void {
+        wp_clear_scheduled_hook('pg_daily_streak_check');
     }
 
     /**
@@ -67,3 +91,4 @@ class PG_Streak_Handler {
         }
     }
 }
+PG_Streak_Handler::instance();

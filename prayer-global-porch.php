@@ -130,6 +130,10 @@ class Prayer_Global_Porch {
         require_once( 'pages/pray/stacker-positions.php' );
         require_once( 'pages/pray/stacker.php' );
 
+        /* Notification system */
+        require_once( 'classes/jobs/class-pg-streak-notification-job.php' );
+        require_once( 'classes/pg-streak-handler.php' );
+
         if ( is_admin() ) {
             require_once( 'support/admin.php' );
         }
