@@ -66,7 +66,9 @@ jQuery(document).ready(function () {
 
       console.log("attempting signIn with credential", credential);
 
+      console.log("app", app);
       const auth = getAuth(app);
+      console.log("auth", auth);
       // Sign in with credential from the Google user.
       auth
         .signInWithCredential(credential)
