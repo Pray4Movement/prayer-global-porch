@@ -135,7 +135,6 @@ class PG_Login extends PG_Public_Page {
         wp_enqueue_script_module( 'pg-login-script', plugin_dir_url( __FILE__ ) . 'login.js', array( '@pg/utilities', '@pg/firebase-app' ), filemtime( plugin_dir_path( __FILE__ ) . 'login.js' ) );
         wp_enqueue_script_module( 'pg-user-mobile-login-script', plugin_dir_url( __FILE__ ) . 'user-mobile-login.js', array( '@pg/utilities', '@pg/firebase-app' ), filemtime( plugin_dir_path( __FILE__ ) . 'user-mobile-login.js' ) );
 
-        // enqueue_script_module for utilities.js and firebase-app.js, using @pg namespace, and include in above module scripts deps array
         wp_enqueue_script_module( '@pg/utilities', plugin_dir_url( __FILE__ ) . 'utilities.js', array(), filemtime( plugin_dir_path( __FILE__ ) . 'utilities.js' ) );
         wp_enqueue_script_module( '@pg/firebase-app', plugin_dir_url( __FILE__ ) . 'firebase-app.js', array(), filemtime( plugin_dir_path( __FILE__ ) . 'firebase-app.js' ) );
 

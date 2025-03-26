@@ -117,6 +117,20 @@ class PG_Register extends PG_Public_Page {
         wp_enqueue_script( 'pass-strength', 'https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js', [], '4.2.0', true );
         wp_enqueue_script( 'cloudflare-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], 'v0', [ 'strategy' => 'defer' ] );
         wp_enqueue_style( 'pg-register-style', plugin_dir_url( __FILE__ ) . 'login.css', array(), filemtime( plugin_dir_path( __FILE__ ) . 'login.css' ) );
+
+        wp_enqueue_script_module( 'pg-register-script', plugin_dir_url( __FILE__ ) . 'register.js', array( '@pg/utilities', '@pg/firebase-app' ), filemtime( plugin_dir_path( __FILE__ ) . 'register.js' ) );
+        wp_enqueue_script_module( 'pg-user-mobile-login-script', plugin_dir_url( __FILE__ ) . 'user-mobile-login.js', array( '@pg/utilities', '@pg/firebase-app' ), filemtime( plugin_dir_path( __FILE__ ) . 'user-mobile-login.js' ) );
+
+        wp_enqueue_script_module( '@pg/utilities', plugin_dir_url( __FILE__ ) . 'utilities.js', array(), filemtime( plugin_dir_path( __FILE__ ) . 'utilities.js' ) );
+        wp_enqueue_script_module( '@pg/firebase-app', plugin_dir_url( __FILE__ ) . 'firebase-app.js', array(), filemtime( plugin_dir_path( __FILE__ ) . 'firebase-app.js' ) );
+
+        wp_localize_script( 'global-functions', 'jsObject', [
+            'rest_url' => esc_url( rest_url( 'dt/v1' ) ),
+            'translations' => [
+                'turnstile_error' => esc_html__( 'Please complete the security check.', 'prayer-global-porch' ),
+            ],
+        ] );
+
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -160,16 +174,6 @@ class PG_Register extends PG_Public_Page {
             }
           })
         </script>
-        <script>
-            let jsObject = [<?php echo json_encode([
-                'rest_url' => esc_url( rest_url( 'dt/v1' ) ),
-                'translations' => [
-                   'turnstile_error' => esc_html__( 'Please complete the security check.', 'prayer-global-porch' ),
-                ],
-            ]) ?>][0]
-        </script>
-        <script type="module" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) . 'register.js' ); ?>"></script>
-        <script type="module" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) . 'user-mobile-login.js' ); ?>"></script>
 
         <?php
     }
