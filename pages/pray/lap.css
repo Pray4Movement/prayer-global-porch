@@ -9,6 +9,7 @@
     --pg-orange: #f2944a;
     --pg-grey: #acabab;
     --pg-grey-hover: #8a8888;
+    --orange-gradient: linear-gradient(#ffb858, #ea7519);
 
     font-size: 18px;
     scroll-behavior: smooth;
@@ -110,6 +111,16 @@ img {
     gap: 1rem;
     align-items: center;
 }
+
+/* Cluster */
+.cluster {
+    display: flex;
+    gap: var(--space, 1rem);
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
 .space-sm {
     --space: 0.5rem;
 }
@@ -128,10 +139,14 @@ img {
 .w-100 {
     width: 100%;
 }
+.w-fit {
+    width: fit-content;
+}
 
 .center {
     margin-left: auto;
     margin-right: auto;
+    align-items: center;
 }
 
 .switcher {
@@ -174,7 +189,18 @@ img {
     position: absolute;
     top: -8rem;
 }
-
+.activity-card {
+    width: 100%;
+    border: 2px solid var(--pg-highlight);
+    border-radius: 12px;
+    padding: 1rem;
+}
+.activity-card__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--pg-highlight);
+    text-align: center;
+}
 .celebrate-panel {
     display: none;
     position: fixed;
@@ -597,13 +623,21 @@ a {
     width: 6rem;
     line-height: 1.1;
 }
-.icon-xsm {
-    height: 1rem;
-    width: 1rem;
+.icon-lg {
+    height: 4rem;
+    width: 4rem;
+}
+.icon-md {
+    height: 2rem;
+    width: 2rem;
 }
 .icon-sm {
     height: 1.5rem;
     width: 1.5rem;
+}
+.icon-xsm {
+    height: 1rem;
+    width: 1rem;
 }
 .pie {
     --w: 150px;
@@ -643,6 +677,10 @@ a {
     color: var(--pg-light);
     fill: var(--pg-light);
 }
+.highlight {
+    color: var(--pg-highlight);
+    fill: var(--pg-highlight);
+}
 .orange {
     color: var(--pg-orange);
     fill: var(--pg-orange);
@@ -655,6 +693,9 @@ a {
 }
 .bg-orange {
     background: var(--pg-orange);
+}
+.orange-gradient {
+    background-image: var(--orange-gradient);
 }
 .bold {
     font-weight: bold;

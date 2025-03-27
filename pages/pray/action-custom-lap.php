@@ -131,6 +131,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
         $current_lap = Prayer_Stats::get_relay_current_lap( $this->parts['public_key'], $this->parts['post_id'], true );
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
+        $user_stats = new User_Stats( get_current_user_id() );
         if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
             ?>
             <!-- Resources -->
@@ -153,6 +154,8 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                         'register_now' => esc_html__( 'Register Now', 'prayer-global-porch' ),
                         'create_your_own_free_login' => esc_html__( 'Create your own free login', 'prayer-global-porch' ),
                         'no_thanks' => esc_html__( 'No Thanks', 'prayer-global-porch' ),
+                        'daily_streak' => esc_html__( 'Daily Prayer Streak', 'prayer-global-porch' ),
+                        'best' => esc_html__( 'Best', 'prayer-global-porch' ),
                     ],
                     'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
                     'images_url' => pg_grid_image_url(),
@@ -165,6 +168,11 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'direct_api_url' => plugin_dir_url( dirname( __DIR__ ) ),
                     'cache_url' => 'https://s3.prayer.global/',
                     'spritesheet_url' => $this->spritesheet_url,
+                    'icons_url' => plugin_dir_url( __DIR__ ) . 'assets/images/icons',
+                    'stats' => [
+                        'current_streak_in_days' => $user_stats->current_streak_in_days(),
+                        'best_streak_in_days' => $user_stats->best_streak_in_days(),
+                    ],
                 ]) ?>][0]
             </script>
             <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>lap.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap.css' ) ) ?>" type="text/css" media="all">
