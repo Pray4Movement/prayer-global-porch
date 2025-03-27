@@ -97,7 +97,6 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
         $this->spritesheet_dir = $svg_manager->get_cached_spritesheet_dir( $icons, 'pg' );
         $this->spritesheet_url = $svg_manager->get_cached_spritesheet_url( $icons, 'pg' );
-
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
