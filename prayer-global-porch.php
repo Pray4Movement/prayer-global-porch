@@ -114,6 +114,7 @@ class Prayer_Global_Porch {
         $wpdb->location_grid_people_groups = 'location_grid_people_groups';
         $wpdb->location_grid_names = 'location_grid_names';
         $wpdb->dt_relays = $wpdb->prefix . 'dt_relays';
+        $wpdb->dt_notifications_sent = $wpdb->prefix . 'dt_notifications_sent';
 
         require_once( 'utilities/cron-jobs.php' );
         require_once( 'utilities/global-utilities.php' );
@@ -131,8 +132,7 @@ class Prayer_Global_Porch {
         require_once( 'pages/pray/stacker.php' );
 
         /* Notification system */
-        require_once( 'classes/jobs/class-pg-streak-notification-job.php' );
-        require_once( 'classes/pg-streak-handler.php' );
+        require_once( 'classes/class-pg-notification-base.php' );
 
         if ( is_admin() ) {
             require_once( 'support/admin.php' );
