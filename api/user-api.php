@@ -96,17 +96,14 @@ class PG_User_API {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
         }
 
-        $user_stats = $wpdb->get_row( $wpdb->prepare( "
-            SELECT COUNT(r.id) as total_locations, SUM(r.value) as total_minutes
-            FROM $wpdb->dt_reports r
-            WHERE r.user_id = %d
-            AND r.type = 'prayer_app'
-            ORDER BY r.timestamp DESC
-            ", $user_id ), ARRAY_A );
+        $user_stats = new User_Stats( $user_id );
 
-        $user_stats['total_locations'] = (int) $user_stats['total_locations'];
-        $user_stats['total_minutes'] = (int) $user_stats['total_minutes'];
-        return $user_stats;
+        $return['total_locations'] = $user_stats->total_places_prayed();
+        $return['total_minutes'] = $user_stats->total_minutes_prayed();
+        $return['current_streak'] = $user_stats->current_streak_in_days();
+        $return['best_streak'] = $user_stats->best_streak_in_days();
+
+        return $return;
     }
 
     public static function get_user_locations_prayed_for_endpoint( WP_REST_Request $request ){

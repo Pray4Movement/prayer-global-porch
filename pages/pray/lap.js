@@ -218,7 +218,7 @@ function celebrateAndDone() {
                   jsObject.icons_url
                 }/pg-streak.svg') no-repeat 0 0/100% 100%;"
               ></div>
-              <span class="f-xxlg bold">
+              <span class="f-xxlg bold" id="current-streak">
                 ${jsObject.stats.current_streak_in_days}
               </span>
             </div>
@@ -229,7 +229,9 @@ function celebrateAndDone() {
                 ></use>
               </svg>
               <span class="f-md highlight">
-                ${jsObject.stats.best_streak_in_days}
+                <span id="best-streak">
+                  ${jsObject.stats.best_streak_in_days}
+                </span>
                 ${jsObject.translations.best}
               </span>
             </div>
@@ -241,9 +243,19 @@ function celebrateAndDone() {
       </div>
     `;
     /* Add API call to get new user stats */
-    /* After success update the curent and best streak values in DOM */
-
-    /* If the a celebration milestone is hit display a congratulatory message */
+    window
+      .api_fetch(`${window.pg_global.root}pg-api/v1/user/stats`, {
+        method: "POST",
+      })
+      .then((res) => {
+        /* After success update the curent and best streak values in DOM */
+        document.getElementById("current-streak").innerHTML =
+          res.current_streak;
+        document.getElementById("best-streak").innerHTML = res.best_streak;
+        /* If the a celebration milestone is hit display a congratulatory message */
+        /* Check for any milestones in the user stats endpoint and send them down */
+        /* We could even send down the translated text as well. */
+      });
   } else {
     // Or if they aren't logged in, we will encourage them to sign up
     celebrateContentContainer.innerHTML = `
