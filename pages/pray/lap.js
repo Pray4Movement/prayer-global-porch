@@ -83,6 +83,8 @@ async function init() {
 
   ip_location();
   window.load_report_modal();
+
+  //celebrateAndDone();
 }
 
 function setupListeners() {
@@ -183,20 +185,62 @@ function resetLocationCount() {
 }
 
 function celebrateAndNext() {
-  celebrateAndNavigateTo(location.href);
-}
-function celebrateAndDone() {
-  celebrateAndNavigateTo(getHomeUrl());
-}
-function celebrateAndNavigateTo(href) {
   /* Fire off the celebrations and open the celebrate panel */
   window.celebrationFireworks();
   show(celebratePanel);
   updateLocationCount();
 
   setTimeout(() => {
-    location.href = href;
+    location.reload();
   }, CELEBRATION_TIMEOUT);
+}
+function celebrateAndDone() {
+  /* Fire off the celebrations and open the celebrate panel */
+  window.celebrationFireworks();
+  show(celebratePanel);
+  updateLocationCount();
+
+  const celebrateContentContainer =
+    document.querySelector("#celebrate-content");
+  const celebrateDoneButton = document.querySelector("#celebrate-panel__done");
+
+  celebrateDoneButton.addEventListener("click", () => {
+    location.href = getHomeUrl();
+  });
+
+  if (window.pg_global.is_logged_in) {
+    // We will add streak count here
+    // We will add in celebrations here
+  } else {
+    // Or if they aren't logged in, we will encourage them to sign up
+    celebrateContentContainer.innerHTML = `
+      <hr class="seperator-thick">
+      <div class="flow">
+        <h3 class="text-center">${jsObject.translations.create_your_own_free_login}</h3>
+        <ul class="flow center-block" role="list">
+          <li class="space-out">
+              <svg class="icon-sm"><use href="${jsObject.spritesheet_url}#pg-relay"></use></svg>
+              ${jsObject.translations.join_and_create_custom_prayer_relays}
+          </li>
+          <li class="space-out">
+              <svg class="icon-sm"><use href="${jsObject.spritesheet_url}#pg-prayer"></use></svg>
+              ${jsObject.translations.view_your_interactive_prayer_history}
+          </li>
+          <li class="space-out">
+              <svg class="icon-sm"><use href="${jsObject.spritesheet_url}#pg-streak"></use></svg>
+              ${jsObject.translations.prayer_streaks_badges_and_more}
+          </li>
+        </ul>
+        <a href="/register" class="center btn bg-orange" id="celebrate-panel__done">${jsObject.translations.register_now}</a>
+      </div>
+      <hr class="seperator-thick">
+
+    `;
+  }
+
+  if (window.pg_global.is_logged_in && !window.isMobileAppUser()) {
+    // If they are logged in but not using the mobile app, we will encourage them to download the app in order to get streak notifications etc.
+  }
 }
 
 function openLeaveModal() {
@@ -923,7 +967,7 @@ function _template_photo_block(data) {
 function _template_basic_block(data) {
   const reference = data.reference
     ? `
-        <button type="button" class="btn simple id-${data.id} with-icon" onclick="document.querySelector('#id-${data.id}').style.display = 'block';document.querySelector('.id-${data.id}').style.display = 'none';" >
+        <button type="button" class="center btn simple id-${data.id} with-icon" onclick="document.querySelector('#id-${data.id}').style.display = 'block';document.querySelector('.id-${data.id}').style.display = 'none';" >
             <span>${data.reference} </span> <svg width="1em" height="1em" viewBox="0 0 33 33"><use href="#pg-chevron-down"></use></svg>
         </button>
         <div class="flow sm" id="id-${data.id}" style="display: none" >

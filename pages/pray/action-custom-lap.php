@@ -9,6 +9,8 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
     public $lap_title;
     public $lap_title_initials;
+    public $spritesheet_dir;
+    public $spritesheet_url;
     private static $_instance = null;
     public static function instance() {
         if ( is_null( self::$_instance ) ) {
@@ -73,6 +75,29 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
             $this->lap_title_initials = $title_initials;
         }
+
+        $svg_manager = new SVG_Spritesheet_Manager();
+
+        $icons = [
+            'ion-android-warning',
+            'ion-happy',
+            'ion-ios-body',
+            'ion-map',
+            'ion-sad',
+            'pg-chevron-down',
+            'pg-close',
+            'pg-pause',
+            'pg-play',
+            'pg-pray-hands-dark',
+            'pg-prayer',
+            'pg-settings',
+            'pg-relay',
+            'pg-streak',
+        ];
+
+        $this->spritesheet_dir = $svg_manager->get_cached_spritesheet_dir( $icons, 'pg' );
+        $this->spritesheet_url = $svg_manager->get_cached_spritesheet_url( $icons, 'pg' );
+
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -115,14 +140,19 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'parts' => $this->parts,
                     'nonce' => PG_Nonce::create( 'direct-api' ),
                     'translations' => [
-                        'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
-                        'Keep Praying...' => __( 'Keep Praying...', 'prayer-global-porch' ),
-                        "Don't Know Jesus" => __( "Don't Know Jesus", 'prayer-global-porch' ),
-                        'Know About Jesus' => __( 'Know About Jesus', 'prayer-global-porch' ),
-                        'Know Jesus' => __( 'Know Jesus', 'prayer-global-porch' ),
-                        'Praying Paused' => __( 'Praying Paused', 'prayer-global-porch' ),
-                        'Great Job!' => __( 'Great Job!', 'prayer-global-porch' ),
-                        'Prayer Added!' => __( 'Prayer Added!', 'prayer-global-porch' ),
+                        'state_of_location' => esc_html__( '%1$s of %2$s', 'prayer-global-porch' ),
+                        'Keep Praying...' => esc_html__( 'Keep Praying...', 'prayer-global-porch' ),
+                        "Don't Know Jesus" => esc_html__( "Don't Know Jesus", 'prayer-global-porch' ),
+                        'Know About Jesus' => esc_html__( 'Know About Jesus', 'prayer-global-porch' ),
+                        'Know Jesus' => esc_html__( 'Know Jesus', 'prayer-global-porch' ),
+                        'Praying Paused' => esc_html__( 'Praying Paused', 'prayer-global-porch' ),
+                        'Great Job!' => esc_html__( 'Great Job!', 'prayer-global-porch' ),
+                        'Prayer Added!' => esc_html__( 'Prayer Added!', 'prayer-global-porch' ),
+                        'join_and_create_custom_prayer_relays' => esc_html__( 'Join and create custom prayer relays', 'prayer-global-porch' ),
+                        'view_your_interactive_prayer_history' => esc_html__( 'View your interactive prayer history', 'prayer-global-porch' ),
+                        'prayer_streaks_badges_and_more' => esc_html__( 'Prayer streaks, badges and more', 'prayer-global-porch' ),
+                        'register_now' => esc_html__( 'Register Now', 'prayer-global-porch' ),
+                        'create_your_own_free_login' => esc_html__( 'Create your own free login', 'prayer-global-porch' ),
                     ],
                     'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
                     'images_url' => pg_grid_image_url(),
@@ -134,6 +164,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'is_cta_feature_on' => !$current_lap['ctas_off'],
                     'direct_api_url' => plugin_dir_url( dirname( __DIR__ ) ),
                     'cache_url' => 'https://s3.prayer.global/',
+                    'spritesheet_url' => $this->spritesheet_url,
                 ]) ?>][0]
             </script>
             <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>lap.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap.css' ) ) ?>" type="text/css" media="all">
@@ -147,29 +178,10 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
     }
 
     public function body(){
-
-        $svg_manager = new SVG_Spritesheet_Manager();
-
-        $icons = [
-            'ion-android-warning',
-            'ion-happy',
-            'ion-ios-body',
-            'ion-map',
-            'ion-sad',
-            'pg-chevron-down',
-            'pg-close',
-            'pg-pause',
-            'pg-play',
-            'pg-pray-hands-dark',
-            'pg-prayer',
-            'pg-settings',
-        ];
-
-        $spritesheet_dir = $svg_manager->get_cached_spritesheet_dir( $icons, 'pg' );
         ?>
 
         <?php //phpcs:ignore ?>
-        <?php echo file_get_contents( $spritesheet_dir ); ?>
+        <?php echo file_get_contents( $this->spritesheet_dir ); ?>
 
         <!-- navigation & widget -->
         <nav class="prayer-navbar">
@@ -228,7 +240,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <div class="w-100" ></div>
             <div class="container flow space-sm text-center">
                 <p class="tutorial uc f-xlg lh-1" id="tutorial-location"><?php echo esc_html__( 'Pray for', 'prayer-global-porch' ) ?></p>
-                <h2 class="lh-1 text-center bold w-75 f-md" id="location-name">
+                <h2 class="lh-1 text-center bold w-75 center f-md" id="location-name">
                     <div class="skeleton" data-title></div>
                 </h2>
                 <p class="f-sm">
@@ -238,12 +250,14 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         </nav>
 
         <div class="celebrate-panel text-center" id="celebrate-panel">
-            <div class="container">
+            <div class="container flow" data-small>
                 <h2>
                     <?php echo esc_html__( 'Great Job!', 'prayer-global-porch' ) ?>
                     <br />
                     <?php echo esc_html__( 'Prayer Added!', 'prayer-global-porch' ) ?>
                 </h2>
+                <div id="celebrate-content"></div>
+                <button class="center btn outline space-lg" id="celebrate-panel__done"><?php echo esc_html__( 'Done', 'prayer-global-porch' ) ?></button>
             </div>
         </div>
 
@@ -344,11 +358,15 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             </div>
             <div class="container">
                 <div class="flow text-center">
-                    <svg class="f-xxlg" height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
+                    <svg class="center f-xxlg" height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
                         <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/pray-hands-dark.svg#pg-icon' ) ?>"></use>
                     </svg>
-                    <button type="button" class="btn outline" id="more_prayer_fuel"><?php echo esc_html__( 'Show More Guided Prayers', 'prayer-global-porch' ) ?><i class="icon pg-chevron-down"></i></button>
-                    <button class="btn simple" id="correction_button"><?php echo esc_html__( 'Correction Needed?', 'prayer-global-porch' ) ?></button>
+                    <button type="button" class="btn outline" id="more_prayer_fuel"><?php echo esc_html__( 'Show More Guided Prayers', 'prayer-global-porch' ) ?>
+                        <svg class="icon-xsm">
+                            <use href="#pg-chevron-down"></use>
+                        </svg>
+                    </button>
+                    <button class="center btn simple" id="correction_button"><?php echo esc_html__( 'Correction Needed?', 'prayer-global-porch' ) ?></button>
                 </div>
             </div>
 

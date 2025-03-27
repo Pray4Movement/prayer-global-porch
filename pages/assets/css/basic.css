@@ -131,13 +131,13 @@ img {
     max-width: 100%;
 }
 ul {
-    padding-inline-start: 0;
     margin-inline-start: 0;
     line-height: var(--bs-body-line-height);
 }
 ol[role="list"],
 ul[role="list"] {
     list-style: none;
+    padding-inline-start: 0;
 }
 a {
     -webkit-transition: 0.3s all ease;
