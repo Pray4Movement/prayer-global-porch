@@ -156,6 +156,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                         'no_thanks' => esc_html__( 'No Thanks', 'prayer-global-porch' ),
                         'daily_streak' => esc_html__( 'Daily Prayer Streak', 'prayer-global-porch' ),
                         'best' => esc_html__( 'Best', 'prayer-global-porch' ),
+                        'done' => esc_html__( 'Done', 'prayer-global-porch' ),
                     ],
                     'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
                     'images_url' => pg_grid_image_url(),

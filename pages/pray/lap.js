@@ -205,40 +205,45 @@ function celebrateAndDone() {
 
   if (window.pg_global.is_logged_in) {
     celebrateContentContainer.innerHTML = `
-      <div class="w-fit center">
-        <section class="flow center | activity-card lh-xsm">
-          <h3 class="activity-card__title">
-            ${jsObject.translations.daily_streak}
-          </h3>
-          <div class="cluster">
-            <div
-              class="orange-gradient icon-lg"
-              style="mask:url('${jsObject.icons_url}/pg-streak.svg') no-repeat 0 0/100% 100%;"
-            ></div>
-            <span class="f-xxlg bold">
-              ${jsObject.stats.current_streak_in_days}
-            </span>
-          </div>
-          <div class="cluster | space-sm">
-            <svg class="highlight icon-md">
-              <use
-                href="${jsObject.spritesheet_url}#pg-streak"
-              ></use>
-            </svg>
-            <span class="f-md highlight">
-              ${jsObject.stats.best_streak_in_days}
-              ${jsObject.translations.best}
-            </span>
-          </div>
-        </section>
+      <div class="flow">
+        <div class="w-fit center">
+          <section class="flow center | activity-card lh-xsm">
+            <h3 class="activity-card__title">
+              ${jsObject.translations.daily_streak}
+            </h3>
+            <div class="cluster">
+              <div
+                class="orange-gradient icon-lg"
+                style="mask:url('${
+                  jsObject.icons_url
+                }/pg-streak.svg') no-repeat 0 0/100% 100%;"
+              ></div>
+              <span class="f-xxlg bold">
+                ${jsObject.stats.current_streak_in_days}
+              </span>
+            </div>
+            <div class="cluster | space-sm">
+              <svg class="highlight icon-md">
+                <use
+                  href="${jsObject.spritesheet_url}#pg-streak"
+                ></use>
+              </svg>
+              <span class="f-md highlight">
+                ${jsObject.stats.best_streak_in_days}
+                ${jsObject.translations.best}
+              </span>
+            </div>
+          </section>
+        </div>
+        <a href="${getHomeUrl()}" class="center btn outline space-lg">
+          ${jsObject.translations.done}
+        </a>
       </div>
     `;
     /* Add API call to get new user stats */
     /* After success update the curent and best streak values in DOM */
-    /* Fire off celebration confetti  */
 
-    /* If the a celebration milestone is hit, fire off a celebration confetti */
-    /* And display a congratulatory message */
+    /* If the a celebration milestone is hit display a congratulatory message */
   } else {
     // Or if they aren't logged in, we will encourage them to sign up
     celebrateContentContainer.innerHTML = `
