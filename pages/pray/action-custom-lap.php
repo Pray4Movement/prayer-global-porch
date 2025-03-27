@@ -153,6 +153,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                         'prayer_streaks_badges_and_more' => esc_html__( 'Prayer streaks, badges and more', 'prayer-global-porch' ),
                         'register_now' => esc_html__( 'Register Now', 'prayer-global-porch' ),
                         'create_your_own_free_login' => esc_html__( 'Create your own free login', 'prayer-global-porch' ),
+                        'no_thanks' => esc_html__( 'No Thanks', 'prayer-global-porch' ),
                     ],
                     'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
                     'images_url' => pg_grid_image_url(),
@@ -257,7 +258,6 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     <?php echo esc_html__( 'Prayer Added!', 'prayer-global-porch' ) ?>
                 </h2>
                 <div id="celebrate-content"></div>
-                <button class="center btn outline space-lg" id="celebrate-panel__done"><?php echo esc_html__( 'Done', 'prayer-global-porch' ) ?></button>
             </div>
         </div>
 

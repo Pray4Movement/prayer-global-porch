@@ -84,7 +84,7 @@ async function init() {
   ip_location();
   window.load_report_modal();
 
-  //celebrateAndDone();
+  celebrateAndDone();
 }
 
 function setupListeners() {
@@ -202,11 +202,6 @@ function celebrateAndDone() {
 
   const celebrateContentContainer =
     document.querySelector("#celebrate-content");
-  const celebrateDoneButton = document.querySelector("#celebrate-panel__done");
-
-  celebrateDoneButton.addEventListener("click", () => {
-    location.href = getHomeUrl();
-  });
 
   if (window.pg_global.is_logged_in) {
     // We will add streak count here
@@ -216,25 +211,37 @@ function celebrateAndDone() {
     celebrateContentContainer.innerHTML = `
       <hr class="seperator-thick">
       <div class="flow">
-        <h3 class="text-center">${jsObject.translations.create_your_own_free_login}</h3>
+        <h3 class="text-center">
+          ${jsObject.translations.create_your_own_free_login}
+        </h3>
         <ul class="flow center-block" role="list">
           <li class="space-out">
-              <svg class="icon-sm"><use href="${jsObject.spritesheet_url}#pg-relay"></use></svg>
+              <svg class="icon-sm">
+                <use href="${jsObject.spritesheet_url}#pg-relay"></use>
+              </svg>
               ${jsObject.translations.join_and_create_custom_prayer_relays}
           </li>
           <li class="space-out">
-              <svg class="icon-sm"><use href="${jsObject.spritesheet_url}#pg-prayer"></use></svg>
+              <svg class="icon-sm">
+                <use href="${jsObject.spritesheet_url}#pg-prayer"></use>
+              </svg>
               ${jsObject.translations.view_your_interactive_prayer_history}
           </li>
           <li class="space-out">
-              <svg class="icon-sm"><use href="${jsObject.spritesheet_url}#pg-streak"></use></svg>
+              <svg class="icon-sm">
+                <use href="${jsObject.spritesheet_url}#pg-streak"></use>
+              </svg>
               ${jsObject.translations.prayer_streaks_badges_and_more}
           </li>
         </ul>
-        <a href="/register" class="center btn bg-orange" id="celebrate-panel__done">${jsObject.translations.register_now}</a>
+        <a href="/register" class="center btn bg-orange" id="celebrate-panel__done">
+          ${jsObject.translations.register_now}
+        </a>
       </div>
       <hr class="seperator-thick">
-
+      <a href="${getHomeUrl()}" class="center btn outline space-lg" id="celebrate-panel__done">
+        ${jsObject.translations.no_thanks}
+      </a>
     `;
   }
 
