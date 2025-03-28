@@ -42,6 +42,15 @@ async function median_library_ready() {
       }),
     });
   }
+  if (
+    window.median &&
+    window.median.onesignal &&
+    !window.median.onesignal.login
+  ) {
+    window.isLegacyAppUser = true;
+  } else {
+    window.isLegacyAppUser = false;
+  }
 }
 /* In case this JS is loaded after the median library */
 if (window.median) {

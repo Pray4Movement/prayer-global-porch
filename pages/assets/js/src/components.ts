@@ -21,5 +21,7 @@ declare global {
     toDateInputFormat: (timestamp: number) => string;
     toTimeInputFormat: (timestamp: number) => string;
     isMobile: () => boolean;
+    isMobileAppUser: () => boolean;
+    isLegacyAppUser: boolean;
   }
 }

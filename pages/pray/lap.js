@@ -85,7 +85,7 @@ async function init() {
   window.load_report_modal();
 
   /* DEBUG ONLY @TODO: Remove this */
-  //celebrateAndDone();
+  celebrateAndDone();
 }
 
 function setupListeners() {
@@ -278,20 +278,26 @@ function celebrateAndDone() {
         }
       })
       .finally(() => {
-        const divContainer = document.createElement("div");
-        divContainer.classList.add("flow");
-        divContainer.classList.add("bg-light");
-        divContainer.classList.add("modal-content");
-        divContainer.classList.add("modal-body");
-        divContainer.innerHTML = `
-          <h5 class="text-center bold">
-            ${jsObject.translations.download_the_prayer_global_app}
-          </h5>
-          <a href="/qr/app" target="_blank" class="center btn cta">
-            ${jsObject.translations.go_to_app_store}
-          </a>
-        `;
-        milestonesContainer.insertAdjacentElement("afterend", divContainer);
+        if (!window.isMobileAppUser() || window.isLegacyAppUser) {
+          const divContainer = document.createElement("div");
+          divContainer.classList.add("flow");
+          divContainer.classList.add("bg-light");
+          divContainer.classList.add("modal-content");
+          divContainer.classList.add("modal-body");
+          divContainer.innerHTML = `
+            <h5 class="text-center bold">
+              ${
+                window.isLegacyAppUser
+                  ? jsObject.translations.update_the_app
+                  : jsObject.translations.download_the_app
+              }
+            </h5>
+            <a href="/qr/app" target="_blank" class="center btn cta">
+              ${jsObject.translations.go_to_app_store}
+            </a>
+          `;
+          milestonesContainer.insertAdjacentElement("afterend", divContainer);
+        }
       });
   } else {
     // Or if they aren't logged in, we will encourage them to sign up
