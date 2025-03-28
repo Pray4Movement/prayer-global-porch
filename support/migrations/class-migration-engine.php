@@ -92,7 +92,7 @@ class Prayer_Global_Migration_Engine
             if ( $target_migration_number === $current_migration_number ) {
                 break;
             } elseif ( $target_migration_number < $current_migration_number ) {
-                throw new Exception( 'Trying to migrate backwards, aborting' );
+                return new Exception( 'Trying to migrate backwards, aborting' );
             }
 
             $activating_migration_number = $current_migration_number + 1;

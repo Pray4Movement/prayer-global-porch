@@ -98,7 +98,7 @@
     display: flex;
     flex-direction: column;
     gap: 1em;
-    margin: 1em;
+    margin-top: 1em;
 }
 .login-buttons img {
     width: 1.5em;
