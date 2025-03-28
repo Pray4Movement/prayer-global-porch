@@ -88,8 +88,6 @@ class PG_User_API {
     }
 
     public static function get_user_stats() {
-        global $wpdb;
-
         $user_id = get_current_user_id();
 
         if ( !$user_id ) {
@@ -97,15 +95,22 @@ class PG_User_API {
         }
 
         $user_stats = new User_Stats( $user_id );
-        $milestones_manager = new Milestones_Manager( $user_id );
+        $milestones_manager = new PG_Milestones( $user_id );
 
-        $return['total_locations'] = $user_stats->total_places_prayed();
-        $return['total_minutes'] = $user_stats->total_minutes_prayed();
-        $return['current_streak'] = $user_stats->current_streak_in_days();
-        $return['best_streak'] = $user_stats->best_streak_in_days();
-        $return['milestones'] = $milestones_manager->get_milestones();
+        $result = [];
+        $result['total_locations'] = $user_stats->total_places_prayed();
+        $result['total_minutes'] = $user_stats->total_minutes_prayed();
+        $result['current_streak'] = $user_stats->current_streak_in_days();
+        $result['best_streak'] = $user_stats->best_streak_in_days();
+        $result['milestones'] = $milestones_manager->get_in_app_milestones();
 
-        return $return;
+        foreach ( $result['milestones'] as $milestone ) {
+            if ( !PG_Notifications::has_sent_notification_recently( $user_id, $milestone['category'], $milestone['value'] ) ) {
+                PG_Notifications::record_notification( $user_id, $milestone['category'], $milestone['value'] );
+            }
+        }
+
+        return $result;
     }
 
     public static function get_user_locations_prayed_for_endpoint( WP_REST_Request $request ){
