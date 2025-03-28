@@ -1392,7 +1392,7 @@ button {
 }
 .pg-navbar .container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr auto 1fr;
 }
 
 .pg-navbar.scrolled {
@@ -1479,6 +1479,13 @@ nav.navbar-home {
         width: 100%;
     }
     .navbar__title {
+        visibility: hidden;
+        width: 0;
+        height: 0;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
+    .navbar__title-link {
         visibility: hidden;
         width: 0;
         height: 0;
