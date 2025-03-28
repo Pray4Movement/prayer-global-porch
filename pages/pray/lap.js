@@ -85,7 +85,7 @@ async function init() {
   window.load_report_modal();
 
   /* DEBUG ONLY @TODO: Remove this */
-  // celebrateAndDone();
+  //celebrateAndDone();
 }
 
 function setupListeners() {
@@ -217,6 +217,7 @@ function celebrateAndDone() {
         </a>
       </div>
     `;
+    const milestonesContainer = document.getElementById("milestones");
     /* Add API call to get new user stats */
     window
       .api_fetch(`${window.pg_global.root}pg-api/v1/user/stats`, {
@@ -226,7 +227,6 @@ function celebrateAndDone() {
         /* After success update the curent and best streak values in DOM */
         const milestones = result.milestones;
         if (milestones.length > 0) {
-          const milestonesContainer = document.getElementById("milestones");
           milestonesContainer.innerHTML = "";
           milestones.forEach((milestone) => {
             milestonesContainer.innerHTML += `<hr class="seperator-thick">`;
@@ -276,6 +276,21 @@ function celebrateAndDone() {
             </div>
           `;
         }
+      })
+      .finally(() => {
+        const divContainer = document.createElement("div");
+        divContainer.classList.add("flow");
+        divContainer.innerHTML = `
+          <hr class="seperator-thick">
+          <h5 class="text-center bold">
+            ${jsObject.translations.download_the_prayer_global_app}
+          </h5>
+          <a href="/qr/app" target="_blank" class="center btn cta">
+            ${jsObject.translations.go_to_app_store}
+          </a>
+          <hr class="seperator-thick">
+        `;
+        milestonesContainer.insertAdjacentElement("afterend", divContainer);
       });
   } else {
     // Or if they aren't logged in, we will encourage them to sign up
@@ -318,6 +333,8 @@ function celebrateAndDone() {
 
   if (window.pg_global.is_logged_in && !window.isMobileAppUser()) {
     // If they are logged in but not using the mobile app, we will encourage them to download the app in order to get streak notifications etc.
+    //
+    //
   }
 }
 

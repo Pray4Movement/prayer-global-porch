@@ -158,6 +158,8 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                         'best' => esc_html__( 'Best', 'prayer-global-porch' ),
                         'done' => esc_html__( 'Done', 'prayer-global-porch' ),
                         'fetching_stats' => esc_html__( 'Fetching your stats...', 'prayer-global-porch' ),
+                        'download_the_prayer_global_app' => esc_html__( 'Download the Prayer.Global app to get streak notifications and more!', 'prayer-global-porch' ),
+                        'go_to_app_store' => esc_html__( 'Go to App Store', 'prayer-global-porch' ),
                     ],
                     'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
                     'images_url' => pg_grid_image_url(),

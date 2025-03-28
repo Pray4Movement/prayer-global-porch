@@ -124,6 +124,17 @@ export class PgDashboard extends OpenElement {
 
               <hr>
 
+              <div class="stack-sm">
+                <h5 class="text-center font-weight-bold brand-light">
+                  ${this.translations.download_the_prayer_global_app}
+                </h5>
+                <a href="/qr/app" target="_blank" class="btn btn-cta d-block center-block">
+                  ${this.translations.go_to_app_store}
+                </a>
+              </div>
+
+              <hr>
+
               <div class="pg-container flow-small">
                 <h3 class="text-center">${this.translations.prayer_relays}</h3>
                 ${

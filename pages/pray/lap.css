@@ -10,6 +10,7 @@
     --pg-grey: #acabab;
     --pg-grey-hover: #8a8888;
     --orange-gradient: linear-gradient(#ffb858, #ea7519);
+    --orange-gradient-hover: linear-gradient(#ea7519, #ffb858);
 
     font-size: 18px;
     scroll-behavior: smooth;
@@ -285,6 +286,13 @@ a {
 }
 .btn.bg-orange:hover {
     background: #d28041;
+}
+.btn.cta {
+    background-image: var(--orange-gradient);
+    border: 0;
+}
+.btn.cta:hover {
+    background-image: var(--orange-gradient-hover);
 }
 .btn.outline {
     background-color: white;
