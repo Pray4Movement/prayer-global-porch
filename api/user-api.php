@@ -97,11 +97,13 @@ class PG_User_API {
         }
 
         $user_stats = new User_Stats( $user_id );
+        $milestones_manager = new Milestones_Manager( $user_id );
 
         $return['total_locations'] = $user_stats->total_places_prayed();
         $return['total_minutes'] = $user_stats->total_minutes_prayed();
         $return['current_streak'] = $user_stats->current_streak_in_days();
         $return['best_streak'] = $user_stats->best_streak_in_days();
+        $return['milestones'] = $milestones_manager->get_milestones();
 
         return $return;
     }

@@ -106,6 +106,9 @@ img {
 .flow > * + * {
     margin-top: var(--space, 1rem);
 }
+.flow[data-medium] > * + * {
+    margin-top: var(--space, 2rem);
+}
 .space-out {
     display: flex;
     gap: 1rem;
@@ -147,6 +150,9 @@ img {
     margin-left: auto;
     margin-right: auto;
     align-items: center;
+}
+.justify-center {
+    justify-content: center;
 }
 
 .switcher {
@@ -211,9 +217,11 @@ img {
     bottom: 0;
     background-color: var(--pg-dark);
     color: white;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    overflow-y: auto;
 }
 .celebrate-panel h2 {
-    margin-top: 2rem;
     font-size: 2em;
 }
 .celebrate-panel h3 {
@@ -330,7 +338,6 @@ a {
     border-top: 4px solid;
     border-color: var(--pg-orange);
     max-width: 80%;
-    margin: 2em auto;
 }
 /* ## Prayer navbar buttons */
 .prayer-navbar {

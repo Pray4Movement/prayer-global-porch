@@ -84,7 +84,8 @@ async function init() {
   ip_location();
   window.load_report_modal();
 
-  celebrateAndDone();
+  /* DEBUG ONLY @TODO: Remove this */
+  //celebrateAndDone();
 }
 
 function setupListeners() {
@@ -205,7 +206,7 @@ function celebrateAndDone() {
 
   if (window.pg_global.is_logged_in) {
     celebrateContentContainer.innerHTML = `
-      <div class="flow">
+      <div class="flow" data-medium>
         <div class="w-fit center">
           <section class="flow center | activity-card lh-xsm">
             <h3 class="activity-card__title">
@@ -237,6 +238,7 @@ function celebrateAndDone() {
             </div>
           </section>
         </div>
+        <div id="milestones" class="flow"></div>
         <a href="${getHomeUrl()}" class="center btn outline space-lg">
           ${jsObject.translations.done}
         </a>
@@ -247,14 +249,30 @@ function celebrateAndDone() {
       .api_fetch(`${window.pg_global.root}pg-api/v1/user/stats`, {
         method: "POST",
       })
-      .then((res) => {
+      .then((result) => {
         /* After success update the curent and best streak values in DOM */
         document.getElementById("current-streak").innerHTML =
-          res.current_streak;
-        document.getElementById("best-streak").innerHTML = res.best_streak;
-        /* If the a celebration milestone is hit display a congratulatory message */
-        /* Check for any milestones in the user stats endpoint and send them down */
-        /* We could even send down the translated text as well. */
+          result.current_streak;
+        document.getElementById("best-streak").innerHTML = result.best_streak;
+        const milestones = result.milestones;
+        if (milestones.length > 0) {
+          const milestonesContainer = document.getElementById("milestones");
+          milestones.forEach((milestone) => {
+            milestonesContainer.innerHTML += `<hr class="seperator-thick">`;
+            milestonesContainer.innerHTML += `
+              <div class="flow milestone text-center">
+                <h2 class="cluster justify-center">
+                  <svg class="icon-md">
+                    <use href="${jsObject.spritesheet_url}#${milestone.icon}"></use>
+                  </svg>
+                  ${milestone.title}
+                </h2>
+                <p class="text-center bold">${milestone.message}</p>
+              </div>
+              <hr class="seperator-thick">
+            `;
+          });
+        }
       });
   } else {
     // Or if they aren't logged in, we will encourage them to sign up
