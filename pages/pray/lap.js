@@ -280,15 +280,16 @@ function celebrateAndDone() {
       .finally(() => {
         const divContainer = document.createElement("div");
         divContainer.classList.add("flow");
+        divContainer.classList.add("bg-light");
+        divContainer.classList.add("modal-content");
+        divContainer.classList.add("modal-body");
         divContainer.innerHTML = `
-          <hr class="seperator-thick">
           <h5 class="text-center bold">
             ${jsObject.translations.download_the_prayer_global_app}
           </h5>
           <a href="/qr/app" target="_blank" class="center btn cta">
             ${jsObject.translations.go_to_app_store}
           </a>
-          <hr class="seperator-thick">
         `;
         milestonesContainer.insertAdjacentElement("afterend", divContainer);
       });
@@ -329,12 +330,6 @@ function celebrateAndDone() {
         ${jsObject.translations.no_thanks}
       </a>
     `;
-  }
-
-  if (window.pg_global.is_logged_in && !window.isMobileAppUser()) {
-    // If they are logged in but not using the mobile app, we will encourage them to download the app in order to get streak notifications etc.
-    //
-    //
   }
 }
 
