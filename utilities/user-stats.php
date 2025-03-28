@@ -1,7 +1,7 @@
 <?php
 
 class User_Stats {
-    private int $user_id;
+    public int $user_id;
     private static int $day_in_seconds = 24 * 60 * 60;
 
     public function __construct( int $user_id ) {

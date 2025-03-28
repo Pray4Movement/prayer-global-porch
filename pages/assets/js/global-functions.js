@@ -79,6 +79,9 @@ window.isMobile = function () {
   }
   return isMobile;
 };
+window.isMobileAppUser = function () {
+  return navigator.userAgent.indexOf("gonative") > -1;
+};
 
 window.api_fetch = function (url, options = {}) {
   const opts = {

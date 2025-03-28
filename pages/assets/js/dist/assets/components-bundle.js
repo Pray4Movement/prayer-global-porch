@@ -510,7 +510,7 @@
 
               <hr>
 
-              <div class="flow-small">
+              <div class="pg-container flow-small">
                 <h3 class="text-center">${this.translations.prayer_relays}</h3>
                 ${this.loading?h`<span class="loading-spinner active"></span>`:this.relays.map(s=>h`
                           <div
@@ -815,7 +815,7 @@
 
         <hr />
 
-        <section class="stack-sm">
+        <section class="stack-sm text-center">
           <svg class="brand-light icon-xxlg">
             <use href="${window.jsObject.spritesheet_url}#pg-go-logo"></use>
           </svg>

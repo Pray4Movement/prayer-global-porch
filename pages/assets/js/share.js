@@ -9,7 +9,7 @@ window.addEventListener("load", function ($) {
   const shareEmail = shareModal.querySelector(".email-action");
   const shareLink = shareModal.querySelector(".link-action");
 
-  const isGoNativeApp = navigator.userAgent.indexOf("gonative") > -1;
+  const isGoNativeApp = window.isMobileAppUser();
   const isWebAPIShareAvailable = Object.prototype.hasOwnProperty.call(
     navigator,
     "share"

@@ -130,7 +130,6 @@ class PG_Register extends PG_Public_Page {
                 'turnstile_error' => esc_html__( 'Please complete the security check.', 'prayer-global-porch' ),
             ],
         ] );
-
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -200,8 +199,8 @@ class PG_Register extends PG_Public_Page {
         $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
         ?>
 
-        <section class="login-section pt-4" data-section="register" id="section-register">
-            <div class="container center text-center">
+        <section class="page brand-bg" data-section="register" id="section-register">
+            <div class="pg-container center text-center">
                 <div class="login-register-links">
                     <a href="<?php echo esc_html( $login_url ); ?>"><?php esc_html_e( 'Login', 'prayer-global-porch' ); ?></a>
                     <a class="link-active" href="#"><?php esc_html_e( 'Register', 'prayer-global-porch' ); ?></a>
@@ -209,23 +208,23 @@ class PG_Register extends PG_Public_Page {
                 <div class="card">
                     <div id="card-content">
                         <h2 class="pt-4 m-0"><?php echo esc_html__( 'Register', 'prayer-global-porch' ) ?></h2>
-                        <hr>
+                        <hr class="seperator-thick">
                         <p class="text-center" style="font-size: larger"><?php echo esc_html__( 'Create your own free login', 'prayer-global-porch' ) ?></p>
-                        <ul class="reasons-list w-fit text-align-left mx-auto">
-                            <li>
+                        <ul class="flow-small center-block">
+                            <li class="space-out">
                                 <svg class="icon-sm"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-relay"></use></svg>
                                 <?php echo esc_html__( 'Join and create custom prayer relays', 'prayer-global-porch' ) ?>
                             </li>
-                            <li>
+                            <li class="space-out">
                                 <svg class="icon-sm"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-prayer"></use></svg>
                                 <?php echo esc_html__( 'View your interactive prayer history', 'prayer-global-porch' ) ?>
                             </li>
-                            <li>
+                            <li class="space-out">
                                 <svg class="icon-sm"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-streak"></use></svg>
                                 <?php echo esc_html__( 'Prayer streaks, badges and more', 'prayer-global-porch' ) ?>
                             </li>
                         </ul>
-                        <hr>
+                        <hr class="seperator-thick">
                         <div class="flow-medium">
                             <svg class="icon-lg"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-go-logo"></use></svg>
                             <div class="marketing-options" style="text-align: start; max-width:20rem;">
