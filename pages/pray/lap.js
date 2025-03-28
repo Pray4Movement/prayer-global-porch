@@ -85,7 +85,7 @@ async function init() {
   window.load_report_modal();
 
   /* DEBUG ONLY @TODO: Remove this */
-  //celebrateAndDone();
+  // celebrateAndDone();
 }
 
 function setupListeners() {
@@ -207,38 +207,11 @@ function celebrateAndDone() {
   if (window.pg_global.is_logged_in) {
     celebrateContentContainer.innerHTML = `
       <div class="flow" data-medium>
-        <div class="w-fit center">
-          <section class="flow center | activity-card lh-xsm">
-            <h3 class="activity-card__title">
-              ${jsObject.translations.daily_streak}
-            </h3>
-            <div class="cluster">
-              <div
-                class="orange-gradient icon-lg"
-                style="mask:url('${
-                  jsObject.icons_url
-                }/pg-streak.svg') no-repeat 0 0/100% 100%;"
-              ></div>
-              <span class="f-xxlg bold" id="current-streak">
-                ${jsObject.stats.current_streak_in_days}
-              </span>
-            </div>
-            <div class="cluster | space-sm">
-              <svg class="highlight icon-md">
-                <use
-                  href="${jsObject.spritesheet_url}#pg-streak"
-                ></use>
-              </svg>
-              <span class="f-md highlight">
-                <span id="best-streak">
-                  ${jsObject.stats.best_streak_in_days}
-                </span>
-                ${jsObject.translations.best}
-              </span>
-            </div>
-          </section>
+        <div id="milestones" class="flow" data-medium>
+          <p class="text-center">
+            <i>${jsObject.translations.fetching_stats}</i>
+          </p>
         </div>
-        <div id="milestones" class="flow"></div>
         <a href="${getHomeUrl()}" class="center btn outline space-lg">
           ${jsObject.translations.done}
         </a>
@@ -251,12 +224,10 @@ function celebrateAndDone() {
       })
       .then((result) => {
         /* After success update the curent and best streak values in DOM */
-        document.getElementById("current-streak").innerHTML =
-          result.current_streak;
-        document.getElementById("best-streak").innerHTML = result.best_streak;
         const milestones = result.milestones;
         if (milestones.length > 0) {
           const milestonesContainer = document.getElementById("milestones");
+          milestonesContainer.innerHTML = "";
           milestones.forEach((milestone) => {
             milestonesContainer.innerHTML += `<hr class="seperator-thick">`;
             milestonesContainer.innerHTML += `
@@ -272,6 +243,38 @@ function celebrateAndDone() {
               <hr class="seperator-thick">
             `;
           });
+        } else {
+          milestonesContainer.innerHTML = `
+            <div class="w-fit center">
+              <section class="flow center | activity-card lh-xsm">
+                <h3 class="activity-card__title">
+                  ${jsObject.translations.daily_streak}
+                </h3>
+                <div class="cluster">
+                  <div
+                    class="orange-gradient icon-lg"
+                    style="mask:url('${jsObject.icons_url}/pg-streak.svg') no-repeat 0 0/100% 100%;"
+                  ></div>
+                  <span class="f-xxlg bold" id="current-streak">
+                    ${result.current_streak}
+                  </span>
+                </div>
+                <div class="cluster | space-sm">
+                  <svg class="highlight icon-md">
+                    <use
+                      href="${jsObject.spritesheet_url}#pg-streak"
+                    ></use>
+                  </svg>
+                  <span class="f-md highlight">
+                    <span id="best-streak">
+                      ${result.best_streak}
+                    </span>
+                    ${jsObject.translations.best}
+                  </span>
+                </div>
+              </section>
+            </div>
+          `;
         }
       });
   } else {

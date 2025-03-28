@@ -27,6 +27,8 @@ class PG_Milestones {
         $current_streak = $this->user_stats->current_streak_in_days();
         if ( in_array( $current_streak, $this->streak_milestones ) ) {
             return [
+                /* @todo refactor this into an object called PG_Milestone */
+                /* But then we will need to convert to an associative array when sending to the frontend */
                 [
                     'icon' => 'pg-streak',
                     'title' => __( 'Your Streak is Alive!', 'prayer-global-porch' ),
