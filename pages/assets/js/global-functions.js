@@ -10,7 +10,7 @@ async function median_library_ready() {
       const response = await window.median.permissions.status([
         "Notifications",
       ]);
-      console.log("response", response);
+      console.log("response", response.Notifications);
 
       if (response.Notifications !== "granted") {
         requestNotificationsPermission();
