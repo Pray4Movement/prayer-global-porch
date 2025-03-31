@@ -97,9 +97,9 @@ function pg_streak_icon() {
             <a href="/dashboard/activity" class="streak-link">
                 <div class="cluster gap-xsm">
                     <div
-                        class="brand-light-bg icon-md streak-icon-highlight"
+                        class="brand-light-bg icon-md streak-icon streak-icon-highlight"
                         <?php echo $is_streak_secure ? 'data-streak-secure="true"' : ''; ?>
-                        style="mask:url('<?php echo esc_url( $icon_url ); ?>') no-repeat 0 0/100% 100%;"
+                        style="--pg-icon-streak-highlight: url('<?php echo esc_url( $icon_url ); ?>')"
                     ></div>
                     <span class="f-sm font-weight-bold">
                         <?php echo esc_html( $current_streak ); ?>

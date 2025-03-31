@@ -2204,6 +2204,10 @@ input[type="password"],
     }
 }
 
+.streak-icon {
+    mask: var(--pg-icon-streak-highlight) no-repeat 0 0/100% 100%;
+    -webkit-mask: var(--pg-icon-streak-highlight) no-repeat 0 0/100% 100%;
+}
 .streak-icon-highlight {
     background-image: radial-gradient(
         circle,
