@@ -512,7 +512,7 @@
 
               ${!window.isMobileAppUser()||window.isLegacyAppUser?h`
                       <div
-                        class="stack-sm brand-lightest-bg p-4 rounded-4 white"
+                        class="stack-sm brand-lightest-bg p-4 rounded-3 white"
                       >
                         <h5 class="text-center font-weight-bold">
                           ${window.isLegacyAppUser?this.translations.update_the_app:this.translations.download_the_app}

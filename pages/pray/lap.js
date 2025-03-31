@@ -292,7 +292,7 @@ function celebrateAndDone() {
                   : jsObject.translations.download_the_app
               }
             </h5>
-            <a href="/qr/app" target="_blank" class="center btn cta">
+            <a href="/qr/app" target="_blank" class="center btn cta bold">
               ${jsObject.translations.go_to_app_store}
             </a>
           `;
