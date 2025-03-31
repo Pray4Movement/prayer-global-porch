@@ -1,7 +1,7 @@
-import { html } from "lit";
+import { html, PropertyValues } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { OpenElement } from "./open-element";
-import { Language, Location, User } from "../interfaces";
+import { Language, Location, MedianPermissions, User } from "../interfaces";
 
 @customElement("pg-settings")
 export class PgSettings extends OpenElement {
@@ -9,6 +9,7 @@ export class PgSettings extends OpenElement {
   translations: any = window.jsObject.translations;
   currentLanguage: string = window.jsObject.current_language;
   language: Language | null = null;
+  permissionsManager: MedianPermissions;
 
   @state()
   showEditAccount: boolean = false;
@@ -27,6 +28,9 @@ export class PgSettings extends OpenElement {
   @state()
   subscribed: boolean = false;
 
+  @state()
+  hasNotificationsPermission: boolean = false;
+
   constructor() {
     super();
 
@@ -34,10 +38,27 @@ export class PgSettings extends OpenElement {
     if (Object.keys(window.jsObject.languages).includes(languageCode)) {
       this.language = window.jsObject.languages[languageCode] as Language;
     }
+
+    this.permissionsManager = window.medianPermissions;
+  }
+
+  async connectedCallback() {
+    super.connectedCallback();
+    await this.getNotificationsPermission();
+  }
+
+  async update(changedProperties: PropertyValues) {
+    await this.getNotificationsPermission();
+    super.update(changedProperties);
   }
 
   back() {
     history.back();
+  }
+
+  async getNotificationsPermission() {
+    this.hasNotificationsPermission =
+      await this.permissionsManager.getNotificationsPermission();
   }
 
   private subsribeToNews() {
@@ -137,8 +158,9 @@ export class PgSettings extends OpenElement {
   }
 
   requestNotificationsPermission() {
-    const permissions = new window.MedianPermissions();
-    permissions.requestNotificationsPermission();
+    if (this.permissionsManager.medianLibraryReady) {
+      this.permissionsManager.requestNotificationsPermission();
+    }
   }
 
   render() {
@@ -200,10 +222,22 @@ export class PgSettings extends OpenElement {
           <div class="cluster s-sm align-items-center">
             <label class="h5 form-group" for="notifications-toggle">
               ${this.translations.notifications_toggle}
-              <input type="checkbox" role="switch" ?checked=${true} id="notifications-toggle" />
+              <input
+                type="checkbox"
+                role="switch"
+                ?disabled=${window.isLegacyAppUser || !window.isMobileAppUser()}
+                ?checked=${this.hasNotificationsPermission}
+                id="notifications-toggle"
+              />
             </label>
           </div>
           <p>${this.translations.notifications_text}</p>
+          ${window.isLegacyAppUser || !window.isMobileAppUser()
+            ? html`
+              <p class="small brand-lighter">
+                <i>${this.translations.notifications_text_mobile}</i>
+              </p>`
+            : ""}
         </section>
 
         <hr />

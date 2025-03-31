@@ -11,6 +11,7 @@ import "./profile-pages/pg-new-relay";
 import "./profile-pages/pg-relays";
 import "./profile-pages/pg-router";
 import "./profile-pages/pg-settings";
+import { MedianPermissions } from "./interfaces";
 
 declare global {
   interface Window {
@@ -23,6 +24,6 @@ declare global {
     isMobile: () => boolean;
     isMobileAppUser: () => boolean;
     isLegacyAppUser: boolean;
-    MedianPermissions: any;
+    medianPermissions: MedianPermissions;
   }
 }

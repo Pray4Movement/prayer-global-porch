@@ -1,4 +1,3 @@
-window.MedianPermissions = MedianPermissions;
 class MedianPermissions {
   medianLibraryReady = false;
   hasOnesignal = false;
@@ -47,10 +46,18 @@ class MedianPermissions {
    * @returns {boolean|null} - Returns true if the permission is granted, false if denied, and null if not yet determined
    */
   async getNotificationsPermission() {
+    if (!this.medianLibraryReady) {
+      return false;
+    }
     return this.getPermissionStatus("Notifications");
   }
 
   requestNotificationsPermission() {
+    if (!this.hasOnesignal) {
+      return;
+    }
     window.median.onesignal.register();
   }
 }
+
+window.medianPermissions = new MedianPermissions();

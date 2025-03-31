@@ -61,3 +61,9 @@ export type CustomRelay = BaseRelay & {
 };
 
 export type Relay = GlobalRelay | CustomRelay;
+
+export interface MedianPermissions {
+  medianLibraryReady: boolean;
+  getNotificationsPermission(): Promise<boolean>;
+  requestNotificationsPermission(): void;
+}
