@@ -72,7 +72,8 @@ function requestNotificationsPermission(denied = false) {
   if (denied) {
     allowNotificationsButton.textContent = "Open Settings";
   }
-  notificationModal.classList.add("show");
+  const myModal = new bootstrap.Modal(notificationModal);
+  myModal.show();
   allowNotificationsButton.addEventListener("click", async () => {
     if (denied) {
       window.median.appSettings();
