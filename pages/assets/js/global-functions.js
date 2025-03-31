@@ -5,6 +5,18 @@ async function median_library_ready() {
     window.median.onesignal.login
   ) {
     console.log("median and onesignal exist");
+
+    if (pg_global.is_logged_in) {
+      const response = await window.median.permissions.status([
+        "Notifications",
+      ]);
+      console.log("response", response);
+
+      if (response.Notifications !== "granted") {
+        requestNotificationsPermission();
+      }
+    }
+
     if (pg_global.is_logged_in && !window.isMedianAppLoggedIn) {
       console.log("we are logged in and not logged in to median");
       try {
@@ -51,6 +63,24 @@ async function median_library_ready() {
   } else {
     window.isLegacyAppUser = false;
   }
+}
+function requestNotificationsPermission(denied = false) {
+  const notificationModal = document.getElementById("notification-modal");
+  const allowNotificationsButton = document.getElementById(
+    "allow-notifications"
+  );
+  if (denied) {
+    allowNotificationsButton.textContent = "Open Settings";
+  }
+  notificationModal.classList.add("show");
+  allowNotificationsButton.addEventListener("click", async () => {
+    if (denied) {
+      window.median.appSettings();
+    } else {
+      window.median.onesignal.register();
+    }
+    notificationModal.classList.remove("show");
+  });
 }
 /* In case this JS is loaded after the median library */
 if (window.median) {
