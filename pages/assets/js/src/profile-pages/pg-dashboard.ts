@@ -124,6 +124,29 @@ export class PgDashboard extends OpenElement {
 
               <hr>
 
+              ${
+                !window.isMobileAppUser() || window.isLegacyAppUser
+                  ? html`
+                      <div
+                        class="stack-sm brand-lightest-bg p-4 rounded-3 white"
+                      >
+                        <h5 class="text-center font-weight-bold">
+                          ${window.isLegacyAppUser
+                            ? this.translations.update_the_app
+                            : this.translations.download_the_app}
+                        </h5>
+                        <a
+                          href="/qr/app"
+                          target="_blank"
+                          class="btn btn-cta d-block center-block"
+                        >
+                          ${this.translations.go_to_app_store}
+                        </a>
+                      </div>
+                    `
+                  : ""
+              }
+
               <div class="pg-container flow-small">
                 <h3 class="text-center">${this.translations.prayer_relays}</h3>
                 ${

@@ -9,6 +9,8 @@
     --pg-orange: #f2944a;
     --pg-grey: #acabab;
     --pg-grey-hover: #8a8888;
+    --orange-gradient: linear-gradient(#ffb858, #ea7519);
+    --orange-gradient-hover: linear-gradient(#ea7519, #ffb858);
 
     font-size: 18px;
     scroll-behavior: smooth;
@@ -90,10 +92,13 @@ img {
     margin-right: auto;
     margin-bottom: 0.5em;
 }
+.container[data-small] {
+    max-width: 580px;
+}
 .flow {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: start;
 }
 .flow > * {
     margin-top: 0;
@@ -102,6 +107,24 @@ img {
 .flow > * + * {
     margin-top: var(--space, 1rem);
 }
+.flow[data-medium] > * + * {
+    margin-top: var(--space, 2rem);
+}
+.space-out {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* Cluster */
+.cluster {
+    display: flex;
+    gap: var(--space, 1rem);
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
 .space-sm {
     --space: 0.5rem;
 }
@@ -111,14 +134,26 @@ img {
 .space-lg {
     --space: 2rem;
 }
+.center-block {
+    width: fit-content;
+    text-align: left;
+    margin-inline: auto;
+}
 
 .w-100 {
     width: 100%;
+}
+.w-fit {
+    width: fit-content;
 }
 
 .center {
     margin-left: auto;
     margin-right: auto;
+    align-items: center;
+}
+.justify-center {
+    justify-content: center;
 }
 
 .switcher {
@@ -161,7 +196,18 @@ img {
     position: absolute;
     top: -8rem;
 }
-
+.activity-card {
+    width: 100%;
+    border: 2px solid var(--pg-highlight);
+    border-radius: 12px;
+    padding: 1rem;
+}
+.activity-card__title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--pg-highlight);
+    text-align: center;
+}
 .celebrate-panel {
     display: none;
     position: fixed;
@@ -172,10 +218,15 @@ img {
     bottom: 0;
     background-color: var(--pg-dark);
     color: white;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    overflow-y: auto;
 }
 .celebrate-panel h2 {
-    margin-top: 2rem;
     font-size: 2em;
+}
+.celebrate-panel h3 {
+    font-size: 1.5em;
 }
 
 /* ## Form controls */
@@ -202,6 +253,13 @@ select:focus {
 textarea {
     min-height: calc(1.5em + 0.75rem + 2px);
 }
+ul[role="list"] {
+    list-style: none;
+    padding-left: 0;
+}
+a {
+    text-decoration: none;
+}
 .form-group {
     align-items: start;
     width: 100%;
@@ -221,12 +279,20 @@ textarea {
     font-family: inherit;
     padding: 0.5rem 0.75rem;
     transition: all 120ms linear;
+    width: fit-content;
 }
 .btn:hover {
     background: #1a3b70;
 }
 .btn.bg-orange:hover {
     background: #d28041;
+}
+.btn.cta {
+    background-image: var(--orange-gradient);
+    border: 0;
+}
+.btn.cta:hover {
+    background-image: var(--orange-gradient-hover);
 }
 .btn.outline {
     background-color: white;
@@ -276,6 +342,11 @@ textarea {
     flex: 2;
 }
 
+.seperator-thick {
+    border-top: 4px solid;
+    border-color: var(--pg-orange);
+    max-width: 80%;
+}
 /* ## Prayer navbar buttons */
 .prayer-navbar {
     position: sticky;
@@ -567,6 +638,22 @@ textarea {
     width: 6rem;
     line-height: 1.1;
 }
+.icon-lg {
+    height: 4rem;
+    width: 4rem;
+}
+.icon-md {
+    height: 2rem;
+    width: 2rem;
+}
+.icon-sm {
+    height: 1.5rem;
+    width: 1.5rem;
+}
+.icon-xsm {
+    height: 1rem;
+    width: 1rem;
+}
 .pie {
     --w: 150px;
     width: var(--w);
@@ -605,6 +692,10 @@ textarea {
     color: var(--pg-light);
     fill: var(--pg-light);
 }
+.highlight {
+    color: var(--pg-highlight);
+    fill: var(--pg-highlight);
+}
 .orange {
     color: var(--pg-orange);
     fill: var(--pg-orange);
@@ -617,6 +708,9 @@ textarea {
 }
 .bg-orange {
     background: var(--pg-orange);
+}
+.orange-gradient {
+    background-image: var(--orange-gradient);
 }
 .bold {
     font-weight: bold;

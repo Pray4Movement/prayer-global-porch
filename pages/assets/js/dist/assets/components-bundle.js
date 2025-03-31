@@ -510,6 +510,23 @@
 
               <hr>
 
+              ${!window.isMobileAppUser()||window.isLegacyAppUser?h`
+                      <div
+                        class="stack-sm brand-lightest-bg p-4 rounded-3 white"
+                      >
+                        <h5 class="text-center font-weight-bold">
+                          ${window.isLegacyAppUser?this.translations.update_the_app:this.translations.download_the_app}
+                        </h5>
+                        <a
+                          href="/qr/app"
+                          target="_blank"
+                          class="btn btn-cta d-block center-block"
+                        >
+                          ${this.translations.go_to_app_store}
+                        </a>
+                      </div>
+                    `:""}
+
               <div class="pg-container flow-small">
                 <h3 class="text-center">${this.translations.prayer_relays}</h3>
                 ${this.loading?h`<span class="loading-spinner active"></span>`:this.relays.map(s=>h`
@@ -815,7 +832,7 @@
 
         <hr />
 
-        <section class="stack-sm">
+        <section class="stack-sm text-center">
           <svg class="brand-light icon-xxlg">
             <use href="${window.jsObject.spritesheet_url}#pg-go-logo"></use>
           </svg>

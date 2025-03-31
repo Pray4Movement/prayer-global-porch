@@ -83,6 +83,9 @@ async function init() {
 
   ip_location();
   window.load_report_modal();
+
+  /* DEBUG ONLY @TODO: Remove this */
+  celebrateAndDone();
 }
 
 function setupListeners() {
@@ -183,20 +186,157 @@ function resetLocationCount() {
 }
 
 function celebrateAndNext() {
-  celebrateAndNavigateTo(location.href);
-}
-function celebrateAndDone() {
-  celebrateAndNavigateTo(getHomeUrl());
-}
-function celebrateAndNavigateTo(href) {
   /* Fire off the celebrations and open the celebrate panel */
   window.celebrationFireworks();
   show(celebratePanel);
   updateLocationCount();
 
   setTimeout(() => {
-    location.href = href;
+    location.reload();
   }, CELEBRATION_TIMEOUT);
+}
+function celebrateAndDone() {
+  /* Fire off the celebrations and open the celebrate panel */
+  window.celebrationFireworks();
+  show(celebratePanel);
+  updateLocationCount();
+
+  const celebrateContentContainer =
+    document.querySelector("#celebrate-content");
+
+  if (window.pg_global.is_logged_in) {
+    celebrateContentContainer.innerHTML = `
+      <div class="flow" data-medium>
+        <div id="milestones" class="flow" data-medium>
+          <p class="text-center">
+            <i>${jsObject.translations.fetching_stats}</i>
+          </p>
+        </div>
+        <a href="${getHomeUrl()}" class="center btn outline space-lg">
+          ${jsObject.translations.done}
+        </a>
+      </div>
+    `;
+    const milestonesContainer = document.getElementById("milestones");
+    /* Add API call to get new user stats */
+    window
+      .api_fetch(`${window.pg_global.root}pg-api/v1/user/stats`, {
+        method: "POST",
+      })
+      .then((result) => {
+        /* After success update the curent and best streak values in DOM */
+        const milestones = result.milestones;
+        if (milestones.length > 0) {
+          milestonesContainer.innerHTML = "";
+          milestones.forEach((milestone) => {
+            milestonesContainer.innerHTML += `<hr class="seperator-thick">`;
+            milestonesContainer.innerHTML += `
+              <div class="flow milestone text-center">
+                <h2 class="cluster justify-center">
+                  <svg class="icon-md">
+                    <use href="${jsObject.spritesheet_url}#${milestone.icon}"></use>
+                  </svg>
+                  ${milestone.title}
+                </h2>
+                <p class="text-center bold">${milestone.message}</p>
+              </div>
+              <hr class="seperator-thick">
+            `;
+          });
+        } else {
+          milestonesContainer.innerHTML = `
+            <div class="w-fit center">
+              <section class="flow center | activity-card lh-xsm">
+                <h3 class="activity-card__title">
+                  ${jsObject.translations.daily_streak}
+                </h3>
+                <div class="cluster">
+                  <div
+                    class="orange-gradient icon-lg"
+                    style="mask:url('${jsObject.icons_url}/pg-streak.svg') no-repeat 0 0/100% 100%;"
+                  ></div>
+                  <span class="f-xxlg bold" id="current-streak">
+                    ${result.current_streak}
+                  </span>
+                </div>
+                <div class="cluster | space-sm">
+                  <svg class="highlight icon-md">
+                    <use
+                      href="${jsObject.spritesheet_url}#pg-streak"
+                    ></use>
+                  </svg>
+                  <span class="f-md highlight">
+                    <span id="best-streak">
+                      ${result.best_streak}
+                    </span>
+                    ${jsObject.translations.best}
+                  </span>
+                </div>
+              </section>
+            </div>
+          `;
+        }
+      })
+      .finally(() => {
+        if (!window.isMobileAppUser() || window.isLegacyAppUser) {
+          const divContainer = document.createElement("div");
+          divContainer.classList.add("flow");
+          divContainer.classList.add("bg-light");
+          divContainer.classList.add("modal-content");
+          divContainer.classList.add("modal-body");
+          divContainer.innerHTML = `
+            <h5 class="text-center bold">
+              ${
+                window.isLegacyAppUser
+                  ? jsObject.translations.update_the_app
+                  : jsObject.translations.download_the_app
+              }
+            </h5>
+            <a href="/qr/app" target="_blank" class="center btn cta bold">
+              ${jsObject.translations.go_to_app_store}
+            </a>
+          `;
+          milestonesContainer.insertAdjacentElement("afterend", divContainer);
+        }
+      });
+  } else {
+    // Or if they aren't logged in, we will encourage them to sign up
+    celebrateContentContainer.innerHTML = `
+      <hr class="seperator-thick">
+      <div class="flow">
+        <h3 class="text-center">
+          ${jsObject.translations.create_your_own_free_login}
+        </h3>
+        <ul class="flow center-block" role="list">
+          <li class="space-out">
+              <svg class="icon-sm">
+                <use href="${jsObject.spritesheet_url}#pg-relay"></use>
+              </svg>
+              ${jsObject.translations.join_and_create_custom_prayer_relays}
+          </li>
+          <li class="space-out">
+              <svg class="icon-sm">
+                <use href="${jsObject.spritesheet_url}#pg-prayer"></use>
+              </svg>
+              ${jsObject.translations.view_your_interactive_prayer_history}
+          </li>
+          <li class="space-out">
+              <svg class="icon-sm">
+                <use href="${jsObject.spritesheet_url}#pg-streak"></use>
+              </svg>
+              ${jsObject.translations.prayer_streaks_badges_and_more}
+          </li>
+        </ul>
+        <a href="/register" class="center btn bg-orange" id="celebrate-panel__done">
+          ${jsObject.translations.register_now}
+        </a>
+      </div>
+      <hr class="seperator-thick">
+      <a href="${getHomeUrl()}" class="center btn outline space-lg" id="celebrate-panel__done">
+        ${jsObject.translations.no_thanks}
+      </a>
+    `;
+  }
 }
 
 function openLeaveModal() {
@@ -923,7 +1063,7 @@ function _template_photo_block(data) {
 function _template_basic_block(data) {
   const reference = data.reference
     ? `
-        <button type="button" class="btn simple id-${data.id} with-icon" onclick="document.querySelector('#id-${data.id}').style.display = 'block';document.querySelector('.id-${data.id}').style.display = 'none';" >
+        <button type="button" class="center btn simple id-${data.id} with-icon" onclick="document.querySelector('#id-${data.id}').style.display = 'block';document.querySelector('.id-${data.id}').style.display = 'none';" >
             <span>${data.reference} </span> <svg width="1em" height="1em" viewBox="0 0 33 33"><use href="#pg-chevron-down"></use></svg>
         </button>
         <div class="flow sm" id="id-${data.id}" style="display: none" >

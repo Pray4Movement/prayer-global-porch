@@ -114,6 +114,7 @@ class Prayer_Global_Porch {
         $wpdb->location_grid_people_groups = 'location_grid_people_groups';
         $wpdb->location_grid_names = 'location_grid_names';
         $wpdb->dt_relays = $wpdb->prefix . 'dt_relays';
+        $wpdb->dt_notifications_sent = $wpdb->prefix . 'dt_notifications_sent';
 
         require_once( 'utilities/cron-jobs.php' );
         require_once( 'utilities/global-utilities.php' );
@@ -121,6 +122,8 @@ class Prayer_Global_Porch {
         require_once( 'utilities/user-stats.php' );
         require_once( 'utilities/enqueue-async.php' );
         require_once( 'utilities/login-functions.php' );
+        require_once( 'utilities/pg-milestones.php' );
+        require_once( 'utilities/pg-notifications.php' );
         require_once( 'classes/pg-feature-flag.php' );
         require_once( 'classes/pg-flags.php' );
         require_once( 'classes/svg-spritesheet-manager.php' );
@@ -129,6 +132,9 @@ class Prayer_Global_Porch {
         require_once( 'pages/pray/stacker-text.php' );
         require_once( 'pages/pray/stacker-positions.php' );
         require_once( 'pages/pray/stacker.php' );
+
+        /* Notification system */
+        require_once( 'classes/class-pg-notification-base.php' );
 
         if ( is_admin() ) {
             require_once( 'support/admin.php' );

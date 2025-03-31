@@ -188,7 +188,7 @@ export class PgSettings extends OpenElement {
 
         <hr />
 
-        <section class="stack-sm">
+        <section class="stack-sm text-center">
           <svg class="brand-light icon-xxlg">
             <use href="${window.jsObject.spritesheet_url}#pg-go-logo"></use>
           </svg>

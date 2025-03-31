@@ -131,8 +131,13 @@ img {
     max-width: 100%;
 }
 ul {
-    margin-left: 0;
+    margin-inline-start: 0;
     line-height: var(--bs-body-line-height);
+}
+ol[role="list"],
+ul[role="list"] {
+    list-style: none;
+    padding-inline-start: 0;
 }
 a {
     -webkit-transition: 0.3s all ease;
@@ -548,6 +553,18 @@ input[type="radio"]:checked {
 .center {
     display: flex;
     flex-direction: column;
+    align-items: center;
+}
+
+.center-block {
+    width: fit-content;
+    text-align: left;
+    margin-inline: auto;
+}
+
+.space-out {
+    display: flex;
+    gap: 1rem;
     align-items: center;
 }
 
