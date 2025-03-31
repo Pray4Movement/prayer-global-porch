@@ -80,7 +80,7 @@ add_action( 'wp_enqueue_scripts', function (){
         'root' => esc_url_raw( rest_url() ),
         'nonce' => wp_create_nonce( 'wp_rest' ),
         'is_logged_in' => is_user_logged_in(),
-        'requested_notifications' => is_user_logged_in() ? get_user_meta( get_current_user_id(), PG_NAMESPACE . 'requested_notifications', true ) : false,
+        'has_requested_notifications' => is_user_logged_in() ? get_user_meta( get_current_user_id(), PG_NAMESPACE . 'requested_notifications', true ) : false,
         'user' => PG_User_API::get_user(),
         'home_url' => home_url(),
     ]);

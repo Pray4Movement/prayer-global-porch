@@ -1,4 +1,5 @@
 async function median_library_ready() {
+  window.dispatchEvent(new Event("median-library-ready"));
   if (
     window.median &&
     window.median.onesignal &&
@@ -7,13 +8,12 @@ async function median_library_ready() {
     console.log("median and onesignal exist");
 
     if (pg_global.is_logged_in) {
-      const response = await window.median.permissions.status([
-        "Notifications",
-      ]);
-
+      const medianPermissions = new MedianPermissions();
+      const notificationsPermission =
+        await medianPermissions.getNotificationsPermission();
       if (
-        response.Notifications !== "granted" &&
-        !pg_global.requested_notifications
+        notificationsPermission !== true &&
+        !pg_global.has_requested_notifications
       ) {
         await window
           .api_fetch(
@@ -83,7 +83,8 @@ function requestNotificationsPermission() {
   const myModal = new bootstrap.Modal(notificationModal);
   myModal.show();
   allowNotificationsButton.addEventListener("click", async () => {
-    window.median.onesignal.register();
+    const permissions = new MedianPermissions();
+    await permissions.requestNotificationsPermission();
     notificationModal.classList.remove("show");
   });
 }

@@ -51,6 +51,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'pg-world-light',
             'pg-info',
             'pg-chevron-left',
+            'pg-bell',
             'ion-ellipsis-horizontal',
         ];
 
@@ -205,6 +206,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'download_the_app' => esc_html__( 'Download the Prayer.Global app to get streak notifications and more!', 'prayer-global-porch' ),
                 'update_the_app' => esc_html__( 'Update the Prayer.Global app to get streak notifications and more!', 'prayer-global-porch' ),
                 'go_to_app_store' => esc_html__( 'Go to App Store', 'prayer-global-porch' ),
+                'notifications_toggle' => esc_html__( 'Allow push notifications', 'prayer-global-porch' ),
+                'notifications_text' => esc_html__( '(Encouragements, streaks, lap status and more)', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),

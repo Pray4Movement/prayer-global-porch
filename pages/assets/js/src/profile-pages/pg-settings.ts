@@ -136,6 +136,11 @@ export class PgSettings extends OpenElement {
     }
   }
 
+  requestNotificationsPermission() {
+    const permissions = new window.MedianPermissions();
+    permissions.requestNotificationsPermission();
+  }
+
   render() {
     return html`
       <pg-header
@@ -184,6 +189,21 @@ export class PgSettings extends OpenElement {
           >
             ${this.translations.edit}
           </button>
+        </section>
+
+        <hr />
+
+        <section class="stack-sm text-center">
+          <svg class="brand-light icon-xxlg">
+            <use href="${window.jsObject.spritesheet_url}#pg-bell"></use>
+          </svg>
+          <div class="cluster s-sm align-items-center">
+            <label class="h5 form-group" for="notifications-toggle">
+              ${this.translations.notifications_toggle}
+              <input type="checkbox" role="switch" ?checked=${true} id="notifications-toggle" />
+            </label>
+          </div>
+          <p>${this.translations.notifications_text}</p>
         </section>
 
         <hr />

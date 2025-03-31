@@ -23,5 +23,6 @@ declare global {
     isMobile: () => boolean;
     isMobileAppUser: () => boolean;
     isLegacyAppUser: boolean;
+    MedianPermissions: any;
   }
 }

@@ -262,7 +262,7 @@ input[type="checkbox"][role="switch"]:disabled {
 input[type="checkbox"][role="switch"]:disabled::before {
     background-color: var(--dt-text-disabled-background-color);
 }
-input[type="checkbox"][role="switch"]:focus {
+input[type="checkbox"][role="switch"]:focus-visible {
     outline: 2px solid var(--pg-brand-color);
     outline-offset: 2px;
 }
