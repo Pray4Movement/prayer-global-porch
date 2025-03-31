@@ -10,10 +10,21 @@ async function median_library_ready() {
       const response = await window.median.permissions.status([
         "Notifications",
       ]);
-      console.log("response", response.Notifications);
 
-      if (response.Notifications !== "granted") {
-        requestNotificationsPermission();
+      if (
+        response.Notifications !== "granted" &&
+        !pg_global.requested_notifications
+      ) {
+        await window
+          .api_fetch(
+            `${pg_global.root}pg-api/v1/user/requested-notifications`,
+            {
+              method: "POST",
+            }
+          )
+          .then(() => {
+            requestNotificationsPermission();
+          });
       }
     }
 
@@ -64,22 +75,15 @@ async function median_library_ready() {
     window.isLegacyAppUser = false;
   }
 }
-function requestNotificationsPermission(denied = false) {
+function requestNotificationsPermission() {
   const notificationModal = document.getElementById("notification-modal");
   const allowNotificationsButton = document.getElementById(
     "allow-notifications"
   );
-  if (denied) {
-    allowNotificationsButton.textContent = "Open Settings";
-  }
   const myModal = new bootstrap.Modal(notificationModal);
   myModal.show();
   allowNotificationsButton.addEventListener("click", async () => {
-    if (denied) {
-      window.median.appSettings();
-    } else {
-      window.median.onesignal.register();
-    }
+    window.median.onesignal.register();
     notificationModal.classList.remove("show");
   });
 }

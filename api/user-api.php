@@ -46,6 +46,7 @@ class PG_User_API {
         DT_Route::post( $namespace, 'stats', [ $this, 'get_user_stats' ] );
         DT_Route::post( $namespace, 'locations-prayed-for', [ $this, 'get_user_locations_prayed_for_endpoint' ] );
         DT_Route::post( $namespace, 'onesignal', [ $this, 'update_onesignal_data' ] );
+        DT_Route::post( $namespace, 'requested-notifications', [ $this, 'requested_notifications' ] );
     }
 
     public function authorize_url( $authorized ){
@@ -255,6 +256,20 @@ class PG_User_API {
         return new WP_REST_Response([
             'status' => 200,
             'message' => 'OneSignal data updated successfully'
+        ]);
+    }
+
+    public function requested_notifications() {
+        $user_id = get_current_user_id();
+        if ( !$user_id ) {
+            return new WP_Error( __METHOD__, 'Unauthorized', [ 'status' => 401 ] );
+        }
+
+        update_user_meta( $user_id, PG_NAMESPACE . 'requested_notifications', true );
+
+        return new WP_REST_Response([
+            'status' => 200,
+            'message' => 'Notifications marked as requested'
         ]);
     }
 }
