@@ -25,5 +25,9 @@ declare global {
     isMobileAppUser: () => boolean;
     isLegacyAppUser: boolean;
     medianPermissions: MedianPermissions;
+    bootstrap: any;
+    requestNotificationsPermission: (
+      callback: (notificationsPermission: boolean) => void
+    ) => void;
   }
 }

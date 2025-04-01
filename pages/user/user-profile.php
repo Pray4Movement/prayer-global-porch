@@ -209,6 +209,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'notifications_toggle' => esc_html__( 'Allow push notifications', 'prayer-global-porch' ),
                 'notifications_text' => esc_html__( '(Encouragements, streaks, lap status and more)', 'prayer-global-porch' ),
                 'notifications_text_mobile' => esc_html__( 'Push notifications are only available on the latest version of the Prayer.Global mobile app.', 'prayer-global-porch' ),
+                'notifications_text_mismatch' => esc_html__( 'Push notifications are not enabled on your device.', 'prayer-global-porch' ),
+                'request_notifications' => esc_html__( 'Manage Device Notifications', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),

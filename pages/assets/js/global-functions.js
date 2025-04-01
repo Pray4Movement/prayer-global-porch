@@ -23,19 +23,19 @@ async function median_library_ready() {
             }
           )
           .then(() => {
-            requestNotificationsPermission();
+            const callback = () =>
+              window.api_fetch(
+                `${pg_global.root}pg-api/v1/user/notifications-permission`,
+                {
+                  method: "POST",
+                  body: JSON.stringify({
+                    notifications_permission: !!notificationsPermission,
+                  }),
+                }
+              );
+            requestNotificationsPermission(callback);
           });
       }
-
-      await window.api_fetch(
-        `${pg_global.root}pg-api/v1/user/notifications-permission`,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            notifications_permission: !!notificationsPermission,
-          }),
-        }
-      );
     }
 
     if (pg_global.is_logged_in && !window.isMedianAppLoggedIn) {
@@ -85,16 +85,22 @@ async function median_library_ready() {
     window.isLegacyAppUser = false;
   }
 }
-function requestNotificationsPermission() {
+window.requestNotifiationsPermission = requestNotificationsPermission;
+function requestNotificationsPermission(callback) {
   const notificationModal = document.getElementById("notification-modal");
   const allowNotificationsButton = document.getElementById(
     "allow-notifications"
   );
   const myModal = new bootstrap.Modal(notificationModal);
   myModal.show();
-  allowNotificationsButton.addEventListener("click", async () => {
-    await window.medianPermissions.requestNotificationsPermission();
-    notificationModal.classList.remove("show");
+  allowNotificationsButton.addEventListener("click", () => {
+    window.medianPermissions
+      .requestNotificationsPermission()
+      .then((notificationsPermission) => {
+        notificationModal.classList.remove("show");
+
+        callback(notificationsPermission);
+      });
   });
 }
 /* In case this JS is loaded after the median library */

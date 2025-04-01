@@ -1,4 +1,4 @@
-import { html, PropertyValues } from "lit";
+import { html, PropertyValues, render } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { OpenElement } from "./open-element";
 import { Language, Location, MedianPermissions, User } from "../interfaces";
@@ -29,7 +29,10 @@ export class PgSettings extends OpenElement {
   subscribed: boolean = false;
 
   @state()
-  hasNotificationsPermission: boolean = false;
+  hasDeviceNotificationsPermission: boolean = false;
+  @state()
+  hasUserNotificationsPermission: boolean =
+    window.pg_global.has_notifications_permission;
 
   notificationInterval: NodeJS.Timer | null = null;
 
@@ -74,8 +77,7 @@ export class PgSettings extends OpenElement {
     this.permissionsManager
       .getNotificationsPermission()
       .then((notificationsPermission) => {
-        this.hasNotificationsPermission = notificationsPermission;
-        console.log("**pg** hasPermission", this.hasNotificationsPermission);
+        this.hasDeviceNotificationsPermission = notificationsPermission;
       });
   }
 
@@ -180,8 +182,34 @@ export class PgSettings extends OpenElement {
     }
   }
 
-  handleNotificationsToggle() {
-    this.permissionsManager.openAppSettings();
+  handleNotificationsToggle(event: Event) {
+    const notificationsPermission = (event.target as HTMLInputElement).checked;
+    return window
+      .api_fetch(
+        `${window.pg_global.root}pg-api/v1/user/notifications-permission`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            notifications_permission: !!notificationsPermission,
+          }),
+        }
+      )
+      .then(() => {
+        this.hasUserNotificationsPermission = notificationsPermission;
+        if (this.isUserAndDevicePermissionMismatched()) {
+          window.requestNotificationsPermission(() => {
+            this.getNotificationsPermission();
+          });
+        }
+      });
+  }
+
+  isUserAndDevicePermissionMismatched() {
+    return (
+      this.hasUserNotificationsPermission === true &&
+      this.hasUserNotificationsPermission !==
+        this.hasDeviceNotificationsPermission
+    );
   }
 
   async wait(ms: number) {
@@ -251,14 +279,31 @@ export class PgSettings extends OpenElement {
                 type="checkbox"
                 role="switch"
                 ?disabled=${window.isLegacyAppUser || !window.isMobileAppUser()}
-                ?checked=${this.hasNotificationsPermission}
+                ?checked=${this.hasUserNotificationsPermission}
                 id="notifications-toggle"
                 @change=${this.handleNotificationsToggle}
               />
             </label>
           </div>
+          ${window.isMobileAppUser() &&
+          this.isUserAndDevicePermissionMismatched()
+            ? html`
+                <div class="cluster">
+                  <p class="small brand-lighter">
+                    ${this.translations.notifications_text_mismatch}
+                  </p>
+                  <button
+                    class="btn btn-small btn-outline-primary"
+                    @click=${this.requestNotificationsPermission}
+                  >
+                    ${this.translations.request_notifications}
+                  </button>
+                </div>
+              `
+            : ""}
           <p>${this.translations.notifications_text}</p>
-          ${window.isLegacyAppUser || !window.isMobileAppUser()
+          ${window.isLegacyAppUser ||
+          (!window.isMobileAppUser() && window.isMobile())
             ? html`
                 <p class="small brand-lighter">
                   <i>${this.translations.notifications_text_mobile}</i>
