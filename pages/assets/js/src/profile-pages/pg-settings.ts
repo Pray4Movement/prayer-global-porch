@@ -285,23 +285,22 @@ export class PgSettings extends OpenElement {
               />
             </label>
           </div>
-          ${window.isMobileAppUser() &&
+          <p>${this.translations.notifications_text}</p>
+          ${!window.isLegacyAppUser &&
+          window.isMobileAppUser() &&
           this.isUserAndDevicePermissionMismatched()
             ? html`
-                <div class="cluster">
-                  <p class="small brand-lighter">
-                    ${this.translations.notifications_text_mismatch}
-                  </p>
-                  <button
-                    class="btn btn-small btn-outline-primary"
-                    @click=${this.requestNotificationsPermission}
-                  >
-                    ${this.translations.request_notifications}
-                  </button>
-                </div>
+                <p class="small brand-lighter">
+                  <i>${this.translations.notifications_text_mismatch}</i>
+                </p>
+                <button
+                  class="btn btn-small btn-outline-primary"
+                  @click=${this.requestNotificationsPermission}
+                >
+                  ${this.translations.request_notifications}
+                </button>
               `
             : ""}
-          <p>${this.translations.notifications_text}</p>
           ${window.isLegacyAppUser ||
           (!window.isMobileAppUser() && window.isMobile())
             ? html`

@@ -97,7 +97,7 @@ function requestNotificationsPermission(callback) {
     window.medianPermissions
       .requestNotificationsPermission()
       .then((notificationsPermission) => {
-        notificationModal.classList.remove("show");
+        myModal.hide();
 
         callback(notificationsPermission);
       });
