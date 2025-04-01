@@ -42,9 +42,9 @@ export class PgSettings extends OpenElement {
     this.permissionsManager = window.medianPermissions;
   }
 
-  async connectedCallback() {
+  connectedCallback() {
     super.connectedCallback();
-    await this.getNotificationsPermission();
+    this.getNotificationsPermission();
 
     console.log("**pg** adding event listener");
     window.addEventListener(
@@ -62,8 +62,8 @@ export class PgSettings extends OpenElement {
     );
   }
 
-  async update(changedProperties: PropertyValues) {
-    await this.getNotificationsPermission();
+  update(changedProperties: PropertyValues) {
+    this.getNotificationsPermission();
     super.update(changedProperties);
   }
 
@@ -71,9 +71,13 @@ export class PgSettings extends OpenElement {
     history.back();
   }
 
-  async getNotificationsPermission() {
-    this.hasNotificationsPermission =
-      await this.permissionsManager.getNotificationsPermission();
+  getNotificationsPermission() {
+    if (!window.isMobileAppUser()) return;
+    this.permissionsManager
+      .getNotificationsPermission()
+      .then((notificationsPermission) => {
+        this.hasNotificationsPermission = notificationsPermission;
+      });
     console.log("**pg** hasPermission", this.hasNotificationsPermission);
   }
 
