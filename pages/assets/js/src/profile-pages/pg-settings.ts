@@ -165,9 +165,12 @@ export class PgSettings extends OpenElement {
 
   async handleNotificationsToggle() {
     await this.permissionsManager.openAppSettings();
-    setTimeout(async () => {
-      await this.getNotificationsPermission();
-    }, 500);
+    await this.wait(1000);
+    await this.getNotificationsPermission();
+  }
+
+  async wait(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   render() {
