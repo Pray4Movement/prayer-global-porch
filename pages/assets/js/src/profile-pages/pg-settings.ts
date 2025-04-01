@@ -163,6 +163,10 @@ export class PgSettings extends OpenElement {
     }
   }
 
+  handleNotificationsToggle() {
+    this.permissionsManager.openAppSettings();
+  }
+
   render() {
     return html`
       <pg-header
@@ -228,19 +232,24 @@ export class PgSettings extends OpenElement {
                 ?disabled=${window.isLegacyAppUser || !window.isMobileAppUser()}
                 ?checked=${this.hasNotificationsPermission}
                 id="notifications-toggle"
+                @change=${this.handleNotificationsToggle}
               />
             </label>
           </div>
           <p>${this.translations.notifications_text}</p>
           ${window.isLegacyAppUser || !window.isMobileAppUser()
             ? html`
-              <p class="small brand-lighter">
-                <i>${this.translations.notifications_text_mobile}</i>
-              </p>
-              <a href="/qr/app" target="_blank" class="btn btn-small btn-outline-primary">
-                ${this.translations.go_to_app_store}
-              </a>
-            `
+                <p class="small brand-lighter">
+                  <i>${this.translations.notifications_text_mobile}</i>
+                </p>
+                <a
+                  href="/qr/app"
+                  target="_blank"
+                  class="btn btn-small btn-outline-primary"
+                >
+                  ${this.translations.go_to_app_store}
+                </a>
+              `
             : ""}
         </section>
 
