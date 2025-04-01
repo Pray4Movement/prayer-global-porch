@@ -94,13 +94,10 @@ function requestNotificationsPermission(callback) {
   const myModal = new bootstrap.Modal(notificationModal);
   myModal.show();
   allowNotificationsButton.addEventListener("click", () => {
-    window.medianPermissions
-      .requestNotificationsPermission()
-      .then((notificationsPermission) => {
-        myModal.hide();
+    window.medianPermissions.requestNotificationsPermission();
+    myModal.hide();
 
-        callback(notificationsPermission);
-      });
+    callback(notificationsPermission);
   });
 }
 /* In case this JS is loaded after the median library */
