@@ -59,6 +59,7 @@ export class PgSettings extends OpenElement {
   async getNotificationsPermission() {
     this.hasNotificationsPermission =
       await this.permissionsManager.getNotificationsPermission();
+    console.log("hasPermission", this.hasNotificationsPermission);
   }
 
   private subsribeToNews() {
