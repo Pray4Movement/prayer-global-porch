@@ -66,5 +66,5 @@ export interface MedianPermissions {
   medianLibraryReady: boolean;
   getNotificationsPermission(): Promise<boolean>;
   requestNotificationsPermission(): void;
-  openAppSettings(): void;
+  openAppSettings(): Promise<void>;
 }

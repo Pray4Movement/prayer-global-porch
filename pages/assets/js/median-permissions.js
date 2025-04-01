@@ -59,8 +59,8 @@ class MedianPermissions {
     window.median.onesignal.register();
   }
 
-  openAppSettings() {
-    window.median.open.appSettings();
+  async openAppSettings() {
+    await window.median.open.appSettings();
   }
 }
 
