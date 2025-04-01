@@ -10,6 +10,7 @@ async function median_library_ready() {
     if (pg_global.is_logged_in) {
       const notificationsPermission =
         await window.medianPermissions.getNotificationsPermission();
+
       if (
         notificationsPermission !== true &&
         !pg_global.has_requested_notifications
@@ -25,6 +26,16 @@ async function median_library_ready() {
             requestNotificationsPermission();
           });
       }
+
+      await window.api_fetch(
+        `${pg_global.root}pg-api/v1/user/notifications-permission`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            notifications_permission: !!notificationsPermission,
+          }),
+        }
+      );
     }
 
     if (pg_global.is_logged_in && !window.isMedianAppLoggedIn) {

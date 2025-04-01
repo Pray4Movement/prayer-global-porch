@@ -236,7 +236,11 @@ export class PgSettings extends OpenElement {
             ? html`
               <p class="small brand-lighter">
                 <i>${this.translations.notifications_text_mobile}</i>
-              </p>`
+              </p>
+              <a href="/qr/app" target="_blank" class="btn btn-small btn-outline-primary">
+                ${this.translations.go_to_app_store}
+              </a>
+            `
             : ""}
         </section>
 
