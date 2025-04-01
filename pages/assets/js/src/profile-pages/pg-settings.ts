@@ -51,6 +51,14 @@ export class PgSettings extends OpenElement {
       "median-app-resumed",
       this.getNotificationsPermission
     );
+    window.addEventListener("median-app-resumed", this.bar);
+  }
+
+  async foo() {
+    console.log("**pg** fooing around");
+  }
+  bar() {
+    this.foo();
   }
 
   async disconnectedCallback() {
@@ -60,6 +68,7 @@ export class PgSettings extends OpenElement {
       "median-app-resumed",
       this.getNotificationsPermission
     );
+    window.removeEventListener("median-app-resumed", this.bar);
   }
 
   update(changedProperties: PropertyValues) {
@@ -77,8 +86,8 @@ export class PgSettings extends OpenElement {
       .getNotificationsPermission()
       .then((notificationsPermission) => {
         this.hasNotificationsPermission = notificationsPermission;
+        console.log("**pg** hasPermission", this.hasNotificationsPermission);
       });
-    console.log("**pg** hasPermission", this.hasNotificationsPermission);
   }
 
   private subsribeToNews() {
