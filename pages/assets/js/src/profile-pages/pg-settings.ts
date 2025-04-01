@@ -46,6 +46,7 @@ export class PgSettings extends OpenElement {
     super.connectedCallback();
     await this.getNotificationsPermission();
 
+    console.log("**pg** adding event listener");
     window.addEventListener(
       "median-app-resumed",
       this.getNotificationsPermission
@@ -54,6 +55,7 @@ export class PgSettings extends OpenElement {
 
   async disconnectedCallback() {
     super.disconnectedCallback();
+    console.log("**pg** removing event listener");
     window.removeEventListener(
       "median-app-resumed",
       this.getNotificationsPermission
