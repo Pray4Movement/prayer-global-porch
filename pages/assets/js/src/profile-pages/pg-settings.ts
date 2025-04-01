@@ -31,6 +31,8 @@ export class PgSettings extends OpenElement {
   @state()
   hasNotificationsPermission: boolean = false;
 
+  notificationInterval: NodeJS.Timer | null = null;
+
   constructor() {
     super();
 
@@ -46,29 +48,16 @@ export class PgSettings extends OpenElement {
     super.connectedCallback();
     this.getNotificationsPermission();
 
-    console.log("**pg** adding event listener");
-    window.addEventListener(
-      "median-app-resumed",
-      this.getNotificationsPermission
-    );
-    window.addEventListener("median-app-resumed", this.bar);
+    this.notificationInterval = setInterval(() => {
+      this.getNotificationsPermission();
+    }, 1000);
   }
 
-  async foo() {
-    console.log("**pg** fooing around");
-  }
-  bar() {
-    this.foo();
-  }
-
-  async disconnectedCallback() {
+  disconnectedCallback() {
     super.disconnectedCallback();
-    console.log("**pg** removing event listener");
-    window.removeEventListener(
-      "median-app-resumed",
-      this.getNotificationsPermission
-    );
-    window.removeEventListener("median-app-resumed", this.bar);
+    if (this.notificationInterval) {
+      clearInterval(this.notificationInterval);
+    }
   }
 
   update(changedProperties: PropertyValues) {

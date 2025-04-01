@@ -1,7 +1,3 @@
-function median_app_resumed() {
-  console.log("**pg** median app resumed");
-  window.dispatchEvent(new Event("median-app-resumed"));
-}
 async function median_library_ready() {
   window.dispatchEvent(new Event("median-library-ready"));
   if (
