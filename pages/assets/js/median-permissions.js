@@ -31,6 +31,7 @@ class MedianPermissions {
    */
   async getPermissionStatus(permission) {
     const response = await this.getPermissions();
+    console.log("**pg** permission response", response);
 
     if (response[permission] === "granted") {
       return true;
@@ -46,6 +47,7 @@ class MedianPermissions {
    * @returns {boolean|null} - Returns true if the permission is granted, false if denied, and null if not yet determined
    */
   async getNotificationsPermission() {
+    console.log("**pg** medianLibraryReady", this.medianLibraryReady);
     if (!this.medianLibraryReady) {
       return false;
     }

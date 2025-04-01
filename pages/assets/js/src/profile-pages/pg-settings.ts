@@ -59,7 +59,7 @@ export class PgSettings extends OpenElement {
   async getNotificationsPermission() {
     this.hasNotificationsPermission =
       await this.permissionsManager.getNotificationsPermission();
-    console.log("hasPermission", this.hasNotificationsPermission);
+    console.log("**pg** hasPermission", this.hasNotificationsPermission);
   }
 
   private subsribeToNews() {
@@ -148,7 +148,6 @@ export class PgSettings extends OpenElement {
   handleChangeLanguage(event: Event) {
     const selectedLanguage = (event.target as HTMLSelectElement).value;
     this.language = window.jsObject.languages[selectedLanguage] ?? null;
-    console.log(this.language);
   }
 
   handleChangeLocation(event: Event) {
