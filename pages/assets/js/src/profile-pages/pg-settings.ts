@@ -45,6 +45,19 @@ export class PgSettings extends OpenElement {
   async connectedCallback() {
     super.connectedCallback();
     await this.getNotificationsPermission();
+
+    window.addEventListener(
+      "median-app-resumed",
+      this.getNotificationsPermission
+    );
+  }
+
+  async disconnectedCallback() {
+    super.disconnectedCallback();
+    window.removeEventListener(
+      "median-app-resumed",
+      this.getNotificationsPermission
+    );
   }
 
   async update(changedProperties: PropertyValues) {
@@ -163,13 +176,8 @@ export class PgSettings extends OpenElement {
     }
   }
 
-  async handleNotificationsToggle() {
-    console.log("**pg** opening app settings");
-    await this.permissionsManager.openAppSettings();
-    console.log("**pg** waiting for 1 second");
-    await this.wait(1000);
-    console.log("**pg** getting notifications permission");
-    await this.getNotificationsPermission();
+  handleNotificationsToggle() {
+    this.permissionsManager.openAppSettings();
   }
 
   async wait(ms: number) {
