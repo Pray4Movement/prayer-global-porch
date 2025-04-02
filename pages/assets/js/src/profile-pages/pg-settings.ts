@@ -213,8 +213,8 @@ export class PgSettings extends OpenElement {
       this.hasDeviceNotificationsPermission
     );
     return (
-      this.hasUserNotificationsPermission === true &&
-      this.hasUserNotificationsPermission !==
+      !!this.hasUserNotificationsPermission &&
+      !!this.hasUserNotificationsPermission !==
         this.hasDeviceNotificationsPermission
     );
   }
