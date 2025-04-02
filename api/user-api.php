@@ -44,6 +44,7 @@ class PG_User_API {
         DT_Route::post( $namespace, 'ip_location', [ $this, 'get_ip_location' ] );
         DT_Route::post( $namespace, 'details', [ $this, 'get_user' ] );
         DT_Route::post( $namespace, 'stats', [ $this, 'get_user_stats' ] );
+        DT_Route::post( $namespace, 'milestones', [ $this, 'get_user_milestones' ] );
         DT_Route::post( $namespace, 'locations-prayed-for', [ $this, 'get_user_locations_prayed_for_endpoint' ] );
         DT_Route::post( $namespace, 'onesignal', [ $this, 'update_onesignal_data' ] );
         DT_Route::post( $namespace, 'requested-notifications', [ $this, 'requested_notifications' ] );
@@ -97,18 +98,32 @@ class PG_User_API {
         }
 
         $user_stats = new User_Stats( $user_id );
-        $milestones_manager = new PG_Milestones( $user_id );
 
         $result = [];
         $result['total_locations'] = $user_stats->total_places_prayed();
         $result['total_minutes'] = $user_stats->total_minutes_prayed();
         $result['current_streak'] = $user_stats->current_streak_in_days();
         $result['best_streak'] = $user_stats->best_streak_in_days();
-        $result['milestones'] = $milestones_manager->get_in_app_milestones();
 
-        foreach ( $result['milestones'] as $milestone ) {
-            if ( !PG_Notifications::has_sent_notification_recently( $user_id, $milestone['category'], $milestone['value'] ) ) {
-                PG_Notifications::record_notification( $user_id, $milestone['category'], $milestone['value'] );
+        return $result;
+    }
+
+    public static function get_user_milestones() {
+        $user_id = get_current_user_id();
+
+        if ( !$user_id ) {
+            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
+        }
+
+
+        $milestones_manager = new PG_Milestones( $user_id );
+        $milestones = $milestones_manager->get_in_app_milestones();
+
+        $result = [];
+        foreach ( $milestones as $milestone ) {
+            if ( !PG_Notifications_Sent::is_recent( $user_id, $milestone ) ) {
+                PG_Notifications_Sent::record( $user_id, $milestone );
+                $result[] = $milestone->to_array();
             }
         }
 

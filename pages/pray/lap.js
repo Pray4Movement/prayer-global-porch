@@ -85,7 +85,7 @@ async function init() {
   window.load_report_modal();
 
   /* DEBUG ONLY @TODO: Remove this */
-  celebrateAndDone();
+  //celebrateAndDone();
 }
 
 function setupListeners() {
@@ -220,17 +220,18 @@ function celebrateAndDone() {
     const milestonesContainer = document.getElementById("milestones");
     /* Add API call to get new user stats */
     window
-      .api_fetch(`${window.pg_global.root}pg-api/v1/user/stats`, {
+      .api_fetch(`${window.pg_global.root}pg-api/v1/user/milestones`, {
         method: "POST",
       })
-      .then((result) => {
+      .then((milestones) => {
         /* After success update the curent and best streak values in DOM */
-        const milestones = result.milestones;
-        if (milestones.length > 0) {
-          milestonesContainer.innerHTML = "";
-          milestones.forEach((milestone) => {
-            milestonesContainer.innerHTML += `<hr class="seperator-thick">`;
-            milestonesContainer.innerHTML += `
+        if (milestones.length === 0) {
+          return false;
+        }
+        milestonesContainer.innerHTML = "";
+        milestones.forEach((milestone) => {
+          milestonesContainer.innerHTML += `<hr class="seperator-thick">`;
+          milestonesContainer.innerHTML += `
               <div class="flow milestone text-center">
                 <h2 class="cluster justify-center">
                   <svg class="icon-md">
@@ -242,9 +243,21 @@ function celebrateAndDone() {
               </div>
               <hr class="seperator-thick">
             `;
-          });
-        } else {
-          milestonesContainer.innerHTML = `
+        });
+      })
+      .then((hasMilestones = true) => {
+        if (hasMilestones) {
+          return;
+        }
+        return window.api_fetch(
+          `${window.pg_global.root}pg-api/v1/user/stats`,
+          {
+            method: "POST",
+          }
+        );
+      })
+      .then((result) => {
+        milestonesContainer.innerHTML = `
             <div class="w-fit center">
               <section class="flow center | activity-card lh-xsm">
                 <h3 class="activity-card__title">
@@ -275,16 +288,14 @@ function celebrateAndDone() {
               </section>
             </div>
           `;
-        }
-      })
-      .finally(() => {
-        if (!window.isMobileAppUser() || window.isLegacyAppUser) {
-          const divContainer = document.createElement("div");
-          divContainer.classList.add("flow");
-          divContainer.classList.add("bg-light");
-          divContainer.classList.add("modal-content");
-          divContainer.classList.add("modal-body");
-          divContainer.innerHTML = `
+      });
+    if (!window.isMobileAppUser() || window.isLegacyAppUser) {
+      const divContainer = document.createElement("div");
+      divContainer.classList.add("flow");
+      divContainer.classList.add("bg-light");
+      divContainer.classList.add("modal-content");
+      divContainer.classList.add("modal-body");
+      divContainer.innerHTML = `
             <h5 class="text-center bold">
               ${
                 window.isLegacyAppUser
@@ -296,9 +307,8 @@ function celebrateAndDone() {
               ${jsObject.translations.go_to_app_store}
             </a>
           `;
-          milestonesContainer.insertAdjacentElement("afterend", divContainer);
-        }
-      });
+      milestonesContainer.insertAdjacentElement("afterend", divContainer);
+    }
   } else {
     // Or if they aren't logged in, we will encourage them to sign up
     celebrateContentContainer.innerHTML = `

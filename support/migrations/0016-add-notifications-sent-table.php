@@ -10,16 +10,18 @@ class Prayer_Global_Migration_0016 extends Prayer_Global_Migration {
         $table_name = $wpdb->prefix . 'dt_notifications_sent';
         $wpdb->dt_notifications_sent = $table_name;
 
-        $wpdb->query( $wpdb->prepare(
+        $wpdb->query( "DROP TABLE IF EXISTS $wpdb->dt_notifications_sent" );
+        $wpdb->query(
             "CREATE TABLE IF NOT EXISTS $wpdb->dt_notifications_sent (
             `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT,
             `user_id` bigint(20) UNSIGNED NOT NULL,
-            `type` varchar(50) NOT NULL,
-            `value` int(11) NOT NULL,
+            `category` varchar(50) NOT NULL,
+            `milestone_value` int(11) NOT NULL,
+            `channel` varchar(50) NOT NULL,
             `sent_at` int(11) NOT NULL DEFAULT UNIX_TIMESTAMP(),
             PRIMARY KEY (`id`),
-            KEY `user_notification` (`user_id`, `notification_type`, `milestone_value`)
-        ) " ) );
+            KEY `user_notification` (`user_id`, `category`, `milestone_value`, `channel`)
+        ) " );
     }
 
     public function down() {

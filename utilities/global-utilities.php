@@ -50,8 +50,11 @@ function pg_profile_icon( $manual = false ) {
 
         if ( $manual ) {
             // get initials of the users display name
-            $initials = explode( ' ', $user->display_name );
-            $initials = substr( $initials[0], 0, 1 ) . substr( $initials[1], 0, 1 );
+            $initial_parts = explode( ' ', $user->display_name );
+            $initials = substr( $initial_parts[0], 0, 1 );
+            if ( count( $initial_parts ) > 1 ) {
+                $initials .= substr( $initial_parts[1], 0, 1 );
+            }
             $initials = strtoupper( $initials );
             $return = '<style>
                 .circle {
