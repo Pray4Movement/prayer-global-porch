@@ -74,11 +74,9 @@ export class PgSettings extends OpenElement {
 
   getNotificationsPermission() {
     if (!window.isMobileAppUser()) return;
-    console.log("**pg** getting notifications permission");
     this.permissionsManager
       .getNotificationsPermission()
       .then((notificationsPermission) => {
-        console.log("**pg** notifications permission", notificationsPermission);
         this.hasDeviceNotificationsPermission = notificationsPermission;
       });
   }
@@ -207,11 +205,6 @@ export class PgSettings extends OpenElement {
   }
 
   isUserAndDevicePermissionMismatched() {
-    console.log(
-      "**pg**",
-      this.hasUserNotificationsPermission,
-      this.hasDeviceNotificationsPermission
-    );
     return (
       !!this.hasUserNotificationsPermission &&
       !!this.hasUserNotificationsPermission !==
@@ -224,13 +217,6 @@ export class PgSettings extends OpenElement {
   }
 
   render() {
-    console.log(
-      "**pg**",
-      !window.isLegacyAppUser,
-      window.isMobileAppUser(),
-      this.isUserAndDevicePermissionMismatched()
-    );
-
     return html`
       <pg-header
         backUrl="/dashboard"
