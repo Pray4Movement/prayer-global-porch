@@ -25,7 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'PG_TOTAL_STATES', 4770 );
 define( 'PG_NAMESPACE', 'pg_' );
 define( 'PG_API_ENDPOINT', 'https://api.prayer.global/' );
-
+define( 'PG_CHANNEL_IN_APP', 'in_app' );
+define( 'PG_CHANNEL_PUSH', 'push' );
+define( 'PG_CHANNEL_EMAIL', 'email' );
 
 
 /**

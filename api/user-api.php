@@ -122,7 +122,7 @@ class PG_User_API {
         $result = [];
         foreach ( $milestones as $milestone ) {
             if ( !PG_Notifications_Sent::is_recent( $user_id, $milestone ) ) {
-                PG_Notifications_Sent::record( $user_id, $milestone );
+                PG_Notifications_Sent::record( $user_id, $milestone, PG_CHANNEL_IN_APP );
                 $result[] = $milestone->to_array();
             }
         }

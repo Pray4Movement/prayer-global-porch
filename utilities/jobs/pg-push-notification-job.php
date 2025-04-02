@@ -16,6 +16,6 @@ class PG_User_Push_Notification_Job extends Job {
     public function handle() {
         // send push notification to user with milestone message
         PG_Onesignal::send_to_user( $this->user_email, $this->milestone->get_message() );
-        PG_Notifications_Sent::record( $this->user_id, $this->milestone );
+        PG_Notifications_Sent::record( $this->user_id, $this->milestone, PG_CHANNEL_PUSH );
     }
 }

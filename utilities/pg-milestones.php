@@ -54,7 +54,7 @@ class PG_Milestones {
                     ),
                     'streak',
                     $current_streak,
-                    [ 'in-app', 'push', 'email' ]
+                    [ PG_CHANNEL_IN_APP, PG_CHANNEL_PUSH, PG_CHANNEL_EMAIL ]
                 )
             ];
         }
