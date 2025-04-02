@@ -74,9 +74,11 @@ export class PgSettings extends OpenElement {
 
   getNotificationsPermission() {
     if (!window.isMobileAppUser()) return;
+    console.log("**pg** getting notifications permission");
     this.permissionsManager
       .getNotificationsPermission()
       .then((notificationsPermission) => {
+        console.log("**pg** notifications permission", notificationsPermission);
         this.hasDeviceNotificationsPermission = notificationsPermission;
       });
   }
@@ -205,6 +207,11 @@ export class PgSettings extends OpenElement {
   }
 
   isUserAndDevicePermissionMismatched() {
+    console.log(
+      "**pg**",
+      this.hasUserNotificationsPermission,
+      this.hasDeviceNotificationsPermission
+    );
     return (
       this.hasUserNotificationsPermission === true &&
       this.hasUserNotificationsPermission !==
