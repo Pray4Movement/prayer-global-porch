@@ -224,6 +224,13 @@ export class PgSettings extends OpenElement {
   }
 
   render() {
+    console.log(
+      "**pg**",
+      !window.isLegacyAppUser,
+      window.isMobileAppUser(),
+      this.isUserAndDevicePermissionMismatched()
+    );
+
     return html`
       <pg-header
         backUrl="/dashboard"
