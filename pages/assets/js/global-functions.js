@@ -23,17 +23,17 @@ async function median_library_ready() {
             }
           )
           .then(() => {
-            const callback = () =>
+            const setUserNotificationPermission = () =>
               window.api_fetch(
                 `${pg_global.root}pg-api/v1/user/notifications-permission`,
                 {
                   method: "POST",
                   body: JSON.stringify({
-                    notifications_permission: !!notificationsPermission,
+                    notifications_permission: true,
                   }),
                 }
               );
-            requestNotificationsPermission(callback);
+            requestNotificationsPermission(setUserNotificationPermission);
           });
       }
     }
@@ -85,6 +85,7 @@ async function median_library_ready() {
     window.isLegacyAppUser = false;
   }
 }
+
 window.requestNotifiationsPermission = requestNotificationsPermission;
 function requestNotificationsPermission(callback) {
   const notificationModal = document.getElementById("notification-modal");
@@ -97,13 +98,15 @@ function requestNotificationsPermission(callback) {
     window.medianPermissions.requestNotificationsPermission();
     myModal.hide();
 
-    callback(notificationsPermission);
+    callback();
   });
 }
+
 /* In case this JS is loaded after the median library */
 if (window.median) {
   median_library_ready();
 }
+
 window.escapeObject = function (obj) {
   return Object.fromEntries(
     Object.entries(obj).map(([key, value]) => {
