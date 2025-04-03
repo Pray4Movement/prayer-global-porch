@@ -38,8 +38,8 @@ class PG_Milestones
      */
     public function get_milestones(): array
     {
-        $streak_milestones = $this->get_streak_milestones();
-        $inactivity_milestones = $this->get_inactivity_milestones();
+        $streak_milestones = $this->get_streak_milestone();
+        $inactivity_milestones = $this->get_inactivity_milestone();
 
         return array_merge( $streak_milestones, $inactivity_milestones );
     }
@@ -49,7 +49,7 @@ class PG_Milestones
      *
      * @return PG_Milestone[]
      */
-    private function get_streak_milestones(): array
+    private function get_streak_milestone(): array
     {
         $current_streak = $this->user_stats->current_streak_in_days();
         if ( in_array( $current_streak, $this->streak_milestones ) ) {
@@ -74,7 +74,7 @@ class PG_Milestones
      *
      * @return PG_Milestone[]
      */
-    private function get_inactivity_milestones(): array
+    private function get_inactivity_milestone(): array
     {
         $last_prayer_timestamp = $this->user_stats->last_prayer_date();
         if ( !$last_prayer_timestamp ) {
@@ -85,7 +85,7 @@ class PG_Milestones
         $hours_inactive = ( $now - $last_prayer_timestamp ) / 3600;
         $days_inactive = floor( $hours_inactive / 24 );
 
-        if ( $hours_inactive >= 36 && $hours_inactive < 48 ) {
+        if ( true || $hours_inactive >= 36 && $hours_inactive < 48 ) {
             return [
                 new PG_Milestone(
                     __( 'Keep your streak alive', 'prayer-global-porch' ),

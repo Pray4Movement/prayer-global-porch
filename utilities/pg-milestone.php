@@ -37,7 +37,7 @@ class PG_Milestone {
         return $this->value;
     }
 
-    public function get_channel(): array {
+    public function get_channels(): array {
         return $this->channels;
     }
 

@@ -5,7 +5,7 @@ class PG_Onesignal {
         'nathinabob+1234@gmail.com',
         'nathinabob@gmail.com',
     ];
-    public static function send_to_user( string $user_email, string $message ) {
+    public static function send_to_user( string $user_email, string $title, string $message ) {
         if (
             ( defined( 'PG_ONESIGNAL_STOP' ) && PG_ONESIGNAL_STOP ) &&
             !in_array( $user_email, self::$allowed_users )
@@ -29,6 +29,9 @@ class PG_Onesignal {
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => json_encode([
                 'app_id' => $onesignal_app_id,
+                'headings' => [
+                    'en' => $title,
+                ],
                 'contents' => [
                     'en' => $message,
                 ],
