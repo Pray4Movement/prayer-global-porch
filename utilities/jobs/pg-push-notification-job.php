@@ -7,9 +7,9 @@ class PG_User_Push_Notification_Job extends Job {
     private string $user_email;
     private PG_Milestone $milestone;
 
-    public function __construct( int $user_id, string $user_email, PG_Milestone $milestone ) {
-        $this->user_id = $user_id;
-        $this->user_email = $user_email;
+    public function __construct( WP_User $user, PG_Milestone $milestone ) {
+        $this->user_id = $user->ID;
+        $this->user_email = $user->user_email;
         $this->milestone = $milestone;
     }
 
