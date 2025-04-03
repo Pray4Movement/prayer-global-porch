@@ -20,7 +20,7 @@ class PG_Notification_Handler_Job extends Job {
 
             foreach ( $milestones as $milestone ) {
                 // check if the user has reached the milestone
-                if ( PG_Notifications_Sent::is_recent( $user->ID, $milestone->get_id() ) ) {
+                if ( $milestone->get_category() === 'streak' && !PG_Notifications_Sent::is_recent( $user->ID, $milestone ) ) {
                     wp_queue()->push( new PG_User_Push_Notification_Job( $user, $milestone ) );
                 }
             }
