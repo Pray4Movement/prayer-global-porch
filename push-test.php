@@ -1,10 +1,14 @@
 <?php
 
-echo 'hi';
-DEFINE( 'SHORTINIT', true );
+echo "hi \r\n";
+
 require_once __DIR__ . '/../../../wp-config.php';
-require_once __DIR__ . '/utilities/pg-onesignal.php';
+add_filter( 'wp_queue_default_connection', function() {
+	return 'sync';
+} );
 
-$result =PG_Onesignal::send_to_user( 'nathinabob+1234@gmail.com', 'Test message' );
-
-var_dump( $result );
+if ( defined( 'PG_ONESIGNAL_STOP' ) ) {
+    echo "PG_ONESIGNAL_STOP is defined as " . PG_ONESIGNAL_STOP . "\n";
+} else {
+    echo "PG_ONESIGNAL_STOP is not defined \n";
+}
