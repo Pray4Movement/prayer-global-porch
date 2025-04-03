@@ -235,7 +235,9 @@ function celebrateAndDone() {
               <div class="flow milestone text-center">
                 <h2 class="cluster justify-center">
                   <svg class="icon-md">
-                    <use href="${jsObject.spritesheet_url}#${milestone.icon}"></use>
+                    <use href="${
+                      jsObject.spritesheet_url
+                    }#${window.getMilestoneIcon(milestone.category)}"></use>
                   </svg>
                   ${milestone.title}
                 </h2>

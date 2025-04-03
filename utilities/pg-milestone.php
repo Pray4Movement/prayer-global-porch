@@ -1,7 +1,6 @@
 <?php
 
 class PG_Milestone {
-    private string $icon;
     private string $title;
     private string $message;
     private string $category;
@@ -9,23 +8,17 @@ class PG_Milestone {
     private array $channels;
 
     public function __construct(
-        string $icon,
         string $title,
         string $message,
         string $category,
         int $value,
         array $channel
     ) {
-        $this->icon = $icon;
         $this->title = $title;
         $this->message = $message;
         $this->category = $category;
         $this->value = $value;
         $this->channels = $channel;
-    }
-
-    public function get_icon(): string {
-        return $this->icon;
     }
 
     public function get_title(): string {
@@ -50,7 +43,6 @@ class PG_Milestone {
 
     public function to_array(): array {
         return [
-            'icon' => $this->icon,
             'title' => $this->title,
             'message' => $this->message,
             'category' => $this->category,

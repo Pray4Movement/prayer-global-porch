@@ -54,6 +54,15 @@ window.api_fetch = function (url, options = {}) {
     .then((result) => result.json());
 };
 
+window.getMilestoneIcon = function (milestoneCategory) {
+  switch (milestoneCategory) {
+    case "streak":
+      return "pg-streak";
+    default:
+      return "pg-streak";
+  }
+};
+
 document.addEventListener("DOMContentLoaded", function () {
   window.schoolPride = function () {
     var end = Date.now() + 3 * 1000;

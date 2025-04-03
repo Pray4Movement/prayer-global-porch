@@ -49,7 +49,6 @@ class PG_Milestones {
         if ( in_array( $current_streak, $this->streak_milestones ) ) {
             return [
                 new PG_Milestone(
-                    'pg-streak',
                     __( 'Your Streak is Alive!', 'prayer-global-porch' ),
                     sprintf(
                         esc_html__( 'You have prayed for %s days in a row! Let\'s keep that streak going!', 'prayer-global-porch' ),
