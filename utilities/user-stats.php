@@ -54,6 +54,19 @@ class User_Stats {
         return time() - $last_prayed_timestamp < self::$day_in_seconds;
     }
 
+    public function last_prayer_date(): ?int {
+        global $wpdb;
+
+        $last_prayed_timestamp = $wpdb->get_var( $wpdb->prepare(
+            "SELECT MAX( r.timestamp ) as last_prayed
+                FROM $wpdb->dt_reports r
+                WHERE r.user_id = %s
+                AND r.post_type = 'pg_relays'
+            ", $this->user_id ) );
+
+        return $last_prayed_timestamp ? (int) $last_prayed_timestamp : null;
+    }
+
     /* Count Number of places prayed for */
     public function total_places_prayed(): int {
         global $wpdb;

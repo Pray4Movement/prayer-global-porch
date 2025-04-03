@@ -15,7 +15,8 @@ class PG_Notification_Handler_Job extends Job {
                 PG_NAMESPACE . 'emails_permission',
             ],
             'fields' => [
-                'ID', 'user_email'
+                'ID',
+                'user_email',
             ],
         ));
 
