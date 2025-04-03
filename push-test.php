@@ -12,3 +12,5 @@ if ( defined( 'PG_ONESIGNAL_STOP' ) ) {
 } else {
     echo "PG_ONESIGNAL_STOP is not defined \n";
 }
+
+wp_queue()->push( new PG_Notification_Handler_Job() );
