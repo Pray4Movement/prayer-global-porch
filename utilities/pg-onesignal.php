@@ -1,7 +1,17 @@
 <?php
 
 class PG_Onesignal {
+    public static array $allowed_users = [
+        'nathinabob+1234@gmail.com',
+        'nathinabob@gmail.com',
+    ];
     public static function send_to_user( string $user_email, string $message ) {
+        if (
+            ( defined( 'PG_ONESIGNAL_STOP' ) && PG_ONESIGNAL_STOP ) &&
+            !in_array( $user_email, self::$allowed_users )
+        ) {
+            return;
+        }
 
         $onesignal_app_id = get_option( 'pg_onesignal_app_id' );
         $onesignal_api_key = get_option( 'pg_onesignal_api_key' );

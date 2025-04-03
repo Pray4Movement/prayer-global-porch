@@ -25,8 +25,5 @@ class PG_Notification_Handler_Job extends Job {
                 }
             }
         }
-
-
-        // create jobs to send push notifications
     }
 }
