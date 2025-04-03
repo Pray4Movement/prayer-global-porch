@@ -29,12 +29,12 @@ class PG_Notification_Handler_Job extends Job {
             foreach ( $milestones as $milestone ) {
                 // check if the user has reached the milestone
                 if ( $milestone->get_category() === 'streak' && !PG_Notifications_Sent::is_recent( $user->ID, $milestone ) ) {
-                    if ( $can_send_push ) {
+                    if ( $can_send_push && $milestone->push() ) {
                         wp_queue()->push( new PG_User_Push_Notification_Job( $user, $milestone ) );
                     }
                 }
                 if ( $milestone->get_category() === 'inactivity' && !PG_Notifications_Sent::is_recent( $user->ID, $milestone ) ) {
-                    if ( $can_send_push && in_array( PG_CHANNEL_PUSH, $milestone->get_channels() ) ) {
+                    if ( $can_send_push && $milestone->push() ) {
                         wp_queue()->push( new PG_User_Push_Notification_Job( $user, $milestone ) );
                     }
                 }

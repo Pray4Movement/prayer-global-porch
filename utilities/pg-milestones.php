@@ -85,14 +85,17 @@ class PG_Milestones
         $hours_inactive = ( $now - $last_prayer_timestamp ) / 3600;
         $days_inactive = floor( $hours_inactive / 24 );
 
-        if ( true || $hours_inactive >= 36 && $hours_inactive < 48 ) {
+        $url = site_url( 'dashboard' );
+
+        if ( true || ( $hours_inactive >= 36 && $hours_inactive < 48 ) ) {
             return [
                 new PG_Milestone(
                     __( 'Keep your streak alive', 'prayer-global-porch' ),
                     __( 'Keep praying to maintain your streak!', 'prayer-global-porch' ),
                     'inactivity',
                     1,
-                    [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ]
+                    [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                    $url,
                 )
             ];
         }
@@ -104,7 +107,8 @@ class PG_Milestones
                     __( 'Your prayer streak has ended. Start a new one today!', 'prayer-global-porch' ),
                     'inactivity',
                     2,
-                    [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ]
+                    [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                    $url,
                 )
             ];
         }
@@ -116,7 +120,8 @@ class PG_Milestones
                     __( 'Haven\'t seen you in a while—take a moment today to reconnect in prayer!', 'prayer-global-porch' ),
                     'inactivity',
                     7,
-                    [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ]
+                    [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                    $url,
                 )
             ];
         }
@@ -128,7 +133,8 @@ class PG_Milestones
                     __( 'Your prayers matter! Take a moment today and join us in covering the world in prayer again.', 'prayer-global-porch' ),
                     'inactivity',
                     14,
-                    [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ]
+                    [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                    $url,
                 )
             ];
         }
@@ -140,7 +146,8 @@ class PG_Milestones
                     __( 'The world needs prayer warriors like you. Jump back in today and be part of something bigger!', 'prayer-global-porch' ),
                     'inactivity',
                     30,
-                    [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ]
+                    [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                    $url,
                 )
             ];
         }
@@ -152,7 +159,8 @@ class PG_Milestones
                     __( 'We\'d love to have you back praying with us!', 'prayer-global-porch' ),
                     'inactivity',
                     60,
-                    [ PG_CHANNEL_EMAIL ]
+                    [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                    $url,
                 )
             ];
         }
@@ -164,7 +172,8 @@ class PG_Milestones
                     __( 'Your prayer journey can restart anytime - join us again!', 'prayer-global-porch' ),
                     'inactivity',
                     90,
-                    [ PG_CHANNEL_EMAIL ]
+                    [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                    $url,
                 )
             ];
         }
@@ -176,7 +185,8 @@ class PG_Milestones
                     __( 'Would you like to restart with a fresh goal?', 'prayer-global-porch' ),
                     'inactivity',
                     180,
-                    [ PG_CHANNEL_EMAIL ]
+                    [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                    $url,
                 )
             ];
         }
@@ -188,7 +198,8 @@ class PG_Milestones
                     __( 'We understand life gets busy, but your prayers make an impact. We\'d love to have you back whenever you\'re ready.', 'prayer-global-porch' ),
                     'inactivity',
                     365,
-                    [ PG_CHANNEL_EMAIL ]
+                    [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                    $url,
                 )
             ];
         }

@@ -5,7 +5,7 @@ class PG_Onesignal {
         'nathinabob+1234@gmail.com',
         'nathinabob@gmail.com',
     ];
-    public static function send_to_user( string $user_email, string $title, string $message ) {
+    public static function send_to_user( string $user_email, string $message, string $title = '', string $url = '' ) {
         if (
             ( defined( 'PG_ONESIGNAL_STOP' ) && PG_ONESIGNAL_STOP ) &&
             !in_array( $user_email, self::$allowed_users )
@@ -15,6 +15,29 @@ class PG_Onesignal {
 
         $onesignal_app_id = get_option( 'pg_onesignal_app_id' );
         $onesignal_api_key = get_option( 'pg_onesignal_api_key' );
+
+        $payload = [
+            'app_id' => $onesignal_app_id,
+            'contents' => [
+                'en' => $message,
+            ],
+            'target_channel' => 'push',
+            'include_aliases' => [
+                'external_id' => [
+                    $user_email,
+                ]
+            ]
+        ];
+
+        if ( $title ) {
+            $payload['headings'] = [
+                'en' => $title,
+            ];
+        }
+
+        if ( $url ) {
+            $payload['url'] = $url;
+        }
 
         // send push notification to user with milestone message
         $curl = curl_init();
@@ -27,21 +50,7 @@ class PG_Onesignal {
             CURLOPT_TIMEOUT => 30,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode([
-                'app_id' => $onesignal_app_id,
-                'headings' => [
-                    'en' => $title,
-                ],
-                'contents' => [
-                    'en' => $message,
-                ],
-                'target_channel' => 'push',
-                'include_aliases' => [
-                    'external_id' => [
-                        $user_email,
-                    ]
-                ]
-            ]),
+            CURLOPT_POSTFIELDS => json_encode( $payload ),
             CURLOPT_HTTPHEADER => [
                 'Authorization: Key ' . $onesignal_api_key,
                 'accept: application/json',
@@ -55,7 +64,7 @@ class PG_Onesignal {
         curl_close( $curl );
 
         if ( $err ) {
-            return new WP_Error( 'pg_push_notification_error', $err );
+            throw new Exception( 'pg_push_notification_error', $err );
         } else {
             return $response;
         }

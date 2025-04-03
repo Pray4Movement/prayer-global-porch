@@ -5,6 +5,7 @@ class PG_Milestone {
     private string $message;
     private string $category;
     private int $value;
+    private string $url;
     private array $channels;
 
     public function __construct(
@@ -12,13 +13,15 @@ class PG_Milestone {
         string $message,
         string $category,
         int $value,
-        array $channel
+        array $channel,
+        string $url = '',
     ) {
         $this->title = $title;
         $this->message = $message;
         $this->category = $category;
         $this->value = $value;
         $this->channels = $channel;
+        $this->url = $url;
     }
 
     public function get_title(): string {
@@ -41,17 +44,30 @@ class PG_Milestone {
         return $this->channels;
     }
 
+    public function get_url(): string {
+        return $this->url;
+    }
+
     public function to_array(): array {
         return [
-            'title' => $this->title,
-            'message' => $this->message,
-            'category' => $this->category,
-            'value' => $this->value,
-            'channel' => $this->channels,
+        'title' => $this->title,
+        'message' => $this->message,
+        'category' => $this->category,
+        'value' => $this->value,
+        'channel' => $this->channels,
+        'url' => $this->url,
         ];
     }
 
     public function in_app() {
-        return in_array( 'in-app', $this->channels );
+        return in_array( PG_CHANNEL_IN_APP, $this->channels );
+    }
+
+    public function push() {
+        return in_array( PG_CHANNEL_PUSH, $this->channels );
+    }
+
+    public function email() {
+        return in_array( PG_CHANNEL_EMAIL, $this->channels );
     }
 }
