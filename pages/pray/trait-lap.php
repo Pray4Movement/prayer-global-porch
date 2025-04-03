@@ -3,6 +3,22 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 trait PG_Lap_Trait {
 
+    private $icons = [
+        'ion-android-warning',
+        'ion-happy',
+        'ion-ios-body',
+        'ion-map',
+        'ion-sad',
+        'pg-chevron-down',
+        'pg-close',
+        'pg-pause',
+        'pg-play',
+        'pg-pray-hands-dark',
+        'pg-prayer',
+        'pg-settings',
+        'pg-streak',
+    ];
+
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
         return [
             'lap-js',
@@ -31,6 +47,9 @@ trait PG_Lap_Trait {
 
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
         $nonce = PG_Nonce::create( 'direct-api' );
+
+        $svg_manager = new SVG_Spritesheet_Manager();
+        $spritesheet_url = $svg_manager->get_cached_spritesheet_url( $this->icons, 'pg' );
         ?>
         <!-- Resources -->
         <script>
@@ -38,14 +57,27 @@ trait PG_Lap_Trait {
                 'parts' => $this->parts,
                 'nonce' => PG_Nonce::create( 'direct-api' ),
                 'translations' => [
-                    'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
-                    'Keep Praying...' => __( 'Keep Praying...', 'prayer-global-porch' ),
-                    "Don't Know Jesus" => __( "Don't Know Jesus", 'prayer-global-porch' ),
-                    'Know About Jesus' => __( 'Know About Jesus', 'prayer-global-porch' ),
-                    'Know Jesus' => __( 'Know Jesus', 'prayer-global-porch' ),
-                    'Praying Paused' => __( 'Praying Paused', 'prayer-global-porch' ),
-                    'Great Job!' => __( 'Great Job!', 'prayer-global-porch' ),
-                    'Prayer Added!' => __( 'Prayer Added!', 'prayer-global-porch' ),
+                    'state_of_location' => esc_html__( '%1$s of %2$s', 'prayer-global-porch' ),
+                    'Keep Praying...' => esc_html__( 'Keep Praying...', 'prayer-global-porch' ),
+                    "Don't Know Jesus" => esc_html__( "Don't Know Jesus", 'prayer-global-porch' ),
+                    'Know About Jesus' => esc_html__( 'Know About Jesus', 'prayer-global-porch' ),
+                    'Know Jesus' => esc_html__( 'Know Jesus', 'prayer-global-porch' ),
+                    'Praying Paused' => esc_html__( 'Praying Paused', 'prayer-global-porch' ),
+                    'Great Job!' => esc_html__( 'Great Job!', 'prayer-global-porch' ),
+                    'Prayer Added!' => esc_html__( 'Prayer Added!', 'prayer-global-porch' ),
+                    'join_and_create_custom_prayer_relays' => esc_html__( 'Join and create custom prayer relays', 'prayer-global-porch' ),
+                    'view_your_interactive_prayer_history' => esc_html__( 'View your interactive prayer history', 'prayer-global-porch' ),
+                    'prayer_streaks_badges_and_more' => esc_html__( 'Prayer streaks, badges and more', 'prayer-global-porch' ),
+                    'register_now' => esc_html__( 'Register Now', 'prayer-global-porch' ),
+                    'create_your_own_free_login' => esc_html__( 'Create your own free login', 'prayer-global-porch' ),
+                    'no_thanks' => esc_html__( 'No Thanks', 'prayer-global-porch' ),
+                    'daily_streak' => esc_html__( 'Daily Prayer Streak', 'prayer-global-porch' ),
+                    'best' => esc_html__( 'Best', 'prayer-global-porch' ),
+                    'done' => esc_html__( 'Done', 'prayer-global-porch' ),
+                    'fetching_stats' => esc_html__( 'Fetching your stats...', 'prayer-global-porch' ),
+                    'download_the_app' => esc_html__( 'Download the Prayer.Global app to get streak notifications and more!', 'prayer-global-porch' ),
+                    'update_the_app' => esc_html__( 'Update the Prayer.Global app to get streak notifications and more!', 'prayer-global-porch' ),
+                    'go_to_app_store' => esc_html__( 'Go to App Store', 'prayer-global-porch' ),
                 ],
                 'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
                 'images_url' => pg_grid_image_url(),
@@ -57,6 +89,8 @@ trait PG_Lap_Trait {
                 'user_id' => get_current_user_id(),
                 'cache_url' => 'https://s3.prayer.global/',
                 'direct_api_url' => plugin_dir_url( dirname( __DIR__ ) ),
+                'icons_url' => plugin_dir_url( __DIR__ ) . 'assets/images/icons',
+                'spritesheet_url' => $spritesheet_url,
             ]) ?>][0]
         </script>
         <?php
@@ -71,22 +105,7 @@ trait PG_Lap_Trait {
 
         $svg_manager = new SVG_Spritesheet_Manager();
 
-        $icons = [
-            'ion-android-warning',
-            'ion-happy',
-            'ion-ios-body',
-            'ion-map',
-            'ion-sad',
-            'pg-chevron-down',
-            'pg-close',
-            'pg-pause',
-            'pg-play',
-            'pg-pray-hands-dark',
-            'pg-prayer',
-            'pg-settings',
-        ];
-
-        $spritesheet_dir = $svg_manager->get_cached_spritesheet_dir( $icons, 'pg' );
+        $spritesheet_dir = $svg_manager->get_cached_spritesheet_dir( $this->icons, 'pg' );
         ?>
 
         <?php //phpcs:ignore ?>
@@ -160,12 +179,13 @@ trait PG_Lap_Trait {
         </nav>
 
         <div class="celebrate-panel text-center" id="celebrate-panel">
-            <div class="container">
+            <div class="container flow" data-small>
                 <h2>
                     <?php echo esc_html__( 'Great Job!', 'prayer-global-porch' ) ?>
                     <br />
                     <?php echo esc_html__( 'Prayer Added!', 'prayer-global-porch' ) ?>
                 </h2>
+                <div id="celebrate-content"></div>
             </div>
         </div>
 
