@@ -129,7 +129,7 @@ class Prayer_Global_Porch {
         require_once( 'utilities/pg-milestones.php' );
         require_once( 'utilities/pg-notifications-sent.php' );
         require_once( 'utilities/jobs/pg-notification-handler-job.php' );
-        require_once( 'utilities/jobs/pg-push-notification-job.php' );
+        require_once( 'utilities/jobs/pg-user-push-notification-job.php' );
         require_once( 'utilities/pg-notifications-scheduler.php' );
         require_once( 'classes/pg-feature-flag.php' );
         require_once( 'classes/pg-flags.php' );
