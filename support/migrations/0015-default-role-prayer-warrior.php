@@ -23,9 +23,15 @@ class Prayer_Global_Migration_0015 extends Prayer_Global_Migration {
         $wpdb->query("
             UPDATE $wpdb->usermeta
             SET meta_value = 'a:1:{s:14:\"prayer_warrior\";b:1;}'
-            WHERE meta_key = 'wp_capabilities'
-            AND meta_value = 'a:1:{s:10:\"multiplier\";b:1;}'
+            WHERE meta_key = '{$wpdb->prefix}capabilities'
+            AND (
+                meta_value = 'a:1:{s:10:\"multiplier\";b:1;}'
+                OR meta_value = 'a:1:{s:10:\"registered\";b:1;}'
+                OR meta_value = 'a:2:{s:10:\"registered\";b:1;s:10:\"multiplier\";b:1;}'
+            )
         ");
+
+        return true;
     }
 
     /**
