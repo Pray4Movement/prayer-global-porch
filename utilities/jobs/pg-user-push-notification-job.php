@@ -3,9 +3,9 @@
 use WP_Queue\Job;
 
 class PG_User_Push_Notification_Job extends Job {
-    private int $user_id;
-    private string $user_email;
-    private PG_Milestone $milestone;
+    public int $user_id;
+    public string $user_email;
+    public PG_Milestone $milestone;
 
     public function __construct( WP_User $user, PG_Milestone $milestone ) {
         $this->user_id = $user->ID;
