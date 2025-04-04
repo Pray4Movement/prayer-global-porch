@@ -36,7 +36,7 @@ class PG_Onesignal {
         }
 
         if ( $url ) {
-            $payload['url'] = $url;
+            $payload['app_url'] = $url;
         }
 
         // send push notification to user with milestone message
