@@ -30,8 +30,6 @@ class Prayer_Global_Migration_0015 extends Prayer_Global_Migration {
                 OR meta_value = 'a:2:{s:10:\"registered\";b:1;s:10:\"multiplier\";b:1;}'
             )
         ");
-
-        return true;
     }
 
     /**
