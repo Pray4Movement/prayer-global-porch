@@ -127,6 +127,41 @@ function pg_streak_icon() {
     <?php
 }
 
+function pg_app_badges() {
+
+    $language = pg_get_current_lang();
+    $app_store_url = 'https://apps.apple.com/us/app/prayer-global/id1636889534?uo=4';
+    $google_play_url = 'https://play.google.com/store/apps/details?id=app.global.prayer';
+
+    $app_store_badge = plugin_dir_url( __DIR__ ) . 'pages/assets/images/app-store-en.svg';
+    $google_play_badge = plugin_dir_url( __DIR__ ) . 'pages/assets/images/google-badge-en.png';
+
+    if ( $language === 'fr_FR' ) {
+        $app_store_url = 'https://apps.apple.com/fr/app/prayer-global/id1636889534?uo=4';
+        $google_play_url = 'https://play.google.com/store/apps/details?id=app.global.prayer';
+
+        $app_store_badge = plugin_dir_url( __DIR__ ) . 'pages/assets/images/app-store-fr.svg';
+        $google_play_badge = plugin_dir_url( __DIR__ ) . 'pages/assets/images/google-badge-fr.png';
+    }
+
+    ?>
+
+        <ul class="d-flex flex-column gap-4" role="list">
+            <li>
+                <a target="_blank" href="<?php echo esc_url( $app_store_url ) ?>">
+                    <img class="w-100" src="<?php echo esc_url( $app_store_badge ) ?>" alt="<?php echo esc_attr__( 'Get it on the app store', 'prayer-global-porch' ) ?>">
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="<?php echo esc_url( $google_play_url ) ?>">
+                    <img class="w-100" src="<?php echo esc_url( $google_play_badge ) ?>" alt="<?php echo esc_attr__( 'Get it on google play', 'prayer-global-porch' ) ?>">
+                </a>
+            </li>
+        </ul>
+
+    <?php
+}
+
 function pg_get_relay_key( int $relay_id ) {
     global $wpdb;
     $result = $wpdb->get_var( $wpdb->prepare( "

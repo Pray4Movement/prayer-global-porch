@@ -308,29 +308,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
         color: var(--pg-brand-color) !important;
     }
 </style>
-<section id="section-mobile" class="page-section text-center d-sm-none d-md-block brand-bg">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-md-12">
-            <h2 class="heading mb-3"><a href="/qr/app/" style="color:white;"><?php echo esc_html( __( 'Get the Mobile App', 'prayer-global-porch' ) ) ?></a></h2>
-                <a class="white" href="https://apps.apple.com/us/app/prayer-global/id1636889534?uo=4" style="font-size:2em;">
-                    <div class="hover-box">
-                        <i class="ion-social-apple" ></i>
-                        <?php echo sprintf( esc_html__( '%s App', 'prayer-global-porch' ), 'iPhone/iPad' ) ?>
-                    </div>
-                </a>
-                <a class="white" href="https://play.google.com/store/apps/details?id=app.global.prayer" style="font-size:2em;">
-                    <div class="hover-box">
-                        <i class="ion-social-android"></i>
-                        <?php echo sprintf( esc_html__( '%s App', 'prayer-global-porch' ), 'Android' )?>
-                    </div>
-                </a>
 
-            </div>
-        </div>
-
-    </div>
-</section>
 <!-- END section -->
 
 <?php require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/working-footer.php' ) ?>

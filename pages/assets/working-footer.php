@@ -6,10 +6,11 @@
             <?php echo wp_kses( sprintf( _x( 'Powered by %s.', 'Powered by Disciple.Tools.', 'prayer-global-porch' ), '<a target="_blank" href="https://disciple.tools">Disciple.Tools</a>' ), 'post' ) ?><br>
             <?php echo wp_kses( sprintf( _x( 'Part of the %s network.', 'Part of the Pray4Movement network.', 'prayer-global-porch' ), '<a target="_blank" href="https://prayer.Tools">Prayer.Tools</a>' ), 'post' ) ?><br>
         </p>
-        <ul style="list-style: none;">
-            <li><a target="_blank" class="white" href="https://apps.apple.com/us/app/prayer-global/id1636889534?uo=4"><i class="ion-social-apple white"></i> <?php echo esc_html( __( 'iPhone/iPad App' ) ) ?></a></li>
-            <li><a target="_blank" class="white" href="https://play.google.com/store/apps/details?id=app.global.prayer"><i class="ion-social-android white"></i> <?php echo esc_html( __( 'Android App' ) ) ?></a></li>
-        </ul>
+
+        <div class="center">
+            <?php pg_app_badges(); ?>
+        </div>
+
         <ul style="list-style: none;">
             <li><a class="white" href="/prayer_app/contact_us/"><?php echo esc_html( __( 'Contact Us', 'prayer-global-porch' ) ) ?></a></li>
             <li><a class="white fw-bold" href="/give"><?php echo esc_html( __( 'Donate', 'prayer-global-porch' ) ) ?></a></li>
