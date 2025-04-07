@@ -1334,6 +1334,12 @@ button {
     --bs-btn-disabled-hover-bg: var(--pg-grey);
     --bs-btn-disabled-hover-border-color: var(--pg-grey);
 }
+*:focus-visible,
+.btn:focus-visible {
+    box-shadow: none;
+    outline: 2px solid var(--pg-secondary-color);
+    outline-offset: 2px;
+}
 .btn-small {
     --bs-btn-padding-y: 0.5rem;
 }
@@ -1525,10 +1531,15 @@ nav.navbar-home {
     padding: 0;
 }
 .navbar-toggler,
-.navbar-toggler:active,
-.navbar-toggler:focus:not(:focus-visible) {
+.navbar-toggler:active {
     border: none;
     box-shadow: none;
+}
+.navbar-toggler:focus,
+.navbar-toggler:focus-visible {
+    box-shadow: none;
+    outline: 2px solid var(--pg-secondary-color);
+    outline-offset: 2px;
 }
 .pg-navmenu {
     --bs-bg-opacity: 1;
@@ -1638,6 +1649,7 @@ nav.navbar-home {
 .icon-button {
     cursor: pointer;
     color: inherit;
+    border-radius: 10px;
 }
 
 .nav-buttons {
