@@ -136,7 +136,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                 <div class="brand-bg white navbar-dark navbar" id="head_block">
                     <div class="d-flex align-items-center justify-content-between gap-2">
 
-                        <div class="cluster overflow-hidden">
+                        <div class="cluster overflow-x-hidden">
                             <span class="font-weight-bold uppercase text-ellipsis"><?php echo esc_html( $lap_stats['title'] ) ?></span>
                             <div class="space-out">
                                 <button class="icon-button share-button two-rem d-flex align-items-center white" data-toggle="modal" data-target="#exampleModal">

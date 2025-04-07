@@ -769,8 +769,8 @@ input[type="radio"]:checked {
     }
 }
 
-.overflow-hidden {
-    overflow: hidden;
+.overflow-x-hidden {
+    overflow-x: hidden;
 }
 .text-ellipsis {
     text-overflow: ellipsis;
@@ -1651,6 +1651,7 @@ nav.navbar-home {
     cursor: pointer;
     color: inherit;
     border-radius: 10px;
+    margin: 2px;
 }
 
 .nav-buttons {

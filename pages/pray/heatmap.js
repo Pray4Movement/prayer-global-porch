@@ -359,7 +359,6 @@ window.addEventListener("load", function ($) {
       const mapboxControlRight = document.querySelectorAll(
         ".mapboxgl-ctrl-attrib-inner *"
       );
-      console.log(mapboxControlRight);
 
       mapboxControlRight.forEach((element) => {
         element.setAttribute("tabindex", "-1");
