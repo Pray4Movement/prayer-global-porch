@@ -757,17 +757,17 @@ function _template_percent_3_circles(data) {
         <div class="switcher">
             <div class="flow sm">
                 <p class="bold f-md">${data.label_1}</p>
-                <div class="pie" style="--p:${data.percent_1};--b:10px;--c:var(--pg-dark);">${data.percent_1}%</div>
+                <div class="pie center" style="--p:${data.percent_1};--b:10px;--c:var(--pg-dark);">${data.percent_1}%</div>
                 <p class="f-lg">${data.population_1}</p>
             </div>
             <div class="flow sm">
                 <p class="bold f-md">${data.label_2}</p>
-                <div class="pie" style="--p:${data.percent_2};--b:10px;--c:var(--pg-light);">${data.percent_2}%</div>
+                <div class="pie center" style="--p:${data.percent_2};--b:10px;--c:var(--pg-light);">${data.percent_2}%</div>
                 <p class="f-lg">${data.population_2}</p>
             </div>
             <div class="flow sm">
                 <p class="bold f-md">${data.label_3}</p>
-                <div class="pie" style="--p:${data.percent_3};--b:10px;--c:var(--pg-orange);">${data.percent_3}%</div>
+                <div class="pie center" style="--p:${data.percent_3};--b:10px;--c:var(--pg-orange);">${data.percent_3}%</div>
                 <p class="f-lg">${data.population_3}</p>
             </div>
         </div>
@@ -902,7 +902,7 @@ function _template_population_change_icon_block(data) {
           <h5>${data.section_label}</h5>
           <div class="content flow f-xlg">
               <p>${data.section_summary}</p>
-              <div class="${font_size} icon-block">
+              <div class="${font_size} icon-block center">
                   ${icon_list} <span style="font-size:.5em;vertical-align:middle;">(${data.count})</span>
               </div>
               <p>${data.prayer}</p>
@@ -1005,7 +1005,7 @@ function _template_content_block(data) {
       icolor = data.color;
     }
     icon = `
-        <svg class="icon-xlg ${icolor}" width="1em" height="1em" viewBox="0 0 512 512">
+        <svg class="icon-xlg ${icolor} center" width="1em" height="1em" viewBox="0 0 512 512">
             <use href="#${iclass}" ></use>
         </svg>
     `;
@@ -1015,7 +1015,7 @@ function _template_content_block(data) {
           <h5>${data.section_label}</h5>
           <p class="f-xlg">${data.focus_label}</p>
           ${icon}
-          <div class="w-75 text-center">
+          <div class="w-75 text-center center">
               <p class="f-lg">${data.section_summary}</p>
               <p class="f-xlg">${data.prayer}</p>
           </div>
