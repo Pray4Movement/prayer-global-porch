@@ -63,6 +63,10 @@ button {
     outline: none;
     cursor: pointer;
 }
+button:focus-visible {
+    outline: 2px solid var(--pg-orange);
+    outline-offset: 2px;
+}
 
 hr {
     margin-top: 3em;
@@ -247,8 +251,8 @@ select {
 input:focus,
 textarea:focus,
 select:focus {
-    border-color: var(--pg-highlight);
-    box-shadow: 0 0 0 0.25rem rgba(92, 131, 196, 0.25);
+    outline: 2px solid var(--pg-orange);
+    outline-offset: 2px;
 }
 textarea {
     min-height: calc(1.5em + 0.75rem + 2px);
