@@ -355,16 +355,6 @@ window.addEventListener("load", function ($) {
     const mapboxControlLeft = document.querySelector(".mapboxgl-ctrl-logo");
     mapboxControlLeft.setAttribute("tabindex", "-1");
 
-    window.waitForElement(".mapboxgl-ctrl-attrib-inner *", () => {
-      const mapboxControlRight = document.querySelectorAll(
-        ".mapboxgl-ctrl-attrib-inner *"
-      );
-
-      mapboxControlRight.forEach((element) => {
-        element.setAttribute("tabindex", "-1");
-      });
-    });
-
     if (cta_modal) {
       show_cta();
     }
@@ -374,6 +364,16 @@ window.addEventListener("load", function ($) {
     }
 
     load_grid();
+
+    window.waitForElement(".mapboxgl-ctrl-attrib-inner *", () => {
+      const mapboxControlRight = document.querySelectorAll(
+        ".mapboxgl-ctrl-attrib-inner *"
+      );
+
+      mapboxControlRight.forEach((element) => {
+        element.setAttribute("tabindex", "-1");
+      });
+    });
   }
 
   function load_grid() {
