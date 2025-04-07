@@ -1335,7 +1335,8 @@ button {
     --bs-btn-disabled-hover-border-color: var(--pg-grey);
 }
 *:focus-visible,
-.btn:focus-visible {
+.btn:focus-visible,
+.mapboxgl-ctrl-icon:focus-visible {
     box-shadow: none;
     outline: 2px solid var(--pg-secondary-color);
     outline-offset: 2px;
