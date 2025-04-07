@@ -136,12 +136,14 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                 <div class="brand-bg white navbar-dark navbar" id="head_block">
                     <div class="d-flex align-items-center justify-content-between gap-2">
 
-                        <div class="cluster">
-                            <span class="font-weight-bold uppercase"><?php echo esc_html( $lap_stats['title'] ) ?></span>
-                            <button class="icon-button share-button two-rem d-flex align-items-center white" data-toggle="modal" data-target="#exampleModal">
-                                <i class="icon pg-share"></i>
-                            </button>
-                            <?php pg_streak_icon(); ?>
+                        <div class="cluster text-ellipsis">
+                            <span class="font-weight-bold uppercase text-ellipsis"><?php echo esc_html( $lap_stats['title'] ) ?></span>
+                            <div class="space-out">
+                                <button class="icon-button share-button two-rem d-flex align-items-center white" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="icon pg-share"></i>
+                                </button>
+                                <?php pg_streak_icon(); ?>
+                            </div>
                         </div>
                         <a class="btn btn-cta" id="pray-button" href="<?php echo esc_url( $pray_href ) ?>"><?php echo esc_html__( 'Pray', 'prayer-global-porch' ) ?></a>
 
