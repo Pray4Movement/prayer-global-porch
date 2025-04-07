@@ -287,6 +287,10 @@ a {
 .btn.bg-orange:hover {
     background: #d28041;
 }
+.btn:focus-visible {
+    outline: 2px solid var(--pg-orange);
+    outline-offset: 2px;
+}
 .btn.cta {
     background-image: var(--orange-gradient);
     border: 0;
