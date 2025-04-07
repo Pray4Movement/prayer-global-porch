@@ -349,6 +349,22 @@ window.addEventListener("load", function ($) {
     }
     window.map = map;
 
+    const canvas = document.querySelector(".mapboxgl-canvas");
+    canvas.setAttribute("tabindex", "-1");
+
+    const mapboxControlLeft = document.querySelector(".mapboxgl-ctrl-logo");
+    mapboxControlLeft.setAttribute("tabindex", "-1");
+
+    window.waitForElement(".mapboxgl-ctrl-attrib-inner *", () => {
+      const mapboxControlRight = document.querySelectorAll(
+        ".mapboxgl-ctrl-attrib-inner *"
+      );
+
+      mapboxControlRight.forEach((element) => {
+        element.setAttribute("tabindex", "-1");
+      });
+    });
+
     if (cta_modal) {
       show_cta();
     }

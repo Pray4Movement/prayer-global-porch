@@ -97,7 +97,7 @@ function pg_streak_icon() {
     ?>
 
 
-            <a href="/dashboard/activity" class="streak-link">
+            <a href="/dashboard/activity" class="streak-link icon-button">
                 <div class="cluster gap-xsm">
                     <div
                         class="brand-light-bg icon-md streak-icon streak-icon-highlight"

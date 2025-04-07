@@ -769,8 +769,8 @@ input[type="radio"]:checked {
     }
 }
 
-.overflow-hidden {
-    overflow: hidden;
+.overflow-x-hidden {
+    overflow-x: hidden;
 }
 .text-ellipsis {
     text-overflow: ellipsis;
@@ -831,11 +831,10 @@ input[type="radio"]:checked {
     font-size: 24vh;
 }
 .hero .btn-cta {
-    font-size: 4vh;
+    font-size: 3vh;
 }
 .hero .btn-learn-more {
     font-size: max(2vh, 14px);
-    padding: 2vh 4vh;
 }
 .cover-small {
     padding: 3em 0;
@@ -1318,20 +1317,31 @@ button {
     margin: 0;
     border: 0;
     background-color: unset;
-    line-height: initial;
     color: var(--pg-brand-color-light);
+}
+button:not[role="listitem"] {
+    line-height: initial;
 }
 .btn {
     --bs-btn-font-weight: var(--font-weight-default);
-    --bs-btn-padding-y: 1rem;
+    --bs-btn-padding-y: 0.5rem;
+    --bs-btn-padding-x: 1rem;
     --bs-btn-font-weight: bold;
     box-shadow: var(--small-box-shadow);
+    border-radius: 100px;
 }
 .btn:disabled {
     --bs-btn-disabled-bg: var(--pg-grey);
     --bs-btn-disabled-border-color: var(--pg-grey);
     --bs-btn-disabled-hover-bg: var(--pg-grey);
     --bs-btn-disabled-hover-border-color: var(--pg-grey);
+}
+*:focus-visible,
+.btn:focus-visible,
+.mapboxgl-ctrl-icon:focus-visible {
+    box-shadow: none;
+    outline: 2px solid var(--pg-secondary-color);
+    outline-offset: 2px;
 }
 .btn-small {
     --bs-btn-padding-y: 0.5rem;
@@ -1524,10 +1534,15 @@ nav.navbar-home {
     padding: 0;
 }
 .navbar-toggler,
-.navbar-toggler:active,
-.navbar-toggler:focus:not(:focus-visible) {
+.navbar-toggler:active {
     border: none;
     box-shadow: none;
+}
+.navbar-toggler:focus,
+.navbar-toggler:focus-visible {
+    box-shadow: none;
+    outline: 2px solid var(--pg-secondary-color);
+    outline-offset: 2px;
 }
 .pg-navmenu {
     --bs-bg-opacity: 1;
@@ -1637,6 +1652,8 @@ nav.navbar-home {
 .icon-button {
     cursor: pointer;
     color: inherit;
+    border-radius: 10px;
+    margin: 2px;
 }
 
 .nav-buttons {
