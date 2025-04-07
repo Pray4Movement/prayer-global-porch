@@ -1021,11 +1021,11 @@ input[type="radio"]:checked {
     display: flex;
     justify-content: center;
     line-height: 1.2;
+    gap: 1vw;
 }
 .time-value {
     display: flex;
     flex-direction: column;
-    padding: 0 1rem;
 }
 .time-label {
     font-size: 1rem;
