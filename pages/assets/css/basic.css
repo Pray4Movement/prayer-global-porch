@@ -769,6 +769,9 @@ input[type="radio"]:checked {
     }
 }
 
+.overflow-hidden {
+    overflow: hidden;
+}
 .text-ellipsis {
     text-overflow: ellipsis;
     overflow: hidden;
