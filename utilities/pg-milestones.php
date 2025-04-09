@@ -100,7 +100,7 @@ class PG_Milestones
             ];
         }
 
-        if ( $days_inactive === 2 ) {
+        if ( in_array( $days_inactive, [ 2, 3, 4, 5, 6 ] ) ) {
             return [
                 new PG_Milestone(
                     __( 'Oh no! Your streak has ended', 'prayer-global-porch' ),
