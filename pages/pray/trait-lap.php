@@ -25,6 +25,7 @@ trait PG_Lap_Trait {
             'report-js',
             'global-functions',
             'canvas-confetti',
+            'umami',
         ];
     }
 

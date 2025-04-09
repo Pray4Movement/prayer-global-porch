@@ -305,7 +305,12 @@ function celebrateAndDone() {
                   : jsObject.translations.download_the_app
               }
             </h5>
-            <a href="/qr/app" target="_blank" class="center btn cta bold">
+            <a
+              href="/qr/app"
+              target="_blank"
+              class="center btn cta bold"
+              data-umami-event="Pray - Download app"
+            >
               ${jsObject.translations.go_to_app_store}
             </a>
           `;
@@ -339,12 +344,22 @@ function celebrateAndDone() {
               ${jsObject.translations.prayer_streaks_badges_and_more}
           </li>
         </ul>
-        <a href="/register" class="center btn bg-orange" id="celebrate-panel__done">
+        <a
+          href="/register"
+          class="center btn bg-orange"
+          id="celebrate-panel__done"
+          data-umami-event="Pray - Register now"
+        >
           ${jsObject.translations.register_now}
         </a>
       </div>
       <hr class="seperator-thick">
-      <a href="${getHomeUrl()}" class="center btn outline space-lg" id="celebrate-panel__done">
+      <a
+        href="${getHomeUrl()}"
+        class="center btn outline space-lg"
+        id="celebrate-panel__done"
+        data-umami-event="Pray - No thanks"
+      >
         ${jsObject.translations.no_thanks}
       </a>
     `;
