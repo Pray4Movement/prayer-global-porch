@@ -524,6 +524,7 @@
                           href="/qr/app"
                           target="_blank"
                           class="btn btn-cta d-block center-block"
+                          data-umami-event="Dashboard - Download app"
                         >
                           ${this.translations.go_to_app_store}
                         </a>
@@ -560,6 +561,7 @@
                     class="btn btn-small btn-primary-light uppercase"
                     data-reverse-color
                     href="/give"
+                    data-umami-event="Dashboard - Donate"
                   >
                     ${this.translations.donate}
                   </a>
