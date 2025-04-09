@@ -249,7 +249,7 @@ function celebrateAndDone() {
       })
       .then((hasMilestones = true) => {
         if (hasMilestones) {
-          return;
+          return false;
         }
         return window.api_fetch(
           `${window.pg_global.root}pg-api/v1/user/stats`,
@@ -259,6 +259,9 @@ function celebrateAndDone() {
         );
       })
       .then((result) => {
+        if (!result) {
+          return;
+        }
         milestonesContainer.innerHTML = `
             <div class="w-fit center">
               <section class="flow center | activity-card lh-xsm">
