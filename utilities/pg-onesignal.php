@@ -10,7 +10,7 @@ class PG_Onesignal {
             ( defined( 'PG_ONESIGNAL_STOP' ) && PG_ONESIGNAL_STOP ) &&
             !in_array( $user_email, self::$allowed_users )
         ) {
-            return;
+            return false;
         }
 
         $onesignal_app_id = get_option( 'pg_onesignal_app_id' );
