@@ -325,6 +325,7 @@ a {
     color: var(--pg-dark);
     border: 1px solid var(--pg-dark);
     text-transform: none;
+    width: 100%;
 }
 .pace-btn.selected,
 .pace-btn:hover {

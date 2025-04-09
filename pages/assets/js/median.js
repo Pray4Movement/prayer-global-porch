@@ -96,6 +96,11 @@ function requestNotificationsPermission(callback) {
   myModal.show();
   allowNotificationsButton.addEventListener("click", () => {
     window.medianPermissions.requestNotificationsPermission();
+
+    if (window.umami) {
+      window.umami.track("App - Allow notifications");
+    }
+
     myModal.hide();
 
     callback();
