@@ -202,6 +202,36 @@ export class PgRelayForm extends OpenElement {
                 />
                 ${this.translations.single_lap_relay}
               </label>
+              <div class="space-out">
+                <button
+                  class="form-group btn btn-small ${this.type === "public"
+                    ? "btn-primary"
+                    : "btn-outline-primary"}"
+                  @click=${() => (this.type = "public")}
+                  type="button"
+                >
+                  <svg class="icon-sm">
+                    <use
+                      href="${window.jsObject.spritesheet_url}#pg-world-light"
+                    ></use>
+                  </svg>
+                  ${this.translations.public}
+                </button>
+                <button
+                  class="form-group btn btn-small ${this.type === "private"
+                    ? "btn-primary"
+                    : "btn-outline-primary"}"
+                  @click=${() => (this.type = "private")}
+                  type="button"
+                >
+                  <svg class="icon-sm">
+                    <use
+                      href="${window.jsObject.spritesheet_url}#pg-private"
+                    ></use>
+                  </svg>
+                  ${this.translations.private}
+                </button>
+              </div>
             `}
         <div class="cluster ms-auto">
           <button
