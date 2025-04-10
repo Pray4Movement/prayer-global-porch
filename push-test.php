@@ -54,18 +54,6 @@ if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslas
         echo 'Milestone: ' . esc_html( $milestone_title ) . '<br>';
         echo 'Milestone text: ' . esc_html( $milestone_text ) . '<br>';
     }
-
-    if ( isset( $_POST['action'] ) && $_POST['action'] === 'push_handler_test' ) {
-        wp_queue()->push( new PG_Notification_Handler_Job() );
-        echo 'Push handler test sent <br>';
-    }
-
-    if ( isset( $_POST['action'] ) && $_POST['action'] === 'process_jobs' ) {
-        wp_queue()->cron()->cron_worker();
-        $number_of_jobs = wp_queue_count_jobs();
-        echo 'Number of jobs: ' . esc_html( $number_of_jobs ) . '<br>';
-        echo 'Jobs processed <br>';
-    }
 }
 ?>
 
@@ -80,6 +68,15 @@ if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslas
     <input type="submit" value="Send">
 </form>
 
+<?php
+if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'push_test' ) ) {
+    if ( isset( $_POST['action'] ) && $_POST['action'] === 'push_handler_test' ) {
+        wp_queue()->push( new PG_Notification_Handler_Job() );
+        echo 'Push handler test sent <br>';
+    }
+}
+?>
+
 <h2>Push Handler Test</h2>
 <form action="" method="post">
     <input type="hidden" name="action" value="push_handler_test">
@@ -87,6 +84,17 @@ if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslas
     <label><input type="checkbox" name="send_with_cron" value="1"> Send with cron</label>
     <input type="submit" value="Send">
 </form>
+
+<?php
+if ( isset( $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'push_test' ) ) {
+    if ( isset( $_POST['action'] ) && $_POST['action'] === 'process_jobs' ) {
+        wp_queue()->cron()->cron_worker();
+        $number_of_jobs = wp_queue_count_jobs();
+        echo 'Number of jobs: ' . esc_html( $number_of_jobs ) . '<br>';
+        echo 'Jobs processed <br>';
+    }
+}
+?>
 
 <h2>Process Jobs</h2>
 <form action="" method="post">
