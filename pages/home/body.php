@@ -35,7 +35,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
 <section class="section-goal-desktop lh-base">
 
     <div class="position-relative">
-        <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/desktop-story-background-01.jpg" alt="">
+        <img class="w-100" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/desktop-story-background-01.jpg" alt="">
         <div class="white desktop-story__container text-left container flow-small" id="section-goal-desktop">
             <h2 class="font-title"><i class="icon pg-logo-prayer me-3"></i><?php echo esc_html__( 'The Goal', 'prayer-global-porch' ) ?></h2>
             <p>
@@ -47,7 +47,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
         </div>
     </div>
     <div class="position-relative">
-        <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/desktop-story-background-02.jpg" alt="">
+        <img class="w-100" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/desktop-story-background-02.jpg" alt="">
         <div class="brand-light desktop-story__container text-right-40 container flow-small text-align-right">
             <h2 class="font-title"><?php echo esc_html__( 'The Race', 'prayer-global-porch' ) ?><i class="icon pg-relay ms-3"></i></h2>
             <p>
@@ -56,7 +56,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
         </div>
     </div>
     <div class="position-relative">
-        <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/desktop-story-background-03.jpg" alt="">
+        <img class="w-100" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/desktop-story-background-03.jpg" alt="">
         <div class="brand-light desktop-story__container text-left container flow-small">
             <h2 class="font-title"><i class="icon pg-world-arrow me-3"></i><?php echo esc_html__( 'Our Strategy', 'prayer-global-porch' ) ?></h2>
             <p>
@@ -69,8 +69,8 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
         </div>
     </div>
     <div class="position-relative" id="story4">
-        <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/desktop-story-background-04.jpg" alt="">
-        <div class="brand-light desktop-story__container text-right-40 container text-center">
+        <img class="w-100" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/desktop-story-background-04.jpg" alt="">
+        <div class="brand-light desktop-story__container text-right-35 container text-center">
             <h2 class="font-title mb-3"><?php echo esc_html__( 'Current Status', 'prayer-global-porch' ) ?><i class="icon pg-logo-prayer ms-3"></i></h2>
             <div class="two-col-sm gap-2">
                 <div class="brand-lighter-bg white rounded-4 mx-auto mb-2 w-fit pt-4 pb-2 px-3 pb-0">
@@ -92,7 +92,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
         </div>
     </div>
     <div class="position-relative" id="story5">
-        <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/desktop-story-background-05.png" alt="">
+        <img class="w-100" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/desktop-story-background-05.png" alt="">
         <div class="brand-light desktop-story__container text-right-40 text-bottom container text-align-right me-4" style="z-index: 1;">
             <h2 class="font-title mb-3"><?php echo esc_html__( 'The Finish Line', 'prayer-global-porch' ) ?><i class="icon pg-logo-prayer ms-3"></i></h2>
             <p class="pb-3">

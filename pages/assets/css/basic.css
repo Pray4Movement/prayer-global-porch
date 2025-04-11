@@ -1776,9 +1776,6 @@ nav.navbar-home {
 .section-goal-desktop {
     display: none;
 }
-.section-goal-desktop .time-value {
-    padding: 0 2rem;
-}
 .two-col-sm {
     display: flex;
     justify-content: center;
@@ -1848,6 +1845,9 @@ nav.navbar-home {
 }
 .text-left {
     padding-right: 40%;
+}
+.text-right-35 {
+    padding-left: 35%;
 }
 .text-right-40 {
     padding-left: 40%;
