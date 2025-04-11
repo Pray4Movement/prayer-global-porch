@@ -278,3 +278,14 @@ window.addEventListener("load", function ($) {
       .forEach((element) => (element.style.display = show ? "block" : "none"));
   }
 });
+
+if (pg_global.is_logged_in && !pg_global.user.language) {
+  /* save the user details with the current language */
+
+  window.api_fetch(`${pg_global.root}pg-api/v1/user/save_details`, {
+    method: "POST",
+    body: JSON.stringify({
+      language: pg_global.current_language,
+    }),
+  });
+}
