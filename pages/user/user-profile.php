@@ -501,8 +501,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         if ( isset( $params['location'] ) ) {
             $location = $params['location'];
-            if ( !isset( $location['lat'], $location['lng'], $location['label'], $location['level'] ) ) {
-                return new WP_Error( __METHOD__, 'Missing lat, lng, label or level', [ 'status' => 400 ] );
+            if ( !isset( $location['lat'], $location['lng'], $location['label'] ) ) {
+                return new WP_Error( __METHOD__, 'Missing lat, lng or label', [ 'status' => 400 ] );
             }
 
             /* Get the grid_id for this lat lng */
