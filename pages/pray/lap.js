@@ -49,6 +49,9 @@ const morePrayerFuelButton = document.querySelector("#more_prayer_fuel");
 const celebratePanel = document.querySelector("#celebrate-panel");
 const welcomeModal = document.querySelector("#welcome_screen");
 const welcomeScreenDoneButton = document.querySelector("#welcome_screen_done");
+const welcomeScreenCloseButton = document.querySelector(
+  "#welcome_screen_close"
+);
 
 init();
 
@@ -109,6 +112,7 @@ function setupListeners() {
   settingsCloseButton.addEventListener("click", () => closeSettings());
 
   welcomeScreenDoneButton.addEventListener("click", finishWelcome);
+  welcomeScreenCloseButton.addEventListener("click", finishWelcome);
 }
 
 function setupPace(pace) {

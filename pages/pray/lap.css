@@ -446,6 +446,7 @@ a {
 
     opacity: 0;
     display: none;
+    overflow-y: auto;
 }
 .modal.show {
     display: block;
