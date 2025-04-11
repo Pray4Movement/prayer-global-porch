@@ -130,7 +130,7 @@ export class PgSettings extends OpenElement {
 
     // For example, you could make an API call to save the account data
     window
-      .api_fetch(`${window.pg_global.root}pg-api/v1/dashboard/save_details`, {
+      .api_fetch(`${window.pg_global.root}pg-api/v1/user/save_details`, {
         method: "POST",
         body: JSON.stringify(data),
       })

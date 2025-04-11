@@ -282,7 +282,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         );
         DT_Route::post( $namespace, 'delete_user', [ $this, 'delete_user' ] );
         DT_Route::post( $namespace, 'subscribe_to_news', [ $this, 'subscribe_to_news' ] );
-        DT_Route::post( $namespace, 'save_details', [ $this, 'save_details' ] );
         DT_Route::post( $namespace, 'relays', [ $this, 'get_relays' ] );
         DT_Route::post( $namespace, 'relays/hide', [ $this, 'hide_relay' ] );
         DT_Route::post( $namespace, 'relays/unhide', [ $this, 'unhide_relay' ] );
@@ -363,42 +362,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         return true;
     }
-    /**
-     * Update the user's data
-     *
-     * @param array $data
-     * @return bool|WP_Error
-     */
-    public function update_user_meta( $data ) {
-        $user_id = get_current_user_id();
-
-        if ( !$user_id ) {
-            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
-        }
-
-        foreach ( $data as $meta_key => $meta_value ) {
-            if ( !in_array( $meta_key, PG_User_API::$allowed_user_meta, true ) ) {
-                continue;
-            }
-
-            $meta_key = PG_NAMESPACE . $meta_key;
-
-            $meta_key = sanitize_text_field( wp_unslash( $meta_key ) );
-
-            if ( is_array( $meta_value ) ) {
-                $meta_value = dt_sanitize_array( $meta_value );
-            }
-
-            $response = update_user_meta( $user_id, $meta_key, $meta_value );
-
-            if ( is_wp_error( $response ) ) {
-                return $response;
-            }
-        }
-
-        return true;
-    }
-
     public function delete_user() {
         $user_id = get_current_user_id();
 
@@ -463,78 +426,12 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'location_hash' => $hash,
         ];
 
-        $this->update_user_meta( $data );
+        PG_User_API::update_user_meta( $data );
 
         return $data;
     }
 
-    public function save_details( WP_REST_Request $request ) {
 
-        $user_id = get_current_user_id();
-
-        if ( !$user_id ) {
-            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
-        }
-
-        $params = $request->get_params();
-
-        $params = dt_recursive_sanitize_array( $params );
-
-        $result = [];
-
-        if ( isset( $params['display_name'] ) ) {
-            $display_name = $params['display_name'];
-
-            $success = wp_update_user( [
-                'ID' => $user_id,
-                'display_name' => $display_name,
-            ] );
-
-            if ( is_wp_error( $success ) ) {
-                $display_name = '';
-            }
-
-            $result['display_name'] = $display_name;
-        }
-
-        $user_updates = [];
-
-        if ( isset( $params['location'] ) ) {
-            $location = $params['location'];
-            if ( !isset( $location['lat'], $location['lng'], $location['label'] ) ) {
-                return new WP_Error( __METHOD__, 'Missing lat, lng or label', [ 'status' => 400 ] );
-            }
-
-            /* Get the grid_id for this lat lng */
-            $geocoder = new Location_Grid_Geocoder();
-
-            $lat = (float) $location['lat'];
-            $lng = (float) $location['lng'];
-            $label = sanitize_text_field( wp_unslash( $location['label'] ) );
-
-            $grid_row = $geocoder->get_grid_id_by_lnglat( $lng, $lat );
-
-            $old_location = get_user_meta( get_current_user_id(), PG_NAMESPACE . 'location', true );
-
-            $location['grid_id'] = $grid_row ? $grid_row['grid_id'] : false;
-            $location['lat'] = strval( $lat );
-            $location['lng'] = strval( $lng );
-            $location['country'] = $this->_extract_country_from_label( $label );
-            $location['hash'] = $old_location ? $old_location['hash'] : '';
-
-            $result['location'] = $location;
-            $user_updates['location'] = $location;
-        }
-
-        if ( isset( $params['language'] ) ) {
-            $result['language'] = $params['language'];
-            $user_updates['language'] = $params['language'];
-        }
-
-        $this->update_user_meta( $user_updates );
-
-        return $result;
-    }
 
     public function link_anonymous_prayers( WP_REST_Request $request ) {
 
@@ -588,21 +485,9 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         $params = dt_recursive_sanitize_array( $params );
 
 
-        $this->update_user_meta( $params );
+        PG_User_API::update_user_meta( $params );
 
         return true;
-    }
-
-    /**
-     * Extract_country_from_label
-     * @param string $label
-     * @return array|bool|string
-     */
-    private function _extract_country_from_label( string $label ) {
-        if ( $label === '' ) {
-            return '';
-        }
-        return array_reverse( explode( ', ', $label ) )[0];
     }
 
     public function geolocate_by_latlng( $data ) {
