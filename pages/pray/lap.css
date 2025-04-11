@@ -354,7 +354,7 @@ a {
 .seperator-thick {
     border-top: 4px solid;
     border-color: var(--pg-orange);
-    max-width: 80%;
+    border-radius: 10px;
 }
 /* ## Prayer navbar buttons */
 .prayer-navbar {
