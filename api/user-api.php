@@ -12,6 +12,7 @@ class PG_User_API {
     public static $allowed_user_meta = [
         'location',
         'location_hash',
+        'language',
         'send_general_emails',
         'tshirt',
         'onesignal_user_id',

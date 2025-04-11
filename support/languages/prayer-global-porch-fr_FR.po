@@ -1,4 +1,4 @@
-# Copyright (C) 2023 
+# Copyright (C) 2023
 # This file is distributed under the same license as the Prayer.Global Porch plugin.
 msgid ""
 msgstr ""
@@ -6,7 +6,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/prayer-global-"
 "porch\n"
 "POT-Creation-Date: 2024-07-19T14:37:10+00:00\n"
-"PO-Revision-Date: 2024-08-09 11:31+0000\n"
+"PO-Revision-Date: 2025-04-11 10:16+0100\n"
 "Last-Translator: Pierre <pierre.genifer.d@gmail.com>\n"
 "Language-Team: French <https://translate.disciple.tools/projects/"
 "pray4movement/prayer-global/fr_FR/>\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.6.2\n"
+"X-Generator: Poedit 3.0.1\n"
 "X-Domain: prayer-global-porch\n"
 
 #: pages/404/404.php:121
@@ -36,6 +36,22 @@ msgstr "Commencer à prier"
 #: pages/404/404.php:131
 msgid "The map"
 msgstr "La carte"
+
+#: utilities/pg-milestones.php:58
+msgid "Your Streak is Alive!"
+msgstr "Votre série est en vie !"
+
+#: utilities/pg-milestones.php:61
+msgid "You have prayed for %s days in a row! Let's keep that streak going!"
+msgstr "Vous avez prié pour %s jours consécutifs ! Maintenons cette série !"
+
+#: utilities/pg-milestones.php:93
+msgid "Keep your streak alive"
+msgstr "Maintenir votre série"
+
+#: utilities/pg-milestones.php:94
+msgid "Keep praying to maintain your streak!"
+msgstr "Priez pour maintenir votre série !"
 
 #: pages/404/404.php:132
 msgid "More stats"
@@ -3987,9 +4003,9 @@ msgid ""
 msgstr ""
 "Et il a donné les uns comme apôtres, les autres comme prophètes, les autres "
 "comme évangélistes, les autres comme pasteurs et docteurs, pour le "
-"perfectionnement des saints en vue de l’oeuvre du ministère et de l’"
-"édification du corps de Christ, jusqu’à ce que nous soyons tous parvenus à l’"
-"unité de la foi et de la connaissance du Fils de Dieu, à l’état d’homme "
+"perfectionnement des saints en vue de l’oeuvre du ministère et de "
+"l’édification du corps de Christ, jusqu’à ce que nous soyons tous parvenus à "
+"l’unité de la foi et de la connaissance du Fils de Dieu, à l’état d’homme "
 "fait, à la mesure de la stature parfaite de Christ."
 
 #: pages/pray/stacker-text.php:1691
@@ -4184,8 +4200,8 @@ msgid ""
 msgstr ""
 "Et il a donné les uns comme apôtres, les autres comme prophètes, les autres "
 "comme évangélistes, les autres comme pasteurs et docteurs, pour le "
-"perfectionnement des saints en vue de l’oeuvre du ministère et de l’"
-"édification du corps de Christ"
+"perfectionnement des saints en vue de l’oeuvre du ministère et de "
+"l’édification du corps de Christ"
 
 #: pages/pray/stacker-text.php:1758
 msgid ""
@@ -4350,8 +4366,8 @@ msgid ""
 "But you, keep your head in all situations, endure hardship, do the work of "
 "an evangelist"
 msgstr ""
-"Mais toi, sois sobre en toutes choses, supporte les souffrances, fais l’"
-"oeuvre d’un évangéliste"
+"Mais toi, sois sobre en toutes choses, supporte les souffrances, fais "
+"l’oeuvre d’un évangéliste"
 
 #: pages/pray/stacker-text.php:1854
 msgid ""
@@ -4703,11 +4719,11 @@ msgid ""
 "inheritance in his holy people, and his incomparably great power for us who "
 "believe. "
 msgstr ""
-"Qu’il illumine les yeux de votre coeur, pour que vous sachiez quelle est l’"
-"espérance qui s’attache à son appel, quelle est la richesse de la gloire de "
-"son héritage qu’il réserve aux saints, et quelle est envers nous qui croyons "
-"l’infinie grandeur de sa puissance, se manifestant avec efficacité par la "
-"vertu de sa force. "
+"Qu’il illumine les yeux de votre coeur, pour que vous sachiez quelle est "
+"l’espérance qui s’attache à son appel, quelle est la richesse de la gloire "
+"de son héritage qu’il réserve aux saints, et quelle est envers nous qui "
+"croyons l’infinie grandeur de sa puissance, se manifestant avec efficacité "
+"par la vertu de sa force. "
 
 #: pages/pray/stacker-text.php:2053
 msgid ""

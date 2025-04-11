@@ -497,6 +497,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             $result['display_name'] = $display_name;
         }
 
+        $user_updates = [];
+
         if ( isset( $params['location'] ) ) {
             $location = $params['location'];
             if ( !isset( $location['lat'], $location['lng'], $location['label'], $location['level'] ) ) {
@@ -520,12 +522,16 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             $location['country'] = $this->_extract_country_from_label( $label );
             $location['hash'] = $old_location ? $old_location['hash'] : '';
 
-            $this->update_user_meta( [
-                'location' => $location,
-            ] );
-
             $result['location'] = $location;
+            $user_updates['location'] = $location;
         }
+
+        if ( isset( $params['language'] ) ) {
+            $result['language'] = $params['language'];
+            $user_updates['language'] = $params['language'];
+        }
+
+        $this->update_user_meta( $user_updates );
 
         return $result;
     }

@@ -22,6 +22,13 @@ class PG_Notification_Handler_Job extends Job {
                 continue;
             }
 
+            /* Change locale to user locale for notification translation */
+            $user_language = get_user_meta( $user->ID, PG_NAMESPACE . 'language', true );
+
+            if ( !empty( $user_language ) ) {
+                pg_set_translation( $user_language );
+            }
+
             // get the user milestones
             $milestones_manager = new PG_Milestones( $user->ID );
             $milestones = $milestones_manager->get_milestones();

@@ -57,7 +57,7 @@ class PG_Milestones
                 new PG_Milestone(
                     __( 'Your Streak is Alive!', 'prayer-global-porch' ),
                     sprintf(
-                        esc_html__( 'You have prayed for %s days in a row! Let\'s keep that streak going!', 'prayer-global-porch' ),
+                        esc_html__( "You have prayed for %s days in a row! Let's keep that streak going!", 'prayer-global-porch' ),
                         $current_streak
                     ),
                     'streak',
