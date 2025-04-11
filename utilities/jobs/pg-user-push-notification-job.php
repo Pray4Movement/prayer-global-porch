@@ -15,7 +15,13 @@ class PG_User_Push_Notification_Job extends Job {
 
     public function handle() {
         // send push notification to user with milestone message
-        $return = PG_Onesignal::send_to_user( $this->user_email, $this->milestone->get_message(), $this->milestone->get_title(), $this->milestone->get_url() );
+        $return = PG_Onesignal::send_to_user(
+            $this->user_email,
+            $this->milestone->get_message(),
+            $this->milestone->get_title(),
+            $this->milestone->get_url(),
+            $this->milestone->to_array()
+        );
         if ( $return === false && defined( 'WP_DEBUG' ) && WP_DEBUG ) {
             error_log( 'PG_User_Push_Notification_Job: Failed to send push notification to user ' . $this->user_email );
         }

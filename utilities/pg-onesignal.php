@@ -5,7 +5,7 @@ class PG_Onesignal {
         'nathinabob+1234@gmail.com',
         'nathinabob@gmail.com',
     ];
-    public static function send_to_user( string $user_email, string $message, string $title = '', string $url = '' ) {
+    public static function send_to_user( string $user_email, string $message, string $title = '', string $url = '', array $data = [] ) {
         if (
             ( defined( 'PG_ONESIGNAL_STOP' ) && PG_ONESIGNAL_STOP ) &&
             !in_array( $user_email, self::$allowed_users )
@@ -41,6 +41,10 @@ class PG_Onesignal {
 
         if ( $url ) {
             $payload['app_url'] = $url;
+        }
+
+        if ( !empty( $data ) ) {
+            $payload['data'] = $data;
         }
 
         // send push notification to user with milestone message

@@ -107,6 +107,15 @@ function requestNotificationsPermission(callback) {
   });
 }
 
+function median_onesignal_push_opened(data) {
+  window.umami.track("App - Push opened", {
+    title: data.title,
+    message: data.message,
+    value: data.value,
+    category: data.category,
+  });
+}
+
 /* In case this JS is loaded after the median library */
 if (window.median) {
   median_library_ready();
