@@ -242,7 +242,7 @@ function _pg_stats_builder( $data ) : array {
     }
     $data['completed'] = number_format( $completed );
     $data['completed_int'] = $completed;
-    $completed_percent = ROUND( $completed / PG_TOTAL_STATES * 100, 0 );
+    $completed_percent = ROUND( $completed / PG_TOTAL_STATES * 100, 1 );
     if ( 100 < $completed_percent ) {
         $completed_percent = 100;
     }
