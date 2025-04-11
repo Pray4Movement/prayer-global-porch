@@ -16,6 +16,10 @@ class PG_Onesignal {
         $onesignal_app_id = get_option( 'pg_onesignal_app_id' );
         $onesignal_api_key = get_option( 'pg_onesignal_api_key' );
 
+        // Decode HTML entities in message and title
+        $message = html_entity_decode( $message, ENT_QUOTES );
+        $title = $title ? html_entity_decode( $title, ENT_QUOTES ) : '';
+
         $payload = [
             'app_id' => $onesignal_app_id,
             'contents' => [
