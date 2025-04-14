@@ -646,7 +646,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 pm7.meta_value as end_time,
                 pm8.meta_value as challenge_type,
                 pm9.meta_value as single_lap,
-            IF( pm6.meta_value = %s, 1, 0 ) as is_owner
+                r.timestamp as last_report_timestamp,
+                IF( pm6.meta_value = %s, 1, 0 ) as is_owner
             FROM $wpdb->posts p
             JOIN user_relays ur ON ur.post_id = p.ID
             JOIN $wpdb->postmeta pm ON pm.post_id=p.ID AND pm.meta_key = 'type'
@@ -658,10 +659,16 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             LEFT JOIN $wpdb->postmeta pm7 ON pm7.post_id=p.ID AND pm7.meta_key = 'end_time'
             LEFT JOIN $wpdb->postmeta pm8 ON pm8.post_id=p.ID AND pm8.meta_key = 'challenge_type'
             LEFT JOIN $wpdb->postmeta pm9 ON pm9.post_id=p.ID AND pm9.meta_key = 'single_lap'
+            LEFT JOIN (
+                SELECT * FROM $wpdb->dt_reports r
+                WHERE r.user_id = %d
+                ORDER BY r.timestamp DESC
+                LIMIT 1
+            ) r ON r.post_id = p.ID
             WHERE p.post_type = 'pg_relays'
-            ORDER BY pm.meta_value DESC,
+            ORDER BY last_report_timestamp DESC,
             p.post_title ASC
-        ", pg_get_relay_id( '49ba4c' ), $user_meta_value, $user_id, $user_meta_value ), ARRAY_A );
+        ", pg_get_relay_id( '49ba4c' ), $user_meta_value, $user_id, $user_meta_value, $user_id ), ARRAY_A );
 
         $hidden_relays = get_user_meta( $user_id, 'pg_hidden_relays' );
 
