@@ -172,7 +172,7 @@ class Prayer_Global_Porch {
         require_once( 'pages/challenges/active-list.php' );
 
         // user
-        require_once( 'pages/user/user-profile.php' );
+        require_once( 'pages/user/user-dashboard.php' );
         require_once( 'pages/user/login.php' );
         require_once( 'pages/user/register.php' );
         require_once( 'pages/user/user-logout.php' );
