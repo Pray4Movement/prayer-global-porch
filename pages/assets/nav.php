@@ -57,7 +57,7 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
 
         </div>
 
-        <h5 class="border border-brand-light offcanvas-title px-3 rounded navbar__title"><a href="/" class="brand-light navbar__title-link">Prayer.Global</a></h5>
+        <h5 class="border border-brand-light offcanvas-title px-3 rounded navbar__title"><a href="/?internal" class="brand-light navbar__title-link">Prayer.Global</a></h5>
 
         <div class="d-flex justify-content-end align-items-center">
             <a href="/dashboard" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">

@@ -25,6 +25,12 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
         $url = dt_get_url_path( true );
         if ( empty( $url ) && ! dt_is_rest() ) {
 
+            /* If the user is logged in, and the url doesn't contain the internal=true query param then redirect to the dashboard */
+            $url = new DT_URL( site_url( dt_get_url_path( false, true ) ) );
+            if ( is_user_logged_in() && ! $url->query_params->has( 'internal' ) ) {
+                wp_redirect( home_url( '/dashboard' ) );
+                exit;
+            }
 
             add_filter( 'dt_override_header_meta', function (){ return true;
             }, 100, 1 );

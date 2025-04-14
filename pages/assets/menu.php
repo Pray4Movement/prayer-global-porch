@@ -16,7 +16,7 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
 
     <div class="offcanvas offcanvas-end pg-navmenu" data-bs-backdrop="true" data-bs-scroll="true" id="probootstrap-navbar">
         <div class="offcanvas-header blue-bg white p-3">
-            <a href="/" class="icon-button two-rem d-flex align-items-center mx-2" title="Home">
+            <a href="/?internal" class="icon-button two-rem d-flex align-items-center mx-2" title="Home">
                 <i class="icon pg-home"></i>
             </a>
             <div class="d-flex">

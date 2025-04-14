@@ -225,7 +225,7 @@ class PG_My_Map extends PG_Public_Page {
                     </div>
                 </div>
                 <!-- <div class="row">
-                    <a href="/" class="btn btn-small btn-outline-primary w-fit mb-2 d-block m-auto"><?php echo esc_html__( 'Leave this relay', 'prayer-global-porch' ) ?></a>
+                    <a href="/?internal" class="btn btn-small btn-outline-primary w-fit mb-2 d-block m-auto"><?php echo esc_html__( 'Leave this relay', 'prayer-global-porch' ) ?></a>
                 </div> -->
             </div>
         </div>
