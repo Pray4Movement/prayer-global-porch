@@ -52,6 +52,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'pg-info',
             'pg-chevron-left',
             'pg-bell',
+            'pg-share',
             'ion-ellipsis-horizontal',
         ];
 

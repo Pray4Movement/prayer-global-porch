@@ -7,13 +7,13 @@
       </div>
       <div class="modal-body ">
         <div class="list-group list-group-flush share-modal__items" role="list">
-            <button
+<!--             <button
                 class="list-group-item list-group-item-action list-group-item-secondary facebook-action"
                 tabindex="0"
                 role="listitem"
             >
                 <img class="share__icon" src="<?php echo esc_html( plugin_dir_url( __FILE__ ) ) ?>/images/facebook.svg" alt="Share">Facebook
-            </button>
+            </button> -->
             <button
                 class="list-group-item list-group-item-action list-group-item-secondary twitter-action"
                 tabindex="0"

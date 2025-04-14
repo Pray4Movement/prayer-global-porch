@@ -1,4 +1,4 @@
-import { html } from "lit";
+import { html, PropertyValues, render } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { OpenElement } from "./open-element";
 import { User, Relay } from "../interfaces";
@@ -47,6 +47,13 @@ export class PgDashboard extends OpenElement {
     //link anonymous prayers to the user
     //@todo save the user id locacally so this happens automatically
     await this.link_anonymous_prayers();
+  }
+
+  updated(changedProperties: PropertyValues) {
+    super.updated(changedProperties);
+    if (changedProperties.has("relays") && window.pg_set_up_share_buttons) {
+      window.pg_set_up_share_buttons(true);
+    }
   }
 
   render() {
@@ -162,12 +169,27 @@ export class PgDashboard extends OpenElement {
                           >
                             ${relay.post_title}
 
-                            <a
-                              href=${`/prayer_app/${relay.relay_type}/${relay.lap_key}`}
-                              class="btn btn-cta"
-                            >
-                              ${this.translations.pray}
-                            </a>
+                            <div class="space-out">
+                              <button
+                                class="p-0 icon-button share-button two-rem d-flex"
+                                data-toggle="modal"
+                                data-target="#exampleModal"
+                                data-url=${`${window.location.origin}/prayer_app/${relay.relay_type}/${relay.lap_key}`}
+                              >
+                                <svg class="icon-sm white">
+                                  <use
+                                    href="${window.jsObject
+                                      .spritesheet_url}#pg-share"
+                                  ></use>
+                                </svg>
+                              </button>
+                              <a
+                                href=${`/prayer_app/${relay.relay_type}/${relay.lap_key}`}
+                                class="btn btn-cta"
+                              >
+                                ${this.translations.pray}
+                              </a>
+                            </div>
                           </div>
                         `
                       )

@@ -18,6 +18,8 @@ if ( '' === $url ) {
 }
 $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'user_app' ) ? 'd-none' : '';
 
+$hide_share_button = str_contains( $url, 'dashboard' ) ? 'd-none' : '';
+
 ?>
 <nav class="pg-navbar navbar p-0 d-block <?php echo esc_html( $nav_class ) ?>" id="pg-navbar" <?php echo $home_page === true ? 'data-home' : '' ?>>
 
@@ -49,7 +51,7 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
 
     <div class="container py-3">
         <div class="cluster">
-            <button class="p-0 icon-button share-button two-rem d-flex" data-toggle="modal" data-target="#exampleModal">
+            <button class="p-0 icon-button share-button two-rem d-flex <?php echo esc_html( $hide_share_button ) ?>" data-toggle="modal" data-target="#exampleModal">
                 <i class="icon pg-share"></i>
             </button>
 

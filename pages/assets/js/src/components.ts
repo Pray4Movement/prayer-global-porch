@@ -29,5 +29,6 @@ declare global {
     requestNotificationsPermission: (
       callback: (notificationsPermission: boolean) => void
     ) => void;
+    pg_set_up_share_buttons: (wait?: boolean) => void;
   }
 }
