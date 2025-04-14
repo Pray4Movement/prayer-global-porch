@@ -41,7 +41,10 @@ jQuery(document).ready(function () {
   }
 
   function providerLoginCallback(response) {
-    console.log(`${response.type} Login Callback response`, response);
+    console.log(
+      `${response.type} Login Callback response`,
+      JSON.stringify(response)
+    );
 
     let token;
 
