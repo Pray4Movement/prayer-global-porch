@@ -18,7 +18,7 @@ class Prayer_Global_Migration_0016 extends Prayer_Global_Migration {
             `category` varchar(50) NOT NULL,
             `milestone_value` int(11) NOT NULL,
             `channel` varchar(50) NOT NULL,
-            `sent_at` int(11) NOT NULL DEFAULT UNIX_TIMESTAMP(),
+            `sent_at` int(11) NOT NULL DEFAULT (UNIX_TIMESTAMP()),
             PRIMARY KEY (`id`),
             KEY `user_notification` (`user_id`, `category`, `milestone_value`, `channel`)
         ) " );
