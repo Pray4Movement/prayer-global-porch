@@ -6,8 +6,7 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
     public $magic = false;
     public $parts = false;
     public $page_title = 'Global Prayer - Church';
-    public $root = 'content_app';
-    public $type = 'church';
+    public $root = 'church';
     public $type_name = 'Global Prayer - Church';
     public static $token = 'content_app_church';
     public $post_type = 'laps';
@@ -24,11 +23,7 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
         parent::__construct();
 
         $url = dt_get_url_path();
-        if ( ( $this->type ) === $url ) {
-
-            $this->magic = new DT_Magic_URL( $this->root );
-            $this->parts = $this->magic->parse_url_parts();
-
+        if ( ( $this->root ) === $url ) {
 
             // register url and access
             add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
@@ -52,7 +47,7 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
 
             add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
             add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
-
+            add_filter( 'dt_templates_for_urls', [ $this, 'register_url' ], 199, 1 ); // registers url as valid once tests are passed
             add_filter( 'dt_allow_rest_access', [ $this, 'authorize_url' ], 10, 1 );
 
         }
@@ -69,7 +64,10 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
         return $authorized;
     }
 
-
+    public function register_url( $template_for_url ){
+        $template_for_url[$this->root] = 'template-blank.php';
+        return $template_for_url;
+    }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
         return array_merge( $allowed_js, [
