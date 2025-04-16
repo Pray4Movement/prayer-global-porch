@@ -131,12 +131,12 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
                 </div>
                 <div class="row justify-content-center">
                     <div class="col col-6 col-md-4 col-lg-3 text-center">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&amp;data=<?php echo esc_url( get_site_url() ) ?>/prayer_app/custom/<?php echo esc_html( $lap_stats['key'] ) ?>/map" style="width: 100%;max-width:400px;"><br><br>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&amp;data=<?php echo esc_url( get_site_url() ) ?>/<?php echo esc_html( $lap_stats['key'] ) ?>/map" style="width: 100%;max-width:400px;"><br><br>
                     </div>
                 </div>
                 <div class="input-group">
                     <input type="text" class="form-control copy-input"
-                           value="<?php echo esc_url( get_site_url() ) ?>/prayer_app/custom/<?php echo esc_html( $lap_stats['key'] ) ?>/map" placeholder="Some path" id="copy-input">
+                           value="<?php echo esc_url( get_site_url() ) ?>/<?php echo esc_html( $lap_stats['key'] ) ?>/map" placeholder="Some path" id="copy-input">
                     <button class="btn btn-secondary copy-button input-group-btn" type="button" id="copy-button"
                               data-bs-toggle="tooltip" data-placement="button"
                               title="<?php esc_attr( __( 'Copy to Clipboard', 'prayer-global-porch' ) ) ?>" data-clipboard-action="copy" data-clipboard-target="#copy-input">
@@ -157,7 +157,7 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
                 </div>
                 <div class="input-group">
                     <input type="text" class="form-control copy-display"
-                           value="<?php echo esc_url( get_site_url() ) ?>/prayer_app/custom/<?php echo esc_html( $lap_stats['key'] ) ?>/display" placeholder="Some path" id="copy-display-input">
+                           value="<?php echo esc_url( get_site_url() ) ?>/<?php echo esc_html( $lap_stats['key'] ) ?>/display" placeholder="Some path" id="copy-display-input">
                       <button class="btn btn-secondary copy-button input-group-btn" type="button" id="copy-button-display"
                               data-bs-toggle="tooltip" data-placement="button"
                               title="<?php esc_attr( __( 'Copy to Clipboard', 'prayer-global-porch' ) ) ?>" data-clipboard-action="copy" data-clipboard-target="#copy-display-input">

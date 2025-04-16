@@ -28,13 +28,16 @@ class PG_Pray_Lap extends PG_Public_Page {
     public function __construct() {
         $url_path = dt_get_url_path( true );
         $this->url_parts = explode( '/', $url_path );
-        if ( $url_path !== 'pray' && ( isset( $this->url_parts[1] ) && $this->url_parts[1] !== 'pray' ) ) {
+
+        $this->custom_relay = isset( $this->url_parts[0] ) && $this->url_parts[0] !== $this->relay_key && $this->url_parts[0] !== 'pray';
+
+        if ( $url_path !== 'pray' && ( !isset( $this->url_parts[1] ) || $this->url_parts[1] !== 'pray' ) ) {
             return;
         }
         $this->url_path = $url_path;
 
         parent::__construct();
-        if ( $url_path !== 'pray' && isset( $this->url_parts[0] ) && $this->url_parts[0] !== $this->relay_key ) {
+        if ( $this->custom_relay ) {
             $this->relay_key = $this->url_parts[0];
             $this->custom_relay = true;
             $this->relay_id = pg_get_relay_id( $this->relay_key );
@@ -43,7 +46,7 @@ class PG_Pray_Lap extends PG_Public_Page {
     }
 
     public function title( $title ){
-        if ( $this->page_title === 'Pray' ) {
+        if ( !$this->custom_relay ) {
             return __( 'Global Relay', 'prayer-global-porch' );
         }
         return $title;
@@ -156,7 +159,7 @@ class PG_Pray_Lap extends PG_Public_Page {
      * Print body
      */
     public function body(): void {
-        if ( $this->page_title === 'Global Relay' ) {
+        if ( !$this->custom_relay ) {
             $this->page_title = __( 'Global Relay', 'prayer-global-porch' );
         }
 

@@ -831,7 +831,7 @@ window.addEventListener("load", function ($) {
       startPrayingButton.html("Start Praying");
       startPrayingButton.off("click");
       startPrayingButton.on("click", () => {
-        location.href = `/prayer_app/custom/${jsObject.parts.public_key}`;
+        location.href = `/${jsObject.parts.public_key}/pray`;
       });
       startPrayingButton.show();
       prayButton.show();

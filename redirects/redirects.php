@@ -102,7 +102,7 @@ class Prayer_Global_Porch_Newest_Lap extends DT_Magic_Url_Base
     }
 
     public function redirect() {
-        $link = '/prayer_app/global/49ba4c';
+        $link = '/pray';
         wp_redirect( $link );
         exit;
     }
@@ -147,7 +147,7 @@ class Prayer_Global_Porth_ICOM_Lap extends DT_Magic_Url_Base
     }
 
     public static function link() {
-        $link = '/prayer_app/custom/' . self::$lap_key;
+        $link = '/' . self::$lap_key . '/pray';
         return $link;
     }
 
@@ -239,7 +239,7 @@ class Prayer_Global_Porch_Newest_Lap_Map extends DT_Magic_Url_Base
     }
 
     public function redirect() {
-        $link = '/prayer_app/global/49ba4c/map';
+        $link = '/map';
         wp_redirect( $link );
         exit;
     }

@@ -113,7 +113,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
         $has_challenge_started = $lap_stats['start_time'] < $now;
         DT_Mapbox_API::geocoder_scripts();
 
-        $pray_href = '/prayer_app/custom/' . esc_attr( $parts['public_key'] );
+        $pray_href = '/' . esc_attr( $parts['public_key'] ) . '/pray';
 //        if ( $lap_stats['event_lap'] ) {
 //            $domain_param = isset( $_SERVER['HTTP_HOST'] ) ? '&domain=' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
 //            $pray_href = PG_API_ENDPOINT . '?relay=' . $parts['public_key'] . $domain_param;
@@ -212,7 +212,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
             <button type="button" data-bs-dismiss="offcanvas"><i class="icon pg-chevron-right three-em"></i></button>
             <hr>
             <ul class="navbar-nav two-em">
-                <li class="nav-item"><a class="nav-link btn smoothscroll btn-primary" style="text-transform: capitalize;" href="/prayer_app/custom/<?php echo esc_attr( $parts['public_key'] ) ?>">Start Praying</a></li>
+                <li class="nav-item"><a class="nav-link btn smoothscroll btn-primary" style="text-transform: capitalize;" href="/<?php echo esc_attr( $parts['public_key'] ) ?>/pray">Start Praying</a></li>
             </ul>
             <div class="d-sm-none">
                 <hr>

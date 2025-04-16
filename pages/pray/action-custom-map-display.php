@@ -150,7 +150,7 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
                             <!--Event relay-->
                             <img class="qr-code-image" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&amp;data=https://api.prayer.global/?relay=<?php echo esc_html( $lap_stats['key'] ) ?>">
                         <?php else : ?>
-                            <img class="qr-code-image" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&amp;data=<?php echo esc_url( get_site_url() ) ?>/prayer_app/custom/<?php echo esc_html( $lap_stats['key'] ) ?>">
+                            <img class="qr-code-image" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&amp;data=<?php echo esc_url( get_site_url() ) ?>/<?php echo esc_html( $lap_stats['key'] ) ?>/pray">
                         <?php endif; ?>
                         <div class="text-center uppercase"><?php echo esc_html__( 'Turn the map from dark to light', 'prayer-global-porch' ) ?></div>
                     </div>
