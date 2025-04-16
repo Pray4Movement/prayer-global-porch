@@ -16,46 +16,15 @@ window.addEventListener("DOMContentLoaded", function () {
   var scrollWindow = function () {
     let wasDarkNav = false;
     $(window).scroll(function () {
-      var st = window.scrollY,
-        navbar = $(".pg-navbar"),
-        sd = $(".js-scroll-wrap");
+      const scrollTop = window.scrollY;
+      const navbar = document.querySelector(".pg-navbar");
 
-      if (st > 300) {
-        if (!navbar.hasClass("scrolled")) {
-          navbar.addClass("scrolled");
-        }
+      if (scrollTop > 0 && navbar.getAttribute("data-home") === "") {
+        navbar.classList.add("scrolled");
       }
-      if (st < 100) {
-        if (navbar.hasClass("scrolled")) {
-          navbar.removeClass("scrolled sleep");
-        }
-      }
-      if (st > 350) {
-        if (!navbar.hasClass("awake")) {
-          navbar.addClass("awake");
-          if (!wasDarkNav && navbar.hasClass("navbar-dark")) {
-            wasDarkNav = true;
-          }
-          if (wasDarkNav) {
-            navbar.removeClass("navbar-dark");
-          }
-        }
 
-        if (sd.length > 0) {
-          sd.addClass("sleep");
-        }
-      }
-      if (st < 350) {
-        if (navbar.hasClass("awake")) {
-          navbar.removeClass("awake");
-          navbar.addClass("sleep");
-          if (wasDarkNav) {
-            navbar.addClass("navbar-dark");
-          }
-        }
-        if (sd.length > 0) {
-          sd.removeClass("sleep");
-        }
+      if (scrollTop === 0 && navbar.getAttribute("data-home") === "") {
+        navbar.classList.remove("scrolled");
       }
     });
   };
