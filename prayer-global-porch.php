@@ -164,6 +164,9 @@ class Prayer_Global_Porch {
         require_once( 'pages/pray/magic-custom.php' );
         require_once( 'pages/pray/page-dashboard-map/action-my-map.php' );
 
+        // lap
+        require_once( 'pages/pray/lap/action-pray.php' );
+
         // race_app
         require_once( 'pages/race/race-list.php' );
         require_once( 'pages/race/race-map.php' );

@@ -463,12 +463,15 @@ function startTimer(time) {
           nonce: jsObject.nonce,
           user_id: jsObject.user_id || null,
           grid_id: jsObject.location.location.grid_id,
-          relay_key: jsObject.parts.public_key,
-          relay_id: jsObject.parts.post_id,
+          relay_key: jsObject.relay_key,
+          relay_id: jsObject.relay_id,
           pace: window.pace,
-          parts: jsObject.parts,
           user_location: window.user_location,
           language: user_language || "en_US",
+          parts: {
+            root: "prayer_app",
+            type: jsObject.is_custom ? 'custom' : 'global',
+          },
         }),
       })
         .then((res) => {
@@ -510,15 +513,10 @@ function startTimer(time) {
     }
     if (window.tick > 60) {
       window.api_fetch(
-        window.pg_global.root +
-          jsObject.parts.root +
-          "/v1/" +
-          jsObject.parts.type,
+        `${jsObject.rest_route}prayer-global/prayer/increment-prayer-time`,
         {
           method: "POST",
           body: JSON.stringify({
-            action: "increment_prayer_time",
-            parts: jsObject.parts,
             data: {
               report_id: window.pg_report_id,
             },
@@ -640,7 +638,7 @@ function waitForLocation() {
         return gridId;
       }
 
-      const relayKey = jsObject.parts.public_key;
+      const relayKey = jsObject.relay_key;
       return fetch(
         `${jsObject.direct_api_url}/next-location.php?relay_key=${relayKey}&nonce=${jsObject.nonce}`
       )
