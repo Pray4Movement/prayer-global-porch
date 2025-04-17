@@ -28,7 +28,6 @@ class PG_Pray_Lap extends PG_Public_Page {
     public function __construct() {
         $url_path = dt_get_url_path( true );
         $this->url_parts = explode( '/', $url_path );
-
         $this->custom_relay = isset( $this->url_parts[0] ) && $this->url_parts[0] !== $this->relay_key && $this->url_parts[0] !== 'pray';
 
         if ( $url_path !== 'pray' && ( !isset( $this->url_parts[1] ) || $this->url_parts[1] !== 'pray' ) ) {
@@ -47,7 +46,7 @@ class PG_Pray_Lap extends PG_Public_Page {
 
     public function title( $title ){
         if ( !$this->custom_relay ) {
-            return __( 'Global Relay', 'prayer-global-porch' );
+            return __( 'Global Lap', 'prayer-global-porch' );
         }
         return $title;
     }

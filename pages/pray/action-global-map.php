@@ -1,53 +1,53 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
-
-    private static $_instance = null;
-
-    public static function instance() {
-        if ( is_null( self::$_instance ) ) {
-            self::$_instance = new self();
-        }
-        return self::$_instance;
-    }
+class PG_Prayer_App_Map extends PG_Public_Page {
+    public $url_path = 'map';
+    public $page_title = 'Pray';
+    public $rest_route = 'pray-api';
+    private $icons = [];
+    private $url_parts;
+    private $relay_key = '49ba4c';
+    private $relay_id = 2128;
+    private $custom_relay = false;
 
     public function __construct() {
+        $url_path = dt_get_url_path( true );
+        $this->url_parts = explode( '/', $url_path );
+        $this->custom_relay = isset( $this->url_parts[0] ) && $this->url_parts[0] !== $this->relay_key && $this->url_parts[0] !== 'map';
+
+        if ( $url_path !== 'map' && ( !isset( $this->url_parts[1] ) || $this->url_parts[1] !== 'map' ) ) {
+            return;
+        }
+        $this->url_path = $url_path;
+
         parent::__construct();
-
-
-        // must be valid url
-        $url = dt_get_url_path();
-        if ( strpos( $url, $this->root . '/' . $this->type ) === false ) {
-            return;
+        if ( $this->custom_relay ) {
+            $this->relay_key = $this->url_parts[0];
+            $this->custom_relay = true;
+            $this->relay_id = pg_get_relay_id( $this->relay_key );
+            $this->page_title = get_the_title( $this->relay_id );
         }
+    }
 
-        // must be valid parts
-        if ( !$this->check_parts_match() ){
-            return;
+    public function title( $title ){
+        if ( !$this->custom_relay ) {
+            return __( 'Global Lap', 'prayer-global-porch' );
+        } else {
+            return __( 'Custom Prayer Lap', 'prayer-global-porch' );
         }
-
-        // must be specific action
-        if ( 'map' !== $this->parts['action'] ) {
-            return;
-        }
-
-        // load if valid url
-        add_action( 'dt_blank_body', [ $this, 'body' ] );
-
-        add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
-        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
-
-        add_action( 'wp_enqueue_scripts', [ $this, '_wp_enqueue_scripts' ], 100 );
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        $allowed_js = [];
+        // $allowed_js = [];
+        $allowed_js[] = 'jquery';
         $allowed_js[] = 'jquery-touch-punch';
         $allowed_js[] = 'mapbox-gl';
         $allowed_js[] = 'jquery-cookie';
         $allowed_js[] = 'mapbox-cookie';
         $allowed_js[] = 'heatmap-js';
+        $allowed_js[] = 'global-functions';
+        $allowed_js[] = 'components-js';
         return $allowed_js;
     }
 
@@ -56,15 +56,8 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
         $allowed_css[] = 'introjs-css';
         $allowed_css[] = 'heatmap-css';
         $allowed_css[] = 'site-css';
+        $allowed_css[] = 'map-css';
         return $allowed_css;
-    }
-
-    public function _header() {
-        $this->header_style();
-        $this->header_javascript();
-    }
-    public function _footer(){
-        $this->footer_javascript();
     }
 
     public function header_javascript(){
@@ -75,40 +68,16 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
         }
         $details['title'] = esc_html( sprintf( __( '%s Map', 'prayer-global-porch' ), 'Prayer.Global' ) );
         pg_og_tags( $details );
-
-        $url = new DT_URL( dt_get_url_path( false, true ) );
-        $lap_number = $url->query_params->has( 'lap' ) ? $url->query_params->get( 'lap' ) : null;
-
-        ?>
-        <script>
-            let jsObject = [<?php echo json_encode([
-                'parts' => $this->parts,
-                'grid_data' => [],
-                'participants' => [],
-                'user_locations' => [],
-                'stats' => Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'], $lap_number ),
-                'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
-                'map_type' => 'binary',
-                'is_cta_feature_on' => true,
-            ]) ?>][0]
-        </script>
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>heatmap.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'heatmap.css' ) ) ?>" type="text/css" media="all">
-        <?php
-    }
-
-    public function footer_javascript() {
-        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/share-modal.php' );
-        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/cta-modal.php' );
+        DT_Mapbox_API::geocoder_scripts();
     }
 
     public function body(){
-        $parts = $this->parts;
-
         $url = new DT_URL( dt_get_url_path( false, true ) );
         $lap_number = $url->query_params->has( 'lap' ) ? $url->query_params->get( 'lap' ) : null;
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $this->relay_key, $this->relay_id, $lap_number );
 
-        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'], $lap_number );
-        DT_Mapbox_API::geocoder_scripts();
+        $title = $this->custom_relay ? $lap_stats['title'] : __( 'Global Lap', 'prayer-global-porch' );
+
         ?>
         <style id="custom-style"></style>
         <div id="map-content">
@@ -125,7 +94,44 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
             <div id="map-wrapper">
                 <div id="head_block" class="brand-bg white">
 
-                    <?php require( __DIR__ . '/nav-global-map.php' ) ?>
+                <nav class="navbar navbar-dark bg-none p-0 d-block" id="pg-navbar">
+                    <div class="d-flex align-items-center justify-content-between mx-0 px-0 mw-100 flex-nowrap">
+                    <div class="cluster overflow-x-hidden">
+                            <span class="font-weight-bold uppercase text-ellipsis"><?php echo esc_html( $lap_stats['title'] ) ?></span>
+                            <div class="space-out">
+                                <button class="icon-button share-button two-rem d-flex align-items-center white" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="icon pg-share"></i>
+                                </button>
+                                <?php pg_streak_icon(); ?>
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end align-items-center">
+                            <div><a class="btn btn-cta mx-2" href="/newest/lap/"><?php echo esc_html__( 'Pray', 'prayer-global-porch' ) ?></a></div>
+                            <a href="/dashboard" class="icon-button mx-2 two-rem d-flex align-items-center white" title="<?php echo esc_attr__( 'Profile', 'prayer-global-porch' ) ?>" id="user-profile-link">
+
+                                <?php if ( is_user_logged_in() ) : ?>
+
+                                    <?php //phpcs:ignore ?>
+                                    <?php echo pg_profile_icon(); ?>
+
+                                <?php else : ?>
+
+                                    <span class="one-rem"><?php echo esc_html__( 'Login', 'prayer-global-porch' ); ?></span>
+
+                                <?php endif; ?>
+
+                            </a>
+                            <button class="navbar-toggler mx-2 two-rem d-flex align-items-center white" type="button" data-bs-toggle="offcanvas" data-bs-target="#probootstrap-navbar" aria-controls="probootstrap-navbar" aria-expanded="false" aria-label="<?php echo esc_attr__( 'Toggle navigation', 'prayer-global-porch' ) ?>">
+                                <i class="icon pg-menu"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <?php pg_menu(); ?>
+
+                </nav>
+
 
                     <?php require( __DIR__ . '/map-settings.php' ) ?>
 
@@ -279,89 +285,31 @@ class PG_Global_Prayer_App_Map extends PG_Global_Prayer_App {
             </div>
         </div>
         <?php
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/share-modal.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/cta-modal.php' );
     }
 
-    public function _wp_enqueue_scripts(){
+    public function wp_enqueue_scripts(){
         pg_heatmap_scripts( $this );
-    }
+        pg_enqueue_script( 'components-js', 'pages/assets/js/components.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );
 
-    public function endpoint( WP_REST_Request $request ) {
-        $params = $request->get_params();
+        $url = new DT_URL( dt_get_url_path( false, true ) );
+        $lap_number = $url->query_params->has( 'lap' ) ? $url->query_params->get( 'lap' ) : null;
 
-        if ( ! isset( $params['parts'], $params['action'] ) ) {
-            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
-        }
+        wp_localize_script( 'heatmap-js', 'jsObject', [
+            // 'parts' => $this->parts,
+            'relay_key' => $this->relay_key,
+            'relay_id' => $this->relay_id,
+            'grid_data' => [],
+            'participants' => [],
+            'user_locations' => [],
+            'stats' => Prayer_Stats::get_relay_current_lap_stats( $this->relay_key, $this->relay_id, $lap_number ),
+            'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
+            'map_type' => 'binary',
+            'is_cta_feature_on' => true,
+        ]);
 
-        $params = dt_recursive_sanitize_array( $params );
-
-        switch ( $params['action'] ) {
-            case 'get_stats':
-                return Prayer_Stats::get_relay_current_lap_stats( $params['parts']['public_key'], $params['parts']['post_id'], $params['data']['lap_number'] ?? null );
-            case 'get_grid':
-                return [
-                    'grid_data' => $this->get_grid( $params['data']['lap_number'] ?? null ),
-                    'participants' => $this->get_participants( $params['parts'], $params['data']['lap_number'] ?? null ),
-                ];
-            case 'get_grid_details':
-                if ( isset( $params['data']['grid_id'] ) ) {
-                    return PG_Stacker::build_location_stack( $params['data']['grid_id'] );
-                }
-                return false;
-            case 'get_participants':
-                return $this->get_participants( $params['parts'], $params['data']['lap_number'] ?? null );
-            case 'get_user_locations':
-                return $this->get_user_locations( $params['parts'], $params['data'] );
-            default:
-                return new WP_Error( __METHOD__, 'missing action parameter' );
-        }
-    }
-
-    public function get_grid( $lap_number = null ) {
-        $data = $this->get_global_relay_map_stats( $lap_number );
-        return [
-            'data' => $data,
-        ];
-    }
-
-
-    /* The global lap has to look at the dt_reports table in order to find out what custom laps have
-    contributed to the completion of the map and stats */
-    public function get_global_relay_map_stats( $lap_number = null ) {
-        global $wpdb;
-
-        $current_lap_number = Prayer_Stats::get_relay_lap_number();
-        if ( $lap_number === null || (int) $lap_number === $current_lap_number ) {
-            $locations = $wpdb->get_col( $wpdb->prepare(
-                "SELECT grid_id
-                FROM $wpdb->dt_reports
-                WHERE global_lap_number = %d
-                AND post_type = 'pg_relays'
-            ", $current_lap_number ) );
-        }
-
-        if ( $lap_number < $current_lap_number ) {
-            $locations = pg_query_4770_locations();
-        } else if ( $lap_number > $current_lap_number ) {
-            $locations = [];
-        }
-
-        $data = pg_query_4770_locations();
-
-        foreach ( $data as $key ) {
-            if ( in_array( $key, $locations ) ) {
-                $data[$key] = 1;
-            } else {
-                $data[$key] = 0;
-            }
-        }
-        return $data;
-    }
-    public function get_participants( $parts, $lap_number = null ){
-        return Prayer_Stats::get_relay_lap_map_participants( $parts['post_id'], $parts['public_key'], $lap_number );
-    }
-
-    public function get_user_locations( $parts, $data ){
-        return PG_User_API::get_user_locations_prayed_for( $parts['public_key'], $data['hash'], $data['lap_number'] ?? null );
+        pg_enqueue_style( 'map-css', 'pages/pray/heatmap.css' );
     }
 }
-PG_Global_Prayer_App_Map::instance();
+new PG_Prayer_App_Map();

@@ -233,7 +233,7 @@ class Prayer_Global_Porch_Newest_Lap_Map extends DT_Magic_Url_Base
             $this->redirect();
         }
 
-        if ( $url === 'map' ) {
+        if ( $url === 'newest/map' ) {
             $this->redirect();
         }
     }

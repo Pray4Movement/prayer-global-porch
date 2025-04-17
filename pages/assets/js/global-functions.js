@@ -202,7 +202,6 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   window.waitForElement = function (selector, callback) {
-    console.log("waiting for element", selector);
     const timeIncrement = 200;
 
     const ticker = setInterval(() => {
