@@ -170,7 +170,7 @@ trait PG_Lap_Trait {
             <div class="w-100" ></div>
             <div class="container flow space-sm text-center">
                 <p class="tutorial uc f-xlg lh-1" id="tutorial-location"><?php echo esc_html__( 'Pray for', 'prayer-global-porch' ) ?></p>
-                <h2 class="lh-1 text-center bold w-75 f-md" id="location-name">
+                <h2 class="lh-1 text-center bold f-md" id="location-name">
                     <div class="skeleton" data-title></div>
                 </h2>
                 <p class="f-sm">
@@ -286,7 +286,7 @@ trait PG_Lap_Trait {
                 <hr>
             </div>
             <div class="container">
-                <div class="flow text-center">
+                <div class="flow text-center center">
                     <svg class="f-xxlg" height="1em" width="1em" fill="currentColor" >
                         <use href="#pg-pray-hands-dark"></use>
                     </svg>
