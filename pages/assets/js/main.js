@@ -258,3 +258,16 @@ if (pg_global.is_logged_in && !pg_global.user.language) {
     }),
   });
 }
+
+if (window.Sentry) {
+  const environments = {
+    "prayer.global": "production",
+    "staging.prayer.global": "staging",
+  };
+  const environment = environments[window.location.hostname] || "development";
+  Sentry.init({
+    dsn: "https://f3b365f3b25c46e9ac46b9406d01cdc0@red-gopher.pikapod.net/2",
+    tracesSampleRate: 0.01,
+    environment,
+  });
+}

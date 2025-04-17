@@ -21,6 +21,7 @@ add_filter( 'dt_magic_url_base_allowed_js', function ( $allowed_js ){
         'jquery-waypoints',
         'umami',
         'lit-bundle',
+        'glitchtip',
     ] );
 
     return $allowed_js;
@@ -62,7 +63,8 @@ add_action( 'wp_enqueue_scripts', function (){
     pg_enqueue_script( 'median-js', 'pages/assets/js/median.js', [ 'global-functions', 'median-permissions', 'bootstrap' ], [ 'strategy' => 'defer' ] );
     pg_enqueue_script( 'components-js', 'pages/assets/js/components.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );
 
-    pg_enqueue_script( 'main-js', 'pages/assets/js/main.js', [ 'jquery', 'global-functions' ], [ 'strategy' => 'defer' ] );
+    wp_enqueue_script( 'glitchtip', 'https://browser.sentry-cdn.com/7.60.0/bundle.min.js', [], '7.60.0', [ 'strategy' => 'defer' ] );
+    pg_enqueue_script( 'main-js', 'pages/assets/js/main.js', [ 'jquery', 'global-functions', 'glitchtip' ], [ 'strategy' => 'defer' ] );
     pg_enqueue_script( 'share-js', 'pages/assets/js/share.js', [ 'jquery', 'global-functions', 'bootstrap' ], [ 'strategy' => 'defer' ] );
     pg_enqueue_script( 'lit-bundle', 'pages/assets/js/dist/assets/components-bundle.js', [ 'global-functions', 'share-js' ], [ 'strategy' => 'defer' ] );
 
@@ -75,7 +77,6 @@ add_action( 'wp_enqueue_scripts', function (){
     if ( !defined( 'WP_DEBUG' ) || !WP_DEBUG ) {
         wp_enqueue_script( 'umami', 'https://umami.gospelambition.com/script.js', [], 1, [ 'strategy' => 'defer', ] );
     }
-
 
     wp_localize_script( 'global-functions', 'pg_global', [
         'map_key' => DT_Mapbox_API::get_key(),

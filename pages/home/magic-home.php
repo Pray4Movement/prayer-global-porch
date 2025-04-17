@@ -66,7 +66,7 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
     public function wp_enqueue_scripts() {}
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        return [];
+        return $allowed_js;
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
