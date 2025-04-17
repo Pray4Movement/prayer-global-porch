@@ -76,6 +76,7 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
                 'grid_data' => [],
                 'stats' => Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] ),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
+                'is_single_lap' => get_post_meta( $this->parts['post_id'], 'single_lap', true ),
                 'translations' => [
                     'lap' => __( 'Lap %d', 'prayer-global-porch' ),
                 ],

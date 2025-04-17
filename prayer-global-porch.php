@@ -29,7 +29,6 @@ define( 'PG_CHANNEL_IN_APP', 'in_app' );
 define( 'PG_CHANNEL_PUSH', 'push' );
 define( 'PG_CHANNEL_EMAIL', 'email' );
 
-
 /**
  * Gets the instance of the `Prayer_Global_Porch` class.
  *
