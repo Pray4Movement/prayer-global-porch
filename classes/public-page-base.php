@@ -28,7 +28,7 @@ abstract class PG_Public_Page {
     public $rest_route = '';
 
     public function __construct() {
-        $path = dt_get_url_path();
+        $path = dt_get_url_path( true );
         $is_rest = dt_is_rest();
         if ( $is_rest ) {
             add_action( 'rest_api_init', [ $this, 'register_endpoints' ] );

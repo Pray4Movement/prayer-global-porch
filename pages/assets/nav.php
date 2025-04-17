@@ -61,8 +61,9 @@ $hide_share_button = str_contains( $url, 'dashboard' ) ? 'd-none' : '';
 
         <h5 class="border border-brand-light offcanvas-title px-3 rounded navbar__title"><a href="/?internal" class="brand-light navbar__title-link">Prayer.Global</a></h5>
 
+        <?php $login_url = is_user_logged_in() ? site_url( '/dashboard' ) : site_url( '/login' ); ?>
         <div class="d-flex justify-content-end align-items-center">
-            <a href="/dashboard" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
+            <a href="<?php echo esc_url( $login_url ); ?>" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
 
                 <?php if ( is_user_logged_in() ) : ?>
 
