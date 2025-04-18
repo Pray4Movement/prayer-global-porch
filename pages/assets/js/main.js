@@ -14,10 +14,13 @@ window.addEventListener("DOMContentLoaded", function () {
 
   // scroll
   var scrollWindow = function () {
-    let wasDarkNav = false;
     $(window).scroll(function () {
       const scrollTop = window.scrollY;
       const navbar = document.querySelector(".pg-navbar");
+
+      if (!navbar) {
+        return;
+      }
 
       if (scrollTop > 0 && navbar.getAttribute("data-home") === "") {
         navbar.classList.add("scrolled");

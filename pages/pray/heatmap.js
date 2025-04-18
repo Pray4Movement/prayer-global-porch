@@ -184,21 +184,6 @@ window.addEventListener("load", function ($) {
       pray_for_area_content.innerHTML = "";
     });
 
-  settings_toggle &&
-    settings_toggle.addEventListener("hide.bs.dropdown", (e) => {
-      const cluster_participants_element = document.getElementById(
-        "cluster_participants"
-      );
-      const clustered =
-        cluster_participants_element.classList.contains("active");
-
-      if (clustered) {
-        gtag("event", "chose_clustering");
-      } else {
-        gtag("event", "chose_nonclustering");
-      }
-    });
-
   let initialize_screen = jQuery(".initialize-progress");
   let grid_details_content = jQuery("#grid-details-content");
 
