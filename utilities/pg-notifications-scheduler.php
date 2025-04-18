@@ -12,6 +12,7 @@ class PG_Notifications_Scheduler {
 
     public function create_push_handler_job() {
         // Create job for sending push notifications
+        dt_write_log( 'PG_Notifications_Scheduler: create_push_handler_job' );
         wp_queue()->push( new PG_Notification_Handler_Job() );
     }
 }
