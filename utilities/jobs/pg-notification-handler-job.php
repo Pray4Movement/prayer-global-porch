@@ -15,8 +15,14 @@ class PG_Notification_Handler_Job extends Job {
             ],
         ));
 
+        $processed_users = [];
         // check if the user has any notifications to send
         foreach ( $users as $user ) {
+            if ( in_array( $user->ID, $processed_users ) ) {
+                continue;
+            }
+            $processed_users[] = $user->ID;
+
             dt_write_log( 'PG_Notification_Handler_Job: ' . $user->ID );
             $user_notifications_permission = get_user_meta( $user->ID, PG_NAMESPACE . 'notifications_permission', true );
             $can_send_push = $user_notifications_permission === '1';
