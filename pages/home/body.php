@@ -12,7 +12,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
             </div>
             <div class="my-4 d-flex flex-column align-items-center">
                 <a class="btn btn-cta mx-2 d-inline-block" href="/newest/lap/"><?php echo esc_html( __( 'Start Praying', 'prayer-global-porch' ) ) ?></a>
-                <a id="learn-more-desktop" href="#section-goal-desktop" class="btn-learn-more mt-2 text-decoration-none d-none d-md-block">
+                <a id="learn-more-desktop" href="#section-goal-desktop" class="btn-learn-more mt-3 text-decoration-none d-none d-md-block">
                     <div class="btn btn-primary-light white uppercase btn-learn-more">
                         <?php echo esc_html( __( 'Learn more', 'prayer-global-porch' ) ) ?>
                     </div>
