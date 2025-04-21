@@ -168,6 +168,7 @@ class Prayer_Global_Porch {
         require_once( 'pages/pray/lap/action-pray.php' );
         //map
         require_once( 'pages/pray/action-global-map.php' );
+        require_once( 'pages/pray/action-map-display.php' );
         // race_app
         require_once( 'pages/race/race-list.php' );
         require_once( 'pages/race/race-map.php' );

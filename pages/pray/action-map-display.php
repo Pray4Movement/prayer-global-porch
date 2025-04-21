@@ -1,48 +1,35 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
-
-    private static $_instance = null;
-
-    public static function instance() {
-        if ( is_null( self::$_instance ) ) {
-            self::$_instance = new self();
-        }
-        return self::$_instance;
-    }
+class PG_Map_Display extends PG_Public_Page {
+    public $url_path = 'display';
+    public $page_title = 'Display';
+    private $icons = [];
+    private $url_parts;
+    private $relay_key = '49ba4c';
+    private $relay_id = 2128;
+    private $custom_relay = false;
 
     public function __construct() {
+        $url_path = dt_get_url_path( true );
+        $this->url_parts = explode( '/', $url_path );
+        $this->custom_relay = isset( $this->url_parts[0] ) && $this->url_parts[0] !== $this->relay_key && $this->url_parts[0] !== 'display';
+
+        if ( $url_path !== 'display' && ( !isset( $this->url_parts[1] ) || $this->url_parts[1] !== 'display' ) ) {
+            return;
+        }
+        $this->url_path = $url_path;
+
         parent::__construct();
-
-
-        // must be valid url
-        $url = dt_get_url_path();
-        if ( strpos( $url, $this->root . '/' . $this->type ) === false ) {
-            return;
+        if ( $this->custom_relay ) {
+            $this->relay_key = $this->url_parts[0];
+            $this->custom_relay = true;
+            $this->relay_id = pg_get_relay_id( $this->relay_key );
+            $this->page_title = get_the_title( $this->relay_id );
         }
-
-        // must be valid parts
-        if ( !$this->check_parts_match() ){
-            return;
-        }
-
-        // must be specific action
-        if ( 'display' !== $this->parts['action'] ) {
-            return;
-        }
-
-        // load if valid url
-        add_action( 'dt_blank_body', [ $this, 'body' ] );
-
-        add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
-        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
-
-        add_action( 'wp_enqueue_scripts', [ $this, '_wp_enqueue_scripts' ], 100 );
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        $allowed_js = [];
         $allowed_js[] = 'jquery-touch-punch';
         $allowed_js[] = 'mapbox-gl';
         $allowed_js[] = 'jquery-cookie';
@@ -57,37 +44,12 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
         $allowed_css[] = 'introjs-css';
         $allowed_css[] = 'heatmap-css';
         $allowed_css[] = 'site-css';
+        $allowed_css[] = 'map-css';
         return $allowed_css;
     }
 
-    public function _header() {
-        $this->header_style();
-        $this->header_javascript();
-    }
-    public function _footer(){
-        $this->footer_javascript();
-    }
-
-    public function header_javascript(){
-        ?>
-        <script>
-            let jsObject = [<?php echo json_encode([
-                'parts' => $this->parts,
-                'grid_data' => [],
-                'stats' => Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] ),
-                'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
-                'translations' => [
-                    'lap' => __( 'Lap %d', 'prayer-global-porch' ),
-                ],
-                'map_type' => 'binary',
-            ]) ?>][0]
-        </script>
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>heatmap.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'heatmap.css' ) ) ?>" type="text/css" media="all">
-        <?php
-    }
-
     public function body(){
-        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] );
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $this->relay_key, $this->relay_id );
         DT_Mapbox_API::geocoder_scripts();
         ?>
         <style id="custom-style"></style>
@@ -178,12 +140,28 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
         <?php
     }
 
-    public static function _wp_enqueue_scripts(){
+    public function wp_enqueue_scripts(){
         DT_Mapbox_API::load_mapbox_header_scripts();
         wp_enqueue_script( 'heatmap-js', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'heatmap-display.js', [
             'jquery',
             'mapbox-gl'
         ], filemtime( plugin_dir_path( __FILE__ ) .'heatmap-display.js' ), true );
+
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $this->relay_key, $this->relay_id );
+
+        wp_localize_script( 'heatmap-js', 'jsObject', [
+            'grid_data' => [],
+            'stats' => $lap_stats,
+            'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
+            'translations' => [
+                'lap' => __( 'Lap %d', 'prayer-global-porch' ),
+            ],
+            'map_type' => 'binary',
+            'relay_key' => $this->relay_key,
+            'relay_id' => $this->relay_id,
+        ]);
+
+        pg_enqueue_style( 'map-css', 'pages/pray/heatmap.css' );
     }
 
     public function endpoint( WP_REST_Request $request ) {
@@ -214,4 +192,4 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
         ];
     }
 }
-PG_Custom_Prayer_App_Map_Display::instance();
+new PG_Map_Display();

@@ -1,32 +1,25 @@
 window.addEventListener('load', function($){
   const MAP_REFRESH_INTERVAL = jsObject.stats.event_lap ? 1000 : 5000
 
-  window.get_page = (action) => {
-    return jQuery.ajax({
-      type: "POST",
-      data: JSON.stringify({ action: action, parts: jsObject.parts }),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      url: window.pg_global.root + jsObject.parts.root + '/v1/' + jsObject.parts.type + '/' + jsObject.parts.action,
-    })
-      .fail(function(e) {
-        console.log(e)
-        jQuery('#error').html(e)
+  let api_fetch = function (url, options = {}) {
+    const opts = {
+      method: "GET",
+      ...options,
+    };
+  
+    if (!Object.prototype.hasOwnProperty.call(options, "headers")) {
+      opts.headers = {};
+    }
+  
+    opts.headers["Content-Type"] = "application/json";
+    opts.headers["X-WP-Nonce"] = pg_global.nonce;
+  
+    return fetch(url, opts)
+      .then((result) => {
+        return result;
       })
-  }
-  window.get_data_page = (action, data ) => {
-    return jQuery.ajax({
-      type: "POST",
-      data: JSON.stringify({ action: action, parts: jsObject.parts, data: data }),
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      url: window.pg_global.root + jsObject.parts.root + '/v1/' + jsObject.parts.type + '/' + jsObject.parts.action,
-    })
-      .fail(function(e) {
-        console.log(e)
-        jQuery('#error').html(e)
-      })
-  }
+      .then((result) => result.json());
+  };
 
   jQuery('#custom-style').empty().append(`
       #wrapper {
@@ -62,25 +55,31 @@ window.addEventListener('load', function($){
   let loop = 0
   let list = 0
   window.load_map_triggered = 0
-  window.get_page('get_grid')
-    .done(function(x){
+  api_fetch(
+    `${window.pg_global.root}prayer-global/stats/map/locations`,
+    {
+      method: 'POST',
+      body: JSON.stringify({
+        lap_number: jsObject.stats.lap_number,
+        public_key: jsObject.relay_key,
+        relay_id: jsObject.relay_id,
+      })
+    }
+  )
+    .then(function(x){
       list = 1
 
       jsObject.grid_data = x.grid_data
-      jsObject.stats = x.stats
 
       if ( loop > 9 && list > 0 && window.load_map_triggered !== 1 ){
         window.load_map_triggered = 1
         load_map()
       }
     })
-    .fail(function(){
+    .catch(function(){
       console.log('Error getting grid data')
       jsObject.grid_data = {'data': {}, 'highest_value': 1 }
     })
-  let data = {
-    hash: localStorage.getItem('pg_user_hash')
-  }
 
 
   let map
@@ -235,11 +234,39 @@ window.addEventListener('load', function($){
     if ( window.intervalLoopCount > 60 ) {
       location.reload()
     } else {
-      window.get_page('get_grid')
-        .done(function(x){
+      api_fetch(
+        `${window.pg_global.root}prayer-global/stats/map/locations`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            lap_number: jsObject.stats.lap_number,
+            public_key: jsObject.relay_key,
+            relay_id: jsObject.relay_id,
+          })
+        }
+      )
+        .then(function(x){
           console.log('reload')
-          // add stats
-          jsObject.stats = x.stats
+
+          jsObject.grid_data = x.grid_data
+          reload_load_grid()
+        })
+
+      api_fetch(
+        `${window.pg_global.root}prayer-global/stats/lap`,
+        {
+          method: 'POST',
+          body: JSON.stringify({
+            lap_number: jsObject.stats.lap_number,
+            public_key: jsObject.relay_key,
+            relay_id: jsObject.relay_id,
+          })
+        }
+      )
+        .then(function(x){
+          console.log('reload')
+          console.log(x)
+          jsObject.stats = x
           jQuery('.completed').html( jsObject.stats.completed )
           jQuery('.completed_percent').html( jsObject.stats.completed_percent )
           jQuery('.remaining').html( jsObject.stats.remaining )
@@ -247,9 +274,6 @@ window.addEventListener('load', function($){
           jQuery('.prayer_warriors').html( jsObject.stats.participants )
           jQuery('.lap_pace').html( jsObject.stats.lap_pace_small )
           jQuery('.lap-number span').html( jsObject.stats.lap_number )
-
-          jsObject.grid_data = x.grid_data
-          reload_load_grid()
         })
     }
   }, MAP_REFRESH_INTERVAL )
