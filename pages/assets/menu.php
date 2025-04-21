@@ -84,7 +84,7 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
                     </div>
                 </a>
 
-                <a class="nav-link" href="/content_app/about_page">
+                <a class="nav-link" href="/about">
                     <div class="nav-link__inner">
                         <i class="icon pg-question-dark"></i>
                         <span><?php echo esc_html( __( 'About', 'prayer-global-porch' ) ) ?></span>
