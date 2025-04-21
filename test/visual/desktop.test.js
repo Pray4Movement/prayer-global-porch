@@ -38,7 +38,7 @@ describe('Desktop Testing', () => {
     })
 
     it('Race Map', async () => {
-        await testPage('race_app/race_map/')
+        await testPage('race-map/')
     })
 
     it('Race List', async () => {

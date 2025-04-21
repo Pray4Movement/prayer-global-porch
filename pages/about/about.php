@@ -146,7 +146,7 @@ class Prayer_Global_About extends PG_Public_Page
                             </p>
                         </div>
                         <div class="border-bottom border-brand-light flow-small">
-                            <h4 class="uppercase font-weight-bold d-flex justify-content-center align-items-center gap-3"><i class="icon pg-world-dark icon-small"></i><a href="/race_app/race_map/"><?php echo esc_html( __( 'Race Map', 'prayer-global-porch' ) ) ?></a></h4>
+                            <h4 class="uppercase font-weight-bold d-flex justify-content-center align-items-center gap-3"><i class="icon pg-world-dark icon-small"></i><a href="/race-map/"><?php echo esc_html( __( 'Race Map', 'prayer-global-porch' ) ) ?></a></h4>
                             <p>
                                 <?php echo esc_html( __( 'The Race map shows the number of laps, number of minutes, and number of prayer intercessors for the entire challenge.', 'prayer-global-porch' ) ) ?>
                             </p>
