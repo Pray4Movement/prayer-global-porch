@@ -231,6 +231,9 @@ window.addEventListener('load', function($){
   } /* .loadgrid */
 
   setInterval(function(){
+    if (jsObject.is_single_lap && jsObject.stats.remaining_int === 0) {
+      clearInterval(interval);
+    }
     if ( window.intervalLoopCount > 60 ) {
       location.reload()
     } else {

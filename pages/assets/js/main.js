@@ -14,48 +14,20 @@ window.addEventListener("DOMContentLoaded", function () {
 
   // scroll
   var scrollWindow = function () {
-    let wasDarkNav = false;
     $(window).scroll(function () {
-      var st = window.scrollY,
-        navbar = $(".pg-navbar"),
-        sd = $(".js-scroll-wrap");
+      const scrollTop = window.scrollY;
+      const navbar = document.querySelector(".pg-navbar");
 
-      if (st > 300) {
-        if (!navbar.hasClass("scrolled")) {
-          navbar.addClass("scrolled");
-        }
+      if (!navbar) {
+        return;
       }
-      if (st < 100) {
-        if (navbar.hasClass("scrolled")) {
-          navbar.removeClass("scrolled sleep");
-        }
-      }
-      if (st > 350) {
-        if (!navbar.hasClass("awake")) {
-          navbar.addClass("awake");
-          if (!wasDarkNav && navbar.hasClass("navbar-dark")) {
-            wasDarkNav = true;
-          }
-          if (wasDarkNav) {
-            navbar.removeClass("navbar-dark");
-          }
-        }
 
-        if (sd.length > 0) {
-          sd.addClass("sleep");
-        }
+      if (scrollTop > 0 && navbar.getAttribute("data-home") === "") {
+        navbar.classList.add("scrolled");
       }
-      if (st < 350) {
-        if (navbar.hasClass("awake")) {
-          navbar.removeClass("awake");
-          navbar.addClass("sleep");
-          if (wasDarkNav) {
-            navbar.addClass("navbar-dark");
-          }
-        }
-        if (sd.length > 0) {
-          sd.removeClass("sleep");
-        }
+
+      if (scrollTop === 0 && navbar.getAttribute("data-home") === "") {
+        navbar.classList.remove("scrolled");
       }
     });
   };
@@ -287,5 +259,18 @@ if (pg_global.is_logged_in && !pg_global.user.language) {
     body: JSON.stringify({
       language: pg_global.current_language,
     }),
+  });
+}
+
+if (window.Sentry) {
+  const environments = {
+    "prayer.global": "production",
+    "staging.prayer.global": "staging",
+  };
+  const environment = environments[window.location.hostname] || "development";
+  Sentry.init({
+    dsn: "https://f3b365f3b25c46e9ac46b9406d01cdc0@red-gopher.pikapod.net/2",
+    tracesSampleRate: 0.01,
+    environment,
   });
 }

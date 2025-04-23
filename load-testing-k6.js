@@ -1,7 +1,7 @@
 import http from "k6/http";
 import { sleep } from "k6";
 
-const debug = true;
+const debug = false;
 export const options = {
   scenarios: {
     /*     redirect_and_update_cloud: {
@@ -15,8 +15,8 @@ export const options = {
     }, */
     constant_rate: {
       executor: "constant-arrival-rate",
-      duration: "30s",
-      rate: debug ? "1" : "100",
+      duration: "300s",
+      rate: debug ? "1" : "17",
       timeUnit: debug ? "30s" : "1s",
       preAllocatedVUs: 50,
       maxVUs: 500,
@@ -24,13 +24,14 @@ export const options = {
   },
 };
 
-const relay_key = "59261a";
+const relayKey = "014d9d";
+const relayId = "1355";
 const origin = "http://localhost:8000";
 const apiHost = `${origin}/wp-content/plugins/prayer-global-porch/`;
 
 export default function () {
   const response = http.get(
-    `${apiHost}next-location.php?relay_key=${relay_key}`,
+    `${apiHost}next-location.php?relay_key=${relayKey}`,
     {
       headers: {
         Origin: origin,
@@ -58,16 +59,16 @@ export default function () {
     JSON.stringify({
       user_id: 7,
       grid_id: locationId,
-      relay_key: "59261a",
-      relay_id: "1341",
+      relay_key: relayKey,
+      relay_id: relayId,
       pace: "1",
       parts: {
         root: "prayer_app",
         type: "custom",
         meta_key: "prayer_app_custom_magic_key",
-        public_key: "59261a",
+        public_key: relayKey,
         action: "",
-        post_id: "1341",
+        post_id: relayId,
         post_type: "pg_relays",
         instance_id: "",
       },

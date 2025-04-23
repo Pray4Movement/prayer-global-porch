@@ -94,10 +94,13 @@ function pg_streak_icon() {
     $is_streak_secure = $user_stats->streak_secure();
     $icon_url = plugins_url( 'pages/assets/images/icons/pg-streak.svg', __DIR__ );
 
+    $activity_url = urlencode( site_url( '/dashboard/activity' ) );
+    $streak_url = is_user_logged_in() ? '/dashboard/activity' : '/login?redirect_url='.$activity_url;
+
     ?>
 
 
-            <a href="/dashboard/activity" class="streak-link icon-button">
+            <a href="<?php echo esc_url( $streak_url ); ?>" class="streak-link icon-button">
                 <div class="cluster gap-xsm">
                     <div
                         class="brand-light-bg icon-md streak-icon streak-icon-highlight"

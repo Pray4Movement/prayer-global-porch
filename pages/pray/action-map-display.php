@@ -156,6 +156,7 @@ class PG_Map_Display extends PG_Public_Page {
             'translations' => [
                 'lap' => __( 'Lap %d', 'prayer-global-porch' ),
             ],
+            'is_single_lap' => get_post_meta( $this->relay_id, 'single_lap', true ),
             'map_type' => 'binary',
             'relay_key' => $this->relay_key,
             'relay_id' => $this->relay_id,

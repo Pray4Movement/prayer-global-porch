@@ -74,7 +74,12 @@ class Prayer_Stats {
         if ( empty( $relay_key ) ){
             $relay_key = get_post_meta( $relay_id, 'prayer_app_relay_key', true );
         }
-        $current_lap_number = self::get_relay_lap_number( $relay_key );
+        $is_single_lap = get_post_meta( $relay_id, 'single_lap', true );
+        if ( $is_single_lap ) {
+            $current_lap_number = 1;
+        } else {
+            $current_lap_number = self::get_relay_lap_number( $relay_key );
+        }
 
         if ( empty( $lap_number ) ){
             $lap_number = $current_lap_number;
@@ -203,7 +208,14 @@ class Prayer_Stats {
             }
             return $data;
         } else {
-            $lap_number = self::get_relay_lap_number( $relay_key );
+            /* If the lap is a single lap, then only get the stats for lap 1 */
+            $relay_id = pg_get_relay_id( $relay_key );
+            $is_single_lap = get_post_meta( $relay_id, 'single_lap', true );
+            if ( $is_single_lap ){
+                $lap_number = 1;
+            } else {
+                $lap_number = self::get_relay_lap_number( $relay_key );
+            }
             $locations = $wpdb->get_results( $wpdb->prepare(
                 "SELECT grid_id,
                 IF ( total > %d, 1, 0 ) as completed

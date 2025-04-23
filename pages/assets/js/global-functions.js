@@ -250,3 +250,10 @@ document.addEventListener("DOMContentLoaded", function () {
     return timeString;
   };
 });
+
+if (isMobileAppUser()) {
+  const appBadges = document.getElementById("pg-app-badges");
+  if (appBadges) {
+    appBadges.style.display = "none";
+  }
+}

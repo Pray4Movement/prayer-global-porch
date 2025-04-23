@@ -7,7 +7,7 @@
             <?php echo wp_kses( sprintf( _x( 'Part of the %s network.', 'Part of the Pray4Movement network.', 'prayer-global-porch' ), '<a target="_blank" href="https://prayer.Tools">Prayer.Tools</a>' ), 'post' ) ?><br>
         </p>
 
-        <div class="center">
+        <div id="pg-app-badges" class="center">
             <?php pg_app_badges(); ?>
         </div>
 

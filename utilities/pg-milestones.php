@@ -4,14 +4,15 @@ class PG_Milestones
 {
     private User_Stats $user_stats;
 
-    private $streak_milestones = [ 7, 14, 30, 60, 100 ];
+    private $streak_milestones = [ 2, 7, 14, 30, 60, 100 ];
 
     public function __construct( int $user_id )
     {
         $this->user_stats = new User_Stats( $user_id );
 
-        /* DEBUG TODO: Remove */
-        $this->streak_milestones = [ 1, 2, 3, 4, 5, 6, 7, 14, 30, 60, 100 ];
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            $this->streak_milestones = [ 1, 2, 3, 4, 5, 6, 7, 14, 30, 60, 100 ];
+        }
     }
 
     /**
@@ -100,7 +101,7 @@ class PG_Milestones
             ];
         }
 
-        if ( in_array( $days_inactive, [ 2, 3, 4, 5, 6 ] ) ) {
+        if ( $days_inactive === 2 || ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ) {
             return [
                 new PG_Milestone(
                     __( 'Oh no! Your streak has ended', 'prayer-global-porch' ),
