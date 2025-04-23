@@ -164,11 +164,12 @@ class Prayer_Global_Porch {
         require_once( 'pages/pray/magic-custom.php' );
         require_once( 'pages/pray/page-dashboard-map/action-my-map.php' );
 
-        // lap
+        //Relay pages
         require_once( 'pages/pray/lap/action-pray.php' );
-        //map
-        require_once( 'pages/pray/action-global-map.php' );
+        require_once( 'pages/pray/action-tools.php' );
+        require_once( 'pages/pray/action-map.php' );
         require_once( 'pages/pray/action-map-display.php' );
+        
         // race_app
         require_once( 'pages/race/race-list.php' );
         require_once( 'pages/race/race-map.php' );
