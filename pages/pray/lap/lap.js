@@ -3,6 +3,7 @@ ONE_MINUTE = 60;
 
 window.seconds = ONE_MINUTE;
 window.items = 7;
+window.hasGridId = false;
 
 const contentElement = document.querySelector("#content");
 const mapElement = document.querySelector("#location-map");
@@ -62,10 +63,22 @@ async function init() {
   window.time = 0;
   window.randomLogSeconds = 30 + 30 * Math.random();
   window.secondsTilLog = 60;
+  // Check if grid_id is in the URL and store it
+  const url = new URL(window.location.href);
+  window.hasGridId = url.searchParams.has("grid_id");
 
   displayLocationCount();
 
   const location = await waitForLocation();
+  if (location.length === 0) {
+  
+    document.querySelector(".prayer-content").innerHTML = `
+      <div class="flow center">
+        <h1>${jsObject.translations.location_not_found}</h1>
+      </div>
+    `;
+    return;
+  }
   jsObject.location = location;
   const currentPace = localStorage.getItem("pg_pace") || 1;
 
@@ -504,6 +517,11 @@ function startTimer(time) {
 
       show(questionPanel);
       hide(prayingPanel);
+      
+      // Hide the Next button if grid_id is in the URL
+      if (window.hasGridId && nextButton) {
+        hide(nextButton);
+      }
 
       prayingProgress.style.width = 0;
     }
@@ -728,6 +746,11 @@ function renderContent(content) {
 }
 function renderMap(content) {
   const { location } = content;
+  if (!location.grid_id) {
+    //hide map
+    mapElement.remove();
+    return;
+  }
 
   const imageSrc = jsObject.cache_url + "maps/" + location.grid_id + ".jpg";
   const bgImg = new Image();

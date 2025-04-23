@@ -132,7 +132,7 @@ window.addEventListener("load", function ($) {
       const urlWithAction = url.pathname;
       const urlWithoutAction = urlWithAction.split("/").slice(0, -1).join("/");
 
-      pray_for_area_content.innerHTML = `<iframe src="${urlWithoutAction}/location?grid_id=${window.selected_grid_id}" frameborder="0" id="pray-for-area-iframe"></iframe>`;
+      pray_for_area_content.innerHTML = `<iframe src="${urlWithoutAction}/pray?grid_id=${window.selected_grid_id}" frameborder="0" id="pray-for-area-iframe"></iframe>`;
 
       /* fit the iframe to the screen height */
       const pray_for_area_iframe = document.getElementById(

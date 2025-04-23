@@ -24,6 +24,7 @@ class PG_Pray_Lap extends PG_Public_Page {
     private $relay_key = '49ba4c';
     private $relay_id = 2128;
     private $custom_relay = false;
+    private $grid_id;
 
     public function __construct() {
         $url_path = dt_get_url_path( true );
@@ -42,6 +43,7 @@ class PG_Pray_Lap extends PG_Public_Page {
             $this->relay_id = pg_get_relay_id( $this->relay_key );
             $this->page_title = get_the_title( $this->relay_id );
         }
+        $this->grid_id = isset( $_GET['grid_id'] ) ? sanitize_text_field( wp_unslash( $_GET['grid_id'] ) ) : null;
     }
 
     public function title( $title ){
@@ -93,6 +95,7 @@ class PG_Pray_Lap extends PG_Public_Page {
                 'download_the_app' => esc_html__( 'Download the Prayer.Global app to get streak notifications and more!', 'prayer-global-porch' ),
                 'update_the_app' => esc_html__( 'Update the Prayer.Global app to get streak notifications and more!', 'prayer-global-porch' ),
                 'go_to_app_store' => esc_html__( 'Go to App Store', 'prayer-global-porch' ),
+                'location_not_found' => esc_html__( 'Location not found', 'prayer-global-porch' ),
             ],
             'nope' => Prayer_Global_Porch::get_url_path() . 'assets/images/anon.jpeg',
             'images_url' => pg_grid_image_url(),
@@ -107,6 +110,7 @@ class PG_Pray_Lap extends PG_Public_Page {
             'icons_url' => Prayer_Global_Porch::get_url_path() . 'assets/images/icons',
             'spritesheet_url' => $spritesheet_url,
             'rest_route' => rest_url(),
+            'grid_id' => $this->grid_id,
         ] );
     }
 
