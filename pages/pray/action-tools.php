@@ -1,11 +1,7 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-
-/**
- * Class PG_Custom_Prayer_App_Stats
- */
-class PG_Custom_Prayer_App_Tools extends PG_Public_Page {
+class PG_Relay_Tools extends PG_Public_Page {
     public $url_path = 'tools';
     public $page_title = 'Prayer Lap Tools';
     public $root = 'pray';
@@ -190,4 +186,4 @@ class PG_Custom_Prayer_App_Tools extends PG_Public_Page {
     }
 }
 
-new PG_Custom_Prayer_App_Tools();
+new PG_Relay_Tools();
