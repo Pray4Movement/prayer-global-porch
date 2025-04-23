@@ -6,7 +6,6 @@ class Prayer_Global_About extends PG_Public_Page
     public $url_path = 'about';
     public $page_title = 'Global Prayer - About';
     public $url_parts;
-    public $custom_relay = false;
 
     private static $_instance = null;
     public static function instance() {

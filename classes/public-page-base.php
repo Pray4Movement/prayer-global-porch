@@ -27,7 +27,7 @@ abstract class PG_Public_Page {
     public $page_title = '';
     public $rest_route = '';
 
-    public function __construct( $ignore_url_check = false) {
+    public function __construct( $ignore_url_check = false ) {
         $path = dt_get_url_path( true );
         $is_rest = dt_is_rest();
         if ( $is_rest ) {
