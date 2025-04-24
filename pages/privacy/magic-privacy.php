@@ -153,7 +153,7 @@ class Prayer_Global_Porch_Privacy extends DT_Magic_Url_Base
                     <div class="col-12">
                         <hr>
                         <h3 class="secondary" id="access-control"><?php echo esc_html__( 'Your Access to and Control Over Information', 'prayer-global-porch' ) ?></h3>
-                            <p><?php echo sprintf( esc_html_x( 'You can do the following at any time by contacting us via our %s form:', 'You can do the following at any time by contacting us via our contact us form:', 'prayer-global-porch' ), '<a href="https://prayer.global/prayer_app/contact_us/">' . esc_html( __( 'contact us', 'prayer-global-porch' ) ) . '</a>' ) ?></p>
+                            <p><?php echo sprintf( esc_html_x( 'You can do the following at any time by contacting us via our %s form:', 'You can do the following at any time by contacting us via our contact us form:', 'prayer-global-porch' ), '<a href="https://prayer.global/contact-us/">' . esc_html( __( 'contact us', 'prayer-global-porch' ) ) . '</a>' ) ?></p>
                         <ul>
                             <li><?php echo esc_html__( "See what data we've aggregated from your activities with us.", 'prayer-global-porch' ) ?></li>
                             <li><?php echo esc_html__( 'Change/correct any data we have about you.', 'prayer-global-porch' ) ?></li>

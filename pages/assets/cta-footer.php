@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row" >
             <div class="col text-center text-white">
-                <a class="white pe-2" href="/prayer_app/contact_us/">Join</a>
+                <a class="white pe-2" href="/contact-us/">Join</a>
                 <span>|</span>
                 <a class="white fw-bold px-2" href="/give" target="_blank">Give <i class="ion-android-open"></i></a>
                 <span>|</span>

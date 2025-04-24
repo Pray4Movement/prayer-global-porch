@@ -138,7 +138,7 @@ class PG_Porch_404 extends DT_Magic_Url_Base
                 <div class="row">
                     <div class="col text-center">
                         <ul style="list-style: none; padding-left: 0;">
-                            <li><a href="/prayer_app/contact_us/"><?php echo esc_html__( 'Anything to share/request? Please contact us :)', 'prayer-global-porch' ) ?></a></li>
+                            <li><a href="/contact-us"><?php echo esc_html__( 'Anything to share/request? Please contact us :)', 'prayer-global-porch' ) ?></a></li>
                             <li><a href="/content_app/data_sources"><?php echo esc_html__( 'Where does all the data come from?', 'prayer-global-porch' ) ?></a></li>
                             <li><a href="/download_app/media"><?php echo esc_html__( 'Invites for sharing on social media', 'prayer-global-porch' ) ?></a></li>
                         </ul>

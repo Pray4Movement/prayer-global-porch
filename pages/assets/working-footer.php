@@ -12,7 +12,7 @@
         </div>
 
         <ul style="list-style: none;">
-            <li><a class="white" href="/prayer_app/contact_us/"><?php echo esc_html( __( 'Contact Us', 'prayer-global-porch' ) ) ?></a></li>
+            <li><a class="white" href="/contact-us/"><?php echo esc_html( __( 'Contact Us', 'prayer-global-porch' ) ) ?></a></li>
             <li><a class="white fw-bold" href="/give"><?php echo esc_html( __( 'Donate', 'prayer-global-porch' ) ) ?></a></li>
         </ul>
         <ul style="list-style: none;">

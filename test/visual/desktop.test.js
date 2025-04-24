@@ -16,7 +16,7 @@ describe('Desktop Testing', () => {
     })
 
     it('Contact page', async () => {
-        await testPage('prayer_app/contact_us/')
+        await testPage('contact-us/')
     })
 
     it('Subscribe page', async () => {
