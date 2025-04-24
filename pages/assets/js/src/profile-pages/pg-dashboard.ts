@@ -174,7 +174,7 @@ export class PgDashboard extends OpenElement {
                                 class="p-0 icon-button share-button two-rem d-flex"
                                 data-toggle="modal"
                                 data-target="#exampleModal"
-                                data-url=${`${window.location.origin}/prayer_app/${relay.relay_type}/${relay.lap_key}`}
+                                data-url=${`${window.location.origin}/${relay.lap_key}/pray`}
                               >
                                 <svg class="icon-sm white">
                                   <use
@@ -184,7 +184,7 @@ export class PgDashboard extends OpenElement {
                                 </svg>
                               </button>
                               <a
-                                href=${`/prayer_app/${relay.relay_type}/${relay.lap_key}`}
+                                href=${`/${relay.lap_key}/pray`}
                                 class="btn btn-cta"
                               >
                                 ${this.translations.pray}

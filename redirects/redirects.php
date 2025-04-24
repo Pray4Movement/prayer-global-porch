@@ -102,7 +102,7 @@ class Prayer_Global_Porch_Newest_Lap extends DT_Magic_Url_Base
     }
 
     public function redirect() {
-        $link = '/prayer_app/global/49ba4c';
+        $link = '/pray';
         wp_redirect( $link );
         exit;
     }
@@ -147,7 +147,7 @@ class Prayer_Global_Porth_ICOM_Lap extends DT_Magic_Url_Base
     }
 
     public static function link() {
-        $link = '/prayer_app/custom/' . self::$lap_key;
+        $link = '/' . self::$lap_key . '/pray';
         return $link;
     }
 
@@ -233,13 +233,13 @@ class Prayer_Global_Porch_Newest_Lap_Map extends DT_Magic_Url_Base
             $this->redirect();
         }
 
-        if ( $url === 'map' ) {
+        if ( $url === 'newest/map' ) {
             $this->redirect();
         }
     }
 
     public function redirect() {
-        $link = '/prayer_app/global/49ba4c/map';
+        $link = '/map';
         wp_redirect( $link );
         exit;
     }
@@ -350,4 +350,90 @@ class Prayer_Global_Porch_App_Store_Redirect extends DT_Magic_Url_Base
     }
 }
 Prayer_Global_Porch_App_Store_Redirect::instance();
+
+class Prayer_Global_Porch_Legacy_App_Redirects extends DT_Magic_Url_Base
+{
+    public $page_title = 'Prayer.Global - Legacy App Redirects';
+    public $root = 'prayer_app';
+    public $url_token = 'prayer_app';
+    public $type_name = 'Legacy App Redirects';
+    public $post_type = 'contacts';
+
+    private static $_instance = null;
+    public static function instance() {
+        if ( is_null( self::$_instance ) ) {
+            self::$_instance = new self();
+        }
+        return self::$_instance;
+    } // End instance()
+
+    public function __construct() {
+        parent::__construct();
+
+        $url = dt_get_url_path();
+
+        if ( substr( $url, 0, strlen( $this->url_token ) ) !== $this->root ) {
+            return;
+        }
+
+        $this->handle_redirects( $url );
+    }
+
+    public function handle_redirects( $url ) {
+        $parts = explode( '/', $url );
+
+        // Skip 'prayer_app' part
+        array_shift( $parts );
+
+        if ( empty( $parts ) ) {
+            return;
+        }
+
+        // Handle global redirects
+        if ( $parts[0] === 'global' && isset( $parts[1] ) && $parts[1] === '49ba4c' ) {
+            if ( ! isset( $parts[2] ) ) {
+                // /prayer_app/global/49ba4c to /pray
+                $link = '/pray';
+                wp_redirect( $link );
+                exit;
+            } elseif ( isset( $parts[2] ) && $parts[2] === 'map' ) {
+                // /prayer_app/global/49ba4c/map to /map
+                $link = '/map';
+                wp_redirect( $link );
+                exit;
+            }
+        }
+
+        // Handle custom redirects
+        if ( $parts[0] === 'custom' && isset( $parts[1] ) ) {
+            $key = $parts[1];
+
+            if ( ! isset( $parts[2] ) ) {
+                // Default behavior - redirect to pray
+                $link = '/' . $key . '/pray';
+                wp_redirect( $link );
+                exit;
+            } elseif ( isset( $parts[2] ) ) {
+                // Map various endpoints
+                switch ( $parts[2] ) {
+                    case 'map':
+                        $link = '/' . $key . '/map';
+                        break;
+                    case 'display':
+                        $link = '/' . $key . '/display';
+                        break;
+                    case 'tools':
+                        $link = '/' . $key . '/tools';
+                        break;
+                    default:
+                        return; // Unknown endpoint, don't redirect
+                }
+
+                wp_redirect( $link );
+                exit;
+            }
+        }
+    }
+}
+Prayer_Global_Porch_Legacy_App_Redirects::instance();
 

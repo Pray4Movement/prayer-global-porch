@@ -240,7 +240,7 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
                                     <em><?php echo esc_html__( 'What do the icons mean?', 'prayer-global' ) ?></em>
                                 </p>
                                 <p>
-                                    <a href="/content_app/about_page#faith-status-icons"><?php echo esc_html__( 'See the about page', 'prayer-global' ) ?></a>
+                                    <a href="/about#faith-status-icons"><?php echo esc_html__( 'See the about page', 'prayer-global' ) ?></a>
                                 </p>
                                 <p class="font-weight-bold">
                                     <em><?php echo esc_html__( 'Am I just praying for unreached people groups?', 'prayer-global' ) ?></em>

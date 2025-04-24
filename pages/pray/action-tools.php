@@ -1,66 +1,47 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-
-/**
- * Class PG_Custom_Prayer_App_Stats
- */
-class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
-
-    private static $_instance = null;
-    public static function instance() {
-        if ( is_null( self::$_instance ) ) {
-            self::$_instance = new self();
-        }
-        return self::$_instance;
-    } // End instance()
+class PG_Relay_Tools extends PG_Public_Page {
+    public $url_path = 'tools';
+    public $page_title = 'Prayer Lap Tools';
+    public $root = 'pray';
+    public $type = 'tools';
+    public $parts = [];
+    private $url_parts;
+    private $custom_relay = false;
+    private $relay_key = '49ba4c';
+    private $relay_id = 2128;
 
     public function __construct() {
+        $url_path = dt_get_url_path( true );
+        $this->url_parts = explode( '/', $url_path );
+        $this->custom_relay = isset( $this->url_parts[0] ) && $this->url_parts[0] !== $this->relay_key && $this->url_parts[0] !== 'tools';
+
+        if ( $url_path !== 'tools' && ( !isset( $this->url_parts[1] ) || $this->url_parts[1] !== 'tools' ) ) {
+            return;
+        }
+        $this->url_path = $url_path;
+
         parent::__construct();
-
-        // must be valid url
-        $url = dt_get_url_path();
-        if ( strpos( $url, $this->root . '/' . $this->type ) === false ) {
-            return;
+        if ( $this->custom_relay ) {
+            $this->relay_key = $this->url_parts[0];
+            $this->custom_relay = true;
+            $this->relay_id = pg_get_relay_id( $this->relay_key );
+            $this->page_title = get_the_title( $this->relay_id );
         }
-
-        // must be valid parts
-        if ( !$this->check_parts_match() ){
-            return;
-        }
-
-        // must be specific action
-        if ( 'tools' !== $this->parts['action'] ) {
-            return;
-        }
-
-        add_action( 'dt_blank_body', [ $this, 'body' ] );
-        add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
-        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        return [];
+        $allowed_js[] = 'clipboard';
+        return $allowed_js;
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
         return $allowed_css;
     }
 
-    public function _header() {
-        $this->header_style();
-        $this->header_javascript();
-    }
-    public function _footer(){
-        $this->footer_javascript();
-    }
-
     public function header_javascript(){
-        wp_head();
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
-        ?>
-        <script src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/js/clipboard.min.js?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/js/clipboard.min.js' ) ) ?>"></script>
-        <?php
     }
 
     public function footer_javascript(){
@@ -105,8 +86,7 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
     }
 
     public function body(){
-        $parts = $this->parts;
-        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $parts['public_key'], $parts['post_id'] );
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $this->relay_key, $this->relay_id );
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' );
         ?>
         <section class="page">
@@ -131,12 +111,12 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
                 </div>
                 <div class="row justify-content-center">
                     <div class="col col-6 col-md-4 col-lg-3 text-center">
-                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&amp;data=<?php echo esc_url( get_site_url() ) ?>/prayer_app/custom/<?php echo esc_html( $lap_stats['key'] ) ?>/map" style="width: 100%;max-width:400px;"><br><br>
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&amp;data=<?php echo esc_url( get_site_url() ) ?>/<?php echo esc_html( $lap_stats['key'] ) ?>/map" style="width: 100%;max-width:400px;"><br><br>
                     </div>
                 </div>
                 <div class="input-group">
                     <input type="text" class="form-control copy-input"
-                           value="<?php echo esc_url( get_site_url() ) ?>/prayer_app/custom/<?php echo esc_html( $lap_stats['key'] ) ?>/map" placeholder="Some path" id="copy-input">
+                           value="<?php echo esc_url( get_site_url() ) ?>/<?php echo esc_html( $lap_stats['key'] ) ?>/map" placeholder="Some path" id="copy-input">
                     <button class="btn btn-secondary copy-button input-group-btn" type="button" id="copy-button"
                               data-bs-toggle="tooltip" data-placement="button"
                               title="<?php esc_attr( __( 'Copy to Clipboard', 'prayer-global-porch' ) ) ?>" data-clipboard-action="copy" data-clipboard-target="#copy-input">
@@ -157,7 +137,7 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
                 </div>
                 <div class="input-group">
                     <input type="text" class="form-control copy-display"
-                           value="<?php echo esc_url( get_site_url() ) ?>/prayer_app/custom/<?php echo esc_html( $lap_stats['key'] ) ?>/display" placeholder="Some path" id="copy-display-input">
+                           value="<?php echo esc_url( get_site_url() ) ?>/<?php echo esc_html( $lap_stats['key'] ) ?>/display" placeholder="Some path" id="copy-display-input">
                       <button class="btn btn-secondary copy-button input-group-btn" type="button" id="copy-button-display"
                               data-bs-toggle="tooltip" data-placement="button"
                               title="<?php esc_attr( __( 'Copy to Clipboard', 'prayer-global-porch' ) ) ?>" data-clipboard-action="copy" data-clipboard-target="#copy-display-input">
@@ -200,5 +180,10 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
         <?php require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/working-footer.php' ) ?>
         <?php // end html
     }
+
+    public function wp_enqueue_scripts(){
+        wp_enqueue_script( 'clipboard', plugin_dir_url( __DIR__ ) . 'assets/js/clipboard.min.js', [], filemtime( plugin_dir_path( __DIR__ ) . 'assets/js/clipboard.min.js' ), true );
+    }
 }
-PG_Custom_Prayer_App_Tools::instance();
+
+new PG_Relay_Tools();

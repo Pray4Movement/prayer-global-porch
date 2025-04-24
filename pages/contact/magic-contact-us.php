@@ -3,48 +3,18 @@ if ( !defined( 'ABSPATH' ) ){
     exit;
 } // Exit if accessed directly.
 
-class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
-    public $magic = false;
-    public $parts = false;
+class Prayer_Global_Porch_Contact_Us extends PG_Public_Page {
+    public $url_path = 'contact-us';
     public $page_title = 'Global Prayer - Contact Us';
-    public $root = 'prayer_app';
-    public $type = 'contact_us';
-    public $type_name = 'Global Prayer - Contact Us';
-    public static $token = 'prayer_app';
-    public $post_type = 'groups';
-
-    private static $_instance = null;
-
-    public static function instance(){
-        if ( is_null( self::$_instance ) ){
-            self::$_instance = new self();
-        }
-        return self::$_instance;
-    } // End instance()
+    public $url_parts;
+    public $rest_route = 'prayer-api';
 
     public function __construct(){
         parent::__construct();
-
-        $url = dt_get_url_path();
-        if ( ( $this->root . '/' . $this->type ) === $url ){
-
-            $this->magic = new DT_Magic_URL( $this->root );
-            $this->parts = $this->magic->parse_url_parts();
-
-
-            // page content
-            add_action( 'dt_blank_body', [ $this, 'body' ] ); // body for no post key
-
-            add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
-            add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
-            add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-
-        }
-        add_action( 'rest_api_init', [ $this, 'add_api_routes' ] );
     }
 
-    public function add_api_routes(){
-        register_rest_route( $this->root . '/v1/' . $this->type, '/contact_us', [
+    public function register_endpoints(){
+        register_rest_route( $this->rest_route, '/contact-us', [
             'methods' => 'POST',
             'callback' => [ $this, 'contact_us' ],
             'permission_callback' => function (){
@@ -55,6 +25,10 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
 
     public function contact_us( WP_REST_Request $request ){
         $params = $request->get_params();
+        //verify nonce
+        if ( !wp_verify_nonce( $request->get_header( 'X-WP-Nonce' ), 'wp_rest' ) ){
+            return new WP_Error( __METHOD__, 'Invalid nonce', [ 'status' => 403 ] );
+        }
 
         $name = sanitize_text_field( $params['name'] );
         $email = sanitize_email( $params['email'] );
@@ -128,7 +102,9 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ){
-        return [ 'cloudflare-turnstile' ];
+        $allowed_js[] = 'cloudflare-turnstile';
+        $allowed_js[] = 'jquery';
+        return $allowed_js;
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ){
@@ -222,8 +198,6 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
             </div>
         </section>
         <script>
-          const parts = <?php echo json_encode( $this->parts ) ?>;
-
           let submit_contact_us_form = function () {
 
             $('#contact-submit-spinner').show()
@@ -242,7 +216,6 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
             const news = $('#news').is(':checked');
 
             let payload = {
-              'parts': parts,
               name,
               email,
               message,
@@ -250,7 +223,7 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
               cf_token,
             };
 
-            let link = window.pg_global.root + parts.root + '/v1/' + parts.type + '/contact_us';
+            let link = window.pg_global.root + 'prayer-api/contact-us';
 
             jQuery.ajax({
               type: 'POST',
@@ -258,6 +231,9 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
               contentType: 'application/json; charset=utf-8',
               dataType: 'json',
               url: link,
+              beforeSend: function(xhr) {
+                xhr.setRequestHeader('X-WP-Nonce', window.pg_global.nonce);
+              },
             }).done(function (data) {
               $('#contact-submit-spinner').hide()
               $('#form-content').hide()
@@ -275,7 +251,7 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
         <?php
     }
 
-    public function enqueue_scripts(){
+    public function wp_enqueue_scripts(){
         $cloudflare_site_key = get_option( 'dt_cloudflare_site_key', '' );
         if ( !empty( $cloudflare_site_key ) ){
             wp_enqueue_script( 'cloudflare-turnstile', 'https://challenges.cloudflare.com/turnstile/v0/api.js', [], 'v0', [ 'strategy' => 'defer' ] );
@@ -283,4 +259,4 @@ class Prayer_Global_Porch_Contact_Us extends DT_Magic_Url_Base{
     }
 }
 
-Prayer_Global_Porch_Contact_Us::instance();
+new Prayer_Global_Porch_Contact_Us();

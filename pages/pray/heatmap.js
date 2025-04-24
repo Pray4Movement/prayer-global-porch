@@ -60,32 +60,28 @@ window.addEventListener("load", function ($) {
 
   let countdownInterval;
 
-  if (window.get_page === undefined) {
-    window.get_page = (action, data = null) => {
-      const body = { action: action, parts: jsObject.parts };
-      if (data !== null) {
-        body.data = data;
-      }
-      return jQuery
-        .ajax({
-          type: "POST",
-          data: JSON.stringify(body),
-          contentType: "application/json; charset=utf-8",
-          dataType: "json",
-          url:
-            window.pg_global.root +
-            jsObject.parts.root +
-            "/v1/" +
-            jsObject.parts.type +
-            "/" +
-            jsObject.parts.action,
-        })
-        .fail(function (e) {
-          console.error(e);
-          jQuery("#error").html(e);
-        });
+
+  window.api_fetch = function (url, options = {}) {
+    const opts = {
+      method: "GET",
+      ...options,
     };
-  }
+  
+    if (!Object.prototype.hasOwnProperty.call(options, "headers")) {
+      opts.headers = {};
+    }
+  
+    opts.headers["Content-Type"] = "application/json";
+    opts.headers["X-WP-Nonce"] = pg_global.nonce;
+  
+    return fetch(url, opts)
+      .then((result) => {
+        return result;
+      })
+      .then((result) => result.json());
+  };
+
+  
   if (window.api_post_global === undefined) {
     window.api_post_global = (type, action, data = []) => {
       return window.api_fetch(
@@ -136,7 +132,7 @@ window.addEventListener("load", function ($) {
       const urlWithAction = url.pathname;
       const urlWithoutAction = urlWithAction.split("/").slice(0, -1).join("/");
 
-      pray_for_area_content.innerHTML = `<iframe src="${urlWithoutAction}/location?grid_id=${window.selected_grid_id}" frameborder="0" id="pray-for-area-iframe"></iframe>`;
+      pray_for_area_content.innerHTML = `<iframe src="${urlWithoutAction}/pray?grid_id=${window.selected_grid_id}" frameborder="0" id="pray-for-area-iframe"></iframe>`;
 
       /* fit the iframe to the screen height */
       const pray_for_area_iframe = document.getElementById(
@@ -198,38 +194,51 @@ window.addEventListener("load", function ($) {
   let loop = 0;
   let list = 0;
   window.load_map_triggered = 0;
-  window
-    .get_page("get_grid", {
-      lap_number: jsObject.stats.lap_number,
-    })
-    .done(function (x) {
-      list = 1;
+  window.api_fetch(
+    `${window.pg_global.root}prayer-global/stats/map/locations`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        lap_number: jsObject.stats.lap_number,
+        public_key: jsObject.relay_key,
+        relay_id: jsObject.relay_id,
+      }),
+    }
+  ).then(function (x) {
+    list = 1;
 
-      jsObject.grid_data = x.grid_data;
-      jsObject.participants = x.participants;
 
-      if (loop > 9 && list > 0 && window.load_map_triggered !== 1) {
-        window.load_map_triggered = 1;
-        load_map();
-      }
-    })
-    .fail(function () {
-      console.error("Error getting grid data");
-      jsObject.grid_data = { data: {}, highest_value: 1 };
-    });
-  let data = {
-    hash: localStorage.getItem("pg_user_hash"),
-    lap_number: jsObject.stats.lap_number,
-  };
-  window
-    .get_page("get_user_locations", data)
-    .then(function (user_locations) {
-      jsObject.user_locations = user_locations;
-    })
-    .catch(function () {
-      console.error("Error getting user locations");
-      jsObject.user_locations = [];
-    });
+    jsObject.grid_data = x.grid_data;
+    jsObject.participants = x.participants;
+
+    if (loop > 9 && list > 0 && window.load_map_triggered !== 1) {
+      window.load_map_triggered = 1;
+      load_map();
+    }
+  })
+  .catch(function () {
+    console.error("Error getting grid data");
+    // jsObject.grid_data = { data: {}, highest_value: 1 };
+  });
+  window.api_fetch(
+    `${window.pg_global.root}pg-api/v1/user/locations-prayed-for`,
+    {
+      method: "POST",
+      body: JSON.stringify({
+        hash: localStorage.getItem("pg_user_hash"),
+        lap_number: jsObject.stats.lap_number,
+        relay_key: jsObject.relay_key,
+        relay_id: jsObject.relay_id,
+      }),
+    }
+  )
+  .then(function (user_locations) {
+    jsObject.user_locations = user_locations;
+  })
+  .catch(function () {
+    console.error("Error getting user locations");
+    jsObject.user_locations = [];
+  });
 
   let map;
   jQuery.each(asset_list, function (i, v) {
@@ -816,7 +825,7 @@ window.addEventListener("load", function ($) {
       startPrayingButton.html("Start Praying");
       startPrayingButton.off("click");
       startPrayingButton.on("click", () => {
-        location.href = `/prayer_app/custom/${jsObject.parts.public_key}`;
+        location.href = `/${jsObject.relay_key}/pray`;
       });
       startPrayingButton.show();
       prayButton.show();
@@ -892,7 +901,6 @@ window.addEventListener("load", function ($) {
     if (response.error) {
       return;
     }
-    console.log(response);
 
     window.report_content = response;
 
@@ -903,7 +911,6 @@ window.addEventListener("load", function ($) {
     for (let i = 0; i < response.location.percent_non_christians; i++) {
       bodies_1 += '<i class="ion-ios-body brand two-em"></i>';
     }
-    console.log(bodies_1);
     for (let i = 0; i < response.location.percent_christian_adherents; i++) {
       bodies_2 += '<i class="ion-ios-body brand-lighter two-em"></i>';
     }
@@ -986,7 +993,13 @@ window.addEventListener("load", function ($) {
     jQuery("#offcanvas_location_details").offcanvas("show");
 
     window
-      .get_page("get_grid_stats", { grid_id: grid_id })
+      .api_fetch(
+        `${window.pg_global.root}prayer-global/stats/map/location`,
+        {
+          method: "POST",
+          body: JSON.stringify({ grid_id: grid_id }),
+        }
+      )
       .done(function (response) {
         window.report_content = response;
 
@@ -1200,11 +1213,16 @@ window.addEventListener("load", function ($) {
 
   function update_map(grid_id) {
     window
-      .get_page("get_grid", {
-        lap_number: jsObject.stats.lap_number,
-      })
-      .done(function (x) {
-        console.log("reload");
+      .api_fetch(
+        `${window.pg_global.root}prayer-global/stats/map/locations`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            lap_number: jsObject.stats.lap_number,
+          }),
+        }
+      )
+      .then(function (x) {
         // add stats
         jsObject.grid_data = x.grid_data;
         reload_load_grid(grid_id);
@@ -1213,10 +1231,16 @@ window.addEventListener("load", function ($) {
 
   function update_stats() {
     window
-      .get_page("get_stats", {
-        lap_number: jsObject.stats.lap_number,
-      })
-      .done(function (stats) {
+      .api_fetch(
+        `${window.pg_global.root}prayer-global/stats/lap`,
+        {
+          method: "POST",
+          body: JSON.stringify({
+            public_key: jsObject.relay_key,
+          }),
+        }
+      )
+      .then(function (stats) {
         jsObject.stats = stats;
         jQuery(".completed").html(jsObject.stats.completed);
         jQuery(".completed_percent").html(jsObject.stats.completed_percent);

@@ -31,7 +31,7 @@ class PG_My_Map extends PG_Public_Page {
             'lap_number' => 1,
         ];
 
-        $pray_href = '/prayer_app/custom/';
+        $pray_href = '/pray';
         ?>
         <style id="custom-style"></style>
         <div id="map-content">

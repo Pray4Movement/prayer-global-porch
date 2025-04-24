@@ -112,12 +112,12 @@ class PG_Relays_Table {
         $args = [
             // lap information
             'post_id' => $relay_id,
-            'post_type' => $parts['post_type'],
+            'post_type' => $parts['post_type'] ?? 'pg_relays',
             'lap_number' => $lap_number,
             'global_lap_number' => $data['global_lap_number'] ?? $lap_number,
 
-            'type' => $parts['root'],
-            'subtype' => $parts['type'],
+            'type' => $parts['root'] ?? 'prayer_app',
+            'subtype' => $parts['type'] ?? 'global',
 
             // prayer information
             'value' => $pace ?? 1,

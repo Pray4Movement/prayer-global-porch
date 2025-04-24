@@ -116,7 +116,7 @@
                                 The current map shows what has been covered so far in the active prayer map.
                             </p>
                             <p>
-                                <strong class="black">Race Map</strong> <a href="/race_app/race_map/"><i class="ion-android-open"></i></a>
+                                <strong class="black">Race Map</strong> <a href="/race-map/"><i class="ion-android-open"></i></a>
                             </p>
                             <p>
                                 The Race map shows the number of laps, number of minutes, and number of prayer intercessors for the entire challenge.
@@ -263,7 +263,7 @@
         </div>
         <div class="row">
             <div class="col-md text-center">
-                <a href="/race_app/race_map/" role="button" class="btn smoothscroll btn-outline-dark btn-xl" data-reverse-color>Race Map</a>
+                <a href="/race-map/" role="button" class="btn smoothscroll btn-outline-dark btn-xl" data-reverse-color>Race Map</a>
                 <a href="/race_app/race_list/" role="button" class="btn smoothscroll btn-outline-dark btn-xl" data-reverse-color>Race List</a>
             </div>
         </div>

@@ -5,8 +5,8 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
     $url = dt_get_url_path();
 
     if ( $is_custom_lap ) {
-        $start_praying_href = "/prayer_app/custom/$key";
-        $map_href = "/prayer_app/custom/$key/map";
+        $start_praying_href = "/$key/pray";
+        $map_href = "/$key/map";
     } else {
         $start_praying_href = '/newest/lap';
         $map_href = '/newest/map';
@@ -84,7 +84,7 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
                     </div>
                 </a>
 
-                <a class="nav-link" href="/content_app/about_page">
+                <a class="nav-link" href="/about">
                     <div class="nav-link__inner">
                         <i class="icon pg-question-dark"></i>
                         <span><?php echo esc_html( __( 'About', 'prayer-global-porch' ) ) ?></span>

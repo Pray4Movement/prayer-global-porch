@@ -16,7 +16,7 @@ describe('Mobile Testing', () => {
     })
 
     it('Contact page', async () => {
-        await testPage('prayer_app/contact_us/')
+        await testPage('contact-us/')
     })
 
     it('Subscribe page', async () => {
@@ -49,7 +49,7 @@ describe('Mobile Testing', () => {
     })
 
     it('Race Map', async () => {
-        await testPage('race_app/race_map/')
+        await testPage('race-map/')
     })
 
     it('Race List', async () => {

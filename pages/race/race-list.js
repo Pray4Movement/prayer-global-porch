@@ -36,7 +36,7 @@ window.addEventListener("load", function () {
           <td>${v.stats.participants}</td>
           <td>${v.stats.time_elapsed_small}</td>
           <td>
-             <a href="/prayer_app/global/${v.stats.key}/map?lap=${
+             <a href="/${v.stats.key}/map?lap=${
         v.lap_number
       }">View Map</a>
           </td>

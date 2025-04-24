@@ -27,7 +27,7 @@ abstract class PG_Public_Page {
     public $page_title = '';
     public $rest_route = '';
 
-    public function __construct() {
+    public function __construct( $ignore_url_check = false ) {
         $path = dt_get_url_path( true );
         $is_rest = dt_is_rest();
         if ( $is_rest ) {
@@ -36,7 +36,7 @@ abstract class PG_Public_Page {
         }
 
         //if current url path is not this url path, return
-        if ( $path !== $this->url_path ) {
+        if ( !$ignore_url_check && $path !== $this->url_path ) {
             return false;
         }
 
@@ -54,12 +54,12 @@ abstract class PG_Public_Page {
         add_action( 'dt_blank_footer', [ $this, '_footer' ] );
         add_action( 'dt_blank_body', [ $this, 'body' ] );
         //title
-        add_filter( 'dt_blank_title', [ $this, 'title' ] );
+        add_filter( 'dt_blank_title', [ $this, 'title' ], 10, 1 );
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 1001 );
         return true;
     }
 
-    public function title(){
+    public function title( $title ){
         return $this->page_title;
     }
 
