@@ -10,7 +10,7 @@
         <p><?php echo esc_html__( 'You can change this later in your settings.', 'prayer-global-porch' ) ?></p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary-outline" data-bs-dismiss="modal"><?php echo esc_html__( 'Not now', 'prayer-global-porch' ); ?></button>
+        <button type="button" class="btn btn-primary-outline" id="dismiss-notification-modal" data-bs-dismiss="modal"><?php echo esc_html__( 'Not now', 'prayer-global-porch' ); ?></button>
         <button type="button" class="btn btn-primary" id="allow-notifications"><?php echo esc_html__( 'Allow', 'prayer-global-porch' ); ?></button>
       </div>
     </div>

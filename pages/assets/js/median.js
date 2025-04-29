@@ -15,26 +15,26 @@ async function median_library_ready() {
         notificationsPermission !== true &&
         !pg_global.has_requested_notifications
       ) {
-        await window
-          .api_fetch(
-            `${pg_global.root}pg-api/v1/user/requested-notifications`,
+        const setRequestedNotification = window.api_fetch(
+          `${pg_global.root}pg-api/v1/user/requested-notifications`,
+          {
+            method: "POST",
+          }
+        );
+        const setUserNotificationPermission = () =>
+          window.api_fetch(
+            `${pg_global.root}pg-api/v1/user/notifications-permission`,
             {
               method: "POST",
+              body: JSON.stringify({
+                notifications_permission: true,
+              }),
             }
-          )
-          .then(() => {
-            const setUserNotificationPermission = () =>
-              window.api_fetch(
-                `${pg_global.root}pg-api/v1/user/notifications-permission`,
-                {
-                  method: "POST",
-                  body: JSON.stringify({
-                    notifications_permission: true,
-                  }),
-                }
-              );
-            requestNotificationsPermission(setUserNotificationPermission);
-          });
+          );
+        requestNotificationsPermission(
+          setUserNotificationPermission,
+          setRequestedNotification
+        );
       }
     }
 
@@ -87,14 +87,20 @@ async function median_library_ready() {
 }
 
 window.requestNotifiationsPermission = requestNotificationsPermission;
-function requestNotificationsPermission(callback) {
+function requestNotificationsPermission(
+  setUserPermission,
+  setNotificationRequested
+) {
   const notificationModal = document.getElementById("notification-modal");
   const allowNotificationsButton = document.getElementById(
     "allow-notifications"
   );
+  const dismissNotificationModal = document.getElementById(
+    "dismiss-notification-modal"
+  );
   const myModal = new bootstrap.Modal(notificationModal);
   myModal.show();
-  allowNotificationsButton.addEventListener("click", () => {
+  allowNotificationsButton.addEventListener("click", async () => {
     window.medianPermissions.requestNotificationsPermission();
 
     if (window.umami) {
@@ -103,7 +109,12 @@ function requestNotificationsPermission(callback) {
 
     myModal.hide();
 
-    callback();
+    await setUserPermission();
+    await setNotificationRequested();
+  });
+  dismissNotificationModal.addEventListener("click", async () => {
+    await setNotificationRequested();
+    myModal.hide();
   });
 }
 
