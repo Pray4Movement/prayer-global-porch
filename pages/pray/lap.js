@@ -54,8 +54,10 @@ const welcomeScreenCloseButton = document.querySelector(
 );
 
 init();
-
 async function init() {
+  if (history.scrollRestoration) {
+    history.scrollRestoration = "manual";
+  }
   window.paused = false;
   window.finishedPraying = false;
   window.alreadyLogged = false;
