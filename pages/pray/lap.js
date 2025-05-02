@@ -610,15 +610,19 @@ function ip_location() {
             JSON.stringify(window.user_location)
           );
         }
+      })
+      .then(() => {
+        // If the user is logged in, then save the location to the user
+        if (window.pg_global.user) {
+          return window.api_fetch(
+            `${window.pg_global.root}pg-api/v1/user/save_details`,
+            {
+              method: "POST",
+              body: JSON.stringify({ location: window.user_location }),
+            }
+          );
+        }
       });
-  }
-
-  // If the user is logged in, then save the location to the user
-  if (window.pg_global.user) {
-    window.api_fetch(`${window.pg_global.root}pg-api/v1/user/save_details`, {
-      method: "POST",
-      body: JSON.stringify({ location: window.user_location }),
-    });
   }
 }
 /* Fly away the see more button after a little bit of scroll */
