@@ -140,11 +140,14 @@ class PG_User_API {
 
             $old_location = get_user_meta( get_current_user_id(), PG_NAMESPACE . 'location', true );
 
+            $timezone = self::_get_timezone_from_grid_id( 2, $grid_row['admin2_grid_id'] );
+
             $location['grid_id'] = $grid_row ? $grid_row['grid_id'] : false;
             $location['lat'] = strval( $lat );
             $location['lng'] = strval( $lng );
             $location['country'] = self::_extract_country_from_label( $label );
             $location['hash'] = $old_location ? $old_location['hash'] : '';
+            $location['timezone'] = $timezone ?? '';
 
             $result['location'] = $location;
             $user_updates['location'] = $location;
@@ -158,6 +161,25 @@ class PG_User_API {
         self::update_user_meta( $user_updates );
 
         return $result;
+    }
+
+    /**
+     * Private utility function to get the timezone from the admin0 level of the grid_id
+     */
+    private static function _get_timezone_from_grid_id( $level, $grid_id ) {
+        global $wpdb;
+
+        if ( $level === 0 ) {
+            $where = 'admin0_grid_id = %s';
+        } else if ( $level === 1 ) {
+            $where = 'admin1_grid_id = %s';
+        } else if ( $level === 2 ) {
+            $where = 'admin2_grid_id = %s';
+        }
+
+        //phpcs:ignore
+        $grid_row = $wpdb->get_row( $wpdb->prepare( "SELECT timezone FROM $wpdb->location_grid_cities WHERE $where", $grid_id ), ARRAY_A );
+        return $grid_row['timezone'];
     }
 
     /**

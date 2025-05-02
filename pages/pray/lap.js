@@ -582,7 +582,8 @@ function ip_location() {
     window.user_location === "undefined" ||
     (window.user_location.date_set &&
       window.user_location.date_set <
-        Date.now() - 604800000) /*7 days in milliseconds*/
+        Date.now() - 604800000) /*7 days in milliseconds*/ ||
+    !window.user_location.time_zone
   ) {
     return window
       .api_fetch(`https://geo.prayer.global/json`, {
@@ -596,6 +597,7 @@ function ip_location() {
             label: `${response.city?.names?.en}, ${response.country?.names?.en}`,
             country: response.country?.names?.en,
             date_set: Date.now(),
+            time_zone: response.location.time_zone,
           };
           let pg_user_hash = localStorage.getItem("pg_user_hash");
           if (!pg_user_hash || pg_user_hash === "undefined") {
@@ -609,6 +611,14 @@ function ip_location() {
           );
         }
       });
+  }
+
+  // If the user is logged in, then save the location to the user
+  if (window.pg_global.user) {
+    window.api_fetch(`${window.pg_global.root}pg-api/v1/user/save_details`, {
+      method: "POST",
+      body: JSON.stringify({ location: window.user_location }),
+    });
   }
 }
 /* Fly away the see more button after a little bit of scroll */
