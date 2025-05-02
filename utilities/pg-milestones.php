@@ -88,7 +88,7 @@ class PG_Milestones
 
         $url = site_url( 'dashboard' );
 
-        if ( $hours_inactive >= 36 && $hours_inactive < 48 ) {
+        if ( $hours_inactive >= 24 && $hours_inactive < 48 ) {
             return [
                 new PG_Milestone(
                     __( 'Keep your streak alive', 'prayer-global-porch' ),
