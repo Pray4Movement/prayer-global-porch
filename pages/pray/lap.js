@@ -982,13 +982,13 @@ function _template_people_groups_list(data) {
       image = `<div style="background-image:url(${v.image_url}); " class="bg-img img-fluid"></div>`;
     } else {
       image = `
-      <div style=" height:200px;">
+      <div style="height:200px;">
           <img class="img-fluid" src="${jsObject.nope}" alt="" />
       </div>`;
     }
     values_list += `
         <div class="flow grow0">
-            <p class="mb-2 text-center">${image}</p>
+            <div class="mb-2 center">${image}</div>
             <div>
                 <img src="${v.progress_image_url}" class="img-fluid" alt="" />
             </div>
