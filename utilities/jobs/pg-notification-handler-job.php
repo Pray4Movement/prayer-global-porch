@@ -43,12 +43,18 @@ class PG_Notification_Handler_Job extends Job {
 
             foreach ( $milestones as $milestone ) {
                 dt_write_log( 'PG_Notification_Handler_Job: ' . $milestone->get_category() );
-                if ( $milestone->get_category() === 'streak' && !PG_Notifications_Sent::is_recent( $user->ID, $milestone ) ) {
+                if (
+                        $milestone->get_category() === 'streak' &&
+                        !PG_Notifications_Sent::is_recent( $user->ID, $milestone )
+                ) {
                     if ( $can_send_push && $milestone->push() ) {
                         wp_queue()->push( new PG_User_Push_Notification_Job( $user, $milestone ) );
                     }
                 }
-                if ( $milestone->get_category() === 'inactivity' && !PG_Notifications_Sent::is_recent( $user->ID, $milestone, 24 ) ) {
+                if (
+                    $milestone->get_category() === 'inactivity' &&
+                    !PG_Notifications_Sent::is_recent( $user->ID, $milestone, 24 )
+                ) {
                     if ( $can_send_push && $milestone->push() ) {
                         wp_queue()->push( new PG_User_Push_Notification_Job( $user, $milestone ) );
                     }

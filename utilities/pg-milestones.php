@@ -82,7 +82,6 @@ class PG_Milestones
      */
     private function get_celebratory_message(): PG_Milestone
     {
-        $current_streak = $this->user_stats->current_streak_in_days();
         $titles = [
             __( 'Thank You for Being Here', 'prayer-global-porch' ),
             __( 'Grateful You\'re Part of This', 'prayer-global-porch' ),
@@ -133,7 +132,7 @@ class PG_Milestones
             $titles[ array_rand( $titles ) ],
             $messages[ array_rand( $messages ) ],
             'celebratory',
-            $current_streak,
+            $this->user_stats->current_streak_in_days(),
             [ PG_CHANNEL_IN_APP, PG_CHANNEL_PUSH ]
         );
     }
