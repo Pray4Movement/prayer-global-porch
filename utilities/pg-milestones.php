@@ -67,7 +67,7 @@ class PG_Milestones
                 )
             ];
         }
-        if ( $current_streak > 1 ) {
+        if ( $current_streak > 0 ) {
             return [
                 $this->get_celebratory_message()
             ];
