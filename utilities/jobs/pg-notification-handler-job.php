@@ -48,7 +48,7 @@ class PG_Notification_Handler_Job extends Job {
                         !PG_Notifications_Sent::is_recent( $user->ID, $milestone )
                 ) {
                     if ( $can_send_push && $milestone->push() ) {
-                        wp_queue()->push( new PG_User_Push_Notification_Job( $user, $milestone ) );
+                        wp_queue()->push( new PG_User_Push_Notification_Job( $user, $milestone ), 15 * MINUTE_IN_SECONDS );
                     }
                 }
                 if (
