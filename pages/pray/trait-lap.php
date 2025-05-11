@@ -92,6 +92,7 @@ trait PG_Lap_Trait {
                 'direct_api_url' => plugin_dir_url( dirname( __DIR__ ) ),
                 'icons_url' => plugin_dir_url( __DIR__ ) . 'assets/images/icons',
                 'spritesheet_url' => $spritesheet_url,
+                'date_diff' => date_diff( new DateTime( '2025-05-07 22:00:00', new DateTimeZone( 'Europe/London' ) ), new DateTime( '2025-05-08 02:00:00', new DateTimeZone( 'Europe/London' ) ) )->days,
             ]) ?>][0]
         </script>
         <?php
