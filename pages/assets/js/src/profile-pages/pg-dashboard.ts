@@ -131,8 +131,10 @@ export class PgDashboard extends OpenElement {
 
               <hr>
 
+              <!-- If the user has installed the app, don't show the download app section -->
               ${
-                !window.isMobileAppUser() || window.isLegacyAppUser
+                !window.pg_global.has_used_app &&
+                (!window.isMobileAppUser() || window.isLegacyAppUser)
                   ? html`
                       <div
                         class="stack-sm brand-lightest-bg p-4 rounded-3 white"

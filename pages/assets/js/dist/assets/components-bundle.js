@@ -539,7 +539,8 @@
 
               <hr>
 
-              ${!window.isMobileAppUser()||window.isLegacyAppUser?h`
+              <!-- If the user has installed the app, don't show the download app section -->
+              ${!window.pg_global.has_used_app&&(!window.isMobileAppUser()||window.isLegacyAppUser)?h`
                       <div
                         class="stack-sm brand-lightest-bg p-4 rounded-3 white"
                       >

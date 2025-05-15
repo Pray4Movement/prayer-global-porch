@@ -51,6 +51,7 @@ class PG_User_API {
         DT_Route::post( $namespace, 'onesignal', [ $this, 'update_onesignal_data' ] );
         DT_Route::post( $namespace, 'requested-notifications', [ $this, 'requested_notifications' ] );
         DT_Route::post( $namespace, 'notifications-permission', [ $this, 'notifications_permission' ] );
+        DT_Route::post( $namespace, 'has-used-app', [ $this, 'has_used_app' ] );
     }
 
     public function authorize_url( $authorized ){
@@ -443,6 +444,20 @@ class PG_User_API {
         return new WP_REST_Response([
             'status' => 200,
             'message' => 'Notifications permission updated successfully'
+        ]);
+    }
+
+    public function has_used_app() {
+        $user_id = get_current_user_id();
+        if ( !$user_id ) {
+            return new WP_Error( __METHOD__, 'Unauthorized', [ 'status' => 401 ] );
+        }
+
+        update_user_meta( $user_id, PG_NAMESPACE . 'has_used_app', true );
+
+        return new WP_REST_Response([
+            'status' => 200,
+            'message' => 'App usage marked as used'
         ]);
     }
 }
