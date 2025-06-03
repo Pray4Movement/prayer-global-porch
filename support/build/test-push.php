@@ -92,6 +92,43 @@ class PG_Test_Push extends PG_Public_Page {
         return new WP_REST_Response( [ 'message' => 'Jobs processed', 'number_of_jobs' => $number_of_jobs, 'logs' => $logs ] );
     }
 
+    public function select_user( WP_REST_Request $request ) {
+        $body = $request->get_body();
+        $body = json_decode( $body );
+        $user_email = isset( $body->user_email ) ? sanitize_text_field( wp_unslash( $body->user_email ) ) : '';
+        $user_id = isset( $body->user_id ) ? intval( $body->user_id ) : 0;
+        $user = $user_id ? get_user_by( 'id', $user_id ) : get_user_by( 'email', $user_email );
+        $user = $user->to_array();
+
+        // create user stats
+        // last prayer date
+        // current streak
+        // days of inactivity
+        // next milestone
+        $user_stats = new User_Stats( $user['ID'] );
+        $milestones_manager = new PG_Milestones( $user['ID'] );
+        $next_milestones = $milestones_manager->get_next_milestones();
+        $next_milestones = array_map( function( $milestone ) {
+            return $milestone->to_array();
+        }, $next_milestones );
+
+        $user_stats = [
+            'last_prayer_date' => $user_stats->last_prayer_date(),
+            'current_streak' => $user_stats->current_streak_in_days(),
+            'days_of_inactivity' => $user_stats->days_of_inactivity(),
+            'hours_of_inactivity' => $user_stats->hours_of_inactivity(),
+        ];
+
+        if ( !$user ) {
+            return new WP_REST_Response( [ 'message' => 'User not found' ], 404 );
+        }
+        return new WP_REST_Response( [
+            'message' => 'User selected',
+            'user' => $user,
+            'user_stats' => $user_stats,
+            'next_milestones' => $next_milestones,
+        ] );
+    }
     public function register_endpoints() {
         register_rest_route( $this->rest_route, '/push-job-test', [
             'methods' => 'POST',
@@ -106,6 +143,11 @@ class PG_Test_Push extends PG_Public_Page {
         register_rest_route( $this->rest_route, '/process-jobs', [
             'methods' => 'POST',
             'callback' => [ $this, 'process_jobs' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
+        register_rest_route( $this->rest_route, '/select-user', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'select_user' ],
             'permission_callback' => [ $this, 'permission_callback' ],
         ] );
     }
@@ -184,9 +226,55 @@ class PG_Test_Push extends PG_Public_Page {
                 ?>
 
                 <div>
+                    <h3>Select User</h3>
+                    <form class="" id="select-user-form">
+                        <input type="text" name="user_email" placeholder="User Email">
+                        <input type="number" name="user_id" placeholder="User ID">
+                        <input class="btn btn-primary" type="submit" value="Select">
+                    </form>
+                </div>
+
+                <div>
+                    <h3>User Stats</h3>
+                    <table>
+                        <tr>
+                            <td>User ID:</td>
+                            <td id="user-id"></td>
+                        </tr>
+                        <tr>
+                            <td>User Email:</td>
+                            <td id="user-email"></td>
+                        </tr>
+                        <tr>
+                            <td>Last Prayer Date:</td>
+                            <td id="last-prayer-date"></td>
+                        </tr>
+                        <tr>
+                            <td>Current Streak:</td>
+                            <td id="current-streak"></td>
+                        </tr>
+                        <tr>
+                            <td>Days of Inactivity:</td>
+                            <td id="days-of-inactivity"></td>
+                        </tr>
+                    </table>
+                    <h3>Next Milestones</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Title</td>
+                                <td>Text</td>
+                                <td>Value</td>
+                            </tr>
+                        </thead>
+                        <tbody id="next-milestones-table-body"></tbody>
+                    </table>
+                </div>
+
+
+                <div>
                     <h3>Push Job Test</h3>
-                    <form class="flow-small" id="push-job-test-form">
-                        <input type="hidden" name="nonce" value="<?php echo esc_attr( wp_create_nonce( 'push_test' ) ); ?>">
+                    <form class="" id="push-job-test-form">
                         <input type="text" name="user_email" placeholder="User Email" required>
                         <input type="text" name="milestone_title" placeholder="Milestone Title">
                         <input type="text" name="milestone_text" placeholder="Milestone Text">
@@ -198,8 +286,7 @@ class PG_Test_Push extends PG_Public_Page {
 
                 <div>
                     <h3>Push Handler Test</h3>
-                    <form class="flow-small" id="push-handler-test-form">
-                        <input type="hidden" name="nonce" value="<?php echo esc_attr( wp_create_nonce( 'push_test' ) ); ?>">
+                    <form class="" id="push-handler-test-form">
                         <label><input type="checkbox" name="send_with_cron" value="1"> Send with cron</label>
                         <input class="btn btn-primary" type="submit" value="Send">
                     </form>
@@ -207,8 +294,7 @@ class PG_Test_Push extends PG_Public_Page {
 
                 <div>
                     <h3>Process Jobs</h3>
-                    <form class="flow-small" id="process-jobs-form">
-                        <input type="hidden" name="nonce" value="<?php echo esc_attr( wp_create_nonce( 'push_test' ) ); ?>">
+                    <form class="" id="process-jobs-form">
                         <input type="hidden" name="send_with_cron" value="1">
                         <input class="btn btn-primary" type="submit" value="Process">
                     </form>
@@ -264,6 +350,36 @@ class PG_Test_Push extends PG_Public_Page {
                     },
                 }).then(response => response.json()).then(data => {
                     console.log(data);
+                });
+            });
+
+            document.querySelector('#select-user-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                fetch(jsObject.rest_url + '/select-user', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                }).then(response => response.json()).then(data => {
+                    if ( data.user ) {
+                        document.querySelector('#user-email').innerHTML = data.user.user_email;
+                        document.querySelector('#user-id').innerHTML = data.user.ID;
+                        jsObject.user = data.user;
+                    }
+                    if ( data.user_stats ) {
+                        document.querySelector('#last-prayer-date').innerHTML = data.user_stats.last_prayer_date;
+                        document.querySelector('#current-streak').innerHTML = data.user_stats.current_streak;
+                        document.querySelector('#days-of-inactivity').innerHTML = data.user_stats.days_of_inactivity;
+                    }
+                    if ( data.next_milestones ) {
+                        document.querySelector('#next-milestones-table-body').innerHTML = data.next_milestones.map(milestone =>
+                            `<tr><td>${milestone.title}</td><td>${milestone.message}</td><td>${milestone.value}</td></tr>`
+                        ).join('');
+                    }
                 });
             });
         </script>
