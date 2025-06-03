@@ -108,16 +108,31 @@ class PG_Test_Push extends PG_Public_Page {
         $user_stats = new User_Stats( $user['ID'] );
         $milestones_manager = new PG_Milestones( $user['ID'] );
         $next_milestones = $milestones_manager->get_next_milestones();
-        $next_milestones = array_map( function( $milestone ) {
-            return $milestone->to_array();
-        }, $next_milestones );
-
-        $user_stats = [
+        $stats = [
             'last_prayer_date' => $user_stats->last_prayer_date(),
             'current_streak' => $user_stats->current_streak_in_days(),
             'days_of_inactivity' => $user_stats->days_of_inactivity(),
             'hours_of_inactivity' => $user_stats->hours_of_inactivity(),
         ];
+
+        $next_milestones = array_map( function( $milestone ) use ( $user_stats ) {
+
+            if ( $milestone->get_category() === 'streak' ) {
+                $days_left = $milestone->get_value() - $user_stats->current_streak_in_days();
+                $date = gmdate( 'Y-m-d', strtotime( "+{$days_left} days" ) );
+            }
+            if ( $milestone->get_category() === 'inactivity' ) {
+                $days_left = $milestone->get_value() - $user_stats->days_of_inactivity();
+                $date = gmdate( 'Y-m-d', strtotime( "+{$days_left} days" ) );
+            }
+
+            return [
+                'title' => $milestone->get_title(),
+                'message' => $milestone->get_message(),
+                'value' => $milestone->get_value(),
+                'date' => $date,
+            ];
+        }, $next_milestones );
 
         if ( !$user ) {
             return new WP_REST_Response( [ 'message' => 'User not found' ], 404 );
@@ -125,7 +140,7 @@ class PG_Test_Push extends PG_Public_Page {
         return new WP_REST_Response( [
             'message' => 'User selected',
             'user' => $user,
-            'user_stats' => $user_stats,
+            'user_stats' => $stats,
             'next_milestones' => $next_milestones,
         ] );
     }
@@ -265,6 +280,7 @@ class PG_Test_Push extends PG_Public_Page {
                                 <td>Title</td>
                                 <td>Text</td>
                                 <td>Value</td>
+                                <td>Date</td>
                             </tr>
                         </thead>
                         <tbody id="next-milestones-table-body"></tbody>
@@ -377,7 +393,12 @@ class PG_Test_Push extends PG_Public_Page {
                     }
                     if ( data.next_milestones ) {
                         document.querySelector('#next-milestones-table-body').innerHTML = data.next_milestones.map(milestone =>
-                            `<tr><td>${milestone.title}</td><td>${milestone.message}</td><td>${milestone.value}</td></tr>`
+                            `<tr>
+                                <td>${milestone.title}</td>
+                                <td>${milestone.message}</td>
+                                <td>${milestone.value}</td>
+                                <td>${milestone.date}</td>
+                            </tr>`
                         ).join('');
                     }
                 });
