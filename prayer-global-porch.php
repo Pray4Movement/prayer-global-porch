@@ -182,6 +182,7 @@ class Prayer_Global_Porch {
         // admin
 //      require_once( 'charts/charts-loader.php' );
         require_once( 'support/build/loader.php' );
+        require_once( 'support/build/test-push.php' );
         require_once( 'pages/about/about.php' );
         require_once( 'pages/give/give.php' );
         require_once( 'pages/church/church.php' );
