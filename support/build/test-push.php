@@ -98,6 +98,9 @@ class PG_Test_Push extends PG_Public_Page {
         $user_email = isset( $body->user_email ) ? sanitize_text_field( wp_unslash( $body->user_email ) ) : '';
         $user_id = isset( $body->user_id ) ? intval( $body->user_id ) : 0;
         $user = $user_id ? get_user_by( 'id', $user_id ) : get_user_by( 'email', $user_email );
+        if ( !$user ) {
+            return new WP_REST_Response( [ 'message' => 'User not found' ], 404 );
+        }
         $user = $user->to_array();
 
         // create user stats
@@ -369,11 +372,20 @@ class PG_Test_Push extends PG_Public_Page {
                 });
             });
 
+            const user_id = getCookie('user_id_diagnostic');
+            if ( user_id ) {
+                getUser({ user_id: user_id });
+            }
+
             document.querySelector('#select-user-form').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData);
-                fetch(jsObject.rest_url + '/select-user', {
+                getUser(data);
+            });
+
+            function getUser(data) {
+                return fetch(jsObject.rest_url + '/select-user', {
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
@@ -385,6 +397,7 @@ class PG_Test_Push extends PG_Public_Page {
                         document.querySelector('#user-email').innerHTML = data.user.user_email;
                         document.querySelector('#user-id').innerHTML = data.user.ID;
                         jsObject.user = data.user;
+                        document.cookie = `user_id_diagnostic=${data.user.ID}; path=/`;
                     }
                     if ( data.user_stats ) {
                         document.querySelector('#last-prayer-date').innerHTML = data.user_stats.last_prayer_date;
@@ -402,7 +415,15 @@ class PG_Test_Push extends PG_Public_Page {
                         ).join('');
                     }
                 });
-            });
+            }
+
+            function getCookie(name) {
+                const cookieValue = document.cookie
+                    .split("; ")
+                    .find((row) => row.startsWith(name + "="))
+                    ?.split("=")[1];
+                return cookieValue;
+            }
         </script>
 
         <?php
