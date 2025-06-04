@@ -147,6 +147,52 @@ class PG_Test_Push extends PG_Public_Page {
             'next_milestones' => $next_milestones,
         ] );
     }
+
+    public function create_streak( WP_REST_Request $request ) {
+        global $wpdb;
+        $body = $request->get_body();
+        $body = json_decode( $body );
+        $days = isset( $body->days ) ? intval( $body->days ) : 0;
+        $user_id = isset( $body->user_id ) ? intval( $body->user_id ) : 0;
+
+        $prayers = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->dt_reports ORDER BY timestamp DESC LIMIT %d", $days ), ARRAY_A );
+
+        $query = "INSERT INTO $wpdb->dt_reports (user_id, post_id, post_type, lap_number, global_lap_number, type, subtype, payload, value, lng, lat, level, label, grid_id, timestamp, hash) VALUES ";
+        $values = [];
+        $place_holders = [];
+        for ( $i = 0; $i < $days; $i++ ) {
+            $timestamp = strtotime( "-{$i} days" );
+            $place_holders[] = '( %d, %d, %s, %d, %d, %s, %s, %s, %d, %f, %f, %s, %s, %s, %d, %s )';
+            $prayer = $prayers[ $i ];
+            unset( $prayer['id'] );
+            unset( $prayer['parent_id'] );
+            unset( $prayer['time_begin'] );
+            unset( $prayer['time_end'] );
+            $prayer['user_id'] = $user_id;
+            $prayer['timestamp'] = $timestamp;
+            $values = array_merge( $values, array_values( $prayer ) );
+        }
+
+        $query .= implode( ',', $place_holders );
+        //phpcs:ignore
+        $wpdb->query( $wpdb->prepare( $query, $values ) );
+
+        return new WP_REST_Response( [ 'message' => 'Streak created' ] );
+    }
+
+    public function create_inactivity( WP_REST_Request $request ) {
+        global $wpdb;
+        $body = $request->get_body();
+        $body = json_decode( $body );
+        $days = isset( $body->days ) ? intval( $body->days ) : 0;
+        $user_id = isset( $body->user_id ) ? intval( $body->user_id ) : 0;
+
+        $wpdb->query( $wpdb->prepare( "DELETE FROM $wpdb->dt_reports
+            WHERE user_id = %d AND timestamp > %d
+            ", $user_id, strtotime( "-{$days} days" ) ) );
+
+        return new WP_REST_Response( [ 'message' => 'Inactivity period created' ] );
+    }
     public function register_endpoints() {
         register_rest_route( $this->rest_route, '/push-job-test', [
             'methods' => 'POST',
@@ -166,6 +212,16 @@ class PG_Test_Push extends PG_Public_Page {
         register_rest_route( $this->rest_route, '/select-user', [
             'methods' => 'POST',
             'callback' => [ $this, 'select_user' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
+        register_rest_route( $this->rest_route, '/create-streak', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'create_streak' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
+        register_rest_route( $this->rest_route, '/create-inactivity', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'create_inactivity' ],
             'permission_callback' => [ $this, 'permission_callback' ],
         ] );
     }
@@ -290,6 +346,18 @@ class PG_Test_Push extends PG_Public_Page {
                     </table>
                 </div>
 
+                <div>
+                    <h3>Manipulate DB</h3>
+                    <form class="" id="create-streak-form">
+                        <input type="number" name="days" placeholder="Days">
+                        <input class="btn btn-primary" type="submit" value="Create streak">
+                    </form>
+
+                    <form class="" id="create-inactivity-form">
+                        <input type="number" name="days" placeholder="Days">
+                        <input class="btn btn-primary" type="submit" value="Create inactive period">
+                    </form>
+                </div>
 
                 <div>
                     <h3>Push Job Test</h3>
@@ -416,6 +484,42 @@ class PG_Test_Push extends PG_Public_Page {
                     }
                 });
             }
+
+            document.querySelector('#create-streak-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                data.user_id = jsObject.user.ID;
+                fetch(jsObject.rest_url + '/create-streak', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                }).then(response => response.json()).then(data => {
+                    console.log(data);
+                    getUser({ user_id: jsObject.user.ID });
+                });
+            });
+
+            document.querySelector('#create-inactivity-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                data.user_id = jsObject.user.ID;
+                fetch(jsObject.rest_url + '/create-inactivity', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                }).then(response => response.json()).then(data => {
+                    getUser({ user_id: jsObject.user.ID });
+                    console.log(data);
+                });
+            });
 
             function getCookie(name) {
                 const cookieValue = document.cookie
