@@ -67,9 +67,9 @@ class PG_Milestones
     {
         $current_streak = $this->user_stats->current_streak_in_days();
         if ( $next_milestone ) {
-            foreach ( $this->streak_milestones as $i => $milestone ) {
-                if ( $current_streak >= $milestone ) {
-                    $current_streak = $this->streak_milestones[ $i + 1 ];
+            foreach ( array_reverse( $this->streak_milestones ) as $i => $milestone ) {
+                if ( $current_streak > $milestone ) {
+                    $current_streak = $this->streak_milestones[ count( $this->streak_milestones ) - $i ];
                     break;
                 }
             }

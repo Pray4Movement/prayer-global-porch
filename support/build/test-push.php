@@ -93,6 +93,7 @@ class PG_Test_Push extends PG_Public_Page {
     }
 
     public function select_user( WP_REST_Request $request ) {
+        global $wpdb;
         $body = $request->get_body();
         $body = json_decode( $body );
         $user_email = isset( $body->user_email ) ? sanitize_text_field( wp_unslash( $body->user_email ) ) : '';
@@ -117,6 +118,7 @@ class PG_Test_Push extends PG_Public_Page {
             'best_streak' => $user_stats->best_streak_in_days(),
             'days_of_inactivity' => $user_stats->days_of_inactivity(),
             'hours_of_inactivity' => $user_stats->hours_of_inactivity(),
+            'notifications_permission' => get_user_meta( $user['ID'], PG_NAMESPACE . 'notifications_permission', true ),
         ];
 
         $next_milestones = array_map( function( $milestone ) use ( $user_stats ) {
@@ -134,9 +136,19 @@ class PG_Test_Push extends PG_Public_Page {
                 'title' => $milestone->get_title(),
                 'message' => $milestone->get_message(),
                 'value' => $milestone->get_value(),
+                'category' => $milestone->get_category(),
                 'date' => $date,
             ];
         }, $next_milestones );
+
+        $prev_milestones = $wpdb->get_results(
+            $wpdb->prepare( "SELECT * FROM $wpdb->dt_notifications_sent
+                WHERE user_id = %d
+                AND channel = 'push'
+                ORDER BY sent_at DESC
+                LIMIT %d
+            ", $user['ID'], 5), ARRAY_A
+        );
 
         if ( !$user ) {
             return new WP_REST_Response( [ 'message' => 'User not found' ], 404 );
@@ -146,6 +158,7 @@ class PG_Test_Push extends PG_Public_Page {
             'user' => $user,
             'user_stats' => $stats,
             'next_milestones' => $next_milestones,
+            'prev_milestones' => $prev_milestones,
         ] );
     }
 
@@ -194,6 +207,19 @@ class PG_Test_Push extends PG_Public_Page {
 
         return new WP_REST_Response( [ 'message' => 'Inactivity period created' ] );
     }
+    public function update_notifications_permission( WP_REST_Request $request ) {
+        $body = $request->get_body();
+        $body = json_decode( $body );
+        $user_id = isset( $body->user_id ) ? intval( $body->user_id ) : 0;
+        $notifications_permission = isset( $body->notifications_permission ) ? intval( $body->notifications_permission ) : 0;
+        update_user_meta( $user_id, PG_NAMESPACE . 'notifications_permission', $notifications_permission );
+        return new WP_REST_Response( [ 'message' => 'Notifications permission updated' ] );
+    }
+    public function handle_push_notifications( WP_REST_Request $request ) {
+        $handler = new PG_Notification_Handler_Job();
+        $handler->handle();
+        return new WP_REST_Response( [ 'message' => 'Push notifications handled' ] );
+    }
     public function register_endpoints() {
         register_rest_route( $this->rest_route, '/push-job-test', [
             'methods' => 'POST',
@@ -223,6 +249,16 @@ class PG_Test_Push extends PG_Public_Page {
         register_rest_route( $this->rest_route, '/create-inactivity', [
             'methods' => 'POST',
             'callback' => [ $this, 'create_inactivity' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
+        register_rest_route( $this->rest_route, '/handle-push-notifications', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'handle_push_notifications' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
+        register_rest_route( $this->rest_route, '/update-notifications-permission', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'update_notifications_permission' ],
             'permission_callback' => [ $this, 'permission_callback' ],
         ] );
     }
@@ -340,6 +376,21 @@ class PG_Test_Push extends PG_Public_Page {
                             <td>Hours of Inactivity:</td>
                             <td id="hours-of-inactivity"></td>
                         </tr>
+                        <tr>
+                            <td>Notifications Permission:</td>
+                            <td id="notifications-permission"></td>
+                        </tr>
+                    </table>
+                    <h3>Previous Milestones</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>Category</td>
+                                <td>Value</td>
+                                <td>Date</td>
+                            </tr>
+                        </thead>
+                        <tbody id="prev-milestones-table-body"></tbody>
                     </table>
                     <h3>Next Milestones</h3>
                     <table>
@@ -355,17 +406,21 @@ class PG_Test_Push extends PG_Public_Page {
                     </table>
                 </div>
 
-                <div>
+                <div class="flow-small">
                     <h3>Manipulate DB</h3>
                     <form class="" id="create-streak-form">
                         <input type="number" name="days" placeholder="Days">
                         <input class="btn btn-primary" type="submit" value="Create streak">
                     </form>
-
                     <form class="" id="create-inactivity-form">
                         <input type="number" name="days" placeholder="Days">
                         <input class="btn btn-primary" type="submit" value="Create inactive period">
                     </form>
+                    <form class="" id="update-notifications-permission-form">
+                        <label><input type="checkbox" name="notifications_permission" value="1"> Notifications Permission</label>
+                        <input class="btn btn-primary" type="submit" value="Update">
+                    </form>
+                    <button class="btn btn-primary" id="handle-push-notifications">Handle push notifications</button>
                 </div>
 
                 <div>
@@ -477,19 +532,30 @@ class PG_Test_Push extends PG_Public_Page {
                         document.cookie = `user_id_diagnostic=${data.user.ID}; path=/`;
                     }
                     if ( data.user_stats ) {
-                        document.querySelector('#last-prayer-date').innerHTML = data.user_stats.last_prayer_date;
+                        document.querySelector('#last-prayer-date').innerHTML = new Date(data.user_stats.last_prayer_date * 1000).toLocaleDateString();
                         document.querySelector('#current-streak').innerHTML = data.user_stats.current_streak;
                         document.querySelector('#best-streak').innerHTML = data.user_stats.best_streak;
                         document.querySelector('#days-of-inactivity').innerHTML = data.user_stats.days_of_inactivity;
                         document.querySelector('#hours-of-inactivity').innerHTML = data.user_stats.hours_of_inactivity;
+                        document.querySelector('#notifications-permission').innerHTML = data.user_stats.notifications_permission === '1' ? 'Yes' : 'No';
                     }
                     if ( data.next_milestones ) {
                         document.querySelector('#next-milestones-table-body').innerHTML = data.next_milestones.map(milestone =>
                             `<tr>
                                 <td>${milestone.title}</td>
                                 <td>${milestone.message}</td>
+                                <td>${milestone.category}</td>
                                 <td>${milestone.value}</td>
                                 <td>${milestone.date}</td>
+                            </tr>`
+                        ).join('');
+                    }
+                    if ( data.prev_milestones ) {
+                        document.querySelector('#prev-milestones-table-body').innerHTML = data.prev_milestones.map(milestone =>
+                            `<tr>
+                                <td>${milestone.category}</td>
+                                <td>${milestone.milestone_value}</td>
+                                <td>${new Date(milestone.sent_at * 1000).toLocaleDateString()}</td>
                             </tr>`
                         ).join('');
                     }
@@ -529,6 +595,35 @@ class PG_Test_Push extends PG_Public_Page {
                 }).then(response => response.json()).then(data => {
                     getUser({ user_id: jsObject.user.ID });
                     console.log(data);
+                });
+            });
+
+            document.querySelector('#handle-push-notifications').addEventListener('click', function(e) {
+                e.preventDefault();
+                fetch(jsObject.rest_url + '/handle-push-notifications', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                });
+            });
+
+            document.querySelector('#update-notifications-permission-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                data.user_id = jsObject.user.ID;
+                fetch(jsObject.rest_url + '/update-notifications-permission', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                }).then(response => response.json()).then(data => {
+                    console.log(data);
+                    getUser({ user_id: jsObject.user.ID });
                 });
             });
 
