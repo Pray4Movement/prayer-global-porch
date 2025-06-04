@@ -114,6 +114,7 @@ class PG_Test_Push extends PG_Public_Page {
         $stats = [
             'last_prayer_date' => $user_stats->last_prayer_date(),
             'current_streak' => $user_stats->current_streak_in_days(),
+            'best_streak' => $user_stats->best_streak_in_days(),
             'days_of_inactivity' => $user_stats->days_of_inactivity(),
             'hours_of_inactivity' => $user_stats->hours_of_inactivity(),
         ];
@@ -328,8 +329,16 @@ class PG_Test_Push extends PG_Public_Page {
                             <td id="current-streak"></td>
                         </tr>
                         <tr>
+                            <td>Best Streak:</td>
+                            <td id="best-streak"></td>
+                        </tr>
+                        <tr>
                             <td>Days of Inactivity:</td>
                             <td id="days-of-inactivity"></td>
+                        </tr>
+                        <tr>
+                            <td>Hours of Inactivity:</td>
+                            <td id="hours-of-inactivity"></td>
                         </tr>
                     </table>
                     <h3>Next Milestones</h3>
@@ -470,7 +479,9 @@ class PG_Test_Push extends PG_Public_Page {
                     if ( data.user_stats ) {
                         document.querySelector('#last-prayer-date').innerHTML = data.user_stats.last_prayer_date;
                         document.querySelector('#current-streak').innerHTML = data.user_stats.current_streak;
+                        document.querySelector('#best-streak').innerHTML = data.user_stats.best_streak;
                         document.querySelector('#days-of-inactivity').innerHTML = data.user_stats.days_of_inactivity;
+                        document.querySelector('#hours-of-inactivity').innerHTML = data.user_stats.hours_of_inactivity;
                     }
                     if ( data.next_milestones ) {
                         document.querySelector('#next-milestones-table-body').innerHTML = data.next_milestones.map(milestone =>
