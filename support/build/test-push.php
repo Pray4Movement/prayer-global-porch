@@ -75,23 +75,6 @@ class PG_Test_Push extends PG_Public_Page {
         return new WP_REST_Response( [ 'message' => 'Push handler test sent' ] );
     }
 
-    public function process_jobs( WP_REST_Request $request ) {
-
-        $logs = [];
-        add_filter( 'wp_queue_cron_memory_exceeded', function( $return ) use ( &$logs ) {
-            $logs[] = 'Memory exceeded: ' . esc_html( $return );
-            return false;
-        } );
-
-        add_filter( 'wp_queue_cron_time_exceeded', function( $return ) use ( &$logs ) {
-            $logs[] = 'Time exceeded: ' . esc_html( $return );
-        } );
-
-        wp_queue()->cron()->cron_worker();
-        $number_of_jobs = wp_queue_count_jobs();
-        return new WP_REST_Response( [ 'message' => 'Jobs processed', 'number_of_jobs' => $number_of_jobs, 'logs' => $logs ] );
-    }
-
     public function select_user( WP_REST_Request $request ) {
         global $wpdb;
         $body = $request->get_body();
@@ -231,11 +214,6 @@ class PG_Test_Push extends PG_Public_Page {
             'callback' => [ $this, 'test_push_handler' ],
             'permission_callback' => [ $this, 'permission_callback' ],
         ] );
-        register_rest_route( $this->rest_route, '/process-jobs', [
-            'methods' => 'POST',
-            'callback' => [ $this, 'process_jobs' ],
-            'permission_callback' => [ $this, 'permission_callback' ],
-        ] );
         register_rest_route( $this->rest_route, '/select-user', [
             'methods' => 'POST',
             'callback' => [ $this, 'select_user' ],
@@ -302,6 +280,13 @@ class PG_Test_Push extends PG_Public_Page {
      */
     public function header_style(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '../pages/assets/header.php' );
+        ?>
+        <style>
+            tr > td + td {
+                padding-left: 20px;
+            }
+        </style>
+        <?php
     }
 
     /**
@@ -330,9 +315,28 @@ class PG_Test_Push extends PG_Public_Page {
                     echo 'PG_ONESIGNAL_STOP is not defined <br>';
                 }
 
+                add_filter( 'wp_queue_cron_memory_exceeded', function( $return ) {
+                    echo 'Memory exceeded: ' . esc_html( $return ) . ' <br>';
+                    return false;
+                } );
+
+                add_filter( 'wp_queue_cron_time_exceeded', function( $return ) {
+                    echo 'Time exceeded: ' . esc_html( $return ) . ' <br>';
+                    return false;
+                } );
+
                 $number_of_jobs = wp_queue_count_jobs();
 
                 echo 'Number of jobs: ' . esc_html( $number_of_jobs ) . '<br>';
+
+                if ( isset( $_POST['action'], $_POST['nonce'] ) && wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['nonce'] ) ), 'wp_rest' ) ) {
+                    if ( $_POST['action'] === 'process-jobs' ) {
+                        wp_queue()->cron()->cron_worker();
+                        $number_of_jobs = wp_queue_count_jobs();
+                        echo 'Number of jobs: ' . esc_html( $number_of_jobs ) . '<br>';
+                        echo 'Jobs processed <br>';
+                    }
+                }
 
                 ?>
 
@@ -398,6 +402,7 @@ class PG_Test_Push extends PG_Public_Page {
                             <tr>
                                 <td>Title</td>
                                 <td>Text</td>
+                                <td>Category</td>
                                 <td>Value</td>
                                 <td>Date</td>
                             </tr>
@@ -445,8 +450,9 @@ class PG_Test_Push extends PG_Public_Page {
 
                 <div>
                     <h3>Process Jobs</h3>
-                    <form class="" id="process-jobs-form">
-                        <input type="hidden" name="send_with_cron" value="1">
+                    <form action="" method="POST" id="process-jobs-form">
+                        <input type="hidden" name="action" value="process-jobs">
+                        <input type="hidden" name="nonce" value="<?php echo esc_html( wp_create_nonce( 'wp_rest' ) ); ?>">
                         <input class="btn btn-primary" type="submit" value="Process">
                     </form>
                 </div>
@@ -488,7 +494,7 @@ class PG_Test_Push extends PG_Public_Page {
                 });
             });
 
-            document.querySelector('#process-jobs-form').addEventListener('submit', function(e) {
+/*             document.querySelector('#process-jobs-form').addEventListener('submit', function(e) {
                 e.preventDefault();
                 const formData = new FormData(this);
                 const data = Object.fromEntries(formData);
@@ -502,7 +508,7 @@ class PG_Test_Push extends PG_Public_Page {
                 }).then(response => response.json()).then(data => {
                     console.log(data);
                 });
-            });
+            }); */
 
             const user_id = getCookie('user_id_diagnostic');
             if ( user_id ) {
