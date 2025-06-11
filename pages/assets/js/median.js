@@ -36,6 +36,15 @@ async function median_library_ready() {
           setRequestedNotification
         );
       }
+      if (pg_global.is_logged_in && !pg_global.has_used_app) {
+        window
+          .api_fetch(`${pg_global.root}pg-api/v1/user/has-used-app`, {
+            method: "POST",
+          })
+          .then(() => {
+            window.pg_global.has_used_app = true;
+          });
+      }
     }
 
     if (pg_global.is_logged_in && !window.isMedianAppLoggedIn) {

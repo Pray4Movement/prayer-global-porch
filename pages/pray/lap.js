@@ -300,7 +300,10 @@ function celebrateAndDone() {
             </div>
           `;
       });
-    if (!window.isMobileAppUser() || window.isLegacyAppUser) {
+    if (
+      !window.pg_global.has_used_app &&
+      (!window.isMobileAppUser() || window.isLegacyAppUser)
+    ) {
       const divContainer = document.createElement("div");
       divContainer.classList.add("flow");
       divContainer.classList.add("bg-light");

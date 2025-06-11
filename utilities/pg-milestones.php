@@ -46,13 +46,34 @@ class PG_Milestones
     }
 
     /**
+     * Get the next milestones
+     *
+     * @return PG_Milestone[]
+     */
+    public function get_next_milestones(): array
+    {
+        $streak_milestones = $this->get_streak_milestone( true );
+        $inactivity_milestones = $this->get_inactivity_milestone( true );
+
+        return array_merge( $streak_milestones, $inactivity_milestones );
+    }
+
+    /**
      * Get the streak milestones
      *
      * @return PG_Milestone[]
      */
-    private function get_streak_milestone(): array
+    private function get_streak_milestone( bool $next_milestone = false ): array
     {
         $current_streak = $this->user_stats->current_streak_in_days();
+        if ( $next_milestone ) {
+            foreach ( array_reverse( $this->streak_milestones ) as $i => $milestone ) {
+                if ( $current_streak > $milestone ) {
+                    $current_streak = $this->streak_milestones[ count( $this->streak_milestones ) - $i ];
+                    break;
+                }
+            }
+        }
         if ( in_array( $current_streak, $this->streak_milestones ) ) {
             return [
                 new PG_Milestone(
@@ -142,20 +163,19 @@ class PG_Milestones
      *
      * @return PG_Milestone[]
      */
-    private function get_inactivity_milestone(): array
+    private function get_inactivity_milestone( bool $next_milestone = false ): array
     {
-        $last_prayer_timestamp = $this->user_stats->last_prayer_date();
-        if ( !$last_prayer_timestamp ) {
+        $days_inactive = $this->user_stats->days_of_inactivity();
+        if ( $days_inactive === 0 ) {
             return [];
         }
 
-        $now = time();
-        $hours_inactive = ( $now - $last_prayer_timestamp ) / 3600;
-        $days_inactive = floor( $hours_inactive / 24 );
-
         $url = site_url( 'dashboard' );
 
-        if ( $hours_inactive >= 24 && $hours_inactive < 48 ) {
+        if ( $next_milestone ) {
+            $hours_inactive = $this->user_stats->hours_of_inactivity();
+        }
+        if ( $days_inactive === 1 || ( $next_milestone && $hours_inactive < 1 ) ) {
             return [
             new PG_Milestone(
                 __( 'Keep your streak alive', 'prayer-global-porch' ),
@@ -168,7 +188,7 @@ class PG_Milestones
             ];
         }
 
-        if ( $days_inactive === 2 || ( defined( 'WP_DEBUG' ) && WP_DEBUG ) ) {
+        if ( $days_inactive === 2 || ( $next_milestone && $days_inactive < 2 ) ) {
             return [
             new PG_Milestone(
                 __( 'Oh no! Your streak has ended', 'prayer-global-porch' ),
@@ -181,7 +201,7 @@ class PG_Milestones
             ];
         }
 
-        if ( $days_inactive === 7 ) {
+        if ( $days_inactive === 7 || ( $next_milestone && $days_inactive < 7 ) ) {
             return [
             new PG_Milestone(
                 __( 'We Miss You—Let\'s Pray Today!', 'prayer-global-porch' ),
@@ -194,7 +214,7 @@ class PG_Milestones
             ];
         }
 
-        if ( $days_inactive === 14 ) {
+        if ( $days_inactive === 14 || ( $next_milestone && $days_inactive < 14 ) ) {
             return [
             new PG_Milestone(
                 __( 'Prayer Changes Everything—Come Back!', 'prayer-global-porch' ),
@@ -207,7 +227,7 @@ class PG_Milestones
             ];
         }
 
-        if ( $days_inactive === 30 ) {
+        if ( $days_inactive === 30 || ( $next_milestone && $days_inactive < 30 ) ) {
             return [
             new PG_Milestone(
                 __( 'Let\'s Reconnect—Your Prayers Are Needed', 'prayer-global-porch' ),
@@ -220,7 +240,7 @@ class PG_Milestones
             ];
         }
 
-        if ( $days_inactive === 60 ) {
+        if ( $days_inactive === 60 || ( $next_milestone && $days_inactive < 60 ) ) {
             return [
             new PG_Milestone(
                 __( 'Time to Come Back', 'prayer-global-porch' ),
@@ -233,7 +253,7 @@ class PG_Milestones
             ];
         }
 
-        if ( $days_inactive === 90 ) {
+        if ( $days_inactive === 90 || ( $next_milestone && $days_inactive < 90 ) ) {
             return [
             new PG_Milestone(
                 __( 'Missing Your Prayers', 'prayer-global-porch' ),
@@ -246,7 +266,7 @@ class PG_Milestones
             ];
         }
 
-        if ( $days_inactive === 180 ) {
+        if ( $days_inactive === 180 || ( $next_milestone && $days_inactive < 180 ) ) {
             return [
             new PG_Milestone(
                 __( 'It\'s been a while!', 'prayer-global-porch' ),
@@ -259,7 +279,7 @@ class PG_Milestones
             ];
         }
 
-        if ( $days_inactive === 365 ) {
+        if ( $days_inactive === 365 || ( $next_milestone && $days_inactive < 365 ) ) {
             return [
             new PG_Milestone(
                 __( 'Is This Goodbye?', 'prayer-global-porch' ),

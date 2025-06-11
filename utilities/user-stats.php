@@ -115,6 +115,25 @@ class User_Stats {
             ", $this->user_id ) );
     }
 
+    public function days_of_inactivity(): int {
+        $hours_inactive = $this->hours_of_inactivity();
+        if ( !$hours_inactive ) {
+            return 0;
+        }
+        $days_inactive = floor( $hours_inactive / 24 );
+        return $days_inactive;
+    }
+
+    public function hours_of_inactivity(): int {
+        $last_prayer_date = $this->last_prayer_date();
+        if ( !$last_prayer_date ) {
+            return 0;
+        }
+        $now = time();
+        $hours_inactive = ( $now - $last_prayer_date ) / 3600;
+        return $hours_inactive;
+    }
+
     /* Count number of relays part of */
     public function total_relays_part_of(): int {
         global $wpdb;

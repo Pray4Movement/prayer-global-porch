@@ -30,5 +30,6 @@ declare global {
       callback: (notificationsPermission: boolean) => void
     ) => void;
     pg_set_up_share_buttons: (wait?: boolean) => void;
+    has_used_app: boolean;
   }
 }
