@@ -454,6 +454,10 @@ function startTimer(time) {
     window.time = window.time + 0.1;
 
     if (window.time > window.secondsTilLog && !window.alreadyLogged) {
+      if (!window.user_location.time_zone) {
+        window.user_location.time_zone =
+          Intl.DateTimeFormat().resolvedOptions().timeZone;
+      }
       /* send log */
       const url = `${jsObject.direct_api_url}update-location.php`;
       const user_language = `; ${document.cookie}`
