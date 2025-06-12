@@ -3,10 +3,11 @@
 class User_Stats {
     public int $user_id;
     private static int $day_in_seconds = 24 * 60 * 60;
+    public array $location = [];
 
     public function __construct( int $user_id ) {
         $this->user_id = $user_id;
-        $this->location = maybe_unserialize( get_user_meta( $user_id, 'pg_location', true ) );
+        $this->location = maybe_unserialize( get_user_meta( $user_id, 'pg_location', true ) ) ?: [];
     }
 
     public function current_streak_in_days(): int {
