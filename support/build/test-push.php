@@ -154,12 +154,14 @@ class PG_Test_Push extends PG_Public_Page {
 
         $prayers = $wpdb->get_results( $wpdb->prepare( "SELECT * FROM $wpdb->dt_reports ORDER BY timestamp DESC LIMIT %d", $days ), ARRAY_A );
 
-        $query = "INSERT INTO $wpdb->dt_reports (user_id, post_id, post_type, lap_number, global_lap_number, type, subtype, payload, value, lng, lat, level, label, grid_id, timestamp, hash) VALUES ";
+        $prayers = array_reverse( $prayers );
+
+        $query = "INSERT INTO $wpdb->dt_reports (user_id, post_id, post_type, lap_number, global_lap_number, type, subtype, payload, value, lng, lat, level, label, grid_id, timestamp, hash, timezone_timestamp) VALUES ";
         $values = [];
         $place_holders = [];
         for ( $i = 0; $i < $days; $i++ ) {
             $timestamp = strtotime( "-{$i} days" );
-            $place_holders[] = '( %d, %d, %s, %d, %d, %s, %s, %s, %d, %f, %f, %s, %s, %s, %d, %s )';
+            $place_holders[] = '( %d, %d, %s, %d, %d, %s, %s, %s, %d, %f, %f, %s, %s, %s, %d, %s, %s )';
             $prayer = $prayers[ $i ];
             unset( $prayer['id'] );
             unset( $prayer['parent_id'] );
@@ -167,6 +169,7 @@ class PG_Test_Push extends PG_Public_Page {
             unset( $prayer['time_end'] );
             $prayer['user_id'] = $user_id;
             $prayer['timestamp'] = $timestamp;
+            $prayer['timezone_timestamp'] = gmdate( 'Y-m-d H:i:s', $timestamp );
             $values = array_merge( $values, array_values( $prayer ) );
         }
 

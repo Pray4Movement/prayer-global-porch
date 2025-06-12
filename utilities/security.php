@@ -5,7 +5,8 @@ function pg_sanitize_text_field_custom( $str ){
         return array_map( 'pg_sanitize_text_field_custom', $str );
     }
 
-    $str = preg_replace( '/[^a-zA-Z0-9_\-., ]/', '', $str );
+    // allow forward slash in regexp
+    $str = preg_replace( '/[^a-zA-Z0-9_\-., \/]/', '', $str );
 
     return $str;
 }

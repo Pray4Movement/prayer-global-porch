@@ -109,6 +109,10 @@ class PG_Relays_Table {
         $user_location = $data['user_location'];
         $user_language = $data['user_language'];
 
+        $timezone = new DateTimeZone( $user_location['time_zone'] ?? 'UTC' );
+        $datetime = new DateTime( 'now', $timezone );
+        $timezone_timestamp = $datetime->format( 'Y-m-d H:i:s' );
+
         $args = [
             // lap information
             'post_id' => $relay_id,
@@ -135,6 +139,7 @@ class PG_Relays_Table {
             'hash' => $user_location['hash'] ?? null,
             'user_id' => $user_id ?? null,
             'timestamp' => time(),
+            'timezone_timestamp' => $timezone_timestamp,
         ];
 
         if ( empty( $args['hash'] ) ) {
@@ -159,10 +164,11 @@ class PG_Relays_Table {
                 label,
                 grid_id,
                 timestamp,
+                timezone_timestamp,
                 hash
             )
             VALUES
-            ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
+            ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
         ", [
             $args['user_id'],
             $args['post_id'],
@@ -179,6 +185,7 @@ class PG_Relays_Table {
             $args['label'],
             $args['grid_id'],
             $args['timestamp'],
+            $args['timezone_timestamp'],
             $args['hash'],
         ] );
 
@@ -263,9 +270,9 @@ class PG_Relays_Table {
                 WHERE r1.relay_key = ?
                 AND r1.epoch < UNIX_TIMESTAMP() - 5
                 AND r1.total = ( SELECT MIN(total) FROM $this->relay_table WHERE relay_key = ? )
-                AND r2.epoch < UNIX_TIMESTAMP() - 60 
+                AND r2.epoch < UNIX_TIMESTAMP() - 60
                 AND r2.total = ( SELECT MIN(total) FROM $this->relay_table WHERE relay_key = '49ba4c' )
-                ORDER BY 
+                ORDER BY
                 r1.epoch
                 LIMIT 500;
             ", [ $relay_key, $relay_key ] );
@@ -281,7 +288,7 @@ class PG_Relays_Table {
                     WHERE relay_key = ?
                     AND epoch < UNIX_TIMESTAMP() - 5
                     AND total = (SELECT MIN(total) FROM $this->relay_table WHERE relay_key = ?)
-                    ORDER BY 
+                    ORDER BY
                     epoch
                     LIMIT 500;
                 ", [ $relay_key, $relay_key ] );
