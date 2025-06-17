@@ -11,27 +11,29 @@ class Prayer_Global_Migration_0017 extends Prayer_Global_Migration {
         $wpdb->dt_reports = $table_name;
 
         $wpdb->query(
-            "ALTER TABLE $wpdb->dt_reports ADD COLUMN `timezone_timestamp` datetime not null DEFAULT CURRENT_TIMESTAMP"
+            "ALTER TABLE $wpdb->dt_reports ADD COLUMN `timezone_timestamp` datetime not null DEFAULT FROM_UNIXTIME(timestamp)"
         );
 
-        // we need to update each users prayer records based on the timezone found in the serialized object 'pg_location' user meta
-        $users = get_users();
-        foreach ( $users as $user ) {
-            $location = maybe_unserialize( get_user_meta( $user->ID, 'pg_location', true ) );
-            // get the timezone from the location object e.g. 'America/New_York'
-            if ( !isset( $location['timezone'] ) ) {
-                continue;
-            }
-            $timezone = $location['timezone'];
-            // update each report for this user by using the unix timestamp of the report and updating the timezone_timestamp field
-            $wpdb->query(
-                $wpdb->prepare(
-                    "UPDATE $wpdb->dt_reports SET timezone_timestamp = CONVERT_TZ(FROM_UNIXTIME(timestamp), 'UTC', %s) WHERE user_id = %d",
-                    $timezone,
-                    $user->ID
+        // Perform a single efficient update for all users' reports based on their timezone in usermeta
+        $wpdb->query(
+            "UPDATE $wpdb->dt_reports r
+            JOIN $wpdb->usermeta m ON r.user_id = m.user_id AND m.meta_key = 'pg_location'
+            SET r.timezone_timestamp = CONVERT_TZ(
+                FROM_UNIXTIME(r.timestamp),
+                'UTC',
+                IF(
+                    LOCATE('s:8:\"timezone\";s:', m.meta_value) > 0,
+                    SUBSTRING(
+                        m.meta_value,
+                        LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')
+                        + LOCATE('\"', m.meta_value, LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) - (LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) + 1,
+                        LOCATE('\";', m.meta_value, LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) - (LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:'))
+                        - (LOCATE('\"', m.meta_value, LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) - (LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) + 1)
+                    ),
+                    'UTC'
                 )
-            );
-        }
+            )"
+        );
     }
 
     public function down() {
