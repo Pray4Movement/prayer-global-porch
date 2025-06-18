@@ -21,20 +21,16 @@ class Prayer_Global_Migration_0017 extends Prayer_Global_Migration {
         // Perform a single efficient update for all users' reports based on their timezone in usermeta
         $wpdb->query(
             "UPDATE $wpdb->dt_reports r
-            JOIN $wpdb->usermeta m ON r.user_id = m.user_id AND m.meta_key = 'pg_location'
+            JOIN $wpdb->usermeta m ON ( r.user_id = m.user_id AND m.meta_key = 'pg_location' AND m.meta_value LIKE '%timezone%' )
             SET r.timezone_timestamp = CONVERT_TZ(
                 FROM_UNIXTIME(r.timestamp),
                 'UTC',
-                IF(
-                    LOCATE('s:8:\"timezone\";s:', m.meta_value) > 0,
-                    SUBSTRING(
-                        m.meta_value,
-                        LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')
-                        + LOCATE('\"', m.meta_value, LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) - (LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) + 1,
-                        LOCATE('\";', m.meta_value, LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) - (LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:'))
-                        - (LOCATE('\"', m.meta_value, LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) - (LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) + 1)
-                    ),
-                    'UTC'
+                SUBSTRING(
+                    m.meta_value,
+                    LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')
+                    + LOCATE('\"', m.meta_value, LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) - (LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) + 1,
+                    LOCATE('\";', m.meta_value, LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) - (LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:'))
+                    - (LOCATE('\"', m.meta_value, LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) - (LOCATE('s:8:\"timezone\";s:', m.meta_value) + LENGTH('s:8:\"timezone\";s:')) + 1)
                 )
             )"
         );
