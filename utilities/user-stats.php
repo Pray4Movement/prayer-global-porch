@@ -3,9 +3,11 @@
 class User_Stats {
     public int $user_id;
     private static int $day_in_seconds = 24 * 60 * 60;
+    public array $location = [];
 
     public function __construct( int $user_id ) {
         $this->user_id = $user_id;
+        $this->location = maybe_unserialize( get_user_meta( $user_id, 'pg_location', true ) ) ?: [];
     }
 
     public function current_streak_in_days(): int {
@@ -139,8 +141,15 @@ class User_Stats {
 
         $latest_streak = $all_islands[0];
 
-        $streak_gap_size_seconds = ( $in_days + 1 ) * self::$day_in_seconds;
-        if ( time() - $latest_streak['island_end_timestamp'] > $streak_gap_size_seconds ) {
+        $streak_gap_size_days = $in_days;
+        $today = new DateTime();
+        $today->setTimezone( new DateTimeZone( $this->location['time_zone'] ?? 'UTC' ) );
+
+        $latest_streak_end_date = new DateTime( $latest_streak['island_end_timezone_timestamp'] );
+
+        $diff = $today->diff( $latest_streak_end_date );
+
+        if ( $diff->days > $streak_gap_size_days ) {
             return 0;
         }
 
@@ -162,54 +171,52 @@ class User_Stats {
     private function all_islands( int $in_days = 1 ): array {
         global $wpdb;
 
-        $in_seconds = $in_days * self::$day_in_seconds;
-
-        /* Add a days grace as we will make this timezone agnostic */
-        ++$in_days;
-
-        $timespan_seconds = $in_days * self::$day_in_seconds;
-
         return $wpdb->get_results( $wpdb->prepare(
             "WITH CTE_TIMESTAMP AS (
                 SELECT
                     timestamp,
-                    LAG(timestamp) OVER (ORDER BY timestamp) AS previous_timestamp,
-                    LEAD(timestamp) OVER (ORDER BY timestamp) AS next_timestamp,
-                    ROW_NUMBER() OVER (ORDER BY timestamp) AS island_location
+                    timezone_timestamp,
+                    LAG(timezone_timestamp) OVER (ORDER BY timezone_timestamp) AS previous_timestamp,
+                    LEAD(timezone_timestamp) OVER (ORDER BY timezone_timestamp) AS next_timestamp,
+                    ROW_NUMBER() OVER (ORDER BY timezone_timestamp) AS island_location
                 FROM $wpdb->dt_reports
                 WHERE user_id = %s
             ),
             CTE_ISLAND_START AS (
                 SELECT
-                    ROW_NUMBER() OVER (ORDER BY timestamp) AS island_number,
+                    ROW_NUMBER() OVER (ORDER BY timezone_timestamp) AS island_number,
                     timestamp AS island_start_timestamp,
+                    timezone_timestamp AS island_start_timezone_timestamp,
                     island_location AS island_start_location
                 FROM CTE_TIMESTAMP
-                WHERE timestamp - previous_timestamp > %d
+                WHERE DATEDIFF(timezone_timestamp, previous_timestamp) > %d
                     OR previous_timestamp IS NULL),
             CTE_ISLAND_END AS (
                 SELECT
-                    ROW_NUMBER() OVER (ORDER BY timestamp) AS island_number,
+                    ROW_NUMBER() OVER (ORDER BY timezone_timestamp) AS island_number,
                     timestamp AS island_end_timestamp,
+                    timezone_timestamp AS island_end_timezone_timestamp,
                     island_location AS island_end_location
                 FROM CTE_TIMESTAMP
-                WHERE next_timestamp - timestamp > %d
+                WHERE DATEDIFF(next_timestamp, timezone_timestamp) > %d
                     OR next_timestamp IS NULL)
             SELECT
                 CTE_ISLAND_START.island_start_timestamp,
                 CTE_ISLAND_END.island_end_timestamp,
+                CTE_ISLAND_START.island_start_timezone_timestamp,
+                CTE_ISLAND_END.island_end_timezone_timestamp,
                 (SELECT COUNT(*)
                 FROM CTE_TIMESTAMP
                 WHERE CTE_TIMESTAMP.timestamp BETWEEN
                     CTE_ISLAND_START.island_start_timestamp AND
                     CTE_ISLAND_END.island_end_timestamp)
                 AS island_row_count,
-                FLOOR( ( CTE_ISLAND_END.island_end_timestamp - CTE_ISLAND_START.island_start_timestamp ) / %d ) + 1
+                FLOOR( DATEDIFF( CTE_ISLAND_END.island_end_timezone_timestamp, CTE_ISLAND_START.island_start_timezone_timestamp ) / %d ) + 1
                 AS island_days
             FROM CTE_ISLAND_START
             INNER JOIN CTE_ISLAND_END
             ON CTE_ISLAND_END.island_number = CTE_ISLAND_START.island_number
             ORDER BY CTE_ISLAND_END.island_end_timestamp DESC
-        ", $this->user_id, $timespan_seconds, $timespan_seconds, $in_seconds ), ARRAY_A );
+        ", $this->user_id, $in_days, $in_days, $in_days ), ARRAY_A );
     }
 }
