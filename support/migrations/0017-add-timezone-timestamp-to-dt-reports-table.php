@@ -11,7 +11,11 @@ class Prayer_Global_Migration_0017 extends Prayer_Global_Migration {
         $wpdb->dt_reports = $table_name;
 
         $wpdb->query(
-            "ALTER TABLE $wpdb->dt_reports ADD COLUMN `timezone_timestamp` datetime not null DEFAULT FROM_UNIXTIME(timestamp)"
+            "ALTER TABLE $wpdb->dt_reports ADD COLUMN `timezone_timestamp` datetime not null DEFAULT CURRENT_TIMESTAMP"
+        );
+
+        $wpdb->query(
+            "UPDATE $wpdb->dt_reports SET timezone_timestamp = FROM_UNIXTIME(timestamp)"
         );
 
         // Perform a single efficient update for all users' reports based on their timezone in usermeta
