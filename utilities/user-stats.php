@@ -44,16 +44,11 @@ class User_Stats {
     }
 
     public function streak_secure(): bool {
-        global $wpdb;
-
-        $last_prayed_timestamp = (int) $wpdb->get_var( $wpdb->prepare(
-            "SELECT MAX( r.timestamp ) as last_prayed
-                FROM $wpdb->dt_reports r
-                WHERE r.user_id = %s
-                AND r.post_type = 'pg_relays'
-            ", $this->user_id ) );
-
-        return time() - $last_prayed_timestamp < self::$day_in_seconds;
+        $days_of_inactivity = $this->days_of_inactivity();
+        if ( $days_of_inactivity > 1 ) {
+            return false;
+        }
+        return true;
     }
 
     public function last_prayer_date(): ?int {
@@ -82,12 +77,15 @@ class User_Stats {
     }
 
     public function days_of_inactivity(): int {
-        $hours_inactive = $this->hours_of_inactivity();
-        if ( !$hours_inactive ) {
-            return 0;
-        }
-        $days_inactive = floor( $hours_inactive / 24 );
-        return $days_inactive;
+        global $wpdb;
+        $today = new DateTime();
+        $today->setTimezone( new DateTimeZone( $this->location['time_zone'] ?? 'UTC' ) );
+        return (int) $wpdb->get_var( $wpdb->prepare(
+            "SELECT DATEDIFF( %s, MAX( r.timezone_timestamp ) ) as days_inactive
+                FROM $wpdb->dt_reports r
+                WHERE r.post_type = 'pg_relays'
+                AND r.user_id = %s
+            ", $today->format( 'Y-m-d H:i:s' ), $this->user_id ) );
     }
 
     public function hours_of_inactivity(): int {
@@ -139,20 +137,11 @@ class User_Stats {
             return 0;
         }
 
-        $latest_streak = $all_islands[0];
-
-        $streak_gap_size_days = $in_days;
-        $today = new DateTime();
-        $today->setTimezone( new DateTimeZone( $this->location['time_zone'] ?? 'UTC' ) );
-
-        $latest_streak_end_date = new DateTime( $latest_streak['island_end_timezone_timestamp'] );
-
-        $diff = $today->diff( $latest_streak_end_date );
-
-        if ( $diff->days > $streak_gap_size_days ) {
+        if ( !$this->streak_secure() ) {
             return 0;
         }
 
+        $latest_streak = $all_islands[0];
         return (int) $latest_streak['island_days'];
     }
 
