@@ -40,7 +40,7 @@ class PG_Onesignal {
         }
 
         if ( $url ) {
-            $payload['app_url'] = $url;
+            $payload['url'] = $url;
         }
 
         if ( !empty( $data ) ) {
