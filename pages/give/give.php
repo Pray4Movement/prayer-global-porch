@@ -108,7 +108,7 @@ class Prayer_Global_Give extends DT_Magic_Url_Base {
                         <i class="icon pg-give icon-large brand-light"></i>
                         <h4><?php echo esc_html( __( 'To Prayer.Global', 'prayer-global-porch' ) ) ?></h4>
                         <p>
-                            <?php echo sprintf( esc_html__( 'Thank you for wanting to be part of seeing the Kingdom grow through prayer and movements. Your gift ensures that we can continue to freely give away all of the tools and resources we develop. Your tax deductible donation will go to the development and maintenance of %1$s which is part of the %2$s network.', 'prayer-global-porch' ), "<a href='https://pray4movement.org' target='_blank'>Pray4Movement</a>", 'Prayer.Global' ) ?>
+                            <?php echo sprintf( esc_html__( 'Thank you for wanting to be part of seeing the Kingdom grow through prayer and movements. Your gift ensures that we can continue to freely give away all of the tools and resources we develop. Your tax deductible donation will go to the development and maintenance of %1$s which is part of the %2$s network.', 'prayer-global-porch' ), 'Prayer.Global', "<a href='https://prayer.tools' target='_blank'>Prayer.Tools</a>" ) ?>
                         </p>
                     </div>
                 </div>
@@ -141,10 +141,9 @@ class Prayer_Global_Give extends DT_Magic_Url_Base {
                             <strong><?php echo esc_html( __( 'Note:', 'prayer-global-porch' ) ) ?></strong> <?php echo esc_html( __( "If you'd like to avoid the 3% fee that credit card companies charge everyone, you can send tax deductible donations via check to:", 'prayer-global-porch' ) ) ?>
                         </p>
                         <p class="font-weight-bold">
-                            Prayer.Global <br>
-                            c/o Gospel Ambition <br>
-                            PO Box 325 <br>
-                            Mooreland OK 73852
+                            Prayer.Global c/o Gospel Ambition <br>
+                            19500 State HWY 249 Ste 230<br>
+                            Houston, TX 77070
                         </p>
                     </div>
                 </div>
