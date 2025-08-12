@@ -6,6 +6,11 @@ class PG_Notification_Handler_Job extends Job {
     public function __construct() {}
 
     public function handle() {
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+            return;
+        }
+
+
         dt_write_log( 'PG_Notification_Handler_Job' );
         // Loop through all users with push notifications enabled
         $users = get_users( array(
