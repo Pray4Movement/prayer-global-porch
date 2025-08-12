@@ -176,6 +176,9 @@ class Prayer_Global_Porch {
         require_once( 'pages/user/register.php' );
         require_once( 'pages/user/user-logout.php' );
 
+        // events
+        require_once( 'pages/events/events.php' );
+
         // Global API
         require_once( 'api/loader.php' );
 
