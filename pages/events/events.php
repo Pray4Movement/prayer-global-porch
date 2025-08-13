@@ -72,56 +72,60 @@ class PG_Events extends PG_Public_Page {
         $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
         ?>
 
-        <div class="page">
+        <div class="page flow-medium">
             <section class="container">
-                <div class="row justify-content-md-center mb-5">
+                <div class="row justify-content-md-center mb-5 stack-md">
                     <h1 class="text-center"><?php echo esc_html__( 'Using Prayer.Global at your Event', 'prayer-global-porch' ) ?></h1>
-                    <p class="text-center font-weight-bold font-italic"><?php echo esc_html__( 'Prayer.Global has been used by churches and conferences with great success! ', 'prayer-global-porch' ) ?></p>
-                    <div class="switcher">
-                        <div class="video">
-                            <div style="padding:56.3% 0 0 0;position:relative;">
-                                <iframe src="https://player.vimeo.com/video/913555379?h=b79d3f9229&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                    <p class="text-center font-weight-bold font-italic f-sm"><?php echo esc_html__( 'Prayer.Global has been used by churches and conferences with great success! ', 'prayer-global-porch' ) ?></p>
+                    <div class="switcher switcher-md">
+                        <div>
+                            <div class="video">
+                                <iframe src="https://player.vimeo.com/video/913555379?h=b79d3f9229&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                             </div>
                             <script src="https://player.vimeo.com/api/player.js"></script>
-                            <p class="text-center font-title"><?php echo esc_html__( 'Conference Testimony', 'prayer-global-porch' ) ?></p>
+                            <p class="text-center font-title f-sm"><?php echo esc_html__( 'Conference Testimony', 'prayer-global-porch' ) ?></p>
                         </div>
-                        <div class="video">
-                            <div style="padding:56.3% 0 0 0;position:relative;">
-                                <iframe src="https://player.vimeo.com/video/1058608038?h=b79d3f9229&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;"></iframe>
+                        <div>
+                            <div class="video">
+                                <iframe src="https://player.vimeo.com/video/1058608038?h=b79d3f9229&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
                             </div>
                             <script src="https://player.vimeo.com/api/player.js"></script>
-                            <p class="text-center font-title"><?php echo esc_html__( 'Event Testimony', 'prayer-global-porch' ) ?></p>
+                            <p class="text-center font-title f-sm"><?php echo esc_html__( 'Event Testimony', 'prayer-global-porch' ) ?></p>
                         </div>
                     </div>
-                    <div class="cluster">
-                        <a href="#pre-event" class="btn btn-outline-primary"><?php echo esc_html__( 'Pre-Event Setup', 'prayer-global-porch' ) ?></a>
-                        <a href="#promotion" class="btn btn-outline-primary"><?php echo esc_html__( 'Promotion', 'prayer-global-porch' ) ?></a>
-                        <a href="#facilitate" class="btn btn-outline-primary"><?php echo esc_html__( 'Facilitate the Event', 'prayer-global-porch' ) ?></a>
-                        <a href="#after-event" class="btn btn-outline-primary"><?php echo esc_html__( 'After the Event', 'prayer-global-porch' ) ?></a>
+                    <div class="switcher switcher-lg row-gap-sm mx-auto justify-content-around">
+                        <a href="#pre-event" class="btn btn-outline-primary py-1"><?php echo esc_html__( 'Pre-Event Setup', 'prayer-global-porch' ) ?></a>
+                        <a href="#promotion" class="btn btn-outline-primary py-1"><?php echo esc_html__( 'Promotion', 'prayer-global-porch' ) ?></a>
+                        <a href="#facilitate" class="btn btn-outline-primary py-1"><?php echo esc_html__( 'Facilitate the Event', 'prayer-global-porch' ) ?></a>
+                        <a href="#after-event" class="btn btn-outline-primary py-1"><?php echo esc_html__( 'After the Event', 'prayer-global-porch' ) ?></a>
                     </div>
                     <a class="d-block text-decoration-none brand-light text-center" href="#what-is-prayer-global"><i class="icon pg-chevron-down icon-small"></i></a>
-                    <section id="what-is-prayer-global">
-                        <h2><?php echo esc_html__( 'What is Prayer.Global?', 'prayer-global-porch' ) ?></h2>
-                        <p><?php echo esc_html__( 'Prayer.Global is a powerful tool designed to mobilize strategic, Scripture-based prayer for the fulfillment of the Great Commission. It equips individuals, churches, and conferences to engage in extraordinary prayer—a key mark of disciple-making movements. With Prayer.Global, you and your community can take part in God’s mission to cover the world in prayer.', 'prayer-global-porch' ) ?></p>
-                    </section>
-                    <section id="how-it-works">
-                        <h2><?php echo esc_html__( 'How It Works', 'prayer-global-porch' ) ?></h2>
-                        <ul>
-                            <li><?php echo esc_html__( 'Prayer.Global has divided the world into 4,770 “states” based on geographical and governmental boundaries.', 'prayer-global-porch' ) ?></li>
-                            <li><?php echo esc_html__( 'Click ‘Start Praying’ to initiate a one-minute timer with a specific state to pray for.', 'prayer-global-porch' ) ?></li>
-                            <li><?php echo esc_html__( 'You’ll be provided with specific prayer prompts, scripture and pictures to guide your prayers.', 'prayer-global-porch' ) ?></li>
-                            <li><?php echo esc_html__( 'Watch your progress on the LIVE prayer map as you work together to pray a lap around the world.', 'prayer-global-porch' ) ?></li>
-                        </ul>
-                    </section>
                 </div>
             </section>
-            <section>
-                <div class="position-relative">
-                    <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel5.jpeg" alt="">
-                    <div class="container text-center flow-small">
-                        <p class="font-italic font-weight-bold"><?php echo esc_html__( 'At a recent conference, participants prayed several laps around the world over the course of a few days.', 'prayer-global-porch' ) ?></p>
-                        <p class="font-italic font-weight-bold"><?php echo esc_html__( 'On one Sunday morning, a church of 1200 prayed for the entire world in less that 10 minutes!', 'prayer-global-porch' ) ?></p>
-                        <p class="font-italic font-weight-bold"><?php echo esc_html__( 'Over the course of a month, a campus ministry was able to pray for every location on the globe.', 'prayer-global-porch' ) ?></p>
+            <section id="what-is-prayer-global" class="container flow-medium">
+                <h2><?php echo esc_html__( 'What is Prayer.Global?', 'prayer-global-porch' ) ?></h2>
+                <p><?php echo esc_html__( 'Prayer.Global is a powerful tool designed to mobilize strategic, Scripture-based prayer for the fulfillment of the Great Commission. It equips individuals, churches, and conferences to engage in extraordinary prayer—a key mark of disciple-making movements. With Prayer.Global, you and your community can take part in God’s mission to cover the world in prayer.', 'prayer-global-porch' ) ?></p>
+            </section>
+            <section id="how-it-works" class="container">
+                <h2><?php echo esc_html__( 'How It Works', 'prayer-global-porch' ) ?></h2>
+                <ul class="flow-small">
+                    <li><?php echo esc_html__( 'Prayer.Global has divided the world into 4,770 “states” based on geographical and governmental boundaries.', 'prayer-global-porch' ) ?></li>
+                    <li><?php echo esc_html__( 'Click ‘Start Praying’ to initiate a one-minute timer with a specific state to pray for.', 'prayer-global-porch' ) ?></li>
+                    <li><?php echo esc_html__( 'You’ll be provided with specific prayer prompts, scripture and pictures to guide your prayers.', 'prayer-global-porch' ) ?></li>
+                    <li><?php echo esc_html__( 'Watch your progress on the LIVE prayer map as you work together to pray a lap around the world.', 'prayer-global-porch' ) ?></li>
+                </ul>
+            </section>
+
+            <section class="parallax">
+                <div class="parallax__group">
+                    <div class="parallax__layer parallax__layer--back" style="background-image: url('<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel5.jpeg');">
+                    </div>
+                    <div class="parallax__layer parallax__layer--base">
+                        <div class="parallax__text">
+                            <p class="font-italic font-weight-bold"><?php echo esc_html__( 'At a recent conference, participants prayed several laps around the world over the course of a few days.', 'prayer-global-porch' ) ?></p>
+                            <p class="font-italic font-weight-bold"><?php echo esc_html__( 'On one Sunday morning, a church of 1200 prayed for the entire world in less that 10 minutes!', 'prayer-global-porch' ) ?></p>
+                            <p class="parallax__highlight"><?php echo esc_html__( 'Over the course of a month, a campus ministry was able to pray for every location on the globe.', 'prayer-global-porch' ) ?></p>
+                        </div>
                     </div>
                 </div>
             </section>
