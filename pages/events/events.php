@@ -117,14 +117,14 @@ class PG_Events extends PG_Public_Page {
             </section>
 
             <section class="parallax">
-                <div class="parallax__group">
-                    <div class="parallax__layer parallax__layer--back" style="background-image: url('<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel5.jpeg');">
-                    </div>
-                    <div class="parallax__layer parallax__layer--base">
-                        <div class="parallax__text">
-                            <p class="font-italic font-weight-bold"><?php echo esc_html__( 'At a recent conference, participants prayed several laps around the world over the course of a few days.', 'prayer-global-porch' ) ?></p>
-                            <p class="font-italic font-weight-bold"><?php echo esc_html__( 'On one Sunday morning, a church of 1200 prayed for the entire world in less that 10 minutes!', 'prayer-global-porch' ) ?></p>
-                            <p class="parallax__highlight"><?php echo esc_html__( 'Over the course of a month, a campus ministry was able to pray for every location on the globe.', 'prayer-global-porch' ) ?></p>
+                <div class="parallax__layer parallax__layer--back" style="background-image: url('<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel5.jpeg');">
+                </div>
+                <div class="parallax__layer--base">
+                    <div class="flex-1 brand-transparent-gradient">
+                        <div class="container | text-center white font-italic font-weight-bold f-md py-5">
+                            <p><?php echo esc_html__( 'At a recent conference, participants prayed several laps around the world over the course of a few days.', 'prayer-global-porch' ) ?></p>
+                            <p><?php echo esc_html__( 'On one Sunday morning, a church of 1200 prayed for the entire world in less that 10 minutes!', 'prayer-global-porch' ) ?></p>
+                            <p><?php echo esc_html__( 'Over the course of a month, a campus ministry was able to pray for every location on the globe.', 'prayer-global-porch' ) ?></p>
                         </div>
                     </div>
                 </div>
@@ -263,6 +263,19 @@ class PG_Events extends PG_Public_Page {
                 <svg class="icon-xxlg"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-relay"></use></svg>
             </section>
         </div>
+
+                <script>
+        // One-time calculation of parallax element position + scroll offset
+        const parallaxElements = document.querySelectorAll('.parallax');
+
+        window.addEventListener('scroll', () => {
+            parallaxElements.forEach(element => {
+                const elementOffset = element.offsetTop - element.offsetHeight;
+                const scrollProgress = Math.max(0, window.pageYOffset - elementOffset);
+                element.style.setProperty('--element-scroll', scrollProgress);
+            });
+        });
+        </script>
 
         <?php
 

@@ -78,6 +78,7 @@
     --orange-gradient: linear-gradient(#ffb858, #ea7519);
     --white-gradient: linear-gradient(white, 90%, transparent);
     --blue-gradient: linear-gradient(#5a81c0, #3f5b88);
+    --blue-transparent-gradient: linear-gradient(0deg, var(--pg-brand-color), transparent);
     --small-box-shadow: rgba(0, 0, 0, 0.1) 0 3px 4px 1px;
     /* Web component variables */
     --dt-form-text-color: var(--bs-gray-600);
@@ -572,6 +573,9 @@ input[type="radio"]:checked {
 .orange-gradient {
     background-image: var(--orange-gradient);
 }
+.brand-transparent-gradient {
+    background-image: var(--blue-transparent-gradient);
+}
 .orange-gradient-fill {
     fill: url(#orange-gradient);
 }
@@ -851,6 +855,7 @@ input[type="radio"]:checked {
     background-size: contain;
     background-repeat: no-repeat;
 }
+.grow-1
 .bg-center {
     background-position: center center;
 }
@@ -1067,12 +1072,9 @@ input[type="radio"]:checked {
 /* Parallax */
 .parallax {
     position: relative;
-    height: 50vh;
     overflow: hidden;
-}
-.parallax__group {
-    position: relative;
-    height: 100%;
+    min-height: 100vh;
+    display: flex;
 }
 .parallax__layer {
     position: absolute;
@@ -1082,80 +1084,38 @@ input[type="radio"]:checked {
     left: 0;
 }
 .parallax__layer--base {
+    position: relative;
     z-index: 2;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    padding: 2rem;
+    width: 100%;
+}
+.faded-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
 }
 .parallax__layer--back {
     z-index: 1;
-}
-.parallax__layer--back img {
-    width: 100%;
-    height: 120%;
-    object-fit: cover;
-    object-position: center;
-    filter: brightness(0.7);
-    transform: translateY(0);
-    transition: transform 0.1s ease-out;
-}
-.parallax__text {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    max-width: 800px;
-    text-align: center;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-.parallax__text p {
-    margin-bottom: 1rem;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: var(--pg-brand-color);
-}
-.parallax__text p:last-child {
-    margin-bottom: 0;
-}
-.parallax__highlight {
-    font-size: 1.2rem;
-    color: var(--pg-secondary-color);
-    font-weight: bold;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-}
-
-/* CSS-only parallax effect using background-attachment */
-.parallax__layer--back {
-    background-attachment: fixed;
+    position: absolute;
+    top: -20vh;
+    left: 0;
+    right: 0;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    will-change: transform;
+    transform: translateY(calc(var(--element-scroll, 0) * 0.1px));
 }
 
-/* Fallback for browsers that don't support background-attachment: fixed */
-@supports not (background-attachment: fixed) {
-    .parallax__layer--back img {
-        transform: translateY(calc(var(--scroll-offset, 0) * 0.5px));
-    }
-}
-
-/* Responsive adjustments for parallax */
-@media (max-width: 768px) {
-    .parallax {
-        height: 40vh;
-    }
-    .parallax__text {
-        padding: 1.5rem;
-        margin: 1rem;
-        max-width: 90%;
-    }
-    .parallax__text p {
-        font-size: 1rem;
-    }
-    .parallax__highlight {
-        font-size: 1.1rem;
+/* JavaScript-free fallback for browsers without CSS custom property support */
+@supports not (--custom: property) {
+    .parallax__layer--back::before {
+        transform: none;
     }
 }
 
