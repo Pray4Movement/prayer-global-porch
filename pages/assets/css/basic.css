@@ -171,9 +171,32 @@ ul li:before {
 li + li {
     margin-top: 1rem;
 }
-ul[data-tight] li + li {
+[data-tight] > li + li {
     margin-top: 0.5rem;
 }
+ol.large-numbers {
+    margin-left: -2rem;
+    list-style: none;
+    counter-reset: large-numbers;
+}
+ol.large-numbers > li {
+    position: relative;
+    margin-left: 2rem;
+}
+ol.large-numbers > li:before {
+    font-size: 4rem;
+    counter-increment: large-numbers;
+    content: counter(large-numbers);
+    position: absolute;
+    left: 0;
+    top: -0.1em;
+    line-height: 1;
+    transform: translateX(-150%);
+    font-family: var(--pg-font-family-title);
+    width: 1ch;
+}
+
+
 ol[role="list"],
 ul[role="list"] {
     list-style: none;
@@ -426,6 +449,9 @@ input[type="radio"]:checked {
 .w-fit {
     width: fit-content;
 }
+.h-22 {
+    height: 22rem;
+}
 .font-title {
     font-family: var(--pg-font-family-title);
 }
@@ -622,12 +648,6 @@ input[type="radio"]:checked {
 .secondary-border {
     border: 2px solid var(--pg-secondary-color);
 }
-.flex-1 {
-    flex: 1;
-}
-.flex-2 {
-    flex: 2;
-}
 .row-gap-sm {
     row-gap: 1rem !important;
 }
@@ -659,6 +679,14 @@ input[type="radio"]:checked {
     display: flex;
     gap: 1rem;
     align-items: center;
+}
+
+.flow > *,
+.flow-xmedium > *,
+.flow-medium > *,
+.flow-small > * {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .flow > * + * {
@@ -1123,6 +1151,7 @@ input[type="radio"]:checked {
     z-index: 1;
     position: absolute;
     top: -20vh;
+    bottom: -20vh;
     left: 0;
     right: 0;
     background-position: center;
@@ -1132,6 +1161,15 @@ input[type="radio"]:checked {
     transform: translateY(calc(var(--element-scroll, 0) * 0.1px));
 }
 
+.flex-1 {
+    flex: 1;
+}
+.flex-1_5 {
+    flex: 1.5;
+}
+.flex-2 {
+    flex: 2;
+}
 /* JavaScript-free fallback for browsers without CSS custom property support */
 @supports not (--custom: property) {
     .parallax__layer--back::before {
@@ -2428,4 +2466,19 @@ input[type="password"],
         #ea7519 90%,
         #ffb858 100%
     );
+}
+
+.narrow-parallax {
+    min-height: 0;
+    height: 40vw;
+}
+
+.circle-image {
+    border-radius: 50%;
+    overflow: hidden;
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+.triple-image {
+    gap: 3rem;
 }
