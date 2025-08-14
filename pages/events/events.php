@@ -72,7 +72,7 @@ class PG_Events extends PG_Public_Page {
         $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
         ?>
 
-        <div class="page flow-medium">
+        <div class="page flow-xmedium">
             <section class="container">
                 <div class="row justify-content-md-center mb-5 stack-md">
                     <h1 class="text-center"><?php echo esc_html__( 'Using Prayer.Global at your Event', 'prayer-global-porch' ) ?></h1>
@@ -108,7 +108,7 @@ class PG_Events extends PG_Public_Page {
             </section>
             <section id="how-it-works" class="container">
                 <h2><?php echo esc_html__( 'How It Works', 'prayer-global-porch' ) ?></h2>
-                <ul class="flow-small">
+                <ul>
                     <li><?php echo esc_html__( 'Prayer.Global has divided the world into 4,770 “states” based on geographical and governmental boundaries.', 'prayer-global-porch' ) ?></li>
                     <li><?php echo esc_html__( 'Click ‘Start Praying’ to initiate a one-minute timer with a specific state to pray for.', 'prayer-global-porch' ) ?></li>
                     <li><?php echo esc_html__( 'You’ll be provided with specific prayer prompts, scripture and pictures to guide your prayers.', 'prayer-global-porch' ) ?></li>
@@ -133,27 +133,27 @@ class PG_Events extends PG_Public_Page {
                 <h2><?php echo esc_html__( 'Pre-Event Setup', 'prayer-global-porch' ) ?></h2>
                 <p class="font-weight-bold"><?php echo esc_html__( 'We’ve done the hard work to make it easy for you.', 'prayer-global-porch' ) ?></p>
                 <ul>
-                    <li><strong><?php echo esc_html__( 'Register and create a free account', 'prayer-global-porch' ) ?>:</strong><?php echo esc_html__( 'Gain access to your personal Prayer Global dashboard.', 'prayer-global-porch' ) ?></li>
-                    <li><strong><?php echo esc_html__( 'Create a custom group prayer relay', 'prayer-global-porch' ) ?>:</strong><?php echo esc_html__( 'Choose a name and decide if it’s public (anyone can join) or private (accessible only through the URL or QR code).', 'prayer-global-porch' ) ?></li>
-                    <li><strong><?php echo esc_html__( 'Access free promotional resources', 'prayer-global-porch' ) ?>:</strong><?php echo esc_html__( 'Easily promote your event with customizable materials for your church or conference.', 'prayer-global-porch' ) ?></li>
-                    <li><strong><?php echo esc_html__( 'Cast Vision', 'prayer-global-porch' ) ?>:</strong><?php echo esc_html__( 'Share the importance of prayer in fulfilling the Great Commission. Lay a foundation for the Prayer.Global experience by casting a vision - the “why” - and setting a goal for your event.', 'prayer-global-porch' ) ?></li>
-                    <li><strong><?php echo esc_html__( 'Set a Goal', 'prayer-global-porch' ) ?>:</strong><?php echo esc_html__( 'Choose a prayer target based on your event size and timeframe.', 'prayer-global-porch' ) ?></li>
+                    <li><strong><?php echo esc_html__( 'Register and create a free account', 'prayer-global-porch' ) ?>:</strong> <?php echo esc_html__( 'Gain access to your personal Prayer Global dashboard.', 'prayer-global-porch' ) ?></li>
+                    <li><strong><?php echo esc_html__( 'Create a custom group prayer relay', 'prayer-global-porch' ) ?>:</strong> <?php echo esc_html__( 'Choose a name and decide if it’s public (anyone can join) or private (accessible only through the URL or QR code).', 'prayer-global-porch' ) ?></li>
+                    <li><strong><?php echo esc_html__( 'Access free promotional resources', 'prayer-global-porch' ) ?>:</strong> <?php echo esc_html__( 'Easily promote your event with customizable materials for your church or conference.', 'prayer-global-porch' ) ?></li>
+                    <li><strong><?php echo esc_html__( 'Cast Vision', 'prayer-global-porch' ) ?>:</strong> <?php echo esc_html__( 'Share the importance of prayer in fulfilling the Great Commission. Lay a foundation for the Prayer.Global experience by casting a vision - the “why” - and setting a goal for your event.', 'prayer-global-porch' ) ?></li>
+                    <li><strong><?php echo esc_html__( 'Set a Goal', 'prayer-global-porch' ) ?>:</strong> <?php echo esc_html__( 'Choose a prayer target based on your event size and timeframe.', 'prayer-global-porch' ) ?></li>
                 </ul>
             </section>
-            <section class="bg-grey-light" style="background-color: #f3f5f8">
-                <div class="container">
-                    <h5><?php echo esc_html__( 'Sample Goals', 'prayer-global-porch' ) ?></h5>
+            <section class="light-grey-bg py-5">
+                <div class="container flow-medium">
+                    <h4 class="text-center text-transform-none font-base font-weight-bold"><?php echo esc_html__( 'Sample Goals', 'prayer-global-porch' ) ?></h4>
                     <ul class="star-bullet">
                         <li><strong><?php echo esc_html__( 'Collectively complete one prayer lap around the world in each event session (covering all 4,770 states in prayer)', 'prayer-global-porch' ) ?></strong> - <?php echo esc_html__( 'Each individual would pray for multiple regions, depending on the amount of time allotted, each time the activity is offered. For reference, on average ten minutes would allow each person to cover about seven states in prayer.', 'prayer-global-porch' ) ?></li>
                         <li><strong><?php echo esc_html__( 'Collectively complete one prayer lap around the world in the course of the event  (covering all 4,770 states in prayer)', 'prayer-global-porch' ) ?></strong> - <?php echo esc_html__( 'ach individual would pray for one region, roughly one minute, each time the activity is offered.', 'prayer-global-porch' ) ?></li>
                     </ul>
                 </div>
             </section>
-            <section id="promotion" class="bg-brand-light">
-                <div class="container">
+            <section id="promotion" class="brand-lightest-bg white py-5">
+                <div class="container flow-medium">
                     <h2><?php echo esc_html__( 'Customizable Promotional Resources', 'prayer-global-porch' ) ?></h2>
                     <div class="switcher">
-                        <ul>
+                        <ul data-tight>
                             <li><?php echo esc_html__( 'Download the custom QR code from the Prayer.Global website once your lap is set up.', 'prayer-global-porch' ) ?></li>
                             <li><?php echo esc_html__( 'Customizable sample emails', 'prayer-global-porch' ) ?></li>
                             <li><?php echo esc_html__( 'Mobile templates', 'prayer-global-porch' ) ?></li>
@@ -162,10 +162,12 @@ class PG_Events extends PG_Public_Page {
                             <li><?php echo esc_html__( 'Presenter slide templates', 'prayer-global-porch' ) ?></li>
                             <li><?php echo esc_html__( 'Event poster', 'prayer-global-porch' ) ?></li>
                         </ul>
-                        <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/3X5Mockup-PGonly.png" alt="">
+                        <div class="d-flex align-items-center">
+                            <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/3X5Mockup-PGonly-crop2.png" alt="">
+                        </div>
                     </div>
+                    <a class="btn btn-outline-light d-block w-fit mx-auto py-1" href="#promotion"><?php echo esc_html__( 'Promo resources', 'prayer-global-porch' ) ?></a>
                 </div>
-                <a class="btn btn-outline-primary text-center" href="#promotion"><?php echo esc_html__( 'Promo resources', 'prayer-global-porch' ) ?></a>
             </section>
             <section class="container">
                 <h2><?php echo esc_html__( 'Promote in advance of your event', 'prayer-global-porch' ) ?></h2>
