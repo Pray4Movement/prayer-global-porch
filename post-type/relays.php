@@ -286,6 +286,15 @@ class Prayer_Global_Relays_Post_Type extends DT_Module_Base {
                 'hidden' => false,
             ];
 
+            //number of completed laps
+            $fields['number_of_completed_laps'] = [
+                'name' => __( 'Number of completed laps', 'prayer-global-porch' ),
+                'description' => __( 'The number of laps that have been completed', 'prayer-global-porch' ),
+                'type' => 'number',
+                'tile' => 'details',
+                'default' => 0,
+            ];
+
             $fields['contacts'] = [
                 'name' => __( 'Contacts', 'prayer-global-porch' ),
                 'description' => '',
