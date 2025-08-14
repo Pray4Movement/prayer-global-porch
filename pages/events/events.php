@@ -72,7 +72,7 @@ class PG_Events extends PG_Public_Page {
         $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
         ?>
 
-        <div class="page">
+        <div class="page | events-page">
             <section class="container">
                 <div class="row justify-content-md-center mb-5 stack-md">
                     <h1 class="text-center"><?php echo esc_html__( 'Using Prayer.Global at your Event', 'prayer-global-porch' ) ?></h1>
