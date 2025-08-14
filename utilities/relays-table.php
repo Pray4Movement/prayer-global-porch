@@ -325,7 +325,7 @@ class PG_Relays_Table {
      * @param $relay_id
      * @return void
      */
-    public function new_lap_action( $relay_id, $new_lap_number ) {
+    public function new_lap_action( $relay_id, $completed_lap_number ) {
         //check if this is a single lap relay
         $relay_type_query = $this->mysqli->execute_query( "
             SELECT meta_value
@@ -345,6 +345,14 @@ class PG_Relays_Table {
             ", [ $relay_id ] );
         }
 
+        //update lap number
+        $this->mysqli->execute_query( "
+            UPDATE $this->postmeta_table
+            SET meta_value = ?
+            WHERE post_id = ?
+            AND meta_key = 'lap_number'
+        ", [ $completed_lap_number + 1, $relay_id ] );
+
         //create a report for complete laps
         $this->mysqli->execute_query( "
             INSERT INTO $this->reports_table
@@ -358,7 +366,7 @@ class PG_Relays_Table {
             )
             VALUES
             ( ?, ?, ?, ?, ?, ? )
-            ", [ $relay_id, 'pg_relays', 'lap_completed', '', $new_lap_number, time() ]
+            ", [ $relay_id, 'pg_relays', 'lap_completed', '', $completed_lap_number, time() ]
         );
     }
 }
