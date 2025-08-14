@@ -1,0 +1,168 @@
+<?php
+
+require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' ) ?>
+
+<section class="hero full-height contain bg-top dark-bg" style="background-image: url(<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/world-map-dark-background-new.png); min-height: 100vh;" id="section-home">
+    <div class="container">
+        <div class="row flex-column justify-content-between flex-nowrap">
+            <div>
+                <h1 class="heading">Prayer.Global</h1>
+                <h2 class="sub-heading brand-highlight"><?php echo esc_html( __( 'Cover the World in Prayer', 'prayer-global-porch' ) ) ?></h2>
+                <i class="icon pg-logo-prayer white heading__logo"></i>
+            </div>
+            <div class="my-4 d-flex flex-column align-items-center">
+                <a class="btn btn-cta mx-2 d-inline-block" href="/newest/lap/"><?php echo esc_html( __( 'Start Praying', 'prayer-global-porch' ) ) ?></a>
+                <a id="learn-more-mobile" href="#section-goal" class="mt-2 text-decoration-none">
+                    <i class="icon icon-small pg-chevron-down brand-highlight"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="center text-center">
+        <h2><?php echo esc_html__( 'Want to pray globally but don’t know where to start?', 'prayer-global-porch' ) ?></h2>
+        <p><?php echo esc_html__( 'Prayer.Global makes praying for the lost simple— and life-changing.', 'prayer-global-porch' ) ?></p>
+        <p class="font-italic"><?php echo esc_html__( '“With this resource, you will be saying prayers you never said before, praying for people you never knew existed, and you and the world will be changed.” -Northside CC Pastor', 'prayer-global-porch' ) ?></p>
+        <p><?php echo esc_html__( 'We’ll show you how.', 'prayer-global-porch' ) ?></p>
+        <p class="font-weight-bold"><?php echo esc_html__( 'Ready…Set…', 'prayer-global-porch' ) ?></p>
+        <a class="btn btn-cta mx-2 d-inline-block" href="/newest/lap/"><?php echo esc_html( __( 'Start Praying', 'prayer-global-porch' ) ) ?></a>
+    </div>
+</section>
+<section class="brand-lightest-bg blue-orange-gradient-bg">
+    <div class="container">
+        <div class="switcher">
+            <div class="flow-small white">
+                <h2 class="text-center">
+                    <?php echo esc_html__( 'How it works', 'prayer-global-porch' ) ?>
+                    <i class="icon icon-small pg-logo-prayer"></i>
+                </h2>
+                <p><?php echo esc_html__( 'Prayer.Global has broken the world down into 4,770 states based on geographical and governmental boundaries. ', 'prayer-global-porch' ) ?></p>
+                <p><?php echo esc_html__( 'Pray for all 4,770…complete a “prayer lap” around the world!', 'prayer-global-porch' ) ?></p>
+                <p><?php echo esc_html__( 'An interactive map tracks your prayers in real time.', 'prayer-global-porch' ) ?></p>
+                <a href="/map" class="btn btn-primary-light uppercase center">
+                    <?php echo esc_html__( 'View prayer map', 'prayer-global-porch' ) ?>
+                </a>
+            </div>
+            <div class="d-flex align-items-center">
+                <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel3.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container switcher">
+        <div class="d-flex align-items-center">
+            <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel4.jpg" alt="">
+        </div>
+        <div class="flow-small">
+            <h2>
+                <?php echo esc_html__( 'Prayer Fuel', 'prayer-global-porch' ) ?>
+                <i class="icon icon-small pg-logo-prayer"></i>
+            </h2>
+            <p><?php echo esc_html__( 'We’ll give you location specific prayer prompts, scripture and images to help guide your prayers for each of the 4,770 states.', 'prayer-global-porch' ) ?></p>
+            <a href="/newest/lap/" class="btn btn-cta uppercase center">
+                <?php echo esc_html__( 'Start Praying', 'prayer-global-porch' ) ?>
+            </a>
+        </div>
+    </div>
+</section>
+<section class="brand-lightest-bg orange-blue-gradient-bg">
+    <div class="container">
+        <div class="switcher">
+            <div class="flow-small white">
+                <h2 class="text-center">
+                    <?php echo esc_html__( 'Prayer Relays', 'prayer-global-porch' ) ?>
+                    <i class="icon icon-small pg-logo-prayer"></i>
+                </h2>
+                <p><?php echo esc_html__( 'Team up in prayer!', 'prayer-global-porch' ) ?></p>
+                <p><?php echo esc_html__( 'Create a custom prayer relay to see if you and your friends, small group or church can pray for the whole world together.', 'prayer-global-porch' ) ?></p>
+                <a href="/dashboard/relays" class="btn btn-primary-light uppercase center">
+                    <?php echo esc_html__( 'Get started', 'prayer-global-porch' ) ?>
+                </a>
+            </div>
+            <div class="d-flex align-items-center">
+                <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel5.jpg" alt="">
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container switcher">
+        <div class="d-flex align-items-center">
+            <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel6.jpg" alt="">
+        </div>
+        <div class="flow-small">
+            <h2>
+                <?php echo esc_html__( 'My Prayer Activity', 'prayer-global-porch' ) ?>
+                <i class="icon icon-small pg-logo-prayer"></i>
+            </h2>
+            <p><?php echo esc_html__( 'Register for free to:', 'prayer-global-porch' ) ?></p>
+            <ul data-tight>
+                <li><?php echo esc_html__( 'Create and join custom relays', 'prayer-global-porch' ) ?></li>
+                <li><?php echo esc_html__( 'Track your prayers', 'prayer-global-porch' ) ?></li>
+                <li><?php echo esc_html__( 'See what you’ve prayed for', 'prayer-global-porch' ) ?></li>
+                <li><?php echo esc_html__( 'Build a daily prayer streak', 'prayer-global-porch' ) ?></li>
+            </ul>
+            <a href="/dashboard" class="btn btn-primary-light uppercase center">
+                <?php echo esc_html__( 'Register now', 'prayer-global-porch' ) ?>
+            </a>
+        </div>
+    </div>
+</section>
+<section class="brand-bg">
+    <div class="container | white">
+        <div class="switcher">
+            <div class="flow-small">
+                <h2><?php echo esc_html__( 'Mobilize a movement of prayer', 'prayer-global-porch' ) ?></h2>
+                <p><?php echo esc_html__( 'Use Prayer.Global to rally your church, conference, or group around a mission to pray a full lap around the world. Every prayer moves us closer to seeing the nations reached!', 'prayer-global-porch' ) ?></p>
+                <div class="switcher">
+                    <a href="/dashboard/relays" class="btn btn-primary-light uppercase">
+                        <?php echo esc_html__( 'Get started', 'prayer-global-porch' ) ?>
+                    </a>
+                    <a href="/events" class="btn btn-outline-light uppercase">
+                        <?php echo esc_html__( 'Information for leaders', 'prayer-global-porch' ) ?>
+                    </a>
+                </div>
+            </div>
+            <ul role="list">
+                <li>
+                    <i class="icon pg-logo-prayer"></i>
+                    <span><?php echo esc_html__( 'Churches', 'prayer-global-porch' ) ?></sp>
+                </li>
+                <li>
+                    <i class="icon pg-logo-prayer"></i>
+                    <span><?php echo esc_html__( 'Conferences', 'prayer-global-porch' ) ?></sp>
+                </li>
+                <li>
+                    <i class="icon pg-logo-prayer"></i>
+                    <span><?php echo esc_html__( 'Prayer events', 'prayer-global-porch' ) ?></sp>
+                </li>
+                <li>
+                    <i class="icon pg-logo-prayer"></i>
+                    <span><?php echo esc_html__( 'Campus ministries', 'prayer-global-porch' ) ?></sp>
+                </li>
+                <li>
+                    <i class="icon pg-logo-prayer"></i>
+                    <span><?php echo esc_html__( 'College/Universities', 'prayer-global-porch' ) ?></sp>
+                </li>
+                <li>
+                    <i class="icon pg-logo-prayer"></i>
+                    <span><?php echo esc_html__( 'Mission Organizations', 'prayer-global-porch' ) ?></sp>
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="switcher container">
+        <div class="d-flex align-items-center">
+            <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel7.jpg" alt="">
+        </div>
+        <p><?php echo esc_html__( 'Join thousands of intercessors praying daily for the nations.', 'prayer-global-porch' ) ?></p>
+    </div>
+</section>
+
+
+<?php require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/working-footer.php' ) ?>
