@@ -117,7 +117,7 @@ class Prayer_Global_Migration_0018 extends Prayer_Global_Migration {
 
 
             //update the number of completed laps
-            update_post_meta( $post_id, 'number_of_completed_laps', $completed_laps );
+            update_post_meta( $post_id, 'lap_number', $completed_laps + 1 );
         }
 
         //insert one for ICOM 1646 november 16 2024
@@ -129,7 +129,7 @@ class Prayer_Global_Migration_0018 extends Prayer_Global_Migration {
             )
         );
         //update the number of completed laps
-        update_post_meta( 1646, 'number_of_completed_laps', 1 );
+        update_post_meta( 1646, 'lap_number', 2 );
 
         //insert log for STUMO id: 1980, date jan 5 2025
         $wpdb->query(
@@ -140,7 +140,7 @@ class Prayer_Global_Migration_0018 extends Prayer_Global_Migration {
             )
         );
         //update the number of completed laps
-        update_post_meta( 1980, 'number_of_completed_laps', 1 );
+        update_post_meta( 1980, 'lap_number', 2 );
     }
 
     public function down() {

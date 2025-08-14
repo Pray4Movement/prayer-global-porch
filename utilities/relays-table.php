@@ -346,23 +346,12 @@ class PG_Relays_Table {
         }
 
         //update lap number
-        if ( (int) $completed_lap_number === 1 ){
-            //instert new row
-            $this->mysqli->execute_query( "
-                INSERT INTO $this->postmeta_table
-                ( post_id, meta_key, meta_value )
-                VALUES ( ?, ?, ? )
-                ", [ $relay_id, 'number_of_completed_laps', $completed_lap_number ]
-            );
-        } else {
-            //update existing row
-            $this->mysqli->execute_query( "
-                UPDATE $this->postmeta_table
-                SET meta_value = ?
-                WHERE post_id = ?
-                AND meta_key = 'number_of_completed_laps'
-            ", [ $completed_lap_number, $relay_id ] );
-        }
+        $this->mysqli->execute_query( "
+            UPDATE $this->postmeta_table
+            SET meta_value = ?
+            WHERE post_id = ?
+            AND meta_key = 'lap_number'
+        ", [ $completed_lap_number + 1, $relay_id ] );
 
         //create a report for complete laps
         $this->mysqli->execute_query( "

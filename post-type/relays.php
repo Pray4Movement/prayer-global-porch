@@ -287,12 +287,12 @@ class Prayer_Global_Relays_Post_Type extends DT_Module_Base {
             ];
 
             //number of completed laps
-            $fields['number_of_completed_laps'] = [
-                'name' => __( 'Number of completed laps', 'prayer-global-porch' ),
-                'description' => __( 'The number of laps that have been completed', 'prayer-global-porch' ),
+            $fields['lap_number'] = [
+                'name' => __( 'Lap Number', 'prayer-global-porch' ),
+                'description' => __( 'The number of the current lap', 'prayer-global-porch' ),
                 'type' => 'number',
                 'tile' => 'details',
-                'default' => 0,
+                'default' => 1,
             ];
 
             $fields['contacts'] = [
@@ -415,6 +415,9 @@ class Prayer_Global_Relays_Post_Type extends DT_Module_Base {
             }
             if ( ! isset( $fields['start_time'] ) || empty( $fields['start_time'] ) ){
                 $fields['start_time'] = time();
+            }
+            if ( ! isset( $fields['lap_number'] ) || empty( $fields['lap_number'] ) ){
+                $fields['lap_number'] = 1;
             }
         }
         return $fields;
