@@ -2482,3 +2482,11 @@ input[type="password"],
 .triple-image {
     gap: 3rem;
 }
+.with-floating-anchor {
+    position: relative;
+}
+.with-floating-anchor .anchor {
+    position: absolute;
+    top: -100px;
+    left: 0;
+}
