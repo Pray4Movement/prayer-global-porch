@@ -288,7 +288,7 @@ class PG_Events extends PG_Public_Page {
             </section>
             <section class="container flow-small center | mt-5">
                 <p class="font-weight-bold"><?php echo esc_html__( 'Ready...Set...', 'prayer-global-porch' ) ?></p>
-                <a class="btn btn-primary-light uppercase" href="https://prayer.global/dashboard"><?php echo esc_html__( 'Create Group Relay', 'prayer-global-porch' ) ?></a>
+                <a class="btn btn-primary-light uppercase" href="/dashboard/relays"><?php echo esc_html__( 'Create Group Relay', 'prayer-global-porch' ) ?></a>
                 <svg class="icon-xxlg"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-relay"></use></svg>
             </section>
         </div>
