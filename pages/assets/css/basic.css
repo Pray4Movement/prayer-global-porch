@@ -155,14 +155,14 @@ ul li:before {
     content: "★";
 }
 
-[dir="ltr"] ul li {
+[dir="ltr"] ul:not([role="list"]) li {
     padding-left: 1.7em;
 }
 
 [dir="ltr"] ul li:before {
     left: 0;
 }
-[dir="rtl"] ul li {
+[dir="rtl"] ul:not([role="list"]) li {
     padding-right: 1.7em;
 }
 [dir="rtl"] ul li:before {
