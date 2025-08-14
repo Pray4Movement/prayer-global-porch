@@ -73,7 +73,7 @@ class PG_Events extends PG_Public_Page {
         ?>
 
         <div class="page">
-            <section class="container py-5">
+            <section class="container">
                 <div class="row justify-content-md-center mb-5 stack-md">
                     <h1 class="text-center"><?php echo esc_html__( 'Using Prayer.Global at your Event', 'prayer-global-porch' ) ?></h1>
                     <p class="text-center font-weight-bold font-italic f-sm"><?php echo esc_html__( 'Prayer.Global has been used by churches and conferences with great success! ', 'prayer-global-porch' ) ?></p>
@@ -102,8 +102,11 @@ class PG_Events extends PG_Public_Page {
                     <a class="d-block text-decoration-none brand-light text-center" href="#what-is-prayer-global"><i class="icon pg-chevron-down icon-small"></i></a>
                 </div>
             </section>
-            <section class="container flow-medium | py-5">
-                <h2><?php echo esc_html__( 'What is Prayer.Global?', 'prayer-global-porch' ) ?></h2>
+            <section class="container flow-medium | mt-5">
+                <h2 class="with-floating-anchor">
+                    <?php echo esc_html__( 'What is Prayer.Global?', 'prayer-global-porch' ) ?>
+                    <span class="anchor" id="what-is-prayer-global"></span>
+                </h2>
                 <p><?php echo esc_html__( 'Prayer.Global is a powerful tool designed to mobilize strategic, Scripture-based prayer for the fulfillment of the Great Commission. It equips individuals, churches, and conferences to engage in extraordinary prayer—a key mark of disciple-making movements. With Prayer.Global, you and your community can take part in God’s mission to cover the world in prayer.', 'prayer-global-porch' ) ?></p>
             </section>
             <section class="container | py-5">
