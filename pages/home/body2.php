@@ -158,9 +158,60 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
 <section>
     <div class="switcher container">
         <div class="d-flex align-items-center">
-            <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel7.jpg" alt="">
+            <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/map-lightblue-transparent.png" alt="">
         </div>
         <p><?php echo esc_html__( 'Join thousands of intercessors praying daily for the nations.', 'prayer-global-porch' ) ?></p>
+    </div>
+    <div class="grey-gradient-bg">
+        <div class="container switcher">
+            <div class="flow-small">
+                <span id="global-lap-percentage">
+                    <span class="loading-spinner active"></span>
+                </span>
+                <p class="font-title">
+                    <?php echo esc_html__( 'Current lap status', 'prayer-global-porch' ) ?>
+                </p>
+            </div>
+            <div class="flow-small">
+                <span id="global-laps-completed">
+                    <span class="loading-spinner active"></span>
+                </span>
+                <p class="font-title">
+                    <?php echo esc_html__( 'Laps completed', 'prayer-global-porch' ) ?>
+                </p>
+            </div>
+            <div class="flow-small">
+                <span id="global-intercessors">
+                    <span class="loading-spinner active"></span>
+                </span>
+                <p class="font-title">
+                    <?php echo esc_html__( 'Total intercessors', 'prayer-global-porch' ) ?>
+                </p>
+            </div>
+        </div>
+        <a href="/newest/lap/" class="btn btn-cta uppercase center">
+            <?php echo esc_html__( 'Start praying', 'prayer-global-porch' ) ?>
+        </a>
+    </div>
+</section>
+<section class="brand-lightest-bg">
+    <div class="switcher">
+        <div class="d-flex align-items-center position-relative">
+            <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel9.jpg" alt="">
+            <div class="grey-gradient-bg"></div>
+        </div>
+        <div class="flow-small">
+            <h2><?php echo esc_html__( 'Gospel Ambition tools and trainings are 100% free, thanks to people like you.', 'prayer-global-porch' ) ?></h2>
+            <p><?php echo esc_html__( 'We love equipping the global Church with free tools to mobilize prayer and make disciples. You can help expand this mission by becoming a monthly giver or making a one-time gift. Your support keeps these resources free and accessible to believers worldwide.', 'prayer-global-porch' ) ?></p>
+            <div class="cluster justify-content-between">
+                <a href="/donate" class="btn btn-outline-light uppercase center">
+                    <?php echo esc_html__( 'Donate', 'prayer-global-porch' ) ?>
+                </a>
+                <div>
+                    <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/GO-Ambition-allwhite.png" alt="">
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
