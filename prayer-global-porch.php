@@ -189,6 +189,9 @@ class Prayer_Global_Porch {
         require_once( 'pages/about/about.php' );
         require_once( 'pages/give/give.php' );
         require_once( 'pages/church/church.php' );
+        require_once( 'pages/events/events.php' );
+        require_once( 'pages/events/conferences.php' );
+        require_once( 'pages/events/churches.php' );
 
         // 404
         require_once( 'pages/404/404.php' ); // MUST BE LAST LOADED

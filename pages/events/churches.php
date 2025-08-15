@@ -1,9 +1,9 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-class PG_Events extends PG_Public_Page {
-    public $url_path = 'events';
-    public $page_title = 'Events';
+class PG_Churches extends PG_Public_Page {
+    public $url_path = 'churches';
+    public $page_title = 'Churches';
     public $title_translated = '';
     public $title_translated_plural = '';
     public $rest_route = 'pg/events';
@@ -16,8 +16,8 @@ class PG_Events extends PG_Public_Page {
         /**
          * Register custom hooks here
          */
-        $this->title_translated = __( 'Event', 'prayer-global-porch' );
-        $this->title_translated_plural = __( 'Events', 'prayer-global-porch' );
+        $this->title_translated = __( 'Church', 'prayer-global-porch' );
+        $this->title_translated_plural = __( 'Churches', 'prayer-global-porch' );
     }
 
     public function register_endpoints() {}
@@ -68,5 +68,5 @@ class PG_Events extends PG_Public_Page {
     }
 }
 
-new PG_Events();
+new PG_Churches();
 
