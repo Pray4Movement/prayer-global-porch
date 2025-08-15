@@ -122,8 +122,8 @@ class Prayer_Global_Give extends DT_Magic_Url_Base {
                             <div class="spinner-border text-light" role="status"></div>
                         </div>
 
-                        <iframe height="650"
-                                src="https://axiainternational.net/embed/giving/231-0312MYK" width="100%" id="givingWidget231-0312MYK"
+                        <iframe height="650"  allow="payment"
+                                src="https://axiainternational.net/embed/giving/231-0312MYK?project_id=942" width="100%" id="givingWidget231-0312MYK"
                                 style="border: none" scrolling="no"
                                 onload="document.querySelector('#give-loading-spinner').remove()"
                         ></iframe>
