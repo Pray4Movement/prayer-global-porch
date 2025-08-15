@@ -6,7 +6,7 @@ $url = dt_get_url_path( true );
  */
 $nav_class = 'white-bg brand';
 $home_page = false;
-if ( '' === $url ) {
+if ( '' === $url || 'new-home' === $url ) {
     $nav_class = 'navbar-home navbar-dark';
     $home_page = true;
 } else if ( str_contains( $url, 'about' ) ||

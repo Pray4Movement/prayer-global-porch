@@ -158,6 +158,9 @@ class Prayer_Global_Porch {
         require_once( 'pages/privacy/magic-privacy.php' );
         require_once( 'pages/data-sources/magic-data-sources.php' );
 
+        // new home
+        require_once( 'pages/home/magic-home2.php' );
+
         // prayer_app
         require_once( 'pages/pray/magic-global.php' );
         require_once( 'pages/pray/magic-custom.php' );
