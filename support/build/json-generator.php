@@ -76,6 +76,7 @@ class Prayer_Global_JSON_Generator extends DT_Magic_Url_Base
             'root' => esc_url_raw( rest_url() ),
             'nonce' => wp_create_nonce( 'wp_rest' ),
             'parts' => $this->parts,
+            'languages' => array_keys( pg_enabled_translations() ),
         ];
 
         ?>
@@ -92,34 +93,67 @@ class Prayer_Global_JSON_Generator extends DT_Magic_Url_Base
         ?>
 
         <h1>JSON Generator</h1>
-        <p>JSON should be generating now. Please check the build directory</p>
+
+        <select id="language">
+            <?php foreach ( pg_enabled_translations() as $key => $value ) { ?>
+                <option value="<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $value['native_name'] ); ?></option>
+            <?php } ?>
+        </select>
+
+        <button id="generate">Generate</button>
+        <button id="generate-all">Generate All</button>
+        <button id="clear">Clear</button>
+
+        <div id="status"></div>
 
         <hr>
         <div id="results"></div>
 
         <script>
 
-            generateJSON()
+            document.querySelector('#generate').addEventListener('click', function() {
+                const language = document.querySelector('#language').value
+                generateJSON(language)
+            })
 
-            async function generateJSON() {
+            document.querySelector('#generate-all').addEventListener('click', function() {
+                const language = document.querySelector('#language').value
+                generateAllJSON(language)
+            })
+
+            document.querySelector('#clear').addEventListener('click', function() {
+                document.querySelector('#results').innerHTML = ''
+            })
+
+            async function generateAllJSON(language) {
+                const languages = jsObject.languages
+                for (const language of languages) {
+                    await generateJSON(language)
+                }
+            }
+
+
+            async function generateJSON(language) {
                 /* Start while loop */
                 let processing = true
                 let startId = 0
                 const resultsContainer = document.querySelector('#results')
+                const status = document.querySelector('#status')
+                status.innerHTML = 'JSON should be generating now. Please check the build directory'
                 while (processing) {
-                    const result = await generateBatch(startId)
+                    const result = await generateBatch(startId, language)
 
                     console.log(result)
                     if (result.status !== 'done') {
                         /* print to screen */
                         const something =document.createElement('p')
-                        result.innerHTML = `Generated ${result.start_id}`
+                        something.innerHTML = `Generated ${result.start_id} in ${language}`
                         resultsContainer.appendChild(something)
                         startId = result.start_id
                     } else {
                         /* print to screen */
                         const something = document.createElement('p')
-                        result.innerHTML = `Completed ${result.start_id}`
+                        something.innerHTML = `Completed ${result.start_id} in ${language}`
                         resultsContainer.appendChild(something)
                         processing = false
                     }
@@ -127,8 +161,8 @@ class Prayer_Global_JSON_Generator extends DT_Magic_Url_Base
 
             }
 
-            function generateBatch(startId = 0) {
-                return fetch( jsObject.root + 'dt-public/build/v1/generate?start_id=' + startId, {
+            function generateBatch(startId = 0, language) {
+                return fetch( jsObject.root + 'dt-public/build/v1/generate?start_id=' + startId + '&language=' + language, {
                     headers: {
                         'X-Wp-Nonce': jsObject.nonce,
                     },
@@ -173,12 +207,18 @@ class Prayer_Global_JSON_Generator extends DT_Magic_Url_Base
 
         $batch_size = 500;
         $start_id = $request->has_param( 'start_id' ) ? $request->get_param( 'start_id' ) : 0;
+        $language = $request->has_param( 'language' ) ? $request->get_param( 'language' ) : 'en_US';
 
         if ( !is_int( (int) $start_id ) ) {
             return wp_send_json_error( 'next_id is not an integer', 500 );
         }
+        if ( !in_array( $language, array_keys( pg_enabled_translations() ) ) ) {
+            return wp_send_json_error( 'language is not an enabled translation', 500 );
+        }
 
         $start_id = (int) $start_id;
+
+        pg_set_translation( $language );
 
         /* Grab all the state ids */
         $location_ids = pg_query_4770_locations();
@@ -186,6 +226,13 @@ class Prayer_Global_JSON_Generator extends DT_Magic_Url_Base
         $location_ids = array_keys( $location_ids );
 
         $save_folder = __DIR__ . '/json-files';
+        if ( !is_dir( $save_folder ) ) {
+            mkdir( $save_folder );
+        }
+        $save_folder = $save_folder . '/' . $language;
+        if ( !is_dir( $save_folder ) ) {
+            mkdir( $save_folder );
+        }
 
         /* Loop through and generate prayer JSON */
         $end = $start_id + $batch_size < count( $location_ids ) ? $start_id + $batch_size : count( $location_ids );
