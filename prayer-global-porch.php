@@ -193,6 +193,8 @@ class Prayer_Global_Porch {
         require_once( 'pages/events/conferences.php' );
         require_once( 'pages/events/churches.php' );
 
+        require_once( 'support/map-generation/map-image.php' );
+
         // 404
         require_once( 'pages/404/404.php' ); // MUST BE LAST LOADED
 
@@ -254,7 +256,7 @@ class Prayer_Global_Porch {
     }
 
     /**
-     * Magic method to output a string if trying to use the object as a string.
+     * Magic method to output a string if trying to use the bject as a string.
      *
      * @since  0.1
      * @access public
