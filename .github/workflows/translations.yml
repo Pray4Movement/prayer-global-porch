@@ -53,7 +53,7 @@ jobs:
         uses: github-actions-x/commit@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          push-branch: master
+          push-branch: dev
           commit-message: 'Update .pot translation file'
           name: ${{ github.actor }}
           email: ${{github.actor}}@users.noreply.github.com
