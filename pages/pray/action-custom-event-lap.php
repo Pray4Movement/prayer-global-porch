@@ -123,6 +123,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'current_url' => $current_url,
                     'map_url' => $current_url . 'map',
                     'api_url' => PG_API_ENDPOINT,
+                    'language' => pg_get_current_lang(),
                     'is_custom' => ( 'custom' === $this->parts['type'] ),
                     'is_cta_feature_on' => !$current_lap['ctas_off'],
                 ]) ?>][0]
