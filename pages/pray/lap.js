@@ -685,8 +685,8 @@ function waitForLocation() {
       if (gridId) {
         //const jsonUrl = jsObject.json_folder + '100000002' + '.json'
         //const jsonUrl = jsObject.json_folder + '100000003' + '.json'
-        const jsonUrl = jsObject.cache_url + "json/" + jsObject.language + "/" + gridId + ".json";
         //const jsonUrl = `/wp-json/prayer-global/fuel/${gridId}`;
+        const jsonUrl = jsObject.cache_url + "json/" + jsObject.language + "/" + gridId + ".json";
 
         return fetch(jsonUrl)
           .then((response) => {
