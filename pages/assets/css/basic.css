@@ -478,11 +478,14 @@ input[type="radio"]:checked {
     right: 0;
 }
 @media (max-width: 768px) {
+    .h2 {
+        font-size: 2.5rem;
+    }
     .six-em {
         font-size: 3em;
     }
     .four-em {
-        font-size: 2.5rem;
+        font-size: 3rem;
     }
     .three-em {
         font-size: 1.7em;
@@ -689,17 +692,23 @@ input[type="radio"]:checked {
 
 .clip-rounded-end {
     clip-path: url(#clip-rounded-end);
+    margin-left: -4rem;
 
     [dir="rtl"] & {
         clip-path: url(#clip-rounded-start);
+        margin-right: -4rem;
+        margin-left: 0;
     }
 }
 
 .clip-rounded-start {
     clip-path: url(#clip-rounded-start);
+    margin-left: 4rem;
 
     [dir="rtl"] & {
         clip-path: url(#clip-rounded-end);
+        margin-left: 0;
+        margin-right: 4rem;
     }
 }
 @media (max-width: 991px) {
@@ -863,6 +872,9 @@ input[type="radio"]:checked {
 .switcher-lg {
     --switcher-width: 55rem;
     --space: 3rem;
+}
+.switcher-reverse {
+    flex-direction: column-reverse;
 }
 
 .page {
