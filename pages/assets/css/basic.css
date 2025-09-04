@@ -767,12 +767,12 @@ input[type="radio"]:checked {
 }
 
 @media (min-width: 1400px) {
-    .container {
+    .events-page .container {
         max-width: 960px;
     }
 }
 @media (min-width: 1200px) {
-    .container {
+    .events-page .container {
         max-width: 960px;
     }
 }

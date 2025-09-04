@@ -57,6 +57,7 @@ trait PG_Lap_Trait {
             let jsObject = [<?php echo json_encode([
                 'parts' => $this->parts,
                 'nonce' => PG_Nonce::create( 'direct-api' ),
+                'language' => pg_get_current_lang(),
                 'translations' => [
                     'state_of_location' => esc_html__( '%1$s of %2$s', 'prayer-global-porch' ),
                     'Keep Praying...' => esc_html__( 'Keep Praying...', 'prayer-global-porch' ),

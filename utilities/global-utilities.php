@@ -17,6 +17,12 @@ function pg_enabled_translations(){
             'datatables_url' => '//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json',
             'firebase_code' => 'fr',
         ],
+        'pt_BR' => [
+            'parent_code' => 'pt',
+            'po_code' => 'pt_BR',
+            'datatables_url' => '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
+            'firebase_code' => 'pt',
+        ],
     ];
     $dt_languages = dt_get_available_languages( true, true );
     $result = [];

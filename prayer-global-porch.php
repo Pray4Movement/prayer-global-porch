@@ -5,7 +5,7 @@
  * Description: Prayer.Global front porch app for Disciple.Tools
  * Text Domain: prayer-global-porch
  * Domain Path: /languages
- * Version: 2.9.2
+ * Version: 2.10.2
  * Author URI: https://github.com/DiscipleTools
  * GitHub Plugin URI: https://github.com/Pray4Movement/prayer-global-porch
  * Requires at least: 4.7.0
@@ -192,6 +192,9 @@ class Prayer_Global_Porch {
         require_once( 'pages/about/about.php' );
         require_once( 'pages/give/give.php' );
         require_once( 'pages/church/church.php' );
+        require_once( 'pages/events/events.php' );
+        require_once( 'pages/events/conferences.php' );
+        require_once( 'pages/events/churches.php' );
 
         // 404
         require_once( 'pages/404/404.php' ); // MUST BE LAST LOADED
