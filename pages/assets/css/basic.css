@@ -606,6 +606,9 @@ input[type="radio"]:checked {
 .secondary-bg {
     background-color: var(--pg-secondary-color);
 }
+.drop-shadow {
+    filter: drop-shadow(0 4px 2px #0004);
+}
 
 /* Old colours */
 .blue-dark-bg {

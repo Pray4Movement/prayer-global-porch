@@ -21,7 +21,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
 </section>
 
 <section id="section-goal" class="container | py-6">
-    <div class="center text-center">
+    <div class="flow-medium center | text-center">
         <h2 class="font-base font-weight-bold h2"><?php echo esc_html__( 'Want to pray globally but don’t know where to start?', 'prayer-global-porch' ) ?></h2>
         <p><?php echo esc_html__( 'Prayer.Global makes praying for the lost simple— and life-changing.', 'prayer-global-porch' ) ?></p>
         <p class="font-italic w-60ch"><?php echo esc_html__( '“With this resource, you will be saying prayers you never said before, praying for people you never knew existed, and you and the world will be changed.” -Northside CC Pastor', 'prayer-global-porch' ) ?></p>
@@ -62,7 +62,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
                     <?php echo esc_html__( 'View prayer map', 'prayer-global-porch' ) ?>
                 </a>
             </div>
-            <div>
+            <div class="drop-shadow">
                 <img class="clip-rounded-start" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel3.jpg" alt="">
             </div>
         </div>
@@ -70,7 +70,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
 </section>
 <section class="py-6">
     <div class="container switcher | align-items-center gap-4">
-        <div>
+        <div class="drop-shadow">
             <img class="clip-rounded-end" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel4.jpg" alt="">
         </div>
         <div class="flow-small">
@@ -99,7 +99,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
                     <?php echo esc_html__( 'Get started', 'prayer-global-porch' ) ?>
                 </a>
             </div>
-            <div>
+            <div class="drop-shadow">
                 <img class="clip-rounded-start" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel5-med.jpg" alt="">
             </div>
         </div>
@@ -107,7 +107,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
 </section>
 <section class="py-6">
     <div class="container switcher | align-items-center gap-4">
-        <div>
+        <div class="drop-shadow">
             <img class="clip-rounded-end" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel6.jpg" alt="">
         </div>
         <div class="flow-small">
