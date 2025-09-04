@@ -79,6 +79,7 @@
     --orange-gradient: linear-gradient(#ffb858, #ea7519);
     --white-gradient: linear-gradient(white, 90%, transparent);
     --blue-gradient: linear-gradient(#5a81c0, #3f5b88);
+    --blue-orange-gradient: linear-gradient(90deg, #1D2F57, 60%, var(--pg-secondary-color));
     --blue-transparent-gradient: linear-gradient(0deg, var(--pg-brand-color), transparent);
     --small-box-shadow: rgba(0, 0, 0, 0.1) 0 3px 4px 1px;
     /* Web component variables */
@@ -104,19 +105,23 @@ h6 {
     font-family: var(--pg-font-family-base);
     font-weight: 300;
 }
+.h1,
 h1 {
     font-family: var(--pg-font-family-title);
     font-size: 6rem;
 }
+.h2,
 h2 {
     font-family: var(--pg-font-family-title);
     font-size: 3rem;
     line-height: 1.1;
 }
+.h3,
 h3 {
     font-family: var(--pg-font-family-title);
     font-size: 2rem;
 }
+.h4,
 h4 {
     font-size: 1.8rem;
     text-transform: uppercase;
@@ -632,6 +637,9 @@ input[type="radio"]:checked {
 .blue-gradient {
     background-image: var(--blue-gradient);
 }
+.blue-orange-gradient {
+    background-image: var(--blue-orange-gradient);
+}
 .white-bg {
     background-color: white;
 }
@@ -654,6 +662,29 @@ input[type="radio"]:checked {
 }
 .row-gap-sm {
     row-gap: 1rem !important;
+}
+.py-6 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+.w-60ch {
+    max-width: 60ch;
+}
+
+.clip-rounded-end {
+    clip-path: url(#clip-rounded-end);
+
+    [dir="rtl"] & {
+        clip-path: url(#clip-rounded-start);
+    }
+}
+
+.clip-rounded-start {
+    clip-path: url(#clip-rounded-start);
+
+    [dir="rtl"] & {
+        clip-path: url(#clip-rounded-end);
+    }
 }
 @media (max-width: 991px) {
     .navbar-expand-lg > .container,

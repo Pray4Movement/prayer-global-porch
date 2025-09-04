@@ -13,27 +13,44 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
             <div class="my-4 d-flex flex-column align-items-center">
                 <a class="btn btn-cta mx-2 d-inline-block" href="/newest/lap/"><?php echo esc_html( __( 'Start Praying', 'prayer-global-porch' ) ) ?></a>
                 <a id="learn-more-mobile" href="#section-goal" class="mt-2 text-decoration-none">
-                    <i class="icon icon-small pg-chevron-down brand-highlight"></i>
+                    <i class="icon icon-small pg-chevron-down white"></i>
                 </a>
             </div>
         </div>
     </div>
 </section>
 
-<section class="container">
+<section id="section-goal" class="container | py-6">
     <div class="center text-center">
-        <h2><?php echo esc_html__( 'Want to pray globally but don’t know where to start?', 'prayer-global-porch' ) ?></h2>
+        <h2 class="font-base font-weight-bold h2"><?php echo esc_html__( 'Want to pray globally but don’t know where to start?', 'prayer-global-porch' ) ?></h2>
         <p><?php echo esc_html__( 'Prayer.Global makes praying for the lost simple— and life-changing.', 'prayer-global-porch' ) ?></p>
-        <p class="font-italic"><?php echo esc_html__( '“With this resource, you will be saying prayers you never said before, praying for people you never knew existed, and you and the world will be changed.” -Northside CC Pastor', 'prayer-global-porch' ) ?></p>
+        <p class="font-italic w-60ch"><?php echo esc_html__( '“With this resource, you will be saying prayers you never said before, praying for people you never knew existed, and you and the world will be changed.” -Northside CC Pastor', 'prayer-global-porch' ) ?></p>
         <p><?php echo esc_html__( 'We’ll show you how.', 'prayer-global-porch' ) ?></p>
         <p class="font-weight-bold"><?php echo esc_html__( 'Ready…Set…', 'prayer-global-porch' ) ?></p>
         <a class="btn btn-cta mx-2 d-inline-block" href="/newest/lap/"><?php echo esc_html( __( 'Start Praying', 'prayer-global-porch' ) ) ?></a>
     </div>
 </section>
-<section class="brand-lightest-bg blue-orange-gradient-bg">
+
+
+<?php $width = 1024 ?>
+<?php $height = 753 ?>
+<?php $n = $height / $width ?>
+<?php $length = 1 - $n / 2 ?>
+<?php $xradius = $n / 2 ?>
+
+<svg height="0" width="0">
+    <clipPath id="clip-rounded-end" clipPathUnits="objectBoundingBox">
+        <path d="<?php echo esc_attr( "M $length 1 h -$length v -1 h $length A $xradius 0.5, 0, 0 1, $length 1" ) ?>"/>
+    </clipPath>
+    <clipPath id="clip-rounded-start" clipPathUnits="objectBoundingBox">
+        <path d="<?php echo esc_attr( "M $xradius 1 h $length v -1 h -$length A $xradius 0.5, 0, 0 0, $xradius 1" ) ?>"/>
+    </clipPath>
+</svg>
+
+<section class="brand-lightest-bg blue-orange-gradient py-6">
     <div class="container">
-        <div class="switcher">
-            <div class="flow-small white">
+        <div class="switcher gap-4">
+            <div class="flow-small | align-items-center white">
                 <h2 class="text-center">
                     <?php echo esc_html__( 'How it works', 'prayer-global-porch' ) ?>
                     <i class="icon icon-small pg-logo-prayer"></i>
@@ -41,20 +58,20 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
                 <p><?php echo esc_html__( 'Prayer.Global has broken the world down into 4,770 states based on geographical and governmental boundaries. ', 'prayer-global-porch' ) ?></p>
                 <p><?php echo esc_html__( 'Pray for all 4,770…complete a “prayer lap” around the world!', 'prayer-global-porch' ) ?></p>
                 <p><?php echo esc_html__( 'An interactive map tracks your prayers in real time.', 'prayer-global-porch' ) ?></p>
-                <a href="/map" class="btn btn-primary-light uppercase center">
+                <a href="/map" class="btn btn-primary-light uppercase center w-fit mx-auto px-4">
                     <?php echo esc_html__( 'View prayer map', 'prayer-global-porch' ) ?>
                 </a>
             </div>
             <div class="d-flex align-items-center">
-                <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel3.jpg" alt="">
+                <img class="clip-rounded-start" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel3.jpg" alt="">
             </div>
         </div>
     </div>
 </section>
-<section>
-    <div class="container switcher">
+<section class="py-6">
+    <div class="container switcher gap-4">
         <div class="d-flex align-items-center">
-            <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel4.jpg" alt="">
+            <img class="clip-rounded-end" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel4.jpg" alt="">
         </div>
         <div class="flow-small">
             <h2>
@@ -68,9 +85,9 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
         </div>
     </div>
 </section>
-<section class="brand-lightest-bg orange-blue-gradient-bg">
+<section class="brand-lightest-bg orange-blue-gradient-bg py-6">
     <div class="container">
-        <div class="switcher">
+        <div class="switcher gap-4">
             <div class="flow-small white">
                 <h2 class="text-center">
                     <?php echo esc_html__( 'Prayer Relays', 'prayer-global-porch' ) ?>
@@ -83,15 +100,15 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
                 </a>
             </div>
             <div class="d-flex align-items-center">
-                <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel5.jpg" alt="">
+                <img class="clip-rounded-start" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel5-med.jpg" alt="">
             </div>
         </div>
     </div>
 </section>
-<section>
-    <div class="container switcher">
+<section class="py-6">
+    <div class="container switcher gap-4">
         <div class="d-flex align-items-center">
-            <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel6.jpg" alt="">
+            <img class="clip-rounded-end" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel6.jpg" alt="">
         </div>
         <div class="flow-small">
             <h2>
@@ -111,9 +128,9 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
         </div>
     </div>
 </section>
-<section class="brand-bg">
+<section class="brand-bg py-6">
     <div class="container | white">
-        <div class="switcher">
+        <div class="switcher gap-4">
             <div class="flow-small">
                 <h2><?php echo esc_html__( 'Mobilize a movement of prayer', 'prayer-global-porch' ) ?></h2>
                 <p><?php echo esc_html__( 'Use Prayer.Global to rally your church, conference, or group around a mission to pray a full lap around the world. Every prayer moves us closer to seeing the nations reached!', 'prayer-global-porch' ) ?></p>
@@ -155,15 +172,15 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
         </div>
     </div>
 </section>
-<section>
-    <div class="switcher container">
+<section class="py-6">
+    <div class="switcher container gap-4">
         <div class="d-flex align-items-center">
             <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/map-lightblue-transparent.png" alt="">
         </div>
         <p><?php echo esc_html__( 'Join thousands of intercessors praying daily for the nations.', 'prayer-global-porch' ) ?></p>
     </div>
     <div class="grey-gradient-bg">
-        <div class="container switcher">
+        <div class="container switcher gap-4">
             <div class="flow-small">
                 <span id="global-lap-percentage">
                     <span class="loading-spinner active"></span>
@@ -194,7 +211,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
         </a>
     </div>
 </section>
-<section class="brand-lightest-bg">
+<section class="brand-lightest-bg py-6">
     <div class="switcher">
         <div class="d-flex align-items-center position-relative">
             <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel9.jpg" alt="">

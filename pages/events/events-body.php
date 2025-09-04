@@ -92,7 +92,7 @@ if ( $is_church ) {
     </section>
 
     <section class="parallax">
-        <div class="parallax__layer parallax__layer--back" style="background-image: url('<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel5.jpeg');">
+        <div class="parallax__layer parallax__layer--back" style="background-image: url('<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel5.jpg');">
         </div>
         <div class="parallax__layer--base">
             <div class="flex-1 brand-transparent-gradient">
