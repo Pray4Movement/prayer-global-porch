@@ -155,7 +155,7 @@ function pg_app_badges() {
 
     ?>
 
-        <ul class="d-flex flex-column gap-4" role="list">
+        <ul class="d-flex flex-column" role="list">
             <li>
                 <a target="_blank" href="<?php echo esc_url( $app_store_url ) ?>">
                     <img class="w-100" src="<?php echo esc_url( $app_store_badge ) ?>" alt="<?php echo esc_attr__( 'Get it on the app store', 'prayer-global-porch' ) ?>">

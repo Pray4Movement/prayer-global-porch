@@ -213,23 +213,36 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
         </a>
     </div>
 </section>
-<section class="brand-lightest-bg py-6">
-    <div class="switcher">
-        <div class="d-flex align-items-center position-relative">
-            <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel9.jpg" alt="">
-            <div class="grey-gradient-bg"></div>
+<section class="brand-lightest-bg white">
+    <div class="switcher container">
+        <div class="grow-3" style="background-image: url(<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel9.jpg); background-size: cover; background-position: center;">
         </div>
-        <div class="flow-small">
-            <h2><?php echo esc_html__( 'Gospel Ambition tools and trainings are 100% free, thanks to people like you.', 'prayer-global-porch' ) ?></h2>
+        <div class="flow-medium | p-5 grow-4">
+            <h2 class="font-base h2"><?php echo esc_html__( 'Gospel Ambition tools and trainings are 100% free, thanks to people like you.', 'prayer-global-porch' ) ?></h2>
             <p><?php echo esc_html__( 'We love equipping the global Church with free tools to mobilize prayer and make disciples. You can help expand this mission by becoming a monthly giver or making a one-time gift. Your support keeps these resources free and accessible to believers worldwide.', 'prayer-global-porch' ) ?></p>
             <div class="cluster justify-content-between">
                 <a href="/donate" class="btn btn-outline-light uppercase center">
                     <?php echo esc_html__( 'Donate', 'prayer-global-porch' ) ?>
                 </a>
-                <div>
+                <div style="width: 150px;">
                     <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/GO-Ambition-allwhite.png" alt="">
                 </div>
             </div>
+        </div>
+    </div>
+</section>
+<section class="py-6">
+    <div class="switcher container | align-items-center gap-4">
+        <div class="flow-medium">
+            <h2 class="text-center"><?php echo esc_html__( 'Get the App', 'prayer-global-porch' ) ?></h2>
+            <div id="pg-app-badges" class="center">
+
+                <?php pg_app_badges(); ?>
+
+            </div>
+        </div>
+        <div>
+            <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-2Phones-new.png" alt="">
         </div>
     </div>
 </section>
