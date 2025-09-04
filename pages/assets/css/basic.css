@@ -81,6 +81,7 @@
     --blue-gradient: linear-gradient(#5a81c0, #3f5b88);
     --blue-orange-gradient: linear-gradient(90deg, #1D2F57, 60%, var(--pg-secondary-color));
     --blue-transparent-gradient: linear-gradient(0deg, var(--pg-brand-color), transparent);
+    --grey-gradient: linear-gradient(0deg, #0A122718, transparent);
     --small-box-shadow: rgba(0, 0, 0, 0.1) 0 3px 4px 1px;
     /* Web component variables */
     --dt-form-text-color: var(--bs-gray-600);
@@ -458,6 +459,9 @@ input[type="radio"]:checked {
 .w-fit {
     width: fit-content;
 }
+.w-90 {
+    width: 90%;
+}
 .h-22 {
     height: 22rem;
 }
@@ -628,6 +632,9 @@ input[type="radio"]:checked {
 .brand-transparent-gradient {
     background-image: var(--blue-transparent-gradient);
 }
+.grey-gradient {
+    background-image: var(--grey-gradient);
+}
 .orange-gradient-fill {
     fill: url(#orange-gradient);
 }
@@ -666,6 +673,12 @@ input[type="radio"]:checked {
 .py-6 {
     padding-top: 4rem;
     padding-bottom: 4rem;
+}
+.pb-6 {
+    padding-bottom: 4rem;
+}
+.pt-6 {
+    padding-top: 4rem;
 }
 .w-60ch {
     max-width: 60ch;

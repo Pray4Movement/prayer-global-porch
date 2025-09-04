@@ -174,41 +174,41 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
         </div>
     </div>
 </section>
-<section class="py-6">
-    <div class="switcher container gap-4">
-        <div class="d-flex align-items-center">
-            <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/map-lightblue-transparent.png" alt="">
+<section class="flow-medium | pt-6">
+    <div class="switcher container | align-items-center gap-4">
+        <div>
+            <img class="w-90" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/worldmap-blue.png" alt="">
         </div>
-        <p><?php echo esc_html__( 'Join thousands of intercessors praying daily for the nations.', 'prayer-global-porch' ) ?></p>
+        <h2 class="font-base h2"><?php echo esc_html__( 'Join thousands of intercessors praying daily for the nations.', 'prayer-global-porch' ) ?></h2>
     </div>
-    <div class="grey-gradient-bg">
+    <div class="flow-medium | grey-gradient pb-6">
         <div class="container switcher gap-4">
-            <div class="flow-small">
-                <span id="global-lap-percentage">
+            <div class="lh-base text-center">
+                <span id="global-lap-percentage" class="four-em font-title">
                     <span class="loading-spinner active"></span>
                 </span>
-                <p class="font-title">
+                <p class="uppercase one-em">
                     <?php echo esc_html__( 'Current lap status', 'prayer-global-porch' ) ?>
                 </p>
             </div>
-            <div class="flow-small">
-                <span id="global-laps-completed">
+            <div class="lh-base text-center">
+                <span id="global-laps-completed" class="four-em font-title">
                     <span class="loading-spinner active"></span>
                 </span>
-                <p class="font-title">
+                <p class="uppercase one-em">
                     <?php echo esc_html__( 'Laps completed', 'prayer-global-porch' ) ?>
                 </p>
             </div>
-            <div class="flow-small">
-                <span id="global-intercessors">
+            <div class="lh-base text-center">
+                <span id="global-intercessors" class="four-em font-title">
                     <span class="loading-spinner active"></span>
                 </span>
-                <p class="font-title">
+                <p class="uppercase one-em">
                     <?php echo esc_html__( 'Total intercessors', 'prayer-global-porch' ) ?>
                 </p>
             </div>
         </div>
-        <a href="/newest/lap/" class="btn btn-cta uppercase center">
+        <a href="/newest/lap/" class="btn btn-cta btn-lg uppercase center w-fit mx-auto px-4">
             <?php echo esc_html__( 'Start praying', 'prayer-global-porch' ) ?>
         </a>
     </div>

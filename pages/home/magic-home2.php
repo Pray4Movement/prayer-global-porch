@@ -100,29 +100,6 @@ class Prayer_Global_Porch_Home2 extends DT_Magic_Url_Base
 
           window.addEventListener('load', function() {
 
-            const myCarouselElement = document.querySelector('#storyCarousel')
-
-            const carousel = new bootstrap.Carousel(myCarouselElement, {
-              wrap: false,
-            })
-
-            if ( window.isMobile ) {
-              jQuery('#section-mobile').hide()
-              jQuery('#section-about').hide()
-            }
-
-            /* video modal */
-            jQuery('#video-image-link').on('click', function(){
-              let body = jQuery('#demo_video .modal-body')
-              let modal = jQuery('#demo_video')
-              body.html('<iframe style="width:100%;max-width:600px;height:300px;" src="https://player.vimeo.com/video/715752828?h=d39d43cea8&amp;badge=0&amp;autoplay=1&amp;loop=1&amp;autopause=0&amp;player_id=0&amp;app_id=58479" title="Moravian challenge" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>')
-
-              modal.modal('show')
-              modal.on('hide.bs.modal', function () {
-                body.empty()
-              })
-            })
-
             window.api_post = ( action, data ) => {
               return jQuery.ajax({
                 type: "POST",
@@ -138,18 +115,9 @@ class Prayer_Global_Porch_Home2 extends DT_Magic_Url_Base
 
             window.api_post( 'get_stats', {} )
             .done(function(stats) {
-              jQuery('.current-time-elapsed').html(PG.DisplayTime(stats.current_time_elapsed_data) )
-              jQuery('.current-participants').html(stats.current_participants )
-              jQuery('.current-completed').html(stats.current_completed )
-              jQuery('.current-remaining').html(stats.current_remaining )
-              jQuery('.progress-bar__slider').css('width', Number(stats.current_completed.replace(',', '')) / 4770 * 100 + '%')
-              jQuery('.global-participants').html(stats.global_participants )
-              jQuery('#global_minutes_prayed').html(stats.global_minutes_prayed )
-              jQuery('.global-time-elapsed').html(PG.DisplayTime(stats.global_time_elapsed_data) )
-              jQuery('.global-days-elapsed').html(stats.global_time_elapsed_data.days )
-              jQuery('.global-years-elapsed').html(stats.global_time_elapsed_data.years )
-              jQuery('.global-lap-number').html( Number(stats.global_lap_number) + 1 )
-              jQuery('.global-laps-completed').html( Number(stats.global_lap_number) )
+              jQuery('#global-lap-percentage').html(Math.round(Number(stats.current_completed.replace(',', '')) / 4770 * 100) + '%')
+              jQuery('#global-intercessors').html(stats.global_participants )
+              jQuery('#global-laps-completed').html( Number(stats.global_lap_number) )
             })
 
           })
