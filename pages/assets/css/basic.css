@@ -805,6 +805,13 @@ input[type="radio"]:checked {
 
 /* Container */
 
+.container[data-no-gutter] {
+    --bs-gutter-x: 0;
+}
+.container[data-gutter-4] {
+    --bs-gutter-x: 3rem;
+}
+
 .pg-container {
     --min-width: 320px;
     --small-margin: 10px;

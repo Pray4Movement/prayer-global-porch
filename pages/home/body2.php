@@ -58,7 +58,7 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
 </svg>
 
 <section class="brand-lightest-bg blue-orange-gradient py-6">
-    <div class="container">
+    <div class="container" data-gutter-4>
         <div class="switcher | switcher-md align-items-center gap-4">
             <div class="flow-small | white">
                 <h2 class="text-center">
@@ -79,7 +79,7 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
     </div>
 </section>
 <section class="py-6">
-    <div class="container switcher | switcher-md switcher-reverse align-items-center gap-4">
+    <div class="container switcher | switcher-md switcher-reverse align-items-center gap-4" data-gutter-4>
         <div class="drop-shadow">
             <img class="clip-rounded-end" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel4.jpg" alt="">
         </div>
@@ -96,7 +96,7 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
     </div>
 </section>
 <section class="brand-lightest-bg blue-orange-gradient py-6">
-    <div class="container">
+    <div class="container" data-gutter-4>
         <div class="switcher | switcher-md align-items-center gap-4">
             <div class="flow-small white">
                 <h2 class="text-center">
@@ -116,7 +116,7 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
     </div>
 </section>
 <section class="py-6">
-    <div class="container switcher | switcher-md switcher-reverse align-items-center gap-4">
+    <div class="container switcher | switcher-md switcher-reverse align-items-center gap-4" data-gutter-4>
         <div class="drop-shadow">
             <img class="clip-rounded-end" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel6.jpg" alt="">
         </div>
@@ -141,19 +141,11 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
     </div>
 </section>
 <section class="brand-bg py-6">
-    <div class="container | white">
+    <div class="flow-medium container | white" data-gutter-4>
         <div class="switcher | switcher-md gap-4">
-            <div class="flow-small cover-section grow-3">
+            <div class="flow-medium grow-3">
                 <h2><?php echo esc_html__( 'Mobilize a movement of prayer', 'prayer-global-porch' ) ?></h2>
                 <div><?php echo esc_html__( 'Use Prayer.Global to rally your church, conference, or group around a mission to pray a full lap around the world. Every prayer moves us closer to seeing the nations reached!', 'prayer-global-porch' ) ?></div>
-                <span class="switcher">
-                    <a href="/dashboard/relays" class="btn btn-primary-light uppercase">
-                        <?php echo esc_html__( 'Get started', 'prayer-global-porch' ) ?>
-                    </a>
-                    <a href="/events" class="btn btn-outline-light uppercase">
-                        <?php echo esc_html__( 'Information for leaders', 'prayer-global-porch' ) ?>
-                    </a>
-                </span>
             </div>
             <ul role="list" class="one-em uppercase grow-2 d-flex flex-column justify-content-between mb-0">
                 <li class="d-flex align-items-center gap-3">
@@ -182,10 +174,18 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
                 </li>
             </ul>
         </div>
+        <span class="switcher">
+            <a href="/dashboard/relays" class="btn btn-primary-light uppercase">
+                <?php echo esc_html__( 'Get started', 'prayer-global-porch' ) ?>
+            </a>
+            <a href="/events" class="btn btn-outline-light uppercase">
+                <?php echo esc_html__( 'Information for leaders', 'prayer-global-porch' ) ?>
+            </a>
+        </span>
     </div>
 </section>
 <section class="flow-medium | pt-6">
-    <div class="switcher container | switcher-md align-items-center gap-4">
+    <div class="switcher container | switcher-md align-items-center gap-4" data-gutter-4>
         <div>
             <img class="w-90" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/worldmap-blue.png" alt="">
         </div>
@@ -224,17 +224,17 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
     </div>
 </section>
 <section class="brand-lightest-bg white">
-    <div class="switcher container | switcher-md">
-        <div class="grow-3" style="background-image: url(<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel9.jpg); background-size: cover; background-position: center;">
+    <div class="switcher container | switcher-md" data-no-gutter>
+        <div class="grow-3" style="background-image: url(<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel9.jpg); background-size: cover; background-position: center; min-height: 15rem">
         </div>
-        <div class="flow-medium | p-5 grow-4">
+        <div class="flow-medium | py-5 px-4 grow-4">
             <h2 class="font-base h2"><?php echo esc_html__( 'Gospel Ambition tools and trainings are 100% free, thanks to people like you.', 'prayer-global-porch' ) ?></h2>
             <p><?php echo esc_html__( 'We love equipping the global Church with free tools to mobilize prayer and make disciples. You can help expand this mission by becoming a monthly giver or making a one-time gift. Your support keeps these resources free and accessible to believers worldwide.', 'prayer-global-porch' ) ?></p>
             <div class="cluster justify-content-between">
                 <a href="/donate" class="btn btn-outline-light uppercase center">
                     <?php echo esc_html__( 'Donate', 'prayer-global-porch' ) ?>
                 </a>
-                <div style="width: 150px;">
+                <div style="width: 135px;">
                     <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/GO-Ambition-allwhite.png" alt="">
                 </div>
             </div>
