@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'PrayerGlobal';
-  src:  url('fonts/PrayerGlobal.eot?3sbqze');
-  src:  url('fonts/PrayerGlobal.eot?3sbqze#iefix') format('embedded-opentype'),
-    url('fonts/PrayerGlobal.ttf?3sbqze') format('truetype'),
-    url('fonts/PrayerGlobal.woff?3sbqze') format('woff'),
-    url('fonts/PrayerGlobal.svg?3sbqze#PrayerGlobal') format('svg');
+  src:  url('fonts/PrayerGlobal.eot?vwpiae');
+  src:  url('fonts/PrayerGlobal.eot?vwpiae#iefix') format('embedded-opentype'),
+    url('fonts/PrayerGlobal.ttf?vwpiae') format('truetype'),
+    url('fonts/PrayerGlobal.woff?vwpiae') format('woff'),
+    url('fonts/PrayerGlobal.svg?vwpiae#PrayerGlobal') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -49,11 +49,17 @@
 .pg-home:before {
   content: "\e906";
 }
+.pg-information:before {
+  content: "\e90a";
+}
 .pg-profile:before {
   content: "\e908";
 }
 .pg-logo-prayer:before {
   content: "\e909";
+}
+.pg-pause:before {
+  content: "\e910";
 }
 .pg-pray-hands-dark:before {
   content: "\e90b";
@@ -70,11 +76,23 @@
 .pg-question-dark:before {
   content: "\e90f";
 }
+.pg-question-light:before {
+  content: "\e913";
+}
 .pg-race:before {
   content: "\e911";
 }
 .pg-relay:before {
   content: "\e912";
+}
+.pg-settings:before {
+  content: "\e914";
+}
+.pg-share:before {
+  content: "\e915";
+}
+.pg-start:before {
+  content: "\e920";
 }
 .pg-status:before {
   content: "\e916";
