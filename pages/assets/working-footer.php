@@ -11,16 +11,12 @@
             <?php pg_app_badges(); ?>
         </div>
 
-        <ul role="list">
+        <ul role="list" data-tight>
             <li><a class="white" href="/prayer_app/contact_us/"><?php echo esc_html( __( 'Contact Us', 'prayer-global-porch' ) ) ?></a></li>
             <li><a class="white fw-bold" href="/give"><?php echo esc_html( __( 'Donate', 'prayer-global-porch' ) ) ?></a></li>
-        </ul>
-        <ul role="list">
             <li><a class="white" href="/content_app/about_page/"><?php echo esc_html( __( 'About', 'prayer-global-porch' ) ) ?></a></li>
             <li><a class="white" href="/content_app/data_sources/"><?php echo esc_html( __( 'Data Sources', 'prayer-global-porch' ) ) ?></a></li>
             <li><a class="white" href="/download_app/media/"><?php echo esc_html( __( 'Media & Promotion', 'prayer-global-porch' ) ) ?></a></li>
-        </ul>
-        <ul role="list">
             <li><a href="/content_app/privacy"><?php echo esc_html__( 'Privacy', 'prayer-global-porch' ) ?></a></li>
         </ul>
 
