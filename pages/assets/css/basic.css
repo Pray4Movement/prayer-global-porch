@@ -79,7 +79,9 @@
     --orange-gradient: linear-gradient(#ffb858, #ea7519);
     --white-gradient: linear-gradient(white, 90%, transparent);
     --blue-gradient: linear-gradient(#5a81c0, #3f5b88);
+    --blue-orange-gradient: linear-gradient(90deg, #1D2F57, 60%, var(--pg-secondary-color));
     --blue-transparent-gradient: linear-gradient(0deg, var(--pg-brand-color), transparent);
+    --grey-gradient: linear-gradient(0deg, #0A122718, transparent);
     --small-box-shadow: rgba(0, 0, 0, 0.1) 0 3px 4px 1px;
     /* Web component variables */
     --dt-form-text-color: var(--bs-gray-600);
@@ -104,19 +106,23 @@ h6 {
     font-family: var(--pg-font-family-base);
     font-weight: 300;
 }
+.h1,
 h1 {
     font-family: var(--pg-font-family-title);
     font-size: 6rem;
 }
+.h2,
 h2 {
     font-family: var(--pg-font-family-title);
     font-size: 3rem;
     line-height: 1.1;
 }
+.h3,
 h3 {
     font-family: var(--pg-font-family-title);
     font-size: 2rem;
 }
+.h4,
 h4 {
     font-size: 1.8rem;
     text-transform: uppercase;
@@ -453,6 +459,9 @@ input[type="radio"]:checked {
 .w-fit {
     width: fit-content;
 }
+.w-90 {
+    width: 90%;
+}
 .h-22 {
     height: 22rem;
 }
@@ -469,11 +478,14 @@ input[type="radio"]:checked {
     right: 0;
 }
 @media (max-width: 768px) {
+    .h2 {
+        font-size: 2.5rem;
+    }
     .six-em {
         font-size: 3em;
     }
     .four-em {
-        font-size: 2.5rem;
+        font-size: 3rem;
     }
     .three-em {
         font-size: 1.7em;
@@ -597,6 +609,9 @@ input[type="radio"]:checked {
 .secondary-bg {
     background-color: var(--pg-secondary-color);
 }
+.drop-shadow {
+    filter: drop-shadow(0 4px 2px #0004);
+}
 
 /* Old colours */
 .blue-dark-bg {
@@ -623,6 +638,9 @@ input[type="radio"]:checked {
 .brand-transparent-gradient {
     background-image: var(--blue-transparent-gradient);
 }
+.grey-gradient {
+    background-image: var(--grey-gradient);
+}
 .orange-gradient-fill {
     fill: url(#orange-gradient);
 }
@@ -631,6 +649,9 @@ input[type="radio"]:checked {
 }
 .blue-gradient {
     background-image: var(--blue-gradient);
+}
+.blue-orange-gradient {
+    background-image: var(--blue-orange-gradient);
 }
 .white-bg {
     background-color: white;
@@ -654,6 +675,41 @@ input[type="radio"]:checked {
 }
 .row-gap-sm {
     row-gap: 1rem !important;
+}
+.py-6 {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+}
+.pb-6 {
+    padding-bottom: 4rem;
+}
+.pt-6 {
+    padding-top: 4rem;
+}
+.w-60ch {
+    max-width: 60ch;
+}
+
+.clip-rounded-end {
+    clip-path: url(#clip-rounded-end);
+    margin-left: -4rem;
+
+    [dir="rtl"] & {
+        clip-path: url(#clip-rounded-start);
+        margin-right: -4rem;
+        margin-left: 0;
+    }
+}
+
+.clip-rounded-start {
+    clip-path: url(#clip-rounded-start);
+    margin-left: 4rem;
+
+    [dir="rtl"] & {
+        clip-path: url(#clip-rounded-end);
+        margin-left: 0;
+        margin-right: 4rem;
+    }
 }
 @media (max-width: 991px) {
     .navbar-expand-lg > .container,
@@ -749,6 +805,13 @@ input[type="radio"]:checked {
 
 /* Container */
 
+.container[data-no-gutter] {
+    --bs-gutter-x: 0;
+}
+.container[data-gutter-4] {
+    --bs-gutter-x: 3rem;
+}
+
 .pg-container {
     --min-width: 320px;
     --small-margin: 10px;
@@ -817,6 +880,9 @@ input[type="radio"]:checked {
     --switcher-width: 55rem;
     --space: 3rem;
 }
+.switcher-reverse {
+    flex-direction: column-reverse;
+}
 
 .page {
     padding-top: 2rem;
@@ -829,6 +895,34 @@ input[type="radio"]:checked {
     position: relative;
     display: block;
 }
+
+
+.cover-img,
+.cover-section {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+  padding: 0;
+}
+
+.cover-img > :first-child:not(img),
+.cover-section > :first-child:not(div) {
+  margin-top: 0;
+}
+
+.cover-img > :last-child:not(img),
+.cover-section > :last-child:not(div) {
+  margin-bottom: 0;
+}
+
+.cover-img > img,
+.cover-section > div {
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-top: var(--space, 1rem);
+  padding-bottom: var(--space, 1rem);
+}
+
 
 /* Utilities */
 
@@ -907,7 +1001,18 @@ input[type="radio"]:checked {
     background-size: contain;
     background-repeat: no-repeat;
 }
-.grow-1
+.grow-1 {
+    flex-grow: 1;
+}
+.grow-2 {
+    flex-grow: 2;
+}
+.grow-3 {
+    flex-grow: 3;
+}
+.grow-4 {
+    flex-grow: 4;
+}
 .bg-center {
     background-position: center center;
 }
