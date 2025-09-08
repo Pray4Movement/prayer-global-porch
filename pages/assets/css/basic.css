@@ -881,7 +881,7 @@ input[type="radio"]:checked {
     --space: 3rem;
 }
 .switcher-reverse {
-    flex-direction: column-reverse;
+    flex-direction: row-reverse;
 }
 
 .page {
