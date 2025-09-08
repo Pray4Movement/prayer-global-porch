@@ -6,8 +6,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/prayer-global-"
 "porch\n"
 "POT-Creation-Date: 2025-09-02T10:39:12+00:00\n"
-"PO-Revision-Date: 2025-09-03 16:58+0000\n"
-"Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
+"PO-Revision-Date: 2025-09-06 12:03+0000\n"
+"Last-Translator: RAQUEL VILLELA ALVES <raquelvillelaalves@gmail.com>\n"
 "Language-Team: Portuguese (Brazil) <https://translate.disciple.tools/"
 "projects/pray4movement/prayer-global/pt_BR/>\n"
 "Language: pt_BR\n"
@@ -425,17 +425,14 @@ msgstr "Mapa"
 
 #: pages/assets/menu.php:83 pages/assets/working-footer.php:16
 #: pages/give/give.php:107 pages/user/user-dashboard.php:134
-#, fuzzy
 msgid "Donate"
 msgstr "Doar"
 
 #: pages/assets/notification-modal.php:6
-#, fuzzy
 msgid "Allow Notifications"
 msgstr "Permitir notificações"
 
 #: pages/assets/notification-modal.php:9
-#, fuzzy
 msgid ""
 "Allow notifications to stay updated on your prayer streaks, milestones and "
 "more."
@@ -444,17 +441,14 @@ msgstr ""
 "marcos e muito mais."
 
 #: pages/assets/notification-modal.php:10
-#, fuzzy
 msgid "You can change this later in your settings."
-msgstr "Você pode alterar isso mais tarde nas suas configurações."
+msgstr "Você pode alterar isso mais tarde em suas configurações."
 
 #: pages/assets/notification-modal.php:13
-#, fuzzy
 msgid "Not now"
 msgstr "Agora não"
 
 #: pages/assets/notification-modal.php:14
-#, fuzzy
 msgid "Allow"
 msgstr "Permitir"
 
@@ -695,13 +689,11 @@ msgstr ""
 "então tenha paciência até que possamos dar uma resposta!"
 
 #: pages/contact/magic-contact-us.php:187
-#, fuzzy
 msgid "Question or Comment"
 msgstr "Pergunta ou comentário"
 
 #: pages/contact/magic-contact-us.php:196 pages/user/login.php:215
 #: pages/user/register.php:234
-#, fuzzy
 msgid ""
 "Sign up for Prayer.Global news and opportunities, and occasional "
 "communication from Prayer.Tools and GospelAmbition.org"
@@ -716,9 +708,8 @@ msgid "Submit"
 msgstr "Enviar"
 
 #: pages/contact/magic-contact-us.php:218
-#, fuzzy
 msgid "Thank you"
-msgstr "Obrigada"
+msgstr "Obrigado"
 
 #: pages/data-sources/magic-data-sources.php:89
 #, fuzzy
@@ -727,7 +718,7 @@ msgid ""
 "the faith status or location status of every person in the world."
 msgstr ""
 "Reconhecemos que não há como ter um conhecimento 100% preciso sobre o status "
-"da fé ou a localização de cada pessoa no mundo."
+"da fé ou sobre a localização de cada pessoa no mundo."
 
 #: pages/data-sources/magic-data-sources.php:92
 msgid ""
@@ -1244,86 +1235,64 @@ msgstr ""
 "de qualidade variável."
 
 #: pages/events/churches.php:19
-#, fuzzy
-#| msgid "The Church"
 msgid "Church"
-msgstr "A Igreja"
+msgstr "Igreja"
 
 #: pages/events/churches.php:20
-#, fuzzy
-#| msgid "The Church"
 msgid "Churches"
-msgstr "A Igreja"
+msgstr "Igrejas"
 
 #: pages/events/conferences.php:19
-#, fuzzy
 msgid "Conference"
 msgstr "Conferência"
 
 #: pages/events/conferences.php:20
-#, fuzzy
-#| msgid "Communication Preferences"
 msgid "Conferences"
-msgstr "Preferência de Comunicação"
+msgstr "Conferências"
 
 #: pages/events/events-body.php:30
-#, fuzzy, php-format
-#| msgid "How to launch Prayer.Global at your church"
+#, php-format
 msgid "Using Prayer.Global at your %s"
-msgstr "Como iniciar o Prayer.Global na sua igreja"
+msgstr "Usando o Prayer.Global em seu %s"
 
 #: pages/events/events-body.php:34 pages/events/events-body.php:38
-#, fuzzy, php-format
+#, php-format
 msgid "Prayer.Global has been used by %s with great success! "
 msgstr "Prayer.Global foi usado por %s com grande sucesso! "
 
 #: pages/events/events-body.php:38
-#, fuzzy
 msgid "churches and conferences"
 msgstr "igrejas e conferências"
 
 #: pages/events/events-body.php:51
-#, fuzzy
 msgid "Conference Testimony"
 msgstr "Testemunho da Conferência"
 
 #: pages/events/events-body.php:63
-#, fuzzy
-#| msgid "Church Planting"
 msgid "Church Testimony"
-msgstr "Plantação de Igrejas"
+msgstr "Testemunho da Igreja"
 
 #: pages/events/events-body.php:69 pages/events/events-body.php:109
-#, fuzzy
 msgid "Pre-Event Setup"
 msgstr "Configuração pré-evento"
 
 #: pages/events/events-body.php:70
-#, fuzzy
-#| msgid "Social Promotion"
 msgid "Promotion"
-msgstr "Promoção Social"
+msgstr "Promoção"
 
 #: pages/events/events-body.php:71
-#, fuzzy
-#| msgid "After the event"
 msgid "Facilitate the Event"
-msgstr "Depois do evento"
+msgstr "Facilitar o evento"
 
 #: pages/events/events-body.php:72
-#, fuzzy
-#| msgid "After the event"
 msgid "After the Event"
-msgstr "Depois do evento"
+msgstr "Pós evento"
 
 #: pages/events/events-body.php:79
-#, fuzzy
-#| msgid "What is Prayer.Global"
 msgid "What is Prayer.Global?"
-msgstr "O que é Prayer.Global"
+msgstr "O que é Prayer.Global?"
 
 #: pages/events/events-body.php:82
-#, fuzzy
 msgid ""
 "Prayer.Global is a powerful tool designed to mobilize strategic, Scripture-"
 "based prayer for the fulfillment of the Great Commission. It equips "
@@ -1334,60 +1303,51 @@ msgstr ""
 "Prayer.Global é uma ferramenta poderosa projetada para mobilizar a oração "
 "estratégica, baseada nas Escrituras, para o cumprimento da Grande Comissão. "
 "Ela capacita indivíduos, igrejas e conferências a se engajarem em oração "
-"extraordinária — uma marca fundamental dos movimentos de discipulado. Com "
-"Prayer.Global, você e sua comunidade podem participar da missão de Deus de "
-"cobrir o mundo com oração."
+"extraordinária — uma marca fundamental dos movimentos de fazedores de "
+"discípulos. Com Prayer.Global, você e sua comunidade podem participar da "
+"missão de Deus de cobrir o mundo com oração."
 
 #: pages/events/events-body.php:87
-#, fuzzy
-#| msgid ""
-#| "Prayer.Global has broken the world down into 4,770 states based on "
-#| "geographical and governmental boundaries."
 msgid ""
 "Prayer.Global has divided the world into 4,770 “states” based on "
 "geographical and governmental boundaries."
 msgstr ""
-"A Prayer.Global dividiu o mundo em 4.770 áreas com base em fronteiras "
+"A Prayer.Global dividiu o mundo em 4.770 \"áreas\" com base em fronteiras "
 "geográficas e governamentais."
 
 #: pages/events/events-body.php:88
-#, fuzzy
 msgid ""
 "Click ‘Start Praying’ to initiate a one-minute timer with a specific state "
 "to pray for."
 msgstr ""
 "Clique em “Começar a orar” para iniciar um cronômetro de um minuto com um "
-"estado específico para orar."
+"lugar específico para orar."
 
 #: pages/events/events-body.php:89
-#, fuzzy
 msgid ""
 "You’ll be provided with specific prayer prompts, scripture and pictures to "
 "guide your prayers."
 msgstr ""
-"Você receberá instruções de oração específicas, escrituras e imagens para "
+"Você receberá instruções de oração específica, escrituras e imagens para "
 "orientar suas orações."
 
 #: pages/events/events-body.php:90
-#, fuzzy
 msgid ""
 "Watch your progress on the LIVE prayer map as you work together to pray a "
 "lap around the world."
 msgstr ""
-"Acompanhe seu progresso no mapa de orações AO VIVO enquanto vocês trabalham "
-"juntos para rezar uma volta ao redor do mundo."
+"Acompanhe seu progresso no mapa de orações AO VIVO enquanto trabalha junto "
+"para dar uma volta ao mundo em oração."
 
 #: pages/events/events-body.php:100
-#, fuzzy
 msgid ""
 "At a recent conference, participants prayed several laps around the world "
 "over the course of a few days."
 msgstr ""
-"Em uma conferência recente, os participantes rezaram várias voltas ao redor "
-"do mundo ao longo de alguns dias."
+"Em uma conferência recente, os participantes deram várias voltas ao mundo em "
+"oração ao longo de alguns dias."
 
 #: pages/events/events-body.php:101
-#, fuzzy
 msgid ""
 "On one Sunday morning, a church of 1200 prayed for the entire world in less "
 "that 10 minutes!"
@@ -1396,7 +1356,6 @@ msgstr ""
 "em menos de 10 minutos!"
 
 #: pages/events/events-body.php:102
-#, fuzzy
 msgid ""
 "Over the course of a month, a campus ministry was able to pray for every "
 "location on the globe."
@@ -1405,28 +1364,22 @@ msgstr ""
 "lugares do mundo."
 
 #: pages/events/events-body.php:112
-#, fuzzy
 msgid "We’ve done the hard work to make it easy for you."
-msgstr "Fizemos o trabalho duro para facilitar para você."
+msgstr "Fizemos o trabalho árduo para facilitar para você."
 
 #: pages/events/events-body.php:114
-#, fuzzy
 msgid "Register and create a free account"
 msgstr "Cadastre-se e crie uma conta gratuita"
 
 #: pages/events/events-body.php:114
-#, fuzzy
 msgid "Gain access to your personal Prayer Global dashboard."
 msgstr "Tenha acesso ao seu painel pessoal do Prayer Global."
 
 #: pages/events/events-body.php:115
-#, fuzzy
-#| msgid "Create your own prayer relays"
 msgid "Create a custom group prayer relay"
 msgstr "Crie suas próprias equipes de oração"
 
 #: pages/events/events-body.php:115
-#, fuzzy
 msgid ""
 "Choose a name and decide if it’s public (anyone can join) or private "
 "(accessible only through the URL or QR code)."
@@ -1435,77 +1388,66 @@ msgstr ""
 "ou privado (acessível somente por meio de URL ou código QR)."
 
 #: pages/events/events-body.php:119 pages/events/events-body.php:123
-#, fuzzy
 msgid "Access free promotional resources"
 msgstr "Acesse recursos promocionais gratuitos"
 
 #: pages/events/events-body.php:119 pages/events/events-body.php:123
-#, fuzzy, php-format
+#, php-format
 msgid "Easily promote your event with customizable materials for your %s."
 msgstr ""
 "Promova facilmente seu evento com materiais personalizáveis para seu %s."
 
 #: pages/events/events-body.php:123
-#, fuzzy
 msgid "church or conference"
 msgstr "igreja ou conferência"
 
 #: pages/events/events-body.php:127
-#, fuzzy
 msgid "Cast Vision"
-msgstr "Visão do Elenco"
+msgstr "Lance a visão"
 
 #: pages/events/events-body.php:127
-#, fuzzy
 msgid ""
 "Share the importance of prayer in fulfilling the Great Commission. Lay a "
 "foundation for the Prayer.Global experience by casting a vision - the “why” "
 "- and setting a goal for your event."
 msgstr ""
 "Compartilhe a importância da oração no cumprimento da Grande Comissão. "
-"Estabeleça uma base para a experiência global de Oração, apresentando uma "
-"visão – o \"porquê\" – e definindo uma meta para o seu evento."
+"Estabeleça um fundamento para a experiência com o Prayer.Global, "
+"apresentando uma visão – o \"porquê\" – e definindo um objetivo para seu "
+"evento."
 
 #: pages/events/events-body.php:128
-#, fuzzy
-#| msgid "The Goal"
 msgid "Set a Goal"
-msgstr "O Objetivo"
+msgstr "Estabeleça um objetivo"
 
 #: pages/events/events-body.php:128
-#, fuzzy
 msgid "Choose a prayer target based on your event size and timeframe."
 msgstr ""
 "Escolha um alvo de oração com base no tamanho e no período do seu evento."
 
 #: pages/events/events-body.php:133
-#, fuzzy
-#| msgid "The Goal"
 msgid "Sample Goals"
-msgstr "O Objetivo"
+msgstr "Exemplo de objetivos"
 
 #: pages/events/events-body.php:135
-#, fuzzy
 msgid ""
 "Collectively complete one prayer lap around the world in each event session "
 "(covering all 4,770 states in prayer)"
 msgstr ""
 "Completar coletivamente uma volta de oração ao redor do mundo em cada sessão "
-"do evento (abrangendo todos os 4.770 estados em oração)"
+"do evento (cobrindo em oração todos os 4.770 pontos)"
 
 #: pages/events/events-body.php:135
-#, fuzzy
 msgid ""
 "Each individual would pray for multiple regions, depending on the amount of "
 "time allotted, each time the activity is offered. For reference, on average "
 "ten minutes would allow each person to cover about seven states in prayer."
 msgstr ""
-"Cada indivíduo oraria por diversas regiões, dependendo do tempo alocado, a "
-"cada vez que a atividade fosse oferecida. Para referência, em média, dez "
-"minutos permitiriam que cada pessoa cobrisse cerca de sete estados em oração."
+"Cada pessoa ora por várias regiões, dependendo do tempo disponível, cada vez "
+"que a atividade é oferecida. Como referência, em média, dez minutos permitem "
+"que cada pessoa cubra uns sete pontos em oração."
 
 #: pages/events/events-body.php:136
-#, fuzzy
 msgid ""
 "Collectively complete one prayer lap around the world in the course of the "
 "event  (covering all 4,770 states in prayer)"
@@ -1514,67 +1456,54 @@ msgstr ""
 "evento (abrangendo todos os 4.770 estados em oração)"
 
 #: pages/events/events-body.php:136
-#, fuzzy
 msgid ""
 "ach individual would pray for one region, roughly one minute, each time the "
 "activity is offered."
 msgstr ""
-"Cada indivíduo oraria por uma região, aproximadamente um minuto, cada vez "
-"que a atividade fosse oferecida."
+"cada pessoa ora por uma região, por cerca de um minuto, cada vez que a "
+"atividade é oferecida."
 
 #: pages/events/events-body.php:143
-#, fuzzy
-#| msgid "International Web Resources"
 msgid "Customizable Promotional Resources"
-msgstr "Recursos Internacionais da Web"
+msgstr "Recursos personalizáveis para divulgação"
 
 #: pages/events/events-body.php:148
-#, fuzzy
 msgid ""
 "Download the custom QR code from the Prayer.Global website once your lap is "
 "set up."
 msgstr ""
-"Baixe o código QR personalizado do site Prayer.Global assim que seu colo "
-"estiver configurado."
+"Baixe o código QR personalizado do site Prayer.Global assim que sua volta "
+"estiver configurada."
 
 #: pages/events/events-body.php:149
-#, fuzzy
 msgid "Customizable sample emails"
-msgstr "E-mails de exemplo personalizáveis"
+msgstr "Modelos de e-mails personalizáveis"
 
 #: pages/events/events-body.php:150
-#, fuzzy
 msgid "Mobile templates"
 msgstr "Modelos para dispositivos móveis"
 
 #: pages/events/events-body.php:151
-#, fuzzy
 msgid "Banners"
-msgstr "Bandeiras"
+msgstr "Banners"
 
 #: pages/events/events-body.php:152
-#, fuzzy
 msgid "3x5 Card"
 msgstr "Cartão 3x5"
 
 #: pages/events/events-body.php:153
-#, fuzzy
 msgid "Presenter slide templates"
-msgstr "Modelos de slides do apresentador"
+msgstr "Modelos de slides para apresentação"
 
 #: pages/events/events-body.php:154
-#, fuzzy
 msgid "Event poster"
 msgstr "Cartaz do evento"
 
 #: pages/events/events-body.php:160
-#, fuzzy
-#| msgid "Resources"
 msgid "Promo resources"
-msgstr "Recursos"
+msgstr "Recursos para divulgação"
 
 #: pages/events/events-body.php:165
-#, fuzzy
 msgid ""
 "Give your attendees advance notice of the upcoming Prayer.Global event to "
 "encourage their participation and to help them be prepared to pray on the "
@@ -1585,7 +1514,6 @@ msgstr ""
 "do evento. Aqui está um cronograma sugerido para divulgação."
 
 #: pages/events/events-body.php:168
-#, fuzzy
 msgid ""
 "Make an announcement in your event materials, encourage people to bring a "
 "device with them."
@@ -1594,18 +1522,16 @@ msgstr ""
 "trazerem um dispositivo com elas."
 
 #: pages/events/events-body.php:169
-#, fuzzy
 msgid ""
 "Send an email at least 3 days before to cast vision and to encourage your "
 "event attendees to download the Prayer.Global app. Include links to both app "
 "stores."
 msgstr ""
 "Envie um e-mail com pelo menos 3 dias de antecedência para transmitir a "
-"visão e incentivar os participantes do seu evento a baixar o aplicativo "
+"visão e incentivar os participantes do seu evento a baixarem o aplicativo "
 "Prayer.Global. Inclua links para ambas as lojas de aplicativos."
 
 #: pages/events/events-body.php:170
-#, fuzzy
 msgid ""
 "Send a text the day before the event with a link to Prayer.Global, if you "
 "have a texting service."
@@ -1614,228 +1540,190 @@ msgstr ""
 "Prayer.Global, se você tiver um serviço de mensagens de texto."
 
 #: pages/events/events-body.php:171
-#, fuzzy
 msgid ""
 "Provide postcards in seat pockets and at exits to provide more information."
 msgstr ""
-"Coloque cartões postais nos bolsos dos assentos e nas saídas para fornecer "
-"mais informações."
+"Coloque cartões nos assentos e nas saídas para fornecer mais informações."
 
 #: pages/events/events-body.php:178
-#, fuzzy
 msgid ""
 "In pre-event promotion, we recommend only promoting the Prayer.Global "
 "website and the links for downloading the app. We don’t recommend sharing "
 "your custom group URL until the day of the event. This helps ensure better "
 "tracking of how many people prayed with you during the event."
 msgstr ""
-"Na promoção pré-evento, recomendamos divulgar apenas o site Prayer.Global e "
-"os links para baixar o aplicativo. Não recomendamos compartilhar o URL do "
-"seu grupo personalizado até o dia do evento. Isso ajuda a garantir um melhor "
+"No pré-evento, recomendamos divulgar apenas o site Prayer.Global e os links "
+"para baixar o aplicativo. Não recomendamos compartilhar o URL do seu grupo "
+"personalizado até o dia do evento. Isso ajuda a garantir um melhor "
 "acompanhamento de quantas pessoas oraram com você durante o evento."
 
 #: pages/events/events-body.php:190
-#, fuzzy
 msgid ""
 "It is important to give the Prayer.Global challenge prominence. We have "
 "broken this goal down into three essential keys for success:"
 msgstr ""
-"É importante dar destaque ao desafio Oração Global. Dividimos esse objetivo "
-"em três chaves essenciais para o sucesso:"
+"É importante dar o devido destaque ao desafio Prayer.Global. Dividimos esse "
+"objetivo em três chaves essenciais para o sucesso:"
 
 #: pages/events/events-body.php:193
-#, fuzzy
-#| msgid "Getting people connected to your group’s prayer lap"
 msgid "Getting people connected to your group’s prayer lap (5 minutes)"
-msgstr "Conectar pessoas à volta de oração da sua equipe"
+msgstr "Conectar pessoas à volta de oração da sua equipe (5 minutos)"
 
 #: pages/events/events-body.php:194
-#, fuzzy
 msgid "Here are some suggested methods of facilitating attendee connection:"
 msgstr ""
 "Aqui estão alguns métodos sugeridos para facilitar a conexão dos "
 "participantes:"
 
 #: pages/events/events-body.php:196
-#, fuzzy
 msgid ""
 "Provide seat cards with the custom lap QR code along with steps for "
 "navigating to the website"
 msgstr ""
-"Forneça cartões de assento com o código QR de volta personalizado, "
-"juntamente com as etapas para navegar até o site"
+"Forneça cartões com o código QR com a volta personalizada, juntamente com as "
+"etapas para navegar até o site"
 
 #: pages/events/events-body.php:197
-#, fuzzy
 msgid "Display the QR code on your venue’s projection screens or TVs"
-msgstr "Exiba o código QR nas telas de projeção ou TVs do seu local"
+msgstr "Mostre o código QR nas telas de projeção ou TVs do seu local"
 
 #: pages/events/events-body.php:198
-#, fuzzy
 msgid ""
 "Add a link – like a ‘Pray Now’ button – to your website or other online "
 "resources you are using in the course of your event"
 msgstr ""
-"Adicione um link – como um botão “Ore agora” – para o seu site ou outros "
-"recursos online que você esteja usando durante o seu evento"
+"Adicione um link – como um botão “Ore agora” – para seu site ou outros "
+"recursos online que você esteja usando no seu evento"
 
 #: pages/events/events-body.php:202
-#, fuzzy
-#| msgid "Facilitating the group prayer time"
 msgid "Facilitating the group prayer time (5-10 minutes)"
-msgstr "Facilitar o tempo de oração em grupo"
+msgstr "Facilitar o tempo de oração em grupo (5-10 minutos)"
 
 #: pages/events/events-body.php:203
-#, fuzzy
-#| msgid ""
-#| "For your prayer time, here are some best practices for how to facilitate "
-#| "that time for your group:"
 msgid "Here are some best practices for how to facilitate group prayer time:"
 msgstr ""
-"Para seu tempo de oração, aqui estão algumas práticas recomendadas para "
-"facilitar em seu grupo:"
+"Aqui estão algumas boas práticas para facilitar o tempo de oração em grupo:"
 
 #: pages/events/events-body.php:205
-#, fuzzy
 msgid ""
 "Transition into your prayer time by casting vision about what is about to "
 "happen."
 msgstr ""
-"Faça a transição para o seu tempo de oração projetando uma visão sobre o que "
-"está prestes a acontecer."
+"Faça a transição para seu momento de oração, com uma visão sobre o que está "
+"prestes a acontecer."
 
 #: pages/events/events-body.php:206
-#, fuzzy
 msgid ""
 "Show how the Prayer.Global tool works by walking people through a prayer "
 "prompt using a screen share, presentation computer or through a video. Take "
 "the full minute to scroll through the prompts, demonstrating how to use the "
 "different pieces of information to guide your prayers."
 msgstr ""
-"Mostre como a ferramenta Prayer.Global funciona, guiando as pessoas por um "
-"prompt de oração usando um compartilhamento de tela, um computador de "
+"Mostre como funciona a ferramenta Prayer.Global, guiando as pessoas por um "
+"comando de oração por meio de compartilhamento de tela, um computador de "
 "apresentação ou um vídeo. Reserve um minuto inteiro para navegar pelos "
-"prompts, demonstrando como usar as diferentes informações para orientar suas "
+"comandos, mostrando como usar as diferentes informações para guiar suas "
 "orações."
 
 #: pages/events/events-body.php:207
-#, fuzzy
 msgid ""
 "Provide time for people to get out their devices, scan the codes and to be "
 "ready to go. Give the go ahead to start praying and start the countdown "
 "timer."
 msgstr ""
-"Dê tempo para que as pessoas peguem seus dispositivos, leiam os códigos e se "
-"preparem. Dê sinal verde para começar a orar e inicie a contagem regressiva."
+"Dê tempo para que as pessoas peguem seus dispositivos, leiam os códigos e "
+"estejam prontas para seguir. Dê o sinal verde para começar a orar e inicie a "
+"contagem regressiva."
 
 #: pages/events/events-body.php:208
-#, fuzzy
 msgid ""
 "Close the time with a verbal prayer to give people time to finish the state "
 "they are praying over."
 msgstr ""
-"Encerre o tempo com uma oração verbal para dar tempo às pessoas de terminar "
-"o estado pelo qual estão orando."
+"Encerre o tempo com uma oração em voz alta para dar tempo às pessoas de "
+"terminarem a oração que estão fazendo."
 
 #: pages/events/events-body.php:209
-#, fuzzy
 msgid ""
 "If possible, provide an update about how many states your group prayed for "
 "during that time. You can use the display map to showcase this or provide "
 "that information to a host or worship minister to share when they come on "
 "stage."
 msgstr ""
-"Se possível, forneça uma atualização sobre quantos estados seu grupo orou "
-"durante esse período. Você pode usar o mapa de exibição para mostrar isso ou "
-"fornecer essa informação a um anfitrião ou ministro de louvor para que "
+"Se possível, forneça uma atualização sobre quantos lugares seu grupo orou "
+"durante determinado período. Você pode usar o mapa de exibição para mostrar "
+"isso ou dar a informação a um anfitrião ou ministro de louvor para que "
 "compartilhem quando subirem ao palco."
 
 #: pages/events/events-body.php:213
-#, fuzzy
-#| msgid "Provide next steps"
 msgid "Provide next steps (5 minutes)"
-msgstr "Fornecer próximos passos"
+msgstr "Fornecer os passos seguintes (5 minutos)"
 
 #: pages/events/events-body.php:214
-#, fuzzy
 msgid ""
 "How do you encourage continued prayer for the nations? Help people "
 "brainstorm ways they can use the Prayer.Global app moving forward."
 msgstr ""
-"Como você incentiva a oração contínua pelas nações? Ajude as pessoas a "
-"pensar em maneiras de usar o aplicativo Prayer.Global daqui para frente."
+"Como você encoraja a oração contínua pelas nações? Ajude as pessoas a pensar "
+"em maneiras de usar o aplicativo Prayer.Global daqui para frente."
 
 #: pages/events/events-body.php:215
-#, fuzzy
 msgid "Some ideas include:"
 msgstr "Algumas ideias incluem:"
 
 #: pages/events/events-body.php:217
-#, fuzzy
 msgid "Encourage everyone to register on the Prayer.Global site or app."
-msgstr "Incentive todos a se registrarem no site ou aplicativo Prayer.Global."
+msgstr "Encoraje todos a se registrarem no site ou aplicativo Prayer.Global."
 
 #: pages/events/events-body.php:218
-#, fuzzy
 msgid "Complete 1 or 2 prayers before going to bed or putting your kids to bed"
-msgstr ""
-"Faça 1 ou 2 orações antes de ir para a cama ou de colocar seus filhos para "
-"dormir"
+msgstr "Faça 1 ou 2 orações antes de dormir ou colocar seus filhos na cama"
 
 #: pages/events/events-body.php:219
-#, fuzzy
 msgid "Finish your Bible reading time with 1 or 2 prayers"
 msgstr "Termine seu tempo de leitura da Bíblia com 1 ou 2 orações"
 
 #: pages/events/events-body.php:220
-#, fuzzy
 msgid "Incorporate 1 or 2 prayers into your weekly small group meeting"
-msgstr "Incorpore 1 ou 2 orações em sua reunião semanal de pequenos grupos"
+msgstr "Inclua 1 ou 2 orações em sua reunião semanal de pequenos grupos"
 
 #: pages/events/events-body.php:221
-#, fuzzy
 msgid "Invite someone to pray with you by sharing about the app"
-msgstr "Convide alguém para orar com você compartilhando sobre o aplicativo"
+msgstr "Convide alguém para orar com você, falando sobre o aplicativo"
 
 #: pages/events/events-body.php:243
-#, fuzzy
 msgid "Helpful Tips"
 msgstr "Dicas úteis"
 
 #: pages/events/events-body.php:248
-#, fuzzy
 msgid ""
 "Personally use Prayer.Global before promoting it. Consider initiating "
 "leadership, ushers, and volunteers with a Prayer.Global experience before "
 "the event, as well."
 msgstr ""
 "Use o Prayer.Global pessoalmente antes de promovê-lo. Considere também "
-"iniciar a liderança, os recepcionistas e os voluntários com uma experiência "
+"orientar a liderança, os recepcionistas e os voluntários em uma experiência "
 "com o Prayer.Global antes do evento."
 
 #: pages/events/events-body.php:249
-#, fuzzy
 msgid ""
 "Set a specific amount of time for prayer. For reference, setting aside 10 "
 "minutes will result in each person praying for about 7 states."
 msgstr ""
-"Defina um tempo específico para a oração. Para referência, reservar 10 "
-"minutos resultará em cada pessoa orando por cerca de 7 estados."
+"Defina um tempo específico para a oração. Como referência, reservar 10 "
+"minutos resultará em cada pessoa orando por cerca de 7 lugares."
 
 #: pages/events/events-body.php:250
-#, fuzzy
 msgid ""
 "Recruit a few technology helpers to be positioned around the room when your "
 "prayer time begins. They can help people troubleshoot any issues with their "
 "device or access the correct prayer relay."
 msgstr ""
-"Recrute alguns ajudantes de tecnologia para ficarem espalhados pela sala "
-"quando o seu momento de oração começar. Eles podem ajudar as pessoas a "
-"solucionar problemas com seus dispositivos ou acessar o retransmissor de "
-"oração correto."
+"Peça a alguns ajudantes de tecnologia para ficarem pela sala quando o "
+"momento de oração começar. Eles podem ajudar as pessoas a solucionar "
+"problemas com seus dispositivos ou acessar a equipe de oração correta."
 
 #: pages/events/events-body.php:251
-#, fuzzy
 msgid ""
 "Encourage people to pray out loud. Model this from the stage and play some "
 "soft music during the prayer time. This will help the room not feel empty "
@@ -1846,22 +1734,18 @@ msgstr ""
 "não parecer vazia, além de incentivar a participação."
 
 #: pages/events/events-body.php:252
-#, fuzzy
 msgid ""
 "Show a prayer prompt session on the main screens so those without devices "
 "can pray along, too."
 msgstr ""
-"Exiba uma sessão de oração nas telas principais para que aqueles sem "
-"dispositivos também possam orar junto."
+"Mostre uma sessão de oração nas telas principais para que aqueles que não "
+"têm dispositivos também possam orar junto."
 
 #: pages/events/events-body.php:262
-#, fuzzy
-#| msgid "After the event"
 msgid "After the event & Beyond"
-msgstr "Depois do evento"
+msgstr "Depois do evento & além"
 
 #: pages/events/events-body.php:265
-#, fuzzy
 msgid ""
 "Based on how your Prayer.Global event experience goes, provide follow up "
 "information, texts or emails to encourage people to keep praying and to "
@@ -1870,18 +1754,15 @@ msgid ""
 msgstr ""
 "Com base na sua experiência no evento Prayer.Global, envie informações, "
 "mensagens de texto ou e-mails de acompanhamento para incentivar as pessoas a "
-"continuar orando e a celebrar quando a sua volta estiver concluída, caso não "
-"tenha sido concluída durante o evento. Mantenha a visão e o objetivo da "
-"oração diária pelas nações à frente delas."
+"continuar orando e a celebrar quando a sua volta terminar, caso não tenha "
+"sido concluída no evento. Mantenha a visão e o objetivo da oração diária "
+"pelas nações à frente delas."
 
 #: pages/events/events-body.php:268
-#, fuzzy
-#| msgid "First, thank you for reaching out."
 msgid "Thank you for Partnering with us"
-msgstr "Primeiramente, obrigado por entrar em contato conosco."
+msgstr "Obrigado por se associar conosco"
 
 #: pages/events/events-body.php:269
-#, fuzzy
 msgid ""
 "Thank you for taking the time to explore how to host a Prayer.Global event. "
 "By following these steps, you are creating a powerful opportunity for your "
@@ -1889,15 +1770,14 @@ msgid ""
 "lifting their voices to God, may you see hearts ignited with a passion to "
 "pray boldly and consistently — not just during your event, but far beyond it."
 msgstr ""
-"Agradecemos por dedicar seu tempo para descobrir como organizar um evento do "
+"Agradecemos por dedicar seu tempo para entender como organizar um evento do "
 "Prayer.Global. Ao seguir esses passos, você estará criando uma oportunidade "
-"poderosa para que os participantes do seu evento se unam em oração pelas "
+"poderosa para os participantes do seu evento se unirem em oração pelas "
 "nações. Ao guiar outros a elevarem suas vozes a Deus, que você veja corações "
 "inflamados pela paixão de orar com ousadia e constância — não apenas durante "
 "o seu evento, mas muito além dele."
 
 #: pages/events/events-body.php:270
-#, fuzzy
 msgid ""
 "May the Lord bless your efforts, multiplying the impact of every prayer "
 "offered. May your gathering inspire a movement of extraordinary prayer "
@@ -1906,11 +1786,10 @@ msgid ""
 msgstr ""
 "Que o Senhor abençoe seus esforços, multiplicando o impacto de cada oração "
 "oferecida. Que sua reunião inspire um movimento de guerreiros de oração "
-"extraordinários que se posicionarão na brecha pelos perdidos e verão o reino "
-"de Deus se expandir para todas as nações e grupos de povos."
+"extraordinária, que se posicionem na brecha pelos perdidos e vejam o reino "
+"de Deus se expandir para todas os povos e nações."
 
 #: pages/events/events-body.php:271
-#, fuzzy
 msgid ""
 "We are grateful for your partnership and excited to see how God moves "
 "through your leadership."
@@ -1919,40 +1798,31 @@ msgstr ""
 "por meio de sua liderança."
 
 #: pages/events/events-body.php:272
-#, fuzzy
 msgid "Let’s mobilize prayer and watch God move!"
 msgstr "Vamos mobilizar a oração e observar Deus agir!"
 
 #: pages/events/events-body.php:275
-#, fuzzy
-#| msgid "Ready. Set."
 msgid "Ready...Set..."
-msgstr "Pronto. Preparar."
+msgstr "Pronto... Preparar..."
 
 #: pages/events/events-body.php:276
-#, fuzzy
-#| msgid "Prayer Relays"
 msgid "Create Group Relay"
-msgstr "Equipes de Oração"
+msgstr "Criar Equipe de Oração"
 
 #: pages/events/events.php:19
-#, fuzzy
 msgid "Event"
 msgstr "Evento"
 
 #: pages/events/events.php:20
-#, fuzzy
 msgid "Events"
 msgstr "Eventos"
 
 #: pages/give/give.php:109
-#, fuzzy
-#| msgid "What is Prayer.Global"
 msgid "To Prayer.Global"
-msgstr "O que é Prayer.Global"
+msgstr "Para Prayer.Global"
 
 #: pages/give/give.php:111
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "Thank you for wanting to be part of seeing the Kingdom grow through prayer "
 "and movements. Your gift ensures that we can continue to freely give away "
@@ -1962,42 +1832,38 @@ msgid ""
 msgstr ""
 "Agradecemos por querer fazer parte do crescimento do Reino por meio de "
 "orações e movimentos. Sua doação garante que possamos continuar a doar "
-"gratuitamente todas as ferramentas e recursos que desenvolvemos. Sua doação, "
-"dedutível de impostos, será destinada ao desenvolvimento e à manutenção do "
-"%1$s, que faz parte da rede %2$s."
+"gratuitamente todas as ferramentas e recursos que desenvolvemos. Sua doação "
+"será destinada ao desenvolvimento e à manutenção do %1$s, que faz parte da "
+"rede %2$s."
 
 #: pages/give/give.php:118
-#, fuzzy
 msgid "Donate Online"
 msgstr "Doe online"
 
 #: pages/give/give.php:139
-#, fuzzy
 msgid "Donate by Check"
 msgstr "Doe por cheque"
 
 #: pages/give/give.php:141 pages/give/give.php:154
-#, fuzzy
 msgid "Note:"
 msgstr "Observação:"
 
 #: pages/give/give.php:141
-#, fuzzy
 msgid ""
 "If you'd like to avoid the 3% fee that credit card companies charge "
 "everyone, you can send tax deductible donations via check to:"
 msgstr ""
-"Se você quiser evitar o 3% fee que as empresas de cartão de crédito cobram "
-"de todos, você pode enviar doações dedutíveis de impostos por cheque para:"
+"Se você quiser evitar a taxa 3% feita a todos pelas empresas de cartão de "
+"crédito, você pode enviar doações dedutíveis de impostos por cheque para:"
 
 #: pages/give/give.php:154
-#, fuzzy, php-format
+#, php-format
 msgid ""
 "%1$s and by extension %2$s is part of %3$s. You may see %4$s on your invoice "
 "or receipt."
 msgstr ""
-"%1$s e, por extensão, %2$s faz parte de %3$s. Você pode ver %4$s na sua "
-"fatura ou recibo."
+"%1$s e, por extensão, %2$s é parte de %3$s. Você pode ver %4$s na sua fatura "
+"ou recibo."
 
 #: pages/home/body.php:10 pages/home/body.php:109
 msgid "Cover the World in Prayer"
@@ -2324,72 +2190,55 @@ msgid "Show More Guided Prayers"
 msgstr "Mostrar Mais Orações Guiadas"
 
 #: pages/pray/action-custom-lap.php:144 pages/pray/trait-lap.php:61
-#, fuzzy, php-format
-#| msgctxt "10 of 4770"
-#| msgid "%1$s of %2$s"
+#, php-format
 msgid "%1$s of %2$s"
-msgstr "%1$s em %2$s"
+msgstr "%1$s de %2$s"
 
 #: pages/pray/action-custom-lap.php:152 pages/pray/trait-lap.php:69
 #: pages/user/login.php:237 pages/user/register.php:216
-#, fuzzy
-#| msgid "Create your own prayer relays"
 msgid "Join and create custom prayer relays"
-msgstr "Crie suas próprias equipes de oração"
+msgstr "Entre e crie suas próprias equipes de oração"
 
 #: pages/pray/action-custom-lap.php:153 pages/pray/trait-lap.php:70
 #: pages/user/login.php:241 pages/user/register.php:220
-#, fuzzy
-#| msgid "See your prayer history"
 msgid "View your interactive prayer history"
-msgstr "Veja seu histórico de orações"
+msgstr "Veja seu histórico de orações interativas"
 
 #: pages/pray/action-custom-lap.php:154 pages/pray/trait-lap.php:71
 #: pages/user/register.php:224
-#, fuzzy
-#| msgid "Get badges and more"
 msgid "Prayer streaks, badges and more"
-msgstr "Ganhe medalhas e muito mais"
+msgstr "Séries de orações, medalhas e muito mais"
 
 #: pages/pray/action-custom-lap.php:155 pages/pray/trait-lap.php:72
-#, fuzzy
 msgid "Register Now"
 msgstr "Registre-se agora"
 
 #: pages/pray/action-custom-lap.php:156 pages/pray/trait-lap.php:73
 #: pages/user/register.php:212
-#, fuzzy
-#| msgid "Create your own prayer relays"
 msgid "Create your own free login"
-msgstr "Crie suas próprias equipes de oração"
+msgstr "Crie seu próprios acesso gratuito"
 
 #: pages/pray/action-custom-lap.php:157 pages/pray/trait-lap.php:74
 #: pages/user/login.php:218
-#, fuzzy
 msgid "No Thanks"
 msgstr "Não, obrigado"
 
 #: pages/pray/action-custom-lap.php:158 pages/pray/trait-lap.php:75
 #: pages/user/user-dashboard.php:170
-#, fuzzy
-#| msgid "My Prayer Relays"
 msgid "Daily Prayer Streak"
-msgstr "Minhas Equipes de Oração"
+msgstr "Sequência diária de oração"
 
 #: pages/pray/action-custom-lap.php:159 pages/pray/trait-lap.php:76
 #: pages/user/user-dashboard.php:171
-#, fuzzy
 msgid "Best"
 msgstr "Melhor"
 
 #: pages/pray/action-custom-lap.php:161 pages/pray/trait-lap.php:78
-#, fuzzy
 msgid "Fetching your stats..."
 msgstr "Buscando suas estatísticas..."
 
 #: pages/pray/action-custom-lap.php:162 pages/pray/trait-lap.php:79
 #: pages/user/user-dashboard.php:207
-#, fuzzy
 msgid "Download the Prayer.Global app to get streak notifications and more!"
 msgstr ""
 "Baixe o aplicativo Prayer.Global para receber notificações de sequências e "
@@ -2397,7 +2246,6 @@ msgstr ""
 
 #: pages/pray/action-custom-lap.php:163 pages/pray/trait-lap.php:80
 #: pages/user/user-dashboard.php:208
-#, fuzzy
 msgid "Update the Prayer.Global app to get streak notifications and more!"
 msgstr ""
 "Atualize o aplicativo Prayer.Global para receber notificações de sequências "
@@ -2405,7 +2253,6 @@ msgstr ""
 
 #: pages/pray/action-custom-lap.php:164 pages/pray/trait-lap.php:81
 #: pages/user/user-dashboard.php:209
-#, fuzzy
 msgid "Go to App Store"
 msgstr "Ir para a App Store"
 
@@ -2473,8 +2320,7 @@ msgid "Step 3"
 msgstr "Passo 3"
 
 #: pages/pray/action-custom-map-display.php:81
-#, fuzzy, php-format
-#| msgid "- Lap %d"
+#, php-format
 msgid "Lap %d"
 msgstr "- Volta %d"
 
@@ -2523,9 +2369,8 @@ msgid "Cover The World In Prayer"
 msgstr "Cubra o Mundo em Oração"
 
 #: pages/pray/action-custom-map-display.php:111
-#, fuzzy
 msgid "Lap:"
-msgstr "Colo:"
+msgstr "Volta:"
 
 #: pages/pray/action-custom-map-display.php:124
 #: pages/pray/action-custom-map.php:182 pages/pray/action-custom-map.php:268
@@ -2660,10 +2505,8 @@ msgid "Toggle navigation"
 msgstr "Alternar navegação"
 
 #: pages/pray/page-dashboard-map/action-my-map.php:10
-#, fuzzy
-#| msgid "%s Map"
 msgid "My Map"
-msgstr "%s Mapa"
+msgstr "Meu Mapa"
 
 #: pages/pray/stacker-positions.php:18
 msgid "One Shot Prayer Walk"
@@ -3665,10 +3508,7 @@ msgstr ""
 "simples em seus lares."
 
 #: pages/pray/stacker-text.php:397
-#, fuzzy, php-format
-#| msgid ""
-#| "Father, we pray that the %1$s of %2$s be filled with simple churches in "
-#| "every neighborhood."
+#, php-format
 msgid ""
 "Father, we pray that %1$s of %2$s be filled with simple churches in every "
 "neighborhood."
@@ -3721,10 +3561,7 @@ msgstr ""
 "reproduzem."
 
 #: pages/pray/stacker-text.php:415
-#, fuzzy, php-format
-#| msgid ""
-#| "Father, bless the %1$s of %2$s with a multiplying movement of house "
-#| "churches."
+#, php-format
 msgid ""
 "Father, bless %1$s of %2$s with a multiplying movement of house churches."
 msgstr ""
@@ -3827,16 +3664,13 @@ msgstr ""
 "mencionar, não apenas nesta era, mas também na que há de vir."
 
 #: pages/pray/stacker-text.php:445
-#, fuzzy, php-format
-#| msgid ""
-#| "Father, help %1$s new simple churches start among the %2$s people in the "
-#| "%3$s of %4$s. One within reach of everyone living here."
+#, php-format
 msgid ""
 "Father, help %1$s new simple churches start among the %2$s people in %3$s of "
 "%4$s. One within reach of everyone living here."
 msgstr ""
-"Pai, ajuda %1$s a começar novas igrejas simples entre %2$s pessoas nos %3$s "
-"de %4$s. Uma igreja ao alcance de cada um que vive aqui."
+"Pai, ajuda %1$s novas igrejas simples começarem entre o povo %2$s em %3$s de "
+"%4$s. Uma igreja ao alcance de cada um que vive aqui."
 
 #: pages/pray/stacker-text.php:446 pages/pray/stacker-text.php:452
 #: pages/pray/stacker-text.php:997
@@ -3853,10 +3687,7 @@ msgstr ""
 "enchem o mar."
 
 #: pages/pray/stacker-text.php:451
-#, fuzzy, php-format
-#| msgid ""
-#| "Spirit, please start new house churches in every neighborhood of the %1$s "
-#| "of %2$s."
+#, php-format
 msgid ""
 "Spirit, please start new house churches in every neighborhood of %1$s of "
 "%2$s."
@@ -5367,16 +5198,13 @@ msgstr ""
 "Pai, por favor, envia novos evangelistas para a colheita em %1$s de %2$s."
 
 #: pages/pray/stacker-text.php:1859
-#, fuzzy, php-format
-#| msgid ""
-#| "Jesus, you said you were the giver of evangelists to the church. Please, "
-#| "send more evangelists to the %1$s of %2$s."
+#, php-format
 msgid ""
 "Jesus, you said you were the giver of evangelists to the church. Please, "
 "send more evangelists to %1$s of %2$s."
 msgstr ""
-"Jesus, tu disseste que és o que dá evangelistas para a igreja. Por favor, "
-"envia mais evangelistas para %1$s de %2$s."
+"Jesus, disseste que és o que dá evangelistas para a igreja. Por favor, envia "
+"mais evangelistas para %1$s de %2$s."
 
 #: pages/pray/stacker-text.php:1864
 msgid "Evangelists"
@@ -5845,10 +5673,7 @@ msgid "I delight in your decrees; I will not neglect your Word."
 msgstr "Terei prazer nos teus decretos; não me esquecerei da tua palavra."
 
 #: pages/pray/stacker-text.php:2147
-#, fuzzy, php-format
-#| msgid ""
-#| "Spirit, instill a desire within the people of the %1$s of %2$s to hide "
-#| "your Word in their heart."
+#, php-format
 msgid ""
 "Spirit, instill a desire within the people of %1$s of %2$s to hide your Word "
 "in their heart."
@@ -7470,207 +7295,164 @@ msgid "World Prayer Coverage"
 msgstr "Cobertura Mundial de Oração"
 
 #: pages/user/login.php:106
-#, fuzzy
 msgid "Someone has requested a password reset for the following account:"
 msgstr "Alguém solicitou uma redefinição de senha para a seguinte conta:"
 
 #: pages/user/login.php:108
-#, fuzzy, php-format
+#, php-format
 msgid "Username: %s"
 msgstr "Nome de usuário: %s"
 
 #: pages/user/login.php:109
-#, fuzzy
 msgid "If this was a mistake, just ignore this email and nothing will happen."
 msgstr "Se isso foi um erro, apenas ignore este e-mail e nada acontecerá."
 
 #: pages/user/login.php:110
-#, fuzzy
 msgid "To reset your password, visit the following address:"
 msgstr "Para redefinir sua senha, visite o seguinte endereço:"
 
 #: pages/user/login.php:113
-#, fuzzy
 msgid "Password Reset Request"
 msgstr "Solicitação de redefinição de senha"
 
 #: pages/user/login.php:144 support/build/test-push.php:258
-#, fuzzy
 msgid "Invalid email or password. Please try again."
 msgstr "E-mail ou senha inválidos. Tente novamente."
 
 #: pages/user/login.php:145 support/build/test-push.php:259
-#, fuzzy
 msgid "Email not found. Please register."
 msgstr "E-mail não encontrado. Por favor, registre-se."
 
 #: pages/user/login.php:146 support/build/test-push.php:260
-#, fuzzy
 msgid "Authentication failed. Please try again or register for an account."
 msgstr "Falha na autenticação. Tente novamente ou crie uma conta."
 
 #: pages/user/login.php:147 support/build/test-push.php:261
-#, fuzzy
 msgid "Email is required"
 msgstr "E-mail é obrigatório"
 
 #: pages/user/login.php:148 support/build/test-push.php:262
-#, fuzzy
 msgid "No account found with that email address"
 msgstr "Nenhuma conta encontrada com esse endereço de e-mail"
 
 #: pages/user/login.php:210
-#, fuzzy
 msgid "Stay Updated"
 msgstr "Fique atualizado"
 
 #: pages/user/login.php:219
-#, fuzzy
 msgid "Yes, Sign Me Up"
-msgstr "Sim, inscreva-me"
+msgstr "Sim, me inscreva"
 
 #: pages/user/login.php:228 pages/user/login.php:346
 #: pages/user/register.php:206 pages/user/register.php:210
 #: pages/user/register.php:302
-#, fuzzy
 msgid "Register"
 msgstr "Registrar"
 
 #: pages/user/login.php:245
-#, fuzzy
-#| msgid "Get badges and more"
 msgid "Prayer streaks and more"
-msgstr "Ganhe medalhas e muito mais"
+msgstr "Séries de oração e muito mais"
 
 #: pages/user/login.php:259
-#, fuzzy
 msgid "Sign in with Google"
 msgstr "Entrar com o Google"
 
 #: pages/user/login.php:262 pages/user/register.php:249
-#, fuzzy
 msgid "OR"
 msgstr "OU"
 
 #: pages/user/login.php:265
-#, fuzzy
 msgid "Continue with Email"
-msgstr "Continuar com o e-mail"
+msgstr "Continuar com e-mail"
 
 #: pages/user/login.php:271 pages/user/register.php:262
-#, fuzzy
 msgid "Back"
 msgstr "Voltar"
 
 #: pages/user/login.php:284 pages/user/register.php:280
-#, fuzzy
 msgid "Badly formatted email address"
-msgstr "Endereço de e-mail mal formatado"
+msgstr "Endereço de e-mail com formato incorreto"
 
 #: pages/user/login.php:288 pages/user/register.php:284
-#, fuzzy
 msgid "Password"
 msgstr "Senha"
 
 #: pages/user/login.php:295
-#, fuzzy
 msgid "Password is required"
 msgstr "Senha é necessária"
 
 #: pages/user/login.php:299
-#, fuzzy
 msgid "There are some errors in your form."
 msgstr "Há alguns erros em seu formulário."
 
 #: pages/user/login.php:317
-#, fuzzy
 msgid "Back to Login"
-msgstr "Voltar ao login"
+msgstr "Voltar ao início"
 
 #: pages/user/login.php:319
-#, fuzzy
 msgid "Reset Password"
 msgstr "Redefinir senha"
 
 #: pages/user/login.php:320
-#, fuzzy
 msgid ""
 "Enter your email address and we'll send you a link to reset your password."
-msgstr ""
-"Digite seu endereço de e-mail e lhe enviaremos um link para redefinir sua "
-"senha."
+msgstr "Digite seu e-mail e lhe enviaremos um link para redefinir sua senha."
 
 #: pages/user/login.php:328
-#, fuzzy
 msgid "Please enter a valid email address"
 msgstr "Por favor, insira um endereço de e-mail válido"
 
 #: pages/user/login.php:333
-#, fuzzy
 msgid "Send Reset Link"
 msgstr "Enviar link de redefinição"
 
 #: pages/user/login.php:339
-#, fuzzy
 msgid "Password reset link has been sent to your email address."
-msgstr ""
-"O link para redefinição de senha foi enviado para seu endereço de e-mail."
+msgstr "O link para redefinição de senha foi enviado para seu e-mail."
 
 #: pages/user/login.php:345
-#, fuzzy
 msgid "Don't have an account?"
 msgstr "Não tem uma conta?"
 
 #: pages/user/login.php:349
-#, fuzzy
 msgid "Forgot Password?"
 msgstr "Esqueceu sua senha?"
 
 #: pages/user/register.php:130
-#, fuzzy
 msgid "Please complete the security check."
 msgstr "Por favor, conclua a verificação de segurança."
 
 #: pages/user/register.php:246
-#, fuzzy
 msgid "Register with Google"
-msgstr "Registre-se no Google"
+msgstr "Registre-se com Google"
 
 #: pages/user/register.php:256
-#, fuzzy
 msgid "Register with Email"
 msgstr "Registre-se com e-mail"
 
 #: pages/user/register.php:287
-#, fuzzy
 msgid "Password is not strong enough"
 msgstr "A senha não é forte o suficiente"
 
 #: pages/user/register.php:292
-#, fuzzy
 msgid "Re-enter Password"
-msgstr "Digite novamente a senha"
+msgstr "Digite a senha novamente"
 
 #: pages/user/register.php:295
-#, fuzzy
 msgid "Passwords do not match. Please, try again."
-msgstr "As senhas não correspondem. Tente novamente."
+msgstr "As senhas não são iguais. Tente novamente."
 
 #: pages/user/register.php:316
-#, fuzzy
 msgid "There was a problem with your login. Please try again."
-msgstr "Ocorreu um problema com seu login. Tente novamente."
+msgstr "Ocorreu um problema com seu acesso. Tente novamente."
 
 #: pages/user/register.php:322
-#, fuzzy
 msgid "Already got an account?"
 msgstr "Já tem uma conta?"
 
 #: pages/user/user-dashboard.php:82
-#, fuzzy
-#| msgid "Profile"
 msgid "User Profile"
-msgstr "Perfil"
+msgstr "Perfil do Usuário"
 
 #: pages/user/user-dashboard.php:123
 msgid "Change"
@@ -7693,16 +7475,12 @@ msgid "(This is your estimated location)"
 msgstr "(Esta é sua localização estimada)"
 
 #: pages/user/user-dashboard.php:128
-#, fuzzy
-#| msgid "Profile"
 msgid "Profile Settings"
-msgstr "Perfil"
+msgstr "Configurações do Perfil"
 
 #: pages/user/user-dashboard.php:129 pages/user/user-dashboard.php:168
-#, fuzzy
-#| msgid "Activity"
 msgid "Prayer Activity"
-msgstr "Atividade"
+msgstr "Atividade de oração"
 
 #: pages/user/user-dashboard.php:130
 msgid "My Prayer Relays"
@@ -7713,13 +7491,8 @@ msgid "Are you enjoying this app?"
 msgstr "Você está gostando deste aplicativo?"
 
 #: pages/user/user-dashboard.php:132
-#, fuzzy
-#| msgid ""
-#| "Would you like to partner with us in helping others pray for the world?"
 msgid "Partner with us in helping others pray for the world!"
-msgstr ""
-"Você gostaria de fazer parceria conosco para ajudar outras pessoas a orarem "
-"pelo mundo?"
+msgstr "Junte-se a nós para ajudar outras pessoas a orarem pelo mundo!"
 
 #: pages/user/user-dashboard.php:133
 msgid "Consider giving to help us increase prayer for the world."
@@ -7747,8 +7520,6 @@ msgid "Change Your Details"
 msgstr "Altere Seus Dados"
 
 #: pages/user/user-dashboard.php:142
-#, fuzzy
-#| msgid "Erase my account"
 msgid "Delete my account"
 msgstr "Excluir minha conta"
 
@@ -7850,14 +7621,12 @@ msgid "Save"
 msgstr "Salvar"
 
 #: pages/user/user-dashboard.php:165
-#, fuzzy
 msgid "Subscribe to news"
-msgstr "Assinar notícias"
+msgstr "Inscreva-se para receber notícias"
 
 #: pages/user/user-dashboard.php:166
-#, fuzzy
 msgid "Subscribed"
-msgstr "Assinante"
+msgstr "Inscrito"
 
 #: pages/user/user-dashboard.php:167
 #, php-format
@@ -7867,127 +7636,90 @@ msgstr ""
 "Enviar informações sobre %1$s, %2$s, %3$s e outros %4$s projetos por e-mail"
 
 #: pages/user/user-dashboard.php:169
-#, fuzzy
 msgid "Strengthen your prayer life one day at a time!"
 msgstr "Fortaleça sua vida de oração um dia de cada vez!"
 
 #: pages/user/user-dashboard.php:172
-#, fuzzy
 msgid "Weeks in a row"
-msgstr "Semanas seguidas"
+msgstr "Semanas consecutivas"
 
 #: pages/user/user-dashboard.php:173
-#, fuzzy
-#| msgid "Pray for this area"
 msgid "Days this year"
-msgstr "Ore por essa área"
+msgstr "Duas neste ano"
 
 #: pages/user/user-dashboard.php:174
-#, fuzzy
-#| msgid "Times prayed for"
 msgid "Minutes prayed"
-msgstr "Vezes em que se orou"
+msgstr "Minutos em oração"
 
 #: pages/user/user-dashboard.php:175
-#, fuzzy
-#| msgid "Times prayed for"
 msgid "Places prayed for"
-msgstr "Vezes em que se orou"
+msgstr "Lugares que receberam oração"
 
 #: pages/user/user-dashboard.php:176
-#, fuzzy
-#| msgid "Active Relays"
 msgid "Active Laps"
-msgstr "Equipes Ativas"
+msgstr "Voltas Ativas"
 
 #: pages/user/user-dashboard.php:177
-#, fuzzy
-#| msgid "Single Lap"
 msgid "Finished Laps"
-msgstr "Volta Única"
+msgstr "Voltas concluídas"
 
 #: pages/user/user-dashboard.php:180
-#, fuzzy
-#| msgid "Map"
 msgid "Lap"
-msgstr "Mapa"
+msgstr "Volta"
 
 #: pages/user/user-dashboard.php:182
-#, fuzzy
-#| msgid "Share %s"
 msgid "Share"
-msgstr "Compartilhar %s"
+msgstr "Compartilhar"
 
 #: pages/user/user-dashboard.php:184
-#, fuzzy
 msgid "Hide"
-msgstr "Esconder"
+msgstr "Ocultar"
 
 #: pages/user/user-dashboard.php:185
-#, fuzzy
 msgid "Unhide"
 msgstr "Mostrar"
 
 #: pages/user/user-dashboard.php:186
-#, fuzzy
 msgid "Hide Hidden Relays"
-msgstr "Ocultar relés ocultos"
+msgstr "Ocultar equipes ocultas"
 
 #: pages/user/user-dashboard.php:187
-#, fuzzy
 msgid "Show Hidden Relays"
-msgstr "Mostrar relés ocultos"
+msgstr "Mostrar equipes ocultos"
 
 #: pages/user/user-dashboard.php:188
-#, fuzzy
-#| msgid "You have not created any %s relays yet"
 msgid "You have not created or joined any Prayer Relays yet."
-msgstr "Você ainda não criou nenhuma %s equipe de corrida"
+msgstr "Você ainda não criou nem se uniu a nenhuma equipe de oração."
 
 #: pages/user/user-dashboard.php:189
-#, fuzzy
-#| msgid "%s Prayer Relay"
 msgid "New Prayer Relay"
-msgstr "%s Equipe de Oração"
+msgstr "Nova Equipe de Oração"
 
 #: pages/user/user-dashboard.php:190
-#, fuzzy
-#| msgid "My Public Relays"
 msgid "New Public Relay"
-msgstr "Minhas Equipes de Corrida Públicas"
+msgstr "Nova Equipe Pública de Oração"
 
 #: pages/user/user-dashboard.php:191
-#, fuzzy
-#| msgid "My Private Relays"
 msgid "New Private Relay"
-msgstr "Minhas Equipes de Corrida Privadas"
+msgstr "Novas Equipes Privativas"
 
 #: pages/user/user-dashboard.php:192
-#, fuzzy
-#| msgid "My Public Relays"
 msgid "Create Public Relay"
-msgstr "Minhas Equipes de Corrida Públicas"
+msgstr "Criar Equipes Públicas"
 
 #: pages/user/user-dashboard.php:193
-#, fuzzy
-#| msgid "My Private Relays"
 msgid "Create Private Relay"
-msgstr "Minhas Equipes de Corrida Privadas"
+msgstr "Criar Equipes Privativas"
 
 #: pages/user/user-dashboard.php:194
-#, fuzzy
-#| msgid "On-going Prayer Relay"
 msgid "Join a Relay"
-msgstr "Equipes de Oração em andamento"
+msgstr "Entre em uma Equipe"
 
 #: pages/user/user-dashboard.php:195
-#, fuzzy
-#| msgid "%s Relay Tools"
 msgid "Relay Title"
-msgstr "%s Ferramentas para Equipe"
+msgstr "Nome da Equipe"
 
 #: pages/user/user-dashboard.php:196
-#, fuzzy
 msgid "Advanced Options"
 msgstr "Opções avançadas"
 
@@ -8012,77 +7744,62 @@ msgid "Single Lap"
 msgstr "Volta Única"
 
 #: pages/user/user-dashboard.php:202
-#, fuzzy
 msgid "Update"
 msgstr "Atualizar"
 
 #: pages/user/user-dashboard.php:203
-#, fuzzy
-#| msgid "Active Relays"
 msgid "Edit Relay"
-msgstr "Equipes Ativas"
+msgstr "Editar equipe"
 
 #: pages/user/user-dashboard.php:204
-#, fuzzy
 msgid ""
 "Find and join a public prayer relay created by individuals, churches or "
 "organizations."
 msgstr ""
-"Encontre e participe de um revezamento de oração pública criado por "
-"indivíduos, igrejas ou organizações."
+"Encontre e entre numa equipe pública de oração criada por pessoas, igrejas "
+"ou organizações."
 
 #: pages/user/user-dashboard.php:205
-#, fuzzy
 msgid "Start your own public relay for anyone to find and join."
-msgstr ""
-"Inicie seu próprio retransmissor público para que qualquer pessoa possa "
-"encontrá-lo e participar."
+msgstr "Inicie sua própria equipe para outros encontrarem e se unirem."
 
 #: pages/user/user-dashboard.php:206
-#, fuzzy
 msgid ""
 "Create a private relay, hidden from the public list, and share it with "
 "friends, family, or the church."
 msgstr ""
-"Crie um retransmissor privado, oculto da lista pública, e compartilhe-o com "
-"amigos, familiares ou a igreja."
+"Crie uma equipe privativa, não visível na lista pública, e a compartilhe com "
+"amigos, familiares ou igreja."
 
 #: pages/user/user-dashboard.php:210
-#, fuzzy
 msgid "Allow push notifications"
 msgstr "Permitir notificações push"
 
 #: pages/user/user-dashboard.php:211
-#, fuzzy
 msgid "(Encouragements, streaks, lap status and more)"
-msgstr "(Incentivos, sequências, status de volta e muito mais)"
+msgstr "(Incentivos, sequências, status da volta e muito mais)"
 
 #: pages/user/user-dashboard.php:212
-#, fuzzy
 msgid ""
 "Push notifications are only available on the latest version of the Prayer."
 "Global mobile app."
 msgstr ""
 "As notificações push estão disponíveis apenas na versão mais recente do "
-"aplicativo móvel Prayer.Global."
+"Prayer.Global para aplicativos móveis."
 
 #: pages/user/user-dashboard.php:213
-#, fuzzy
 msgid "Push notifications are not enabled on your device."
 msgstr "As notificações push não estão habilitadas no seu dispositivo."
 
 #: pages/user/user-dashboard.php:214
-#, fuzzy
 msgid "Manage Device Notifications"
 msgstr "Gerenciar notificações do dispositivo"
 
 #: utilities/global-utilities.php:161
-#, fuzzy
 msgid "Get it on the app store"
-msgstr "Obtenha na App Store"
+msgstr "Adquira na App Store"
 
 #: utilities/global-utilities.php:166
-#, fuzzy
 msgid "Get it on google play"
 msgstr "Obtenha no Google Play"
 
@@ -8135,261 +7852,213 @@ msgid "month"
 msgstr "mês"
 
 #: utilities/pg-milestones.php:80
-#, fuzzy
 msgid "Your Streak is Alive!"
-msgstr "Sua sequência está viva!"
+msgstr "Sua sequência está ativa!"
 
 #: utilities/pg-milestones.php:82
-#, fuzzy, php-format
+#, php-format
 msgid "You have prayed for %s days in a row! Let's keep that streak going!"
 msgstr "Você orou por %s dias seguidos! Vamos continuar nessa sequência!"
 
 #: utilities/pg-milestones.php:107
-#, fuzzy
 msgid "Thank You for Being Here"
 msgstr "Obrigado por estar aqui"
 
 #: utilities/pg-milestones.php:108
-#, fuzzy
 msgid "Grateful You're Part of This"
-msgstr "Grato por fazer parte disso"
+msgstr "Grato por ser parte disso"
 
 #: utilities/pg-milestones.php:109
-#, fuzzy
 msgid "We Appreciate You Joining Us"
-msgstr "Agradecemos por você se juntar a nós"
+msgstr "Estamos felizes por você se unir a nós"
 
 #: utilities/pg-milestones.php:110
-#, fuzzy
 msgid "It Means a Lot to Have You With Us"
 msgstr "Significa muito ter você conosco"
 
 #: utilities/pg-milestones.php:111
-#, fuzzy
 msgid "Quiet Thanks for Faithful Hearts"
-msgstr "Agradecimentos Silenciosos por Corações Fiéis"
+msgstr "Serena Gratidão por Corações Fiéis"
 
 #: utilities/pg-milestones.php:112
-#, fuzzy
 msgid "Thank You for Taking Time to Pray"
 msgstr "Obrigado por reservar um tempo para orar"
 
 #: utilities/pg-milestones.php:113
-#, fuzzy
 msgid "We're Glad to Be Praying With You"
 msgstr "Estamos felizes em orar com você"
 
 #: utilities/pg-milestones.php:114
-#, fuzzy
 msgid "Together in Prayer—Thank You"
 msgstr "Juntos em Oração — Obrigado"
 
 #: utilities/pg-milestones.php:118
-#, fuzzy
 msgid "Amen! We agree with your prayers!"
-msgstr "Amém! Concordamos com suas orações!"
+msgstr "Amém! Em concordância com suas orações!"
 
 #: utilities/pg-milestones.php:119
-#, fuzzy
 msgid ""
 "Don't be discouraged as you pray. Cheat. Read to see how the Bible finishes!"
-msgstr "Não desanime ao orar. Trapaceie. Leia para ver como a Bíblia termina!"
+msgstr ""
+"Não desanime ao orar. Dê a volta por cima. Leia para ver como a Bíblia "
+"termina!"
 
 #: utilities/pg-milestones.php:120
-#, fuzzy
 msgid ""
 "Every great Gospel movement has been preceeded by extraordinary prayer! Good "
 "work!"
 msgstr ""
-"Todo grande movimento evangélico foi precedido por uma oração "
-"extraordinária! Bom trabalho!"
+"Todo grande movimento do evangelho foi precedido por oração extraordinária! "
+"Bom trabalho!"
 
 #: utilities/pg-milestones.php:121
-#, fuzzy
 msgid "Faithful in prayer, fierce in love — thank you for showing up."
-msgstr "Fiéis na oração, ferozes no amor — obrigado por comparecer."
+msgstr "Fiéis na oração, ferozes no amor — obrigado por ter vindo."
 
 #: utilities/pg-milestones.php:122
-#, fuzzy
 msgid "From your phone to the throne — heaven hears."
-msgstr "Do seu telefone ao trono — o céu ouve."
+msgstr "Do seu telefone ao trono — o céu escuta."
 
 #: utilities/pg-milestones.php:123
-#, fuzzy
 msgid "God delights in your persistence — one prayer at a time."
 msgstr "Deus se deleita com sua persistência — uma oração de cada vez."
 
 #: utilities/pg-milestones.php:124
-#, fuzzy
 msgid "He who sees in secret will reward — thanks for showing up."
-msgstr "Aquele que vê em segredo será recompensado — obrigado por aparecer."
+msgstr "Aquele que vê no secreto vai recompensar— obrigado por vir."
 
 #: utilities/pg-milestones.php:125
-#, fuzzy
 msgid "Imagine it: a global prayer chorus rising. You're part of it."
-msgstr "Imagine: um coro global de orações se erguendo. Você faz parte disso."
+msgstr "Imagine: um coro global de orações se erguendo. Você é parte disso."
 
 #: utilities/pg-milestones.php:126
-#, fuzzy
 msgid "It's amazing that God invites us to pray without ceasing!"
 msgstr "É incrível que Deus nos convide a orar sem cessar!"
 
 #: utilities/pg-milestones.php:127
-#, fuzzy
 msgid "Off to a strong start — heaven hears and you're making waves!"
-msgstr "Começou bem — o céu ouve e você está fazendo sucesso!"
+msgstr "Começou bem — o céu ouve e você está progredindo!"
 
 #: utilities/pg-milestones.php:128
-#, fuzzy
 msgid "Others may not know you prayed, but God does, and loves it!"
 msgstr "Outros podem não saber que você orou, mas Deus sabe e ama isso!"
 
 #: utilities/pg-milestones.php:129
-#, fuzzy
 msgid "Prayer changes things... including us! Keep on!"
-msgstr "A oração muda as coisas... inclusive a nós! Continue assim!"
+msgstr "A oração muda as coisas... incluindo a nós! Continue assim!"
 
 #: utilities/pg-milestones.php:130
-#, fuzzy
 msgid "Thank you for again joining us today in God's throne room."
-msgstr "Obrigado por se juntar a nós novamente hoje na sala do trono de Deus."
+msgstr "Obrigado por se unir a nós novamente hoje na sala do trono de Deus."
 
 #: utilities/pg-milestones.php:131
-#, fuzzy
 msgid "That moment of faith just added light to a dark place."
-msgstr "Aquele momento de fé apenas trouxe luz a um lugar escuro."
+msgstr "Aquele momento de fé só iluminou um lugar escuro."
 
 #: utilities/pg-milestones.php:132
-#, fuzzy
 msgid "That prayer might have felt small, but remember God is HUGE!"
-msgstr ""
-"Essa oração pode ter parecido pequena, mas lembre-se de que Deus é ENORME!"
+msgstr "Essa oração pode parecer pequena, mas lembre-se de que Deus é ENORME!"
 
 #: utilities/pg-milestones.php:133
-#, fuzzy
 msgid "The gates of Hell won't withstand those prayers."
-msgstr "As portas do Inferno não resistirão a essas orações."
+msgstr "As portas do Inferno não prevalecerão contra essas orações."
 
 #: utilities/pg-milestones.php:134
-#, fuzzy
 msgid "The kingdom is advancing — and you're fueling it."
-msgstr "O reino está avançando — e você o está alimentando."
+msgstr "O reino está avançando — e você está contribuindo para isso."
 
 #: utilities/pg-milestones.php:135
-#, fuzzy
 msgid "Today's prayer might be the turning point for someone."
-msgstr "A oração de hoje pode ser um ponto de virada para alguém."
+msgstr "A oração de hoje pode ter sido um ponto de virada para alguém."
 
 #: utilities/pg-milestones.php:136
-#, fuzzy
 msgid "Jesus loves to see you coming every time you pray."
-msgstr "Jesus ama ver você vindo toda vez que você ora."
+msgstr "Jesus ama ver você vindo toda vez que para orar."
 
 #: utilities/pg-milestones.php:137
-#, fuzzy
 msgid "You fought in the heavenlies again, today. We honor you."
-msgstr "Você lutou nas regiões celestiais novamente, hoje. Nós o honramos."
+msgstr "Você lutou nas regiões celestiais hoje de novo. Honramos você."
 
 #: utilities/pg-milestones.php:139
-#, fuzzy
 msgid "You prayed, and that matters more than you know."
 msgstr "Você orou, e isso importa mais do que você imagina."
 
 #: utilities/pg-milestones.php:140
-#, fuzzy
 msgid "You're a world-changer in prayer!"
 msgstr "Você é alguém que muda o mundo na oração!"
 
 #: utilities/pg-milestones.php:141
-#, fuzzy
 msgid "You're helping cover the earth in prayer — one place at a time."
 msgstr "Você está ajudando a cobrir a Terra com oração — um lugar de cada vez."
 
 #: utilities/pg-milestones.php:142
-#, fuzzy
 msgid "You're linking arms with believers around the world — unstoppable."
-msgstr "Você está unindo forças com crentes do mundo todo — imparável."
+msgstr "Você está unindo forças com crentes do mundo todo — e isso não para."
 
 #: utilities/pg-milestones.php:143
-#, fuzzy
 msgid "You're loving your Prayer.Global neighbors as yourself!"
-msgstr "Você está amando seus vizinhos globais como a si mesmo!"
+msgstr "Você está amando seu próximo no Prayer.Global como a si mesmo!"
 
 #: utilities/pg-milestones.php:144
-#, fuzzy
 msgid "You're not just praying — you're joining a global movement of God."
 msgstr ""
-"Você não está apenas orando — você está se juntando a um movimento global de "
-"Deus."
+"Você não está apenas orando — está se unindo a um movimento global de Deus."
 
 #: utilities/pg-milestones.php:145
-#, fuzzy
 msgid "You're part of a global movement — prayer is the engine."
-msgstr "Você faz parte de um movimento global — a oração é o motor."
+msgstr "Você é parte de um movimento global — a oração é o motor."
 
 #: utilities/pg-milestones.php:146
-#, fuzzy
 msgid ""
 "Your prayer today covered people who've never heard the name of Jesus — and "
 "He is listening."
 msgstr ""
-"Sua oração hoje abrangeu pessoas que nunca ouviram o nome de Jesus — e Ele "
+"Sua oração hoje cobriu pessoas que nunca ouviram o nome de Jesus — e Ele "
 "está ouvindo."
 
 #: utilities/pg-milestones.php:147
-#, fuzzy
 msgid "Your yes today could lead to someone else's first yes to Jesus."
 msgstr "O seu sim hoje pode levar ao primeiro sim de outra pessoa a Jesus."
 
 #: utilities/pg-milestones.php:148
-#, fuzzy
 msgid "You showed up today, and God heard you!"
-msgstr "Você apareceu hoje e Deus te ouviu!"
+msgstr "Você veio hoje e Deus o ouviu!"
 
 #: utilities/pg-milestones.php:149
-#, fuzzy
 msgid "You've already lifted voices today — what a start!"
-msgstr "Vocês já levantaram vozes hoje — que começo!"
+msgstr "Você já levantou vozes hoje — que começo!"
 
 #: utilities/pg-milestones.php:181
-#, fuzzy
 msgid "Keep your streak alive"
-msgstr "Mantenha sua sequência viva"
+msgstr "Mantenha sua sequência ativa"
 
 #: utilities/pg-milestones.php:182
-#, fuzzy
 msgid "Keep praying to maintain your streak!"
-msgstr "Continue rezando para manter sua sequência!"
+msgstr "Continue orando para manter sua sequência!"
 
 #: utilities/pg-milestones.php:194
-#, fuzzy
 msgid "Oh no! Your streak has ended"
 msgstr "Ah, não! Sua sequência acabou"
 
 #: utilities/pg-milestones.php:195
-#, fuzzy
 msgid "Your prayer streak has ended. Start a new one today!"
 msgstr "Sua sequência de orações chegou ao fim. Comece uma nova hoje mesmo!"
 
 #: utilities/pg-milestones.php:207
-#, fuzzy
 msgid "We Miss You—Let's Pray Today!"
 msgstr "Sentimos sua falta — vamos orar hoje!"
 
 #: utilities/pg-milestones.php:208
-#, fuzzy
 msgid "Haven't seen you in a while—take a moment today to reconnect in prayer!"
 msgstr ""
-"Não te vejo há algum tempo. Tire um momento hoje para se reconectar em "
+"Não vejo você há algum tempo. Tire um momento hoje para se reconectar em "
 "oração!"
 
 #: utilities/pg-milestones.php:220
-#, fuzzy
 msgid "Prayer Changes Everything—Come Back!"
-msgstr "A oração muda tudo — volte!"
+msgstr "Oração muda tudo — volte!"
 
 #: utilities/pg-milestones.php:221
-#, fuzzy
 msgid ""
 "Your prayers matter! Take a moment today and join us in covering the world "
 "in prayer again."
@@ -8398,12 +8067,10 @@ msgstr ""
 "cobrir o mundo com orações novamente."
 
 #: utilities/pg-milestones.php:233
-#, fuzzy
 msgid "Let's Reconnect—Your Prayers Are Needed"
 msgstr "Vamos nos reconectar — suas orações são necessárias"
 
 #: utilities/pg-milestones.php:234
-#, fuzzy
 msgid ""
 "The world needs prayer warriors like you. Jump back in today and be part of "
 "something bigger!"
@@ -8412,54 +8079,42 @@ msgstr ""
 "parte de algo maior!"
 
 #: utilities/pg-milestones.php:246
-#, fuzzy
 msgid "Time to Come Back"
 msgstr "Hora de voltar"
 
 #: utilities/pg-milestones.php:247
-#, fuzzy
 msgid "We'd love to have you back praying with us!"
 msgstr "Gostaríamos muito que você voltasse a orar conosco!"
 
 #: utilities/pg-milestones.php:259
-#, fuzzy
 msgid "Missing Your Prayers"
 msgstr "Sentindo falta de suas orações"
 
 #: utilities/pg-milestones.php:260
-#, fuzzy
 msgid "Your prayer journey can restart anytime - join us again!"
 msgstr ""
-"Sua jornada de oração pode recomeçar a qualquer momento - junte-se a nós "
+"Sua jornada de oração pode ser retomada a qualquer momento - junte-se a nós "
 "novamente!"
 
 #: utilities/pg-milestones.php:272
-#, fuzzy
 msgid "It's been a while!"
 msgstr "Já faz um tempo!"
 
 #: utilities/pg-milestones.php:273
-#, fuzzy
-#| msgid ""
-#| "Would you like to partner with us in helping others pray for the world?"
 msgid "Would you like to restart with a fresh goal?"
-msgstr ""
-"Você gostaria de fazer parceria conosco para ajudar outras pessoas a orarem "
-"pelo mundo?"
+msgstr "Você gostaria de recomeçar com um novo objetivo?"
 
 #: utilities/pg-milestones.php:285
-#, fuzzy
 msgid "Is This Goodbye?"
 msgstr "Isso é um adeus?"
 
 #: utilities/pg-milestones.php:286
-#, fuzzy
 msgid ""
 "We understand life gets busy, but your prayers make an impact. We'd love to "
 "have you back whenever you're ready."
 msgstr ""
 "Sabemos que a vida é corrida, mas suas orações fazem a diferença. "
-"Adoraríamos ter você de volta quando estiver pronto."
+"Gostaríamos demais de ter você de volta quando estiver pronto."
 
 #~ msgid "More stats"
 #~ msgstr "Mais estatísticas"
