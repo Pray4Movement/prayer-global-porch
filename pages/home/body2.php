@@ -80,9 +80,6 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
 </section>
 <section class="py-6">
     <div class="container switcher | switcher-md switcher-reverse align-items-center gap-4" data-gutter-4>
-        <div class="drop-shadow">
-            <img class="clip-rounded-end" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel4.jpg" alt="">
-        </div>
         <div class="flow-small">
             <h2 class="text-center">
                 <?php echo esc_html__( 'Prayer Fuel', 'prayer-global-porch' ) ?>
@@ -92,6 +89,9 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
             <a href="/newest/lap/" class="btn btn-cta btn-lg uppercase center w-fit mx-auto px-4">
                 <?php echo esc_html__( 'Start Praying', 'prayer-global-porch' ) ?>
             </a>
+        </div>
+        <div class="drop-shadow">
+            <img class="clip-rounded-end" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel4.jpg" alt="">
         </div>
     </div>
 </section>
@@ -117,9 +117,6 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
 </section>
 <section class="py-6">
     <div class="container switcher | switcher-md switcher-reverse align-items-center gap-4" data-gutter-4>
-        <div class="drop-shadow">
-            <img class="clip-rounded-end" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel6.jpg" alt="">
-        </div>
         <div class="flow-small">
             <h2 class="text-center">
                 <?php echo esc_html__( 'My Prayer Activity', 'prayer-global-porch' ) ?>
@@ -137,6 +134,9 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
             <a href="/dashboard" class="btn btn-primary-light uppercase center w-fit mx-auto px-4">
                 <?php echo esc_html__( 'Register now', 'prayer-global-porch' ) ?>
             </a>
+        </div>
+        <div class="drop-shadow">
+            <img class="clip-rounded-end" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel6.jpg" alt="">
         </div>
     </div>
 </section>
