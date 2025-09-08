@@ -75,14 +75,14 @@ if ( $is_church ) {
         </div>
     </section>
     <section class="container flow-medium | mt-5">
-        <h2 class="with-floating-anchor">
+        <h2 class="with-floating-anchor text-center">
             <?php echo esc_html__( 'What is Prayer.Global?', 'prayer-global-porch' ) ?>
             <span class="anchor" id="what-is-prayer-global"></span>
         </h2>
         <p><?php echo esc_html__( 'Prayer.Global is a powerful tool designed to mobilize strategic, Scripture-based prayer for the fulfillment of the Great Commission. It equips individuals, churches, and conferences to engage in extraordinary prayer — a key mark of disciple-making movements. With Prayer.Global, you and your community can take part in God’s mission to cover the world in prayer.', 'prayer-global-porch' ) ?></p>
     </section>
     <section class="container | py-5">
-        <h2><?php echo esc_html__( 'How It Works', 'prayer-global-porch' ) ?></h2>
+        <h2 class="text-center"><?php echo esc_html__( 'How It Works', 'prayer-global-porch' ) ?></h2>
         <ul>
             <li><?php echo esc_html__( 'Prayer.Global has divided the world into 4,770 “states” based on geographical and governmental boundaries.', 'prayer-global-porch' ) ?></li>
             <li><?php echo esc_html__( 'Click ‘Start Praying’ to initiate a one-minute timer with a specific state to pray for.', 'prayer-global-porch' ) ?></li>
@@ -92,7 +92,7 @@ if ( $is_church ) {
     </section>
 
     <section class="parallax">
-        <div class="parallax__layer parallax__layer--back" style="background-image: url('<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel5.jpg');">
+        <div class="parallax__layer parallax__layer--back bg-right" style="background-image: url('<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/PG-Panel5.jpg');">
         </div>
         <div class="parallax__layer--base">
             <div class="flex-1 brand-transparent-gradient">
@@ -105,7 +105,7 @@ if ( $is_church ) {
         </div>
     </section>
     <section class="container | py-5">
-        <h2 class="with-floating-anchor">
+        <h2 class="with-floating-anchor text-center">
             <?php echo esc_html__( 'Pre-Event Setup', 'prayer-global-porch' ) ?>
             <span class="anchor" id="pre-event"></span>
         </h2>
@@ -139,7 +139,7 @@ if ( $is_church ) {
     </section>
     <section class="brand-lightest-bg white py-5">
         <div class="container flow-medium">
-            <h2 class="with-floating-anchor">
+            <h2 class="with-floating-anchor text-center">
                 <?php echo esc_html__( 'Customizable Promotional Resources', 'prayer-global-porch' ) ?>
                 <span class="anchor" id="promotion"></span>
             </h2>
@@ -161,7 +161,7 @@ if ( $is_church ) {
         </div>
     </section>
     <section class="container flow-medium | py-5">
-        <h2><?php echo esc_html__( 'Promote in advance of your event', 'prayer-global-porch' ) ?></h2>
+        <h2 class="text-center"><?php echo esc_html__( 'Promote in advance of your event', 'prayer-global-porch' ) ?></h2>
         <p><?php echo esc_html__( 'Give your attendees advance notice of the upcoming Prayer.Global event to encourage their participation and to help them be prepared to pray on the day of your event. Here is a proposed timeline for promotion.', 'prayer-global-porch' ) ?></p>
         <div class="switcher">
             <ul class="flex-2">
@@ -181,9 +181,9 @@ if ( $is_church ) {
     <section class="parallax | narrow-parallax">
         <div class="parallax__layer parallax__layer--back" style="background-image: url('<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/LargeEvent-Mockup2.jpg');"></div>
     </section>
-    <section class="py-5">
+    <section class="py-5 px-3">
         <div class="container flow-xmedium">
-            <h2 class="with-floating-anchor">
+            <h2 class="with-floating-anchor text-center">
                 <?php echo esc_html__( 'Hosting your Prayer.Global event', 'prayer-global-porch' ) ?>
                 <span class="anchor" id="facilitate"></span>
             </h2>
@@ -224,22 +224,22 @@ if ( $is_church ) {
             </ol>
         </div>
     </section>
-    <section class="container | py-5">
+    <section class="container | p-5">
         <div class="switcher | triple-image">
             <div class="d-flex align-items-center justify-content-center">
-                <img class="circle-image" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/iphonemockup-invite.jpg" alt="">
+                <img class="circle-image" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/largeevent-new2.jpg" alt="">
             </div>
             <div class="d-flex align-items-center justify-content-center flex-1_5">
                 <img class="circle-image" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/iphonemockup-invite.jpg" alt="">
             </div>
             <div class="d-flex align-items-center justify-content-center">
-                <img class="circle-image" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/iphonemockup-invite.jpg" alt="">
+                <img class="circle-image" src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/living_room-new.jpg" alt="">
             </div>
         </div>
     </section>
     <section class="brand-lightest-bg | py-5 white">
         <div class="container">
-            <h2 class="with-floating-anchor">
+            <h2 class="with-floating-anchor text-center">
                 <?php echo esc_html__( 'Helpful Tips', 'prayer-global-porch' ) ?>
                 <span class="anchor" id="helpful-tips"></span>
             </h2>
@@ -258,14 +258,14 @@ if ( $is_church ) {
         </div>
     </section>
     <section class="container | mt-5">
-        <h2 class="with-floating-anchor">
+        <h2 class="with-floating-anchor text-center">
             <?php echo esc_html__( 'After the event & Beyond', 'prayer-global-porch' ) ?>
             <span class="anchor" id="after-event"></span>
         </h2>
         <p><?php echo esc_html__( 'Based on how your Prayer.Global event experience goes, provide follow up information, texts or emails to encourage people to keep praying and to celebrate once your lap is complete, if not completed during the event.  Keep the vision and goal of daily prayer for the nations in front of them.', 'prayer-global-porch' ) ?></p>
     </section>
     <section class="container | mt-5">
-        <h2><?php echo esc_html__( 'Thank you for Partnering with us', 'prayer-global-porch' ) ?></h2>
+        <h2 class="text-center"><?php echo esc_html__( 'Thank you for Partnering with us', 'prayer-global-porch' ) ?></h2>
         <p><?php echo esc_html__( 'Thank you for taking the time to explore how to host a Prayer.Global event. By following these steps, you are creating a powerful opportunity for your event attendees to unite in prayer for the nations. As you guide others in lifting their voices to God, may you see hearts ignited with a passion to pray boldly and consistently — not just during your event, but far beyond it.', 'prayer-global-porch' ) ?></p>
         <p><?php echo esc_html__( 'May the Lord bless your efforts, multiplying the impact of every prayer offered. May your gathering inspire a movement of extraordinary prayer warriors who will stand in the gap for the lost and see God’s kingdom expand to all nations and people groups.', 'prayer-global-porch' ) ?></p>
         <p><?php echo esc_html__( 'We are grateful for your partnership and excited to see how God moves through your leadership.', 'prayer-global-porch' ) ?></p>

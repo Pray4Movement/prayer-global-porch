@@ -478,6 +478,9 @@ input[type="radio"]:checked {
     right: 0;
 }
 @media (max-width: 768px) {
+    h1 {
+        font-size: 4rem;
+    }
     .h2 {
         font-size: 2.5rem;
     }
@@ -501,6 +504,11 @@ input[type="radio"]:checked {
     }
     .navbar .two-rem {
         font-size: 2rem;
+    }
+}
+@media (max-width: 576px) {
+    h1 {
+        font-size: 3rem;
     }
 }
 @media (min-width: 768px) {
@@ -1021,6 +1029,9 @@ input[type="radio"]:checked {
 }
 .bg-bottom {
     background-position: bottom;
+}
+.bg-right {
+    background-position: right !important;
 }
 .hero .heading {
     font-size: 12vh;
