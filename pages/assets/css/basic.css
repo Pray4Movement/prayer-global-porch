@@ -1030,6 +1030,9 @@ input[type="radio"]:checked {
 .bg-bottom {
     background-position: bottom;
 }
+.bg-right {
+    background-position: right !important;
+}
 .hero .heading {
     font-size: 12vh;
     color: white;
