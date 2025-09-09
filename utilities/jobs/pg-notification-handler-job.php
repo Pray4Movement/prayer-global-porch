@@ -5,8 +5,8 @@ use WP_Queue\Job;
 class PG_Notification_Handler_Job extends Job {
     public function __construct() {}
 
-    public function handle() {
-        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+    public function handle( $force = false ) {
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG && !$force ) {
             return;
         }
 
