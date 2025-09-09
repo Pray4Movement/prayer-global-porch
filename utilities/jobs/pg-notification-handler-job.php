@@ -5,8 +5,8 @@ use WP_Queue\Job;
 class PG_Notification_Handler_Job extends Job {
     public function __construct() {}
 
-    public function handle() {
-        if ( defined( 'WP_DEBUG' ) && WP_DEBUG ) {
+    public function handle( $force = false ) {
+        if ( defined( 'WP_DEBUG' ) && WP_DEBUG && !$force ) {
             return;
         }
 
@@ -37,10 +37,9 @@ class PG_Notification_Handler_Job extends Job {
 
             /* Change locale to user locale for notification translation */
             $user_language = get_user_meta( $user->ID, PG_NAMESPACE . 'language', true );
+            $user_language = !empty( $user_language ) ? $user_language : 'en_US';
 
-            if ( !empty( $user_language ) ) {
-                pg_set_translation( $user_language );
-            }
+            pg_set_translation( $user_language, $force );
 
             // get the user milestones
             $milestones_manager = new PG_Milestones( $user->ID );

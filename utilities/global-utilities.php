@@ -5488,8 +5488,8 @@ function pg_get_current_lang(): string {
     return $lang;
 }
 
-function pg_set_translation( $lang ){
-    if ( $lang !== 'en_US' ){
+function pg_set_translation( $lang, $force = false ){
+    if ( $lang !== 'en_US' || $force ){
         add_filter( 'determine_locale', function ( $locale ) use ( $lang ){
             if ( !empty( $lang ) ){
                 return $lang;

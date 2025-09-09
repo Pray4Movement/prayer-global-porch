@@ -86,6 +86,9 @@ class PG_Test_Push extends PG_Public_Page {
             return new WP_REST_Response( [ 'message' => 'User not found' ], 404 );
         }
         $user = $user->to_array();
+        $user_language = get_user_meta( $user['ID'], PG_NAMESPACE . 'language', true );
+        //$user_language = !empty( $user_language ) ? $user_language : 'en_US';
+        pg_set_translation( $user_language );
 
         // create user stats
         // last prayer date
@@ -203,7 +206,7 @@ class PG_Test_Push extends PG_Public_Page {
     }
     public function handle_push_notifications( WP_REST_Request $request ) {
         $handler = new PG_Notification_Handler_Job();
-        $handler->handle();
+        $handler->handle( true );
         return new WP_REST_Response( [ 'message' => 'Push notifications handled' ] );
     }
     public function register_endpoints() {
