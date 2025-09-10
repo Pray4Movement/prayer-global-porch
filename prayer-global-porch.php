@@ -135,6 +135,13 @@ class Prayer_Global_Porch {
         require_once( 'classes/pg-flags.php' );
         require_once( 'classes/svg-spritesheet-manager.php' );
         require_once( 'classes/public-page-base.php' );
+
+        /* Badges */
+        require_once( 'classes/badges/pg-badge.php' );
+        require_once( 'classes/badges/pg-badge-model.php' );
+        require_once( 'classes/badges/pg-badges.php' );
+        require_once( 'classes/badges/pg-badge-manager.php' );
+
         require_once( 'pages/assets/menu.php' );
         require_once( 'pages/pray/stacker-text.php' );
         require_once( 'pages/pray/stacker-positions.php' );
@@ -190,6 +197,7 @@ class Prayer_Global_Porch {
 //      require_once( 'charts/charts-loader.php' );
         require_once( 'support/build/loader.php' );
         require_once( 'support/build/test-push.php' );
+        require_once( 'support/build/test-badges.php' );
         require_once( 'pages/about/about.php' );
         require_once( 'pages/give/give.php' );
         require_once( 'pages/church/church.php' );
