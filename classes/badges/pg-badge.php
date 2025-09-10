@@ -6,13 +6,15 @@ class PG_Badge {
     private string $description;
     private string $category;
     private int $value;
+    private string $type;
 
-    public function __construct( string $id, string $title, string $description, string $category, int $value ) {
+    public function __construct( string $id, string $title, string $description, string $category, int $value, string $type ) {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
         $this->category = $category;
         $this->value = $value;
+        $this->type = $type;
     }
 
     public function get_id(): string {
@@ -35,6 +37,10 @@ class PG_Badge {
         return $this->value;
     }
 
+    public function get_type(): string {
+        return $this->type;
+    }
+
     public function to_array(): array {
         return [
             'id' => $this->id,
@@ -42,6 +48,7 @@ class PG_Badge {
             'description' => $this->description,
             'category' => $this->category,
             'value' => $this->value,
+            'type' => $this->type,
         ];
     }
 }

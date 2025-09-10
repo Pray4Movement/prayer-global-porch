@@ -47,7 +47,7 @@ class PG_Test_Badges extends PG_Public_Page {
         $user_stats = new User_Stats( $user['ID'] );
         $badges_manager = new PG_Badge_Manager( $user['ID'] );
         $current_badges = $badges_manager->get_current_badges();
-        $next_badges = $badges_manager->get_next_badges();
+        $next_badges = $badges_manager->get_next_badge_in_progression();
 
         if ( !$user ) {
             return new WP_REST_Response( [ 'message' => 'User not found' ], 404 );
@@ -110,6 +110,18 @@ class PG_Test_Badges extends PG_Public_Page {
         return new WP_REST_Response( [ 'message' => 'Inactivity period created' ] );
     }
 
+    public function add_missing_badges( WP_REST_Request $request ) {
+        $user_id = $request->get_param( 'user_id' );
+        if ( !$user_id ) {
+            return new WP_REST_Response( [ 'message' => 'User ID is required' ], 400 );
+        }
+        $user_id = intval( $user_id );
+        $badge_manager = new PG_Badge_Manager( $user_id );
+        $new_badges = $badge_manager->get_new_badges();
+        $badge_manager->save_badges( $new_badges );
+        return new WP_REST_Response( [ 'message' => 'Missing badges added' ] );
+    }
+
     public function register_endpoints() {
         register_rest_route( $this->rest_route, '/select-user', [
             'methods' => 'POST',
@@ -126,6 +138,11 @@ class PG_Test_Badges extends PG_Public_Page {
             'callback' => [ $this, 'create_inactivity' ],
             'permission_callback' => [ $this, 'permission_callback' ],
         ] );
+        register_rest_route( $this->rest_route, '/add-missing-badges', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'add_missing_badges' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
     }
 
     public function permission_callback( $request ) {
@@ -136,7 +153,7 @@ class PG_Test_Badges extends PG_Public_Page {
         wp_enqueue_style( 'pg-login-style', plugin_dir_url( __FILE__ ) . 'login.css', array(), filemtime( plugin_dir_path( __FILE__ ) . 'login.css' ) );
 
         wp_localize_script( 'global-functions', 'jsObject', [
-            'rest_url' => esc_url( rest_url( 'pg/test-push' ) ),
+            'rest_url' => esc_url( rest_url( 'pg/test-badges' ) ),
             'nonce' => wp_create_nonce( 'wp_rest' ),
             'translations' => [
                 'invalid_credentials' => esc_html__( 'Invalid email or password. Please try again.', 'prayer-global-porch' ),
@@ -155,7 +172,6 @@ class PG_Test_Badges extends PG_Public_Page {
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
         return $allowed_css;
     }
-
 
     /**
      * Print scripts to header
@@ -272,6 +288,7 @@ class PG_Test_Badges extends PG_Public_Page {
 
                 <div class="flow-small">
                     <h3>Manipulate DB</h3>
+                    <button class="btn btn-primary" id="add-missing-badges">Add missing badges</button>
                     <form class="" id="create-streak-form">
                         <input type="number" name="days" placeholder="Days">
                         <input class="btn btn-primary" type="submit" value="Create streak">
@@ -348,6 +365,21 @@ class PG_Test_Badges extends PG_Public_Page {
                     }
                 });
             }
+
+            document.querySelector('#add-missing-badges').addEventListener('click', function(e) {
+                e.preventDefault();
+                fetch(jsObject.rest_url + '/add-missing-badges', {
+                    method: 'POST',
+                    body: JSON.stringify({ user_id: jsObject.user.ID }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                }).then(response => response.json()).then(data => {
+                    console.log(data);
+                    getUser({ user_id: jsObject.user.ID });
+                });
+            });
 
             document.querySelector('#create-streak-form').addEventListener('submit', function(e) {
                 e.preventDefault();
