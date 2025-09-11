@@ -46,16 +46,25 @@ class PG_Test_Badges extends PG_Public_Page {
         // next milestone
         $user_stats = new User_Stats( $user['ID'] );
         $badges_manager = new PG_Badge_Manager( $user['ID'] );
-        $current_badges = $badges_manager->get_current_badges();
-        $next_badges = $badges_manager->get_next_badge_in_progression();
+        $current_badges = $badges_manager->get_user_current_badges();
+        $next_badges = $badges_manager->get_next_badge_in_progressions();
 
         if ( !$user ) {
             return new WP_REST_Response( [ 'message' => 'User not found' ], 404 );
         }
+
+        $stats = [
+            'last_prayer_date' => $user_stats->last_prayer_date(),
+            'current_streak' => $user_stats->current_streak_in_days(),
+            'best_streak' => $user_stats->best_streak_in_days(),
+            'days_of_inactivity' => $user_stats->days_of_inactivity(),
+            'hours_of_inactivity' => $user_stats->hours_of_inactivity(),
+        ];
+
         return new WP_REST_Response( [
             'message' => 'User selected',
             'user' => $user,
-            'user_stats' => $user_stats,
+            'user_stats' => $stats,
             'current_badges' => $current_badges,
             'next_badges' => $next_badges,
         ] );
@@ -251,10 +260,6 @@ class PG_Test_Badges extends PG_Public_Page {
                             <td>Hours of Inactivity:</td>
                             <td id="hours-of-inactivity"></td>
                         </tr>
-                        <tr>
-                            <td>Notifications Permission:</td>
-                            <td id="notifications-permission"></td>
-                        </tr>
                     </table>
                     <h3>Current Badges</h3>
                     <table>
@@ -337,7 +342,6 @@ class PG_Test_Badges extends PG_Public_Page {
                         document.querySelector('#best-streak').innerHTML = data.user_stats.best_streak;
                         document.querySelector('#days-of-inactivity').innerHTML = data.user_stats.days_of_inactivity;
                         document.querySelector('#hours-of-inactivity').innerHTML = data.user_stats.hours_of_inactivity;
-                        document.querySelector('#notifications-permission').innerHTML = data.user_stats.notifications_permission === '1' ? 'Yes' : 'No';
                     }
                     if ( data.next_badges ) {
                         document.querySelector('#next-badges-table-body').innerHTML = data.next_badges.map(badge =>

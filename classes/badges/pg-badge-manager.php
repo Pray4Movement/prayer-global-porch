@@ -102,7 +102,7 @@ class PG_Badge_Manager {
             're-engagement' => [
                 'type' => 'achievement',
                 'badges' => [
-                    PG_Badges::COMEBACK_CHAMPION => [
+                    [
                         'id' => PG_Badges::COMEBACK_CHAMPION,
                         'title' => __( 'Comeback Champion', 'prayer-global-porch' ),
                         'description' => __( 'It\'s great to have you back!', 'prayer-global-porch' ),
@@ -113,10 +113,10 @@ class PG_Badge_Manager {
     }
 
     /**
-     * Returns all the badge names that the user has earned
-     * @return array of PG_Badge objects
+     * Returns all the badges
+     * @return array<PG_Badge>
      */
-    public function get_badges(): array {
+    public function get_user_badges(): array {
         // Get all badges from the usermeta
         $badges = PG_Badge_Model::get_all_badges( $this->user_id );
         return array_map( function( array $badge ) {
@@ -135,13 +135,18 @@ class PG_Badge_Manager {
         }, $badges );
     }
 
-    public function get_current_badges(): array {
+    /**
+     * Returns the current badges that the user has earned (only the highest badge in each category)
+     * @return array<PG_Badge>
+     */
+    public function get_user_current_badges(): array {
         $badges = PG_Badge_Model::get_current_badges_by_category( $this->user_id );
+        $user_badges = array_filter( $badges, function( array $badge ) {
+            $category = isset( $this->badges[$badge['category']] ) ? $this->badges[$badge['category']] : null;
+            return $category !== null;
+        } );
         return array_map( function( array $badge ) {
             $category = isset( $this->badges[$badge['category']] ) ? $this->badges[$badge['category']] : null;
-            if ( !$category ) {
-                return null;
-            }
             if ( $category['type'] === 'progression' ) {
                 $badge_info = $category['badges'][$badge['value']];
                 $type = 'progression';
@@ -149,16 +154,16 @@ class PG_Badge_Manager {
                 $badge_info = $category['badges'][$badge['badge_id']];
                 $type = 'achievement';
             }
-            return new PG_Badge( $badge_info['badge_id'], $badge_info['title'], $badge_info['description'], $badge['category'], $badge['value'], $type );
-        }, $badges );
+            return new PG_Badge( $badge_info['id'], $badge_info['title'], $badge_info['description'], $badge['category'], (int) $badge['value'], $type );
+        }, $user_badges );
     }
 
     /**
      * For badges the user already has, return the next badge in the sequence (for that category)
-     * @return PG_Badge[]
+     * @return array<PG_Badge>
      */
-    public function get_next_badge_in_progression(): array {
-        $badges = $this->get_current_badges();
+    public function get_next_badge_in_progressions(): array {
+        $badges = $this->get_user_current_badges();
         $next_badges = [];
         foreach ( $badges as $badge ) {
             if ( $badge === null ) {
@@ -167,11 +172,21 @@ class PG_Badge_Manager {
             if ( $badge->get_type() !== 'progression' ) {
                 continue;
             }
-            $next_badge = next( $this->badges[$badge->get_category()]['badges'][$badge->get_value()] );
+
+            $i = 0;
+            foreach ( $this->badges[$badge->get_category()]['badges'] as $current_badge ) {
+                if ( $current_badge['value'] === $badge->get_value() && $i !== count( $this->badges[$badge->get_category()]['badges'] ) - 1 ) {
+                    $badge_info = $this->badges[$badge->get_category()]['badges'][$i + 1];
+                    $next_badge = new PG_Badge( $badge_info['id'], $badge_info['title'], $badge_info['description'], $badge->get_category(), $badge_info['value'], 'progression' );
+                    break;
+                }
+                $i++;
+            }
+
             if ( !$next_badge ) {
                 continue;
             }
-            $next_badges[] = new PG_Badge( $next_badge['id'], $next_badge['title'], $next_badge['description'], $badge->get_category(), $next_badge['value'], 'achievement' );
+            $next_badges[] = $next_badge;
         }
         return $next_badges;
     }
@@ -182,7 +197,7 @@ class PG_Badge_Manager {
      */
     public function get_new_badges(): array {
         // If the user has a next badge, see if they have earned it.
-        $next_badges = $this->get_next_badge_in_progression();
+        $next_badges = $this->get_next_badge_in_progressions();
 
         $next_badges_by_category = [];
         foreach ( $next_badges as $badge ) {
@@ -201,16 +216,14 @@ class PG_Badge_Manager {
                 } else {
                     $new_badges[] = $this->check_for_highest_badge_in_category( $category );
                 }
-            }
-
-            // If not see if they have earned any of the achievements
-            $badges = $this->badges[$category]['badges'];
-            foreach ( $badges as $badge ) {
-                $new_badges[] = $this->has_earned_badge( $badge );
+            } else {
+                // If not see if they have earned any of the achievements
+                $badges = $this->badges[$category]['badges'];
+                foreach ( $badges as $badge ) {
+                    $new_badges[] = $this->has_earned_badge( $badge );
+                }
             }
         }
-
-        $new_badges = [];
 
         return $new_badges;
     }
@@ -229,22 +242,37 @@ class PG_Badge_Manager {
         }
     }
 
-    private function check_for_highest_badge_in_category( string $category ): ?PG_Badge {
+    private function get_available_badges_by_category( string $category ): array {
+        if ( !isset( $this->badges[$category] ) ) {
+            throw new Exception( 'Category not found ' . $category );
+        }
         $badges = $this->badges[$category]['badges'];
+        $type = $this->badges[$category]['type'];
+        // badges is a key => value pair of value => badge
+        // return the array of badges with the value added to the badge data
+        return array_map_assoc( function( $badge, $value ) use ( $category, $type ) {
+            return new PG_Badge( $badge['id'], $badge['title'], $badge['description'], $category, $value, $type );
+        }, $badges );
+    }
+
+    private function check_for_highest_badge_in_category( string $category ): ?PG_Badge {
+        $badges = $this->get_available_badges_by_category( $category );
+
+        $badges = array_reverse( $badges );
 
         if ( $category === 'streak' ) {
             $best_streak = $this->user_stats->best_streak_in_days();
             foreach ( $badges as $badge ) {
-                if ( $badge['value'] <= $best_streak ) {
-                    return new PG_Badge( $badge['id'], $badge['title'], $badge['description'], $category, $badge['value'], 'achievement' );
+                if ( $badge->get_value() <= $best_streak ) {
+                    return $badge;
                 }
             }
         }
         if ( $category === 'location' ) {
             $total_locations = count( $this->user_stats->location );
             foreach ( $badges as $badge ) {
-                if ( $badge['value'] <= $total_locations ) {
-                    return new PG_Badge( $badge['id'], $badge['title'], $badge['description'], $category, $badge['value'], 'achievement' );
+                if ( $badge->get_value() <= $total_locations ) {
+                    return $badge;
                 }
             }
         }
