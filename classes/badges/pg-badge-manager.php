@@ -86,12 +86,8 @@ class PG_Badge_Manager {
                 $i++;
             }
 
-            if ( $this->has_user_got_badge( $next_badge ) ) {
-                $next_badge = pg_null_badge( $badge->get_category(), $badge->get_type() );
-            }
-
-            if ( !$next_badge ) {
-                $next_badge = pg_null_badge( $badge->get_category(), $badge->get_type() );
+            if ( !$next_badge || $this->has_user_got_badge( $next_badge ) ) {
+                continue;
             }
             $next_badges[] = $next_badge;
         }
