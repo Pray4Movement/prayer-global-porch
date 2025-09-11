@@ -46,8 +46,12 @@ class PG_Test_Badges extends PG_Public_Page {
         // next milestone
         $user_stats = new User_Stats( $user['ID'] );
         $badges_manager = new PG_Badge_Manager( $user['ID'] );
-        $current_badges = $badges_manager->get_user_current_badges();
-        $next_badges = $badges_manager->get_next_badge_in_progressions();
+        $current_badges = array_map( function( PG_Badge $badge ) {
+            return $badge->to_array();
+        }, $badges_manager->get_user_current_badges() );
+        $next_badges = array_map( function( PG_Badge $badge ) {
+            return $badge->to_array();
+        }, $badges_manager->get_next_badge_in_progressions() );
 
         if ( !$user ) {
             return new WP_REST_Response( [ 'message' => 'User not found' ], 404 );

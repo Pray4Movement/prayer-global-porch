@@ -41,6 +41,15 @@ class PG_Badge {
         return $this->type;
     }
 
+    public function equals( PG_Badge $badge ): bool {
+        return $this->id === $badge->id &&
+            $this->value === $badge->value;
+    }
+
+    public function less_than( PG_Badge $badge ): bool {
+        return $this->value < $badge->value;
+    }
+
     public function to_array(): array {
         return [
             'id' => $this->id,
