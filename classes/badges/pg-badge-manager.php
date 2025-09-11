@@ -103,13 +103,6 @@ class PG_Badge_Manager {
      * @return array
      */
     public function get_new_badges(): array {
-        // If the user has a next badge, see if they have earned it.
-        $next_badges = $this->get_next_badge_in_progressions();
-
-        $next_badges_by_category = [];
-        foreach ( $next_badges as $badge ) {
-            $next_badges_by_category[$badge->get_category()] = $badge;
-        }
 
         $categories = $this->pg_badges->get_categories();
 
@@ -119,18 +112,9 @@ class PG_Badge_Manager {
             // If the user is on a progression, see if they have earned the next badge
             $type = $this->pg_badges->get_category_type( $category );
             if ( $type === 'progression' ) {
-                if ( isset( $next_badges_by_category[$category] ) ) {
-                    if ( $next_badges_by_category[$category]->is_null() ) {
-                        continue;
-                    }
-                    if ( $this->has_earned_progression_badge( $next_badges_by_category[$category] ) ) {
-                        $new_badges[] = $next_badges_by_category[$category];
-                    }
-                } else {
-                    $first_badge_in_progression = $this->first_badge_in_progression( $category );
-                    if ( $first_badge_in_progression ) {
-                        $new_badges[] = $first_badge_in_progression;
-                    }
+                $first_badge_in_progression = $this->first_badge_in_progression( $category );
+                if ( $first_badge_in_progression ) {
+                    $new_badges[] = $first_badge_in_progression;
                 }
             } else {
                 // If not see if they have earned any of the achievements
@@ -172,6 +156,9 @@ class PG_Badge_Manager {
 
         foreach ( $badges as $badge ) {
             if ( $this->has_earned_progression_badge( $badge ) ) {
+                if ( $this->has_user_got_badge( $badge ) ) {
+                    break;
+                }
                 return $badge;
             }
         }
