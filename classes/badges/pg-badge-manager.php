@@ -21,7 +21,7 @@ class PG_Badge_Manager {
     }
 
     /**
-     * Returns the current badges that the user has earned (only the highest badge in each category that is a progression)
+     * Returns the current badges that the user has got (only the highest badge in each category that is a progression)
      * @return array<PG_Badge>
      */
     public function get_user_current_badges(): array {
@@ -95,7 +95,7 @@ class PG_Badge_Manager {
     }
 
     /**
-     * Returns any badges that the user has earned that they didn't already have
+     * Returns any badges that the user meets the requirements for that they didn't already have
      * @return array
      */
     public function get_new_badges(): array {
@@ -104,8 +104,6 @@ class PG_Badge_Manager {
 
         $new_badges = [];
         foreach ( $categories as $category ) {
-            // For categories which are progressions.
-            // If the user is on a progression, see if they have earned the next badge
             $type = $this->pg_badges->get_category_type( $category );
             if ( $type === 'progression' ) {
                 $first_badge_in_progression = $this->first_badge_in_progression( $category );
@@ -113,10 +111,9 @@ class PG_Badge_Manager {
                     $new_badges[] = $first_badge_in_progression;
                 }
             } else {
-                // If not see if they have earned any of the achievements
                 $badges = $this->pg_badges->get_category_badges( $category );
                 foreach ( $badges as $badge ) {
-                    if ( $this->has_earned_achievement_badge( $badge ) ) {
+                    if ( $this->meets_requirements_for_achievement_badge( $badge ) ) {
                         $new_badges[] = $badge;
                     }
                 }
@@ -151,10 +148,7 @@ class PG_Badge_Manager {
         $badges = array_reverse( $badges );
 
         foreach ( $badges as $badge ) {
-            if ( $this->has_earned_progression_badge( $badge ) ) {
-                if ( $this->has_user_got_badge( $badge ) ) {
-                    break;
-                }
+            if ( $this->meets_requirements_for_progression_badge( $badge ) ) {
                 return $badge;
             }
         }
@@ -165,7 +159,10 @@ class PG_Badge_Manager {
      * @param PG_Badge $badge
      * @return bool
      */
-    private function has_earned_progression_badge( PG_Badge $badge ): bool {
+    private function meets_requirements_for_progression_badge( PG_Badge $badge ): bool {
+        if ( $this->has_user_got_badge( $badge ) ) {
+            return false;
+        }
         if ( $badge->get_category() === PG_Badges::CATEGORY_STREAK ) {
             $best_streak = $this->user_stats->best_streak_in_days();
             if ( $badge->get_value() <= $best_streak ) {
@@ -186,7 +183,7 @@ class PG_Badge_Manager {
      * @param PG_Badge $badge
      * @return bool
      */
-    private function has_earned_achievement_badge( PG_Badge $badge ): bool {
+    private function meets_requirements_for_achievement_badge( PG_Badge $badge ): bool {
         if ( $this->has_user_got_badge( $badge ) ) {
             return false;
         }
@@ -198,14 +195,14 @@ class PG_Badge_Manager {
         return false;
     }
     /**
-     * Check if the user has already earned a badge
+     * Check if the user has already got a badge
      * @param PG_Badge $badge
      * @return bool
      */
     private function has_user_got_badge( PG_Badge $badge ): bool {
-        $earned_badges = $this->get_user_badges();
-        foreach ( $earned_badges as $earned_badge ) {
-            if ( $badge->equals( $earned_badge ) ) {
+        $user_badges = $this->get_user_badges();
+        foreach ( $user_badges as $user_badge ) {
+            if ( $badge->equals( $user_badge ) ) {
                 return true;
             }
         }
