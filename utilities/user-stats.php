@@ -129,6 +129,16 @@ class User_Stats {
         ", $this->user_id ) );
     }
 
+    /**
+     * Check if the user has just returned
+     * @return bool
+     */
+    public function has_just_returned(): bool {
+        // TODO: implement has_just_returned
+        // use longest streak > 0 and streak secure === false and last prayer date is in the last 1 hour
+        return false;
+    }
+
     /* Calculate current streak in days */
     private function current_streak( int $in_days = 1 ): int {
         $all_islands = $this->all_islands( $in_days );

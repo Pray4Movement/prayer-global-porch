@@ -5513,3 +5513,18 @@ function pg_add_lang_to_cookie( string $lang ) {
     }
     setcookie( 'dt-magic-link-lang', $lang, 0, '/' );
 }
+
+if ( ! function_exists( 'array_map_assoc' ) ) {
+    /**
+     * Map an array using a callback function that passes the value and the key
+     *
+     * @param mixed $callback
+     * @param mixed $array
+     * @return array
+     */
+    function array_map_assoc( $callback, $array ) {
+        return array_map( function( $key ) use ( $callback, $array ) {
+            return $callback( $array[$key], $key );
+        }, array_keys( $array ) );
+    }
+}
