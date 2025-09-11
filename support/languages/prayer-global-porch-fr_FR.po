@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Prayer.Global Porch 2.0.26\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/prayer-global-"
 "porch\n"
-"POT-Creation-Date: 2025-09-02T10:39:12+00:00\n"
+"POT-Creation-Date: 2025-09-08T08:26:01+00:00\n"
 "PO-Revision-Date: 2025-09-03 16:58+0000\n"
 "Last-Translator: Google Cloud Translation Basic <noreply-mt-google-"
 "translate@weblate.org>\n"
@@ -131,8 +131,8 @@ msgstr "Comment ça fonctionne"
 msgid "Click on %1$sStart Praying%2$s."
 msgstr "Cliquer sur %1$s Commencer à prier %2$s."
 
-#: pages/about/about.php:147 pages/pray/action-custom-lap.php:467
-#: pages/pray/trait-lap.php:379
+#: pages/about/about.php:147 pages/pray/action-custom-lap.php:468
+#: pages/pray/trait-lap.php:380
 msgid ""
 "Pray over the location provided using the maps, photos, prayers, people "
 "group info, and facts."
@@ -140,8 +140,8 @@ msgstr ""
 "Prions pour l'emplacement fourni en utilisant les cartes, les photos, les "
 "prières, les informations sur les groupes de personnes et les faits."
 
-#: pages/about/about.php:150 pages/pray/action-custom-lap.php:472
-#: pages/pray/trait-lap.php:384
+#: pages/about/about.php:150 pages/pray/action-custom-lap.php:473
+#: pages/pray/trait-lap.php:385
 msgid "Pray for one minute (or longer) as the Spirit leads."
 msgstr "Prions pendant une minute (ou plus) sous la conduite de l'Esprit."
 
@@ -149,8 +149,8 @@ msgstr "Prions pendant une minute (ou plus) sous la conduite de l'Esprit."
 msgid "When the timer finishes"
 msgstr "Quand le compteur se termine"
 
-#: pages/about/about.php:155 pages/pray/action-custom-lap.php:479
-#: pages/pray/trait-lap.php:391
+#: pages/about/about.php:155 pages/pray/action-custom-lap.php:480
+#: pages/pray/trait-lap.php:392
 #, php-format
 msgid ""
 "Click Done to see your impact on the map or %sclick Next to pray for another "
@@ -244,28 +244,28 @@ msgstr "Avancée de l'Evangile"
 
 #: pages/about/about.php:210 pages/assets/enqueue.php:122
 #: pages/pray/action-custom-event-lap.php:114
-#: pages/pray/action-custom-lap.php:148
+#: pages/pray/action-custom-lap.php:149
 #: pages/pray/action-global-location-map.php:334
 #: pages/pray/stacker-positions.php:52 pages/pray/stacker-positions.php:86
-#: pages/pray/trait-lap.php:65
+#: pages/pray/trait-lap.php:66
 msgid "Know Jesus"
 msgstr "Connaissent Jésus"
 
 #: pages/about/about.php:214 pages/assets/enqueue.php:121
 #: pages/pray/action-custom-event-lap.php:113
-#: pages/pray/action-custom-lap.php:147
+#: pages/pray/action-custom-lap.php:148
 #: pages/pray/action-global-location-map.php:333
 #: pages/pray/stacker-positions.php:49 pages/pray/stacker-positions.php:83
-#: pages/pray/trait-lap.php:64
+#: pages/pray/trait-lap.php:65
 msgid "Know About Jesus"
 msgstr "Ont seulement entendu parler de Jésus"
 
 #: pages/about/about.php:218 pages/assets/enqueue.php:119
 #: pages/pray/action-custom-event-lap.php:112
-#: pages/pray/action-custom-lap.php:146
+#: pages/pray/action-custom-lap.php:147
 #: pages/pray/action-global-location-map.php:332
 #: pages/pray/stacker-positions.php:46 pages/pray/stacker-positions.php:80
-#: pages/pray/trait-lap.php:63
+#: pages/pray/trait-lap.php:64
 msgid "Don't Know Jesus"
 msgstr "Ne connaissent pas du tout Jésus"
 
@@ -420,8 +420,8 @@ msgid "Status"
 msgstr "Statut"
 
 #: pages/assets/menu.php:65 pages/challenges/active-list.php:83
-#: pages/pray/action-custom-lap.php:250 pages/pray/action-custom-map.php:78
-#: pages/pray/trait-lap.php:419 pages/user/user-dashboard.php:181
+#: pages/pray/action-custom-lap.php:251 pages/pray/action-custom-map.php:78
+#: pages/pray/trait-lap.php:420 pages/user/user-dashboard.php:181
 msgid "Map"
 msgstr "Carte"
 
@@ -481,11 +481,11 @@ msgstr "Lien %s"
 msgid "Copied"
 msgstr "Copié"
 
-#: pages/assets/share-modal.php:43 pages/pray/action-custom-event-lap.php:1543
-#: pages/pray/action-custom-lap.php:283 pages/pray/action-custom-lap.php:392
-#: pages/pray/action-custom-lap.php:428 pages/pray/action-custom-lap.php:457
-#: pages/pray/trait-lap.php:199 pages/pray/trait-lap.php:304
-#: pages/pray/trait-lap.php:340 pages/pray/trait-lap.php:369
+#: pages/assets/share-modal.php:43 pages/pray/action-custom-event-lap.php:1544
+#: pages/pray/action-custom-lap.php:284 pages/pray/action-custom-lap.php:393
+#: pages/pray/action-custom-lap.php:429 pages/pray/action-custom-lap.php:458
+#: pages/pray/trait-lap.php:200 pages/pray/trait-lap.php:305
+#: pages/pray/trait-lap.php:341 pages/pray/trait-lap.php:370
 msgid "Close"
 msgstr "Fermer"
 
@@ -712,9 +712,9 @@ msgstr ""
 "Inscrivez-vous aux actualités et opportunités de Prayer.Global, ainsi qu'aux "
 "communications occasionnelles de Prayer.Tools et GospelAmbition.org."
 
-#: pages/contact/magic-contact-us.php:210 pages/pray/action-custom-lap.php:416
+#: pages/contact/magic-contact-us.php:210 pages/pray/action-custom-lap.php:417
 #: pages/pray/action-custom-map.php:243 pages/pray/action-global-map.php:211
-#: pages/pray/trait-lap.php:328
+#: pages/pray/trait-lap.php:329
 msgid "Submit"
 msgstr "Soumettre"
 
@@ -1474,8 +1474,8 @@ msgid ""
 "- and setting a goal for your event."
 msgstr ""
 "Partagez l'importance de la prière pour accomplir la Grande Mission. Posez "
-"les bases de l'expérience Prayer.Global en formulant une vision – le « "
-"pourquoi » – et en fixant un objectif pour votre événement."
+"les bases de l'expérience Prayer.Global en formulant une vision – le "
+"« pourquoi » – et en fixant un objectif pour votre événement."
 
 #: pages/events/events-body.php:128
 #, fuzzy
@@ -1613,8 +1613,8 @@ msgid ""
 "stores."
 msgstr ""
 "Envoyez un e-mail au moins 3 jours avant l'événement pour partager votre "
-"vision et encourager les participants à télécharger l'application "
-"Prayer.Global. Incluez des liens vers les deux plateformes d'applications."
+"vision et encourager les participants à télécharger l'application Prayer."
+"Global. Incluez des liens vers les deux plateformes d'applications."
 
 #: pages/events/events-body.php:170
 #, fuzzy
@@ -1790,8 +1790,8 @@ msgstr "Voici quelques idées :"
 #, fuzzy
 msgid "Encourage everyone to register on the Prayer.Global site or app."
 msgstr ""
-"Encouragez tout le monde à s’inscrire sur le site ou l’application "
-"Prayer.Global."
+"Encouragez tout le monde à s’inscrire sur le site ou l’application Prayer."
+"Global."
 
 #: pages/events/events-body.php:218
 #, fuzzy
@@ -1906,12 +1906,12 @@ msgid ""
 "lifting their voices to God, may you see hearts ignited with a passion to "
 "pray boldly and consistently — not just during your event, but far beyond it."
 msgstr ""
-"Merci d'avoir pris le temps d'explorer comment organiser un événement "
-"Prayer.Global. En suivant ces étapes, vous créez une formidable opportunité "
-"pour les participants de s'unir dans la prière pour les nations. En guidant "
-"les autres à élever la voix vers Dieu, puissiez-vous voir des cœurs "
-"s'enflammer d'une passion pour prier avec audace et constance, non seulement "
-"pendant votre événement, mais bien au-delà."
+"Merci d'avoir pris le temps d'explorer comment organiser un événement Prayer."
+"Global. En suivant ces étapes, vous créez une formidable opportunité pour "
+"les participants de s'unir dans la prière pour les nations. En guidant les "
+"autres à élever la voix vers Dieu, puissiez-vous voir des cœurs s'enflammer "
+"d'une passion pour prier avec audace et constance, non seulement pendant "
+"votre événement, mais bien au-delà."
 
 #: pages/events/events-body.php:270
 #, fuzzy
@@ -2175,8 +2175,8 @@ msgstr "Complété"
 msgid "Previous"
 msgstr "Précédent"
 
-#: pages/home/body.php:207 pages/pray/action-custom-event-lap.php:1502
-#: pages/pray/action-custom-lap.php:243 pages/pray/trait-lap.php:410
+#: pages/home/body.php:207 pages/pray/action-custom-event-lap.php:1503
+#: pages/pray/action-custom-lap.php:244 pages/pray/trait-lap.php:411
 msgid "Next"
 msgstr "Suivant"
 
@@ -2277,141 +2277,141 @@ msgid "%1$s of %2$s"
 msgstr "%1$s de %2$s"
 
 #: pages/pray/action-custom-event-lap.php:111
-#: pages/pray/action-custom-lap.php:145
-#: pages/pray/action-global-location-map.php:331 pages/pray/trait-lap.php:62
+#: pages/pray/action-custom-lap.php:146
+#: pages/pray/action-global-location-map.php:331 pages/pray/trait-lap.php:63
 msgid "Keep Praying..."
 msgstr "Continue de prier…"
 
 #: pages/pray/action-custom-event-lap.php:115
-#: pages/pray/action-custom-lap.php:149
-#: pages/pray/action-global-location-map.php:335 pages/pray/trait-lap.php:66
+#: pages/pray/action-custom-lap.php:150
+#: pages/pray/action-global-location-map.php:335 pages/pray/trait-lap.php:67
 msgid "Praying Paused"
 msgstr "Prière en pause"
 
 #: pages/pray/action-custom-event-lap.php:116
-#: pages/pray/action-custom-event-lap.php:1532
-#: pages/pray/action-custom-lap.php:151 pages/pray/action-custom-lap.php:271
-#: pages/pray/action-global-location-map.php:337 pages/pray/trait-lap.php:68
-#: pages/pray/trait-lap.php:187
+#: pages/pray/action-custom-event-lap.php:1533
+#: pages/pray/action-custom-lap.php:152 pages/pray/action-custom-lap.php:272
+#: pages/pray/action-global-location-map.php:337 pages/pray/trait-lap.php:69
+#: pages/pray/trait-lap.php:188
 msgid "Prayer Added!"
 msgstr "Prière ajoutée !"
 
-#: pages/pray/action-custom-event-lap.php:1501
-#: pages/pray/action-custom-lap.php:160 pages/pray/action-custom-lap.php:242
-#: pages/pray/action-global-location.php:118 pages/pray/trait-lap.php:77
-#: pages/pray/trait-lap.php:409
+#: pages/pray/action-custom-event-lap.php:1502
+#: pages/pray/action-custom-lap.php:161 pages/pray/action-custom-lap.php:243
+#: pages/pray/action-global-location.php:118 pages/pray/trait-lap.php:78
+#: pages/pray/trait-lap.php:410
 msgid "Done"
 msgstr "Terminé"
 
-#: pages/pray/action-custom-event-lap.php:1517
-#: pages/pray/action-custom-lap.php:256 pages/pray/trait-lap.php:172
+#: pages/pray/action-custom-event-lap.php:1518
+#: pages/pray/action-custom-lap.php:257 pages/pray/trait-lap.php:173
 msgid "Pray for"
 msgstr "Prier pour"
 
-#: pages/pray/action-custom-event-lap.php:1522
-#: pages/pray/action-custom-lap.php:261 pages/pray/trait-lap.php:177
+#: pages/pray/action-custom-event-lap.php:1523
+#: pages/pray/action-custom-lap.php:262 pages/pray/trait-lap.php:178
 #, php-format
 msgid "In Prayer Relay %s"
 msgstr "En relais de prière %s"
 
-#: pages/pray/action-custom-event-lap.php:1530
-#: pages/pray/action-custom-lap.php:150 pages/pray/action-custom-lap.php:269
-#: pages/pray/action-global-location-map.php:336 pages/pray/trait-lap.php:67
-#: pages/pray/trait-lap.php:185
+#: pages/pray/action-custom-event-lap.php:1531
+#: pages/pray/action-custom-lap.php:151 pages/pray/action-custom-lap.php:270
+#: pages/pray/action-global-location-map.php:336 pages/pray/trait-lap.php:68
+#: pages/pray/trait-lap.php:186
 msgid "Great Job!"
 msgstr "Bon Travail !"
 
-#: pages/pray/action-custom-event-lap.php:1542
-#: pages/pray/action-custom-lap.php:282 pages/pray/trait-lap.php:198
+#: pages/pray/action-custom-event-lap.php:1543
+#: pages/pray/action-custom-lap.php:283 pages/pray/trait-lap.php:199
 msgid "Are you sure you want to leave?"
 msgstr "Êtes-vous sûr de vouloir quitter ?"
 
-#: pages/pray/action-custom-event-lap.php:1553
-#: pages/pray/action-custom-lap.php:293 pages/pray/trait-lap.php:209
+#: pages/pray/action-custom-event-lap.php:1554
+#: pages/pray/action-custom-lap.php:294 pages/pray/trait-lap.php:210
 msgid "Keep Praying"
 msgstr "Continue de prier"
 
-#: pages/pray/action-custom-event-lap.php:1554
-#: pages/pray/action-custom-lap.php:294
-#: pages/pray/action-global-location.php:126 pages/pray/trait-lap.php:210
+#: pages/pray/action-custom-event-lap.php:1555
+#: pages/pray/action-custom-lap.php:295
+#: pages/pray/action-global-location.php:126 pages/pray/trait-lap.php:211
 msgid "Leave"
 msgstr "Partir"
 
-#: pages/pray/action-custom-event-lap.php:1594
-#: pages/pray/action-custom-lap.php:334 pages/pray/trait-lap.php:250
+#: pages/pray/action-custom-event-lap.php:1595
+#: pages/pray/action-custom-lap.php:335 pages/pray/trait-lap.php:251
 msgid "See more"
 msgstr "Voir plus"
 
-#: pages/pray/action-custom-event-lap.php:1637
-#: pages/pray/action-custom-lap.php:377 pages/pray/trait-lap.php:293
+#: pages/pray/action-custom-event-lap.php:1638
+#: pages/pray/action-custom-lap.php:378 pages/pray/trait-lap.php:294
 msgid "Show More Guided Prayers"
 msgstr "Afficher plus de prières guidées"
 
-#: pages/pray/action-custom-lap.php:144 pages/pray/trait-lap.php:61
+#: pages/pray/action-custom-lap.php:145 pages/pray/trait-lap.php:62
 #, fuzzy, php-format
 #| msgctxt "10 of 4770"
 #| msgid "%1$s of %2$s"
 msgid "%1$s of %2$s"
 msgstr "%1$s de %2$s"
 
-#: pages/pray/action-custom-lap.php:152 pages/pray/trait-lap.php:69
+#: pages/pray/action-custom-lap.php:153 pages/pray/trait-lap.php:70
 #: pages/user/login.php:237 pages/user/register.php:216
 #, fuzzy
 #| msgid "Create your own prayer relays"
 msgid "Join and create custom prayer relays"
 msgstr "Créer vos propres relais de prière"
 
-#: pages/pray/action-custom-lap.php:153 pages/pray/trait-lap.php:70
+#: pages/pray/action-custom-lap.php:154 pages/pray/trait-lap.php:71
 #: pages/user/login.php:241 pages/user/register.php:220
 #, fuzzy
 #| msgid "See your prayer history"
 msgid "View your interactive prayer history"
 msgstr "Voir votre historique de prière"
 
-#: pages/pray/action-custom-lap.php:154 pages/pray/trait-lap.php:71
+#: pages/pray/action-custom-lap.php:155 pages/pray/trait-lap.php:72
 #: pages/user/register.php:224
 #, fuzzy
 #| msgid "Get badges and more"
 msgid "Prayer streaks, badges and more"
 msgstr "Obtenir des badges et plus encore"
 
-#: pages/pray/action-custom-lap.php:155 pages/pray/trait-lap.php:72
+#: pages/pray/action-custom-lap.php:156 pages/pray/trait-lap.php:73
 #, fuzzy
 msgid "Register Now"
 msgstr "Inscrivez-vous maintenant"
 
-#: pages/pray/action-custom-lap.php:156 pages/pray/trait-lap.php:73
+#: pages/pray/action-custom-lap.php:157 pages/pray/trait-lap.php:74
 #: pages/user/register.php:212
 #, fuzzy
 #| msgid "Create your own prayer relays"
 msgid "Create your own free login"
 msgstr "Créer vos propres relais de prière"
 
-#: pages/pray/action-custom-lap.php:157 pages/pray/trait-lap.php:74
+#: pages/pray/action-custom-lap.php:158 pages/pray/trait-lap.php:75
 #: pages/user/login.php:218
 #, fuzzy
 msgid "No Thanks"
 msgstr "Non merci"
 
-#: pages/pray/action-custom-lap.php:158 pages/pray/trait-lap.php:75
+#: pages/pray/action-custom-lap.php:159 pages/pray/trait-lap.php:76
 #: pages/user/user-dashboard.php:170
 #, fuzzy
 #| msgid "My Prayer Relays"
 msgid "Daily Prayer Streak"
 msgstr "Mes relais de prière"
 
-#: pages/pray/action-custom-lap.php:159 pages/pray/trait-lap.php:76
+#: pages/pray/action-custom-lap.php:160 pages/pray/trait-lap.php:77
 #: pages/user/user-dashboard.php:171
 #, fuzzy
 msgid "Best"
 msgstr "Meilleur"
 
-#: pages/pray/action-custom-lap.php:161 pages/pray/trait-lap.php:78
+#: pages/pray/action-custom-lap.php:162 pages/pray/trait-lap.php:79
 #, fuzzy
 msgid "Fetching your stats..."
 msgstr "Récupération de vos statistiques..."
 
-#: pages/pray/action-custom-lap.php:162 pages/pray/trait-lap.php:79
+#: pages/pray/action-custom-lap.php:163 pages/pray/trait-lap.php:80
 #: pages/user/user-dashboard.php:207
 #, fuzzy
 msgid "Download the Prayer.Global app to get streak notifications and more!"
@@ -2419,7 +2419,7 @@ msgstr ""
 "Téléchargez l'application Prayer.Global pour recevoir des notifications de "
 "séquences et plus encore !"
 
-#: pages/pray/action-custom-lap.php:163 pages/pray/trait-lap.php:80
+#: pages/pray/action-custom-lap.php:164 pages/pray/trait-lap.php:81
 #: pages/user/user-dashboard.php:208
 #, fuzzy
 msgid "Update the Prayer.Global app to get streak notifications and more!"
@@ -2427,72 +2427,72 @@ msgstr ""
 "Mettez à jour l'application Prayer.Global pour recevoir des notifications de "
 "séquences et plus encore !"
 
-#: pages/pray/action-custom-lap.php:164 pages/pray/trait-lap.php:81
+#: pages/pray/action-custom-lap.php:165 pages/pray/trait-lap.php:82
 #: pages/user/user-dashboard.php:209
 #, fuzzy
 msgid "Go to App Store"
 msgstr "Accéder à l'App Store"
 
-#: pages/pray/action-custom-lap.php:382 pages/pray/trait-lap.php:294
+#: pages/pray/action-custom-lap.php:383 pages/pray/trait-lap.php:295
 msgid "Correction Needed?"
 msgstr "Correction nécessaire ?"
 
-#: pages/pray/action-custom-lap.php:391 pages/pray/action-custom-map.php:229
-#: pages/pray/action-global-map.php:197 pages/pray/trait-lap.php:303
+#: pages/pray/action-custom-lap.php:392 pages/pray/action-custom-map.php:229
+#: pages/pray/action-global-map.php:197 pages/pray/trait-lap.php:304
 msgid "Thank you! Leave us a correction below."
 msgstr "Merci ! Laissez-nous une correction ci-dessous."
 
-#: pages/pray/action-custom-lap.php:402 pages/pray/action-custom-map.php:235
-#: pages/pray/action-global-map.php:203 pages/pray/trait-lap.php:314
+#: pages/pray/action-custom-lap.php:403 pages/pray/action-custom-map.php:235
+#: pages/pray/action-global-map.php:203 pages/pray/trait-lap.php:315
 msgid "Section:"
 msgstr "Section :"
 
-#: pages/pray/action-custom-lap.php:408 pages/pray/action-custom-map.php:239
-#: pages/pray/action-global-map.php:207 pages/pray/trait-lap.php:320
+#: pages/pray/action-custom-lap.php:409 pages/pray/action-custom-map.php:239
+#: pages/pray/action-global-map.php:207 pages/pray/trait-lap.php:321
 msgid "Correction Requested:"
 msgstr "Correction demandée :"
 
-#: pages/pray/action-custom-lap.php:427 pages/pray/trait-lap.php:339
+#: pages/pray/action-custom-lap.php:428 pages/pray/trait-lap.php:340
 msgid "Set Your Prayer Experience"
 msgstr "Définir votre expérience de prière"
 
-#: pages/pray/action-custom-lap.php:436 pages/pray/trait-lap.php:348
+#: pages/pray/action-custom-lap.php:437 pages/pray/trait-lap.php:349
 msgid "Prayer pace per place"
 msgstr "Rythme de prière par lieu"
 
-#: pages/pray/action-custom-lap.php:439 pages/pray/trait-lap.php:351
+#: pages/pray/action-custom-lap.php:440 pages/pray/trait-lap.php:352
 #, php-format
 msgid "%d Minute"
 msgstr "%d Minute"
 
-#: pages/pray/action-custom-lap.php:440 pages/pray/action-custom-lap.php:441
-#: pages/pray/action-custom-lap.php:442 pages/pray/action-custom-lap.php:443
-#: pages/pray/action-custom-lap.php:444 pages/pray/trait-lap.php:352
-#: pages/pray/trait-lap.php:353 pages/pray/trait-lap.php:354
-#: pages/pray/trait-lap.php:355 pages/pray/trait-lap.php:356
+#: pages/pray/action-custom-lap.php:441 pages/pray/action-custom-lap.php:442
+#: pages/pray/action-custom-lap.php:443 pages/pray/action-custom-lap.php:444
+#: pages/pray/action-custom-lap.php:445 pages/pray/trait-lap.php:353
+#: pages/pray/trait-lap.php:354 pages/pray/trait-lap.php:355
+#: pages/pray/trait-lap.php:356 pages/pray/trait-lap.php:357
 #, php-format
 msgid "%d Minutes"
 msgstr "%d minutes"
 
-#: pages/pray/action-custom-lap.php:448 pages/pray/action-custom-lap.php:486
-#: pages/pray/trait-lap.php:360 pages/pray/trait-lap.php:398
+#: pages/pray/action-custom-lap.php:449 pages/pray/action-custom-lap.php:487
+#: pages/pray/trait-lap.php:361 pages/pray/trait-lap.php:399
 msgid "Let's Go!"
 msgstr "Allons-y !"
 
-#: pages/pray/action-custom-lap.php:464 pages/pray/trait-lap.php:376
+#: pages/pray/action-custom-lap.php:465 pages/pray/trait-lap.php:377
 #, php-format
 msgid "How %s works"
 msgstr "Comment fonctionne %s"
 
-#: pages/pray/action-custom-lap.php:465 pages/pray/trait-lap.php:377
+#: pages/pray/action-custom-lap.php:466 pages/pray/trait-lap.php:378
 msgid "Step 1"
 msgstr "Étape 1"
 
-#: pages/pray/action-custom-lap.php:470 pages/pray/trait-lap.php:382
+#: pages/pray/action-custom-lap.php:471 pages/pray/trait-lap.php:383
 msgid "Step 2"
 msgstr "Étape 2"
 
-#: pages/pray/action-custom-lap.php:477 pages/pray/trait-lap.php:389
+#: pages/pray/action-custom-lap.php:478 pages/pray/trait-lap.php:390
 msgid "Step 3"
 msgstr "Étape 3"
 
@@ -7732,8 +7732,8 @@ msgstr "Envoyer le lien de réinitialisation"
 #, fuzzy
 msgid "Password reset link has been sent to your email address."
 msgstr ""
-"Le lien de réinitialisation du mot de passe a été envoyé à votre adresse "
-"e-mail."
+"Le lien de réinitialisation du mot de passe a été envoyé à votre adresse e-"
+"mail."
 
 #: pages/user/login.php:345
 #, fuzzy
@@ -8323,8 +8323,8 @@ msgid ""
 "Every great Gospel movement has been preceeded by extraordinary prayer! Good "
 "work!"
 msgstr ""
-"Chaque grand mouvement évangélique a été précédé d'une prière extraordinaire "
-"! Bravo !"
+"Chaque grand mouvement évangélique a été précédé d'une prière "
+"extraordinaire ! Bravo !"
 
 #: utilities/pg-milestones.php:121
 #, fuzzy
@@ -8451,7 +8451,8 @@ msgstr ""
 #: utilities/pg-milestones.php:145
 #, fuzzy
 msgid "You're part of a global movement — prayer is the engine."
-msgstr "Vous faites partie d’un mouvement mondial – la prière en est le moteur."
+msgstr ""
+"Vous faites partie d’un mouvement mondial – la prière en est le moteur."
 
 #: utilities/pg-milestones.php:146
 #, fuzzy
@@ -8466,8 +8467,8 @@ msgstr ""
 #, fuzzy
 msgid "Your yes today could lead to someone else's first yes to Jesus."
 msgstr ""
-"Votre oui d’aujourd’hui pourrait conduire au premier oui de quelqu’un d’"
-"autre à Jésus."
+"Votre oui d’aujourd’hui pourrait conduire au premier oui de quelqu’un "
+"d’autre à Jésus."
 
 #: utilities/pg-milestones.php:148
 #, fuzzy
