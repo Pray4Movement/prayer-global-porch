@@ -45,13 +45,20 @@ class PG_Test_Badges extends PG_Public_Page {
         // days of inactivity
         // next milestone
         $user_stats = new User_Stats( $user['ID'] );
+
         $badges_manager = new PG_Badge_Manager( $user['ID'] );
+
         $current_badges = array_map( function( PG_Badge $badge ) {
             return $badge->to_array();
         }, $badges_manager->get_user_current_badges() );
+
         $next_badges = array_map( function( PG_Badge $badge ) {
             return $badge->to_array();
         }, $badges_manager->get_next_badge_in_progressions() );
+
+        $new_badges = array_map( function( PG_Badge $badge ) {
+            return $badge->to_array();
+        }, $badges_manager->get_new_badges() );
 
         if ( !$user ) {
             return new WP_REST_Response( [ 'message' => 'User not found' ], 404 );
@@ -71,6 +78,7 @@ class PG_Test_Badges extends PG_Public_Page {
             'user_stats' => $stats,
             'current_badges' => $current_badges,
             'next_badges' => $next_badges,
+            'new_badges' => $new_badges,
         ] );
     }
 
@@ -293,6 +301,20 @@ class PG_Test_Badges extends PG_Public_Page {
                         </thead>
                         <tbody id="next-badges-table-body"></tbody>
                     </table>
+                    <h3>New Badges</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Title</td>
+                                <td>Description</td>
+                                <td>Category</td>
+                                <td>Value</td>
+                                <td>Date</td>
+                            </tr>
+                        </thead>
+                        <tbody id="new-badges-table-body"></tbody>
+                    </table>
                 </div>
 
                 <div class="flow-small">
@@ -347,7 +369,15 @@ class PG_Test_Badges extends PG_Public_Page {
                         document.querySelector('#days-of-inactivity').innerHTML = data.user_stats.days_of_inactivity;
                         document.querySelector('#hours-of-inactivity').innerHTML = data.user_stats.hours_of_inactivity;
                     }
+                    const sort_by = ( $field ) => function( $a, $b ) {
+                        if ( $a[$field] === $b[$field] ) {
+                            return 0;
+                        }
+                        return $a[$field] > $b[$field] ? 1 : -1;
+                    };
                     if ( data.next_badges ) {
+                        data.next_badges.sort( sort_by( 'value' ) );
+                        data.next_badges.sort( sort_by( 'category' ) );
                         document.querySelector('#next-badges-table-body').innerHTML = data.next_badges.map(badge =>
                             `<tr>
                                 <td>${badge.id}</td>
@@ -360,7 +390,23 @@ class PG_Test_Badges extends PG_Public_Page {
                         ).join('');
                     }
                     if ( data.current_badges ) {
+                        data.current_badges.sort( sort_by( 'value' ) );
+                        data.current_badges.sort( sort_by( 'category' ) );
                         document.querySelector('#current-badges-table-body').innerHTML = data.current_badges.map(badge =>
+                            `<tr>
+                                <td>${badge.id}</td>
+                                <td>${badge.title}</td>
+                                <td>${badge.description}</td>
+                                <td>${badge.category}</td>
+                                <td>${badge.value}</td>
+                                <td>${new Date(badge.date * 1000).toLocaleDateString()}</td>
+                            </tr>`
+                        ).join('');
+                    }
+                    if ( data.new_badges ) {
+                        data.new_badges.sort( sort_by( 'value' ) );
+                        data.new_badges.sort( sort_by( 'category' ) );
+                        document.querySelector('#new-badges-table-body').innerHTML = data.new_badges.map(badge =>
                             `<tr>
                                 <td>${badge.id}</td>
                                 <td>${badge.title}</td>
