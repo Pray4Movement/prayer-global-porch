@@ -16,16 +16,7 @@ class PG_Badge_Model {
         return $wpdb->get_results( $wpdb->prepare(
             "SELECT category, badge_id as id, value, timestamp FROM $wpdb->dt_badges
             WHERE user_id = %d
-            ", $user_id
-        ), ARRAY_A );
-    }
-
-    public static function get_current_badges_by_category( int $user_id ) {
-        global $wpdb;
-        return $wpdb->get_results( $wpdb->prepare(
-            "SELECT category, badge_id as id, MAX(value) as value, timestamp FROM $wpdb->dt_badges
-            WHERE user_id = %d
-            GROUP BY category
+            ORDER BY category, value DESC
             ", $user_id
         ), ARRAY_A );
     }

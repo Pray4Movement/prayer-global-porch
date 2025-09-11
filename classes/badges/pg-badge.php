@@ -50,6 +50,10 @@ class PG_Badge {
         return $this->value < $badge->value;
     }
 
+    public function is_null(): bool {
+        return $this->id === 'null';
+    }
+
     public function to_array(): array {
         return [
             'id' => $this->id,
@@ -60,4 +64,8 @@ class PG_Badge {
             'type' => $this->type,
         ];
     }
+}
+
+function pg_null_badge( $category = 'null', $type = 'null' ): PG_Badge {
+    return new PG_Badge( 'null', 'Null', 'Null', $category, -1, $type );
 }

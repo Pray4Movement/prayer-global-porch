@@ -376,7 +376,7 @@ class PG_Test_Badges extends PG_Public_Page {
                         return $a[$field] > $b[$field] ? 1 : -1;
                     };
                     if ( data.next_badges ) {
-                        data.next_badges.sort( sort_by( 'value' ) );
+                        data.next_badges.sort( sort_by( 'id' ) );
                         data.next_badges.sort( sort_by( 'category' ) );
                         document.querySelector('#next-badges-table-body').innerHTML = data.next_badges.map(badge =>
                             `<tr>
@@ -390,7 +390,7 @@ class PG_Test_Badges extends PG_Public_Page {
                         ).join('');
                     }
                     if ( data.current_badges ) {
-                        data.current_badges.sort( sort_by( 'value' ) );
+                        data.current_badges.sort( sort_by( 'id' ) );
                         data.current_badges.sort( sort_by( 'category' ) );
                         document.querySelector('#current-badges-table-body').innerHTML = data.current_badges.map(badge =>
                             `<tr>
@@ -404,7 +404,7 @@ class PG_Test_Badges extends PG_Public_Page {
                         ).join('');
                     }
                     if ( data.new_badges ) {
-                        data.new_badges.sort( sort_by( 'value' ) );
+                        data.new_badges.sort( sort_by( 'id' ) );
                         data.new_badges.sort( sort_by( 'category' ) );
                         document.querySelector('#new-badges-table-body').innerHTML = data.new_badges.map(badge =>
                             `<tr>

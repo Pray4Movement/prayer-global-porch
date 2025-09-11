@@ -21,12 +21,28 @@ class PG_Badge_Manager {
     }
 
     /**
-     * Returns the current badges that the user has earned (only the highest badge in each category)
+     * Returns the current badges that the user has earned (only the highest badge in each category that is a progression)
      * @return array<PG_Badge>
      */
     public function get_user_current_badges(): array {
-        $badges = PG_Badge_Model::get_current_badges_by_category( $this->user_id );
-        return $this->hydrate_db_badges( $badges );
+        $badges = PG_Badge_Model::get_all_badges( $this->user_id );
+        $badges = $this->hydrate_db_badges( $badges );
+        $current_badges = [];
+        $progression_categories_done = [];
+        foreach ( $badges as $badge ) {
+            // this works because get_all_badges is ordered by category and value DESC
+            if ( $badge->get_type() === PG_Badges::TYPE_PROGRESSION ) {
+                if ( in_array( $badge->get_category(), $progression_categories_done ) ) {
+                    continue;
+                }
+                $current_badges[] = $badge;
+                $progression_categories_done[] = $badge->get_category();
+            }
+            if ( $badge->get_type() === PG_Badges::TYPE_ACHIEVEMENT ) {
+                $current_badges[] = $badge;
+            }
+        }
+        return $current_badges;
     }
     /**
      * Hydrate the badges from the database to the objects
@@ -61,6 +77,7 @@ class PG_Badge_Manager {
 
             $category_badges = $this->pg_badges->get_category_badges( $badge->get_category() );
             $i = 0;
+            $next_badge = null;
             foreach ( $category_badges as $current_badge ) {
                 if ( $badge->less_than( $current_badge ) ) {
                     $next_badge = $current_badge;
@@ -69,8 +86,12 @@ class PG_Badge_Manager {
                 $i++;
             }
 
+            if ( $this->has_earned_progression_badge( $next_badge ) ) {
+                $next_badge = pg_null_badge( $badge->get_category(), $badge->get_type() );
+            }
+
             if ( !$next_badge ) {
-                continue;
+                $next_badge = pg_null_badge( $badge->get_category(), $badge->get_type() );
             }
             $next_badges[] = $next_badge;
         }
@@ -92,15 +113,19 @@ class PG_Badge_Manager {
 
         $categories = $this->pg_badges->get_categories();
 
+        $new_badges = [];
         foreach ( $categories as $category ) {
             // For categories which are progressions.
             // If the user is on a progression, see if they have earned the next badge
             $type = $this->pg_badges->get_category_type( $category );
             if ( $type === 'progression' ) {
-                if ( isset( $next_badges_by_category[$category] ) &&
-                    $this->has_earned_progression_badge( $next_badges_by_category[$category] )
-                ) {
-                    $new_badges[] = $next_badges_by_category[$category];
+                if ( isset( $next_badges_by_category[$category] ) ) {
+                    if ( $next_badges_by_category[$category]->is_null() ) {
+                        continue;
+                    }
+                    if ( $this->has_earned_progression_badge( $next_badges_by_category[$category] ) ) {
+                        $new_badges[] = $next_badges_by_category[$category];
+                    }
                 } else {
                     $first_badge_in_progression = $this->first_badge_in_progression( $category );
                     if ( $first_badge_in_progression ) {
