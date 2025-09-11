@@ -20,4 +20,9 @@ class PG_Badge_Model {
             ", $user_id
         ), ARRAY_A );
     }
+
+    public static function delete_all_badges( int $user_id ) {
+        global $wpdb;
+        return $wpdb->delete( $wpdb->dt_badges, [ 'user_id' => $user_id ] );
+    }
 }

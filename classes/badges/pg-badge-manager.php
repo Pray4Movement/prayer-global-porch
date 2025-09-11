@@ -44,6 +44,12 @@ class PG_Badge_Manager {
         }
         return $current_badges;
     }
+    public function get_user_current_badges_array() {
+        $badges = $this->get_user_current_badges();
+        return array_map( function( PG_Badge $badge ) {
+            return $badge->to_array();
+        }, $badges );
+    }
     /**
      * Hydrate the badges from the database to the objects
      * @param array $badges
@@ -93,6 +99,12 @@ class PG_Badge_Manager {
         }
         return $next_badges;
     }
+    public function get_next_badge_in_progression_array() {
+        $badges = $this->get_next_badge_in_progressions();
+        return array_map( function( PG_Badge $badge ) {
+            return $badge->to_array();
+        }, $badges );
+    }
 
     /**
      * Returns any badges that the user meets the requirements for that they didn't already have
@@ -122,7 +134,12 @@ class PG_Badge_Manager {
 
         return $new_badges;
     }
-
+    public function get_new_badges_array() {
+        $badges = $this->get_new_badges();
+        return array_map( function( PG_Badge $badge ) {
+            return $badge->to_array();
+        }, $badges );
+    }
     public function save_badges( array $badges ) {
         if ( empty( $badges ) ) {
             return;
@@ -135,6 +152,10 @@ class PG_Badge_Manager {
         foreach ( $badges as $badge ) {
             PG_Badge_Model::create_badge( $this->user_id, $badge->get_id(), $badge->get_category(), $badge->get_value() );
         }
+    }
+
+    public function clear_badges() {
+        PG_Badge_Model::delete_all_badges( $this->user_id );
     }
 
     /**

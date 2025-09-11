@@ -48,17 +48,11 @@ class PG_Test_Badges extends PG_Public_Page {
 
         $badges_manager = new PG_Badge_Manager( $user['ID'] );
 
-        $current_badges = array_map( function( PG_Badge $badge ) {
-            return $badge->to_array();
-        }, $badges_manager->get_user_current_badges() );
+        $current_badges = $badges_manager->get_user_current_badges_array();
 
-        $next_badges = array_map( function( PG_Badge $badge ) {
-            return $badge->to_array();
-        }, $badges_manager->get_next_badge_in_progressions() );
+        $next_badges = $badges_manager->get_next_badge_in_progression_array();
 
-        $new_badges = array_map( function( PG_Badge $badge ) {
-            return $badge->to_array();
-        }, $badges_manager->get_new_badges() );
+        $new_badges = $badges_manager->get_new_badges_array();
 
         if ( !$user ) {
             return new WP_REST_Response( [ 'message' => 'User not found' ], 404 );
@@ -143,6 +137,17 @@ class PG_Test_Badges extends PG_Public_Page {
         return new WP_REST_Response( [ 'message' => 'Missing badges added' ] );
     }
 
+    public function clear_badges( WP_REST_Request $request ) {
+        $user_id = $request->get_param( 'user_id' );
+        if ( !$user_id ) {
+            return new WP_REST_Response( [ 'message' => 'User ID is required' ], 400 );
+        }
+        $user_id = intval( $user_id );
+        $badge_manager = new PG_Badge_Manager( $user_id );
+        $badge_manager->clear_badges();
+        return new WP_REST_Response( [ 'message' => 'Badges cleared' ] );
+    }
+
     public function register_endpoints() {
         register_rest_route( $this->rest_route, '/select-user', [
             'methods' => 'POST',
@@ -162,6 +167,11 @@ class PG_Test_Badges extends PG_Public_Page {
         register_rest_route( $this->rest_route, '/add-missing-badges', [
             'methods' => 'POST',
             'callback' => [ $this, 'add_missing_badges' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
+        register_rest_route( $this->rest_route, '/clear-badges', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'clear_badges' ],
             'permission_callback' => [ $this, 'permission_callback' ],
         ] );
     }
@@ -320,6 +330,7 @@ class PG_Test_Badges extends PG_Public_Page {
                 <div class="flow-small">
                     <h3>Manipulate DB</h3>
                     <button class="btn btn-primary" id="add-missing-badges">Add missing badges</button>
+                    <button class="btn btn-primary" id="clear-badges">Clear badges</button>
                     <form class="" id="create-streak-form">
                         <input type="number" name="days" placeholder="Days">
                         <input class="btn btn-primary" type="submit" value="Create streak">
@@ -423,6 +434,21 @@ class PG_Test_Badges extends PG_Public_Page {
             document.querySelector('#add-missing-badges').addEventListener('click', function(e) {
                 e.preventDefault();
                 fetch(jsObject.rest_url + '/add-missing-badges', {
+                    method: 'POST',
+                    body: JSON.stringify({ user_id: jsObject.user.ID }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                }).then(response => response.json()).then(data => {
+                    console.log(data);
+                    getUser({ user_id: jsObject.user.ID });
+                });
+            });
+
+            document.querySelector('#clear-badges').addEventListener('click', function(e) {
+                e.preventDefault();
+                fetch(jsObject.rest_url + '/clear-badges', {
                     method: 'POST',
                     body: JSON.stringify({ user_id: jsObject.user.ID }),
                     headers: {

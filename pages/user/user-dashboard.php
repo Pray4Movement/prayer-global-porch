@@ -112,6 +112,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             $user = wp_get_current_user();
             $gravatar_url = get_avatar_url( $user->user_login );
             $user_stats = new User_Stats( $user->ID );
+            $badge_manager = new PG_Badge_Manager( $user->ID );
         }
         dt_theme_enqueue_script( 'dt-components', 'dt-assets/build/components/index.js', [] );
         dt_theme_enqueue_style( 'dt-components-css', 'dt-assets/build/css/light.min.css', [] );
@@ -231,6 +232,9 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'current_streak_in_weeks' => $user_stats->current_streak_in_weeks(),
                 'days_this_year' => $user_stats->days_this_year(),
             ],
+            'current_badges' => $badge_manager->get_user_current_badges_array(),
+            'next_badges' => $badge_manager->get_next_badge_in_progression_array(),
+            'new_badges' => $badge_manager->get_new_badges_array(),
         ] );
     }
 
