@@ -5,11 +5,11 @@ msgstr ""
 "Project-Id-Version: Prayer.Global Porch 2.7.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/prayer-global-"
 "porch\n"
-"POT-Creation-Date: 2025-09-02T10:39:12+00:00\n"
+"POT-Creation-Date: 2025-09-08T08:26:01+00:00\n"
 "PO-Revision-Date: 2025-09-03 16:58+0000\n"
 "Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
-"Language-Team: Chinese (Simplified Han script) <https://"
-"translate.disciple.tools/projects/pray4movement/prayer-global/zh_Hans/>\n"
+"Language-Team: Chinese (Simplified Han script) <https://translate.disciple."
+"tools/projects/pray4movement/prayer-global/zh_Hans/>\n"
 "Language: zh_Hans\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -139,16 +139,16 @@ msgstr "怎么运行的"
 msgid "Click on %1$sStart Praying%2$s."
 msgstr "点击%1$s开始祈祷%2$s。"
 
-#: pages/about/about.php:147 pages/pray/action-custom-lap.php:467
-#: pages/pray/trait-lap.php:379
+#: pages/about/about.php:147 pages/pray/action-custom-lap.php:468
+#: pages/pray/trait-lap.php:380
 #, fuzzy
 msgid ""
 "Pray over the location provided using the maps, photos, prayers, people "
 "group info, and facts."
 msgstr "使用地图、照片、祈祷、人群信息和事实为提供的地点祈祷。"
 
-#: pages/about/about.php:150 pages/pray/action-custom-lap.php:472
-#: pages/pray/trait-lap.php:384
+#: pages/about/about.php:150 pages/pray/action-custom-lap.php:473
+#: pages/pray/trait-lap.php:385
 #, fuzzy
 msgid "Pray for one minute (or longer) as the Spirit leads."
 msgstr "按照圣灵的引导，祈祷一分钟（或更长时间）。"
@@ -158,8 +158,8 @@ msgstr "按照圣灵的引导，祈祷一分钟（或更长时间）。"
 msgid "When the timer finishes"
 msgstr "当计时器结束时"
 
-#: pages/about/about.php:155 pages/pray/action-custom-lap.php:479
-#: pages/pray/trait-lap.php:391
+#: pages/about/about.php:155 pages/pray/action-custom-lap.php:480
+#: pages/pray/trait-lap.php:392
 #, fuzzy, php-format
 msgid ""
 "Click Done to see your impact on the map or %sclick Next to pray for another "
@@ -251,30 +251,30 @@ msgstr "信仰状况"
 
 #: pages/about/about.php:210 pages/assets/enqueue.php:122
 #: pages/pray/action-custom-event-lap.php:114
-#: pages/pray/action-custom-lap.php:148
+#: pages/pray/action-custom-lap.php:149
 #: pages/pray/action-global-location-map.php:334
 #: pages/pray/stacker-positions.php:52 pages/pray/stacker-positions.php:86
-#: pages/pray/trait-lap.php:65
+#: pages/pray/trait-lap.php:66
 #, fuzzy
 msgid "Know Jesus"
 msgstr "认识耶稣"
 
 #: pages/about/about.php:214 pages/assets/enqueue.php:121
 #: pages/pray/action-custom-event-lap.php:113
-#: pages/pray/action-custom-lap.php:147
+#: pages/pray/action-custom-lap.php:148
 #: pages/pray/action-global-location-map.php:333
 #: pages/pray/stacker-positions.php:49 pages/pray/stacker-positions.php:83
-#: pages/pray/trait-lap.php:64
+#: pages/pray/trait-lap.php:65
 #, fuzzy
 msgid "Know About Jesus"
 msgstr "了解耶稣"
 
 #: pages/about/about.php:218 pages/assets/enqueue.php:119
 #: pages/pray/action-custom-event-lap.php:112
-#: pages/pray/action-custom-lap.php:146
+#: pages/pray/action-custom-lap.php:147
 #: pages/pray/action-global-location-map.php:332
 #: pages/pray/stacker-positions.php:46 pages/pray/stacker-positions.php:80
-#: pages/pray/trait-lap.php:63
+#: pages/pray/trait-lap.php:64
 #, fuzzy
 msgid "Don't Know Jesus"
 msgstr "不认识耶稣"
@@ -443,8 +443,8 @@ msgid "Status"
 msgstr "状态"
 
 #: pages/assets/menu.php:65 pages/challenges/active-list.php:83
-#: pages/pray/action-custom-lap.php:250 pages/pray/action-custom-map.php:78
-#: pages/pray/trait-lap.php:419 pages/user/user-dashboard.php:181
+#: pages/pray/action-custom-lap.php:251 pages/pray/action-custom-map.php:78
+#: pages/pray/trait-lap.php:420 pages/user/user-dashboard.php:181
 #, fuzzy
 msgid "Map"
 msgstr "地图"
@@ -504,11 +504,11 @@ msgstr "链接 %s"
 msgid "Copied"
 msgstr "已复制"
 
-#: pages/assets/share-modal.php:43 pages/pray/action-custom-event-lap.php:1543
-#: pages/pray/action-custom-lap.php:283 pages/pray/action-custom-lap.php:392
-#: pages/pray/action-custom-lap.php:428 pages/pray/action-custom-lap.php:457
-#: pages/pray/trait-lap.php:199 pages/pray/trait-lap.php:304
-#: pages/pray/trait-lap.php:340 pages/pray/trait-lap.php:369
+#: pages/assets/share-modal.php:43 pages/pray/action-custom-event-lap.php:1544
+#: pages/pray/action-custom-lap.php:284 pages/pray/action-custom-lap.php:393
+#: pages/pray/action-custom-lap.php:429 pages/pray/action-custom-lap.php:458
+#: pages/pray/trait-lap.php:200 pages/pray/trait-lap.php:305
+#: pages/pray/trait-lap.php:341 pages/pray/trait-lap.php:370
 msgid "Close"
 msgstr "关"
 
@@ -751,12 +751,13 @@ msgstr "问题或评论"
 msgid ""
 "Sign up for Prayer.Global news and opportunities, and occasional "
 "communication from Prayer.Tools and GospelAmbition.org"
-msgstr "注册 Prayer.Global 新闻和机会，以及 Prayer.Tools 和 GospelAmbition.org "
-"的不定期通讯"
+msgstr ""
+"注册 Prayer.Global 新闻和机会，以及 Prayer.Tools 和 GospelAmbition.org 的不定"
+"期通讯"
 
-#: pages/contact/magic-contact-us.php:210 pages/pray/action-custom-lap.php:416
+#: pages/contact/magic-contact-us.php:210 pages/pray/action-custom-lap.php:417
 #: pages/pray/action-custom-map.php:243 pages/pray/action-global-map.php:211
-#: pages/pray/trait-lap.php:328
+#: pages/pray/trait-lap.php:329
 msgid "Submit"
 msgstr "提交"
 
@@ -1395,9 +1396,8 @@ msgid ""
 "key mark of disciple-making movements. With Prayer.Global, you and your "
 "community can take part in God’s mission to cover the world in prayer."
 msgstr ""
-"Prayer.Global "
-"是一个强大的工具，旨在动员有策略性的、基于圣经的祷告，以完成大使命。它装备个"
-"人、教会和会议参与非凡的祷告——这是门徒训练运动的关键标志。通过 "
+"Prayer.Global 是一个强大的工具，旨在动员有策略性的、基于圣经的祷告，以完成大"
+"使命。它装备个人、教会和会议参与非凡的祷告——这是门徒训练运动的关键标志。通过 "
 "Prayer.Global，您和您的社区可以参与上帝的使命，以祷告覆盖世界。"
 
 #: pages/events/events-body.php:87
@@ -1440,8 +1440,9 @@ msgstr "在最近的一次会议上，与会者在几天的时间里绕着世界
 msgid ""
 "On one Sunday morning, a church of 1200 prayed for the entire world in less "
 "that 10 minutes!"
-msgstr "一个星期天的早上，一座拥有 1200 名信徒的教堂在不到 10 "
-"分钟的时间内为全世界祈祷！"
+msgstr ""
+"一个星期天的早上，一座拥有 1200 名信徒的教堂在不到 10 分钟的时间内为全世界祈"
+"祷！"
 
 #: pages/events/events-body.php:102
 #, fuzzy
@@ -1475,8 +1476,9 @@ msgstr "创建自己的祈祷接力"
 msgid ""
 "Choose a name and decide if it’s public (anyone can join) or private "
 "(accessible only through the URL or QR code)."
-msgstr "选择一个名称并决定它是公开的（任何人都可以加入）还是私人的（只能通过 URL "
-"或二维码访问）。"
+msgstr ""
+"选择一个名称并决定它是公开的（任何人都可以加入）还是私人的（只能通过 URL 或二"
+"维码访问）。"
 
 #: pages/events/events-body.php:119 pages/events/events-body.php:123
 #, fuzzy
@@ -1504,7 +1506,8 @@ msgid ""
 "Share the importance of prayer in fulfilling the Great Commission. Lay a "
 "foundation for the Prayer.Global experience by casting a vision - the “why” "
 "- and setting a goal for your event."
-msgstr "分享祷告在完成大使命中的重要性。通过阐述愿景——“为什么”——并设定活动目标，为 "
+msgstr ""
+"分享祷告在完成大使命中的重要性。通过阐述愿景——“为什么”——并设定活动目标，为 "
 "Prayer.Global 的体验奠定基础。"
 
 #: pages/events/events-body.php:128
@@ -1535,7 +1538,8 @@ msgid ""
 "Each individual would pray for multiple regions, depending on the amount of "
 "time allotted, each time the activity is offered. For reference, on average "
 "ten minutes would allow each person to cover about seven states in prayer."
-msgstr "每次活动期间，每个人都会根据分配的时间，为多个地区祈祷。作为参考，平均每人十"
+msgstr ""
+"每次活动期间，每个人都会根据分配的时间，为多个地区祈祷。作为参考，平均每人十"
 "分钟的祈祷时间，可以覆盖大约七个州。"
 
 #: pages/events/events-body.php:136
@@ -1605,9 +1609,9 @@ msgid ""
 "Give your attendees advance notice of the upcoming Prayer.Global event to "
 "encourage their participation and to help them be prepared to pray on the "
 "day of your event. Here is a proposed timeline for promotion."
-msgstr "提前通知您的参会者即将举行的 Prayer.Global "
-"活动，鼓励他们参与，并帮助他们做好在活动当天祈祷的准备。以下是一份推广活动时"
-"间表。"
+msgstr ""
+"提前通知您的参会者即将举行的 Prayer.Global 活动，鼓励他们参与，并帮助他们做好"
+"在活动当天祈祷的准备。以下是一份推广活动时间表。"
 
 #: pages/events/events-body.php:168
 #, fuzzy
@@ -1622,15 +1626,17 @@ msgid ""
 "Send an email at least 3 days before to cast vision and to encourage your "
 "event attendees to download the Prayer.Global app. Include links to both app "
 "stores."
-msgstr "至少提前三天发送电子邮件，阐述愿景并鼓励活动参与者下载 Prayer.Global "
-"应用程序。请附上两个应用商店的链接。"
+msgstr ""
+"至少提前三天发送电子邮件，阐述愿景并鼓励活动参与者下载 Prayer.Global 应用程"
+"序。请附上两个应用商店的链接。"
 
 #: pages/events/events-body.php:170
 #, fuzzy
 msgid ""
 "Send a text the day before the event with a link to Prayer.Global, if you "
 "have a texting service."
-msgstr "如果您有短信服务，请在活动前一天发送一条包含 Prayer.Global 链接的短信。"
+msgstr ""
+"如果您有短信服务，请在活动前一天发送一条包含 Prayer.Global 链接的短信。"
 
 #: pages/events/events-body.php:171
 #, fuzzy
@@ -1646,9 +1652,9 @@ msgid ""
 "your custom group URL until the day of the event. This helps ensure better "
 "tracking of how many people prayed with you during the event."
 msgstr ""
-"在活动前推广中，我们建议仅推广 Prayer.Global "
-"网站及其应用程序的下载链接。建议您在活动当天之前不要分享您的自定义群组网址。"
-"这有助于更好地追踪活动期间与您一起祈祷的人数。"
+"在活动前推广中，我们建议仅推广 Prayer.Global 网站及其应用程序的下载链接。建议"
+"您在活动当天之前不要分享您的自定义群组网址。这有助于更好地追踪活动期间与您一"
+"起祈祷的人数。"
 
 #: pages/events/events-body.php:190
 #, fuzzy
@@ -1684,8 +1690,9 @@ msgstr "在场地的投影屏幕或电视上显示二维码"
 msgid ""
 "Add a link – like a ‘Pray Now’ button – to your website or other online "
 "resources you are using in the course of your event"
-msgstr "添加一个链接 - 例如“立即祈祷”按钮 - "
-"指向您的网站或您在活动期间使用的其他在线资源"
+msgstr ""
+"添加一个链接 - 例如“立即祈祷”按钮 - 指向您的网站或您在活动期间使用的其他在线"
+"资源"
 
 #: pages/events/events-body.php:202
 #, fuzzy
@@ -1712,9 +1719,8 @@ msgid ""
 "the full minute to scroll through the prompts, demonstrating how to use the "
 "different pieces of information to guide your prayers."
 msgstr ""
-"通过使用屏幕共享、演示电脑或视频引导人们完成祷告提示，展示 Prayer.Global "
-"工具的工作原理。花一分钟时间浏览这些提示，演示如何运用不同的信息来指导你的祷"
-"告。"
+"通过使用屏幕共享、演示电脑或视频引导人们完成祷告提示，展示 Prayer.Global 工具"
+"的工作原理。花一分钟时间浏览这些提示，演示如何运用不同的信息来指导你的祷告。"
 
 #: pages/events/events-body.php:207
 #, fuzzy
@@ -1722,7 +1728,8 @@ msgid ""
 "Provide time for people to get out their devices, scan the codes and to be "
 "ready to go. Give the go ahead to start praying and start the countdown "
 "timer."
-msgstr "为人们提供时间，让他们拿出设备，扫描二维码，准备出发。允许他们开始祈祷，并启"
+msgstr ""
+"为人们提供时间，让他们拿出设备，扫描二维码，准备出发。允许他们开始祈祷，并启"
 "动倒计时。"
 
 #: pages/events/events-body.php:208
@@ -1739,7 +1746,8 @@ msgid ""
 "during that time. You can use the display map to showcase this or provide "
 "that information to a host or worship minister to share when they come on "
 "stage."
-msgstr "如果可能的话，请提供你们小组在这段时间内为多少个州祷告的最新情况。你可以使用"
+msgstr ""
+"如果可能的话，请提供你们小组在这段时间内为多少个州祷告的最新情况。你可以使用"
 "展示地图来展示这些信息，或者在主持人或敬拜牧师上台时分享这些信息。"
 
 #: pages/events/events-body.php:213
@@ -1752,8 +1760,9 @@ msgstr "提供后续步骤"
 msgid ""
 "How do you encourage continued prayer for the nations? Help people "
 "brainstorm ways they can use the Prayer.Global app moving forward."
-msgstr "你如何鼓励大家继续为列国祷告？帮助大家集思广益，思考如何更好地使用 "
-"Prayer.Global 应用程序。"
+msgstr ""
+"你如何鼓励大家继续为列国祷告？帮助大家集思广益，思考如何更好地使用 Prayer."
+"Global 应用程序。"
 
 #: pages/events/events-body.php:215
 #, fuzzy
@@ -1797,9 +1806,8 @@ msgid ""
 "leadership, ushers, and volunteers with a Prayer.Global experience before "
 "the event, as well."
 msgstr ""
-"在推广 Prayer.Global "
-"之前，请先亲自体验一下。此外，还可以考虑在活动开始前，让领导、"
-"引座员和志愿者也体验一下 Prayer.Global 的魅力。"
+"在推广 Prayer.Global 之前，请先亲自体验一下。此外，还可以考虑在活动开始前，让"
+"领导、引座员和志愿者也体验一下 Prayer.Global 的魅力。"
 
 #: pages/events/events-body.php:249
 #, fuzzy
@@ -1814,7 +1822,8 @@ msgid ""
 "Recruit a few technology helpers to be positioned around the room when your "
 "prayer time begins. They can help people troubleshoot any issues with their "
 "device or access the correct prayer relay."
-msgstr "招募几位技术助手，在祷告开始时待在房间各处。他们可以帮助人们排除设备故障，或"
+msgstr ""
+"招募几位技术助手，在祷告开始时待在房间各处。他们可以帮助人们排除设备故障，或"
 "接入正确的祷告接力。"
 
 #: pages/events/events-body.php:251
@@ -1823,7 +1832,8 @@ msgid ""
 "Encourage people to pray out loud. Model this from the stage and play some "
 "soft music during the prayer time. This will help the room not feel empty "
 "while also encouraging participation."
-msgstr "鼓励大家大声祷告。在台上示范，并在祷告时播放一些轻柔的音乐。这能让祷告室不那"
+msgstr ""
+"鼓励大家大声祷告。在台上示范，并在祷告时播放一些轻柔的音乐。这能让祷告室不那"
 "么空旷，同时也能鼓励大家参与。"
 
 #: pages/events/events-body.php:252
@@ -1846,10 +1856,9 @@ msgid ""
 "celebrate once your lap is complete, if not completed during the event.  "
 "Keep the vision and goal of daily prayer for the nations in front of them."
 msgstr ""
-"根据你在 Prayer.Global "
-"活动中的体验，提供后续信息、短信或电子邮件，鼓励人们继续祷告，并在你完成祷告"
-"一圈后（如果在活动中没有完成）庆祝。记住，每天为万国祷告的异象和目标要放在他"
-"们面前。"
+"根据你在 Prayer.Global 活动中的体验，提供后续信息、短信或电子邮件，鼓励人们继"
+"续祷告，并在你完成祷告一圈后（如果在活动中没有完成）庆祝。记住，每天为万国祷"
+"告的异象和目标要放在他们面前。"
 
 #: pages/events/events-body.php:268
 #, fuzzy
@@ -1865,10 +1874,10 @@ msgid ""
 "lifting their voices to God, may you see hearts ignited with a passion to "
 "pray boldly and consistently — not just during your event, but far beyond it."
 msgstr ""
-"感谢您抽出时间探索如何举办 Prayer.Global "
-"活动。遵循以下步骤，您将为活动参与者创造一个强大的机会，让他们团结起来，为万"
-"国祷告。当您引导其他人向上帝发出祷告之声时，愿您看到人们的心被点燃，勇敢而持"
-"续地祷告——不仅在活动期间，也远不止于此。"
+"感谢您抽出时间探索如何举办 Prayer.Global 活动。遵循以下步骤，您将为活动参与者"
+"创造一个强大的机会，让他们团结起来，为万国祷告。当您引导其他人向上帝发出祷告"
+"之声时，愿您看到人们的心被点燃，勇敢而持续地祷告——不仅在活动期间，也远不止于"
+"此。"
 
 #: pages/events/events-body.php:270
 #, fuzzy
@@ -1879,8 +1888,8 @@ msgid ""
 "to all nations and people groups."
 msgstr ""
 "愿主祝福你们的努力，使每一次祷告都产生更大的影响。愿你们的聚会能激发出一群非"
-"凡的祷告勇士，他们愿意为迷失的人站在破口上，见证神的国度扩展到所有国家和民族"
-"。"
+"凡的祷告勇士，他们愿意为迷失的人站在破口上，见证神的国度扩展到所有国家和民"
+"族。"
 
 #: pages/events/events-body.php:271
 #, fuzzy
@@ -1952,14 +1961,16 @@ msgstr "笔记："
 msgid ""
 "If you'd like to avoid the 3% fee that credit card companies charge "
 "everyone, you can send tax deductible donations via check to:"
-msgstr "如果您想避免信用卡公司向每个人收取的 3% fee，您可以通过支票将免税捐款寄至："
+msgstr ""
+"如果您想避免信用卡公司向每个人收取的 3% fee，您可以通过支票将免税捐款寄至："
 
 #: pages/give/give.php:154
 #, fuzzy, php-format
 msgid ""
 "%1$s and by extension %2$s is part of %3$s. You may see %4$s on your invoice "
 "or receipt."
-msgstr "%1$s 及其扩展名 %2$s 是 %3$s 的一部分。您可能会在发票或收据上看到 %4$s。"
+msgstr ""
+"%1$s 及其扩展名 %2$s 是 %3$s 的一部分。您可能会在发票或收据上看到 %4$s。"
 
 #: pages/home/body.php:10 pages/home/body.php:109
 #, fuzzy
@@ -2120,8 +2131,8 @@ msgstr "完全的"
 msgid "Previous"
 msgstr "前一节"
 
-#: pages/home/body.php:207 pages/pray/action-custom-event-lap.php:1502
-#: pages/pray/action-custom-lap.php:243 pages/pray/trait-lap.php:410
+#: pages/home/body.php:207 pages/pray/action-custom-event-lap.php:1503
+#: pages/pray/action-custom-lap.php:244 pages/pray/trait-lap.php:411
 msgid "Next"
 msgstr "下一个"
 
@@ -2240,231 +2251,231 @@ msgid "%1$s of %2$s"
 msgstr "%1$s 共 %2$s"
 
 #: pages/pray/action-custom-event-lap.php:111
-#: pages/pray/action-custom-lap.php:145
-#: pages/pray/action-global-location-map.php:331 pages/pray/trait-lap.php:62
+#: pages/pray/action-custom-lap.php:146
+#: pages/pray/action-global-location-map.php:331 pages/pray/trait-lap.php:63
 #, fuzzy
 msgid "Keep Praying..."
 msgstr "一直祷告..."
 
 #: pages/pray/action-custom-event-lap.php:115
-#: pages/pray/action-custom-lap.php:149
-#: pages/pray/action-global-location-map.php:335 pages/pray/trait-lap.php:66
+#: pages/pray/action-custom-lap.php:150
+#: pages/pray/action-global-location-map.php:335 pages/pray/trait-lap.php:67
 #, fuzzy
 msgid "Praying Paused"
 msgstr "祈祷暂停"
 
 #: pages/pray/action-custom-event-lap.php:116
-#: pages/pray/action-custom-event-lap.php:1532
-#: pages/pray/action-custom-lap.php:151 pages/pray/action-custom-lap.php:271
-#: pages/pray/action-global-location-map.php:337 pages/pray/trait-lap.php:68
-#: pages/pray/trait-lap.php:187
+#: pages/pray/action-custom-event-lap.php:1533
+#: pages/pray/action-custom-lap.php:152 pages/pray/action-custom-lap.php:272
+#: pages/pray/action-global-location-map.php:337 pages/pray/trait-lap.php:69
+#: pages/pray/trait-lap.php:188
 #, fuzzy
 msgid "Prayer Added!"
 msgstr "已添加祷告！"
 
-#: pages/pray/action-custom-event-lap.php:1501
-#: pages/pray/action-custom-lap.php:160 pages/pray/action-custom-lap.php:242
-#: pages/pray/action-global-location.php:118 pages/pray/trait-lap.php:77
-#: pages/pray/trait-lap.php:409
+#: pages/pray/action-custom-event-lap.php:1502
+#: pages/pray/action-custom-lap.php:161 pages/pray/action-custom-lap.php:243
+#: pages/pray/action-global-location.php:118 pages/pray/trait-lap.php:78
+#: pages/pray/trait-lap.php:410
 #, fuzzy
 msgid "Done"
 msgstr "完毕"
 
-#: pages/pray/action-custom-event-lap.php:1517
-#: pages/pray/action-custom-lap.php:256 pages/pray/trait-lap.php:172
+#: pages/pray/action-custom-event-lap.php:1518
+#: pages/pray/action-custom-lap.php:257 pages/pray/trait-lap.php:173
 #, fuzzy
 msgid "Pray for"
 msgstr "祈祷"
 
-#: pages/pray/action-custom-event-lap.php:1522
-#: pages/pray/action-custom-lap.php:261 pages/pray/trait-lap.php:177
+#: pages/pray/action-custom-event-lap.php:1523
+#: pages/pray/action-custom-lap.php:262 pages/pray/trait-lap.php:178
 #, fuzzy, php-format
 msgid "In Prayer Relay %s"
 msgstr "代祷接力 %s"
 
-#: pages/pray/action-custom-event-lap.php:1530
-#: pages/pray/action-custom-lap.php:150 pages/pray/action-custom-lap.php:269
-#: pages/pray/action-global-location-map.php:336 pages/pray/trait-lap.php:67
-#: pages/pray/trait-lap.php:185
+#: pages/pray/action-custom-event-lap.php:1531
+#: pages/pray/action-custom-lap.php:151 pages/pray/action-custom-lap.php:270
+#: pages/pray/action-global-location-map.php:336 pages/pray/trait-lap.php:68
+#: pages/pray/trait-lap.php:186
 #, fuzzy
 msgid "Great Job!"
 msgstr "做得好！"
 
-#: pages/pray/action-custom-event-lap.php:1542
-#: pages/pray/action-custom-lap.php:282 pages/pray/trait-lap.php:198
+#: pages/pray/action-custom-event-lap.php:1543
+#: pages/pray/action-custom-lap.php:283 pages/pray/trait-lap.php:199
 #, fuzzy
 msgid "Are you sure you want to leave?"
 msgstr "您确实要离开吗？"
 
-#: pages/pray/action-custom-event-lap.php:1553
-#: pages/pray/action-custom-lap.php:293 pages/pray/trait-lap.php:209
+#: pages/pray/action-custom-event-lap.php:1554
+#: pages/pray/action-custom-lap.php:294 pages/pray/trait-lap.php:210
 #, fuzzy
 msgid "Keep Praying"
 msgstr "一直祷告"
 
-#: pages/pray/action-custom-event-lap.php:1554
-#: pages/pray/action-custom-lap.php:294
-#: pages/pray/action-global-location.php:126 pages/pray/trait-lap.php:210
+#: pages/pray/action-custom-event-lap.php:1555
+#: pages/pray/action-custom-lap.php:295
+#: pages/pray/action-global-location.php:126 pages/pray/trait-lap.php:211
 #, fuzzy
 msgid "Leave"
 msgstr "离开"
 
-#: pages/pray/action-custom-event-lap.php:1594
-#: pages/pray/action-custom-lap.php:334 pages/pray/trait-lap.php:250
+#: pages/pray/action-custom-event-lap.php:1595
+#: pages/pray/action-custom-lap.php:335 pages/pray/trait-lap.php:251
 #, fuzzy
 msgid "See more"
 msgstr "查看更多"
 
-#: pages/pray/action-custom-event-lap.php:1637
-#: pages/pray/action-custom-lap.php:377 pages/pray/trait-lap.php:293
+#: pages/pray/action-custom-event-lap.php:1638
+#: pages/pray/action-custom-lap.php:378 pages/pray/trait-lap.php:294
 #, fuzzy
 msgid "Show More Guided Prayers"
 msgstr "显示更多引导祈祷"
 
-#: pages/pray/action-custom-lap.php:144 pages/pray/trait-lap.php:61
+#: pages/pray/action-custom-lap.php:145 pages/pray/trait-lap.php:62
 #, fuzzy, php-format
 msgid "%1$s of %2$s"
 msgstr "%1$s 共 %2$s"
 
-#: pages/pray/action-custom-lap.php:152 pages/pray/trait-lap.php:69
+#: pages/pray/action-custom-lap.php:153 pages/pray/trait-lap.php:70
 #: pages/user/login.php:237 pages/user/register.php:216
 #, fuzzy
 msgid "Join and create custom prayer relays"
 msgstr "创建自己的祈祷接力"
 
-#: pages/pray/action-custom-lap.php:153 pages/pray/trait-lap.php:70
+#: pages/pray/action-custom-lap.php:154 pages/pray/trait-lap.php:71
 #: pages/user/login.php:241 pages/user/register.php:220
 #, fuzzy
 msgid "View your interactive prayer history"
 msgstr "查看你的祈祷历史"
 
-#: pages/pray/action-custom-lap.php:154 pages/pray/trait-lap.php:71
+#: pages/pray/action-custom-lap.php:155 pages/pray/trait-lap.php:72
 #: pages/user/register.php:224
 #, fuzzy
 msgid "Prayer streaks, badges and more"
 msgstr "获得徽章及更多"
 
-#: pages/pray/action-custom-lap.php:155 pages/pray/trait-lap.php:72
+#: pages/pray/action-custom-lap.php:156 pages/pray/trait-lap.php:73
 #, fuzzy
 msgid "Register Now"
 msgstr "立即注册"
 
-#: pages/pray/action-custom-lap.php:156 pages/pray/trait-lap.php:73
+#: pages/pray/action-custom-lap.php:157 pages/pray/trait-lap.php:74
 #: pages/user/register.php:212
 #, fuzzy
 msgid "Create your own free login"
 msgstr "创建自己的祈祷接力"
 
-#: pages/pray/action-custom-lap.php:157 pages/pray/trait-lap.php:74
+#: pages/pray/action-custom-lap.php:158 pages/pray/trait-lap.php:75
 #: pages/user/login.php:218
 #, fuzzy
 msgid "No Thanks"
 msgstr "不，谢谢"
 
-#: pages/pray/action-custom-lap.php:158 pages/pray/trait-lap.php:75
+#: pages/pray/action-custom-lap.php:159 pages/pray/trait-lap.php:76
 #: pages/user/user-dashboard.php:170
 #, fuzzy
 msgid "Daily Prayer Streak"
 msgstr "我的祈祷接力"
 
-#: pages/pray/action-custom-lap.php:159 pages/pray/trait-lap.php:76
+#: pages/pray/action-custom-lap.php:160 pages/pray/trait-lap.php:77
 #: pages/user/user-dashboard.php:171
 #, fuzzy
 msgid "Best"
 msgstr "最好的"
 
-#: pages/pray/action-custom-lap.php:161 pages/pray/trait-lap.php:78
+#: pages/pray/action-custom-lap.php:162 pages/pray/trait-lap.php:79
 #, fuzzy
 msgid "Fetching your stats..."
 msgstr "正在获取您的统计数据..."
 
-#: pages/pray/action-custom-lap.php:162 pages/pray/trait-lap.php:79
+#: pages/pray/action-custom-lap.php:163 pages/pray/trait-lap.php:80
 #: pages/user/user-dashboard.php:207
 #, fuzzy
 msgid "Download the Prayer.Global app to get streak notifications and more!"
 msgstr "下载 Prayer.Global 应用程序以获取连续通知及更多信息！"
 
-#: pages/pray/action-custom-lap.php:163 pages/pray/trait-lap.php:80
+#: pages/pray/action-custom-lap.php:164 pages/pray/trait-lap.php:81
 #: pages/user/user-dashboard.php:208
 #, fuzzy
 msgid "Update the Prayer.Global app to get streak notifications and more!"
 msgstr "更新 Prayer.Global 应用程序以获取连续通知及更多信息！"
 
-#: pages/pray/action-custom-lap.php:164 pages/pray/trait-lap.php:81
+#: pages/pray/action-custom-lap.php:165 pages/pray/trait-lap.php:82
 #: pages/user/user-dashboard.php:209
 #, fuzzy
 msgid "Go to App Store"
 msgstr "前往 App Store"
 
-#: pages/pray/action-custom-lap.php:382 pages/pray/trait-lap.php:294
+#: pages/pray/action-custom-lap.php:383 pages/pray/trait-lap.php:295
 #, fuzzy
 msgid "Correction Needed?"
 msgstr "需要更正吗？"
 
-#: pages/pray/action-custom-lap.php:391 pages/pray/action-custom-map.php:229
-#: pages/pray/action-global-map.php:197 pages/pray/trait-lap.php:303
+#: pages/pray/action-custom-lap.php:392 pages/pray/action-custom-map.php:229
+#: pages/pray/action-global-map.php:197 pages/pray/trait-lap.php:304
 #, fuzzy
 msgid "Thank you! Leave us a correction below."
 msgstr "谢谢！请在下方留言纠正。"
 
-#: pages/pray/action-custom-lap.php:402 pages/pray/action-custom-map.php:235
-#: pages/pray/action-global-map.php:203 pages/pray/trait-lap.php:314
+#: pages/pray/action-custom-lap.php:403 pages/pray/action-custom-map.php:235
+#: pages/pray/action-global-map.php:203 pages/pray/trait-lap.php:315
 #, fuzzy
 msgid "Section:"
 msgstr "部分："
 
-#: pages/pray/action-custom-lap.php:408 pages/pray/action-custom-map.php:239
-#: pages/pray/action-global-map.php:207 pages/pray/trait-lap.php:320
+#: pages/pray/action-custom-lap.php:409 pages/pray/action-custom-map.php:239
+#: pages/pray/action-global-map.php:207 pages/pray/trait-lap.php:321
 #, fuzzy
 msgid "Correction Requested:"
 msgstr "要求更正："
 
-#: pages/pray/action-custom-lap.php:427 pages/pray/trait-lap.php:339
+#: pages/pray/action-custom-lap.php:428 pages/pray/trait-lap.php:340
 #, fuzzy
 msgid "Set Your Prayer Experience"
 msgstr "设定你的祷告体验"
 
-#: pages/pray/action-custom-lap.php:436 pages/pray/trait-lap.php:348
+#: pages/pray/action-custom-lap.php:437 pages/pray/trait-lap.php:349
 #, fuzzy
 msgid "Prayer pace per place"
 msgstr "每个地方的祈祷速度"
 
-#: pages/pray/action-custom-lap.php:439 pages/pray/trait-lap.php:351
+#: pages/pray/action-custom-lap.php:440 pages/pray/trait-lap.php:352
 #, fuzzy, php-format
 msgid "%d Minute"
 msgstr "%d 分钟"
 
-#: pages/pray/action-custom-lap.php:440 pages/pray/action-custom-lap.php:441
-#: pages/pray/action-custom-lap.php:442 pages/pray/action-custom-lap.php:443
-#: pages/pray/action-custom-lap.php:444 pages/pray/trait-lap.php:352
-#: pages/pray/trait-lap.php:353 pages/pray/trait-lap.php:354
-#: pages/pray/trait-lap.php:355 pages/pray/trait-lap.php:356
+#: pages/pray/action-custom-lap.php:441 pages/pray/action-custom-lap.php:442
+#: pages/pray/action-custom-lap.php:443 pages/pray/action-custom-lap.php:444
+#: pages/pray/action-custom-lap.php:445 pages/pray/trait-lap.php:353
+#: pages/pray/trait-lap.php:354 pages/pray/trait-lap.php:355
+#: pages/pray/trait-lap.php:356 pages/pray/trait-lap.php:357
 #, fuzzy, php-format
 msgid "%d Minutes"
 msgstr "%d 分钟"
 
-#: pages/pray/action-custom-lap.php:448 pages/pray/action-custom-lap.php:486
-#: pages/pray/trait-lap.php:360 pages/pray/trait-lap.php:398
+#: pages/pray/action-custom-lap.php:449 pages/pray/action-custom-lap.php:487
+#: pages/pray/trait-lap.php:361 pages/pray/trait-lap.php:399
 #, fuzzy
 msgid "Let's Go!"
 msgstr "我们走吧！"
 
-#: pages/pray/action-custom-lap.php:464 pages/pray/trait-lap.php:376
+#: pages/pray/action-custom-lap.php:465 pages/pray/trait-lap.php:377
 #, fuzzy, php-format
 msgid "How %s works"
 msgstr "%s 的工作原理"
 
-#: pages/pray/action-custom-lap.php:465 pages/pray/trait-lap.php:377
+#: pages/pray/action-custom-lap.php:466 pages/pray/trait-lap.php:378
 #, fuzzy
 msgid "Step 1"
 msgstr "步骤1"
 
-#: pages/pray/action-custom-lap.php:470 pages/pray/trait-lap.php:382
+#: pages/pray/action-custom-lap.php:471 pages/pray/trait-lap.php:383
 #, fuzzy
 msgid "Step 2"
 msgstr "第2步"
 
-#: pages/pray/action-custom-lap.php:477 pages/pray/trait-lap.php:389
+#: pages/pray/action-custom-lap.php:478 pages/pray/trait-lap.php:390
 #, fuzzy
 msgid "Step 3"
 msgstr "步骤3"
@@ -8380,7 +8391,8 @@ msgstr "这就是再见吗？"
 msgid ""
 "We understand life gets busy, but your prayers make an impact. We'd love to "
 "have you back whenever you're ready."
-msgstr "我们理解生活忙碌，但您的祈祷会带来影响。无论您何时准备好，我们都欢迎您再次光"
+msgstr ""
+"我们理解生活忙碌，但您的祈祷会带来影响。无论您何时准备好，我们都欢迎您再次光"
 "临。"
 
 #, fuzzy
