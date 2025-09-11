@@ -86,7 +86,7 @@ class PG_Badge_Manager {
                 $i++;
             }
 
-            if ( $this->has_earned_progression_badge( $next_badge ) ) {
+            if ( $this->has_user_got_badge( $next_badge ) ) {
                 $next_badge = pg_null_badge( $badge->get_category(), $badge->get_type() );
             }
 
@@ -136,7 +136,7 @@ class PG_Badge_Manager {
                 // If not see if they have earned any of the achievements
                 $badges = $this->pg_badges->get_category_badges( $category );
                 foreach ( $badges as $badge ) {
-                    if ( $this->has_earned_badge( $badge ) ) {
+                    if ( $this->has_earned_achievement_badge( $badge ) ) {
                         $new_badges[] = $badge;
                     }
                 }
@@ -177,6 +177,11 @@ class PG_Badge_Manager {
         }
         return null;
     }
+    /**
+     * Dose the users's stats meet the requirements for the progression badge
+     * @param PG_Badge $badge
+     * @return bool
+     */
     private function has_earned_progression_badge( PG_Badge $badge ): bool {
         if ( $badge->get_category() === PG_Badges::CATEGORY_STREAK ) {
             $best_streak = $this->user_stats->best_streak_in_days();
@@ -194,12 +199,12 @@ class PG_Badge_Manager {
     }
 
     /**
-     * Check if the user has earned a badge
+     * Dose the user's stats meet the requirements for the achievement badge
      * @param PG_Badge $badge
      * @return bool
      */
-    private function has_earned_badge( PG_Badge $badge ): bool {
-        if ( $this->has_user_already_earned_badge( $badge ) ) {
+    private function has_earned_achievement_badge( PG_Badge $badge ): bool {
+        if ( $this->has_user_got_badge( $badge ) ) {
             return false;
         }
 
@@ -214,7 +219,7 @@ class PG_Badge_Manager {
      * @param PG_Badge $badge
      * @return bool
      */
-    private function has_user_already_earned_badge( PG_Badge $badge ): bool {
+    private function has_user_got_badge( PG_Badge $badge ): bool {
         $earned_badges = $this->get_user_badges();
         foreach ( $earned_badges as $earned_badge ) {
             if ( $badge->equals( $earned_badge ) ) {
