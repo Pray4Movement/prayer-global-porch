@@ -149,30 +149,33 @@ class PG_Badges {
                         'title' => __( 'Comeback Champion', 'prayer-global-porch' ),
                         'description' => __( 'It\'s great to have you back!', 'prayer-global-porch' ),
                         'value' => 1,
+                        'hidden' => true,
                     ],
                 ],
             ]
         ];
 
-        $badges_as_objects = [];
+        $all_badges = [];
         foreach ( $badges as $category_name => $category ) {
             $type = $category['type'];
-            $badges_as_objects[$category_name] = [
+            $all_badges[$category_name] = [
                 'type' => $type,
                 'badges' => [],
             ];
             foreach ( $category['badges'] as $badge ) {
-                $badges_as_objects[$category_name]['badges'][$badge['id']] = new PG_Badge(
+                $all_badges[$category_name]['badges'][$badge['id']] = new PG_Badge(
                     $badge['id'],
                     $badge['title'],
                     $badge['description'],
                     $category_name,
                     $badge['value'],
-                    $type
+                    $type,
+                    $badge['hidden'] ?? false,
+                    $badge['deprecated'] ?? false
                 );
             }
         }
-        $this->badges = $badges_as_objects;
+        $this->badges = $all_badges;
     }
 
     /**

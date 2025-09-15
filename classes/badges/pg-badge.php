@@ -7,14 +7,26 @@ class PG_Badge {
     private string $category;
     private int $value;
     private string $type;
-
-    public function __construct( string $id, string $title, string $description, string $category, int $value, string $type ) {
+    private bool $hidden;
+    private bool $deprecated;
+    public function __construct(
+        string $id,
+        string $title,
+        string $description,
+        string $category,
+        int $value,
+        string $type,
+        bool $hidden = false,
+        bool $deprecated = false
+    ) {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
         $this->category = $category;
         $this->value = $value;
         $this->type = $type;
+        $this->hidden = $hidden;
+        $this->deprecated = $deprecated;
     }
 
     public function get_id(): string {
@@ -50,6 +62,14 @@ class PG_Badge {
         return $this->value < $badge->value;
     }
 
+    public function is_hidden(): bool {
+        return $this->hidden;
+    }
+
+    public function is_deprecated(): bool {
+        return $this->deprecated;
+    }
+
     public function to_array(): array {
         return [
             'id' => $this->id,
@@ -58,6 +78,8 @@ class PG_Badge {
             'category' => $this->category,
             'value' => $this->value,
             'type' => $this->type,
+            'hidden' => $this->hidden,
+            'deprecated' => $this->deprecated,
         ];
     }
 }
