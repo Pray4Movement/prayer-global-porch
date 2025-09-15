@@ -87,8 +87,8 @@ class PG_Test_Push extends PG_Public_Page {
         }
         $user = $user->to_array();
         $user_language = get_user_meta( $user['ID'], PG_NAMESPACE . 'language', true );
-        //$user_language = !empty( $user_language ) ? $user_language : 'en_US';
-        pg_set_translation( $user_language );
+        $user_language = !empty( $user_language ) ? $user_language : 'en_US';
+        pg_switch_notifications_locale( $user_language );
 
         // create user stats
         // last prayer date
