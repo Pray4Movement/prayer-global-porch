@@ -39,7 +39,7 @@ class PG_Notification_Handler_Job extends Job {
             $user_language = get_user_meta( $user->ID, PG_NAMESPACE . 'language', true );
             $user_language = !empty( $user_language ) ? $user_language : 'en_US';
 
-            pg_set_translation( $user_language, $force );
+            pg_switch_notifications_locale( $user_language );
 
             // get the user milestones
             $milestones_manager = new PG_Milestones( $user->ID );

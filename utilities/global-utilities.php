@@ -5488,18 +5488,9 @@ function pg_get_current_lang(): string {
     return $lang;
 }
 function pg_switch_notifications_locale( $user_locale = null ){
-    $lang_code = 'en_US';
     if ( !empty( $user_locale ) ){
-        $lang_code = $user_locale;
+        load_textdomain( 'prayer-global-porch', WP_LANG_DIR . '/plugins/prayer-global-porch-' . $user_locale . '.mo', $user_locale );
     }
-    add_filter( 'determine_locale', function ( $locale ) use ( $lang_code ){
-        if ( !empty( $lang_code ) ){
-            return $lang_code;
-        }
-        return $locale;
-    }, 1500, 1 );
-    unload_textdomain( 'prayer-global-porch' );
-    pg_reload_text_domain();
 }
 function pg_set_translation( $lang, $force = false ){
     if ( $lang !== 'en_US' || $force ){
