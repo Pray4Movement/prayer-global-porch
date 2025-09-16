@@ -6,13 +6,68 @@ class PG_Milestones
 
     private $streak_milestones = [ 2, 7, 14, 30, 60, 100 ];
 
+    private $inactivity_milestones;
+
     public function __construct( int $user_id )
     {
         $this->user_stats = new User_Stats( $user_id );
 
-        if ( false && defined( 'WP_DEBUG' ) && WP_DEBUG ) {
-            $this->streak_milestones = [ 1, 2, 3, 4, 5, 6, 7, 14, 30, 60, 100 ];
-        }
+        $this->inactivity_milestones = [
+            1 => [
+                'title' => __( 'Keep your streak alive', 'prayer-global-porch' ),
+                'message' => __( 'Keep praying to maintain your streak!', 'prayer-global-porch' ),
+                'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                'use_hours' => true,
+            ],
+            2 => [
+                'title' => __( 'Oh no! Your streak has ended', 'prayer-global-porch' ),
+                'message' => __( 'Your prayer streak has ended. Start a new one today!', 'prayer-global-porch' ),
+                'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                'use_hours' => false,
+            ],
+            7 => [
+                'title' => __( 'We Miss You—Let\'s Pray Today!', 'prayer-global-porch' ),
+                'message' => __( 'Haven\'t seen you in a while—take a moment today to reconnect in prayer!', 'prayer-global-porch' ),
+                'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                'use_hours' => false,
+            ],
+            14 => [
+                'title' => __( 'Prayer Changes Everything—Come Back!', 'prayer-global-porch' ),
+                'message' => __( 'Your prayers matter! Take a moment today and join us in covering the world in prayer again.', 'prayer-global-porch' ),
+                'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                'use_hours' => false,
+            ],
+            30 => [
+                'title' => __( 'Let\'s Reconnect—Your Prayers Are Needed', 'prayer-global-porch' ),
+                'message' => __( 'The world needs prayer warriors like you. Jump back in today and be part of something bigger!', 'prayer-global-porch' ),
+                'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                'use_hours' => false,
+            ],
+            60 => [
+                'title' => __( 'Time to Come Back', 'prayer-global-porch' ),
+                'message' => __( 'We\'d love to have you back praying with us!', 'prayer-global-porch' ),
+                'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                'use_hours' => false,
+            ],
+            90 => [
+                'title' => __( 'Missing Your Prayers', 'prayer-global-porch' ),
+                'message' => __( 'Your prayer journey can restart anytime - join us again!', 'prayer-global-porch' ),
+                'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                'use_hours' => false,
+            ],
+            180 => [
+                'title' => __( 'It\'s been a while!', 'prayer-global-porch' ),
+                'message' => __( 'Would you like to restart with a fresh goal?', 'prayer-global-porch' ),
+                'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                'use_hours' => false,
+            ],
+            365 => [
+                'title' => __( 'Is This Goodbye?', 'prayer-global-porch' ),
+                'message' => __( 'We understand life gets busy, but your prayers make an impact. We\'d love to have you back whenever you\'re ready.', 'prayer-global-porch' ),
+                'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+                'use_hours' => false,
+            ],
+        ];
     }
 
     /**
@@ -159,6 +214,60 @@ class PG_Milestones
     }
 
     /**
+     * Find matching milestone based on configuration and current state
+     *
+     * @param array $milestone_config Configuration array for milestones
+     * @param int $current_value Current days/hours of inactivity
+     * @param bool $next_milestone Whether to find next milestone
+     * @return array Array of PG_Milestone objects
+     */
+    private function find_matching_milestone( array $milestone_config, int $current_value, bool $next_milestone = false ): array
+    {
+        if ( $current_value === 0 ) {
+            return [];
+        }
+
+        $url = site_url( 'dashboard' );
+        $milestone_keys = array_keys( $milestone_config );
+        sort( $milestone_keys );
+
+        $target_milestone = null;
+
+        if ( $next_milestone ) {
+            foreach ( $milestone_keys as $milestone_days ) {
+                if ( $current_value <= $milestone_days ) {
+                    $target_milestone = $milestone_days;
+                    break;
+                }
+            }
+        } else {
+            foreach ( array_reverse( $milestone_keys ) as $milestone_days ) {
+                if ( $current_value === $milestone_days ) {
+                    $target_milestone = $milestone_days;
+                    break;
+                }
+            }
+        }
+
+        if ( ! $target_milestone || ! isset( $milestone_config[ $target_milestone ] ) ) {
+            return [];
+        }
+
+        $config = $milestone_config[ $target_milestone ];
+
+        return [
+            new PG_Milestone(
+                $config['title'],
+                $config['message'],
+                'inactivity',
+                $target_milestone,
+                $config['channels'],
+                $url
+            )
+        ];
+    }
+
+    /**
      * Get the inactivity milestones
      *
      * @return PG_Milestone[]
@@ -166,132 +275,11 @@ class PG_Milestones
     private function get_inactivity_milestone( bool $next_milestone = false ): array
     {
         $days_inactive = $this->user_stats->days_of_inactivity();
-        if ( $days_inactive === 0 ) {
-            return [];
-        }
 
-        $url = site_url( 'dashboard' );
-
-        if ( $next_milestone ) {
-            $hours_inactive = $this->user_stats->hours_of_inactivity();
-        }
-        if ( $days_inactive === 1 || ( $next_milestone && $hours_inactive < 1 ) ) {
-            return [
-            new PG_Milestone(
-                __( 'Keep your streak alive', 'prayer-global-porch' ),
-                __( 'Keep praying to maintain your streak!', 'prayer-global-porch' ),
-                'inactivity',
-                1,
-                [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                $url,
-            )
-            ];
-        }
-
-        if ( $days_inactive === 2 || ( $next_milestone && $days_inactive < 2 ) ) {
-            return [
-            new PG_Milestone(
-                __( 'Oh no! Your streak has ended', 'prayer-global-porch' ),
-                __( 'Your prayer streak has ended. Start a new one today!', 'prayer-global-porch' ),
-                'inactivity',
-                2,
-                [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                $url,
-            )
-            ];
-        }
-
-        if ( $days_inactive === 7 || ( $next_milestone && $days_inactive < 7 ) ) {
-            return [
-            new PG_Milestone(
-                __( 'We Miss You—Let\'s Pray Today!', 'prayer-global-porch' ),
-                __( 'Haven\'t seen you in a while—take a moment today to reconnect in prayer!', 'prayer-global-porch' ),
-                'inactivity',
-                7,
-                [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                $url,
-            )
-            ];
-        }
-
-        if ( $days_inactive === 14 || ( $next_milestone && $days_inactive < 14 ) ) {
-            return [
-            new PG_Milestone(
-                __( 'Prayer Changes Everything—Come Back!', 'prayer-global-porch' ),
-                __( 'Your prayers matter! Take a moment today and join us in covering the world in prayer again.', 'prayer-global-porch' ),
-                'inactivity',
-                14,
-                [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                $url,
-            )
-            ];
-        }
-
-        if ( $days_inactive === 30 || ( $next_milestone && $days_inactive < 30 ) ) {
-            return [
-            new PG_Milestone(
-                __( 'Let\'s Reconnect—Your Prayers Are Needed', 'prayer-global-porch' ),
-                __( 'The world needs prayer warriors like you. Jump back in today and be part of something bigger!', 'prayer-global-porch' ),
-                'inactivity',
-                30,
-                [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                $url,
-            )
-            ];
-        }
-
-        if ( $days_inactive === 60 || ( $next_milestone && $days_inactive < 60 ) ) {
-            return [
-            new PG_Milestone(
-                __( 'Time to Come Back', 'prayer-global-porch' ),
-                __( 'We\'d love to have you back praying with us!', 'prayer-global-porch' ),
-                'inactivity',
-                60,
-                [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                $url,
-            )
-            ];
-        }
-
-        if ( $days_inactive === 90 || ( $next_milestone && $days_inactive < 90 ) ) {
-            return [
-            new PG_Milestone(
-                __( 'Missing Your Prayers', 'prayer-global-porch' ),
-                __( 'Your prayer journey can restart anytime - join us again!', 'prayer-global-porch' ),
-                'inactivity',
-                90,
-                [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                $url,
-            )
-            ];
-        }
-
-        if ( $days_inactive === 180 || ( $next_milestone && $days_inactive < 180 ) ) {
-            return [
-            new PG_Milestone(
-                __( 'It\'s been a while!', 'prayer-global-porch' ),
-                __( 'Would you like to restart with a fresh goal?', 'prayer-global-porch' ),
-                'inactivity',
-                180,
-                [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                $url,
-            )
-            ];
-        }
-
-        if ( $days_inactive === 365 || ( $next_milestone && $days_inactive < 365 ) ) {
-            return [
-            new PG_Milestone(
-                __( 'Is This Goodbye?', 'prayer-global-porch' ),
-                __( 'We understand life gets busy, but your prayers make an impact. We\'d love to have you back whenever you\'re ready.', 'prayer-global-porch' ),
-                'inactivity',
-                365,
-                [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                $url,
-            )
-            ];
-        }
-
-        return [];
+        return $this->find_matching_milestone(
+            $this->inactivity_milestones,
+            $days_inactive,
+            $next_milestone
+        );
     }
 }

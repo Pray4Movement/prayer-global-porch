@@ -5487,7 +5487,11 @@ function pg_get_current_lang(): string {
     }
     return $lang;
 }
-
+function pg_switch_notifications_locale( $user_locale = null ){
+    if ( !empty( $user_locale ) ){
+        load_textdomain( 'prayer-global-porch', WP_LANG_DIR . '/plugins/prayer-global-porch-' . $user_locale . '.mo', $user_locale );
+    }
+}
 function pg_set_translation( $lang, $force = false ){
     if ( $lang !== 'en_US' || $force ){
         add_filter( 'determine_locale', function ( $locale ) use ( $lang ){
@@ -5512,4 +5516,19 @@ function pg_add_lang_to_cookie( string $lang ) {
         return;
     }
     setcookie( 'dt-magic-link-lang', $lang, 0, '/' );
+}
+
+if ( ! function_exists( 'array_map_assoc' ) ) {
+    /**
+     * Map an array using a callback function that passes the value and the key
+     *
+     * @param mixed $callback
+     * @param mixed $array
+     * @return array
+     */
+    function array_map_assoc( $callback, $array ) {
+        return array_map( function( $key ) use ( $callback, $array ) {
+            return $callback( $array[$key], $key );
+        }, array_keys( $array ) );
+    }
 }
