@@ -54,9 +54,11 @@ class PG_Stacker {
         PG_Stacker_Text::_for_obedience( $lists, $stack );
         PG_Stacker_Text::_for_reliance_on_god( $lists, $stack );
         PG_Stacker_Text::_for_faithfulness( $lists, $stack );
+        PG_Stacker_Text::_for_suffering( $lists, $stack );
         PG_Stacker_Text::_for_love_and_generosity( $lists, $stack );
         PG_Stacker_Text::_for_kingdom_urgency( $lists, $stack );
-        PG_Stacker_Text::_for_suffering( $lists, $stack );
+        PG_Stacker_Text::_for_unity_and_working_together( $lists, $stack );
+        PG_Stacker_Text::_for_i_am_statements( $lists, $stack );
 //        PG_Stacker_Text::_cities( $lists, $stack );
 
         foreach ( $lists as $content ) { // kill duplication
