@@ -87,126 +87,126 @@ class Prayer_Global_Show_All extends DT_Magic_Url_Base
         $lists = [];
 
         $empty_array = [];
-        $lists['_for_extraordinary_prayer'] = PG_Stacker_Text::_for_extraordinary_prayer( $empty_array, $stack, true );
+        $lists['_for_extraordinary_prayer'] = PG_Stacker_Text::_for_extraordinary_prayer( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_for_intentional_movement_strategy'] = PG_Stacker_Text::_for_intentional_movement_strategy( $empty_array, $stack, true );
+        $lists['_for_intentional_movement_strategy'] = PG_Stacker_Text::_for_intentional_movement_strategy( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_for_abundant_gospel_sowing'] = PG_Stacker_Text::_for_abundant_gospel_sowing( $empty_array, $stack, true );
+        $lists['_for_abundant_gospel_sowing'] = PG_Stacker_Text::_for_abundant_gospel_sowing( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_for_persons_of_peace'] = PG_Stacker_Text::_for_persons_of_peace( $empty_array, $stack, true );
+        $lists['_for_persons_of_peace'] = PG_Stacker_Text::_for_persons_of_peace( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_for_prioritizing_priesthood_of_believers'] = PG_Stacker_Text::_for_prioritizing_priesthood_of_believers( $empty_array, $stack, true );
+        $lists['_for_prioritizing_priesthood_of_believers'] = PG_Stacker_Text::_for_prioritizing_priesthood_of_believers( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_for_unleashing_simple_churches'] = PG_Stacker_Text::_for_unleashing_simple_churches( $empty_array, $stack, true );
-
-
-
-
-        $empty_array = [];
-        $lists['_for_bible_access'] = PG_Stacker_Text::_for_bible_access( $empty_array, $stack, true );
-
-        $empty_array = [];
-        $lists['_for_internet_gospel_access'] = PG_Stacker_Text::_for_internet_gospel_access( $empty_array, $stack, true );
-
-
-
-        $empty_array = [];
-        $lists['_for_safety'] = PG_Stacker_Text::_for_safety( $empty_array, $stack, true );
-
-        $empty_array = [];
-        $lists['_for_political_stability'] = PG_Stacker_Text::_for_political_stability( $empty_array, $stack, true );
-
-
-
-        $empty_array = [];
-        $lists['_for_demographic_feature_total_population'] = PG_Stacker_Text::_for_demographic_feature_total_population( $empty_array, $stack, true );
-
-        $empty_array = [];
-        $lists['_for_demographic_feature_population_non_christians'] = PG_Stacker_Text::_for_demographic_feature_population_non_christians( $empty_array, $stack, true );
-
-        $empty_array = [];
-        $lists['_for_demographic_feature_population_christian_adherents'] = PG_Stacker_Text::_for_demographic_feature_population_christian_adherents( $empty_array, $stack, true );
-
-        $empty_array = [];
-        $lists['_for_demographic_feature_population_believers'] = PG_Stacker_Text::_for_demographic_feature_population_believers( $empty_array, $stack, true );
-
-        $empty_array = [];
-        $lists['_for_demographic_feature_primary_religion'] = PG_Stacker_Text::_for_demographic_feature_primary_religion( $empty_array, $stack, true );
-
-        $empty_array = [];
-        $lists['_for_demographic_feature_primary_language'] = PG_Stacker_Text::_for_demographic_feature_primary_language( $empty_array, $stack, true );
+        $lists['_for_unleashing_simple_churches'] = PG_Stacker_Text::_for_unleashing_simple_churches( $empty_array, $stack, true, include_ai: true );
 
 
 
 
         $empty_array = [];
-        $lists['_for_people_groups_by_least_reached_status'] = PG_Stacker_Text::_for_people_groups_by_least_reached_status( $empty_array, $stack, true );
+        $lists['_for_bible_access'] = PG_Stacker_Text::_for_bible_access( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_for_people_groups_by_reached_status'] = PG_Stacker_Text::_for_people_groups_by_reached_status( $empty_array, $stack, true );
-
-        $empty_array = [];
-        $lists['_for_people_groups_by_religion'] = PG_Stacker_Text::_for_people_groups_by_religion( $empty_array, $stack, true );
-
-        $empty_array = [];
-        $lists['_for_people_groups_by_population'] = PG_Stacker_Text::_for_people_groups_by_population( $empty_array, $stack, true );
+        $lists['_for_internet_gospel_access'] = PG_Stacker_Text::_for_internet_gospel_access( $empty_array, $stack, true, include_ai: true );
 
 
 
         $empty_array = [];
-        $lists['_for_local_leadership'] = PG_Stacker_Text::_for_local_leadership( $empty_array, $stack, true ); // convert these to the next series below
+        $lists['_for_safety'] = PG_Stacker_Text::_for_safety( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_for_apostolic_pioneering_leadership'] = PG_Stacker_Text::_for_apostolic_pioneering_leadership( $empty_array, $stack, true );
-
-        $empty_array = [];
-        $lists['_for_evangelistic_leadership'] = PG_Stacker_Text::_for_evangelistic_leadership( $empty_array, $stack, true );
-
-        $empty_array = [];
-        $lists['_for_prophetic_leadership'] = PG_Stacker_Text::_for_prophetic_leadership( $empty_array, $stack, true );
-
-        $empty_array = [];
-        $lists['_for_shepherding_leadership'] = PG_Stacker_Text::_for_shepherding_leadership( $empty_array, $stack, true );
-
-        $empty_array = [];
-        $lists['_for_teaching_leadership'] = PG_Stacker_Text::_for_teaching_leadership( $empty_array, $stack, true );
+        $lists['_for_political_stability'] = PG_Stacker_Text::_for_political_stability( $empty_array, $stack, true, include_ai: true );
 
 
 
         $empty_array = [];
-        $lists['_for_biblical_authority'] = PG_Stacker_Text::_for_biblical_authority( $empty_array, $stack, true );
+        $lists['_for_demographic_feature_total_population'] = PG_Stacker_Text::_for_demographic_feature_total_population( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_for_obedience'] = PG_Stacker_Text::_for_obedience( $empty_array, $stack, true );
+        $lists['_for_demographic_feature_population_non_christians'] = PG_Stacker_Text::_for_demographic_feature_population_non_christians( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_for_reliance_on_god'] = PG_Stacker_Text::_for_reliance_on_god( $empty_array, $stack, true );
+        $lists['_for_demographic_feature_population_christian_adherents'] = PG_Stacker_Text::_for_demographic_feature_population_christian_adherents( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_for_faithfulness'] = PG_Stacker_Text::_for_faithfulness( $empty_array, $stack, true );
+        $lists['_for_demographic_feature_population_believers'] = PG_Stacker_Text::_for_demographic_feature_population_believers( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_for_love_and_generosity'] = PG_Stacker_Text::_for_love_and_generosity( $empty_array, $stack, true );
+        $lists['_for_demographic_feature_primary_religion'] = PG_Stacker_Text::_for_demographic_feature_primary_religion( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_for_kingdom_urgency'] = PG_Stacker_Text::_for_kingdom_urgency( $empty_array, $stack, true );
+        $lists['_for_demographic_feature_primary_language'] = PG_Stacker_Text::_for_demographic_feature_primary_language( $empty_array, $stack, true, include_ai: true );
+
+
+
 
         $empty_array = [];
-        $lists['_for_suffering'] = PG_Stacker_Text::_for_suffering( $empty_array, $stack, true );
+        $lists['_for_people_groups_by_least_reached_status'] = PG_Stacker_Text::_for_people_groups_by_least_reached_status( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_for_unity_and_working_together'] = PG_Stacker_Text::_for_unity_and_working_together( $empty_array, $stack, true );
+        $lists['_for_people_groups_by_reached_status'] = PG_Stacker_Text::_for_people_groups_by_reached_status( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_i_am_statements'] = PG_Stacker_Text::_i_am_statements( $empty_array, $stack, true );
+        $lists['_for_people_groups_by_religion'] = PG_Stacker_Text::_for_people_groups_by_religion( $empty_array, $stack, true, include_ai: true );
 
         $empty_array = [];
-        $lists['_cities'] = PG_Stacker_Text::_cities( $empty_array, $stack, true );
+        $lists['_for_people_groups_by_population'] = PG_Stacker_Text::_for_people_groups_by_population( $empty_array, $stack, true, include_ai: true );
+
+
+
+        $empty_array = [];
+        $lists['_for_local_leadership'] = PG_Stacker_Text::_for_local_leadership( $empty_array, $stack, true, include_ai: true ); // convert these to the next series below
+
+        $empty_array = [];
+        $lists['_for_apostolic_pioneering_leadership'] = PG_Stacker_Text::_for_apostolic_pioneering_leadership( $empty_array, $stack, true, include_ai: true );
+
+        $empty_array = [];
+        $lists['_for_evangelistic_leadership'] = PG_Stacker_Text::_for_evangelistic_leadership( $empty_array, $stack, true, include_ai: true );
+
+        $empty_array = [];
+        $lists['_for_prophetic_leadership'] = PG_Stacker_Text::_for_prophetic_leadership( $empty_array, $stack, true, include_ai: true );
+
+        $empty_array = [];
+        $lists['_for_shepherding_leadership'] = PG_Stacker_Text::_for_shepherding_leadership( $empty_array, $stack, true, include_ai: true );
+
+        $empty_array = [];
+        $lists['_for_teaching_leadership'] = PG_Stacker_Text::_for_teaching_leadership( $empty_array, $stack, true, include_ai: true );
+
+
+
+        $empty_array = [];
+        $lists['_for_biblical_authority'] = PG_Stacker_Text::_for_biblical_authority( $empty_array, $stack, true, include_ai: true );
+
+        $empty_array = [];
+        $lists['_for_obedience'] = PG_Stacker_Text::_for_obedience( $empty_array, $stack, true, include_ai: true );
+
+        $empty_array = [];
+        $lists['_for_reliance_on_god'] = PG_Stacker_Text::_for_reliance_on_god( $empty_array, $stack, true, include_ai: true );
+
+        $empty_array = [];
+        $lists['_for_faithfulness'] = PG_Stacker_Text::_for_faithfulness( $empty_array, $stack, true, include_ai: true );
+
+        $empty_array = [];
+        $lists['_for_love_and_generosity'] = PG_Stacker_Text::_for_love_and_generosity( $empty_array, $stack, true, include_ai: true );
+
+        $empty_array = [];
+        $lists['_for_kingdom_urgency'] = PG_Stacker_Text::_for_kingdom_urgency( $empty_array, $stack, true, include_ai: true );
+
+        $empty_array = [];
+        $lists['_for_suffering'] = PG_Stacker_Text::_for_suffering( $empty_array, $stack, true, include_ai: true );
+
+        $empty_array = [];
+        $lists['_for_unity_and_working_together'] = PG_Stacker_Text::_for_unity_and_working_together( $empty_array, $stack, true, include_ai: true );
+
+        $empty_array = [];
+        $lists['_i_am_statements'] = PG_Stacker_Text::_i_am_statements( $empty_array, $stack, true, include_ai: true );
+
+        $empty_array = [];
+        $lists['_cities'] = PG_Stacker_Text::_cities( $empty_array, $stack, true, include_ai: true );
 
 
         require_once( WP_CONTENT_DIR . '/plugins/prayer-global-porch/pages/assets/nav.php' ) ?>

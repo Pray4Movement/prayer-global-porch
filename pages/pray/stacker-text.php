@@ -10,9 +10,9 @@ class PG_Stacker_Text {
      *
      *********************************************************************/
 
-    public static function _for_extraordinary_prayer( &$lists, $stack, $all = false ) {
+    public static function _for_extraordinary_prayer( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Prayer Movement', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Father, we cry out for a prayer movement in %1$s of %2$s. Please, stir the %3$s believers here to pray for awakening.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'], $stack['location']['believers'] ),
@@ -74,18 +74,27 @@ class PG_Stacker_Text {
                 'verse' => _x( 'This is the boldness which we have toward him, that, if we ask anything according to his will, he listens to us.', '1 John 5:14', 'prayer-global-porch' ),
             ],
         ];
+        $ai_templates = [];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
+
         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_intentional_movement_strategy( &$lists, $stack, $all = false ) {
+    public static function _for_intentional_movement_strategy( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Intentional Multiplicative Strategies', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Jesus, you taught Paul to train Timothy to train faithful men who would train others. Please, teach the church of %1$s to do the same.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
@@ -134,7 +143,8 @@ class PG_Stacker_Text {
                 'reference' => '',
                 'verse' => '',
             ],
-            // AI generated prayers KK
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, stir up passionate prayer among your people here. Thank you that you hear their prayers. Let them know that you hear, and in response to knowing let them cry out to you day and night for the lost.', 'prayer-global-porch' ),
@@ -576,17 +586,25 @@ class PG_Stacker_Text {
 //            ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
+
         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_abundant_gospel_sowing( &$lists, $stack, $all = false ) {
+    public static function _for_abundant_gospel_sowing( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Abundant Gospel Sowing', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Spirit, please give new believers a yearning to see you praised in %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
@@ -623,7 +641,8 @@ class PG_Stacker_Text {
                 'reference' => '',
                 'verse' => '',
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, may your Spirit move powerfully in this country, bringing many to salvation.', 'prayer-global-porch' ),
@@ -890,17 +909,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_persons_of_peace( &$lists, $stack, $all = false ) {
+    public static function _for_persons_of_peace( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Person of Peace', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Spirit, help the %1$s believers find a person of peace today among the %2$s lost neighbors around them. And help them start discovery bible studies in these unbelieving homes.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['all_lost'] ),
@@ -944,18 +971,27 @@ class PG_Stacker_Text {
                 'verse' => _x( 'When Jesus heard these things, he marveled at him, and turning to the crowd that followed him, said, “I tell you, not even in Israel have I found such faith.” And when those who had been sent returned to the house, they found the servant well.', 'Luke 7:9–10', 'prayer-global-porch' ),
             ],
         ];
+        $ai_templates = [];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_prioritizing_priesthood_of_believers( &$lists, $stack, $all = false ) {
+    public static function _for_prioritizing_priesthood_of_believers( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Priesthood of Believers', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Father, guide the church in %1$s to see their community as a holy priesthood, offering spiritual sacrifices acceptable to God.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
@@ -998,7 +1034,8 @@ class PG_Stacker_Text {
                 'reference' => __( 'Hebrews 4:14', 'prayer-global-porch' ),
                 'verse' => _x( 'Since then we have a great high priest who has passed through the heavens, Jesus, the Son of God, let us hold fast our confession.', 'Hebrews 4:14', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'God, empower the church in this country to make disciples who will multiply and spread your Kingdom.', 'prayer-global-porch' ),
@@ -1247,19 +1284,27 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_unleashing_simple_churches( &$lists, $stack, $all = false ) {
+    public static function _for_unleashing_simple_churches( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Unleashing Simple Churches', 'prayer-global-porch' );
         $the_church_section_label = __( 'The Church', 'prayer-global-porch' );
         $church_planting_section_label = __( 'Church Planting', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'God, guide the %1$s believers in %2$s to multiply spiritual families that love you, love each other, and make disciples.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
@@ -1368,7 +1413,8 @@ class PG_Stacker_Text {
                 'reference' => '',
                 'verse' => '',
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, we pray for those in this region seeking to plant churches, that You would guide them, provide for them, and establish their work.', 'prayer-global-porch' ),
@@ -1383,20 +1429,28 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_bible_access( &$lists, $stack, $all = false ) {
+    public static function _for_bible_access( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Bible Access', 'prayer-global-porch' );
-        $templates = [];
+        $current_templates = [];
 
         // focus for non christians is exposure to the Word of God and access to a bible
-        $templates['non_christians'] = [
+        $current_templates['non_christians'] = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Father, please give the people in %1$s of %2$s access to a Bible in their own language.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
@@ -1427,7 +1481,8 @@ class PG_Stacker_Text {
                 'reference' => __( 'Romans 10:17', 'prayer-global-porch' ),
                 'verse' => _x( 'Yet faith comes from listening to this Good News—the Good News about Christ.', 'Romans 10:17', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates['non_christians'] = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Lord, we pray for those who are lost in this region, that their eyes may be opened to the truth of the gospel, and they may be saved.', 'prayer-global-porch' ),
@@ -1467,7 +1522,7 @@ class PG_Stacker_Text {
         ];
 
         // Focus on christian adherents is re engagement with the Bible directly, not through traditions or church leaders.
-        $templates['christian_adherents'] = [
+        $current_templates['christian_adherents'] = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Lord, there are %1$s people in %2$s of %3$s who claim Christianity, but may have never read the Bible. Please challenge them today to read the Bible for themselves.', 'prayer-global-porch' ), $stack['location']['christian_adherents'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
@@ -1510,7 +1565,8 @@ class PG_Stacker_Text {
                 'reference' => '',
                 'verse' => '',
             ],
-            // AI generated prayers
+        ];
+        $ai_templates['christian_adherents'] = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Lord, we ask that your Word would take root in the hearts of the people of this region and bring about a great harvest.', 'prayer-global-porch' ),
@@ -1550,7 +1606,7 @@ class PG_Stacker_Text {
         ];
 
         // Focus for believers is engagement with the Bible, faithfulness to the Word.
-        $templates['believers'] = [
+        $current_templates['believers'] = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Father, please provide access to your Word for everyone, especially believers in %1$s.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
@@ -1593,7 +1649,8 @@ class PG_Stacker_Text {
                 'reference' => '',
                 'verse' => '',
             ],
-            // AI generated prayers
+        ];
+        $ai_templates['believers'] = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, may your Word take root deeply in the hearts of believers in this country and bear much fruit.', 'prayer-global-porch' ),
@@ -1615,23 +1672,26 @@ class PG_Stacker_Text {
         ];
 
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
-            $combined_templates = [];
-            foreach ( $templates as $template ) {
-                $combined_templates = array_merge( $combined_templates, $template );
-            }
-
-            $lists = array_merge( $combined_templates, $lists );
+            $lists = array_merge( $templates, $lists );
             return $lists;
         }
+
         $templates = $templates[$stack['location']['favor']];
         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_internet_gospel_access( &$lists, $stack, $all = false ) {
+    public static function _for_internet_gospel_access( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Media', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Father, please help good, online teachers get the gospel on YouTube and into the %1$s of %2$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
@@ -1686,7 +1746,8 @@ class PG_Stacker_Text {
                 'reference' => __( 'Psalm 19:3-4', 'prayer-global-porch' ),
                 'verse' => _x( 'They have no speech, they use no words; no sound is heard from them. Yet their voice goes out into all the earth, their words to the ends of the world. In the heavens God has pitched a tent for the sun.', 'Psalm 19:3-4', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Lord, use the media in this country to spread the message of salvation far and wide.', 'prayer-global-porch' ),
@@ -1731,17 +1792,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_safety( &$lists, $stack, $all = false ) {
+    public static function _for_safety( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Safety', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Father, for those in trouble in %1$s of %2$s prompt them to call on you for rescue today.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
@@ -1814,7 +1883,8 @@ class PG_Stacker_Text {
 //                'reference' => __( 'Psalm 34:10', 'prayer-global-porch' ),
 //                'verse' => _x( 'The lions may grow weak and hungry, but those who seek the Lord lack no good thing.', 'Psalm 34:10', 'prayer-global-porch' ),
 //            ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'God, we ask for your protection over the persecuted church in this region, that they may stand firm in their faith.', 'prayer-global-porch' ),
@@ -2189,18 +2259,26 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_political_stability( &$lists, $stack, $all = false ) {
+    public static function _for_political_stability( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Political Stability', 'prayer-global-porch' );
-        $templates = [
-            // AI generated prayers
+        $current_templates = [];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, we pray for the marketplace in this region, that it would be a place where honesty, integrity, and fairness are upheld.', 'prayer-global-porch' ),
@@ -2605,17 +2683,25 @@ class PG_Stacker_Text {
 //            ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_demographic_feature_total_population( &$lists, $stack, $all = false ) {
+    public static function _for_demographic_feature_total_population( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Population', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => __( 'Far from God', 'prayer-global-porch' ),
                 'prayer' => sprintf( __( 'Father, you desire the people in %1$s of %2$s who are far from you to hear about you.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
@@ -2664,7 +2750,8 @@ class PG_Stacker_Text {
                 'reference' => __( 'Habakkuk 2:14', 'prayer-global-porch' ),
                 'verse' => _x( 'For the earth will be filled with the knowledge of the glory of the LORD as the waters cover the sea.', 'Habakkuk 2:14', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Lord, we pray for the education system in this region, that children may be taught truth, wisdom, and respect.', 'prayer-global-porch' ),
@@ -3051,17 +3138,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_demographic_feature_population_non_christians( &$lists, $stack, $all = false ) {
+    public static function _for_demographic_feature_population_non_christians( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Non-Christians', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Over %1$s percent of the people of %2$s are far from Jesus. Lord, please send your gospel to them through the internet or radio or television today!', 'prayer-global-porch' ), $stack['location']['percent_non_christians'], $stack['location']['name'] ),
@@ -3110,7 +3205,8 @@ class PG_Stacker_Text {
                 'reference' => __( '2 Corinthians 3:17', 'prayer-global-porch' ),
                 'verse' => _x( 'Now the Lord is the Spirit, and where the Spirit of the Lord is, there is freedom.', '2 Corinthians 3:17', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, we ask that you open the hearts of people in this region to receive the gospel.', 'prayer-global-porch' ),
@@ -3221,17 +3317,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_demographic_feature_population_christian_adherents( &$lists, $stack, $all = false ) {
+    public static function _for_demographic_feature_population_christian_adherents( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Cultural Christians', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Spirit, %1$s cultural Christians in %2$s likely have a Bible in their home. Please, send conviction for them to open it and read it for themselves.', 'prayer-global-porch' ), $stack['location']['christian_adherents'], $stack['location']['full_name'] ),
@@ -3250,7 +3354,8 @@ class PG_Stacker_Text {
                 'reference' => '',
                 'verse' => '',
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, we pray that the believers in this region would abound in love for one another, just as you have loved us. May they be filled with the knowledge of your will in all wisdom and understanding.', 'prayer-global-porch' ),
@@ -3631,17 +3736,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_demographic_feature_population_believers( &$lists, $stack, $all = false ) {
+    public static function _for_demographic_feature_population_believers( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Believer Families', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Spirit, thank you for the %1$s whom you have brought close through the blood of Christ already in %2$s.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['full_name'] ),
@@ -3660,7 +3773,8 @@ class PG_Stacker_Text {
                 'reference' => __( '2 Corinthians 5:20', 'prayer-global-porch' ),
                 'verse' => _x( 'We are therefore Christ’s ambassadors, as though God were making his appeal through us. We implore you on Christ’s behalf: Be reconciled to God.', '2 Corinthians 5:20', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, we ask that you would strengthen the faith of believers in this region, that they would remain firm in their commitment to you.', 'prayer-global-porch' ),
@@ -4035,21 +4149,29 @@ class PG_Stacker_Text {
 //            ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_demographic_feature_primary_religion( &$lists, $stack, $all = false ) { // @todo the primary religion is too general for the specific states and counties
+    public static function _for_demographic_feature_primary_religion( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) { // @todo the primary religion is too general for the specific states and counties
         if ( 'Christianity' === $stack['location']['primary_religion'] ) {
             return $lists;
         }
 
         $section_label = __( 'Primary Religion', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
 //            [
 //                'section_label' => $section_label,
 //                'prayer' => sprintf( __( 'The primary religion in %1$s of %2$s is %3$s.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['full_name'], $stack['location']['primary_religion'] ),
@@ -4112,21 +4234,30 @@ class PG_Stacker_Text {
 //            ],
         ];
 
+        $ai_templates = [];
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_demographic_feature_primary_language( &$lists, $stack, $all = false ) { // @todo the primary religion is too general for the specific states and counties
+    public static function _for_demographic_feature_primary_language( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) { // @todo the primary religion is too general for the specific states and counties
         if ( 'English' === $stack['location']['primary_language'] ) {
             return $lists;
         }
 
         $section_label = __( 'Language', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
 //            [
 //                'section_label' => $section_label,
 //                'prayer' => sprintf( __( 'Father, please provide access to your written Word in the %1$s language.', 'prayer-global-porch' ), $stack['location']['primary_language'] ),
@@ -4189,18 +4320,27 @@ class PG_Stacker_Text {
 //            ],
         ];
 
+        $ai_templates = [];
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_people_groups_by_least_reached_status( &$lists, $stack, $all = false ) {
+    public static function _for_people_groups_by_least_reached_status( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Prayer Movement', 'prayer-global-porch' );
-        $templates = [
-            // AI generated prayers
+        $current_templates = [];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Lord, may the gospel of peace go forth to the farthest reaches of this country, reaching the unreached.', 'prayer-global-porch' ),
@@ -4221,18 +4361,26 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_people_groups_by_reached_status( &$lists, $stack, $all = false ) {
+    public static function _for_people_groups_by_reached_status( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Prayer Movement', 'prayer-global-porch' );
-        $templates = [
-            // AI generated prayers
+        $current_templates = [];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, we pray that Your Spirit would fill the believers in this region with power to boldly proclaim Your truth.', 'prayer-global-porch' ),
@@ -4241,90 +4389,46 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_people_groups_by_religion( &$lists, $stack, $all = false ) {
+    public static function _for_people_groups_by_religion( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Prayer Movement', 'prayer-global-porch' );
-        $templates = [
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-        ];
+        $current_templates = [];
+        $ai_templates = [];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_people_groups_by_population( &$lists, $stack, $all = false ) {
+    public static function _for_people_groups_by_population( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'People Groups', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
 //            [
 //                'section_label' => $section_label,
 //                'prayer' => '',
@@ -4387,17 +4491,26 @@ class PG_Stacker_Text {
 //            ],
         ];
 
+        $ai_templates = [];
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_local_leadership( &$lists, $stack, $all = false ) { // local leadership and lay leadership
+    public static function _for_local_leadership( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) { // local leadership and lay leadership
         $section_label = __( 'Local Leadership', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Spirit, build the strength and maturity of the local leaders in %1$s. Show them that faithfulness is better than knowledge. Show them that the Spirit, the Word, and prayer is enough in order to grow and lead.', 'prayer-global-porch' ), $stack['location']['full_name'] ),
@@ -4452,7 +4565,8 @@ class PG_Stacker_Text {
                 'reference' => __( 'James 3:1', 'prayer-global-porch' ),
                 'verse' => _x( 'Not many of you should become teachers, my brothers, for you know that we who teach will be judged with greater strictness.', 'James 3:1', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, we ask that you raise up strong leaders in this region, men and women who are filled with your Spirit and wisdom.', 'prayer-global-porch' ),
@@ -4995,17 +5109,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_apostolic_pioneering_leadership( &$lists, $stack, $all = false ) { // local leadership and lay leadership
+    public static function _for_apostolic_pioneering_leadership( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) { // local leadership and lay leadership
         $section_label = __( 'Apostles and Pioneers', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Father, please raise up new apostles to pioneer the growth of the church in %s.', 'prayer-global-porch' ), $stack['location']['name'] ),
@@ -5042,7 +5164,8 @@ class PG_Stacker_Text {
                 'reference' => __( 'Matthew 28:19-20a', 'prayer-global-porch' ),
                 'verse' => _x( 'Therefore go and make disciples of all nations, baptizing them in the name of the Father and of the Son and of the Holy Spirit, and teaching them to obey everything I have commanded you.', 'Matthew 28:19-20a', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Lord, we pray for protection over the missionaries in this region. May they be strong in your power and filled with the courage to continue the work you have called them to.', 'prayer-global-porch' ),
@@ -5087,17 +5210,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_evangelistic_leadership( &$lists, $stack, $all = false ) {
+    public static function _for_evangelistic_leadership( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Evangelists and Harvest Workers', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Jesus, please raise up evangelists to equip your people to share the gospel in %1$s.', 'prayer-global-porch' ), $stack['location']['name'] ),
@@ -5146,7 +5277,8 @@ class PG_Stacker_Text {
                 'reference' => __( '2 Corinthians 5:20', 'prayer-global-porch' ),
                 'verse' => _x( 'We are therefore Christ’s ambassadors, as though God were making his appeal through us. We implore you on Christ’s behalf: Be reconciled to God.', '2 Corinthians 5:20', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Lord, raise up faithful witnesses who will boldly proclaim your Word to the unreached.', 'prayer-global-porch' ),
@@ -5173,17 +5305,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_prophetic_leadership( &$lists, $stack, $all = false ) {
+    public static function _for_prophetic_leadership( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Prophets and Truth Speakers', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Father, please raise up prophets in %1$s who can call the church to holiness and purity, preparing your church as a bride for your Son.', 'prayer-global-porch' ), $stack['location']['name'] ),
@@ -5234,17 +5374,27 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $ai_templates = [];
+
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_shepherding_leadership( &$lists, $stack, $all = false ) {
+    public static function _for_shepherding_leadership( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Shepherds and Pastors', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Lord, give grace to the local leaders who shepherd the %1$s believers in %2$s of %3$s.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
@@ -5287,7 +5437,8 @@ class PG_Stacker_Text {
                 'reference' => __( 'John 10:14', 'prayer-global-porch' ),
                 'verse' => _x( 'I am the good shepherd; I know my sheep and my sheep know me', 'John 10:14', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'We pray for spiritual leaders in this country to have wisdom and courage as they shepherd their flocks.', 'prayer-global-porch' ),
@@ -5464,17 +5615,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_teaching_leadership( &$lists, $stack, $all = false ) {
+    public static function _for_teaching_leadership( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Teachers', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Father, please send teachers of your Word in %1$s who can speak your gospel boldly and clearly.', 'prayer-global-porch' ), $stack['location']['name'] ),
@@ -5505,7 +5664,8 @@ class PG_Stacker_Text {
                 'reference' => __( 'Jeremiah 3:15', 'prayer-global-porch' ),
                 'verse' => _x( 'Then I will give you shepherds after My own heart, who will feed you with knowledge and understanding.', 'Jeremiah 3:15', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, we ask for wisdom for the educators in this region, that they would teach with clarity, patience, and integrity.', 'prayer-global-porch' ),
@@ -5688,18 +5848,26 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
 
-    public static function _for_biblical_authority( &$lists, $stack, $all = false ) {
+    public static function _for_biblical_authority( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Biblical Authority', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Spirit, make the Word of God a delight to the people of %1$s, like it was to David.', 'prayer-global-porch' ), $stack['location']['name'] ),
@@ -5778,7 +5946,8 @@ class PG_Stacker_Text {
                 'reference' => __( 'Philippians 1:9', 'prayer-global-porch' ),
                 'verse' => _x( 'And this is my prayer: that your love may abound more and more in knowledge and depth of insight,', 'Philippians 1:9', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, we ask that your truth would penetrate the hearts of the people in this region, setting them free from deception.', 'prayer-global-porch' ),
@@ -5835,17 +6004,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_obedience( &$lists, $stack, $all = false ) {
+    public static function _for_obedience( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Obedience', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Spirit, cause the %1$s believers in %2$s to obey with immediate, radical, costly obedience, like Abraham.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
@@ -5882,7 +6059,8 @@ class PG_Stacker_Text {
                 'reference' => __( 'Ezra 7:10', 'prayer-global-porch' ),
                 'verse' => _x( 'For Ezra had devoted himself to the study and observance of the Law of the Lord, and to teaching its decrees and laws in Israel.', 'Ezra 7:10', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Lord, raise up a generation of believers in this country that seek to live out Your Word daily.', 'prayer-global-porch' ),
@@ -5927,17 +6105,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_reliance_on_god( &$lists, $stack, $all = false ) {
+    public static function _for_reliance_on_god( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Reliance on God', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => __( 'Trust', 'prayer-global-porch' ),
                 'prayer' => sprintf( __( 'Father, move the %1$s believers in %2$s of %3$s to say "Not our will, but yours be done", like Jesus.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['admin_level_title'], $stack['location']['name'] ),
@@ -5998,7 +6184,8 @@ class PG_Stacker_Text {
                 'reference' => __( 'Isaiah 64:4', 'prayer-global-porch' ),
                 'verse' => _x( 'For from of old men have not heard, nor perceived by the ear, neither has the eye seen a God besides you, who works for him who waits for him.', 'Isaiah 64:4', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, we pray for the students in this region who are facing academic pressures, that you would give them clarity, wisdom, and peace.', 'prayer-global-porch' ),
@@ -6385,17 +6572,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_faithfulness( &$lists, $stack, $all = false ) {
+    public static function _for_faithfulness( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Prayer Movement', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => __( 'Faith', 'prayer-global-porch' ),
                 'prayer' => sprintf( __( 'Spirit, teach the %1$s believers in %2$s that when they seek first your Kingdom and your righteousness, you will abundantly provide all they need.', 'prayer-global-porch' ), $stack['location']['believers'], $stack['location']['name'] ),
@@ -6439,7 +6634,8 @@ class PG_Stacker_Text {
                 'reference' => __( '1 Thessalonians 5:23-24', 'prayer-global-porch' ),
                 'verse' => _x( 'May the God of peace himself sanctify you completely. May your whole spirit, soul, and body be preserved blameless at the coming of our Lord Jesus Christ. He who calls you is faithful, who will also do it.', '1 Thessalonians 5:23-24', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Lord, we pray for marriages in this region, that couples would reflect your love and commitment to one another.', 'prayer-global-porch' ),
@@ -6544,17 +6740,25 @@ class PG_Stacker_Text {
 //            ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_suffering( &$lists, $stack, $all = false ) {
+    public static function _for_suffering( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Suffering', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Father, let those from the %1$s believers who are shaken and weak remember that your love will never fail them.', 'prayer-global-porch' ), $stack['location']['believers'] ),
@@ -6615,7 +6819,8 @@ class PG_Stacker_Text {
                 'reference' => __( 'Psalm 119:153', 'prayer-global-porch' ),
                 'verse' => _x( 'Look on my suffering and deliver me, for I have not forgotten your law.', 'Psalm 119:153', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Lord, we pray for those suffering from mental illness in this region, that they may find peace and healing in you.', 'prayer-global-porch' ),
@@ -7848,17 +8053,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_love_and_generosity( &$lists, $stack, $all = false ) {
+    public static function _for_love_and_generosity( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Love', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Spirit, give the believers of the %1$s of %2$s unity and humility as they work to bring the kingdom to new people and places.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
@@ -7907,7 +8120,8 @@ class PG_Stacker_Text {
                 'reference' => __( '2 Corinthians 6:18', 'prayer-global-porch' ),
                 'verse' => _x( 'I will be to you a Father. you will be to me sons and daughters,’ says the Lord Almighty.', '2 Corinthians 6:18', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Lord, help us to serve those in need in this region, reflecting your love and compassion in practical ways.', 'prayer-global-porch' ),
@@ -8078,17 +8292,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_kingdom_urgency( &$lists, $stack, $all = false ) {
+    public static function _for_kingdom_urgency( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Urgency', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => sprintf( __( 'Father, give the disciples of the %1$s of %2$s an urgency of seeing every people and place reached for the gospel.', 'prayer-global-porch' ), $stack['location']['admin_level_title'], $stack['location']['name'] ),
@@ -8167,7 +8389,8 @@ class PG_Stacker_Text {
                 'reference' => __( 'Proverbs 1:32', 'prayer-global-porch' ),
                 'verse' => _x( 'For the simple are killed by their turning away, and the complacency of fools destroys them;', 'Proverbs 1:32', 'prayer-global-porch' ),
             ],
-            // AI generated prayers
+        ];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Lord, may the church in this country grow in love, unity, and in its desire to see others saved.', 'prayer-global-porch' ),
@@ -8338,18 +8561,26 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _for_unity_and_working_together( &$lists, $stack, $all = false ) {
+    public static function _for_unity_and_working_together( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'Unity and Working Together', 'prayer-global-porch' );
-        $templates = [
-            // AI generated prayers
+        $current_templates = [];
+        $ai_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, just as a body has many parts that work together, unite your people here as one body to make disciples. Let each believer use their unique gifts to strengthen the whole, so this place might see the power of your unified Church.', 'prayer-global-porch' ),
@@ -8820,17 +9051,25 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _i_am_statements( &$lists, $stack, $all = false ) {
+    public static function _i_am_statements( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'I Am Statements', 'prayer-global-porch' );
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => $section_label,
                 'prayer' => __( 'Father, you declared \'I am who I am\' to Moses, revealing your eternal, unchanging nature. Draw people in this place to yourself, the God who always was and always will be. Help them find security in your faithfulness and teach others to trust in your constant presence through every season of life.', 'prayer-global-porch' ),
@@ -9043,20 +9282,30 @@ class PG_Stacker_Text {
             ],
         ];
 
+        $ai_templates = [];
+
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
-    public static function _cities( &$lists, $stack, $all = false ) {
+    public static function _cities( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
 
         if ( empty( $stack['location']['cities_list_w_pop'] ) ) {
             return $lists;
         }
-        $templates = [
+        $current_templates = [
             [
                 'section_label' => sprintf( __( 'Cities in %s', 'prayer-global-porch' ), $stack['location']['name'] ),
                 'prayer' => sprintf( __( 'Jesus, bring your gospel to the people living in %1$s.', 'prayer-global-porch' ), $stack['location']['cities_list'] ),
@@ -9119,11 +9368,21 @@ class PG_Stacker_Text {
 //            ],
         ];
 
+        $ai_templates = [];
+
+        $templates = [];
+        if ( $include_ai ) {
+            $templates = array_merge( $templates, $ai_templates );
+        }
+        if ( $include_current ) {
+            $templates = array_merge( $templates, $current_templates );
+        }
         if ( $all ) {
             $lists = array_merge( $templates, $lists );
             return $lists;
         }
-         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
+
+        $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
 
