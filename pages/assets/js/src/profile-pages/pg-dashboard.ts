@@ -41,7 +41,7 @@ export class PgDashboard extends OpenElement {
     super.connectedCallback();
 
     //if no location is saved on the user, get it from the IP and save it to the user
-    if (!this.user.location_hash.length || !this.user.location.time_zone) {
+    if (!this.user.location_hash.length || !this.user.location.timezone) {
       await this.getLocationFromIP();
     }
     //link anonymous prayers to the user
@@ -233,7 +233,7 @@ export class PgDashboard extends OpenElement {
       (this.user.location.date_set &&
         this.user.location.date_set <
           Date.now() - 604800000) /*7 days in milliseconds*/ ||
-      !this.user.location.time_zone
+      !this.user.location.timezone
     ) {
       await window
         .api_fetch(`https://geo.prayer.global/json`, {
@@ -247,7 +247,7 @@ export class PgDashboard extends OpenElement {
               label: `${response.city?.names?.en}, ${response.country?.names?.en}`,
               country: response.country?.names?.en,
               date_set: Date.now(),
-              time_zone: response.location.time_zone,
+              timezone: response.location.time_zone,
               source: "ip",
             };
             // Update the user's location

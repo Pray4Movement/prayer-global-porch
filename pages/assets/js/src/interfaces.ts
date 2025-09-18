@@ -16,7 +16,7 @@ export interface Location {
   level?: string;
   grid_id?: number;
   date_set?: number;
-  time_zone?: string;
+  timezone?: string;
   hash?: string;
 }
 
