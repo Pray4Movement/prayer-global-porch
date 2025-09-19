@@ -59,60 +59,6 @@ class Prayer_Global_Content_A_B_Test extends PG_Public_Page
 
     public function footer_javascript(){
         require_once( WP_CONTENT_DIR . '/plugins/prayer-global-porch/pages/assets/footer.php' );
-        ?>
-
-        <script>
-            function get_new_prayers(){
-                return fetch(jsObject.rest_url + '/new-prayers?grid_id=<?php echo esc_attr( $grid_id ) ?>')
-                    .then(response => response.json())
-                    .then(data => {
-                        console.log(data)
-                        // remove dependency on jquery
-                        document.querySelector('.section-label').innerHTML = data.section_label + ' - ' + data.category
-                        document.querySelector('.first-prayer__content').innerHTML = data.first_prayer.prayer
-                        document.querySelector('.second-prayer__content').innerHTML = data.second_prayer.prayer
-                        document.querySelector('.first-prayer button').removeEventListener('click')
-                        document.querySelector('.first-prayer button').addEventListener('click', function(){
-                            prefer_prayer(data.first_prayer, data.second_prayer, data.category)
-                            .then(data => {
-                                console.log(data)
-                                return get_new_prayers()
-                            })
-                        })
-                        document.querySelector('.second-prayer button').removeEventListener('click')
-                        document.querySelector('.second-prayer button').addEventListener('click', function(){
-                            prefer_prayer(data.second_prayer, data.first_prayer, data.category)
-                            .then(data => {
-                                console.log(data)
-                                return get_new_prayers()
-                            })
-                        })
-                    })
-                    .catch(error => {
-                        console.error('Error:', error)
-                    })
-            }
-            function prefer_prayer( prayer, unpreferred_prayer, category ){
-                console.log(prayer)
-                return fetch(jsObject.rest_url + '/prefer-prayer', {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        type: prayer.type,
-                        content: prayer.prayer,
-                        category: category,
-                        unpreferred_prayer: unpreferred_prayer.prayer,
-                    })
-                })
-            }
-            window.addEventListener('load', function(){
-                get_new_prayers()
-            })
-            document.querySelector('#country_change').addEventListener('change', function(e){
-                let grid_id = document.querySelector('#country_change').value
-                window.location.href = '/support/ab-test/?grid_id='+grid_id
-            })
-        </script>
-        <?php
     }
 
     public function wp_enqueue_scripts() {
@@ -216,9 +162,6 @@ class Prayer_Global_Content_A_B_Test extends PG_Public_Page
         $lists['_for_demographic_feature_population_believers'] = PG_Stacker_Text::_for_demographic_feature_population_believers( $empty_array, $stack, false, $include_ai, $include_current );
 
         $empty_array = [];
-        $lists['_for_demographic_feature_primary_language'] = PG_Stacker_Text::_for_demographic_feature_primary_language( $empty_array, $stack, false, $include_ai, $include_current );
-
-        $empty_array = [];
         $lists['_for_local_leadership'] = PG_Stacker_Text::_for_local_leadership( $empty_array, $stack, false, $include_ai, $include_current ); // convert these to the next series below
 
         $empty_array = [];
@@ -281,7 +224,12 @@ class Prayer_Global_Content_A_B_Test extends PG_Public_Page
     public function body(){
 
         require_once( WP_CONTENT_DIR . '/plugins/prayer-global-porch/pages/assets/nav.php' ) ?>
-
+        <style>
+            .preferred {
+                background-color: #99ff99;
+                color: #000;
+            }
+        </style>
         <section class="page-section mt-5" >
             <div class="container">
                 <div class="row justify-content-md-center text-center mb-5">
@@ -309,7 +257,25 @@ class Prayer_Global_Content_A_B_Test extends PG_Public_Page
                                 <button class="btn btn-primary">Prefer</button>
                             </div>
                         </div>
-                        <button id="finish-button" class="btn btn-primary">Finish</button>
+                        <div class="stack-sm">
+                            <button id="finish-button" class="btn btn-primary">Finish</button>
+                            <button id="clear-button" class="btn btn-outline-primary">Restart</button>
+                            <button id="next-button" class="btn btn-outline-primary">next</button>
+                        </div>
+                        <div class="d-flex">
+                            <div class="w-50">
+                                <p>Current Prayers Preferred</p>
+                                <div class="current-prayer-preferred-count"></div>
+                            </div>
+                            <div class="w-50">
+                                <p>New Prayers Preferred</p>
+                                <div class="new-prayer-preferred-count"></div>
+                            </div>
+                        </div>
+                        <div class="new-vs-current-prayers flow-small"></div>
+
+
+
                         <!-- under each there will be a button to say which one they prefer -->
                         <!-- The button will send a post request to the server with the content of the prayer they preferred, and whether it was AI or current content -->
                         <!-- In the button event click callback it will also send a GET request for the next prayer -->
@@ -320,7 +286,198 @@ class Prayer_Global_Content_A_B_Test extends PG_Public_Page
                 </div>
             </div>
         </section>
+        <script>
 
+            class Prayer_Preference_Results {
+                localLocation = 'prayer_preferences'
+
+                constructor(prayer_preferences) {
+                    this.prayer_preferences = prayer_preferences
+                }
+
+                save() {
+                    localStorage.setItem(this.localLocation, JSON.stringify(this.prayer_preferences))
+                }
+
+                load() {
+                    if (
+                        this.prayer_preferences &&
+                        Array.isArray(this.prayer_preferences) &&
+                        this.prayer_preferences.length > 0 ) {
+                        return this.prayer_preferences
+                    }
+                    let prayer_preferences = localStorage.getItem(this.localLocation)
+                    if ( prayer_preferences ){
+                        prayer_preferences = JSON.parse(prayer_preferences)
+                    } else {
+                        prayer_preferences = []
+                    }
+                    this.prayer_preferences = prayer_preferences
+                    return prayer_preferences
+                }
+
+                add(preferred_prayer, unpreferred_prayer, category) {
+                    console.log(preferred_prayer, unpreferred_prayer, category)
+                    this.prayer_preferences.push({
+                        preferred_prayer: preferred_prayer,
+                        unpreferred_prayer: unpreferred_prayer,
+                        category: category,
+                    })
+                }
+
+                clear() {
+                    this.prayer_preferences = []
+                    localStorage.removeItem(this.localLocation)
+                }
+
+                length() {
+                    return this.prayer_preferences.length
+                }
+            }
+
+            let prayer_preference_results = new Prayer_Preference_Results()
+            prayer_preference_results.load()
+
+            function replace_button(button) {
+                const buttonClone = button.cloneNode(true);
+                const parentNode = button.parentNode;
+                button.remove();
+                parentNode.appendChild(buttonClone);
+            }
+
+            function get_new_prayers(){
+                return fetch(jsObject.rest_url + '/new-prayers?grid_id=<?php echo esc_attr( $grid_id ) ?>')
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data)
+                        if ( !data.first_prayer || !data.second_prayer ) {
+                            return get_new_prayers()
+                        }
+
+                        // remove dependency on jquery
+                        document.querySelector('.section-label').innerHTML = data.section_label + ' - ' + data.category
+                        document.querySelector('.first-prayer__content').innerHTML = data.first_prayer.prayer
+                        document.querySelector('.second-prayer__content').innerHTML = data.second_prayer.prayer
+                        replace_button(document.querySelector('.first-prayer button'))
+                        document.querySelector('.first-prayer button').addEventListener('click', function(){
+                            prefer_prayer(data.first_prayer, data.second_prayer, data.category)
+                            .then(data => {
+                                return get_new_prayers()
+                            })
+                        })
+                        replace_button(document.querySelector('.second-prayer button'))
+                        document.querySelector('.second-prayer button').addEventListener('click', function(){
+                            prefer_prayer(data.second_prayer, data.first_prayer, data.category)
+                            .then(data => {
+                                return get_new_prayers()
+                            })
+                        })
+                    })
+                    .catch(error => {
+                        console.error('Error:', error)
+                    })
+            }
+            function save_prayer_preferences_locally( prayer, unpreferred_prayer, category ){
+                let prayer_preferences = localStorage.getItem('prayer_preferences')
+                if ( prayer_preferences ){
+                    prayer_preferences = JSON.parse(prayer_preferences)
+                } else {
+                    prayer_preferences = []
+                }
+                prayer_preferences.push({
+                    preferred_prayer: prayer,
+                    unpreferred_prayer: unpreferred_prayer,
+                    category: category,
+                })
+                localStorage.setItem('prayer_preferences', JSON.stringify(prayer_preferences))
+            }
+            function show_prayer_preference_results() {
+                let prayer_preferences = prayer_preference_results.load()
+
+                const new_prayers_preferred_count_element = document.querySelector('.new-prayer-preferred-count')
+                const current_prayers_preferred_count_element = document.querySelector('.current-prayer-preferred-count')
+                const new_vs_current_prayers = document.querySelector('.new-vs-current-prayers')
+
+                let new_prayers_preferred_count = 0
+                let new_prayers = []
+                let current_prayers_preferred_count = 0
+                let current_prayers = []
+                for ( let i = 0; i < prayer_preferences.length; i++ ) {
+                    const new_vs_old = document.createElement('div')
+                    new_vs_old.classList.add('d-flex')
+                    new_vs_old.classList.add('gap-3')
+                    if ( prayer_preferences[i].preferred_prayer.type === 'ai' ) {
+                        new_prayers_preferred_count++
+                        new_vs_old.innerHTML = `
+                            <div class="current-prayer w-50">
+                                ${prayer_preferences[i].unpreferred_prayer.prayer}
+                            </div>
+                            <div class="new-prayer w-50 preferred">
+                                ${prayer_preferences[i].preferred_prayer.prayer}
+                            </div>
+                        `
+                    } else {
+                        current_prayers_preferred_count++
+                        new_vs_old.innerHTML = `
+                            <div class="current-prayer w-50 preferred">
+                                ${prayer_preferences[i].preferred_prayer.prayer}
+                            </div>
+                            <div class="new-prayer w-50">
+                                ${prayer_preferences[i].unpreferred_prayer.prayer}
+                            </div>
+                        `
+                    }
+                    new_vs_current_prayers.appendChild(new_vs_old)
+                }
+                new_prayers_preferred_count_element.innerHTML = new_prayers_preferred_count
+                current_prayers_preferred_count_element.innerHTML = current_prayers_preferred_count
+            }
+            function hide_prayer_preference_results() {
+                document.querySelector('.new-vs-current-prayers').innerHTML = ''
+                document.querySelector('.new-prayer-preferred-count').innerHTML = ''
+                document.querySelector('.current-prayer-preferred-count').innerHTML = ''
+            }
+            function prefer_prayer( prayer, unpreferred_prayer, category ){
+                return fetch(jsObject.rest_url + '/prefer-prayer', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        type: prayer.type,
+                        content: prayer.prayer,
+                        category: category,
+                        unpreferred_prayer: unpreferred_prayer.prayer,
+                    })
+                })
+                .then(data => {
+                    prayer_preference_results.add(prayer, unpreferred_prayer, category)
+                    prayer_preference_results.save()
+                    return data
+                })
+            }
+            window.addEventListener('load', function(){
+                get_new_prayers()
+            })
+            document.querySelector('#next-button').addEventListener('click', function(e){
+                e.preventDefault()
+                get_new_prayers()
+            })
+            document.querySelector('#finish-button').addEventListener('click', function(e){
+                e.preventDefault()
+                show_prayer_preference_results()
+            })
+            document.querySelector('#clear-button').addEventListener('click', function(e){
+                e.preventDefault()
+                prayer_preference_results.clear()
+                prayer_preference_results.save()
+                hide_prayer_preference_results()
+                get_new_prayers()
+            })
+            document.querySelector('#country_change').addEventListener('change', function(e){
+                let grid_id = document.querySelector('#country_change').value
+                    console.log(grid_id)
+                window.location.href = '/support/ab-test/?grid_id='+grid_id
+            })
+
+        </script>
         <!-- END section -->
 
         <?php require_once( WP_CONTENT_DIR . '/plugins/prayer-global-porch/pages/assets/working-footer.php' ) ?>
