@@ -4333,6 +4333,10 @@ class PG_Stacker_Text {
             return $lists;
         }
 
+        if ( empty( $templates ) ) {
+            return [];
+        }
+
         $lists = array_merge( [ $templates[array_rand( $templates ) ] ], $lists );
         return $lists;
     }
@@ -4428,68 +4432,7 @@ class PG_Stacker_Text {
 
     public static function _for_people_groups_by_population( &$lists, $stack, $all = false, $include_ai = false, $include_current = true ) {
         $section_label = __( 'People Groups', 'prayer-global-porch' );
-        $current_templates = [
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-//            [
-//                'section_label' => $section_label,
-//                'prayer' => '',
-//                'reference' => '',
-//                'verse' => '',
-//            ],
-        ];
+        $current_templates = [];
 
         $ai_templates = [];
         $templates = [];
