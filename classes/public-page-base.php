@@ -128,6 +128,8 @@ abstract class PG_Public_Page {
      */
     public function footer_javascript(){}
 
+    public function wp_enqueue_scripts(){}
+
     public function body(){}
 
 
