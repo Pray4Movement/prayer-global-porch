@@ -16,11 +16,6 @@ class Prayer_Global_Content_A_B_Test extends PG_Public_Page
             wp_redirect( home_url( '/login' ) );
             exit;
         }
-        // if user is not an admin, redirect to dashboard
-        if ( !dt_user_has_role( get_current_user_id(), 'administrator' ) ){
-            wp_redirect( home_url( '/dashboard' ) );
-            exit;
-        }
         /**
          * Register custom hooks here
          */
@@ -78,6 +73,11 @@ class Prayer_Global_Content_A_B_Test extends PG_Public_Page
         register_rest_route( $this->rest_route, '/prefer-prayer', [
             'methods' => 'POST',
             'callback' => [ $this, 'prefer_prayer' ],
+            'permission_callback' => '__return_true',
+        ] );
+        register_rest_route( $this->rest_route, '/user-response', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'user_response' ],
             'permission_callback' => '__return_true',
         ] );
     }
@@ -221,6 +221,19 @@ class Prayer_Global_Content_A_B_Test extends PG_Public_Page
         ] );
     }
 
+    public function user_response( WP_REST_Request $request ) {
+        global $wpdb;
+        $body_params = $request->get_body();
+        $body_params = json_decode( $body_params, true );
+        $ab_test_user_response = $body_params['ab_test_user_response'];
+        $wpdb->insert( $wpdb->dt_reports, [
+            'type' => 'content_a_b_test',
+            'subtype' => 'user_response',
+            'payload' => $ab_test_user_response,
+            'timestamp' => time(),
+        ] );
+    }
+
     public function body(){
 
         require_once( WP_CONTENT_DIR . '/plugins/prayer-global-porch/pages/assets/nav.php' ) ?>
@@ -228,6 +241,9 @@ class Prayer_Global_Content_A_B_Test extends PG_Public_Page
             .preferred {
                 background-color: #99ff99;
                 color: #000;
+            }
+            .ab-test-user-response.hidden {
+                display: none;
             }
         </style>
         <section class="page-section mt-5" >
@@ -272,6 +288,11 @@ class Prayer_Global_Content_A_B_Test extends PG_Public_Page
                                 <div class="new-prayer-preferred-count"></div>
                             </div>
                         </div>
+                        <div class="stack-sm ab-test-user-response hidden">
+                            <textarea type="text" rows="5" id="ab-test-user-response" placeholder="Anything you would like to add about your preferences?"></textarea>
+                            <button id="ab-test-user-response-button" class="btn btn-primary">Submit</button>
+                        </div>
+                        <div class="ab-test-user-response-feedback"></div>
                         <div class="new-vs-current-prayers flow-small"></div>
 
 
@@ -462,6 +483,7 @@ class Prayer_Global_Content_A_B_Test extends PG_Public_Page
             })
             document.querySelector('#finish-button').addEventListener('click', function(e){
                 e.preventDefault()
+                document.querySelector('.ab-test-user-response').classList.remove('hidden')
                 show_prayer_preference_results()
             })
             document.querySelector('#clear-button').addEventListener('click', function(e){
@@ -469,7 +491,23 @@ class Prayer_Global_Content_A_B_Test extends PG_Public_Page
                 prayer_preference_results.clear()
                 prayer_preference_results.save()
                 hide_prayer_preference_results()
+                document.querySelector('.ab-test-user-response').classList.add('hidden')
                 get_new_prayers()
+            })
+            document.querySelector('#ab-test-user-response-button').addEventListener('click', function(e){
+                e.preventDefault()
+                const ab_test_user_response = document.querySelector('#ab-test-user-response').value
+                fetch(jsObject.rest_url + '/user-response', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        ab_test_user_response: ab_test_user_response
+                    })
+                })
+                .then(data => {
+                    console.log(data)
+                    document.querySelector('.ab-test-user-response').classList.add('hidden')
+                    document.querySelector('.ab-test-user-response-feedback').innerHTML = 'Thank you for your feedback!'
+                })
             })
             document.querySelector('#country_change').addEventListener('change', function(e){
                 let grid_id = document.querySelector('#country_change').value
