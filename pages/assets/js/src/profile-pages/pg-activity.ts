@@ -1,7 +1,7 @@
 import { html } from "lit";
-import { customElement, property } from "lit/decorators.js";
+import { customElement } from "lit/decorators.js";
 import { OpenElement } from "./open-element";
-import { User } from "../interfaces";
+import { User, Badge } from "../interfaces";
 
 @customElement("pg-activity")
 export class PgActivity extends OpenElement {
@@ -63,6 +63,27 @@ export class PgActivity extends OpenElement {
               >
             </section>
           </div>
+
+          <section class="prayer-milestones">
+            <div>
+              <h3 class="prayer-milestones__title">
+                ${this.translations.prayer_milestones}
+              </h3>
+              <a href="dashboard/badges" class="">
+                ${this.translations.see_all}
+              </a>
+            </div>
+            <div class="prayer-milestones__list">
+              ${window.jsObject.available_badges.map((badge: Badge) => {
+                return html`
+                  <div class="prayer-milestone">
+                    <img src="${badge.image}" alt="${badge.title}" />
+                    ${badge.title}
+                  </div>
+                `;
+              })}
+            </div>
+          </section>
 
           <section class="activity-card">
             <table class="activity-table mx-auto">

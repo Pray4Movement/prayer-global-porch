@@ -70,7 +70,7 @@ class PG_Badge_Manager {
      * For badges the user already has, return the next badge in the sequence (for that category)
      * @return array<PG_Badge>
      */
-    public function get_next_badge_in_progressions() {
+    private function get_next_badge_in_progressions() {
         $badges = $this->get_user_current_badges();
         $next_badges = [];
         foreach ( $badges as $badge ) {
@@ -152,6 +152,19 @@ class PG_Badge_Manager {
         foreach ( $badges as $badge ) {
             PG_Badge_Model::create_badge( $this->user_id, $badge->get_id(), $badge->get_category(), $badge->get_value() );
         }
+    }
+
+    public function get_all_badges() {
+        // Get all user current badges
+        $user_current_badges = $this->get_user_current_badges();
+        // Get all available badges
+        // Get all user next badges
+        $user_next_badges = $this->get_next_badge_in_progressions();
+
+        // Loop through the list of all badges with necessary information in
+        // e.g. put type, category from the keys into the array.
+        // add flags for whether the user currently has this badge
+        return [];
     }
 
     public function clear_badges() {

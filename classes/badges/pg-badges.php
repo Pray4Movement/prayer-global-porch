@@ -7,8 +7,12 @@ class PG_Badges {
     const ONE_MONTH_DEVOTED = 'one_month_devoted';
     const HUNDRED_DAYS = 'hundred_days';
     const YEAR_OF_PRAYER = 'year_of_prayer';
-    const COMEBACK_CHAMPION = 'comeback_champion';
     const UNBREAKABLE = 'unbreakable';
+
+    // Consistency
+    const PERFECT_WEEK = 'perfect_week';
+    const PERFECT_MONTH = 'perfect_month';
+    const PERFECT_YEAR = 'perfect_year';
 
     // levels and progression
     const PRAYER_STARTER = 'prayer_starter';
@@ -22,12 +26,19 @@ class PG_Badges {
     const MARATHON_PRAYER = 'marathon_prayer';
     const ETERNAL_WATCHMAN = 'eternal_watchman';
 
+    // re-engagement
+    const COMEBACK_CHAMPION = 'comeback_champion';
+    const BACK_ON_TRACK = 'back_on_track';
+    const RETURNING_WARRIOR = 'returning_warrior';
+    const THE_SECOND_WIND = 'the_second_wind';
+
     // category types
     const TYPE_PROGRESSION = 'progression';
     const TYPE_ACHIEVEMENT = 'achievement';
-
+    const TYPE_MULTIPLE = 'multiple';
     // categories
     const CATEGORY_STREAK = 'streak';
+    const CATEGORY_CONSISTENCY = 'consistency';
     const CATEGORY_LOCATION = 'location';
     const CATEGORY_RE_ENGAGEMENT = 're-engagement';
 
@@ -141,13 +152,57 @@ class PG_Badges {
                     ],
                 ]
             ],
+            self::CATEGORY_CONSISTENCY => [
+                'type' => self::TYPE_MULTIPLE,
+                'badges' => [
+                    [
+                        'id' => self::PERFECT_WEEK,
+                        'title' => __( 'Perfect Week ', 'prayer-global-porch' ),
+                        'description' => __( 'You have prayed every day this week', 'prayer-global-porch' ),
+                        'value' => 7,
+                    ],
+                    [
+                        'id' => self::PERFECT_MONTH,
+                        'title' => __( 'Perfect Month ', 'prayer-global-porch' ),
+                        'description' => __( 'You have prayed every day this month', 'prayer-global-porch' ),
+                        'value' => 30,
+                    ],
+                    [
+                        'id' => self::PERFECT_YEAR,
+                        'title' => __( 'Perfect Year ', 'prayer-global-porch' ),
+                        'description' => __( 'You have prayed every day this year', 'prayer-global-porch' ),
+                        'value' => 365,
+                    ],
+                ],
+            ],
             self::CATEGORY_RE_ENGAGEMENT => [
                 'type' => self::TYPE_ACHIEVEMENT,
                 'badges' => [
                     [
                         'id' => self::COMEBACK_CHAMPION,
                         'title' => __( 'Comeback Champion', 'prayer-global-porch' ),
-                        'description' => __( 'It\'s great to have you back!', 'prayer-global-porch' ),
+                        'description' => __( 'Restarted praying after breaking a streak', 'prayer-global-porch' ),
+                        'value' => 1,
+                        'hidden' => true,
+                    ],
+                    [
+                        'id' => self::BACK_ON_TRACK,
+                        'title' => __( 'Back on Track', 'prayer-global-porch' ),
+                        'description' => __( 'Rebuilt a 30-day streak after losing it', 'prayer-global-porch' ),
+                        'value' => 1,
+                        'hidden' => true,
+                    ],
+                    [
+                        'id' => self::RETURNING_WARRIOR,
+                        'title' => __( 'Returning Warrior', 'prayer-global-porch' ),
+                        'description' => __( 'You returned after 30+ days of inactivity', 'prayer-global-porch' ),
+                        'value' => 1,
+                        'hidden' => true,
+                    ],
+                    [
+                        'id' => self::THE_SECOND_WIND,
+                        'title' => __( 'The Second Wind', 'prayer-global-porch' ),
+                        'description' => __( 'Restarted praying after breaking 100 day streak', 'prayer-global-porch' ),
                         'value' => 1,
                         'hidden' => true,
                     ],

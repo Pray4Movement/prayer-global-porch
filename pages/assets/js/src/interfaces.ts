@@ -32,6 +32,20 @@ export interface Language {
   flag: string;
 }
 
+export interface Badge {
+  id: string;
+  title: string;
+  description: string;
+  value: number;
+  image: string;
+  type: string;
+  category: string;
+  hidden: boolean;
+  has_badge: boolean;
+  timestamp: number | null;
+  next_badge: Badge | null;
+}
+
 export type RelayVisibility = "private" | "public";
 export type RelayType = "global" | "custom";
 

@@ -113,6 +113,115 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             $gravatar_url = get_avatar_url( $user->user_login );
             $user_stats = new User_Stats( $user->ID );
             $badge_manager = new PG_Badge_Manager( $user->ID );
+            $available_badges = $badge_manager->get_all_badges();
+            $available_badges = [
+                [
+                    'id' => 'streak',
+                    'title' => 'Streak',
+                    'description' => 'You have prayed for 100 days straight',
+                    'value' => 100,
+                    'image' => 'streak.png',
+                    'type' => 'progression',
+                    'category' => 'streak',
+                    'hidden' => false,
+                    'has_badge' => true,
+                    'timestamp' => 1726723200,
+                    'next_badge' => [
+                        'id' => 'year_of_prayer',
+                        'title' => 'Year of Prayer',
+                        'description' => 'You have prayed for 365 days straight',
+                        'value' => 365,
+                        'image' => 'year_of_prayer.png',
+                    ],
+                ],
+                [
+                    'id' => 'perfect_week',
+                    'title' => __( 'Perfect Week ', 'prayer-global-porch' ),
+                    'description' => __( 'You have prayed every day this week', 'prayer-global-porch' ),
+                    'value' => 7,
+                    'image' => 'perfect_week.png',
+                    'type' => 'multiple',
+                    'category' => 'consistency',
+                    'hidden' => false,
+                    'has_badge' => true,
+                    'timestamp' => 1726723200,
+                ],
+                [
+                    'id' => 'location',
+                    'title' => 'Location',
+                    'description' => 'You have prayed for 100 locations',
+                    'value' => 100,
+                    'image' => 'location.png',
+                    'type' => 'progression',
+                    'category' => 'location',
+                    'hidden' => false,
+                    'has_badge' => true,
+                    'timestamp' => 1726723200,
+                    'next_badge' => [
+                        'id' => '200_locations',
+                        'title' => '200 Locations',
+                        'description' => 'You have prayed for 200 locations',
+                        'value' => 200,
+                        'image' => '200_locations.png',
+                    ],
+                ],
+                [
+                    'id' => 'relay_location',
+                    'title' => 'Relay Location',
+                    'description' => 'You have prayed for 5 locations in a relay',
+                    'value' => 5,
+                    'image' => 'relay_location.png',
+                    'type' => 'progression',
+                    'category' => 'location',
+                    'hidden' => false,
+                    'has_badge' => false,
+                ],
+                [
+                    'id' => 'team_player',
+                    'title' => 'Team Player',
+                    'description' => 'You have joined a relay',
+                    'value' => 1,
+                    'image' => 'team_player.png',
+                    'type' => 'achievement',
+                    'category' => 'community',
+                    'hidden' => false,
+                    'has_badge' => false,
+                ],
+                [
+                    'id' => 'relay_anchor',
+                    'title' => 'Relay Anchor',
+                    'description' => 'You have prayed 5 sessions in a relay',
+                    'value' => 1,
+                    'image' => 'relay_anchor.png',
+                    'type' => 'achievement',
+                    'category' => 'community',
+                    'hidden' => false,
+                    'has_badge' => false,
+                ],
+                [
+                    'id' => 'comeback_champion',
+                    'title' => __( 'Comeback Champion', 'prayer-global-porch' ),
+                    'description' => __( 'Restarted praying after breaking a streak', 'prayer-global-porch' ),
+                    'value' => 1,
+                    'hidden' => true,
+                    'category' => 're-engagement',
+                    'image' => 'comeback_champion.png',
+                    'type' => 'achievement',
+                    'has_badge' => true,
+                    'timestamp' => 1726723200,
+                ],
+                [
+                    'id' => 'back_on_track',
+                    'title' => __( 'Back on Track', 'prayer-global-porch' ),
+                    'description' => __( 'Rebuilt a 30-day streak after losing it', 'prayer-global-porch' ),
+                    'value' => 1,
+                    'hidden' => true,
+                    'category' => 're-engagement',
+                    'image' => 'back_on_track.png',
+                    'type' => 'achievement',
+                    'has_badge' => false,
+                ],
+            ];
         }
         dt_theme_enqueue_script( 'dt-components', 'dt-assets/build/components/index.js', [] );
         dt_theme_enqueue_style( 'dt-components-css', 'dt-assets/build/css/light.min.css', [] );
@@ -120,6 +229,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         wp_localize_script( 'components-js', 'jsObject', [
             'parts' => $this->parts,
             'translations' => [
+                'see_all' => esc_html( __( 'See all', 'prayer-global-porch' ) ),
+                'prayer_milestones' => esc_html( __( 'Prayer Milestones', 'prayer-global-porch' ) ),
                 'start_praying' => esc_html( __( 'Start Praying', 'prayer-global-porch' ) ),
                 'change' => esc_html( __( 'Change', 'prayer-global-porch' ) ),
                 'select_a_location' => esc_html( __( 'Please select a location', 'prayer-global-porch' ) ),
@@ -232,9 +343,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'current_streak_in_weeks' => $user_stats->current_streak_in_weeks(),
                 'days_this_year' => $user_stats->days_this_year(),
             ],
-            'current_badges' => $badge_manager->get_user_current_badges_array(),
-            'next_badges' => $badge_manager->get_next_badge_in_progression_array(),
-            'new_badges' => $badge_manager->get_new_badges_array(),
+            'available_badges' => $available_badges,
         ] );
     }
 
