@@ -1,5 +1,5 @@
 import { html } from "lit";
-import { customElement } from "lit/decorators.js";
+import { customElement, property } from "lit/decorators.js";
 import { OpenElement } from "./open-element";
 import { router, navigator } from "lit-element-router";
 
@@ -48,6 +48,16 @@ export class PgRouter extends navigator(router(OpenElement)) {
         pattern: "/dashboard/new-relay",
         data: { render: () => html`<pg-new-relay></pg-new-relay>` },
       },
+      {
+        name: "badges",
+        pattern: "/dashboard/badges",
+        data: { render: () => html`<pg-badges></pg-badges>` },
+      },
+      {
+        name: "badge-item",
+        pattern: "/dashboard/badges/:badgeId",
+        data: { render: (params: any) => html`<pg-badge-item badgeId=${params.badgeId}></pg-badge-item>` },
+      },
     ];
   }
 
@@ -64,7 +74,7 @@ export class PgRouter extends navigator(router(OpenElement)) {
   }
 
   render() {
-    return html` ${this.data?.render && this.data.render()} `;
+    return html` ${this.data?.render && this.data.render(this.params)} `;
   }
 }
 

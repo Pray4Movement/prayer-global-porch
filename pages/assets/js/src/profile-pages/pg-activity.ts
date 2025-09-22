@@ -2,11 +2,17 @@ import { html } from "lit";
 import { customElement } from "lit/decorators.js";
 import { OpenElement } from "./open-element";
 import { User, Badge } from "../interfaces";
+import { navigator } from "lit-element-router";
 
 @customElement("pg-activity")
-export class PgActivity extends OpenElement {
+export class PgActivity extends navigator(OpenElement) {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
+
+  navigateToBadges(e: Event) {
+    e.preventDefault();
+    this.navigate("/dashboard/badges");
+  }
 
   render() {
     return html`
@@ -69,7 +75,7 @@ export class PgActivity extends OpenElement {
               <h3 class="prayer-milestones__title">
                 ${this.translations.prayer_milestones}
               </h3>
-              <a href="dashboard/badges" class="">
+              <a href="dashboard/badges" @click=${this.navigateToBadges}>
                 ${this.translations.see_all}
               </a>
             </div>

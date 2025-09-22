@@ -7,6 +7,8 @@ import "./parts/pg-relay-form";
 import "./profile-pages/open-element";
 import "./profile-pages/pg-activity";
 import "./profile-pages/pg-dashboard";
+import "./profile-pages/pg-badges";
+import "./profile-pages/pg-badge-item";
 import "./profile-pages/pg-new-relay";
 import "./profile-pages/pg-relays";
 import "./profile-pages/pg-router";
