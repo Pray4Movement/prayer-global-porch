@@ -55,7 +55,7 @@ export class PgRouter extends navigator(router(OpenElement)) {
       },
       {
         name: "badge-item",
-        pattern: "/dashboard/badges/:badgeId",
+        pattern: "/dashboard/badge/:badgeId",
         data: { render: (params: any) => html`<pg-badge-item badgeId=${params.badgeId}></pg-badge-item>` },
       },
     ];

@@ -21,7 +21,7 @@ export class PgBadges extends navigator(OpenElement) {
         <div class="pg-container stack-md" data-grid data-small>
             ${this.badges.map((badge) => {
               return html`
-                <div @click=${() => this.navigate(`/dashboard/badges/${badge.id}`)}>${badge.title}</div>
+                <div @click=${() => this.navigate(`/dashboard/badge/${badge.id}`)}>${badge.title}</div>
               `;
             })}
         </div>

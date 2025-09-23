@@ -21,7 +21,7 @@ export class PgBadgeItem extends OpenElement {
   render() {
     return html`
         <pg-header
-            backUrl="/dashboard/activity"
+            backUrl="/dashboard/badges"
             title=${this.badge.title}
         ></pg-header>
 
