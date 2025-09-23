@@ -2610,3 +2610,9 @@ input[type="password"],
     top: -100px;
     left: 0;
 }
+
+.prayer-milestones__title {
+    font-family: var(--pg-font-family-base);
+    font-weight: 600;
+    font-size: 1rem;
+}

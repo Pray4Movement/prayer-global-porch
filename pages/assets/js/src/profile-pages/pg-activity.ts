@@ -71,11 +71,11 @@ export class PgActivity extends navigator(OpenElement) {
           </div>
 
           <section class="prayer-milestones">
-            <div>
+            <div class="d-flex justify-content-between align-items-center">
               <h3 class="prayer-milestones__title">
                 ${this.translations.prayer_milestones}
               </h3>
-              <a href="dashboard/badges" @click=${this.navigateToBadges}>
+              <a href="dashboard/badges" @click=${this.navigateToBadges} class="link-light">
                 ${this.translations.see_all}
               </a>
             </div>
