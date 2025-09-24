@@ -114,6 +114,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             $user_stats = new User_Stats( $user->ID );
             $badge_manager = new PG_Badge_Manager( $user->ID );
             $available_badges = $badge_manager->get_all_badges();
+            $badge_images_url = trailingslashit( plugin_dir_url( __DIR__ ) ) . 'assets/images/badges/';
             $available_badges = [
                 /* ==== EARNED BADGES ==== */
                 /* Progression */
@@ -122,7 +123,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'title' => 'Streak',
                     'description' => 'You have prayed for 10 days straight',
                     'value' => 10,
-                    'image' => 'streak_10.png',
+                    'image' => $badge_images_url . 'streak_10.png',
                     'type' => 'progression',
                     'category' => 'streak',
                     'hidden' => false,
@@ -133,7 +134,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                         'title' => 'Streak',
                         'description' => 'You have prayed for 20 days straight',
                         'value' => 20,
-                        'image' => 'streak_20.png',
+                        'image' => $badge_images_url . 'streak_20.png',
                     ],
                 ],
                 /* Multiple */
@@ -142,7 +143,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'title' => __( 'Perfect Week ', 'prayer-global-porch' ),
                     'description' => __( 'You have prayed every day this week', 'prayer-global-porch' ),
                     'value' => 7,
-                    'image' => 'perfect_week.png',
+                    'image' => $badge_images_url . 'perfect_week.png',
                     'type' => 'multiple',
                     'category' => 'consistency',
                     'hidden' => false,
@@ -155,7 +156,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'title' => 'First Prayer',
                     'description' => 'You have prayed for the first time',
                     'value' => 1,
-                    'image' => 'first_prayer.png',
+                    'image' => $badge_images_url . 'first_prayer.png',
                     'type' => 'achievement',
                     'category' => 'community',
                     'hidden' => false,
@@ -168,7 +169,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'title' => 'October Challenge 2025',
                     'description' => 'You have prayed for the October Challenge 2025',
                     'value' => 1,
-                    'image' => 'challenge_october_2025.png',
+                    'image' => $badge_images_url . 'challenge_october_2025.png',
                     'type' => 'challenge',
                     'category' => 'community',
                     'hidden' => false,
@@ -182,7 +183,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'title' => 'Relay Location',
                     'description' => 'You have prayed for 100 locations in a relay',
                     'value' => 100,
-                    'image' => 'relay_location_100.png',
+                    'image' => $badge_images_url . 'relay_location_100.png',
                     'type' => 'progression',
                     'category' => 'location',
                     'hidden' => false,
@@ -194,7 +195,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'title' => 'Team Player',
                     'description' => 'You have joined a relay',
                     'value' => 1,
-                    'image' => 'team_player.png',
+                    'image' => $badge_images_url . 'team_player.png',
                     'type' => 'achievement',
                     'category' => 'community',
                     'hidden' => false,
@@ -205,7 +206,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'title' => 'December Challenge 2025',
                     'description' => 'You have prayed for the December Challenge 2025',
                     'value' => 1,
-                    'image' => 'challenge_december_2025.png',
+                    'image' => $badge_images_url . 'challenge_december_2025.png',
                     'type' => 'challenge',
                     'category' => 'community',
                     'hidden' => false,
@@ -220,7 +221,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'value' => 1,
                     'hidden' => true,
                     'category' => 're-engagement',
-                    'image' => 'perfect_month.png',
+                    'image' => $badge_images_url . 'perfect_month.png',
+                    'hidden_image' => $badge_images_url . 'mystery_badge.png',
                     'type' => 'achievement',
                     'has_badge' => false,
                 ],

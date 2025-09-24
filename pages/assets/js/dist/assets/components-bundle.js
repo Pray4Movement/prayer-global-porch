@@ -464,9 +464,9 @@
             </div>
             <div class="prayer-milestones__list">
               ${window.jsObject.available_badges.map(e=>c`
-                  <div class="prayer-milestone">
+                  <div class="prayer-milestone text-center">
                     <img src="${e.image}" alt="${e.title}" />
-                    ${e.title}
+                    <span>${e.title}</span>
                   </div>
                 `)}
             </div>
