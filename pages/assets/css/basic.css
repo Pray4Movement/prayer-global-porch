@@ -931,6 +931,16 @@ input[type="radio"]:checked {
   padding-bottom: var(--space, 1rem);
 }
 
+.grid {
+  display: grid;
+  grid-gap: 0.5rem;
+}
+
+@supports (width: min(100px, 100%)) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(100px, 100%), 1fr));
+  }
+}
 
 /* Utilities */
 
@@ -2625,10 +2635,12 @@ input[type="password"],
     gap: 1rem;
     overflow-x: scroll;
 }
-.prayer-milestone img {
-    max-width: 100px;
+.prayer-milestone {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.prayer-milestone img {
+    max-width: 100px;
 }

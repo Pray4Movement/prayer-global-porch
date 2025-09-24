@@ -82,10 +82,7 @@ export class PgActivity extends navigator(OpenElement) {
             <div class="prayer-milestones__list">
               ${window.jsObject.available_badges.map((badge: Badge) => {
                 return html`
-                  <div class="prayer-milestone text-center">
-                    <img src="${badge.image}" alt="${badge.title}" />
-                    <span>${badge.title}</span>
-                  </div>
+                  <pg-badge .badge=${badge}></pg-badge>
                 `;
               })}
             </div>

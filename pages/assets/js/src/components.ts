@@ -1,4 +1,5 @@
 import "./parts/pg-avatar";
+import "./parts/pg-badge";
 import "./parts/pg-header";
 import "./parts/pg-modal";
 import "./parts/nav-link";

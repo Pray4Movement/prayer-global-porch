@@ -1,4 +1,4 @@
-import { html, PropertyValues, render } from "lit";
+import { html } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { OpenElement } from "./open-element";
 import { User, Badge } from "../interfaces";
@@ -18,10 +18,10 @@ export class PgBadges extends navigator(OpenElement) {
         ></pg-header>
 
       <div class="brand-bg white page px-3">
-        <div class="pg-container stack-md" data-grid data-small>
+        <div class="pg-container grid" data-grid data-small>
             ${this.badges.map((badge) => {
               return html`
-                <div @click=${() => this.navigate(`/dashboard/badge/${badge.id}`)}>${badge.title}</div>
+                <pg-badge .badge=${badge}></pg-badge>
               `;
             })}
         </div>

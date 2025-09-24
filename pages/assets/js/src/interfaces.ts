@@ -38,6 +38,7 @@ export interface Badge {
   description: string;
   value: number;
   image: string;
+  bw_image: string | null;
   type: string;
   category: string;
   hidden: boolean;
