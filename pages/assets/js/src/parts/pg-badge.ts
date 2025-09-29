@@ -9,7 +9,7 @@ export class PgBadge extends navigator(OpenElement) {
     @property({ type: Object }) badge: Badge = {} as Badge;
 
     getImageUrl() {
-        if (this.badge.has_badge) {
+        if (this.badge.has_earned_badge) {
             return this.badge.image;
         }
         return this.badge.bw_image;
@@ -18,10 +18,12 @@ export class PgBadge extends navigator(OpenElement) {
     render() {
         return html`
             <div
-                class="prayer-milestone text-center"
+                class="prayer-badge text-center"
                 @click=${() => this.navigate(`/dashboard/badge/${this.badge.id}`)}
             >
-                <img src="${this.badge.image}" alt="${this.badge.title}" />
+                <div>
+                    <img src="${this.getImageUrl()}" alt="${this.badge.title}" />
+                </div>
                 <span>${this.badge.title}</span>
             </div>
         `;

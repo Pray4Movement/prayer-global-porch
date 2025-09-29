@@ -2624,30 +2624,30 @@ input[type="password"],
     left: 0;
 }
 
-.prayer-milestones {
+.prayer-badges {
     overflow: hidden;
 }
-.prayer-milestones__title {
+.prayer-badges__title {
     font-family: var(--pg-font-family-base);
     font-weight: 600;
     font-size: 1rem;
 }
-.prayer-milestones__list {
+.prayer-badges__list {
     display: flex;
     flex-direction: row;
     gap: 1rem;
     overflow-x: scroll;
 }
-.prayer-milestone {
+.prayer-badge {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
-.prayer-milestone img {
+.prayer-badge img {
     max-width: 100px;
 }
-.prayer-milestone span {
+.prayer-badge span {
     font-size: 0.9rem;
 }
 .badge-item img {

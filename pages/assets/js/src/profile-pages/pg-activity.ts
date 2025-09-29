@@ -70,16 +70,16 @@ export class PgActivity extends navigator(OpenElement) {
             </section>
           </div>
 
-          <section class="prayer-milestones">
+          <section class="prayer-badges">
             <div class="d-flex justify-content-between align-items-center">
-              <h3 class="prayer-milestones__title">
+              <h3 class="prayer-badges__title">
                 ${this.translations.prayer_milestones}
               </h3>
               <a href="dashboard/badges" @click=${this.navigateToBadges} class="link-light">
                 ${this.translations.see_all}
               </a>
             </div>
-            <div class="prayer-milestones__list">
+            <div class="prayer-badges__list">
               ${window.jsObject.available_badges.map((badge: Badge) => {
                 return html`
                   <pg-badge .badge=${badge}></pg-badge>

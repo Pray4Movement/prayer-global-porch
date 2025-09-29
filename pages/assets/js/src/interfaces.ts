@@ -39,11 +39,12 @@ export interface Badge {
   description_earned: string;
   value: number;
   image: string;
-  bw_image: string | null;
+  bw_image: string;
   type: string;
   category: string;
   hidden: boolean;
   has_earned_badge: boolean;
+  no_times_earned: number | null;
   timestamp: number | null;
   next_badge: Badge | null;
   progress: {
