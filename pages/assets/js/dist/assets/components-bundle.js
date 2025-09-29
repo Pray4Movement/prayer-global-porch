@@ -62,7 +62,7 @@
             >
                 <div class="badge-image-wrapper">
                     <img src="${this.getImageUrl()}" alt="${this.badge.title}" />
-                    ${this.badge.no_times_earned?l`
+                    ${this.badge.type==="multiple"&&this.badge.no_times_earned?l`
                         <div class="badge-times-earned">x${this.badge.no_times_earned}</div>
                     `:""}
                 </div>
@@ -654,7 +654,7 @@
               `)}
         </div>
       </div>
-    `}};Ut=ze([$("pg-badges")],Ut);var Le=Object.defineProperty,Be=Object.getOwnPropertyDescriptor,ft=(s,t,e,a)=>{for(var i=a>1?void 0:a?Be(t,e):t,r=s.length-1,n;r>=0;r--)(n=s[r])&&(i=(a?n(t,e,i):n(i))||i);return a&&i&&Le(t,e,i),i};let at=class extends w{constructor(){super(...arguments),this.user=window.pg_global.user,this.translations=window.jsObject.translations,this.badgeId="",this.badge={}}connectedCallback(){super.connectedCallback();const s=window.jsObject.available_badges;this.badge=s.find(t=>t.id===this.badgeId)}render(){return l`
+    `}};Ut=ze([$("pg-badges")],Ut);var Le=Object.defineProperty,Be=Object.getOwnPropertyDescriptor,ft=(s,t,e,a)=>{for(var i=a>1?void 0:a?Be(t,e):t,r=s.length-1,n;r>=0;r--)(n=s[r])&&(i=(a?n(t,e,i):n(i))||i);return a&&i&&Le(t,e,i),i};let at=class extends w{constructor(){super(...arguments),this.user=window.pg_global.user,this.translations=window.jsObject.translations,this.badgeId="",this.badge={}}connectedCallback(){super.connectedCallback();const s=window.jsObject.available_badges;this.badge=s.find(t=>t.id===this.badgeId)}getImageUrl(){return this.badge.has_earned_badge?this.badge.image:this.badge.bw_image}render(){return l`
         <pg-header
             backUrl="/dashboard/badges"
             title=${this.badge.title}
@@ -667,8 +667,8 @@
                 `:""}
             <div class="center">
               <div class="badge-image-wrapper two-rem">
-                <img src="${this.badge.image}" alt="${this.badge.title}" />
-                ${this.badge.no_times_earned?l`
+                <img src="${this.getImageUrl()}" alt="${this.badge.title}" />
+                ${this.badge.type==="multiple"&&this.badge.no_times_earned?l`
                     <div class="badge-times-earned">x${this.badge.no_times_earned}</div>
                 `:""}
               </div>
@@ -679,16 +679,14 @@
             `:l`
                 <div class="badge-item__description">${this.badge.description_unearned}</div>
             `}
-            ${this.badge&&this.badge.progress&&this.badge.progress?l`
+            ${this.badge.type==="progression"&&this.badge.progression_value?l`
                     <div>
                       <div class="d-flex align-items-center gap-2 justify-content-center brand-highlight">
-                        <span class="progress-bar__text">${this.badge.progress.from}</span>
                         <div class="progress-bar" data-small>
-                            <div class="progress-bar__slider blue-highlight-bg" style="width: ${this.badge.progress.current/this.badge.progress.to*100}%"></div>
+                            <div class="progress-bar__slider blue-highlight-bg" style="width: ${this.badge.progression_value/this.badge.value*100}%"></div>
                         </div>
-                        <span class="progress-bar__text">${this.badge.progress.to}</span>
+                        <span class="progress-bar__text">${this.badge.progression_value}/${this.badge.value}</span>
                       </div>
-                      <span class="progress-bar__text brand-highlight">${this.badge.progress.text}</span>
                     </div>
                 `:""}
         </div>

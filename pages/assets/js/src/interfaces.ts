@@ -32,7 +32,9 @@ export interface Language {
   flag: string;
 }
 
-export interface Badge {
+export type BadgeCategory = "streak" | "location" | "community" | "re-engagement";
+
+export type Badge = {
   id: string;
   title: string;
   description_unearned: string;
@@ -40,19 +42,25 @@ export interface Badge {
   value: number;
   image: string;
   bw_image: string;
-  type: string;
-  category: string;
+  category: BadgeCategory;
   hidden: boolean;
   has_earned_badge: boolean;
-  no_times_earned: number | null;
   timestamp: number | null;
-  next_badge: Badge | null;
-  progress: {
-    text: string;
-    from: number;
-    to: number;
-    current: number;
-  } | null;
+} & (AchievementBadge | ProgressionBadge | MultipleBadge);
+
+export type AchievementBadge = {
+  type: "achievement";
+}
+
+export type ProgressionBadge = {
+  type: "progression";
+  progression_value: number;
+  progression_badges: Badge[];
+}
+
+export type MultipleBadge = {
+  type: "multiple";
+  no_times_earned: number;
 }
 
 export type RelayVisibility = "private" | "public";

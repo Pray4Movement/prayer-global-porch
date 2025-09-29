@@ -1,5 +1,5 @@
 import { property, customElement } from 'lit/decorators.js';
-import { Badge } from '../interfaces';
+import { Badge, MultipleBadge, ProgressionBadge } from '../interfaces';
 import { html } from 'lit';
 import { navigator } from 'lit-element-router';
 import { OpenElement } from '../profile-pages/open-element';
@@ -23,7 +23,7 @@ export class PgBadge extends navigator(OpenElement) {
             >
                 <div class="badge-image-wrapper">
                     <img src="${this.getImageUrl()}" alt="${this.badge.title}" />
-                    ${this.badge.no_times_earned ? html`
+                    ${this.badge.type === 'multiple' && this.badge.no_times_earned ? html`
                         <div class="badge-times-earned">x${this.badge.no_times_earned}</div>
                     ` : ''}
                 </div>
