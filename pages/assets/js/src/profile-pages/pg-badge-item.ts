@@ -32,7 +32,14 @@ export class PgBadgeItem extends OpenElement {
                     <div class="badge-item__timestamp">Earned ${new Intl.DateTimeFormat().format(this.badge.timestamp * 1000)}</div>
                 ` : ''
             }
-            <div class="center"><img src="${this.badge.image}" alt="${this.badge.title}" /></div>
+            <div class="center">
+              <div class="badge-image-wrapper two-rem">
+                <img src="${this.badge.image}" alt="${this.badge.title}" />
+                ${this.badge.no_times_earned ? html`
+                    <div class="badge-times-earned">x${this.badge.no_times_earned}</div>
+                ` : ''}
+              </div>
+            </div>
             <div class="badge-item__title">${this.badge.title}</div>
             ${this.badge.has_earned_badge ? html`
                 <div class="badge-item__description">${this.badge.description_earned}</div>

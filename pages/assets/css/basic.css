@@ -2647,6 +2647,20 @@ input[type="password"],
 .prayer-badge img {
     max-width: 100px;
 }
+.badge-image-wrapper {
+    position: relative;
+}
+.badge-times-earned {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background-color: var(--pg-brand-color-highlight);
+    color: var(--pg-brand-color-light);
+    font-size: 0.9em;
+    padding: 0.6em;
+    line-height: 0;
+    border-radius: 100px;
+}
 .prayer-badge span {
     font-size: 0.9rem;
 }

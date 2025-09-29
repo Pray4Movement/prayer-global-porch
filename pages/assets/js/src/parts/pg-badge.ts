@@ -21,8 +21,11 @@ export class PgBadge extends navigator(OpenElement) {
                 class="prayer-badge text-center"
                 @click=${() => this.navigate(`/dashboard/badge/${this.badge.id}`)}
             >
-                <div>
+                <div class="badge-image-wrapper">
                     <img src="${this.getImageUrl()}" alt="${this.badge.title}" />
+                    ${this.badge.no_times_earned ? html`
+                        <div class="badge-times-earned">x${this.badge.no_times_earned}</div>
+                    ` : ''}
                 </div>
                 <span>${this.badge.title}</span>
             </div>
