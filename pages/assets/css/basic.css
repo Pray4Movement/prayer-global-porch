@@ -631,6 +631,9 @@ input[type="radio"]:checked {
 .blue-light-bg {
     background-color: var(--pg-brand-color-light);
 }
+.blue-highlight-bg {
+    background-color: var(--pg-brand-color-highlight);
+}
 .orange-dark-bg {
     background-color: rgb(255, 98, 0);
 }
@@ -2643,4 +2646,27 @@ input[type="password"],
 }
 .prayer-milestone img {
     max-width: 100px;
+}
+.prayer-milestone span {
+    font-size: 0.9rem;
+}
+.badge-item img {
+    max-width: 200px;
+}
+.badge-item .progress-bar {
+    padding-top: 15px;
+    background-color: transparent;
+    border: 1px solid var(--pg-brand-color-highlight);
+    max-width: 150px;
+}
+.badge-item__title {
+    font-size: 2rem;
+}
+.badge-item__description {
+    font-size: 1rem;
+    color: var(--pg-brand-color-highlight);
+}
+.badge-item__timestamp {
+    font-size: 1rem;
+    color: var(--pg-brand-color-highlight);
 }

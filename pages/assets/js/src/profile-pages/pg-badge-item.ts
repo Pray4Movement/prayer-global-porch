@@ -25,11 +25,34 @@ export class PgBadgeItem extends OpenElement {
             title=${this.badge.title}
         ></pg-header>
 
-      <div class="brand-bg white page px-3">
-        <div class="pg-container stack-md" data-grid data-small>
-            <img src="${this.badge.image}" alt="${this.badge.title}" />
-            <div>${this.badge.title}</div>
-            <div>${this.badge.description}</div>
+      <div class="brand-bg white page px-3 text-center">
+        <div class="pg-container stack-sm badge-item" data-grid data-small>
+            ${
+                this.badge.timestamp ? html`
+                    <div class="badge-item__timestamp">Earned ${new Intl.DateTimeFormat().format(this.badge.timestamp * 1000)}</div>
+                ` : ''
+            }
+            <div class="center"><img src="${this.badge.image}" alt="${this.badge.title}" /></div>
+            <div class="badge-item__title">${this.badge.title}</div>
+            ${this.badge.has_earned_badge ? html`
+                <div class="badge-item__description">${this.badge.description_earned}</div>
+            ` : html`
+                <div class="badge-item__description">${this.badge.description_unearned}</div>
+            `}
+            ${
+                this.badge && this.badge.progress && this.badge.progress ? html`
+                    <div>
+                      <div class="d-flex align-items-center gap-2 justify-content-center brand-highlight">
+                        <span class="progress-bar__text">${this.badge.progress.from}</span>
+                        <div class="progress-bar" data-small>
+                            <div class="progress-bar__slider blue-highlight-bg" style="width: ${this.badge.progress.current / this.badge.progress.to * 100}%"></div>
+                        </div>
+                        <span class="progress-bar__text">${this.badge.progress.to}</span>
+                      </div>
+                      <span class="progress-bar__text brand-highlight">${this.badge.progress.text}</span>
+                    </div>
+                ` : ''
+            }
         </div>
       </div>
     `;

@@ -35,16 +35,23 @@ export interface Language {
 export interface Badge {
   id: string;
   title: string;
-  description: string;
+  description_unearned: string;
+  description_earned: string;
   value: number;
   image: string;
   bw_image: string | null;
   type: string;
   category: string;
   hidden: boolean;
-  has_badge: boolean;
+  has_earned_badge: boolean;
   timestamp: number | null;
   next_badge: Badge | null;
+  progress: {
+    text: string;
+    from: number;
+    to: number;
+    current: number;
+  } | null;
 }
 
 export type RelayVisibility = "private" | "public";
