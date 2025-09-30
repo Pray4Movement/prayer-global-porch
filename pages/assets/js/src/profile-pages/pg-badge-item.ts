@@ -33,9 +33,8 @@ export class PgBadgeItem extends OpenElement {
     if (slides) {
       this.sliderElement = slides;
       let currentEarnedBadge : Badge | null = null;
-      for (let i = this.badge.progression_badges.length - 1; i >= 0; i--) {
-        const badge = this.badge.progression_badges[i];
-        if (badge.has_earned_badge) {
+      for (const badge of this.badge.progression_badges) {
+        if (!badge.has_earned_badge) {
           currentEarnedBadge = badge;
           break;
         }
@@ -169,7 +168,7 @@ export class PgBadgeItem extends OpenElement {
                 <div class="badge-item__description">${this.currentBadge.description_unearned}</div>
             `}
             ${
-                this.badge.type === 'progression' && this.badge.progression_value ? html`
+                this.badge.type === 'progression' && this.badge.progression_value && !this.currentBadge.has_earned_badge ? html`
                     <div>
                       <div class="d-flex align-items-center gap-2 justify-content-center brand-highlight">
                         <div class="progress-bar" data-small>
