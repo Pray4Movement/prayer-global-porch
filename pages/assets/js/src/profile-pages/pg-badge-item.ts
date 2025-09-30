@@ -11,6 +11,7 @@ export class PgBadgeItem extends OpenElement {
   sliderElement: HTMLElement | null = null;
   lastScrollLeft: number = 0;
   scrollTimeout: NodeJS.Timeout | null = null;
+  lastEarnedBadgeIndex: number = 0;
 
   @property({ type: String }) badgeId: string = "";
   @property({ type: Object, attribute: false }) badge: Badge = {} as Badge;
@@ -32,14 +33,18 @@ export class PgBadgeItem extends OpenElement {
     const slides = this.renderRoot.querySelector('.badge-slides') as HTMLElement;
     if (slides) {
       this.sliderElement = slides;
-      let currentEarnedBadge : Badge | null = null;
+      let firstUnearnedBadge : Badge | null = null;
+      this.lastEarnedBadgeIndex = 0;
       for (const badge of this.badge.progression_badges) {
-        if (!badge.has_earned_badge) {
-          currentEarnedBadge = badge;
+        if (badge.has_earned_badge) {
+          this.lastEarnedBadgeIndex = this.lastEarnedBadgeIndex + 1;
+        } else {
+          firstUnearnedBadge = badge;
           break;
         }
       }
-      this.slideToBadge(currentEarnedBadge);
+      console.log(this.lastEarnedBadgeIndex);
+      this.slideToBadge(firstUnearnedBadge);
     }
   }
 
@@ -182,7 +187,11 @@ export class PgBadgeItem extends OpenElement {
                 <div class="badge-item__description">${this.currentBadge.description_unearned}</div>
             `}
             ${
-                this.badge.type === 'progression' && this.badge.progression_value && !this.currentBadge.has_earned_badge ? html`
+                this.badge.type === 'progression' &&
+                this.badge.progression_value &&
+                !this.currentBadge.has_earned_badge &&
+                this.currentBadgeIndex < this.lastEarnedBadgeIndex + 2
+                  ? html`
                     <div>
                       <div class="d-flex align-items-center gap-2 justify-content-center brand-highlight">
                         <div class="progress-bar" data-small>
