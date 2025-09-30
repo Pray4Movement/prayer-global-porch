@@ -1,7 +1,7 @@
 import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { OpenElement } from "./open-element";
-import { User, Badge } from "../interfaces";
+import { User, Badge, ProgressionBadge } from "../interfaces";
 
 @customElement("pg-badge-item")
 export class PgBadgeItem extends OpenElement {
@@ -39,7 +39,7 @@ export class PgBadgeItem extends OpenElement {
           break;
         }
       }
-      this.slideToEarnedBadge(currentEarnedBadge);
+      this.slideToBadge(currentEarnedBadge);
     }
   }
 
@@ -81,7 +81,7 @@ export class PgBadgeItem extends OpenElement {
     this.setCurrentBadge();
   }
 
-  slideToEarnedBadge(badge: Badge | null) {
+  slideToBadge(badge: Badge | null) {
     if (this.badge.type !== 'progression') {
       return;
     }
@@ -94,6 +94,13 @@ export class PgBadgeItem extends OpenElement {
     this.sliderElement.scrollTo({
       left: this.sliderElement.scrollWidth * (this.badge.progression_badges.indexOf(badge) / (this.badge.progression_badges.length + 1)),
     });
+  }
+
+  slideToIndex(index: number) {
+    if (this.badge.type !== 'progression') {
+      return;
+    }
+    this.slideToBadge(this.badge.progression_badges[index]);
   }
 
   setCurrentBadge() {
@@ -147,12 +154,19 @@ export class PgBadgeItem extends OpenElement {
                   </div>
               </div>
               <div class="repel">
-                <button class="badge-item__progression-button">
+                <button
+                  class="badge-item__progression-button"
+                  @click=${() => this.slideToIndex(this.currentBadgeIndex - 1)}
+                >
+
                   <svg class="white icon-sm">
                     <use href="${this.spritesheetUrl}#pg-chevron-left"></use>
                   </svg>
                 </button>
-                <button class="badge-item__progression-button">
+                <button
+                  class="badge-item__progression-button"
+                  @click=${() => this.slideToIndex(this.currentBadgeIndex + 1)}
+                >
                   <svg class="white icon-sm">
                     <use href="${this.spritesheetUrl}#pg-chevron-right"></use>
                   </svg>

@@ -132,7 +132,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'type' => 'progression',
                     'category' => 'streak',
                     'hidden' => false,
-                    'progression_value' => 26,
+                    'progression_value' => 16,
                     'progression_badges' => [
                         [
                             'id' => 'streak_10',
@@ -153,7 +153,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                             'value' => 20,
                             'image' => $badge_images_url . 'streak_20.png',
                             'bw_image' => $badge_images_url . 'streak_20_bw.png',
-                            'has_earned_badge' => true,
+                            'has_earned_badge' => false,
                         ],
                         [
                             'id' => 'streak_30',
