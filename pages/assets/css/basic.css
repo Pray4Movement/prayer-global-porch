@@ -2684,3 +2684,32 @@ input[type="password"],
     font-size: 1rem;
     color: var(--pg-brand-color-highlight);
 }
+.badge-slider {
+    position: relative;
+    overflow: hidden;
+}
+.badge-slides {
+    display: flex;
+
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+.badge-slide {
+    scroll-snap-align: center;
+    flex: 0 0 50%;
+    transform: scale(0.5);
+    transition: transform 0.3s ease-out;
+}
+.badge-slide.active {
+    transform: scale(1);
+}
+.badge-slide img {
+    max-width: 200px;
+    width: 100%;
+}
+.badge-buffer {
+    flex: 0 0 25%;
+}

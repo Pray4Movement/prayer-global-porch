@@ -51,6 +51,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'pg-world-light',
             'pg-info',
             'pg-chevron-left',
+            'pg-chevron-right',
             'pg-bell',
             'pg-share',
             'ion-ellipsis-horizontal',
@@ -131,7 +132,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'type' => 'progression',
                     'category' => 'streak',
                     'hidden' => false,
-                    'progression_value' => 16,
+                    'progression_value' => 26,
                     'progression_badges' => [
                         [
                             'id' => 'streak_10',
@@ -152,7 +153,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                             'value' => 20,
                             'image' => $badge_images_url . 'streak_20.png',
                             'bw_image' => $badge_images_url . 'streak_20_bw.png',
-                            'has_earned_badge' => false,
+                            'has_earned_badge' => true,
                         ],
                         [
                             'id' => 'streak_30',
@@ -236,7 +237,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'type' => 'progression',
                     'category' => 'location',
                     'progression_value' => 12,
-                    'badges' => [
+                    'progression_badges' => [
                         [
                             'id' => 'relay_location_25',
                             'title' => 'Relay Location 25',

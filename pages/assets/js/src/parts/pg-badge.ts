@@ -23,7 +23,7 @@ export class PgBadge extends navigator(OpenElement) {
             >
                 <div class="badge-image-wrapper">
                     <img src="${this.getImageUrl()}" alt="${this.badge.title}" />
-                    ${this.badge.type === 'multiple' && this.badge.no_times_earned ? html`
+                    ${this.badge.type === 'multiple' && this.badge.no_times_earned > 1 ? html`
                         <div class="badge-times-earned">x${this.badge.no_times_earned}</div>
                     ` : ''}
                 </div>
