@@ -2684,6 +2684,9 @@ input[type="password"],
     font-size: 1rem;
     color: var(--pg-brand-color-highlight);
 }
+.badge-item__timestamp[data-empty] {
+    opacity: 0;
+}
 .badge-slider {
     position: relative;
     overflow: hidden;

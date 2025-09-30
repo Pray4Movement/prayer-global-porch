@@ -662,9 +662,11 @@
 
       <div class="brand-bg white page px-3 text-center">
         <div class="pg-container stack-sm badge-item" data-grid data-small>
-            ${this.badge.timestamp?l`
-                    <div class="badge-item__timestamp">Earned ${new Intl.DateTimeFormat().format(this.badge.timestamp*1e3)}</div>
-                `:""}
+
+          <div class="badge-item__timestamp" ?data-empty=${!this.currentBadge.timestamp}>
+            Earned ${this.currentBadge.timestamp?`${new Intl.DateTimeFormat().format(this.currentBadge.timestamp*1e3)}`:""}
+          </div>
+
             ${this.badge.type!=="progression"?l`
               <div class="center">
                 <div class="badge-image-wrapper two-rem">
