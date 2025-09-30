@@ -641,7 +641,7 @@
           </div>
         </div>
       </div>
-    `}async getLocationFromIP(){var t;const e=localStorage.getItem("user_location");this.user.location=e?JSON.parse(e):null,(t=this.user.location)!=null&&t.hash&&(this.user.location_hash=this.user.location.hash),(!this.user.location||this.user.location.date_set&&this.user.location.date_set<Date.now()-6048e5||!this.user.location.timezone)&&await window.api_fetch("https://geo.prayer.global/json",{method:"GET"}).then(s=>{var a,i,r,n,d,o;if(s){const h={lat:s.location.latitude,lng:s.location.longitude,label:`${(i=(a=s.city)==null?void 0:a.names)==null?void 0:i.en}, ${(n=(r=s.country)==null?void 0:r.names)==null?void 0:n.en}`,country:(o=(d=s.country)==null?void 0:d.names)==null?void 0:o.en,date_set:Date.now(),timezone:s.location.time_zone,source:"ip"};this.user.location=h;let p=localStorage.getItem("pg_user_hash");(!p||p==="undefined")&&(p=window.crypto.randomUUID(),localStorage.setItem("pg_user_hash",p),this.user.location_hash=p),this.user.location.hash=p,localStorage.setItem("user_location",JSON.stringify(this.user.location))}}),await window.api_fetch(`${window.pg_global.root}pg-api/v1/dashboard/save_location`,{method:"POST",body:JSON.stringify({location_hash:this.user.location_hash,location:this.user.location})}),this.requestUpdate()}async link_anonymous_prayers(){const e=`${window.pg_global.root}pg-api/v1/dashboard/link_anonymous_prayers`;window.api_fetch(e,{method:"POST",body:JSON.stringify({location_hash:this.user.location_hash})})}};yt([g()],nt.prototype,"relays",2);yt([g()],nt.prototype,"loading",2);nt=yt([f("pg-dashboard")],nt);var Be=Object.getOwnPropertyDescriptor,He=(e,t,s,a)=>{for(var i=a>1?void 0:a?Be(t,s):t,r=e.length-1,n;r>=0;r--)(n=e[r])&&(i=n(i)||i);return i};let Ut=class extends z(w){constructor(){super(...arguments),this.user=window.pg_global.user,this.translations=window.jsObject.translations,this.badges=window.jsObject.available_badges}render(){return l`
+    `}async getLocationFromIP(){var t;const e=localStorage.getItem("user_location");this.user.location=e?JSON.parse(e):null,(t=this.user.location)!=null&&t.hash&&(this.user.location_hash=this.user.location.hash),(!this.user.location||this.user.location.date_set&&this.user.location.date_set<Date.now()-6048e5||!this.user.location.timezone)&&await window.api_fetch("https://geo.prayer.global/json",{method:"GET"}).then(s=>{var a,i,r,n,d,o;if(s){const h={lat:s.location.latitude,lng:s.location.longitude,label:`${(i=(a=s.city)==null?void 0:a.names)==null?void 0:i.en}, ${(n=(r=s.country)==null?void 0:r.names)==null?void 0:n.en}`,country:(o=(d=s.country)==null?void 0:d.names)==null?void 0:o.en,date_set:Date.now(),timezone:s.location.time_zone,source:"ip"};this.user.location=h;let p=localStorage.getItem("pg_user_hash");(!p||p==="undefined")&&(p=window.crypto.randomUUID(),localStorage.setItem("pg_user_hash",p),this.user.location_hash=p),this.user.location.hash=p,localStorage.setItem("user_location",JSON.stringify(this.user.location))}}),await window.api_fetch(`${window.pg_global.root}pg-api/v1/dashboard/save_location`,{method:"POST",body:JSON.stringify({location_hash:this.user.location_hash,location:this.user.location})}),this.requestUpdate()}async link_anonymous_prayers(){const e=`${window.pg_global.root}pg-api/v1/dashboard/link_anonymous_prayers`;window.api_fetch(e,{method:"POST",body:JSON.stringify({location_hash:this.user.location_hash})})}};yt([g()],nt.prototype,"relays",2);yt([g()],nt.prototype,"loading",2);nt=yt([f("pg-dashboard")],nt);var Be=Object.getOwnPropertyDescriptor,He=(e,t,s,a)=>{for(var i=a>1?void 0:a?Be(t,s):t,r=e.length-1,n;r>=0;r--)(n=e[r])&&(i=n(i)||i);return i};let Ut=class extends z(w){constructor(){super(),this.user=window.pg_global.user,this.translations=window.jsObject.translations,this.badges=window.jsObject.available_badges,window.scrollTo(0,0)}render(){return l`
         <pg-header
             backUrl="/dashboard/activity"
             title=${this.translations.prayer_milestones}
@@ -654,7 +654,7 @@
               `)}
         </div>
       </div>
-    `}};Ut=He([f("pg-badges")],Ut);var Le=Object.defineProperty,ze=Object.getOwnPropertyDescriptor,Q=(e,t,s,a)=>{for(var i=a>1?void 0:a?ze(t,s):t,r=e.length-1,n;r>=0;r--)(n=e[r])&&(i=(a?n(t,s,i):n(i))||i);return a&&i&&Le(t,s,i),i};let H=class extends w{constructor(){super(...arguments),this.user=window.pg_global.user,this.translations=window.jsObject.translations,this.spritesheetUrl=window.jsObject.spritesheet_url,this.sliderElement=null,this.lastScrollLeft=0,this.scrollTimeout=null,this.lastEarnedBadgeIndex=0,this.badgeId="",this.badge={},this.currentBadgeIndex=0,this.currentBadge={}}connectedCallback(){super.connectedCallback();const e=window.jsObject.available_badges;this.badge=e.find(t=>t.id===this.badgeId),this.currentBadge=this.badge}firstUpdated(){if(this.badge.type!=="progression")return;const e=this.renderRoot.querySelector(".badge-slides");if(e){this.sliderElement=e;let t=null;this.lastEarnedBadgeIndex=0;for(const s of this.badge.progression_badges)if(s.has_earned_badge)this.lastEarnedBadgeIndex=this.lastEarnedBadgeIndex+1;else{t=s;break}console.log(this.lastEarnedBadgeIndex),this.slideToBadge(t)}}getImageUrl(e){return e.has_earned_badge?e.image:e.bw_image}onSliderScroll(e){if(this.badge.type!=="progression"||!this.sliderElement)return;const t=5,s=.01;this.scrollTimeout=setTimeout(()=>{if(!this.sliderElement)return;const a=Math.abs((this.sliderElement.scrollLeft-this.lastScrollLeft)*(t/1e3));this.lastScrollLeft=this.sliderElement.scrollLeft,a<s&&this.setCurrentBadge()},t)}onSliderScrollEnd(e){this.scrollTimeout&&clearTimeout(this.scrollTimeout),this.setCurrentBadge()}slideToBadge(e){this.badge.type==="progression"&&this.sliderElement&&e&&this.sliderElement.scrollTo({left:this.sliderElement.scrollWidth*(this.badge.progression_badges.indexOf(e)/(this.badge.progression_badges.length+1))})}slideToIndex(e){this.badge.type==="progression"&&this.slideToBadge(this.badge.progression_badges[e])}setCurrentBadge(){this.badge.type==="progression"&&this.sliderElement&&(this.currentBadgeIndex=Math.round(this.sliderElement.scrollLeft/this.sliderElement.scrollWidth*(this.badge.progression_badges.length+1)),this.currentBadge=this.badge.progression_badges[this.currentBadgeIndex])}render(){return l`
+    `}};Ut=He([f("pg-badges")],Ut);var Le=Object.defineProperty,ze=Object.getOwnPropertyDescriptor,Q=(e,t,s,a)=>{for(var i=a>1?void 0:a?ze(t,s):t,r=e.length-1,n;r>=0;r--)(n=e[r])&&(i=(a?n(t,s,i):n(i))||i);return a&&i&&Le(t,s,i),i};let H=class extends w{constructor(){super(),this.user=window.pg_global.user,this.translations=window.jsObject.translations,this.spritesheetUrl=window.jsObject.spritesheet_url,this.sliderElement=null,this.lastScrollLeft=0,this.scrollTimeout=null,this.lastEarnedBadgeIndex=0,this.badgeId="",this.badge={},this.currentBadgeIndex=0,this.currentBadge={},window.scrollTo(0,0)}connectedCallback(){super.connectedCallback();const e=window.jsObject.available_badges;this.badge=e.find(t=>t.id===this.badgeId),this.currentBadge=this.badge}firstUpdated(){if(this.badge.type!=="progression")return;const e=this.renderRoot.querySelector(".badge-slides");if(e){this.sliderElement=e;let t=null;this.lastEarnedBadgeIndex=0;for(const s of this.badge.progression_badges)if(s.has_earned_badge)this.lastEarnedBadgeIndex=this.lastEarnedBadgeIndex+1;else{t=s;break}console.log(this.lastEarnedBadgeIndex),this.slideToBadge(t)}}getImageUrl(e){return e.has_earned_badge?e.image:e.bw_image}onSliderScroll(e){if(this.badge.type!=="progression"||!this.sliderElement)return;const t=5,s=.01;this.scrollTimeout=setTimeout(()=>{if(!this.sliderElement)return;const a=Math.abs((this.sliderElement.scrollLeft-this.lastScrollLeft)*(t/1e3));this.lastScrollLeft=this.sliderElement.scrollLeft,a<s&&this.setCurrentBadge()},t)}onSliderScrollEnd(e){this.scrollTimeout&&clearTimeout(this.scrollTimeout),this.setCurrentBadge()}slideToBadge(e){this.badge.type==="progression"&&this.sliderElement&&e&&this.sliderElement.scrollTo({left:this.sliderElement.scrollWidth*(this.badge.progression_badges.indexOf(e)/(this.badge.progression_badges.length+1))})}slideToIndex(e){this.badge.type==="progression"&&this.slideToBadge(this.badge.progression_badges[e])}setCurrentBadge(){this.badge.type==="progression"&&this.sliderElement&&(this.currentBadgeIndex=Math.round(this.sliderElement.scrollLeft/this.sliderElement.scrollWidth*(this.badge.progression_badges.length+1)),this.currentBadge=this.badge.progression_badges[this.currentBadgeIndex])}render(){return l`
         <pg-header
             backUrl="/dashboard/badges"
             title=${this.badge.title}
@@ -679,38 +679,37 @@
             `:""}
         </div>
 
-            ${this.badge.type==="progression"?l`
-              <div class="badge-slider">
-                  <div class="badge-slides" @scrollend=${this.onSliderScrollEnd} @scroll=${this.onSliderScroll}>
-                    <div class="badge-buffer"></div>
-                    ${this.badge.progression_badges.map((e,t)=>l`
-                      <div class="badge-slide ${t===this.currentBadgeIndex?"active":""}">
-                        <img src="${this.getImageUrl(e)}" alt="${this.badge.title}" />
-                      </div>
-                    `)}
-                    <div class="badge-buffer"></div>
+        ${this.badge.type==="progression"?l`
+          <div class="badge-slider">
+              <div class="badge-slides" @scrollend=${this.onSliderScrollEnd} @scroll=${this.onSliderScroll}>
+                <div class="badge-buffer"></div>
+                ${this.badge.progression_badges.map((e,t)=>l`
+                  <div class="badge-slide ${t===this.currentBadgeIndex?"active":""}">
+                    <img src="${this.getImageUrl(e)}" alt="${this.badge.title}" />
                   </div>
+                `)}
+                <div class="badge-buffer"></div>
               </div>
-              <div class="repel">
-                <button
-                  class="badge-item__progression-button"
-                  @click=${()=>this.slideToIndex(this.currentBadgeIndex-1)}
-                >
-
-                  <svg class="white icon-sm">
-                    <use href="${this.spritesheetUrl}#pg-chevron-left"></use>
-                  </svg>
-                </button>
-                <button
-                  class="badge-item__progression-button"
-                  @click=${()=>this.slideToIndex(this.currentBadgeIndex+1)}
-                >
-                  <svg class="white icon-sm">
-                    <use href="${this.spritesheetUrl}#pg-chevron-right"></use>
-                  </svg>
-                </button>
-              </div>
-              `:""}
+          </div>
+          <div class="repel">
+            <button
+              class="badge-item__progression-button"
+              @click=${()=>this.slideToIndex(this.currentBadgeIndex-1)}
+            >
+              <svg class="white icon-sm">
+                <use href="${this.spritesheetUrl}#pg-chevron-left"></use>
+              </svg>
+            </button>
+            <button
+              class="badge-item__progression-button"
+              @click=${()=>this.slideToIndex(this.currentBadgeIndex+1)}
+            >
+              <svg class="white icon-sm">
+                <use href="${this.spritesheetUrl}#pg-chevron-right"></use>
+              </svg>
+            </button>
+          </div>
+        `:""}
 
         <div class="pg-container stack-sm badge-item" data-grid data-small>
             <div class="badge-item__title">${this.currentBadge.title}</div>

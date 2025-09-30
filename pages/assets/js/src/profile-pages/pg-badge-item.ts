@@ -18,12 +18,18 @@ export class PgBadgeItem extends OpenElement {
   @property({ type: Number, attribute: false }) currentBadgeIndex: number = 0;
   @property({ type: Object, attribute: false }) currentBadge: Badge = {} as Badge;
 
+  constructor() {
+    super();
+    window.scrollTo(0, 0);
+  }
+
   connectedCallback() {
     super.connectedCallback();
 
     const badges = window.jsObject.available_badges;
     this.badge = badges.find((badge: Badge) => badge.id === this.badgeId);
     this.currentBadge = this.badge;
+
   }
 
   firstUpdated() {
@@ -146,38 +152,37 @@ export class PgBadgeItem extends OpenElement {
             ` : ''}
         </div>
 
-            ${this.badge.type === 'progression' ? html`
-              <div class="badge-slider">
-                  <div class="badge-slides" @scrollend=${this.onSliderScrollEnd} @scroll=${this.onSliderScroll}>
-                    <div class="badge-buffer"></div>
-                    ${this.badge.progression_badges.map((badge, index) => html`
-                      <div class="badge-slide ${index === this.currentBadgeIndex ? 'active' : ''}">
-                        <img src="${this.getImageUrl(badge)}" alt="${this.badge.title}" />
-                      </div>
-                    `)}
-                    <div class="badge-buffer"></div>
+        ${this.badge.type === 'progression' ? html`
+          <div class="badge-slider">
+              <div class="badge-slides" @scrollend=${this.onSliderScrollEnd} @scroll=${this.onSliderScroll}>
+                <div class="badge-buffer"></div>
+                ${this.badge.progression_badges.map((badge, index) => html`
+                  <div class="badge-slide ${index === this.currentBadgeIndex ? 'active' : ''}">
+                    <img src="${this.getImageUrl(badge)}" alt="${this.badge.title}" />
                   </div>
+                `)}
+                <div class="badge-buffer"></div>
               </div>
-              <div class="repel">
-                <button
-                  class="badge-item__progression-button"
-                  @click=${() => this.slideToIndex(this.currentBadgeIndex - 1)}
-                >
-
-                  <svg class="white icon-sm">
-                    <use href="${this.spritesheetUrl}#pg-chevron-left"></use>
-                  </svg>
-                </button>
-                <button
-                  class="badge-item__progression-button"
-                  @click=${() => this.slideToIndex(this.currentBadgeIndex + 1)}
-                >
-                  <svg class="white icon-sm">
-                    <use href="${this.spritesheetUrl}#pg-chevron-right"></use>
-                  </svg>
-                </button>
-              </div>
-              ` : ''}
+          </div>
+          <div class="repel">
+            <button
+              class="badge-item__progression-button"
+              @click=${() => this.slideToIndex(this.currentBadgeIndex - 1)}
+            >
+              <svg class="white icon-sm">
+                <use href="${this.spritesheetUrl}#pg-chevron-left"></use>
+              </svg>
+            </button>
+            <button
+              class="badge-item__progression-button"
+              @click=${() => this.slideToIndex(this.currentBadgeIndex + 1)}
+            >
+              <svg class="white icon-sm">
+                <use href="${this.spritesheetUrl}#pg-chevron-right"></use>
+              </svg>
+            </button>
+          </div>
+        ` : ''}
 
         <div class="pg-container stack-sm badge-item" data-grid data-small>
             <div class="badge-item__title">${this.currentBadge.title}</div>

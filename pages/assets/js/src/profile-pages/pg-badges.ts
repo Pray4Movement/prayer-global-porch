@@ -10,6 +10,11 @@ export class PgBadges extends navigator(OpenElement) {
   translations: any = window.jsObject.translations;
   badges: Badge[] = window.jsObject.available_badges;
 
+  constructor() {
+    super();
+    window.scrollTo(0, 0);
+  }
+
   render() {
     return html`
         <pg-header

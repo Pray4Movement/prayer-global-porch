@@ -1,213 +1,353 @@
 <?php
 
 class PG_Badges {
-    // Streaks and consistency
-    const ONE_WEEK_WARRIOR = 'one_week_warrior';
-    const TWO_WEEK_FAITHFUL = 'two_week_faithful';
-    const ONE_MONTH_DEVOTED = 'one_month_devoted';
-    const HUNDRED_DAYS = 'hundred_days';
-    const YEAR_OF_PRAYER = 'year_of_prayer';
-    const UNBREAKABLE = 'unbreakable';
-
-    // Consistency
-    const PERFECT_WEEK = 'perfect_week';
-    const PERFECT_MONTH = 'perfect_month';
-    const PERFECT_YEAR = 'perfect_year';
-
-    // levels and progression
-    const PRAYER_STARTER = 'prayer_starter';
-    const NEIGHBOURHOOD_INTERCESSOR = 'neighbourhood_intercessor';
-    const KINGDOM_BUILDER = 'kingdom_builder';
-    const REGIONAL_WATCHMAN = 'regional_watchman';
-    const GLOBAL_INTERCESSOR = 'global_intercessor';
-    const PRAYER_WARRIOR = 'prayer_warrior';
-    const WORLD_CHANGER = 'world_changer';
-    const LEGACY_INTERCESSOR = 'legacy_intercessor';
-    const MARATHON_PRAYER = 'marathon_prayer';
-    const ETERNAL_WATCHMAN = 'eternal_watchman';
-
-    // re-engagement
-    const COMEBACK_CHAMPION = 'comeback_champion';
-    const BACK_ON_TRACK = 'back_on_track';
-    const RETURNING_WARRIOR = 'returning_warrior';
-    const THE_SECOND_WIND = 'the_second_wind';
 
     // category types
     const TYPE_PROGRESSION = 'progression';
     const TYPE_ACHIEVEMENT = 'achievement';
     const TYPE_MULTIPLE = 'multiple';
+    const TYPE_MONTHLY_CHALLENGE = 'challenge';
     // categories
     const CATEGORY_STREAK = 'streak';
     const CATEGORY_CONSISTENCY = 'consistency';
     const CATEGORY_LOCATION = 'location';
     const CATEGORY_RE_ENGAGEMENT = 're-engagement';
+    const CATEGORY_MOBILIZATION = 'mobilization';
 
     public ?array $badges = null;
 
     public function __construct() {
         $badges = [
             self::CATEGORY_STREAK => [
-                'type' => self::TYPE_PROGRESSION,
-                'badges' => [
-                    [
-                        'id' => self::ONE_WEEK_WARRIOR,
-                        'title' => __( 'One Week Warrior ', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed for %d days straight', 'prayer-global-porch' ), 7 ),
-                        'value' => 7,
-                    ],
-                    [
-                        'id' => self::TWO_WEEK_FAITHFUL,
-                        'title' => __( 'Two Week Faithful', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed for %d days straight', 'prayer-global-porch' ), 14 ),
-                        'value' => 14,
-                    ],
-                    [
-                        'id' => self::ONE_MONTH_DEVOTED,
-                        'title' => __( 'One Month Devoted', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed for %d days straight', 'prayer-global-porch' ), 30 ),
-                        'value' => 30,
-                    ],
-                    [
-                        'id' => self::HUNDRED_DAYS,
-                        'title' => __( 'One Hundred Days', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed for %d days straight', 'prayer-global-porch' ), 100 ),
-                        'value' => 100,
-                    ],
-                    [
-                        'id' => self::YEAR_OF_PRAYER,
-                        'title' => __( 'One Year of Prayer', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed for %d days straight', 'prayer-global-porch' ), 365 ),
-                        'value' => 365,
-                    ],
-                    [
-                        'id' => self::UNBREAKABLE,
-                        'title' => __( 'Unbreakable', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed for %d days straight', 'prayer-global-porch' ), 500 ),
-                        'value' => 500,
+                [
+                    'type' => self::TYPE_PROGRESSION,
+                    'progression_badges' => [
+                        [
+                            'id' => 'streak_10',
+                            'title' => sprintf( __( '%d Day Streak', 'prayer-global-porch' ), 10 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d days straight', 'prayer-global-porch' ), 10 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d days straight', 'prayer-global-porch' ), 10 ),
+                            'value' => 10,
+                            'image' => 'streak_10.png',
+                            'bw_image' => 'streak_10_bw.png',
+                        ],
+                        [
+                            'id' => 'streak_20',
+                            'title' => sprintf( __( '%d Day Streak', 'prayer-global-porch' ), 20 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d days straight', 'prayer-global-porch' ), 20 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d days straight', 'prayer-global-porch' ), 20 ),
+                            'value' => 20,
+                            'image' => 'streak_20.png',
+                            'bw_image' => 'streak_20_bw.png',
+                        ],
+                        [
+                            'id' => 'streak_30',
+                            'title' => sprintf( __( '%d Day Streak', 'prayer-global-porch' ), 30 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d days straight', 'prayer-global-porch' ), 30 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d days straight', 'prayer-global-porch' ), 30 ),
+                            'value' => 30,
+                            'image' => 'streak_30.png',
+                            'bw_image' => 'streak_30_bw.png',
+                        ],
+                        [
+                            'id' => 'streak_40',
+                            'title' => sprintf( __( '%d Day Streak', 'prayer-global-porch' ), 40 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d days straight', 'prayer-global-porch' ), 40 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d days straight', 'prayer-global-porch' ), 40 ),
+                            'value' => 40,
+                            'image' => 'streak_40.png',
+                            'bw_image' => 'streak_40_bw.png',
+                        ],
                     ],
                 ],
             ],
             self::CATEGORY_LOCATION => [
-                'type' => self::TYPE_PROGRESSION,
-                'badges' => [
-                    [
-                        'id' => self::PRAYER_STARTER,
-                        'title' => __( 'Prayer Starter', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed for %d locations', 'prayer-global-porch' ), 5 ),
-                        'value' => 5,
+                [
+                    'type' => self::TYPE_PROGRESSION,
+                    'progression_badges' => [
+                        [
+                            'id' => 'location_25',
+                            'title' => sprintf( __( '%d Locations', 'prayer-global-porch' ), 25 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 25 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 25 ),
+                            'value' => 25,
+                            'image' => 'location_25.png',
+                            'bw_image' => 'location_25_bw.png',
+                        ],
+                        [
+                            'id' => 'location_50',
+                            'title' => sprintf( __( '%d Locations', 'prayer-global-porch' ), 50 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 50 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 50 ),
+                            'value' => 50,
+                            'image' => 'location_50.png',
+                            'bw_image' => 'location_50_bw.png',
+                        ],
+                        [
+                            'id' => 'location_75',
+                            'title' => sprintf( __( '%d Locations', 'prayer-global-porch' ), 75 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 75 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 75 ),
+                            'value' => 75,
+                            'image' => 'location_75.png',
+                            'bw_image' => 'location_75_bw.png',
+                        ],
+                        [
+                            'id' => 'location_100',
+                            'title' => sprintf( __( '%d Locations', 'prayer-global-porch' ), 100 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 100 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 100 ),
+                            'value' => 100,
+                            'image' => 'location_100.png',
+                            'bw_image' => 'location_100_bw.png',
+                        ],
+                        [
+                            'id' => 'location_150',
+                            'title' => sprintf( __( '%d Locations', 'prayer-global-porch' ), 150 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 150 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 150 ),
+                            'value' => 150,
+                            'image' => 'location_150.png',
+                            'bw_image' => 'location_150_bw.png',
+                        ],
+                        [
+                            'id' => 'location_200',
+                            'title' => sprintf( __( '%d Locations', 'prayer-global-porch' ), 200 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 200 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 200 ),
+                            'value' => 200,
+                            'image' => 'location_200.png',
+                            'bw_image' => 'location_200_bw.png',
+                        ],
+                        [
+                            'id' => 'location_250',
+                            'title' => sprintf( __( '%d Locations', 'prayer-global-porch' ), 250 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 250 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 250 ),
+                            'value' => 250,
+                            'image' => 'location_250.png',
+                            'bw_image' => 'location_250_bw.png',
+                        ],
+                    ]
+                ],
+                [
+                    'id' => 'whole_world',
+                    'type' => self::TYPE_ACHIEVEMENT,
+                    'title' => __( 'Whole World', 'prayer-global-porch' ),
+                    'description_unearned' => __( 'Earn this badge by praying for the whole world', 'prayer-global-porch' ),
+                    'description_earned' => __( 'You earned this badge by praying for the whole world', 'prayer-global-porch' ),
+                    'value' => 1,
+                    'image' => 'whole_world.png',
+                    'bw_image' => 'whole_world_bw.png',
+                ]
+            ],
+            self::CATEGORY_MOBILIZATION => [
+                [
+                    'id' => 'team_player',
+                    'type' => self::TYPE_ACHIEVEMENT,
+                    'title' => __( 'Team Player', 'prayer-global-porch' ),
+                    'description_unearned' => __( 'Earn this badge by joining a relay', 'prayer-global-porch' ),
+                    'description_earned' => __( 'You earned this badge by joining a relay', 'prayer-global-porch' ),
+                    'value' => 1,
+                    'image' => 'team_player.png',
+                    'bw_image' => 'team_player_bw.png',
+                ],
+                [
+                    'id' => 'first_prayer_relay',
+                    'type' => self::TYPE_ACHIEVEMENT,
+                    'title' => __( 'First Prayer Relay', 'prayer-global-porch' ),
+                    'description_unearned' => __( 'Earn this badge by creating your first relay', 'prayer-global-porch' ),
+                    'description_earned' => __( 'You earned this badge by creating your first relay', 'prayer-global-porch' ),
+                    'value' => 1,
+                    'image' => 'first_prayer_relay.png',
+                    'bw_image' => 'first_prayer_relay_bw.png',
+                ],
+                [
+                    'id' => 'relay_completed_participant',
+                    'type' => self::TYPE_ACHIEVEMENT,
+                    'title' => __( 'Relay Completed - Participant', 'prayer-global-porch' ),
+                    'description_unearned' => __( 'Earn this badge by helping to complete a relay', 'prayer-global-porch' ),
+                    'description_earned' => __( 'You earned this badge by helping to complete a relay', 'prayer-global-porch' ),
+                    'value' => 1,
+                    'image' => 'relay_completed.png',
+                    'bw_image' => 'relay_completed_bw.png',
+                ],
+                [
+                    'id' => 'relay_completed_organizer',
+                    'type' => self::TYPE_ACHIEVEMENT,
+                    'title' => __( 'Relay Completed - Organizer', 'prayer-global-porch' ),
+                    'description_unearned' => __( 'Earn this badge by organizing a relay that gets completed', 'prayer-global-porch' ),
+                    'description_earned' => __( 'You earned this badge by organizing a relay that gets completed', 'prayer-global-porch' ),
+                    'value' => 1,
+                    'image' => 'relay_completed.png',
+                    'bw_image' => 'relay_completed_bw.png',
+                ],
+                [
+                    'type' => self::TYPE_PROGRESSION,
+                    'progression_badges' => [
+                        [
+                            'id' => 'prayer_mobilizer',
+                            'title' => sprintf( __( 'Mobilize %d People', 'prayer-global-porch' ), 10 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 10 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 10 ),
+                            'value' => 10,
+                            'image' => 'prayer_mobilizer_10.png',
+                            'bw_image' => 'prayer_mobilizer_10_bw.png',
+                            'hidden' => true,
+                        ],
+                        [
+                            'id' => 'prayer_mobilizer',
+                            'title' => sprintf( __( 'Mobilize %d People', 'prayer-global-porch' ), 25 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 25 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 25 ),
+                            'value' => 25,
+                            'image' => 'prayer_mobilizer_25.png',
+                            'bw_image' => 'prayer_mobilizer_25_bw.png',
+                            'hidden' => true,
+                        ],
+                        [
+                            'id' => 'prayer_mobilizer',
+                            'title' => sprintf( __( 'Mobilize %d People', 'prayer-global-porch' ), 50 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 50 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 50 ),
+                            'value' => 50,
+                            'image' => 'prayer_mobilizer_50.png',
+                            'bw_image' => 'prayer_mobilizer_50_bw.png',
+                            'hidden' => true,
+                        ],
+                        [
+                            'id' => 'prayer_mobilizer',
+                            'title' => sprintf( __( 'Mobilize %d People', 'prayer-global-porch' ), 100 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 100 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 100 ),
+                            'value' => 100,
+                            'image' => 'prayer_mobilizer_100.png',
+                            'bw_image' => 'prayer_mobilizer_100_bw.png',
+                            'hidden' => true,
+                        ]
                     ],
-                    [
-                        'id' => self::NEIGHBOURHOOD_INTERCESSOR,
-                        'title' => __( 'Neighbourhood Intercessor', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed for %d locations', 'prayer-global-porch' ), 10 ),
-                        'value' => 10,
-                    ],
-                    [
-                        'id' => self::KINGDOM_BUILDER,
-                        'title' => __( 'Kingdom Builder', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed for %d locations', 'prayer-global-porch' ), 50 ),
-                        'value' => 50,
-                    ],
-                    [
-                        'id' => self::REGIONAL_WATCHMAN,
-                        'title' => __( 'Regional Watchman', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed for %d locations', 'prayer-global-porch' ), 500 ),
-                        'value' => 500,
-                    ],
-                    [
-                        'id' => self::GLOBAL_INTERCESSOR,
-                        'title' => __( 'Global Intercessor', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed for %d%% of the world', 'prayer-global-porch' ), 25 ),
-                        'value' => 1193,
-                    ],
-                    [
-                        'id' => self::PRAYER_WARRIOR,
-                        'title' => __( 'Prayer Warrior', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed for %d%% of the world', 'prayer-global-porch' ), 50 ),
-                        'value' => 3578,
-                    ],
-                    [
-                        'id' => self::WORLD_CHANGER,
-                        'title' => __( 'World Changer', 'prayer-global-porch' ),
-                        'description' => __( 'You have prayed for the whole world', 'prayer-global-porch' ),
-                        'value' => 4770,
-                    ],
-                    [
-                        'id' => self::LEGACY_INTERCESSOR,
-                        'title' => __( 'Legacy Intercessor', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed %d laps of the world', 'prayer-global-porch' ), 2 ),
-                        'value' => 9540,
-                    ],
-                    [
-                        'id' => self::MARATHON_PRAYER,
-                        'title' => __( 'Marathon Prayer', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed %d laps of the world', 'prayer-global-porch' ), 5 ),
-                        'value' => 23850,
-                    ],
-                    [
-                        'id' => self::ETERNAL_WATCHMAN,
-                        'title' => __( 'Eternal Watchman', 'prayer-global-porch' ),
-                        'description' => sprintf( __( 'You have prayed %d laps of the world', 'prayer-global-porch' ), 10 ),
-                        'value' => 47700,
-                    ],
+                ],
+                [
+                    'type' => self::TYPE_PROGRESSION,
+                    'progression_badges' => [
+                        [
+                            'id' => 'relay_location_25',
+                            'title' => sprintf( __( '%d Relay Locations', 'prayer-global-porch' ), 25 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 25 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 25 ),
+                            'value' => 25,
+                            'image' => 'location_25.png',
+                            'bw_image' => 'location_25_bw.png',
+                        ],
+                        [
+                            'id' => 'relay_location_50',
+                            'title' => sprintf( __( '%d Relay Locations', 'prayer-global-porch' ), 50 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 50 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 50 ),
+                            'value' => 50,
+                            'image' => 'location_50.png',
+                            'bw_image' => 'location_50_bw.png',
+                        ],
+                        [
+                            'id' => 'relay_location_75',
+                            'title' => sprintf( __( '%d Relay Locations', 'prayer-global-porch' ), 75 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 75 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 75 ),
+                            'value' => 75,
+                            'image' => 'location_75.png',
+                            'bw_image' => 'location_75_bw.png',
+                        ],
+                        [
+                            'id' => 'relay_location_100',
+                            'title' => sprintf( __( '%d Relay Locations', 'prayer-global-porch' ), 100 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 100 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 100 ),
+                            'value' => 100,
+                            'image' => 'location_100.png',
+                            'bw_image' => 'location_100_bw.png',
+                        ],
+                        [
+                            'id' => 'relay_location_150',
+                            'title' => sprintf( __( '%d Relay Locations', 'prayer-global-porch' ), 150 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 150 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 150 ),
+                            'value' => 150,
+                            'image' => 'location_150.png',
+                            'bw_image' => 'location_150_bw.png',
+                        ],
+                        [
+                            'id' => 'relay_location_200',
+                            'title' => sprintf( __( '%d Relay Locations', 'prayer-global-porch' ), 200 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 200 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 200 ),
+                            'value' => 200,
+                            'image' => 'location_200.png',
+                            'bw_image' => 'location_200_bw.png',
+                        ],
+                        [
+                            'id' => 'relay_location_250',
+                            'title' => sprintf( __( '%d Relay Locations', 'prayer-global-porch' ), 250 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 250 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d locations in a relay', 'prayer-global-porch' ), 250 ),
+                            'value' => 250,
+                            'image' => 'location_250.png',
+                            'bw_image' => 'location_250_bw.png',
+                        ],
+                    ]
                 ]
             ],
             self::CATEGORY_CONSISTENCY => [
-                'type' => self::TYPE_MULTIPLE,
-                'badges' => [
-                    [
-                        'id' => self::PERFECT_WEEK,
-                        'title' => __( 'Perfect Week ', 'prayer-global-porch' ),
-                        'description' => __( 'You have prayed every day this week', 'prayer-global-porch' ),
-                        'value' => 7,
-                    ],
-                    [
-                        'id' => self::PERFECT_MONTH,
-                        'title' => __( 'Perfect Month ', 'prayer-global-porch' ),
-                        'description' => __( 'You have prayed every day this month', 'prayer-global-porch' ),
-                        'value' => 30,
-                    ],
-                    [
-                        'id' => self::PERFECT_YEAR,
-                        'title' => __( 'Perfect Year ', 'prayer-global-porch' ),
-                        'description' => __( 'You have prayed every day this year', 'prayer-global-porch' ),
-                        'value' => 365,
-                    ],
+                [
+                    'id' => 'perfect_week',
+                    'type' => self::TYPE_MULTIPLE,
+                    'title' => __( 'Perfect Week ', 'prayer-global-porch' ),
+                    'description_unearned' => __( 'Earn this badge by praying every day for a week', 'prayer-global-porch' ),
+                    'description_earned' => __( 'You have earned this badge by praying every day for a week', 'prayer-global-porch' ),
+                    'image' => 'perfect_week.png',
+                    'bw_image' => 'perfect_week_bw.png',
+                    'value' => 7,
                 ],
+                [
+                    'id' => 'perfect_month',
+                    'type' => self::TYPE_MULTIPLE,
+                    'title' => __( 'Perfect Month ', 'prayer-global-porch' ),
+                    'description_unearned' => __( 'Earn this badge by praying every day this month', 'prayer-global-porch' ),
+                    'description_earned' => __( 'You have earned this badge by praying every day this month', 'prayer-global-porch' ),
+                    'image' => 'perfect_month.png',
+                    'bw_image' => 'perfect_month_bw.png',
+                    'value' => 30,
+                ],
+                [
+                    'id' => 'perfect_year',
+                    'type' => self::TYPE_MULTIPLE,
+                    'title' => __( 'Perfect Year ', 'prayer-global-porch' ),
+                    'description_unearned' => __( 'Earn this badge by praying every day this year', 'prayer-global-porch' ),
+                    'description_earned' => __( 'You have earned this badge by praying every day this year', 'prayer-global-porch' ),
+                    'image' => 'mystery_badge.png',
+                    'bw_image' => 'mystery_badge_bw.png',
+                    'value' => 365,
+                ],
+                [
+                    'id' => 'monthly_challenge',
+                    'type' => self::TYPE_MONTHLY_CHALLENGE,
+                    'title' => __( '%1$s %2$d Challenge', 'prayer-global-porch' ),
+                    'description_unearned' => __( 'Earn this badge by praying for 90%% of the days in %s', 'prayer-global-porch' ),
+                    'description_earned' => __( 'You earned this badge by praying for 90%% of the days in %s', 'prayer-global-porch' ),
+                    'value' => 1,
+                ]
             ],
             self::CATEGORY_RE_ENGAGEMENT => [
-                'type' => self::TYPE_ACHIEVEMENT,
-                'badges' => [
-                    [
-                        'id' => self::COMEBACK_CHAMPION,
-                        'title' => __( 'Comeback Champion', 'prayer-global-porch' ),
-                        'description' => __( 'Restarted praying after breaking a streak', 'prayer-global-porch' ),
-                        'value' => 1,
-                        'hidden' => true,
-                    ],
-                    [
-                        'id' => self::BACK_ON_TRACK,
-                        'title' => __( 'Back on Track', 'prayer-global-porch' ),
-                        'description' => __( 'Rebuilt a 30-day streak after losing it', 'prayer-global-porch' ),
-                        'value' => 1,
-                        'hidden' => true,
-                    ],
-                    [
-                        'id' => self::RETURNING_WARRIOR,
-                        'title' => __( 'Returning Warrior', 'prayer-global-porch' ),
-                        'description' => __( 'You returned after 30+ days of inactivity', 'prayer-global-porch' ),
-                        'value' => 1,
-                        'hidden' => true,
-                    ],
-                    [
-                        'id' => self::THE_SECOND_WIND,
-                        'title' => __( 'The Second Wind', 'prayer-global-porch' ),
-                        'description' => __( 'Restarted praying after breaking 100 day streak', 'prayer-global-porch' ),
-                        'value' => 1,
-                        'hidden' => true,
-                    ],
+                [
+                    'id' => 'comeback_champion',
+                    'type' => self::TYPE_ACHIEVEMENT,
+                    'title' => __( 'Comeback Champion', 'prayer-global-porch' ),
+                    'description_earned' => __( 'You earned this badge by restarting praying after breaking a streak', 'prayer-global-porch' ),
+                    'value' => 1,
+                    'image' => 'mystery_badge.png',
+                    'bw_image' => 'mystery_badge_bw.png',
+                    'hidden' => true,
                 ],
-            ]
+            ],
         ];
 
         $all_badges = [];
