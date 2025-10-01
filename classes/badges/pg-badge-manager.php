@@ -10,236 +10,82 @@ class PG_Badge_Manager {
         $this->pg_badges = new PG_Badges();
     }
 
-    /**
-     * Returns all the badges
-     * @return array<PG_Badge>
-     */
-    public function get_user_badges(): array {
-        // Get all badges from the usermeta
-        $badges = PG_Badge_Model::get_all_badges( $this->user_id );
-        return $this->hydrate_db_badges( $badges );
-    }
-
-    /**
-     * Returns the current badges that the user has got (only the highest badge in each category that is a progression)
-     * @return array<PG_Badge>
-     */
-    public function get_user_current_badges(): array {
-        $badges = PG_Badge_Model::get_all_badges( $this->user_id );
-        $badges = $this->hydrate_db_badges( $badges );
-        $current_badges = [];
-        $progression_categories_done = [];
-        foreach ( $badges as $badge ) {
-            // this works because get_all_badges is ordered by category and value DESC
+    public function get_all_badges(): array {
+        $all_earned_badges = PG_Badge_Model::get_all_badges( $this->user_id );
+        $all_earned_badge_ids = array_column( $all_earned_badges, 'id' );
+        $all_badges = $this->pg_badges->get_all_badges();
+        foreach ( $all_badges as &$badge ) {
             if ( $badge->get_type() === PG_Badges::TYPE_PROGRESSION ) {
-                if ( in_array( $badge->get_category(), $progression_categories_done ) ) {
-                    continue;
-                }
-                $current_badges[] = $badge;
-                $progression_categories_done[] = $badge->get_category();
-            }
-            if ( $badge->get_type() === PG_Badges::TYPE_ACHIEVEMENT ) {
-                $current_badges[] = $badge;
-            }
-        }
-        return $current_badges;
-    }
-    public function get_user_current_badges_array() {
-        $badges = $this->get_user_current_badges();
-        return array_map( function( PG_Badge $badge ) {
-            return $badge->to_array();
-        }, $badges );
-    }
-    /**
-     * Hydrate the badges from the database to the objects
-     * @param array $badges
-     * @return array<PG_Badge>
-     */
-    private function hydrate_db_badges( array $badges ): array {
-        $user_badges = array_filter( $badges, function( array $badge ) {
-            return $this->pg_badges->has_category( $badge['category'] ) &&
-                isset( $this->pg_badges->get_category_badges( $badge['category'] )[$badge['id']] );
-        } );
-        return array_map( function( array $badge ) {
-            $category_badges = $this->pg_badges->get_category_badges( $badge['category'] );
-            return $category_badges[$badge['id']];
-        }, $user_badges );
-    }
-
-    /**
-     * For badges the user already has, return the next badge in the sequence (for that category)
-     * @return array<PG_Badge>
-     */
-    private function get_next_badge_in_progressions() {
-        $badges = $this->get_user_current_badges();
-        $next_badges = [];
-        foreach ( $badges as $badge ) {
-            if ( $badge === null ) {
-                continue;
-            }
-            if ( $badge->get_type() !== 'progression' ) {
-                continue;
-            }
-
-            $category_badges = $this->pg_badges->get_category_badges( $badge->get_category() );
-            $i = 0;
-            $next_badge = null;
-            foreach ( $category_badges as $current_badge ) {
-                if ( $badge->less_than( $current_badge ) ) {
-                    $next_badge = $current_badge;
-                    break;
-                }
-                $i++;
-            }
-
-            if ( !$next_badge || $this->has_user_got_badge( $next_badge ) ) {
-                continue;
-            }
-            $next_badges[] = $next_badge;
-        }
-        return $next_badges;
-    }
-    public function get_next_badge_in_progression_array() {
-        $badges = $this->get_next_badge_in_progressions();
-        return array_map( function( PG_Badge $badge ) {
-            return $badge->to_array();
-        }, $badges );
-    }
-
-    /**
-     * Returns any badges that the user meets the requirements for that they didn't already have
-     * @return array
-     */
-    public function get_new_badges(): array {
-
-        $categories = $this->pg_badges->get_categories();
-
-        $new_badges = [];
-        foreach ( $categories as $category ) {
-            $type = $this->pg_badges->get_category_type( $category );
-            if ( $type === 'progression' ) {
-                $first_badge_in_progression = $this->first_badge_in_progression( $category );
-                if ( $first_badge_in_progression ) {
-                    $new_badges[] = $first_badge_in_progression;
-                }
-            } else {
-                $badges = $this->pg_badges->get_category_badges( $category );
-                foreach ( $badges as $badge ) {
-                    if ( $this->meets_requirements_for_achievement_badge( $badge ) ) {
-                        $new_badges[] = $badge;
+                // for progression badges, we need to have the current data of their progression in the badge also.
+                $first_progression_badge = null;
+                $latest_earned_badge = null;
+                foreach ( $badge->get_progression_badges() as &$progression_badge ) {
+                    if ( !$first_progression_badge ) {
+                        $first_progression_badge = $progression_badge;
+                    }
+                    $badge_id = $progression_badge->get_id();
+                    if ( in_array( $badge_id, $all_earned_badge_ids ) ) {
+                        $progression_badge->set_has_earned_badge( true );
+                        $progression_badge->set_timestamp( $all_earned_badges[array_search( $badge_id, $all_earned_badge_ids )]['timestamp'] );
+                        $latest_earned_badge = $progression_badge;
+                    } else {
+                        break;
                     }
                 }
+                if ( $latest_earned_badge ) {
+                    $badge->set_progression_root_badge( $latest_earned_badge );
+                } else {
+                    $badge->set_progression_root_badge( $first_progression_badge );
+                }
+            }
+
+            if ( $badge->get_type() === PG_Badges::TYPE_MULTIPLE ) {
+                // add the count for how many times they have earned the badge.
+                // use the timestamp from the latest earned badge.
+                $badge_id = $badge->get_id();
+                $num_times_earned = count( array_filter( $all_earned_badge_ids, function( $earned_badge_id ) use ( $badge_id ) {
+                    return $earned_badge_id === $badge_id;
+                } ) );
+                if ( $num_times_earned > 0 ) {
+                    $badge->set_has_earned_badge( true );
+                    $badge->set_num_times_earned( $num_times_earned );
+                    // the earned badges are in TIMESTAMP DESC order, so the latest earned badge is the first one.
+                    $latest_earned_badge_timestamp = $all_earned_badges[array_search( $badge_id, $all_earned_badge_ids )]['timestamp'];
+                    $badge->set_timestamp( $latest_earned_badge_timestamp );
+                }
+            }
+
+            if ( $badge->get_type() === PG_Badges::TYPE_MONTHLY_CHALLENGE ) {
+                // for monthly challenge badges, we need to generate them as needed.
+                // so if a user has earned it, it should be in the array.
+                // and the upcoming badge to earn should also be in the array.
+            }
+
+            if ( $badge->get_type() === PG_Badges::TYPE_ACHIEVEMENT ) {
+                $badge_id = $badge->get_id();
+                if ( in_array( $badge_id, $all_earned_badge_ids ) ) {
+                    $badge->set_has_earned_badge( true );
+                    $badge->set_timestamp( $all_earned_badges[array_search( $badge_id, $all_earned_badge_ids )]['timestamp'] );
+                }
             }
         }
-
-        return $new_badges;
-    }
-    public function get_new_badges_array() {
-        $badges = $this->get_new_badges();
+        // for each progression badge, include the stat to show how far they are towards the next badge
         return array_map( function( PG_Badge $badge ) {
             return $badge->to_array();
-        }, $badges );
+        }, $all_badges );
     }
-    public function save_badges( array $badges ) {
-        if ( empty( $badges ) ) {
-            return;
-        }
 
-        if ( !$badges[0] instanceof PG_Badge ) {
-            throw new Exception( 'Badges must be an array of PG_Badge objects' );
-        }
-
-        foreach ( $badges as $badge ) {
-            PG_Badge_Model::create_badge( $this->user_id, $badge->get_id(), $badge->get_category(), $badge->get_value() );
+    public function earn_badge( string $badge_id ) {
+        $badge = $this->pg_badges->get_badge( $badge_id );
+        if ( $badge ) {
+            PG_Badge_Model::create_badge( $this->user_id, $badge_id, $badge->get_category(), $badge->get_value() );
         }
     }
 
-    public function get_all_badges() {
-        // Get all user current badges
-        $user_current_badges = $this->get_user_current_badges();
-        // Get all available badges
-        // Get all user next badges
-        $user_next_badges = $this->get_next_badge_in_progressions();
-
-        // Loop through the list of all badges with necessary information in
-        // e.g. put type, category from the keys into the array.
-        // add flags for whether the user currently has this badge
+    public function get_newly_earned_badges(): array {
+        // filter out the badges that the user has already earned from pg_badges
+        // check if any of the remaining badges have been earned since the last time they were checked
+        // check if the next badge(s) in the progression have been earned since the last time they were checked
         return [];
-    }
-
-    public function clear_badges() {
-        PG_Badge_Model::delete_all_badges( $this->user_id );
-    }
-
-    /**
-     * Check for the highest badge in a category
-     * @param string $category
-     * @return PG_Badge|null
-     */
-    private function first_badge_in_progression( string $category ): ?PG_Badge {
-        $badges = $this->pg_badges->get_category_badges( $category );
-
-        $badges = array_reverse( $badges );
-
-        foreach ( $badges as $badge ) {
-            if ( $this->meets_requirements_for_progression_badge( $badge ) ) {
-                return $badge;
-            }
-        }
-        return null;
-    }
-    /**
-     * Dose the users's stats meet the requirements for the progression badge
-     * @param PG_Badge $badge
-     * @return bool
-     */
-    private function meets_requirements_for_progression_badge( PG_Badge $badge ): bool {
-        if ( $this->has_user_got_badge( $badge ) ) {
-            return false;
-        }
-        if ( $badge->get_category() === PG_Badges::CATEGORY_STREAK ) {
-            $best_streak = $this->user_stats->best_streak_in_days();
-            if ( $badge->get_value() <= $best_streak ) {
-                return true;
-            }
-        }
-        if ( $badge->get_category() === PG_Badges::CATEGORY_LOCATION ) {
-            $total_locations = $this->user_stats->total_places_prayed();
-            if ( $badge->get_value() <= $total_locations ) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Dose the user's stats meet the requirements for the achievement badge
-     * @param PG_Badge $badge
-     * @return bool
-     */
-    private function meets_requirements_for_achievement_badge( PG_Badge $badge ): bool {
-        if ( $this->has_user_got_badge( $badge ) ) {
-            return false;
-        }
-
-        if ( $badge->get_id() === PG_Badges::COMEBACK_CHAMPION ) {
-            // TODO: implement has_just_returned
-            return $this->user_stats->has_just_returned();
-        }
-        return false;
-    }
-    /**
-     * Check if the user has already got a badge
-     * @param PG_Badge $badge
-     * @return bool
-     */
-    private function has_user_got_badge( PG_Badge $badge ): bool {
-        $user_badges = $this->get_user_badges();
-        foreach ( $user_badges as $user_badge ) {
-            if ( $badge->equals( $user_badge ) ) {
-                return true;
-            }
-        }
-        return false;
     }
 }

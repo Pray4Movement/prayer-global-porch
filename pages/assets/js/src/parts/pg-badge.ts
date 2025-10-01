@@ -9,10 +9,8 @@ export class PgBadge extends navigator(OpenElement) {
     @property({ type: Object }) badge: Badge = {} as Badge;
 
     getImageUrl() {
-        if (this.badge.has_earned_badge) {
-            return this.badge.image;
-        }
-        return this.badge.bw_image;
+        const badgeImage = this.badge.has_earned_badge ? this.badge.image : this.badge.bw_image;
+        return `${window.jsObject.badges_url}/${badgeImage}`;
     }
 
     render() {
@@ -23,8 +21,8 @@ export class PgBadge extends navigator(OpenElement) {
             >
                 <div class="badge-image-wrapper">
                     <img src="${this.getImageUrl()}" alt="${this.badge.title}" />
-                    ${this.badge.type === 'multiple' && this.badge.no_times_earned > 1 ? html`
-                        <div class="badge-times-earned">x${this.badge.no_times_earned}</div>
+                    ${this.badge.type === 'multiple' && this.badge.num_times_earned > 1 ? html`
+                        <div class="badge-times-earned">x${this.badge.num_times_earned}</div>
                     ` : ''}
                 </div>
                 <span>${this.badge.title}</span>

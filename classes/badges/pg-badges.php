@@ -8,7 +8,6 @@ class PG_Badges {
     const TYPE_MULTIPLE = 'multiple';
     const TYPE_MONTHLY_CHALLENGE = 'challenge';
     // categories
-    const CATEGORY_STREAK = 'streak';
     const CATEGORY_CONSISTENCY = 'consistency';
     const CATEGORY_LOCATION = 'location';
     const CATEGORY_RE_ENGAGEMENT = 're-engagement';
@@ -18,51 +17,9 @@ class PG_Badges {
 
     public function __construct() {
         $badges = [
-            self::CATEGORY_STREAK => [
-                [
-                    'type' => self::TYPE_PROGRESSION,
-                    'progression_badges' => [
-                        [
-                            'id' => 'streak_10',
-                            'title' => sprintf( __( '%d Day Streak', 'prayer-global-porch' ), 10 ),
-                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d days straight', 'prayer-global-porch' ), 10 ),
-                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d days straight', 'prayer-global-porch' ), 10 ),
-                            'value' => 10,
-                            'image' => 'streak_10.png',
-                            'bw_image' => 'streak_10_bw.png',
-                        ],
-                        [
-                            'id' => 'streak_20',
-                            'title' => sprintf( __( '%d Day Streak', 'prayer-global-porch' ), 20 ),
-                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d days straight', 'prayer-global-porch' ), 20 ),
-                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d days straight', 'prayer-global-porch' ), 20 ),
-                            'value' => 20,
-                            'image' => 'streak_20.png',
-                            'bw_image' => 'streak_20_bw.png',
-                        ],
-                        [
-                            'id' => 'streak_30',
-                            'title' => sprintf( __( '%d Day Streak', 'prayer-global-porch' ), 30 ),
-                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d days straight', 'prayer-global-porch' ), 30 ),
-                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d days straight', 'prayer-global-porch' ), 30 ),
-                            'value' => 30,
-                            'image' => 'streak_30.png',
-                            'bw_image' => 'streak_30_bw.png',
-                        ],
-                        [
-                            'id' => 'streak_40',
-                            'title' => sprintf( __( '%d Day Streak', 'prayer-global-porch' ), 40 ),
-                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d days straight', 'prayer-global-porch' ), 40 ),
-                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d days straight', 'prayer-global-porch' ), 40 ),
-                            'value' => 40,
-                            'image' => 'streak_40.png',
-                            'bw_image' => 'streak_40_bw.png',
-                        ],
-                    ],
-                ],
-            ],
             self::CATEGORY_LOCATION => [
                 [
+                    'id' => 'location',
                     'type' => self::TYPE_PROGRESSION,
                     'progression_badges' => [
                         [
@@ -183,10 +140,11 @@ class PG_Badges {
                     'bw_image' => 'relay_completed_bw.png',
                 ],
                 [
+                    'id' => 'prayer_mobilizer',
                     'type' => self::TYPE_PROGRESSION,
                     'progression_badges' => [
                         [
-                            'id' => 'prayer_mobilizer',
+                            'id' => 'prayer_mobilizer_10',
                             'title' => sprintf( __( 'Mobilize %d People', 'prayer-global-porch' ), 10 ),
                             'description_unearned' => sprintf( __( 'Earn this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 10 ),
                             'description_earned' => sprintf( __( 'You earned this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 10 ),
@@ -196,7 +154,7 @@ class PG_Badges {
                             'hidden' => true,
                         ],
                         [
-                            'id' => 'prayer_mobilizer',
+                            'id' => 'prayer_mobilizer_25',
                             'title' => sprintf( __( 'Mobilize %d People', 'prayer-global-porch' ), 25 ),
                             'description_unearned' => sprintf( __( 'Earn this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 25 ),
                             'description_earned' => sprintf( __( 'You earned this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 25 ),
@@ -206,7 +164,7 @@ class PG_Badges {
                             'hidden' => true,
                         ],
                         [
-                            'id' => 'prayer_mobilizer',
+                            'id' => 'prayer_mobilizer_50',
                             'title' => sprintf( __( 'Mobilize %d People', 'prayer-global-porch' ), 50 ),
                             'description_unearned' => sprintf( __( 'Earn this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 50 ),
                             'description_earned' => sprintf( __( 'You earned this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 50 ),
@@ -216,7 +174,7 @@ class PG_Badges {
                             'hidden' => true,
                         ],
                         [
-                            'id' => 'prayer_mobilizer',
+                            'id' => 'prayer_mobilizer_100',
                             'title' => sprintf( __( 'Mobilize %d People', 'prayer-global-porch' ), 100 ),
                             'description_unearned' => sprintf( __( 'Earn this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 100 ),
                             'description_earned' => sprintf( __( 'You earned this badge by mobilizing %d people to pray on your relay', 'prayer-global-porch' ), 100 ),
@@ -228,6 +186,7 @@ class PG_Badges {
                     ],
                 ],
                 [
+                    'id' => 'relay_location',
                     'type' => self::TYPE_PROGRESSION,
                     'progression_badges' => [
                         [
@@ -324,7 +283,7 @@ class PG_Badges {
                     'description_unearned' => __( 'Earn this badge by praying every day this year', 'prayer-global-porch' ),
                     'description_earned' => __( 'You have earned this badge by praying every day this year', 'prayer-global-porch' ),
                     'image' => 'mystery_badge.png',
-                    'bw_image' => 'mystery_badge_bw.png',
+                    'bw_image' => 'mystery_badge.png',
                     'value' => 365,
                 ],
                 [
@@ -334,43 +293,103 @@ class PG_Badges {
                     'description_unearned' => __( 'Earn this badge by praying for 90%% of the days in %s', 'prayer-global-porch' ),
                     'description_earned' => __( 'You earned this badge by praying for 90%% of the days in %s', 'prayer-global-porch' ),
                     'value' => 1,
-                ]
+                ],
+                [
+                    'id' => 'streak',
+                    'type' => self::TYPE_PROGRESSION,
+                    'progression_badges' => [
+                        [
+                            'id' => 'streak_10',
+                            'title' => sprintf( __( '%d Day Streak', 'prayer-global-porch' ), 10 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d days straight', 'prayer-global-porch' ), 10 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d days straight', 'prayer-global-porch' ), 10 ),
+                            'value' => 10,
+                            'image' => 'streak_10.png',
+                            'bw_image' => 'streak_10_bw.png',
+                        ],
+                        [
+                            'id' => 'streak_20',
+                            'title' => sprintf( __( '%d Day Streak', 'prayer-global-porch' ), 20 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d days straight', 'prayer-global-porch' ), 20 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d days straight', 'prayer-global-porch' ), 20 ),
+                            'value' => 20,
+                            'image' => 'streak_20.png',
+                            'bw_image' => 'streak_20_bw.png',
+                        ],
+                        [
+                            'id' => 'streak_30',
+                            'title' => sprintf( __( '%d Day Streak', 'prayer-global-porch' ), 30 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d days straight', 'prayer-global-porch' ), 30 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d days straight', 'prayer-global-porch' ), 30 ),
+                            'value' => 30,
+                            'image' => 'streak_30.png',
+                            'bw_image' => 'streak_30_bw.png',
+                        ],
+                        [
+                            'id' => 'streak_40',
+                            'title' => sprintf( __( '%d Day Streak', 'prayer-global-porch' ), 40 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d days straight', 'prayer-global-porch' ), 40 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d days straight', 'prayer-global-porch' ), 40 ),
+                            'value' => 40,
+                            'image' => 'streak_40.png',
+                            'bw_image' => 'streak_40_bw.png',
+                        ],
+                    ],
+                ],
             ],
             self::CATEGORY_RE_ENGAGEMENT => [
                 [
                     'id' => 'comeback_champion',
                     'type' => self::TYPE_ACHIEVEMENT,
                     'title' => __( 'Comeback Champion', 'prayer-global-porch' ),
+                    'description_unearned' => '',
                     'description_earned' => __( 'You earned this badge by restarting praying after breaking a streak', 'prayer-global-porch' ),
                     'value' => 1,
                     'image' => 'mystery_badge.png',
-                    'bw_image' => 'mystery_badge_bw.png',
+                    'bw_image' => 'mystery_badge.png',
                     'hidden' => true,
                 ],
             ],
         ];
 
         $all_badges = [];
-        foreach ( $badges as $category_name => $category ) {
-            $type = $category['type'];
-            $all_badges[$category_name] = [
-                'type' => $type,
-                'badges' => [],
-            ];
-            foreach ( $category['badges'] as $badge ) {
-                $all_badges[$category_name]['badges'][$badge['id']] = new PG_Badge(
-                    $badge['id'],
-                    $badge['title'],
-                    $badge['description'],
-                    $category_name,
-                    $badge['value'],
-                    $type,
-                    $badge['hidden'] ?? false,
-                    $badge['deprecated'] ?? false
-                );
+        foreach ( $badges as $category_name => $category_badges ) {
+            $all_badges[$category_name] = [];
+            foreach ( $category_badges as $badge ) {
+                if ( $badge['type'] === self::TYPE_PROGRESSION ) {
+                    $all_badges[$category_name][$badge['id']] = $this->create_badge( $badge, $category_name, $badge['type'] );
+                } else {
+                    $all_badges[$category_name][$badge['id']] = $this->create_badge( $badge, $category_name, $badge['type'] );
+                }
             }
         }
         $this->badges = $all_badges;
+    }
+
+    private function create_badge( array $badge, string $category_name, string $type ): PG_Badge {
+        $progression_badges = [];
+        $root_badge = $badge;
+        if ( $type === self::TYPE_PROGRESSION && isset( $badge['progression_badges'] ) ) {
+            // replace root of progression badge with first badge in progression
+            $root_badge = $badge['progression_badges'][array_keys( $badge['progression_badges'] )[0] ];
+            foreach ( $badge['progression_badges'] as $progression_badge ) {
+                $progression_badges[$progression_badge['id']] = $this->create_badge( $progression_badge, $category_name, $badge['type'] );
+            }
+        }
+        return new PG_Badge(
+            $badge['id'],
+            $root_badge['title'] ?? '',
+            $root_badge['description_unearned'] ?? '',
+            $root_badge['description_earned'] ?? '',
+            $root_badge['image'] ?? '',
+            $root_badge['bw_image'] ?? '',
+            $category_name,
+            $root_badge['value'] ?? 0,
+            $type,
+            $progression_badges,
+            $badge['hidden'] ?? false,
+            $badge['deprecated'] ?? false
+        );
     }
 
     /**
@@ -381,22 +400,43 @@ class PG_Badges {
     public function has_category( string $category ): bool {
         return isset( $this->badges[$category] );
     }
-    /**
-     * Get the type of this category
-     * @param string $category
-     * @return string
-     */
-    public function get_category_type( string $category ): string {
-        return $this->badges[$category]['type'];
-    }
+
     /**
      * Get the badges in this category
      * @param string $category
      * @return array<PG_Badge>
      */
     public function get_category_badges( string $category ): array {
-        return $this->badges[$category]['badges'];
+        return $this->badges[$category];
     }
+
+    /**
+     * Get all the badges
+     * @return array<PG_Badge>
+     */
+    public function get_all_badges(): array {
+        $all_badges = [];
+        foreach ( $this->badges as $badges ) {
+            $all_badges = array_merge( $all_badges, $badges );
+        }
+        return $all_badges;
+    }
+
+    public function get_badge( string $badge_id ): ?PG_Badge {
+        $all_badges = $this->get_all_badges();
+
+        foreach ( $all_badges as $badge ) {
+            if ( $badge->get_type() === self::TYPE_PROGRESSION ) {
+                $all_badges = array_merge( $all_badges, $badge->get_progression_badges() );
+            }
+        }
+
+        if ( isset( $all_badges[$badge_id] ) ) {
+            return $all_badges[$badge_id];
+        }
+        return null;
+    }
+
     /**
      * Get the available categories
      * @return array<string>

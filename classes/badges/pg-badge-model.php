@@ -16,7 +16,7 @@ class PG_Badge_Model {
         return $wpdb->get_results( $wpdb->prepare(
             "SELECT category, badge_id as id, value, timestamp FROM $wpdb->dt_badges
             WHERE user_id = %d
-            ORDER BY category, value DESC
+            ORDER BY timestamp DESC
             ", $user_id
         ), ARRAY_A );
     }

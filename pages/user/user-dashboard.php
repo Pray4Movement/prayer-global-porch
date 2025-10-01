@@ -114,7 +114,6 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             $gravatar_url = get_avatar_url( $user->user_login );
             $user_stats = new User_Stats( $user->ID );
             $badge_manager = new PG_Badge_Manager( $user->ID );
-            $available_badges = $badge_manager->get_all_badges();
             $badge_images_url = trailingslashit( plugin_dir_url( __DIR__ ) ) . 'assets/images/badges/';
             $available_badges = [
                 /* ==== EARNED BADGES ==== */
@@ -190,7 +189,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'category' => 'consistency',
                     'hidden' => false,
                     'has_earned_badge' => true,
-                    'no_times_earned' => 3,
+                    'num_times_earned' => 3,
                     'timestamp' => 1726723200,
                 ],
                 /* Achievement */
@@ -352,6 +351,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'has_earned_badge' => false,
                 ],
             ];
+            $available_badges = array_values( $badge_manager->get_all_badges() );
         }
         dt_theme_enqueue_script( 'dt-components', 'dt-assets/build/components/index.js', [] );
         dt_theme_enqueue_style( 'dt-components-css', 'dt-assets/build/css/light.min.css', [] );
@@ -462,6 +462,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             'current_language' => pg_get_current_lang(),
             'spritesheet_url' => $this->spritesheet_url,
             'icons_url' => trailingslashit( plugin_dir_url( __DIR__ ) ) . 'assets/images/icons' ,
+            'badges_url' => trailingslashit( plugin_dir_url( __DIR__ ) ) . 'assets/images/badges' ,
             'gravatar_url' => $gravatar_url,
             'stats' => [
                 'total_minutes_prayed' => $user_stats->total_minutes_prayed(),

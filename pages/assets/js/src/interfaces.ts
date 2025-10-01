@@ -60,7 +60,7 @@ export type ProgressionBadge = {
 
 export type MultipleBadge = {
   type: "multiple";
-  no_times_earned: number;
+  num_times_earned: number;
 }
 
 export type RelayVisibility = "private" | "public";

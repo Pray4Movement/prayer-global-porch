@@ -48,11 +48,13 @@ class PG_Test_Badges extends PG_Public_Page {
 
         $badges_manager = new PG_Badge_Manager( $user['ID'] );
 
-        $current_badges = $badges_manager->get_user_current_badges_array();
+        $all_badges = $badges_manager->get_all_badges();
+
+/*         $current_badges = $badges_manager->get_user_current_badges_array();
 
         $next_badges = $badges_manager->get_next_badge_in_progression_array();
 
-        $new_badges = $badges_manager->get_new_badges_array();
+        $new_badges = $badges_manager->get_new_badges_array(); */
 
         if ( !$user ) {
             return new WP_REST_Response( [ 'message' => 'User not found' ], 404 );
@@ -70,9 +72,10 @@ class PG_Test_Badges extends PG_Public_Page {
             'message' => 'User selected',
             'user' => $user,
             'user_stats' => $stats,
-            'current_badges' => $current_badges,
+            'all_badges' => $all_badges,
+/*             'current_badges' => $current_badges,
             'next_badges' => $next_badges,
-            'new_badges' => $new_badges,
+            'new_badges' => $new_badges, */
         ] );
     }
 
@@ -148,6 +151,14 @@ class PG_Test_Badges extends PG_Public_Page {
         return new WP_REST_Response( [ 'message' => 'Badges cleared' ] );
     }
 
+    public function earn_badge( WP_REST_Request $request ) {
+        $user_id = $request->get_param( 'user_id' );
+        $badge_id = $request->get_param( 'badge_id' );
+        $badge_manager = new PG_Badge_Manager( $user_id );
+        $badge_manager->earn_badge( $badge_id );
+        return new WP_REST_Response( [ 'message' => 'Badge earned' ] );
+    }
+
     public function register_endpoints() {
         register_rest_route( $this->rest_route, '/select-user', [
             'methods' => 'POST',
@@ -172,6 +183,11 @@ class PG_Test_Badges extends PG_Public_Page {
         register_rest_route( $this->rest_route, '/clear-badges', [
             'methods' => 'POST',
             'callback' => [ $this, 'clear_badges' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
+        register_rest_route( $this->rest_route, '/earn-badge', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'earn_badge' ],
             'permission_callback' => [ $this, 'permission_callback' ],
         ] );
     }
@@ -283,6 +299,23 @@ class PG_Test_Badges extends PG_Public_Page {
                             <td id="hours-of-inactivity"></td>
                         </tr>
                     </table>
+                    <h3>All Badges</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Title</td>
+                                <td>Category</td>
+                                <td>Value</td>
+                                <td>Date</td>
+                                <td>Has Earned Badge</td>
+                                <td>Num Times Earned</td>
+                                <td>Earn Badge</td>
+                            </tr>
+                        </thead>
+                        <tbody id="all-badges-table-body"></tbody>
+                    </table>
+
                     <h3>Current Badges</h3>
                     <table>
                         <thead>
@@ -291,7 +324,7 @@ class PG_Test_Badges extends PG_Public_Page {
                                 <td>Title</td>
                                 <td>Description</td>
                                 <td>Category</td>
-                                <td></td>Value</td>
+                                <td>Value</td>
                                 <td>Date</td>
                             </tr>
                         </thead>
@@ -427,6 +460,50 @@ class PG_Test_Badges extends PG_Public_Page {
                                 <td>${new Date(badge.date * 1000).toLocaleDateString()}</td>
                             </tr>`
                         ).join('');
+                    }
+                    if ( data.all_badges ) {
+                        console.log(data.all_badges);
+                        document.querySelector('#all-badges-table-body').innerHTML = Object.values(data.all_badges).map(badge =>
+                            `<tr>
+                                <td>${badge.id}</td>
+                                <td>${badge.title}</td>
+                                <td>${badge.category}</td>
+                                <td>${badge.value}</td>
+                                <td>${new Date(badge.timestamp * 1000).toLocaleDateString()}</td>
+                                <td>${badge.has_earned_badge}</td>
+                                <td>${badge.num_times_earned}</td>
+                                <td><button class="btn btn-primary earn-badge" id="${badge.id}">Earn Badge</button></td>
+                            </tr>`
+                        ).join('');
+                        document.querySelectorAll('.earn-badge').forEach(button => {
+                            const badgeId = button.id;
+                            const currentBadge = Object.values(data.all_badges).find(badge => badge.id === badgeId);
+                            let badgeToEarn = badgeId;
+                            if ( currentBadge.type === 'progression' && currentBadge.has_earned_badge ) {
+                                const progressionBadges = Object.values(currentBadge.progression_badges);
+                                const currentBadgeIndex = progressionBadges.findIndex(badge => badge.id === badgeId);
+                                if ( currentBadgeIndex < progressionBadges.length - 1 ) {
+                                    badgeToEarn = progressionBadges[currentBadgeIndex + 1].id;
+                                }
+                            } else if ( currentBadge.type !== 'multiple' && currentBadge.has_earned_badge ) {
+                                return;
+                            }
+                            console.log(badgeToEarn);
+                            button.addEventListener('click', function(e) {
+                                e.preventDefault();
+                                fetch(jsObject.rest_url + '/earn-badge', {
+                                    method: 'POST',
+                                    body: JSON.stringify({ user_id: jsObject.user.ID, badge_id: badgeToEarn }),
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'X-WP-Nonce': jsObject.nonce,
+                                    },
+                                }).then(response => response.json()).then(data => {
+                                    console.log(data);
+                                    getUser({ user_id: jsObject.user.ID });
+                                });
+                            });
+                        });
                     }
                 });
             }

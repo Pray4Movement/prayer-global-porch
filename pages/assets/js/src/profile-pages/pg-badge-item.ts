@@ -15,6 +15,7 @@ export class PgBadgeItem extends OpenElement {
 
   @property({ type: String }) badgeId: string = "";
   @property({ type: Object, attribute: false }) badge: Badge = {} as Badge;
+  @property({ type: Array, attribute: false }) progressionBadges: Badge[] = [];
   @property({ type: Number, attribute: false }) currentBadgeIndex: number = 0;
   @property({ type: Object, attribute: false }) currentBadge: Badge = {} as Badge;
 
@@ -29,7 +30,9 @@ export class PgBadgeItem extends OpenElement {
     const badges = window.jsObject.available_badges;
     this.badge = badges.find((badge: Badge) => badge.id === this.badgeId);
     this.currentBadge = this.badge;
-
+    if (this.badge.type === 'progression') {
+      this.progressionBadges = Object.values(this.badge.progression_badges);
+    }
   }
 
   firstUpdated() {
@@ -41,7 +44,7 @@ export class PgBadgeItem extends OpenElement {
       this.sliderElement = slides;
       let firstUnearnedBadge : Badge | null = null;
       this.lastEarnedBadgeIndex = 0;
-      for (const badge of this.badge.progression_badges) {
+      for (const badge of this.progressionBadges) {
         if (badge.has_earned_badge) {
           this.lastEarnedBadgeIndex = this.lastEarnedBadgeIndex + 1;
         } else {
@@ -55,10 +58,8 @@ export class PgBadgeItem extends OpenElement {
   }
 
   getImageUrl(badge: Badge) {
-      if (badge.has_earned_badge) {
-          return badge.image;
-      }
-      return badge.bw_image;
+      const badgeImage = badge.has_earned_badge ? badge.image : badge.bw_image;
+      return `${window.jsObject.badges_url}/${badgeImage}`;
   }
 
   onSliderScroll(event: Event) {
@@ -103,7 +104,7 @@ export class PgBadgeItem extends OpenElement {
       return;
     }
     this.sliderElement.scrollTo({
-      left: this.sliderElement.scrollWidth * (this.badge.progression_badges.indexOf(badge) / (this.badge.progression_badges.length + 1)),
+      left: this.sliderElement.scrollWidth * (this.progressionBadges.indexOf(badge) / (this.progressionBadges.length + 1)),
     });
   }
 
@@ -111,7 +112,7 @@ export class PgBadgeItem extends OpenElement {
     if (this.badge.type !== 'progression') {
       return;
     }
-    this.slideToBadge(this.badge.progression_badges[index]);
+    this.slideToBadge(this.progressionBadges[index]);
   }
 
   setCurrentBadge() {
@@ -122,8 +123,8 @@ export class PgBadgeItem extends OpenElement {
       return;
     }
 
-    this.currentBadgeIndex = Math.round(this.sliderElement.scrollLeft / this.sliderElement.scrollWidth * (this.badge.progression_badges.length + 1))
-    this.currentBadge = this.badge.progression_badges[this.currentBadgeIndex];
+    this.currentBadgeIndex = Math.round(this.sliderElement.scrollLeft / this.sliderElement.scrollWidth * (this.progressionBadges.length + 1))
+    this.currentBadge = this.progressionBadges[this.currentBadgeIndex];
   }
 
   render() {
@@ -144,8 +145,8 @@ export class PgBadgeItem extends OpenElement {
               <div class="center">
                 <div class="badge-image-wrapper two-rem">
                   <img src="${this.getImageUrl(this.badge)}" alt="${this.badge.title}" />
-                  ${this.badge.type === 'multiple' && this.badge.no_times_earned > 1 ? html`
-                      <div class="badge-times-earned">x${this.badge.no_times_earned}</div>
+                  ${this.badge.type === 'multiple' && this.badge.num_times_earned > 1 ? html`
+                      <div class="badge-times-earned">x${this.badge.num_times_earned}</div>
                   ` : ''}
                 </div>
               </div>
@@ -156,7 +157,7 @@ export class PgBadgeItem extends OpenElement {
           <div class="badge-slider">
               <div class="badge-slides" @scrollend=${this.onSliderScrollEnd} @scroll=${this.onSliderScroll}>
                 <div class="badge-buffer"></div>
-                ${this.badge.progression_badges.map((badge, index) => html`
+                ${this.progressionBadges.map((badge, index) => html`
                   <div class="badge-slide ${index === this.currentBadgeIndex ? 'active' : ''}">
                     <img src="${this.getImageUrl(badge)}" alt="${this.badge.title}" />
                   </div>
