@@ -14,7 +14,8 @@ class PG_Badge_Manager {
         $all_earned_badges = PG_Badge_Model::get_all_badges( $this->user_id );
         $all_earned_badge_ids = array_column( $all_earned_badges, 'id' );
         $all_badges = $this->pg_badges->get_all_badges();
-        foreach ( $all_badges as &$badge ) {
+        $has_processed_monthly_challenge_badges = false;
+        foreach ( $all_badges as $key => &$badge ) {
             if ( $badge->get_type() === PG_Badges::TYPE_PROGRESSION ) {
                 // for progression badges, we need to have the current data of their progression in the badge also.
                 $first_progression_badge = null;
@@ -56,9 +57,68 @@ class PG_Badge_Manager {
             }
 
             if ( $badge->get_type() === PG_Badges::TYPE_MONTHLY_CHALLENGE ) {
+                // We are adding more badges to the array and we don't want to process them again.
+                if ( $has_processed_monthly_challenge_badges ) {
+                    continue;
+                }
+                $has_processed_monthly_challenge_badges = true;
                 // for monthly challenge badges, we need to generate them as needed.
                 // so if a user has earned it, it should be in the array.
                 // and the upcoming badge to earn should also be in the array.
+                $badge_id = $badge->get_id();
+                $earned_challenge_badges = array_filter( $all_earned_badges, function( $earned_badge ) use ( $badge_id ) {
+                    return str_starts_with( $earned_badge['id'], $badge_id );
+                } );
+                foreach ( $earned_challenge_badges as $earned_challenge_badge ) {
+                    if ( str_starts_with( $earned_challenge_badge['id'], $badge_id ) ) {
+                        $id_parts = explode( '_', $earned_challenge_badge['id'] );
+                        $current_month = $id_parts[ count( $id_parts ) - 2 ];
+                        $current_year = $id_parts[ count( $id_parts ) - 1 ];
+                        $earned_badge = new PG_Badge(
+                            $earned_challenge_badge['id'],
+                            sprintf( $badge->get_title(), $current_month, $current_year ),
+                            sprintf( $badge->get_description_unearned(), $current_month ),
+                            sprintf( $badge->get_description_earned(), $current_month ),
+                            implode( '_', [ 'challenge', $current_month, $current_year ] ) . '.png',
+                            implode( '_', [ 'challenge', $current_month, $current_year, 'bw.png' ] ),
+                            $badge->get_category(),
+                            $badge->get_value(),
+                            $badge->get_type(),
+                            [],
+                            $badge->is_hidden(),
+                            $badge->is_deprecated(),
+                        );
+                        $earned_badge->set_has_earned_badge( true );
+                        $earned_badge->set_timestamp( $earned_challenge_badge['timestamp'] );
+                        $all_badges[$earned_challenge_badge['id']] = $earned_badge;
+                    }
+                }
+
+                // get the current month as a word
+                $current_month = gmdate( 'F' );
+                $current_month_lower = strtolower( $current_month );
+                // get the current year as a 4 digit number
+                $current_year = gmdate( 'Y' );
+                $current_month_badge_id = implode( '_', [ $badge_id, $current_month_lower, $current_year ] );
+                if ( !in_array( $current_month_badge_id, $all_earned_badge_ids ) ) {
+                    $current_month_badge = new PG_Badge(
+                        $current_month_badge_id,
+                        sprintf( $badge->get_title(), $current_month, $current_year ),
+                        sprintf( $badge->get_description_unearned(), $current_month ),
+                        sprintf( $badge->get_description_earned(), $current_month ),
+                        implode( '_', [ 'challenge', $current_month_lower, $current_year, '.png' ] ),
+                        implode( '_', [ 'challenge', $current_month_lower, $current_year, 'bw.png' ] ),
+                        $badge->get_category(),
+                        $badge->get_value(),
+                        $badge->get_type(),
+                        [],
+                        $badge->is_hidden(),
+                        $badge->is_deprecated(),
+                    );
+                    $all_badges[$current_month_badge_id] = $current_month_badge;
+                }
+
+                unset( $all_badges[$badge_id] );
             }
 
             if ( $badge->get_type() === PG_Badges::TYPE_ACHIEVEMENT ) {
@@ -77,6 +137,9 @@ class PG_Badge_Manager {
 
     public function earn_badge( string $badge_id ) {
         $badge = $this->pg_badges->get_badge( $badge_id );
+        if ( !$badge && str_starts_with( $badge_id, 'monthly_challenge' ) ) {
+            $badge = $this->pg_badges->get_badge( 'monthly_challenge' );
+        }
         if ( $badge ) {
             PG_Badge_Model::create_badge( $this->user_id, $badge_id, $badge->get_category(), $badge->get_value() );
         }

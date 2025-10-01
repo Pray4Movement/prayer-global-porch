@@ -485,10 +485,9 @@ class PG_Test_Badges extends PG_Public_Page {
                                 if ( currentBadgeIndex < progressionBadges.length - 1 ) {
                                     badgeToEarn = progressionBadges[currentBadgeIndex + 1].id;
                                 }
-                            } else if ( currentBadge.type !== 'multiple' && currentBadge.has_earned_badge ) {
+                            } else if ( currentBadge.type === 'achievement' && currentBadge.has_earned_badge ) {
                                 return;
                             }
-                            console.log(badgeToEarn);
                             button.addEventListener('click', function(e) {
                                 e.preventDefault();
                                 fetch(jsObject.rest_url + '/earn-badge', {
