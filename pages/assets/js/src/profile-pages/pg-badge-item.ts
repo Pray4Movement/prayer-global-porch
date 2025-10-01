@@ -193,11 +193,16 @@ export class PgBadgeItem extends OpenElement {
                 <div class="badge-item__description">${this.currentBadge.description_unearned}</div>
             `}
             ${
-                this.badge.type === 'progression' &&
-                this.badge.progression_value &&
-                !this.currentBadge.has_earned_badge &&
-                this.currentBadgeIndex < this.lastEarnedBadgeIndex + 2
-                  ? html`
+                (
+                  (
+                    this.badge.type === 'progression' &&
+                    this.currentBadgeIndex < this.lastEarnedBadgeIndex + 2 &&
+                    !this.currentBadge.has_earned_badge
+                  ) || (
+                    this.badge.type === 'challenge' &&
+                    !this.badge.has_earned_badge
+                  )
+                ) ? html`
                     <div>
                       <div class="d-flex align-items-center gap-2 justify-content-center brand-highlight">
                         <div class="progress-bar" data-small>

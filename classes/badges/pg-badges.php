@@ -1,7 +1,12 @@
 <?php
 
 class PG_Badges {
-
+    // Ids
+    const ID_STREAK = 'streak';
+    const ID_MONTHLY_CHALLENGE = 'monthly_challenge';
+    const ID_LOCATION = 'location';
+    const ID_PRAYER_MOBILIZER = 'prayer_mobilizer';
+    const ID_RELAY_LOCATION = 'relay_location';
     // category types
     const TYPE_PROGRESSION = 'progression';
     const TYPE_ACHIEVEMENT = 'achievement';
@@ -19,7 +24,7 @@ class PG_Badges {
         $badges = [
             self::CATEGORY_LOCATION => [
                 [
-                    'id' => 'location',
+                    'id' => self::ID_LOCATION,
                     'type' => self::TYPE_PROGRESSION,
                     'progression_badges' => [
                         [
@@ -140,7 +145,7 @@ class PG_Badges {
                     'bw_image' => 'relay_completed_bw.png',
                 ],
                 [
-                    'id' => 'prayer_mobilizer',
+                    'id' => self::ID_PRAYER_MOBILIZER,
                     'type' => self::TYPE_PROGRESSION,
                     'progression_badges' => [
                         [
@@ -186,7 +191,7 @@ class PG_Badges {
                     ],
                 ],
                 [
-                    'id' => 'relay_location',
+                    'id' => self::ID_RELAY_LOCATION,
                     'type' => self::TYPE_PROGRESSION,
                     'progression_badges' => [
                         [
@@ -287,15 +292,15 @@ class PG_Badges {
                     'value' => 365,
                 ],
                 [
-                    'id' => 'monthly_challenge',
+                    'id' => self::ID_MONTHLY_CHALLENGE,
                     'type' => self::TYPE_MONTHLY_CHALLENGE,
                     'title' => __( '%1$s %2$d Challenge', 'prayer-global-porch' ),
-                    'description_unearned' => __( 'Earn this badge by praying for 90%% of the days in %s', 'prayer-global-porch' ),
-                    'description_earned' => __( 'You earned this badge by praying for 90%% of the days in %s', 'prayer-global-porch' ),
-                    'value' => 1,
+                    'description_unearned' => __( 'Earn this badge by praying for %1$d days in %2$s', 'prayer-global-porch' ),
+                    'description_earned' => __( 'You earned this badge by praying for %1$d days in %2$s', 'prayer-global-porch' ),
+                    'value' => 27,
                 ],
                 [
-                    'id' => 'streak',
+                    'id' => self::ID_STREAK,
                     'type' => self::TYPE_PROGRESSION,
                     'progression_badges' => [
                         [

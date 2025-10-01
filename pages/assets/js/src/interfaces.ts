@@ -46,7 +46,7 @@ export type Badge = {
   hidden: boolean;
   has_earned_badge: boolean;
   timestamp: number | null;
-} & (AchievementBadge | ProgressionBadge | MultipleBadge);
+} & (AchievementBadge | ProgressionBadge | MultipleBadge | ChallengeBadge);
 
 export type AchievementBadge = {
   type: "achievement";
@@ -56,6 +56,11 @@ export type ProgressionBadge = {
   type: "progression";
   progression_value: number;
   progression_badges: Badge[];
+}
+
+export type ChallengeBadge = {
+  type: "challenge";
+  progression_value: number;
 }
 
 export type MultipleBadge = {

@@ -77,8 +77,8 @@ class PG_Badge_Manager {
                         $earned_badge = new PG_Badge(
                             $earned_challenge_badge['id'],
                             sprintf( $badge->get_title(), $current_month, $current_year ),
-                            sprintf( $badge->get_description_unearned(), $current_month ),
-                            sprintf( $badge->get_description_earned(), $current_month ),
+                            sprintf( $badge->get_description_unearned(), $badge->get_value(), $current_month ),
+                            sprintf( $badge->get_description_earned(), $badge->get_value(), $current_month ),
                             implode( '_', [ 'challenge', $current_month, $current_year ] ) . '.png',
                             implode( '_', [ 'challenge', $current_month, $current_year, 'bw.png' ] ),
                             $badge->get_category(),
@@ -104,8 +104,8 @@ class PG_Badge_Manager {
                     $current_month_badge = new PG_Badge(
                         $current_month_badge_id,
                         sprintf( $badge->get_title(), $current_month, $current_year ),
-                        sprintf( $badge->get_description_unearned(), $current_month ),
-                        sprintf( $badge->get_description_earned(), $current_month ),
+                        sprintf( $badge->get_description_unearned(), $badge->get_value(), $current_month ),
+                        sprintf( $badge->get_description_earned(), $badge->get_value(), $current_month ),
                         implode( '_', [ 'challenge', $current_month_lower, $current_year, '.png' ] ),
                         implode( '_', [ 'challenge', $current_month_lower, $current_year, 'bw.png' ] ),
                         $badge->get_category(),
@@ -129,7 +129,33 @@ class PG_Badge_Manager {
                 }
             }
         }
-        // for each progression badge, include the stat to show how far they are towards the next badge
+        // for each progression and unearned challenge badge, include the stat to show how far they are towards the next badge
+
+        foreach ( $all_badges as &$badge ) {
+            if ( $badge->get_type() === PG_Badges::TYPE_PROGRESSION ) {
+                if ( str_starts_with( $badge->get_id(), PG_Badges::ID_STREAK ) ) {
+                    $streak_value = $this->user_stats->best_streak_in_days();
+                    $badge->set_progression_value( $streak_value );
+                }
+                if ( str_starts_with( $badge->get_id(), PG_Badges::ID_LOCATION ) ) {
+                    $location_value = $this->user_stats->total_places_prayed();
+                    $badge->set_progression_value( $location_value );
+                }
+                if ( str_starts_with( $badge->get_id(), PG_Badges::ID_PRAYER_MOBILIZER ) ) {
+                    $prayer_mobilizer_value = $this->user_stats->num_people_joined_own_relay();
+                    $badge->set_progression_value( $prayer_mobilizer_value );
+                }
+                if ( str_starts_with( $badge->get_id(), PG_Badges::ID_RELAY_LOCATION ) ) {
+                    $relay_location_value = $this->user_stats->total_places_prayed_in_relays();
+                    $badge->set_progression_value( $relay_location_value );
+                }
+            }
+            if ( $badge->get_type() === PG_Badges::TYPE_MONTHLY_CHALLENGE ) {
+                $days_prayed_this_month = $this->user_stats->days_prayed_this_month();
+                $badge->set_progression_value( $days_prayed_this_month );
+            }
+        }
+
         return array_map( function( PG_Badge $badge ) {
             return $badge->to_array();
         }, $all_badges );
@@ -143,6 +169,10 @@ class PG_Badge_Manager {
         if ( $badge ) {
             PG_Badge_Model::create_badge( $this->user_id, $badge_id, $badge->get_category(), $badge->get_value() );
         }
+    }
+
+    public function clear_badges() {
+        PG_Badge_Model::delete_all_badges( $this->user_id );
     }
 
     public function get_newly_earned_badges(): array {

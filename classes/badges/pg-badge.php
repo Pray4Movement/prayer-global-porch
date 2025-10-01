@@ -16,6 +16,7 @@ class PG_Badge {
     private bool $has_earned_badge;
     private int $timestamp;
     private int $num_times_earned;
+    private int $progression_value;
     public function __construct(
         string $id = '',
         string $title = '',
@@ -45,6 +46,7 @@ class PG_Badge {
         $this->has_earned_badge = false;
         $this->timestamp = 0;
         $this->num_times_earned = 0;
+        $this->progression_value = 0;
     }
 
     public function get_id(): string {
@@ -128,6 +130,7 @@ class PG_Badge {
             'has_earned_badge' => $this->has_earned_badge,
             'timestamp' => $this->timestamp,
             'num_times_earned' => $this->num_times_earned,
+            'progression_value' => $this->progression_value,
         ];
     }
 
@@ -145,6 +148,7 @@ class PG_Badge {
         $this->deprecated = $badge->deprecated;
         $this->has_earned_badge = $badge->has_earned_badge;
         $this->timestamp = $badge->timestamp;
+        $this->progression_value = $badge->progression_value;
     }
 
     public function set_num_times_earned( int $num_times_earned ): void {
@@ -157,5 +161,9 @@ class PG_Badge {
 
     public function set_timestamp( int $timestamp ): void {
         $this->timestamp = $timestamp;
+    }
+
+    public function set_progression_value( int $progression_value ): void {
+        $this->progression_value = $progression_value;
     }
 }

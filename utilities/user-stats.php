@@ -76,6 +76,45 @@ class User_Stats {
             ", $this->user_id ) );
     }
 
+    /* Count Number of places prayed for in relays */
+    public function total_places_prayed_in_relays(): int {
+        global $wpdb;
+
+        return (int) $wpdb->get_var( $wpdb->prepare(
+            "SELECT COUNT( r.grid_id ) as places_prayed_for
+                FROM $wpdb->dt_reports r
+                WHERE r.post_type = 'pg_relays'
+                AND r.user_id = %s
+                AND r.subtype = 'custom'
+            ", $this->user_id ) );
+    }
+
+    /* Count Number of people joined own relay */
+    public function num_people_joined_own_relay(): int {
+        global $wpdb;
+
+        $user_relay_ids = $wpdb->get_results( $wpdb->prepare(
+            "SELECT post_id
+                FROM $wpdb->postmeta pm
+                JOIN $wpdb->posts p ON p.ID = pm.post_id AND p.post_type = 'pg_relays'
+                WHERE meta_key = 'assigned_to'
+                AND meta_value = %s
+            ", $this->user_id ), ARRAY_A );
+
+        $user_relay_ids = array_column( $user_relay_ids, 'post_id' );
+
+        // phpcs:disable
+        return (int) $wpdb->get_var( $wpdb->prepare(
+            "SELECT COUNT( DISTINCT( r.user_id ) ) as people_joined_own_relay
+                FROM $wpdb->dt_reports r
+                WHERE r.post_type = 'pg_relays'
+                AND r.user_id = %s
+                AND r.subtype = 'custom'
+                AND r.post_id IN ( " . implode( ',', $user_relay_ids ) . " )
+            ", $this->user_id ) );
+        // phpcs:enable
+    }
+
     public function days_of_inactivity(): int {
         global $wpdb;
         $today = new DateTime();
@@ -86,6 +125,19 @@ class User_Stats {
                 WHERE r.post_type = 'pg_relays'
                 AND r.user_id = %s
             ", $today->format( 'Y-m-d H:i:s' ), $this->user_id ) );
+    }
+
+    public function days_prayed_this_month(): int {
+        global $wpdb;
+        $today = new DateTime();
+        $today->setTimezone( new DateTimeZone( $this->location['time_zone'] ?? 'UTC' ) );
+        return (int) $wpdb->get_var( $wpdb->prepare(
+            "SELECT COUNT( DISTINCT( DATE( r.timezone_timestamp ) ) ) as days_prayed_this_month
+                FROM $wpdb->dt_reports r
+                WHERE r.post_type = 'pg_relays'
+                AND r.user_id = %s
+                AND MONTH( r.timezone_timestamp ) = %s
+            ", $this->user_id, $today->format( 'm' ) ) );
     }
 
     public function hours_of_inactivity(): int {
@@ -167,6 +219,7 @@ class User_Stats {
 
         return $max_streak;
     }
+
     private function all_islands( int $in_days = 1 ): array {
         global $wpdb;
 
