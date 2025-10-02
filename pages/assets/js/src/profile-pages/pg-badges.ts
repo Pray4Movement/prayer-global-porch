@@ -15,6 +15,17 @@ export class PgBadges extends navigator(OpenElement) {
     window.scrollTo(0, 0);
   }
 
+  connectedCallback() {
+    super.connectedCallback();
+    this.badges.sort((a, b) => a.has_earned_badge ? -1 : 1);
+    this.badges = this.badges.filter((badge) => {
+      if (badge.hidden && !badge.has_earned_badge) {
+        return false;
+      }
+      return true;
+    });
+  }
+
   render() {
     return html`
         <pg-header

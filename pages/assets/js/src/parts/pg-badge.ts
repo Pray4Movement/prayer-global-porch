@@ -42,7 +42,6 @@ export class PgBadge extends navigator(OpenElement) {
     }
 
     render() {
-        console.log(this.currentBadge, this.badge)
         return html`
             <div
                 class="prayer-badge text-center"
