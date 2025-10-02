@@ -2663,6 +2663,13 @@ input[type="password"],
 }
 .prayer-badge span {
     font-size: 0.9rem;
+    line-height: 1.2;
+}
+.prayer-badge .progress-bar {
+    background-color: transparent;
+    border: 1px solid var(--pg-brand-color-highlight);
+    width: 80%;
+    margin: 0.5rem auto 0;
 }
 .badge-item img {
     max-width: 200px;
