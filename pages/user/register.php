@@ -210,7 +210,7 @@ class PG_Register extends PG_Public_Page {
                         <h2 class="pt-4 m-0"><?php echo esc_html__( 'Register', 'prayer-global-porch' ) ?></h2>
                         <hr class="seperator-thick">
                         <p class="text-center" style="font-size: larger"><?php echo esc_html__( 'Create your own free login', 'prayer-global-porch' ) ?></p>
-                        <ul class="flow-small center-block">
+                        <ul role="list" class="flow-small center-block">
                             <li class="space-out">
                                 <svg class="icon-sm"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-relay"></use></svg>
                                 <?php echo esc_html__( 'Join and create custom prayer relays', 'prayer-global-porch' ) ?>
@@ -221,7 +221,7 @@ class PG_Register extends PG_Public_Page {
                             </li>
                             <li class="space-out">
                                 <svg class="icon-sm"><use href="<?php echo esc_html( $svgs_url ); ?>#pg-streak"></use></svg>
-                                <?php echo esc_html__( 'Prayer streaks, badges and more', 'prayer-global-porch' ) ?>
+                                <?php echo esc_html__( 'Prayer streaks and more', 'prayer-global-porch' ) ?>
                             </li>
                         </ul>
                         <hr class="seperator-thick">

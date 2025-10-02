@@ -99,7 +99,8 @@ export class PgRelayItem extends OpenElement {
               </svg>
             </button>
             <ul
-              class="dropdown-menu"
+              role="list"
+              class="dropdown-menu dropdown-menu-end"
               aria-labelledby="relay-item-actions-${this.token}"
             >
               <li>
