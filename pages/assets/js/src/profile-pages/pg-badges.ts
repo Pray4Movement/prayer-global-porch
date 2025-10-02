@@ -1,5 +1,5 @@
 import { html } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 import { OpenElement } from "./open-element";
 import { User, Badge } from "../interfaces";
 import { navigator } from "lit-element-router";
@@ -9,6 +9,8 @@ export class PgBadges extends navigator(OpenElement) {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
   badges: Badge[] = window.jsObject.available_badges;
+  @property({ type: Array, attribute: false }) earnedBadges: Badge[] = [];
+  @property({ type: Array, attribute: false }) unearnedBadges: Badge[] = [];
 
   constructor() {
     super();
@@ -17,6 +19,11 @@ export class PgBadges extends navigator(OpenElement) {
 
   connectedCallback() {
     super.connectedCallback();
+    this.sortBadges();
+    this.splitBadges();
+  }
+
+  sortBadges() {
     this.badges.sort((a, b) => a.priority - b.priority);
     this.badges.sort((a, b) => {
       if (a.has_earned_badge && !b.has_earned_badge) {
@@ -33,7 +40,13 @@ export class PgBadges extends navigator(OpenElement) {
       }
       return true;
     });
-    console.log(this.badges);
+  }
+
+  splitBadges() {
+    this.earnedBadges = this.badges.filter((badge) => badge.has_earned_badge);
+    this.unearnedBadges = this.badges.filter((badge) => !badge.has_earned_badge);
+    this.earnedBadges.sort((a, b) => a.priority - b.priority);
+    this.unearnedBadges.sort((a, b) => a.priority - b.priority);
   }
 
   render() {
@@ -44,12 +57,23 @@ export class PgBadges extends navigator(OpenElement) {
         ></pg-header>
 
       <div class="brand-bg white page px-3">
-        <div class="pg-container grid" data-grid data-small>
-            ${this.badges.map((badge) => {
-              return html`
-                <pg-badge .badge=${badge}></pg-badge>
-              `;
-            })}
+        <div class="pg-container flow-medium">
+          <h2 class="h3 font-base">${this.translations.earned}</h2>
+          <div class="grid" data-grid data-small>
+              ${this.earnedBadges.map((badge) => {
+                return html`
+                  <pg-badge .badge=${badge}></pg-badge>
+                `;
+              })}
+          </div>
+          <h2 class="h3 font-base">${this.translations.unearned}</h2>
+          <div class="grid" data-grid data-small>
+              ${this.unearnedBadges.map((badge) => {
+                return html`
+                  <pg-badge .badge=${badge}></pg-badge>
+                `;
+              })}
+          </div>
         </div>
       </div>
     `;

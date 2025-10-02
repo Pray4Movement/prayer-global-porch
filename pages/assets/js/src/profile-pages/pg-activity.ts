@@ -4,14 +4,32 @@ import { OpenElement } from "./open-element";
 import { User, Badge } from "../interfaces";
 import { navigator } from "lit-element-router";
 
+const MAX_HIGHLIGHTED_BADGES = 5;
 @customElement("pg-activity")
 export class PgActivity extends navigator(OpenElement) {
   user: User = window.pg_global.user;
   translations: any = window.jsObject.translations;
+  highlightedBadges: Badge[] = [];
 
   navigateToBadges(e: Event) {
     e.preventDefault();
     this.navigate("/dashboard/badges");
+  }
+
+  connectedCallback() {
+    super.connectedCallback();
+    const earnedBadges = window.jsObject.available_badges.filter((badge: Badge) => badge.has_earned_badge);
+    earnedBadges.sort((a: Badge, b: Badge) => (a.timestamp ?? 0) - (b.timestamp ?? 0));
+    const recentlyEarnedBadges = earnedBadges.slice(0, 3);
+
+    const unearnedBadges = window.jsObject.available_badges.filter((badge: Badge) => !badge.has_earned_badge);
+    unearnedBadges.sort((a: Badge, b: Badge) => a.priority - b.priority);
+    const unearnedBadgesSortedByPriority = unearnedBadges.slice(0, MAX_HIGHLIGHTED_BADGES - recentlyEarnedBadges.length);
+
+    this.highlightedBadges = [
+      ...recentlyEarnedBadges,
+      ...unearnedBadgesSortedByPriority
+    ];
   }
 
   render() {
@@ -80,7 +98,7 @@ export class PgActivity extends navigator(OpenElement) {
               </a>
             </div>
             <div class="prayer-badges__list">
-              ${window.jsObject.available_badges.map((badge: Badge) => {
+              ${this.highlightedBadges.map((badge: Badge) => {
                 return html`
                   <pg-badge .badge=${badge}></pg-badge>
                 `;
