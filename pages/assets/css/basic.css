@@ -936,7 +936,7 @@ input[type="radio"]:checked {
 
 .grid {
   display: grid;
-  grid-gap: 0.5rem;
+  grid-gap: 1rem;
 }
 
 @supports (width: min(100px, 100%)) {
@@ -2643,6 +2643,8 @@ input[type="password"],
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: fit-content;
+    margin: 0 auto;
 }
 .prayer-badge img {
     max-width: 100px;
