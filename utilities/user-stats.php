@@ -99,7 +99,7 @@ class User_Stats {
                 JOIN $wpdb->posts p ON p.ID = pm.post_id AND p.post_type = 'pg_relays'
                 WHERE meta_key = 'assigned_to'
                 AND meta_value = %s
-            ", $this->user_id ), ARRAY_A );
+            ", 'user-' . $this->user_id ), ARRAY_A );
 
         $user_relay_ids = array_column( $user_relay_ids, 'post_id' );
 
@@ -108,10 +108,9 @@ class User_Stats {
             "SELECT COUNT( DISTINCT( r.user_id ) ) as people_joined_own_relay
                 FROM $wpdb->dt_reports r
                 WHERE r.post_type = 'pg_relays'
-                AND r.user_id = %s
                 AND r.subtype = 'custom'
                 AND r.post_id IN ( " . implode( ',', $user_relay_ids ) . " )
-            ", $this->user_id ) );
+            " ) );
         // phpcs:enable
     }
 
