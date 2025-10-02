@@ -17,6 +17,7 @@ trait PG_Lap_Trait {
         'pg-prayer',
         'pg-settings',
         'pg-streak',
+        'pg-relay',
     ];
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -69,7 +70,7 @@ trait PG_Lap_Trait {
                     'Prayer Added!' => esc_html__( 'Prayer Added!', 'prayer-global-porch' ),
                     'join_and_create_custom_prayer_relays' => esc_html__( 'Join and create custom prayer relays', 'prayer-global-porch' ),
                     'view_your_interactive_prayer_history' => esc_html__( 'View your interactive prayer history', 'prayer-global-porch' ),
-                    'prayer_streaks_badges_and_more' => esc_html__( 'Prayer streaks, badges and more', 'prayer-global-porch' ),
+                    'prayer_streaks_badges_and_more' => esc_html__( 'Prayer streaks and more', 'prayer-global-porch' ),
                     'register_now' => esc_html__( 'Register Now', 'prayer-global-porch' ),
                     'create_your_own_free_login' => esc_html__( 'Create your own free login', 'prayer-global-porch' ),
                     'no_thanks' => esc_html__( 'No Thanks', 'prayer-global-porch' ),
