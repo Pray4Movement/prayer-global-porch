@@ -8,6 +8,7 @@ class PG_Badge {
     private string $image;
     private string $bw_image;
     private string $category;
+    private int $priority;
     private int $value;
     private string $type;
     private array $progression_badges;
@@ -25,6 +26,7 @@ class PG_Badge {
         string $image = '',
         string $bw_image = '',
         string $category = '',
+        int $priority = 0,
         int $value = 0,
         string $type = '',
         array $progression_badges = [],
@@ -38,6 +40,7 @@ class PG_Badge {
         $this->image = $image;
         $this->bw_image = $bw_image;
         $this->category = $category;
+        $this->priority = $priority;
         $this->value = $value;
         $this->type = $type;
         $this->progression_badges = $progression_badges;
@@ -75,6 +78,10 @@ class PG_Badge {
 
     public function get_category(): string {
         return $this->category;
+    }
+
+    public function get_priority(): int {
+        return $this->priority;
     }
 
     public function get_value(): int {
@@ -122,6 +129,7 @@ class PG_Badge {
             'image' => $this->image,
             'bw_image' => $this->bw_image,
             'category' => $this->category,
+            'priority' => $this->priority,
             'value' => $this->value,
             'type' => $this->type,
             'progression_badges' => $progression_badges,

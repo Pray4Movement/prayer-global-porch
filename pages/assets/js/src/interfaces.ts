@@ -39,6 +39,7 @@ export type Badge = {
   title: string;
   description_unearned: string;
   description_earned: string;
+  priority: number;
   value: number;
   image: string;
   bw_image: string;

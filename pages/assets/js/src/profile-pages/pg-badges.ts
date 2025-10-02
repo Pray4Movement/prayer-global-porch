@@ -17,13 +17,23 @@ export class PgBadges extends navigator(OpenElement) {
 
   connectedCallback() {
     super.connectedCallback();
-    this.badges.sort((a, b) => a.has_earned_badge ? -1 : 1);
+    this.badges.sort((a, b) => a.priority - b.priority);
+    this.badges.sort((a, b) => {
+      if (a.has_earned_badge && !b.has_earned_badge) {
+        return -1;
+      }
+      if (!a.has_earned_badge && b.has_earned_badge) {
+        return 1;
+      }
+      return 0;
+    });
     this.badges = this.badges.filter((badge) => {
       if (badge.hidden && !badge.has_earned_badge) {
         return false;
       }
       return true;
     });
+    console.log(this.badges);
   }
 
   render() {

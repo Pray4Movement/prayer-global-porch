@@ -26,6 +26,7 @@ class PG_Badges {
                 [
                     'id' => self::ID_LOCATION,
                     'type' => self::TYPE_PROGRESSION,
+                    'priority' => 1,
                     'progression_badges' => [
                         [
                             'id' => 'location_25',
@@ -110,6 +111,7 @@ class PG_Badges {
                     'title' => __( 'Team Player', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by joining a relay', 'prayer-global-porch' ),
                     'description_earned' => __( 'You earned this badge by joining a relay', 'prayer-global-porch' ),
+                    'priority' => 2,
                     'value' => 1,
                     'image' => 'team_player.png',
                     'bw_image' => 'team_player_bw.png',
@@ -120,6 +122,7 @@ class PG_Badges {
                     'title' => __( 'First Prayer Relay', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by creating your first relay', 'prayer-global-porch' ),
                     'description_earned' => __( 'You earned this badge by creating your first relay', 'prayer-global-porch' ),
+                    'priority' => 4,
                     'value' => 1,
                     'image' => 'first_prayer_relay.png',
                     'bw_image' => 'first_prayer_relay_bw.png',
@@ -130,6 +133,7 @@ class PG_Badges {
                     'title' => __( 'Relay Completed - Participant', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by helping to complete a relay', 'prayer-global-porch' ),
                     'description_earned' => __( 'You earned this badge by helping to complete a relay', 'prayer-global-porch' ),
+                    'priority' => 10,
                     'value' => 1,
                     'image' => 'relay_completed.png',
                     'bw_image' => 'relay_completed_bw.png',
@@ -140,6 +144,7 @@ class PG_Badges {
                     'title' => __( 'Relay Completed - Organizer', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by organizing a relay that gets completed', 'prayer-global-porch' ),
                     'description_earned' => __( 'You earned this badge by organizing a relay that gets completed', 'prayer-global-porch' ),
+                    'priority' => 10,
                     'value' => 1,
                     'image' => 'relay_completed.png',
                     'bw_image' => 'relay_completed_bw.png',
@@ -147,6 +152,7 @@ class PG_Badges {
                 [
                     'id' => self::ID_PRAYER_MOBILIZER,
                     'type' => self::TYPE_PROGRESSION,
+                    'priority' => 5,
                     'progression_badges' => [
                         [
                             'id' => 'prayer_mobilizer_10',
@@ -193,6 +199,7 @@ class PG_Badges {
                 [
                     'id' => self::ID_RELAY_LOCATION,
                     'type' => self::TYPE_PROGRESSION,
+                    'priority' => 6,
                     'progression_badges' => [
                         [
                             'id' => 'relay_location_25',
@@ -269,6 +276,7 @@ class PG_Badges {
                     'description_earned' => __( 'You have earned this badge by praying every day for a week', 'prayer-global-porch' ),
                     'image' => 'perfect_week.png',
                     'bw_image' => 'perfect_week_bw.png',
+                    'priority' => 2,
                     'value' => 7,
                 ],
                 [
@@ -302,6 +310,7 @@ class PG_Badges {
                 [
                     'id' => self::ID_STREAK,
                     'type' => self::TYPE_PROGRESSION,
+                    'priority' => 3,
                     'progression_badges' => [
                         [
                             'id' => 'streak_10',
@@ -389,6 +398,7 @@ class PG_Badges {
             $root_badge['image'] ?? '',
             $root_badge['bw_image'] ?? '',
             $category_name,
+            $badge['priority'] ?? 10000,
             $root_badge['value'] ?? 0,
             $type,
             $progression_badges,
