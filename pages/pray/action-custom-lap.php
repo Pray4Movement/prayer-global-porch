@@ -160,6 +160,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                         'daily_streak' => esc_html__( 'Daily Prayer Streak', 'prayer-global-porch' ),
                         'best' => esc_html__( 'Best', 'prayer-global-porch' ),
                         'done' => esc_html__( 'Done', 'prayer-global-porch' ),
+                        'map' => esc_html__( 'Map', 'prayer-global-porch' ),
                         'fetching_stats' => esc_html__( 'Fetching your stats...', 'prayer-global-porch' ),
                         'download_the_app' => esc_html__( 'Download the Prayer.Global app to get streak notifications and more!', 'prayer-global-porch' ),
                         'update_the_app' => esc_html__( 'Update the Prayer.Global app to get streak notifications and more!', 'prayer-global-porch' ),

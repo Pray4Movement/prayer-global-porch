@@ -219,7 +219,7 @@ function celebrateAndDone() {
           </p>
         </div>
         <a href="${getHomeUrl()}" class="center btn outline space-lg">
-          ${jsObject.translations.done}
+          ${jsObject.translations.map}
         </a>
       </div>
     `;
