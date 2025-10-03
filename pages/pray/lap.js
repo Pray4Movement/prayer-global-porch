@@ -210,6 +210,8 @@ function celebrateAndDone() {
   const celebrateContentContainer =
     document.querySelector("#celebrate-content");
 
+  let hasEarnedBadges = false;
+
   if (window.pg_global.is_logged_in) {
     celebrateContentContainer.innerHTML = `
       <div class="flow" data-medium>
@@ -218,9 +220,6 @@ function celebrateAndDone() {
             <i>${jsObject.translations.fetching_stats}</i>
           </p>
         </div>
-        <a href="${getHomeUrl()}" class="center btn outline space-lg">
-          ${jsObject.translations.map}
-        </a>
       </div>
     `;
     const milestonesContainer = document.getElementById("milestones");
@@ -237,8 +236,9 @@ function celebrateAndDone() {
           return false;
         }
         milestonesContainer.innerHTML = "";
+        milestonesContainer.innerHTML += `<hr class="seperator-thick">`;
         result.newly_earned_badges.forEach((badge) => {
-          milestonesContainer.innerHTML += `<hr class="seperator-thick">`;
+          hasEarnedBadges = true;
           milestonesContainer.innerHTML += `
             <div class="flow badge-celebration text-center" data-small>
               <h2>${jsObject.translations.congratulations}</h2>
@@ -247,10 +247,10 @@ function celebrateAndDone() {
               <p class="badge-title space-0">${badge.title}</p>
               <a href="/dashboard/badges" class="link-light">${jsObject.translations.view_badges}</a>
             </div>
+            <hr class="seperator-thick">
           `;
         });
         milestones.forEach((milestone) => {
-          milestonesContainer.innerHTML += `<hr class="seperator-thick">`;
           milestonesContainer.innerHTML += `
               <div class="flow milestone text-center">
                 <h2 class="cluster justify-center">
@@ -259,14 +259,13 @@ function celebrateAndDone() {
                       jsObject.spritesheet_url
                     }#${window.getMilestoneIcon(milestone.category)}"></use>
                   </svg>
-                  ${milestone.title}
+                  ${milestone.message}
                 </h2>
-                <p class="text-center bold">${milestone.message}</p>
+                <p class="text-center bold">${milestone.title}</p>
               </div>
               <hr class="seperator-thick">
             `;
         });
-        milestonesContainer.innerHTML += `<hr class="seperator-thick">`;
       })
       .then((hasMilestones = true) => {
         if (hasMilestones) {
@@ -314,82 +313,94 @@ function celebrateAndDone() {
               </section>
             </div>
           `;
-      });
-    if (
-      !window.pg_global.has_used_app &&
-      (!window.isMobileAppUser() || window.isLegacyAppUser)
-    ) {
-      const divContainer = document.createElement("div");
-      divContainer.classList.add("flow");
-      divContainer.classList.add("bg-light");
-      divContainer.classList.add("modal-content");
-      divContainer.classList.add("modal-body");
-      divContainer.innerHTML = `
-            <h5 class="text-center bold">
-              ${
-                window.isLegacyAppUser
-                  ? jsObject.translations.update_the_app
-                  : jsObject.translations.download_the_app
-              }
-            </h5>
+      })
+      .then(() => {
+        if (hasEarnedBadges) {
+          return;
+        }
+        if (
+          !window.pg_global.has_used_app &&
+          (!window.isMobileAppUser() || window.isLegacyAppUser)
+        ) {
+          const divContainer = document.createElement("div");
+          divContainer.classList.add("flow");
+          divContainer.classList.add("bg-light");
+          divContainer.classList.add("modal-content");
+          divContainer.classList.add("modal-body");
+          divContainer.innerHTML = `
+                <h5 class="text-center bold">
+                  ${
+                    window.isLegacyAppUser
+                      ? jsObject.translations.update_the_app
+                      : jsObject.translations.download_the_app
+                  }
+                </h5>
+                <a
+                  href="/qr/app"
+                  target="_blank"
+                  class="center btn cta bold"
+                  data-umami-event="Pray - Download app"
+                >
+                  ${jsObject.translations.go_to_app_store}
+                </a>
+              `;
+          milestonesContainer.insertAdjacentElement("afterend", divContainer);
+        } else {
+          // Or if they aren't logged in, we will encourage them to sign up
+          celebrateContentContainer.innerHTML = `
+            <hr class="seperator-thick">
+            <div class="flow">
+              <h3 class="text-center">
+                ${jsObject.translations.create_your_own_free_login}
+              </h3>
+              <ul class="flow center-block" role="list">
+                <li class="space-out">
+                    <svg class="icon-sm">
+                      <use href="${jsObject.spritesheet_url}#pg-relay"></use>
+                    </svg>
+                    ${jsObject.translations.join_and_create_custom_prayer_relays}
+                </li>
+                <li class="space-out">
+                    <svg class="icon-sm">
+                      <use href="${jsObject.spritesheet_url}#pg-prayer"></use>
+                    </svg>
+                    ${jsObject.translations.view_your_interactive_prayer_history}
+                </li>
+                <li class="space-out">
+                    <svg class="icon-sm">
+                      <use href="${jsObject.spritesheet_url}#pg-streak"></use>
+                    </svg>
+                    ${jsObject.translations.prayer_streaks_badges_and_more}
+                </li>
+              </ul>
+              <a
+                href="/register"
+                class="center btn bg-orange"
+                id="celebrate-panel__done"
+                data-umami-event="Pray - Register now"
+              >
+                ${jsObject.translations.register_now}
+              </a>
+            </div>
+            <hr class="seperator-thick">
             <a
-              href="/qr/app"
-              target="_blank"
-              class="center btn cta bold"
-              data-umami-event="Pray - Download app"
+              href="${getHomeUrl()}"
+              class="center btn outline space-lg"
+              id="celebrate-panel__done"
+              data-umami-event="Pray - No thanks"
             >
-              ${jsObject.translations.go_to_app_store}
+              ${jsObject.translations.no_thanks}
             </a>
           `;
-      milestonesContainer.insertAdjacentElement("afterend", divContainer);
-    }
-  } else {
-    // Or if they aren't logged in, we will encourage them to sign up
-    celebrateContentContainer.innerHTML = `
-      <hr class="seperator-thick">
-      <div class="flow">
-        <h3 class="text-center">
-          ${jsObject.translations.create_your_own_free_login}
-        </h3>
-        <ul class="flow center-block" role="list">
-          <li class="space-out">
-              <svg class="icon-sm">
-                <use href="${jsObject.spritesheet_url}#pg-relay"></use>
-              </svg>
-              ${jsObject.translations.join_and_create_custom_prayer_relays}
-          </li>
-          <li class="space-out">
-              <svg class="icon-sm">
-                <use href="${jsObject.spritesheet_url}#pg-prayer"></use>
-              </svg>
-              ${jsObject.translations.view_your_interactive_prayer_history}
-          </li>
-          <li class="space-out">
-              <svg class="icon-sm">
-                <use href="${jsObject.spritesheet_url}#pg-streak"></use>
-              </svg>
-              ${jsObject.translations.prayer_streaks_badges_and_more}
-          </li>
-        </ul>
-        <a
-          href="/register"
-          class="center btn bg-orange"
-          id="celebrate-panel__done"
-          data-umami-event="Pray - Register now"
-        >
-          ${jsObject.translations.register_now}
-        </a>
-      </div>
-      <hr class="seperator-thick">
-      <a
-        href="${getHomeUrl()}"
-        class="center btn outline space-lg"
-        id="celebrate-panel__done"
-        data-umami-event="Pray - No thanks"
-      >
-        ${jsObject.translations.no_thanks}
-      </a>
-    `;
+        }
+      })
+      .then(() => {
+        milestonesContainer.innerHTML += `
+          <a href="${getHomeUrl()}" class="center btn outline space-lg">
+            ${jsObject.translations.map}
+          </a>
+        `;
+      });
   }
 }
 
