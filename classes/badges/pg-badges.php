@@ -7,6 +7,15 @@ class PG_Badges {
     const ID_LOCATION = 'location';
     const ID_PRAYER_MOBILIZER = 'prayer_mobilizer';
     const ID_RELAY_LOCATION = 'relay_location';
+    const ID_WHOLE_WORLD = 'whole_world';
+    const ID_COMEBACK_CHAMPION = 'comeback_champion';
+    const ID_TEAM_PLAYER = 'team_player';
+    const ID_FIRST_PRAYER_RELAY = 'first_prayer_relay';
+    const ID_RELAY_COMPLETED_PARTICIPANT = 'relay_completed_participant';
+    const ID_RELAY_COMPLETED_ORGANIZER = 'relay_completed_organizer';
+    const ID_PERFECT_WEEK = 'perfect_week';
+    const ID_PERFECT_MONTH = 'perfect_month';
+    const ID_PERFECT_YEAR = 'perfect_year';
     // category types
     const TYPE_PROGRESSION = 'progression';
     const TYPE_ACHIEVEMENT = 'achievement';
@@ -94,7 +103,7 @@ class PG_Badges {
                     ]
                 ],
                 [
-                    'id' => 'whole_world',
+                    'id' => self::ID_WHOLE_WORLD,
                     'type' => self::TYPE_ACHIEVEMENT,
                     'title' => __( 'Whole World', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by praying for the whole world', 'prayer-global-porch' ),
@@ -106,7 +115,7 @@ class PG_Badges {
             ],
             self::CATEGORY_MOBILIZATION => [
                 [
-                    'id' => 'team_player',
+                    'id' => self::ID_TEAM_PLAYER,
                     'type' => self::TYPE_ACHIEVEMENT,
                     'title' => __( 'Team Player', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by joining a relay', 'prayer-global-porch' ),
@@ -117,7 +126,7 @@ class PG_Badges {
                     'bw_image' => 'team_player_bw.png',
                 ],
                 [
-                    'id' => 'first_prayer_relay',
+                    'id' => self::ID_FIRST_PRAYER_RELAY,
                     'type' => self::TYPE_ACHIEVEMENT,
                     'title' => __( 'First Prayer Relay', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by creating your first relay', 'prayer-global-porch' ),
@@ -128,7 +137,7 @@ class PG_Badges {
                     'bw_image' => 'first_prayer_relay_bw.png',
                 ],
                 [
-                    'id' => 'relay_completed_participant',
+                    'id' => self::ID_RELAY_COMPLETED_PARTICIPANT,
                     'type' => self::TYPE_ACHIEVEMENT,
                     'title' => __( 'Relay Completed - Participant', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by helping to complete a relay', 'prayer-global-porch' ),
@@ -139,7 +148,7 @@ class PG_Badges {
                     'bw_image' => 'relay_completed_bw.png',
                 ],
                 [
-                    'id' => 'relay_completed_organizer',
+                    'id' => self::ID_RELAY_COMPLETED_ORGANIZER,
                     'type' => self::TYPE_ACHIEVEMENT,
                     'title' => __( 'Relay Completed - Organizer', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by organizing a relay that gets completed', 'prayer-global-porch' ),
@@ -162,7 +171,6 @@ class PG_Badges {
                             'value' => 10,
                             'image' => 'prayer_mobilizer_10.png',
                             'bw_image' => 'prayer_mobilizer_10_bw.png',
-                            'hidden' => true,
                         ],
                         [
                             'id' => 'prayer_mobilizer_25',
@@ -172,7 +180,6 @@ class PG_Badges {
                             'value' => 25,
                             'image' => 'prayer_mobilizer_25.png',
                             'bw_image' => 'prayer_mobilizer_25_bw.png',
-                            'hidden' => true,
                         ],
                         [
                             'id' => 'prayer_mobilizer_50',
@@ -182,7 +189,6 @@ class PG_Badges {
                             'value' => 50,
                             'image' => 'prayer_mobilizer_50.png',
                             'bw_image' => 'prayer_mobilizer_50_bw.png',
-                            'hidden' => true,
                         ],
                         [
                             'id' => 'prayer_mobilizer_100',
@@ -192,7 +198,6 @@ class PG_Badges {
                             'value' => 100,
                             'image' => 'prayer_mobilizer_100.png',
                             'bw_image' => 'prayer_mobilizer_100_bw.png',
-                            'hidden' => true,
                         ]
                     ],
                 ],
@@ -269,7 +274,7 @@ class PG_Badges {
             ],
             self::CATEGORY_CONSISTENCY => [
                 [
-                    'id' => 'perfect_week',
+                    'id' => self::ID_PERFECT_WEEK,
                     'type' => self::TYPE_MULTIPLE,
                     'title' => __( 'Perfect Week ', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by praying every day for a week', 'prayer-global-porch' ),
@@ -280,7 +285,7 @@ class PG_Badges {
                     'value' => 7,
                 ],
                 [
-                    'id' => 'perfect_month',
+                    'id' => self::ID_PERFECT_MONTH,
                     'type' => self::TYPE_MULTIPLE,
                     'title' => __( 'Perfect Month ', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by praying every day this month', 'prayer-global-porch' ),
@@ -290,7 +295,7 @@ class PG_Badges {
                     'value' => 30,
                 ],
                 [
-                    'id' => 'perfect_year',
+                    'id' => self::ID_PERFECT_YEAR,
                     'type' => self::TYPE_MULTIPLE,
                     'title' => __( 'Perfect Year ', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by praying every day this year', 'prayer-global-porch' ),
@@ -353,7 +358,7 @@ class PG_Badges {
             ],
             self::CATEGORY_RE_ENGAGEMENT => [
                 [
-                    'id' => 'comeback_champion',
+                    'id' => self::ID_COMEBACK_CHAMPION,
                     'type' => self::TYPE_ACHIEVEMENT,
                     'title' => __( 'Comeback Champion', 'prayer-global-porch' ),
                     'description_unearned' => '',

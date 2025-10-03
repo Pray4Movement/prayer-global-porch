@@ -117,11 +117,11 @@ export class PgActivity extends navigator(OpenElement) {
                 <td>${this.translations.places_prayed_for}</td>
               </tr>
               <tr>
-                <td>${window.jsObject.stats.total_relays_part_of}</td>
+                <td>${ Number(window.jsObject.stats.total_relays_part_of) + Number(window.jsObject.stats.total_relays_started)}</td>
                 <td>${this.translations.active_laps}</td>
               </tr>
               <tr>
-                <td>${window.jsObject.stats.total_finished_relays_part_of}</td>
+                <td>${Number(window.jsObject.stats.total_finished_relays_part_of) + Number(window.jsObject.stats.total_finished_relays_started)}</td>
                 <td>${this.translations.finished_laps}</td>
               </tr>
             </table>

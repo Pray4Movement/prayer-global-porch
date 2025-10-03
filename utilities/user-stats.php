@@ -89,10 +89,8 @@ class User_Stats {
             ", $this->user_id ) );
     }
 
-    /* Count Number of people joined own relay */
-    public function num_people_joined_own_relay(): int {
+    private function user_relay_ids(): array {
         global $wpdb;
-
         $user_relay_ids = $wpdb->get_results( $wpdb->prepare(
             "SELECT post_id
                 FROM $wpdb->postmeta pm
@@ -101,7 +99,19 @@ class User_Stats {
                 AND meta_value = %s
             ", 'user-' . $this->user_id ), ARRAY_A );
 
-        $user_relay_ids = array_column( $user_relay_ids, 'post_id' );
+        return array_column( $user_relay_ids, 'post_id' );
+    }
+
+    public function total_relays_started(): int {
+        $user_relay_ids = $this->user_relay_ids();
+        return count( $user_relay_ids );
+    }
+
+    /* Count Number of people joined own relay */
+    public function num_people_joined_own_relay(): int {
+        global $wpdb;
+
+        $user_relay_ids = $this->user_relay_ids();
 
         // phpcs:disable
         return (int) $wpdb->get_var( $wpdb->prepare(
@@ -156,9 +166,10 @@ class User_Stats {
         return (int) $wpdb->get_var( $wpdb->prepare(
             "SELECT COUNT( DISTINCT( r.post_id ) ) as total_relays_part_of
                 FROM $wpdb->dt_reports r
+                JOIN $wpdb->postmeta pm ON pm.post_id = r.post_id AND pm.meta_key = 'assigned_to' AND pm.meta_value != %s
                 WHERE r.post_type = 'pg_relays'
                 AND r.user_id = %s
-            ", $this->user_id ) );
+            ", 'user-' . $this->user_id, $this->user_id ) );
     }
 
     /* Count number of finished relays part of */
@@ -169,6 +180,7 @@ class User_Stats {
             "WITH cte AS (
                 SELECT MAX( r.lap_number ) as current_lap_number, r.post_id as post_id
                 FROM $wpdb->dt_reports r
+                JOIN $wpdb->postmeta pm ON pm.post_id = r.post_id AND pm.meta_key = 'assigned_to' AND pm.meta_value != %s
                 GROUP BY r.post_id
             )
 
@@ -177,7 +189,26 @@ class User_Stats {
                 WHERE r.user_id = %s
                 AND r.lap_number < cte.current_lap_number
                 AND r.post_id = cte.post_id
-        ", $this->user_id ) );
+        ", 'user-' . $this->user_id, $this->user_id ) );
+    }
+
+    /* Count number of finished relays started */
+    public function total_finished_relays_started(): int {
+        global $wpdb;
+
+        return (int) $wpdb->get_var( $wpdb->prepare(
+            "WITH cte AS (
+                SELECT MAX( r.lap_number ) as current_lap_number, r.post_id as post_id
+                FROM $wpdb->dt_reports r
+                JOIN $wpdb->postmeta pm ON pm.post_id = r.post_id AND pm.meta_key = 'assigned_to' AND pm.meta_value = %s
+                GROUP BY r.post_id
+            )
+
+            SELECT COUNT( DISTINCT( CONCAT( r.post_id, '-', r.lap_number ) ) )
+                FROM $wpdb->dt_reports r, cte
+                WHERE r.lap_number < cte.current_lap_number
+                AND r.post_id = cte.post_id
+        ", 'user-' . $this->user_id ) );
     }
 
     /**

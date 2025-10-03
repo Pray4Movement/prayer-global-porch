@@ -178,9 +178,46 @@ class PG_Badge_Manager {
     }
 
     public function get_newly_earned_badges(): array {
+        $all_earned_badges = $this->get_all_badges();
         // filter out the badges that the user has already earned from pg_badges
+        $all_earnable_badges = array_filter( $all_earned_badges, function( PG_Badge $badge ) {
+            if ( $badge->get_type() === PG_Badges::TYPE_ACHIEVEMENT && $badge->has_earned_badge() ) {
+                return false;
+            }
+            if ( $badge->get_type() === PG_Badges::TYPE_MONTHLY_CHALLENGE && $badge->has_earned_badge() ) {
+                return false;
+            }
+            return true;
+        } );
+        $newly_earned_badges = [];
         // check if any of the remaining badges have been earned since the last time they were checked
+        foreach ( $all_earnable_badges as $badge ) {
+            if ( $badge->get_type() === PG_Badges::TYPE_PROGRESSION ) {
+                if ( $badge->get_progression_value() > $badge->get_value() ) {
+                    $newly_earned_badges[] = $badge;
+                }
+            }
+            if ( $badge->get_type() === PG_Badges::TYPE_MONTHLY_CHALLENGE ) {
+                if ( $badge->get_progression_value() > $badge->get_value() ) {
+                    $newly_earned_badges[] = $badge;
+                }
+            }
+            if ( $badge->get_type() === PG_Badges::TYPE_ACHIEVEMENT ) {
+                if ( $badge->get_id() === PG_Badges::ID_TEAM_PLAYER && $this->user_stats->total_relays_part_of() > 0 ) {
+                    $newly_earned_badges[] = $badge;
+                }
+                if ( $badge->get_id() === PG_Badges::ID_FIRST_PRAYER_RELAY && $this->user_stats->total_relays_started() > 0 ) {
+                    $newly_earned_badges[] = $badge;
+                }
+                if ( $badge->get_id() === PG_Badges::ID_RELAY_COMPLETED_PARTICIPANT && $this->user_stats->total_finished_relays_part_of() > 0 ) {
+                    $newly_earned_badges[] = $badge;
+                }
+                if ( $badge->get_id() === PG_Badges::ID_RELAY_COMPLETED_ORGANIZER && $this->user_stats->total_finished_relays_started() > 0 ) {
+                    $newly_earned_badges[] = $badge;
+                }
+            }
+        }
         // check if the next badge(s) in the progression have been earned since the last time they were checked
-        return [];
+        return $newly_earned_badges;
     }
 }
