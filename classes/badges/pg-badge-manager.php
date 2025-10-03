@@ -158,6 +158,11 @@ class PG_Badge_Manager {
             }
         }
 
+        return $all_badges;
+    }
+
+    public function get_all_badges_array(): array {
+        $all_badges = $this->get_all_badges();
         return array_map( function( PG_Badge $badge ) {
             return $badge->to_array();
         }, $all_badges );

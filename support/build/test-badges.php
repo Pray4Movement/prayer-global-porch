@@ -48,7 +48,7 @@ class PG_Test_Badges extends PG_Public_Page {
 
         $badges_manager = new PG_Badge_Manager( $user['ID'] );
 
-        $all_badges = $badges_manager->get_all_badges();
+        $all_badges = $badges_manager->get_all_badges_array();
 
 /*         $current_badges = $badges_manager->get_user_current_badges_array();
 

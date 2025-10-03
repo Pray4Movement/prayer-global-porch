@@ -351,7 +351,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                     'has_earned_badge' => false,
                 ],
             ];
-            $available_badges = array_values( $badge_manager->get_all_badges() );
+            $available_badges = array_values( $badge_manager->get_all_badges_array() );
         }
         dt_theme_enqueue_script( 'dt-components', 'dt-assets/build/components/index.js', [] );
         dt_theme_enqueue_style( 'dt-components-css', 'dt-assets/build/css/light.min.css', [] );

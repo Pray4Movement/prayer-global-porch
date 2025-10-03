@@ -47,6 +47,8 @@ class PG_User_API {
         DT_Route::post( $namespace, 'save_details', [ $this, 'save_details' ] );
         DT_Route::post( $namespace, 'stats', [ $this, 'get_user_stats' ] );
         DT_Route::post( $namespace, 'milestones', [ $this, 'get_user_milestones' ] );
+        DT_Route::post( $namespace, 'badges', [ $this, 'get_user_badges' ] );
+        DT_Route::post( $namespace, 'milestones-and-badges', [ $this, 'get_user_milestones_and_badges' ] );
         DT_Route::post( $namespace, 'locations-prayed-for', [ $this, 'get_user_locations_prayed_for_endpoint' ] );
         DT_Route::post( $namespace, 'onesignal', [ $this, 'update_onesignal_data' ] );
         DT_Route::post( $namespace, 'requested-notifications', [ $this, 'requested_notifications' ] );
@@ -269,6 +271,41 @@ class PG_User_API {
         }
 
         return $result;
+    }
+
+    public static function get_user_milestones_and_badges() {
+        $user_id = get_current_user_id();
+        if ( !$user_id ) {
+            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
+        }
+
+        $newly_earned_badges = self::get_user_badges();
+        $milestones = self::get_user_milestones();
+
+        return [
+            'newly_earned_badges' => $newly_earned_badges,
+            'milestones' => $milestones,
+        ];
+    }
+
+    public static function get_user_badges() {
+        $user_id = get_current_user_id();
+        if ( !$user_id ) {
+            return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
+        }
+
+        $badges_manager = new PG_Badge_Manager( $user_id );
+        $badges = $badges_manager->get_newly_earned_badges();
+
+        $newly_earned_badges = [
+            ( new PG_Badges() )->get_badge( PG_Badges::ID_TEAM_PLAYER )
+        ];
+
+        $newly_earned_badges = array_map( function( PG_Badge $badge ) {
+            return $badge->to_array();
+        }, $newly_earned_badges );
+
+        return $newly_earned_badges;
     }
 
     public static function get_user_locations_prayed_for_endpoint( WP_REST_Request $request ){

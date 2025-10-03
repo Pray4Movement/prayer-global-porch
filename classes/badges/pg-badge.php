@@ -167,11 +167,27 @@ class PG_Badge {
         $this->has_earned_badge = $has_earned_badge;
     }
 
+    public function has_earned_badge(): bool {
+        return $this->has_earned_badge;
+    }
+
     public function set_timestamp( int $timestamp ): void {
         $this->timestamp = $timestamp;
     }
 
     public function set_progression_value( int $progression_value ): void {
         $this->progression_value = $progression_value;
+    }
+
+    public function get_timestamp(): int {
+        return $this->timestamp;
+    }
+
+    public function get_progression_value(): int {
+        return $this->progression_value;
+    }
+
+    public function get_num_times_earned(): int {
+        return $this->num_times_earned;
     }
 }

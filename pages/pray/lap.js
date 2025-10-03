@@ -90,7 +90,7 @@ async function init() {
   window.load_report_modal();
 
   /* DEBUG ONLY @TODO: Remove this */
-  //celebrateAndDone();
+  celebrateAndDone();
 }
 
 function setupListeners() {
@@ -213,7 +213,7 @@ function celebrateAndDone() {
   if (window.pg_global.is_logged_in) {
     celebrateContentContainer.innerHTML = `
       <div class="flow" data-medium>
-        <div id="milestones" class="flow" data-medium>
+        <div id="milestones" class="flow">
           <p class="text-center">
             <i>${jsObject.translations.fetching_stats}</i>
           </p>
@@ -226,15 +226,29 @@ function celebrateAndDone() {
     const milestonesContainer = document.getElementById("milestones");
     /* Add API call to get new user stats */
     window
-      .api_fetch(`${window.pg_global.root}pg-api/v1/user/milestones`, {
+      .api_fetch(`${window.pg_global.root}pg-api/v1/user/milestones-and-badges`, {
         method: "POST",
       })
-      .then((milestones) => {
+      .then((result) => {
         /* After success update the curent and best streak values in DOM */
-        if (milestones.length === 0) {
+        const milestones = result.milestones;
+        const newly_earned_badges = result.newly_earned_badges;
+        if (milestones.length === 0 && newly_earned_badges.length === 0) {
           return false;
         }
         milestonesContainer.innerHTML = "";
+        result.newly_earned_badges.forEach((badge) => {
+          milestonesContainer.innerHTML += `<hr class="seperator-thick">`;
+          milestonesContainer.innerHTML += `
+            <div class="flow badge-celebration text-center" data-small>
+              <h2>${jsObject.translations.congratulations}</h2>
+              <p>${jsObject.translations.you_have_earned}</p>
+              <img class="center" src="${jsObject.badges_url}/${badge.image}" alt="${badge.title}" />
+              <p class="badge-title space-0">${badge.title}</p>
+              <a href="/dashboard/badges" class="link-light">${jsObject.translations.view_badges}</a>
+            </div>
+          `;
+        });
         milestones.forEach((milestone) => {
           milestonesContainer.innerHTML += `<hr class="seperator-thick">`;
           milestonesContainer.innerHTML += `
@@ -252,6 +266,7 @@ function celebrateAndDone() {
               <hr class="seperator-thick">
             `;
         });
+        milestonesContainer.innerHTML += `<hr class="seperator-thick">`;
       })
       .then((hasMilestones = true) => {
         if (hasMilestones) {

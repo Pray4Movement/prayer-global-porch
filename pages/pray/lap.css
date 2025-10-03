@@ -114,6 +114,9 @@ img {
 .flow[data-medium] > * + * {
     margin-top: var(--space, 2rem);
 }
+.flow[data-small] > * + * {
+    margin-top: var(--space, 0.5rem);
+}
 .space-out {
     display: flex;
     gap: 1rem;
@@ -129,6 +132,9 @@ img {
     flex-wrap: wrap;
 }
 
+.space-0 {
+    --space: 0;
+}
 .space-sm {
     --space: 0.5rem;
 }
@@ -319,6 +325,12 @@ a {
 }
 .btn.simple:hover {
     border-color: var(--pg-dark);
+}
+.link-light {
+    color: var(--pg-highlight);
+}
+.link-light:hover {
+    text-decoration: underline;
 }
 .pace-btn {
     background-color: white;
@@ -785,4 +797,16 @@ a {
     to {
         -webkit-transform: rotate(360deg);
     }
+}
+
+.badge-celebration img {
+    max-width: 250px;
+    width: 100%;
+}
+.badge-celebration .badge-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+.badge-celebration a {
+    font-size: 1rem;
 }

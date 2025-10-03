@@ -162,6 +162,9 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                         'done' => esc_html__( 'Done', 'prayer-global-porch' ),
                         'map' => esc_html__( 'Map', 'prayer-global-porch' ),
                         'fetching_stats' => esc_html__( 'Fetching your stats...', 'prayer-global-porch' ),
+                        'congratulations' => esc_html__( 'Congratulations!', 'prayer-global-porch' ),
+                        'you_have_earned' => esc_html__( 'You just earned a new badge.', 'prayer-global-porch' ),
+                        'view_badges' => esc_html__( 'View Badges', 'prayer-global-porch' ),
                         'download_the_app' => esc_html__( 'Download the Prayer.Global app to get streak notifications and more!', 'prayer-global-porch' ),
                         'update_the_app' => esc_html__( 'Update the Prayer.Global app to get streak notifications and more!', 'prayer-global-porch' ),
                         'go_to_app_store' => esc_html__( 'Go to App Store', 'prayer-global-porch' ),
@@ -178,6 +181,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'cache_url' => 'https://s3.prayer.global/',
                     'spritesheet_url' => $this->spritesheet_url,
                     'icons_url' => plugin_dir_url( __DIR__ ) . 'assets/images/icons',
+                    'badges_url' => plugin_dir_url( __DIR__ ) . 'assets/images/badges',
                     'stats' => [
                         'current_streak_in_days' => $user_stats->current_streak_in_days(),
                         'best_streak_in_days' => $user_stats->best_streak_in_days(),
@@ -267,7 +271,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
         </nav>
 
         <div class="celebrate-panel text-center" id="celebrate-panel">
-            <div class="container flow" data-small>
+            <div class="container flow">
                 <h2>
                     <?php echo esc_html__( 'Great Job!', 'prayer-global-porch' ) ?>
                     <br />
