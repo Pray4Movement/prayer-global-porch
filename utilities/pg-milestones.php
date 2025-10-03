@@ -130,18 +130,19 @@ class PG_Milestones
             }
         }
         if ( in_array( $current_streak, $this->streak_milestones ) ) {
-            return [
-                new PG_Milestone(
-                    __( 'Your Streak is Alive!', 'prayer-global-porch' ),
-                    sprintf(
-                        __( "You have prayed for %s days in a row! Let's keep that streak going!", 'prayer-global-porch' ),
-                        $current_streak
-                    ),
-                    'streak',
-                    $current_streak,
-                    [ PG_CHANNEL_IN_APP, PG_CHANNEL_PUSH, PG_CHANNEL_EMAIL ]
-                )
-            ];
+            $milestone = new PG_Milestone(
+                __( 'Your Streak is Alive!', 'prayer-global-porch' ),
+                sprintf(
+                    __( "You have prayed for %s days in a row! Let's keep that streak going!", 'prayer-global-porch' ),
+                    $current_streak
+                ),
+                'streak',
+                $current_streak,
+                [ PG_CHANNEL_IN_APP, PG_CHANNEL_PUSH, PG_CHANNEL_EMAIL ]
+            );
+            if ( !PG_Notifications_Sent::is_recent( $this->user_stats->user_id, $milestone ) ) {
+                return [ $milestone ];
+            }
         }
         if ( $current_streak > 0 ) {
             return [
