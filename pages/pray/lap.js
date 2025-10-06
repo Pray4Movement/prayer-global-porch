@@ -292,18 +292,19 @@ function celebrateAndDone() {
           if (newly_earned_badges.length > 1) {
             const sliderElement = document.querySelector(".badge-slides");
             const slideWidth = sliderElement.scrollWidth / newly_earned_badges.length;
-            console.log(sliderElement, slideWidth);
             const scrollInterval =setInterval(() => {
               sliderElement.scrollLeft += slideWidth;
             }, 3000)
-            sliderElement.addEventListener("scrollstart", () => {
+            sliderElement.addEventListener("touchstart", () => {
               clearInterval(scrollInterval);
             })
             sliderElement.addEventListener("scrollend", () => {
-              clearInterval(scrollInterval);
+              if (sliderElement.scrollLeft >= sliderElement.scrollWidth - slideWidth * 1.6) {
+                clearInterval(scrollInterval);
+              }
             })
           }
-        }, 1000);
+        }, 100);
       })
       .then((hasMilestones = true) => {
         if (hasMilestones) {
