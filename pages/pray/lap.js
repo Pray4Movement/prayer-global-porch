@@ -235,23 +235,44 @@ function celebrateAndDone() {
         if (milestones.length === 0 && newly_earned_badges.length === 0) {
           return false;
         }
-        milestonesContainer.innerHTML = "";
-        milestonesContainer.innerHTML += `<hr class="seperator-thick">`;
-        result.newly_earned_badges.forEach((badge) => {
-          hasEarnedBadges = true;
-          milestonesContainer.innerHTML += `
+        milestonesHTML = "";
+        milestonesHTML += `<hr class="seperator-thick">`;
+        if (newly_earned_badges.length > 0) {
+          milestonesHTML += `
             <div class="flow badge-celebration text-center" data-small>
               <h2>${jsObject.translations.congratulations}</h2>
-              <p>${jsObject.translations.you_have_earned}</p>
-              <img class="center" src="${jsObject.badges_url}/${badge.image}" alt="${badge.title}" />
-              <p class="badge-title space-0">${badge.title}</p>
+              <p>${newly_earned_badges.length === 1 ? jsObject.translations.you_have_earned_a_badge : jsObject.translations.you_have_earned_badges}</p>
+
+              <div class="flow badge-slider">
+                <div class="badge-slides">
+                  <div class="badge-buffer"></div>
+          `
+        }
+        newly_earned_badges.forEach((badge) => {
+          hasEarnedBadges = true;
+          milestonesHTML += `
+                <div class="badge-slide">
+                  <img class="center" src="${jsObject.badges_url}/${badge.image}" alt="${badge.title}" />
+                  <p class="badge-title space-0">${badge.title}</p>
+                </div>
+          `;
+        });
+        if (newly_earned_badges.length > 0) {
+          milestonesHTML += `
+                    <div class="badge-buffer"></div>
+                  </div>
+                </div>
+          `
+        }
+        if (newly_earned_badges.length > 0) {
+          milestonesHTML += `
               <a href="/dashboard/badges" class="link-light">${jsObject.translations.view_badges}</a>
             </div>
             <hr class="seperator-thick">
-          `;
-        });
+          `
+        }
         milestones.forEach((milestone) => {
-          milestonesContainer.innerHTML += `
+          milestonesHTML += `
               <div class="flow milestone text-center">
                 <h2 class="cluster justify-center">
                   <svg class="icon-md">
@@ -266,6 +287,23 @@ function celebrateAndDone() {
               <hr class="seperator-thick">
             `;
         });
+        milestonesContainer.innerHTML = milestonesHTML;
+        setTimeout(() => {
+          if (newly_earned_badges.length > 1) {
+            const sliderElement = document.querySelector(".badge-slides");
+            const slideWidth = sliderElement.scrollWidth / newly_earned_badges.length;
+            console.log(sliderElement, slideWidth);
+            const scrollInterval =setInterval(() => {
+              sliderElement.scrollLeft += slideWidth;
+            }, 3000)
+            sliderElement.addEventListener("scrollstart", () => {
+              clearInterval(scrollInterval);
+            })
+            sliderElement.addEventListener("scrollend", () => {
+              clearInterval(scrollInterval);
+            })
+          }
+        }, 1000);
       })
       .then((hasMilestones = true) => {
         if (hasMilestones) {
@@ -282,7 +320,7 @@ function celebrateAndDone() {
         if (!result) {
           return;
         }
-        milestonesContainer.innerHTML = `
+        milestonesHTML += `
             <div class="w-fit center">
               <section class="flow center | activity-card lh-xsm">
                 <h3 class="activity-card__title">

@@ -14,6 +14,19 @@
 
     font-size: 18px;
     scroll-behavior: smooth;
+    --scroll-track-color: var(--pg-brand-color);
+    --scroll-thumb-color: var(--pg-brand-color-highlight);
+    scrollbar-color: var(--scroll-thumb-color) var(--scroll-track-color);
+}
+*::-webkit-scrollbar {
+    block-size: 1rem;
+}
+*::-webkit-scrollbar-track {
+    background-color: var(--scroll-track-color);
+}
+*::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-track-color);
+    background-image: linear-gradient(var(--scroll-track-color) 0, var(--scroll-track-color) 0.25rem, var(--scroll-thumb-color) 0.25rem, var(--scroll-thumb-color) 0.75rem, var(--scroll-track-color) 0.75rem);
 }
 
 @font-face {
@@ -809,4 +822,30 @@ a {
 }
 .badge-celebration a {
     font-size: 1rem;
+}
+
+.badge-slider {
+    position: relative;
+    overflow: hidden;
+}
+.badge-slides {
+    display: flex;
+
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+}
+
+.badge-slide {
+    scroll-snap-align: center;
+    flex: 0 0 50%;
+}
+.badge-slide img {
+    max-width: 200px;
+    width: 100%;
+}
+.badge-buffer {
+    flex: 0 0 25%;
 }
