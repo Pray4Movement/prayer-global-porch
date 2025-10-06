@@ -89,6 +89,9 @@
     --dt-text-disabled-background-color: var(--bs-gray-200);
     --dt-text-disabled-color: var(--bs-gray-600);
     --dt-form-input-box-shadow: rgba(0, 0, 0, 0.1) 0 3px 4px 1px;
+    --scroll-track-color: var(--pg-brand-color);
+    --scroll-thumb-color: var(--pg-brand-color-highlight);
+    scrollbar-color: var(--scroll-thumb-color) var(--scroll-track-color);
 }
 html {
     font-size: 1em;
@@ -354,6 +357,18 @@ input[type="radio"] {
 #section-give #payment-form .payment-checkbox input:checked,
 input[type="radio"]:checked {
     border: 8px solid var(--pg-brand-color-lighter);
+}
+*::-webkit-scrollbar {
+    block-size: 1rem;
+}
+
+*::-webkit-scrollbar-track {
+    background-color: var(--scroll-track-color);
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: var(--scroll-track-color);
+    background-image: linear-gradient(var(--scroll-track-color) 0, var(--scroll-track-color) 0.25rem, var(--scroll-thumb-color) 0.25rem, var(--scroll-thumb-color) 0.75rem, var(--scroll-track-color) 0.75rem);
 }
 .form-check-input:checked {
     background-color: var(--pg-brand-color-lighter);
@@ -2709,6 +2724,7 @@ input[type="password"],
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
 }
+
 .badge-slide {
     scroll-snap-align: center;
     flex: 0 0 50%;
