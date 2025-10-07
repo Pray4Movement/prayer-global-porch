@@ -66,6 +66,15 @@ class PG_Test_Badges extends PG_Public_Page {
             'best_streak' => $user_stats->best_streak_in_days(),
             'days_of_inactivity' => $user_stats->days_of_inactivity(),
             'hours_of_inactivity' => $user_stats->hours_of_inactivity(),
+            'total_locations_prayed' => $user_stats->total_places_prayed(),
+            'total_locations_prayed_in_relays' => $user_stats->total_places_prayed_in_relays(),
+            'total_locations_prayed_in_own_relay' => $user_stats->total_locations_prayed_in_own_relay(),
+            'num_people_joined_own_relay' => $user_stats->num_people_joined_own_relay(),
+            'total_relays_part_of' => $user_stats->total_relays_part_of(),
+            'total_finished_relays_part_of' => $user_stats->total_finished_relays_part_of(),
+            'total_finished_relays_started' => $user_stats->total_finished_relays_started(),
+            'has_just_returned' => $user_stats->has_just_returned(),
+            'days_prayed_this_month' => $user_stats->days_prayed_this_month(),
         ];
 
         return new WP_REST_Response( [
@@ -129,7 +138,6 @@ class PG_Test_Badges extends PG_Public_Page {
     }
 
     public function create_relay_participants( WP_REST_Request $request ) {
-        global $wpdb;
         $body = $request->get_body();
         $body = json_decode( $body );
         $participants = isset( $body->participants ) ? intval( $body->participants ) : 0;
@@ -167,6 +175,104 @@ class PG_Test_Badges extends PG_Public_Page {
         return new WP_REST_Response( [ 'message' => 'Relay participants created' ] );
     }
 
+    public function create_relay_locations( WP_REST_Request $request ) {
+        $body = $request->get_body();
+        $body = json_decode( $body );
+        $locations = isset( $body->locations ) ? intval( $body->locations ) : 0;
+        $relay_key = isset( $body->relay_key ) ? sanitize_text_field( wp_unslash( $body->relay_key ) ) : '';
+
+        if ( $locations === 0 || $relay_key === '' ) {
+            return new WP_REST_Response( [ 'message' => 'Invalid locations or relay key' ], 400 );
+        }
+
+        $post_id = pg_get_relay_id( $relay_key );
+
+        $user_id = rand( 1, 1000000 );
+        for ( $i = 0; $i < $locations; $i++ ) {
+            $grid_id = rand( 1, 100000000 );
+            $this->log_prayer( $grid_id, $relay_key, [
+                'user_id' => $user_id,
+                'lap_number' => 1,
+                'global_lap_number' => 1,
+                'pace' => 1,
+                'parts' => [
+                    'post_type' => 'pg_relays',
+                    'root' => 'prayer_app',
+                    'type' => 'custom',
+                ],
+                'user_location' => [
+                    'lng' => '-1.886317',
+                    'lat' => '52.489988',
+                    'level' => 'district',
+                    'label' => 'West Midlands, England, United Kingdom',
+                    'country' => 'United Kingdom',
+                ],
+                'user_language' => 'en_US',
+            ], $post_id );
+        }
+        return new WP_REST_Response( [ 'message' => 'Relay locations created' ] );
+    }
+
+    public function create_days_prayed_this_month( WP_REST_Request $request ) {
+
+        $user_id = $request->get_param( 'user_id' );
+        if ( !$user_id ) {
+            return new WP_REST_Response( [ 'message' => 'User ID is required' ], 400 );
+        }
+        $user_id = intval( $user_id );
+        $days = $request->get_param( 'days' );
+        if ( !$days ) {
+            return new WP_REST_Response( [ 'message' => 'Days is required' ], 400 );
+        }
+        $days = intval( $days );
+
+        $relay_key = '49ba4c';
+        $post_id = pg_get_relay_id( $relay_key );
+
+        for ( $i = 0; $i < $days; $i++ ) {
+            $grid_id = rand( 1, 100000000 );
+            // get the date of the $i-th day from the start of the month
+            $timestamp = strtotime( 'first day of this month' ) + $i * DAY_IN_SECONDS;
+            $this->log_prayer( $grid_id, $relay_key, [
+                'user_id' => $user_id,
+                'lap_number' => 1,
+                'global_lap_number' => 1,
+                'pace' => 1,
+                'parts' => [
+                    'post_type' => 'pg_relays',
+                    'root' => 'prayer_app',
+                    'type' => 'custom',
+                ],
+                'user_location' => [
+                    'lng' => '-1.886317',
+                    'lat' => '52.489988',
+                    'level' => 'district',
+                    'label' => 'West Midlands, England, United Kingdom',
+                    'country' => 'United Kingdom',
+                ],
+                'payload' => 'days_prayed_this_month',
+                'user_language' => 'en_US',
+                'timestamp' => $timestamp,
+                'timezone_timestamp' => gmdate( 'Y-m-d H:i:s', $timestamp ),
+            ], $post_id );
+        }
+        return new WP_REST_Response( [ 'message' => 'Days prayed this month created' ] );
+    }
+
+    public function clear_todays_prayers( WP_REST_Request $request ) {
+        global $wpdb;
+        // get the time of midnight this morning
+        $response = $wpdb->query( $wpdb->prepare(
+            "DELETE FROM $wpdb->dt_reports
+                WHERE timestamp > %d
+            ", strtotime( 'today' )
+        ) );
+        return new WP_REST_Response( [
+            'message' => 'Todays prayers cleared',
+            'response' => $response,
+        ] );
+    }
+
     public function log_prayer( string $grid_id, string $relay_key, array $data, int $relay_id ) {
         $user_id = $data['user_id'];
         $lap_number = $data['lap_number'];
@@ -176,7 +282,7 @@ class PG_Test_Badges extends PG_Public_Page {
         $user_language = $data['user_language'];
 
         $timezone = new DateTimeZone( $user_location['time_zone'] ?? 'UTC' );
-        $datetime = new DateTime( 'now', $timezone );
+        $datetime = isset( $data['timestamp'] ) ? new DateTime( '@' . $data['timestamp'], $timezone ) : new DateTime( 'now', $timezone );
         $timezone_timestamp = $datetime->format( 'Y-m-d H:i:s' );
 
         $args = [
@@ -192,21 +298,27 @@ class PG_Test_Badges extends PG_Public_Page {
             // prayer information
             'value' => $pace ?? 1,
             'grid_id' => $grid_id,
-
             // user information
-            'payload' => serialize( [
-                'user_location' => $user_location['label'] ?? null,
-                'user_language' => $user_language ?? 'en_US',
-            ] ),
+
             'lng' => $user_location['lng'] ?? null,
             'lat' => $user_location['lat'] ?? null,
             'level' => $user_location['level'] ?? null,
             'label' => $user_location['country'] ?? null,
             'hash' => $user_location['hash'] ?? null,
             'user_id' => $user_id ?? null,
-            'timestamp' => time(),
+            'timestamp' => $data['timestamp'] ?? time(),
             'timezone_timestamp' => $timezone_timestamp,
         ];
+
+        if ( isset( $data['payload'] ) ) {
+            $args['payload'] = $data['payload'];
+        }
+        else {
+            $args['payload'] = serialize( [
+                'user_location' => $user_location['label'] ?? null,
+                'user_language' => $user_language ?? 'en_US',
+            ] );
+        }
 
         if ( empty( $args['hash'] ) ) {
             $args['hash'] = hash( 'sha256', serialize( $args ) );
@@ -309,6 +421,21 @@ class PG_Test_Badges extends PG_Public_Page {
         register_rest_route( $this->rest_route, '/create-relay-participants', [
             'methods' => 'POST',
             'callback' => [ $this, 'create_relay_participants' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
+        register_rest_route( $this->rest_route, '/create-relay-locations', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'create_relay_locations' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
+        register_rest_route( $this->rest_route, '/create-days-prayed-this-month', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'create_days_prayed_this_month' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
+        register_rest_route( $this->rest_route, '/clear-todays-prayers', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'clear_todays_prayers' ],
             'permission_callback' => [ $this, 'permission_callback' ],
         ] );
         register_rest_route( $this->rest_route, '/add-missing-badges', [
@@ -434,12 +561,49 @@ class PG_Test_Badges extends PG_Public_Page {
                             <td>Hours of Inactivity:</td>
                             <td id="hours-of-inactivity"></td>
                         </tr>
+                        <tr>
+                            <td>Total Locations Prayed:</td>
+                            <td id="total-locations-prayed"></td>
+                        </tr>
+                        <tr>
+                            <td>Total Locations Prayed in Relays:</td>
+                            <td id="total-locations-prayed-in-relays"></td>
+                        </tr>
+                        <tr>
+                            <td>Total Locations Prayed in Own Relay:</td>
+                            <td id="total-locations-prayed-in-own-relay"></td>
+                        </tr>
+                        <tr>
+                            <td>Num People Joined Own Relay:</td>
+                            <td id="num-people-joined-own-relay"></td>
+                        </tr>
+                        <tr>
+                            <td>Total Relays Part Of:</td>
+                            <td id="total-relays-part-of"></td>
+                        </tr>
+                        <tr>
+                            <td>Total Finished Relays Part Of:</td>
+                            <td id="total-finished-relays-part-of"></td>
+                        </tr>
+                        <tr>
+                            <td>Total Finished Relays Started:</td>
+                            <td id="total-finished-relays-started"></td>
+                        </tr>
+                        <tr>
+                            <td>Has Just Returned:</td>
+                            <td id="has-just-returned"></td>
+                        </tr>
+                        <tr>
+                            <td>Days Prayed This Month:</td>
+                            <td id="days-prayed-this-month"></td>
+                        </tr>
                     </table>
 
                     <div class="flow-small">
                         <h3>Manipulate DB</h3>
                         <button class="btn btn-primary" id="add-missing-badges">Add missing badges</button>
                         <button class="btn btn-primary" id="clear-badges">Clear badges</button>
+                        <button class="btn btn-primary" id="clear-todays-prayers">Clear today's prayers</button>
                         <form class="" id="create-streak-form">
                             <input type="number" name="days" placeholder="Days">
                             <input class="btn btn-primary" type="submit" value="Create streak">
@@ -452,6 +616,15 @@ class PG_Test_Badges extends PG_Public_Page {
                             <input type="number" name="participants" placeholder="Participants">
                             <input type="text" name="relay_key" placeholder="Relay Key">
                             <input class="btn btn-primary" type="submit" value="Create Relay Participants">
+                        </form>
+                        <form class="" id="create-relay-locations-form">
+                            <input type="number" name="locations" placeholder="Locations">
+                            <input type="text" name="relay_key" placeholder="Relay Key">
+                            <input class="btn btn-primary" type="submit" value="Create Relay Locations">
+                        </form>
+                        <form class="" id="create-days-prayed-this-month-form">
+                            <input type="number" name="days" placeholder="Days">
+                            <input class="btn btn-primary" type="submit" value="Create Days Prayed This Month">
                         </form>
                     </div>
 
@@ -542,6 +715,15 @@ class PG_Test_Badges extends PG_Public_Page {
                         document.querySelector('#best-streak').innerHTML = data.user_stats.best_streak;
                         document.querySelector('#days-of-inactivity').innerHTML = data.user_stats.days_of_inactivity;
                         document.querySelector('#hours-of-inactivity').innerHTML = data.user_stats.hours_of_inactivity;
+                        document.querySelector('#total-locations-prayed').innerHTML = data.user_stats.total_locations_prayed;
+                        document.querySelector('#total-locations-prayed-in-relays').innerHTML = data.user_stats.total_locations_prayed_in_relays;
+                        document.querySelector('#total-locations-prayed-in-own-relay').innerHTML = data.user_stats.total_locations_prayed_in_own_relay;
+                        document.querySelector('#num-people-joined-own-relay').innerHTML = data.user_stats.num_people_joined_own_relay;
+                        document.querySelector('#total-relays-part-of').innerHTML = data.user_stats.total_relays_part_of;
+                        document.querySelector('#total-finished-relays-part-of').innerHTML = data.user_stats.total_finished_relays_part_of;
+                        document.querySelector('#total-finished-relays-started').innerHTML = data.user_stats.total_finished_relays_started;
+                        document.querySelector('#has-just-returned').innerHTML = data.user_stats.has_just_returned;
+                        document.querySelector('#days-prayed-this-month').innerHTML = data.user_stats.days_prayed_this_month;
                     }
                     const sort_by = ( $field ) => function( $a, $b ) {
                         if ( $a[$field] === $b[$field] ) {
@@ -556,7 +738,7 @@ class PG_Test_Badges extends PG_Public_Page {
                             `<tr>
                                 <td>${badge.id}</td>
                                 <td>${badge.title}</td>
-                                <td>${badge.description}</td>
+                                <td>${badge.description_unearned}</td>
                                 <td>${badge.category}</td>
                                 <td>${badge.value}</td>
                                 <td>${new Date(badge.date * 1000).toLocaleDateString()}</td>
@@ -570,7 +752,7 @@ class PG_Test_Badges extends PG_Public_Page {
                             `<tr>
                                 <td>${badge.id}</td>
                                 <td>${badge.title}</td>
-                                <td>${badge.description}</td>
+                                <td>${badge.description_earned}</td>
                                 <td>${badge.category}</td>
                                 <td>${badge.value}</td>
                                 <td>${new Date(badge.date * 1000).toLocaleDateString()}</td>
@@ -584,7 +766,7 @@ class PG_Test_Badges extends PG_Public_Page {
                             `<tr>
                                 <td>${badge.id}</td>
                                 <td>${badge.title}</td>
-                                <td>${badge.description}</td>
+                                <td>${badge.description_earned}</td>
                                 <td>${badge.category}</td>
                                 <td>${badge.value}</td>
                                 <td>${new Date(badge.date * 1000).toLocaleDateString()}</td>
@@ -711,6 +893,57 @@ class PG_Test_Badges extends PG_Public_Page {
                 fetch(jsObject.rest_url + '/create-relay-participants', {
                     method: 'POST',
                     body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                }).then(response => response.json()).then(data => {
+                    getUser({ user_id: jsObject.user.ID });
+                    console.log(data);
+                });
+            });
+
+            document.querySelector('#create-relay-locations-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                console.log(data)
+                fetch(jsObject.rest_url + '/create-relay-locations', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                }).then(response => response.json()).then(data => {
+                    getUser({ user_id: jsObject.user.ID });
+                    console.log(data);
+                });
+            });
+
+            document.querySelector('#create-days-prayed-this-month-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                data.user_id = jsObject.user.ID;
+                fetch(jsObject.rest_url + '/create-days-prayed-this-month', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                }).then(response => response.json()).then(data => {
+                    getUser({ user_id: jsObject.user.ID });
+                    console.log(data);
+                });
+            });
+
+            document.querySelector('#clear-todays-prayers').addEventListener('click', function(e) {
+                e.preventDefault();
+                fetch(jsObject.rest_url + '/clear-todays-prayers', {
+                    method: 'POST',
+                    body: JSON.stringify({ user_id: jsObject.user.ID }),
                     headers: {
                         'Content-Type': 'application/json',
                         'X-WP-Nonce': jsObject.nonce,
