@@ -53,8 +53,8 @@ class PG_Test_Badges extends PG_Public_Page {
 /*         $current_badges = $badges_manager->get_user_current_badges_array();
 
         $next_badges = $badges_manager->get_next_badge_in_progression_array();
-
-        $new_badges = $badges_manager->get_new_badges_array(); */
+ */
+        $new_badges = $badges_manager->get_newly_earned_badges_array();
 
         if ( !$user ) {
             return new WP_REST_Response( [ 'message' => 'User not found' ], 404 );
@@ -73,9 +73,9 @@ class PG_Test_Badges extends PG_Public_Page {
             'user' => $user,
             'user_stats' => $stats,
             'all_badges' => $all_badges,
-/*             'current_badges' => $current_badges,
-            'next_badges' => $next_badges,
-            'new_badges' => $new_badges, */
+            /* 'current_badges' => $current_badges,
+            'next_badges' => $next_badges, */
+            'new_badges' => $new_badges,
         ] );
     }
 
@@ -128,6 +128,137 @@ class PG_Test_Badges extends PG_Public_Page {
         return new WP_REST_Response( [ 'message' => 'Inactivity period created' ] );
     }
 
+    public function create_relay_participants( WP_REST_Request $request ) {
+        global $wpdb;
+        $body = $request->get_body();
+        $body = json_decode( $body );
+        $participants = isset( $body->participants ) ? intval( $body->participants ) : 0;
+        $relay_key = isset( $body->relay_key ) ? sanitize_text_field( wp_unslash( $body->relay_key ) ) : '';
+
+        if ( $participants === 0 || $relay_key === '' ) {
+            return new WP_REST_Response( [ 'message' => 'Invalid participants or relay key' ], 400 );
+        }
+
+        $post_id = pg_get_relay_id( $relay_key );
+
+        // We want to insert rows into dt_reports, with $participants amount of unique user id's so as to create new participants on the relay.
+        for ( $i = 0; $i < $participants; $i++ ) {
+            $user_id = rand( 1, 1000000 );
+            $this->log_prayer( 100385029, $relay_key, [
+                'user_id' => $user_id,
+                'lap_number' => 1,
+                'global_lap_number' => 1,
+                'pace' => 1,
+                'parts' => [
+                    'post_type' => 'pg_relays',
+                    'root' => 'prayer_app',
+                    'type' => 'custom',
+                ],
+                'user_location' => [
+                    'lng' => '-1.886317',
+                    'lat' => '52.489988',
+                    'level' => 'district',
+                    'label' => 'West Midlands, England, United Kingdom',
+                    'country' => 'United Kingdom',
+                ],
+                'user_language' => 'en_US',
+            ], $post_id );
+        }
+        return new WP_REST_Response( [ 'message' => 'Relay participants created' ] );
+    }
+
+    public function log_prayer( string $grid_id, string $relay_key, array $data, int $relay_id ) {
+        $user_id = $data['user_id'];
+        $lap_number = $data['lap_number'];
+        $pace = $data['pace'];
+        $parts = $data['parts'];
+        $user_location = $data['user_location'];
+        $user_language = $data['user_language'];
+
+        $timezone = new DateTimeZone( $user_location['time_zone'] ?? 'UTC' );
+        $datetime = new DateTime( 'now', $timezone );
+        $timezone_timestamp = $datetime->format( 'Y-m-d H:i:s' );
+
+        $args = [
+            // lap information
+            'post_id' => $relay_id,
+            'post_type' => $parts['post_type'],
+            'lap_number' => $lap_number,
+            'global_lap_number' => $data['global_lap_number'] ?? $lap_number,
+
+            'type' => $parts['root'],
+            'subtype' => $parts['type'],
+
+            // prayer information
+            'value' => $pace ?? 1,
+            'grid_id' => $grid_id,
+
+            // user information
+            'payload' => serialize( [
+                'user_location' => $user_location['label'] ?? null,
+                'user_language' => $user_language ?? 'en_US',
+            ] ),
+            'lng' => $user_location['lng'] ?? null,
+            'lat' => $user_location['lat'] ?? null,
+            'level' => $user_location['level'] ?? null,
+            'label' => $user_location['country'] ?? null,
+            'hash' => $user_location['hash'] ?? null,
+            'user_id' => $user_id ?? null,
+            'timestamp' => time(),
+            'timezone_timestamp' => $timezone_timestamp,
+        ];
+
+        if ( empty( $args['hash'] ) ) {
+            $args['hash'] = hash( 'sha256', serialize( $args ) );
+        }
+
+        global $wpdb;
+        $response = $wpdb->query( $wpdb->prepare( "
+            INSERT INTO $wpdb->dt_reports
+            (
+                user_id,
+                post_id,
+                post_type,
+                lap_number,
+                global_lap_number,
+                type,
+                subtype,
+                payload,
+                value,
+                lng,
+                lat,
+                level,
+                label,
+                grid_id,
+                timestamp,
+                timezone_timestamp,
+                hash
+            )
+            VALUES
+            ( %d, %d, %s, %d, %d, %s, %s, %s, %d, %f, %f, %s, %s, %d, %d, %s, %s )
+        ",
+            $args['user_id'],
+            $args['post_id'],
+            $args['post_type'],
+            $args['lap_number'],
+            $args['global_lap_number'],
+            $args['type'],
+            $args['subtype'],
+            $args['payload'],
+            $args['value'],
+            $args['lng'],
+            $args['lat'],
+            $args['level'],
+            $args['label'],
+            $args['grid_id'],
+            $args['timestamp'],
+            $args['timezone_timestamp'],
+            $args['hash'],
+        ) );
+
+        return $response;
+    }
+
     public function add_missing_badges( WP_REST_Request $request ) {
         $user_id = $request->get_param( 'user_id' );
         if ( !$user_id ) {
@@ -173,6 +304,11 @@ class PG_Test_Badges extends PG_Public_Page {
         register_rest_route( $this->rest_route, '/create-inactivity', [
             'methods' => 'POST',
             'callback' => [ $this, 'create_inactivity' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
+        register_rest_route( $this->rest_route, '/create-relay-participants', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'create_relay_participants' ],
             'permission_callback' => [ $this, 'permission_callback' ],
         ] );
         register_rest_route( $this->rest_route, '/add-missing-badges', [
@@ -299,6 +435,41 @@ class PG_Test_Badges extends PG_Public_Page {
                             <td id="hours-of-inactivity"></td>
                         </tr>
                     </table>
+
+                    <div class="flow-small">
+                        <h3>Manipulate DB</h3>
+                        <button class="btn btn-primary" id="add-missing-badges">Add missing badges</button>
+                        <button class="btn btn-primary" id="clear-badges">Clear badges</button>
+                        <form class="" id="create-streak-form">
+                            <input type="number" name="days" placeholder="Days">
+                            <input class="btn btn-primary" type="submit" value="Create streak">
+                        </form>
+                        <form class="" id="create-inactivity-form">
+                            <input type="number" name="days" placeholder="Days">
+                            <input class="btn btn-primary" type="submit" value="Create inactive period">
+                        </form>
+                        <form class="" id="create-relay-participants-form">
+                            <input type="number" name="participants" placeholder="Participants">
+                            <input type="text" name="relay_key" placeholder="Relay Key">
+                            <input class="btn btn-primary" type="submit" value="Create Relay Participants">
+                        </form>
+                    </div>
+
+                    <h3>New Badges</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <td>ID</td>
+                                <td>Title</td>
+                                <td>Description</td>
+                                <td>Category</td>
+                                <td>Value</td>
+                                <td>Date</td>
+                            </tr>
+                        </thead>
+                        <tbody id="new-badges-table-body"></tbody>
+                    </table>
+
                     <h3>All Badges</h3>
                     <table>
                         <thead>
@@ -330,49 +501,8 @@ class PG_Test_Badges extends PG_Public_Page {
                         </thead>
                         <tbody id="current-badges-table-body"></tbody>
                     </table>
-                    <h3>Next Badges</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>ID</td>
-                                <td>Title</td>
-                                <td>Description</td>
-                                <td>Category</td>
-                                <td>Value</td>
-                                <td>Date</td>
-                            </tr>
-                        </thead>
-                        <tbody id="next-badges-table-body"></tbody>
-                    </table>
-                    <h3>New Badges</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <td>ID</td>
-                                <td>Title</td>
-                                <td>Description</td>
-                                <td>Category</td>
-                                <td>Value</td>
-                                <td>Date</td>
-                            </tr>
-                        </thead>
-                        <tbody id="new-badges-table-body"></tbody>
-                    </table>
                 </div>
 
-                <div class="flow-small">
-                    <h3>Manipulate DB</h3>
-                    <button class="btn btn-primary" id="add-missing-badges">Add missing badges</button>
-                    <button class="btn btn-primary" id="clear-badges">Clear badges</button>
-                    <form class="" id="create-streak-form">
-                        <input type="number" name="days" placeholder="Days">
-                        <input class="btn btn-primary" type="submit" value="Create streak">
-                    </form>
-                    <form class="" id="create-inactivity-form">
-                        <input type="number" name="days" placeholder="Days">
-                        <input class="btn btn-primary" type="submit" value="Create inactive period">
-                    </form>
-                </div>
             </div>
 
         </section>
@@ -561,6 +691,24 @@ class PG_Test_Badges extends PG_Public_Page {
                 const data = Object.fromEntries(formData);
                 data.user_id = jsObject.user.ID;
                 fetch(jsObject.rest_url + '/create-inactivity', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                }).then(response => response.json()).then(data => {
+                    getUser({ user_id: jsObject.user.ID });
+                    console.log(data);
+                });
+            });
+
+            document.querySelector('#create-relay-participants-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                console.log(data)
+                fetch(jsObject.rest_url + '/create-relay-participants', {
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
