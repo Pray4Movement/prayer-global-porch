@@ -297,15 +297,9 @@ class PG_User_API {
         $badges_manager = new PG_Badge_Manager( $user_id );
         $badges = $badges_manager->get_newly_earned_badges();
 
-        $newly_earned_badges = [
-            ( new PG_Badges() )->get_badge( PG_Badges::ID_TEAM_PLAYER ),
-            ( new PG_Badges() )->get_badge( PG_Badges::ID_FIRST_PRAYER_RELAY ),
-            ( new PG_Badges() )->get_badge( PG_Badges::ID_RELAY_COMPLETED_PARTICIPANT ),
-        ];
-
         $newly_earned_badges = array_map( function( PG_Badge $badge ) {
             return $badge->to_array();
-        }, $newly_earned_badges );
+        }, $badges );
 
         return $newly_earned_badges;
     }

@@ -198,8 +198,10 @@ class PG_Badge_Manager {
         // check if any of the remaining badges have been earned since the last time they were checked
         foreach ( $all_earnable_badges as $badge ) {
             if ( $badge->get_type() === PG_Badges::TYPE_PROGRESSION ) {
-                if ( $badge->get_progression_value() > $badge->get_value() ) {
-                    $newly_earned_badges[] = $badge;
+                foreach ( $badge->get_progression_badges() as $progression_badge ) {
+                    if ( $badge->get_progression_value() > $progression_badge->get_value() ) {
+                        $newly_earned_badges[] = $progression_badge;
+                    }
                 }
             }
             if ( $badge->get_type() === PG_Badges::TYPE_MONTHLY_CHALLENGE ) {
@@ -224,5 +226,12 @@ class PG_Badge_Manager {
         }
         // check if the next badge(s) in the progression have been earned since the last time they were checked
         return $newly_earned_badges;
+    }
+
+    public function get_newly_earned_badges_array(): array {
+        $badges = $this->get_newly_earned_badges();
+        return array_map( function( PG_Badge $badge ) {
+            return $badge->to_array();
+        }, $badges );
     }
 }
