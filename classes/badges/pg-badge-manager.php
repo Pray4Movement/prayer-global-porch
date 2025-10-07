@@ -148,7 +148,7 @@ class PG_Badge_Manager {
                     $badge->set_progression_value( $prayer_mobilizer_value );
                 }
                 if ( str_starts_with( $badge->get_id(), PG_Badges::ID_RELAY_LOCATION ) ) {
-                    $relay_location_value = $this->user_stats->total_places_prayed_in_relays();
+                    $relay_location_value = $this->user_stats->total_locations_prayed_in_own_relay();
                     $badge->set_progression_value( $relay_location_value );
                 }
             }
@@ -205,7 +205,7 @@ class PG_Badge_Manager {
                 }
             }
             if ( $badge->get_type() === PG_Badges::TYPE_MONTHLY_CHALLENGE ) {
-                if ( $badge->get_progression_value() > $badge->get_value() ) {
+                if ( $badge->get_progression_value() >= $badge->get_value() ) {
                     $newly_earned_badges[] = $badge;
                 }
             }

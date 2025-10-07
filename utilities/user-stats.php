@@ -124,6 +124,23 @@ class User_Stats {
         // phpcs:enable
     }
 
+    /* Count Number of people joined own relay */
+    public function total_locations_prayed_in_own_relay(): int {
+        global $wpdb;
+
+        $user_relay_ids = $this->user_relay_ids();
+
+        // phpcs:disable
+        return (int) $wpdb->get_var( $wpdb->prepare(
+            "SELECT COUNT( r.grid_id ) as total_locations_prayed_in_own_relay
+                FROM $wpdb->dt_reports r
+                WHERE r.post_type = 'pg_relays'
+                AND r.subtype = 'custom'
+                AND r.post_id IN ( " . implode( ',', $user_relay_ids ) . " )
+            " ) );
+        // phpcs:enable
+    }
+
     public function days_of_inactivity(): int {
         global $wpdb;
         $today = new DateTime();
@@ -146,7 +163,8 @@ class User_Stats {
                 WHERE r.post_type = 'pg_relays'
                 AND r.user_id = %s
                 AND MONTH( r.timezone_timestamp ) = %s
-            ", $this->user_id, $today->format( 'm' ) ) );
+                AND YEAR( r.timezone_timestamp ) = %s
+            ", $this->user_id, $today->format( 'm' ), $today->format( 'Y' ) ) );
     }
 
     public function hours_of_inactivity(): int {
