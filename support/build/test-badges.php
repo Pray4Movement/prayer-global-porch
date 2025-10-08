@@ -273,6 +273,20 @@ class PG_Test_Badges extends PG_Public_Page {
         ] );
     }
 
+    public function clear_this_month_prayers( WP_REST_Request $request ) {
+        $user_id = $request->get_param( 'user_id' );
+        if ( !$user_id ) {
+            return new WP_REST_Response( [ 'message' => 'User ID is required' ], 400 );
+        }
+        $user_id = intval( $user_id );
+        global $wpdb;
+        $wpdb->query( $wpdb->prepare( "
+            DELETE FROM $wpdb->dt_reports
+            WHERE timestamp > %d
+        ", $user_id, strtotime( 'first day of this month' ) ) );
+        return new WP_REST_Response( [ 'message' => "This month's prayers cleared" ] );
+    }
+
     public function log_prayer( string $grid_id, string $relay_key, array $data, int $relay_id ) {
         $user_id = $data['user_id'];
         $lap_number = $data['lap_number'];
@@ -436,6 +450,11 @@ class PG_Test_Badges extends PG_Public_Page {
         register_rest_route( $this->rest_route, '/clear-todays-prayers', [
             'methods' => 'POST',
             'callback' => [ $this, 'clear_todays_prayers' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
+        register_rest_route( $this->rest_route, '/clear-this-month-prayers', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'clear_this_month_prayers' ],
             'permission_callback' => [ $this, 'permission_callback' ],
         ] );
         register_rest_route( $this->rest_route, '/add-missing-badges', [
@@ -604,6 +623,7 @@ class PG_Test_Badges extends PG_Public_Page {
                         <button class="btn btn-primary" id="add-missing-badges">Add missing badges</button>
                         <button class="btn btn-primary" id="clear-badges">Clear badges</button>
                         <button class="btn btn-primary" id="clear-todays-prayers">Clear today's prayers</button>
+                        <button class="btn btn-primary" id="clear-this-month-prayers">Clear days prayed this month</button>
                         <form class="" id="create-streak-form">
                             <input type="number" name="days" placeholder="Days">
                             <input class="btn btn-primary" type="submit" value="Create streak">
@@ -942,6 +962,21 @@ class PG_Test_Badges extends PG_Public_Page {
             document.querySelector('#clear-todays-prayers').addEventListener('click', function(e) {
                 e.preventDefault();
                 fetch(jsObject.rest_url + '/clear-todays-prayers', {
+                    method: 'POST',
+                    body: JSON.stringify({ user_id: jsObject.user.ID }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                }).then(response => response.json()).then(data => {
+                    getUser({ user_id: jsObject.user.ID });
+                    console.log(data);
+                });
+            });
+
+            document.querySelector('#clear-this-month-prayers').addEventListener('click', function(e) {
+                e.preventDefault();
+                fetch(jsObject.rest_url + '/clear-this-month-prayers', {
                     method: 'POST',
                     body: JSON.stringify({ user_id: jsObject.user.ID }),
                     headers: {
