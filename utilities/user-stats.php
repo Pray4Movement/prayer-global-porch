@@ -194,20 +194,26 @@ class User_Stats {
     public function total_finished_relays_part_of(): int {
         global $wpdb;
 
-        return (int) $wpdb->get_var( $wpdb->prepare(
-            "WITH cte AS (
-                SELECT MAX( r.lap_number ) as current_lap_number, r.post_id as post_id
-                FROM $wpdb->dt_reports r
-                JOIN $wpdb->postmeta pm ON pm.post_id = r.post_id AND pm.meta_key = 'assigned_to' AND pm.meta_value != %s
-                GROUP BY r.post_id
-            )
+        // We need to count the number of distinct grid_ids in the latest lap.
+        // We can safely assume that if we are on lap 2, that lap 1 has finished.
 
-            SELECT COUNT( DISTINCT( CONCAT( r.post_id, '-', r.lap_number ) ) )
-                FROM $wpdb->dt_reports r, cte
-                WHERE r.user_id = %s
-                AND r.lap_number < cte.current_lap_number
-                AND r.post_id = cte.post_id
-        ", 'user-' . $this->user_id, $this->user_id ) );
+        return (int) $wpdb->get_var( $wpdb->prepare(
+            "SELECT COUNT( DISTINCT( r.post_id, r.value ) )
+                FROM $wpdb->dt_reports r
+                JOIN $wpdb->postmeta pm ON pm.post_id = r.post_id
+                    AND pm.meta_key = 'assigned_to'
+                    AND pm.meta_value != %s
+                WHERE r.type = 'lap_completed'
+                AND r.post_type = 'pg_relays'
+                AND EXISTS (
+                    SELECT 1
+                    FROM $wpdb->dt_reports r2
+                    WHERE r2.user_id = %s
+                    AND r2.post_id = r.post_id
+                    AND r2.lap_number = r.value
+                    AND r2.post_type = 'pg_relays'
+                )
+        ", 'user-' . $this->user_id ) );
     }
 
     /* Count number of finished relays started */
@@ -215,17 +221,13 @@ class User_Stats {
         global $wpdb;
 
         return (int) $wpdb->get_var( $wpdb->prepare(
-            "WITH cte AS (
-                SELECT MAX( r.lap_number ) as current_lap_number, r.post_id as post_id
+            "SELECT COUNT( DISTINCT( r.post_id, r.value ) )
                 FROM $wpdb->dt_reports r
-                JOIN $wpdb->postmeta pm ON pm.post_id = r.post_id AND pm.meta_key = 'assigned_to' AND pm.meta_value = %s
-                GROUP BY r.post_id
-            )
-
-            SELECT COUNT( DISTINCT( CONCAT( r.post_id, '-', r.lap_number ) ) )
-                FROM $wpdb->dt_reports r, cte
-                WHERE r.lap_number < cte.current_lap_number
-                AND r.post_id = cte.post_id
+                JOIN $wpdb->postmeta pm ON pm.post_id = r.post_id
+                    AND pm.meta_key = 'assigned_to'
+                    AND pm.meta_value = %s
+                WHERE r.type = 'lap_completed'
+                AND r.post_type = 'pg_relays'
         ", 'user-' . $this->user_id ) );
     }
 
