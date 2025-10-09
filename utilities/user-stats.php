@@ -251,9 +251,9 @@ class User_Stats {
      * @return bool
      */
     public function has_just_returned(): bool {
-        // TODO: implement has_just_returned
         // use longest streak > 0 and streak secure === false and last prayer date is in the last 1 hour
-        return false;
+        // @TODO surface key constants to top level of class
+        return $this->best_streak_in_days() >= 3 && $this->current_streak_in_days() === 1 && $this->last_prayer_date() > time() - 3600;
     }
 
     /* Calculate current streak in days */

@@ -261,7 +261,6 @@ class PG_Test_Badges extends PG_Public_Page {
     }
 
     public function create_prayers_for_whole_world( WP_REST_Request $request ) {
-
         $user_id = $request->get_param( 'user_id' );
         if ( !$user_id ) {
             return new WP_REST_Response( [ 'message' => 'User ID is required' ], 400 );

@@ -225,6 +225,9 @@ class PG_Badge_Manager {
                 if ( $badge->get_id() === PG_Badges::ID_WHOLE_WORLD && $this->user_stats->prayed_for_whole_world() ) {
                     $newly_earned_badges[] = $badge;
                 }
+                if ( $badge->get_id() === PG_Badges::ID_COMEBACK_CHAMPION && $this->user_stats->has_just_returned() ) {
+                    $newly_earned_badges[] = $badge;
+                }
             }
         }
         // check if the next badge(s) in the progression have been earned since the last time they were checked
