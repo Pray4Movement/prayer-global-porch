@@ -50,8 +50,10 @@ class PG_Test_Badges extends PG_Public_Page {
 
         $all_badges = $badges_manager->get_all_badges_array();
 
-/*         $current_badges = $badges_manager->get_user_current_badges_array();
-
+        $current_badges = array_filter( $all_badges, function( $badge ) {
+            return $badge['has_earned_badge'];
+        } );
+/*
         $next_badges = $badges_manager->get_next_badge_in_progression_array();
  */
         $new_badges = $badges_manager->get_newly_earned_badges_array();
@@ -83,8 +85,8 @@ class PG_Test_Badges extends PG_Public_Page {
             'user' => $user,
             'user_stats' => $stats,
             'all_badges' => $all_badges,
-            /* 'current_badges' => $current_badges,
-            'next_badges' => $next_badges, */
+            'current_badges' => $current_badges,
+            /*'next_badges' => $next_badges, */
             'new_badges' => $new_badges,
         ] );
     }
@@ -467,8 +469,9 @@ class PG_Test_Badges extends PG_Public_Page {
     public function earn_badge( WP_REST_Request $request ) {
         $user_id = $request->get_param( 'user_id' );
         $badge_id = $request->get_param( 'badge_id' );
+        $date_earned = $request->get_param( 'date_earned' );
         $badge_manager = new PG_Badge_Manager( $user_id );
-        $badge_manager->earn_badge( $badge_id );
+        $badge_manager->earn_badge( $badge_id, $date_earned );
         return new WP_REST_Response( [ 'message' => 'Badge earned' ] );
     }
 
@@ -752,6 +755,7 @@ class PG_Test_Badges extends PG_Public_Page {
                                 <td>Has Earned Badge</td>
                                 <td>Num Times Earned</td>
                                 <td>Earn Badge</td>
+                                <td>Date Earned</td>
                             </tr>
                         </thead>
                         <tbody id="all-badges-table-body"></tbody>
@@ -830,9 +834,7 @@ class PG_Test_Badges extends PG_Public_Page {
                         return $a[$field] > $b[$field] ? 1 : -1;
                     };
                     if ( data.next_badges ) {
-                        data.next_badges.sort( sort_by( 'id' ) );
-                        data.next_badges.sort( sort_by( 'category' ) );
-                        document.querySelector('#next-badges-table-body').innerHTML = data.next_badges.map(badge =>
+                        document.querySelector('#next-badges-table-body').innerHTML = Object.values(data.next_badges).map(badge =>
                             `<tr>
                                 <td>${badge.id}</td>
                                 <td>${badge.title}</td>
@@ -844,30 +846,26 @@ class PG_Test_Badges extends PG_Public_Page {
                         ).join('');
                     }
                     if ( data.current_badges ) {
-                        data.current_badges.sort( sort_by( 'id' ) );
-                        data.current_badges.sort( sort_by( 'category' ) );
-                        document.querySelector('#current-badges-table-body').innerHTML = data.current_badges.map(badge =>
+                        document.querySelector('#current-badges-table-body').innerHTML = Object.values(data.current_badges).map(badge =>
                             `<tr>
                                 <td>${badge.id}</td>
                                 <td>${badge.title}</td>
                                 <td>${badge.description_earned}</td>
                                 <td>${badge.category}</td>
                                 <td>${badge.value}</td>
-                                <td>${new Date(badge.date * 1000).toLocaleDateString()}</td>
+                                <td>${badge.timestamp ? new Date(badge.timestamp * 1000).toLocaleDateString() : ''}</td>
                             </tr>`
                         ).join('');
                     }
                     if ( data.new_badges ) {
-                        data.new_badges.sort( sort_by( 'id' ) );
-                        data.new_badges.sort( sort_by( 'category' ) );
-                        document.querySelector('#new-badges-table-body').innerHTML = data.new_badges.map(badge =>
+                        document.querySelector('#new-badges-table-body').innerHTML = Object.values(data.new_badges).map(badge =>
                             `<tr>
                                 <td>${badge.id}</td>
                                 <td>${badge.title}</td>
                                 <td>${badge.description_earned}</td>
                                 <td>${badge.category}</td>
                                 <td>${badge.value}</td>
-                                <td>${new Date(badge.date * 1000).toLocaleDateString()}</td>
+                                <td>${new Date(badge.timestamp * 1000).toLocaleDateString()}</td>
                             </tr>`
                         ).join('');
                     }
@@ -879,10 +877,11 @@ class PG_Test_Badges extends PG_Public_Page {
                                 <td>${badge.title}</td>
                                 <td>${badge.category}</td>
                                 <td>${badge.value}</td>
-                                <td>${new Date(badge.timestamp * 1000).toLocaleDateString()}</td>
+                                <td>${badge.timestamp ? new Date(badge.timestamp * 1000).toLocaleDateString() : ''}</td>
                                 <td>${badge.has_earned_badge}</td>
                                 <td>${badge.num_times_earned}</td>
                                 <td><button class="btn btn-primary earn-badge" id="${badge.id}">Earn Badge</button></td>
+                                <td><input type="date" class="date-earned" id="${'date-earned-' + badge.id}" value="${Date.now()}"></td>
                             </tr>`
                         ).join('');
                         document.querySelectorAll('.earn-badge').forEach(button => {
@@ -898,11 +897,15 @@ class PG_Test_Badges extends PG_Public_Page {
                             } else if ( currentBadge.type === 'achievement' && currentBadge.has_earned_badge ) {
                                 return;
                             }
+
                             button.addEventListener('click', function(e) {
                                 e.preventDefault();
+                                const dateEarned = document.querySelector('#' + 'date-earned-' + badgeToEarn).value;
+                                console.log(badgeToEarn, dateEarned, Number((new Date(dateEarned)).getTime() / 1000));
+
                                 fetch(jsObject.rest_url + '/earn-badge', {
                                     method: 'POST',
-                                    body: JSON.stringify({ user_id: jsObject.user.ID, badge_id: badgeToEarn }),
+                                    body: JSON.stringify({ user_id: jsObject.user.ID, badge_id: badgeToEarn, date_earned: Number((new Date(dateEarned)).getTime() / 1000) }),
                                     headers: {
                                         'Content-Type': 'application/json',
                                         'X-WP-Nonce': jsObject.nonce,

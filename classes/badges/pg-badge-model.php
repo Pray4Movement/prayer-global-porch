@@ -1,14 +1,20 @@
 <?php
 
 class PG_Badge_Model {
-    public static function create_badge( int $user_id, string $badge_id, string $category, int $value ) {
+    public static function create_badge( int $user_id, string $badge_id, string $category, int $value, int $timestamp = null ) {
         global $wpdb;
-        return $wpdb->insert( $wpdb->dt_badges, [
+        $data = [
             'user_id' => $user_id,
             'badge_id' => $badge_id,
             'category' => $category,
             'value' => $value,
-        ], [ '%d', '%s', '%s', '%d' ] );
+        ];
+        $format = [ '%d', '%s', '%s', '%d' ];
+        if ( $timestamp ) {
+            $data['timestamp'] = $timestamp;
+            $format[] = '%d';
+        }
+        return $wpdb->insert( $wpdb->dt_badges, $data, $format );
     }
 
     public static function get_all_badges( int $user_id ) {

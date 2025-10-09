@@ -168,13 +168,13 @@ class PG_Badge_Manager {
         }, $all_badges );
     }
 
-    public function earn_badge( string $badge_id ) {
+    public function earn_badge( string $badge_id, int $date_earned ) {
         $badge = $this->pg_badges->get_badge( $badge_id );
         if ( !$badge && str_starts_with( $badge_id, 'monthly_challenge' ) ) {
             $badge = $this->pg_badges->get_badge( 'monthly_challenge' );
         }
         if ( $badge ) {
-            PG_Badge_Model::create_badge( $this->user_id, $badge_id, $badge->get_category(), $badge->get_value() );
+            PG_Badge_Model::create_badge( $this->user_id, $badge_id, $badge->get_category(), $badge->get_value(), $date_earned );
         }
     }
 
@@ -235,23 +235,23 @@ class PG_Badge_Manager {
                 $timestamp = $badge->get_timestamp();
                 $diff_in_days = 1000000;
                 if ( !empty( $timestamp ) ) {
-                    $badge_date = new DateTime( $badge->get_timestamp() );
+                    $badge_date = new DateTime( "@$timestamp" );
                     $badge_date->setTimezone( new DateTimeZone( $this->user_stats->location['time_zone'] ?? 'UTC' ) );
                     $now_date = new DateTime();
                     $now_date->setTimezone( new DateTimeZone( $this->user_stats->location['time_zone'] ?? 'UTC' ) );
-                    $diff_in_days = $now_date->diff( $badge_date )->format( '%a' );
+                    $diff_in_days = (int) $now_date->diff( $badge_date )->format( '%a' );
                 }
                 if (
                     $badge->get_id() === PG_Badges::ID_PERFECT_WEEK &&
                     $this->user_stats->current_streak_in_days() === 7 &&
-                    $diff_in_days > 7
+                    $diff_in_days >= 7 - 1
                 ) {
                     $newly_earned_badges[] = $badge;
                 }
                 if (
                     $badge->get_id() === PG_Badges::ID_PERFECT_MONTH &&
                     $this->user_stats->current_streak_in_days() === 30 &&
-                    $diff_in_days > 30
+                    $diff_in_days >= 30 - 1
                 ) {
                     $newly_earned_badges[] = $badge;
                 }
