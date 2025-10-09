@@ -231,6 +231,21 @@ class User_Stats {
         ", 'user-' . $this->user_id ) );
     }
 
+    public function prayed_for_whole_world(): bool {
+        $num_locations = count( pg_query_4770_locations() );
+        return $this->total_unique_places_prayed() >= $num_locations;
+    }
+
+    public function total_unique_places_prayed(): int {
+        global $wpdb;
+        return (int) $wpdb->get_var( $wpdb->prepare(
+            "SELECT COUNT( DISTINCT( r.grid_id ) ) as total_unique_places_prayed
+                FROM $wpdb->dt_reports r
+                WHERE r.post_type = 'pg_relays'
+                AND r.user_id = %s
+            ", $this->user_id ) );
+    }
+
     /**
      * Check if the user has just returned
      * @return bool

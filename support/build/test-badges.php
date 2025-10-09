@@ -260,6 +260,43 @@ class PG_Test_Badges extends PG_Public_Page {
         return new WP_REST_Response( [ 'message' => 'Days prayed this month created' ] );
     }
 
+    public function create_prayers_for_whole_world( WP_REST_Request $request ) {
+
+        $user_id = $request->get_param( 'user_id' );
+        if ( !$user_id ) {
+            return new WP_REST_Response( [ 'message' => 'User ID is required' ], 400 );
+        }
+        $user_id = intval( $user_id );
+        $relay_key = '49ba4c';
+        $post_id = pg_get_relay_id( $relay_key );
+        $lap_number = Prayer_Stats::get_relay_lap_number( $relay_key );
+        $locations = pg_query_4770_locations();
+        foreach ( $locations as $grid_id ) {
+            $this->log_prayer( $grid_id, $relay_key, [
+                'user_id' => $user_id,
+                'lap_number' => $lap_number,
+                'global_lap_number' => $lap_number,
+                'pace' => 1,
+                'parts' => [
+                    'post_type' => 'pg_relays',
+                    'root' => 'prayer_app',
+                    'type' => 'global',
+                ],
+                'user_location' => [
+                    'lng' => '-1.886317',
+                    'lat' => '52.489988',
+                    'level' => 'district',
+                    'label' => 'West Midlands, England, United Kingdom',
+                    'country' => 'United Kingdom',
+                ],
+                'user_language' => 'en_US',
+                'timestamp' => time(),
+                'timezone_timestamp' => gmdate( 'Y-m-d H:i:s', time() ),
+            ], $post_id );
+        }
+        return new WP_REST_Response( [ 'message' => 'Prayers for whole world created' ] );
+    }
+
     public function complete_relay( WP_REST_Request $request ) {
         $body = $request->get_body();
         $body = json_decode( $body );
@@ -467,6 +504,11 @@ class PG_Test_Badges extends PG_Public_Page {
             'callback' => [ $this, 'create_days_prayed_this_month' ],
             'permission_callback' => [ $this, 'permission_callback' ],
         ] );
+        register_rest_route( $this->rest_route, '/create-prayers-for-whole-world', [
+            'methods' => 'POST',
+            'callback' => [ $this, 'create_prayers_for_whole_world' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
         register_rest_route( $this->rest_route, '/complete-relay', [
             'methods' => 'POST',
             'callback' => [ $this, 'complete_relay' ],
@@ -670,6 +712,9 @@ class PG_Test_Badges extends PG_Public_Page {
                             <input type="number" name="locations" placeholder="Locations">
                             <input type="text" name="relay_key" placeholder="Relay Key">
                             <input class="btn btn-primary" type="submit" value="Create Relay Locations">
+                        </form>
+                        <form class="" id="create-prayers-for-whole-world-form">
+                            <input class="btn btn-primary" type="submit" value="Create Prayers for Whole World">
                         </form>
                         <form class="" id="create-days-prayed-this-month-form">
                             <input type="number" name="days" placeholder="Days">
@@ -981,6 +1026,24 @@ class PG_Test_Badges extends PG_Public_Page {
                 const data = Object.fromEntries(formData);
                 data.user_id = jsObject.user.ID;
                 fetch(jsObject.rest_url + '/create-days-prayed-this-month', {
+                    method: 'POST',
+                    body: JSON.stringify(data),
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                }).then(response => response.json()).then(data => {
+                    getUser({ user_id: jsObject.user.ID });
+                    console.log(data);
+                });
+            });
+
+            document.querySelector('#create-prayers-for-whole-world-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                data.user_id = jsObject.user.ID;
+                fetch(jsObject.rest_url + '/create-prayers-for-whole-world', {
                     method: 'POST',
                     body: JSON.stringify(data),
                     headers: {
