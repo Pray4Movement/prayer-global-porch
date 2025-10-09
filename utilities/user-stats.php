@@ -198,7 +198,7 @@ class User_Stats {
         // We can safely assume that if we are on lap 2, that lap 1 has finished.
 
         return (int) $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT( DISTINCT( r.post_id, r.value ) )
+            "SELECT COUNT( DISTINCT( CONCAT( r.post_id, '-', r.value ) ) )
                 FROM $wpdb->dt_reports r
                 JOIN $wpdb->postmeta pm ON pm.post_id = r.post_id
                     AND pm.meta_key = 'assigned_to'
@@ -221,7 +221,7 @@ class User_Stats {
         global $wpdb;
 
         return (int) $wpdb->get_var( $wpdb->prepare(
-            "SELECT COUNT( DISTINCT( r.post_id, r.value ) )
+            "SELECT COUNT( DISTINCT( CONCAT( r.post_id, '-', r.value ) ) )
                 FROM $wpdb->dt_reports r
                 JOIN $wpdb->postmeta pm ON pm.post_id = r.post_id
                     AND pm.meta_key = 'assigned_to'
