@@ -258,13 +258,13 @@ class User_Stats {
 
     /* Calculate current streak in days */
     private function current_streak( int $in_days = 1 ): int {
-        $all_islands = $this->all_islands( $in_days );
-
-        if ( empty( $all_islands ) ) {
+        if ( !$this->streak_secure() ) {
             return 0;
         }
 
-        if ( !$this->streak_secure() ) {
+        $all_islands = $this->all_islands( $in_days );
+
+        if ( empty( $all_islands ) ) {
             return 0;
         }
 

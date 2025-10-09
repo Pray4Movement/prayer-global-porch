@@ -229,6 +229,33 @@ class PG_Badge_Manager {
                     $newly_earned_badges[] = $badge;
                 }
             }
+            if ( $badge->get_type() === PG_Badges::TYPE_MULTIPLE ) {
+                // someone has had a new perfect week or month, if their current streak is 7 or 30, and the last time they earned
+                // the badge was more than 1 week or month ago
+                $timestamp = $badge->get_timestamp();
+                $diff_in_days = 1000000;
+                if ( !empty( $timestamp ) ) {
+                    $badge_date = new DateTime( $badge->get_timestamp() );
+                    $badge_date->setTimezone( new DateTimeZone( $this->user_stats->location['time_zone'] ?? 'UTC' ) );
+                    $now_date = new DateTime();
+                    $now_date->setTimezone( new DateTimeZone( $this->user_stats->location['time_zone'] ?? 'UTC' ) );
+                    $diff_in_days = $now_date->diff( $badge_date )->format( '%a' );
+                }
+                if (
+                    $badge->get_id() === PG_Badges::ID_PERFECT_WEEK &&
+                    $this->user_stats->current_streak_in_days() === 7 &&
+                    $diff_in_days > 7
+                ) {
+                    $newly_earned_badges[] = $badge;
+                }
+                if (
+                    $badge->get_id() === PG_Badges::ID_PERFECT_MONTH &&
+                    $this->user_stats->current_streak_in_days() === 30 &&
+                    $diff_in_days > 30
+                ) {
+                    $newly_earned_badges[] = $badge;
+                }
+            }
         }
         // check if the next badge(s) in the progression have been earned since the last time they were checked
         return $newly_earned_badges;
