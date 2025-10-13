@@ -135,84 +135,84 @@ export class PgBadgeItem extends OpenElement {
         ></pg-header>
 
       <div class="brand-bg white page px-3 text-center">
-        <div class="pg-container stack-sm badge-item" data-grid data-small>
-
-          <div class="badge-item__timestamp" ?data-empty=${!this.currentBadge.timestamp}>
-            Earned ${this.currentBadge.timestamp ? `${new Intl.DateTimeFormat().format(this.currentBadge.timestamp * 1000)}` : ''}
-          </div>
-
-            ${this.badge.type !== 'progression' ? html`
-              <div class="center">
-                <div class="badge-image-wrapper two-rem">
-                  <img src="${this.getImageUrl(this.badge)}" alt="${this.badge.title}" />
-                  ${this.badge.type === 'multiple' && this.badge.num_times_earned > 1 ? html`
-                      <div class="badge-times-earned">x${this.badge.num_times_earned}</div>
-                  ` : ''}
-                </div>
-              </div>
-            ` : ''}
-        </div>
-
-        ${this.badge.type === 'progression' ? html`
-          <div class="badge-slider">
-              <div class="badge-slides" @scrollend=${this.onSliderScrollEnd} @scroll=${this.onSliderScroll}>
-                <div class="badge-buffer"></div>
-                ${this.progressionBadges.map((badge, index) => html`
-                  <div class="badge-slide ${index === this.currentBadgeIndex ? 'active' : ''}">
-                    <img src="${this.getImageUrl(badge)}" alt="${this.badge.title}" />
+        <div class="pg-container">
+          <div class="stack-sm badge-item" data-grid data-small>
+            <div class="badge-item__timestamp" ?data-empty=${!this.currentBadge.timestamp}>
+              Earned ${this.currentBadge.timestamp ? `${new Intl.DateTimeFormat().format(this.currentBadge.timestamp * 1000)}` : ''}
+            </div>
+              ${this.badge.type !== 'progression' ? html`
+                <div class="center">
+                  <div class="badge-image-wrapper two-rem">
+                    <img src="${this.getImageUrl(this.badge)}" alt="${this.badge.title}" />
+                    ${this.badge.type === 'multiple' && this.badge.num_times_earned > 1 ? html`
+                        <div class="badge-times-earned">x${this.badge.num_times_earned}</div>
+                    ` : ''}
                   </div>
-                `)}
-                <div class="badge-buffer"></div>
-              </div>
+                </div>
+              ` : ''}
           </div>
-          <div class="repel">
-            <button
-              class="badge-item__progression-button"
-              @click=${() => this.slideToIndex(this.currentBadgeIndex - 1)}
-            >
-              <svg class="white icon-sm">
-                <use href="${this.spritesheetUrl}#pg-chevron-left"></use>
-              </svg>
-            </button>
-            <button
-              class="badge-item__progression-button"
-              @click=${() => this.slideToIndex(this.currentBadgeIndex + 1)}
-            >
-              <svg class="white icon-sm">
-                <use href="${this.spritesheetUrl}#pg-chevron-right"></use>
-              </svg>
-            </button>
-          </div>
-        ` : ''}
-
-        <div class="pg-container stack-sm badge-item" data-grid data-small>
-            <div class="badge-item__title">${this.currentBadge.title}</div>
-            ${this.currentBadge.has_earned_badge ? html`
-                <div class="badge-item__description">${this.currentBadge.description_earned}</div>
-            ` : html`
-                <div class="badge-item__description">${this.currentBadge.description_unearned}</div>
-            `}
-            ${
-                (
-                  (
-                    this.badge.type === 'progression' &&
-                    this.currentBadgeIndex < this.lastEarnedBadgeIndex + 2 &&
-                    !this.currentBadge.has_earned_badge
-                  ) || (
-                    this.badge.type === 'challenge' &&
-                    !this.badge.has_earned_badge
-                  )
-                ) ? html`
-                    <div>
-                      <div class="d-flex align-items-center gap-2 justify-content-center brand-highlight">
-                        <div class="progress-bar" data-small>
-                            <div class="progress-bar__slider blue-highlight-bg" style="width: ${this.badge.progression_value / this.currentBadge.value * 100}%"></div>
-                        </div>
-                        <span class="progress-bar__text">${this.badge.progression_value}/${this.currentBadge.value}</span>
+          ${this.badge.type === 'progression' ? html`
+            <div>
+              <div class="badge-slider">
+                  <div class="badge-slides" @scrollend=${this.onSliderScrollEnd} @scroll=${this.onSliderScroll}>
+                    <div class="badge-buffer"></div>
+                    ${this.progressionBadges.map((badge, index) => html`
+                      <div class="badge-slide ${index === this.currentBadgeIndex ? 'active' : ''}">
+                        <img src="${this.getImageUrl(badge)}" alt="${this.badge.title}" />
                       </div>
-                    </div>
-                ` : ''
-            }
+                    `)}
+                    <div class="badge-buffer"></div>
+                  </div>
+              </div>
+              <div class="repel">
+                <button
+                  class="badge-item__progression-button"
+                  @click=${() => this.slideToIndex(this.currentBadgeIndex - 1)}
+                >
+                  <svg class="white icon-sm">
+                    <use href="${this.spritesheetUrl}#pg-chevron-left"></use>
+                  </svg>
+                </button>
+                <button
+                  class="badge-item__progression-button"
+                  @click=${() => this.slideToIndex(this.currentBadgeIndex + 1)}
+                >
+                  <svg class="white icon-sm">
+                    <use href="${this.spritesheetUrl}#pg-chevron-right"></use>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          ` : ''}
+          <div class="stack-sm badge-item" data-grid data-small>
+              <div class="badge-item__title">${this.currentBadge.title}</div>
+              ${this.currentBadge.has_earned_badge ? html`
+                  <div class="badge-item__description">${this.currentBadge.description_earned}</div>
+              ` : html`
+                  <div class="badge-item__description">${this.currentBadge.description_unearned}</div>
+              `}
+              ${
+                  (
+                    (
+                      this.badge.type === 'progression' &&
+                      this.currentBadgeIndex < this.lastEarnedBadgeIndex + 2 &&
+                      !this.currentBadge.has_earned_badge
+                    ) || (
+                      this.badge.type === 'challenge' &&
+                      !this.badge.has_earned_badge
+                    )
+                  ) ? html`
+                      <div>
+                        <div class="d-flex align-items-center gap-2 justify-content-center brand-highlight">
+                          <div class="progress-bar" data-small>
+                              <div class="progress-bar__slider blue-highlight-bg" style="width: ${this.badge.progression_value / this.currentBadge.value * 100}%"></div>
+                          </div>
+                          <span class="progress-bar__text">${this.badge.progression_value}/${this.currentBadge.value}</span>
+                        </div>
+                      </div>
+                  ` : ''
+              }
+          </div>
         </div>
       </div>
     `;

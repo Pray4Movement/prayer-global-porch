@@ -301,6 +301,10 @@ class PG_User_API {
             return $badge->to_array();
         }, $badges );
 
+        foreach ( $newly_earned_badges as $badge ) {
+            $badges_manager->earn_badge( $badge['id'] );
+        }
+
         return $newly_earned_badges;
     }
 

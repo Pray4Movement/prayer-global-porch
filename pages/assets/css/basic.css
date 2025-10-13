@@ -2727,7 +2727,7 @@ input[type="password"],
 
 .badge-slide {
     scroll-snap-align: center;
-    flex: 0 0 50%;
+    flex: 0 0 40%;
     transform: scale(0.5);
     transition: transform 0.3s ease-out;
 }
@@ -2739,5 +2739,5 @@ input[type="password"],
     width: 100%;
 }
 .badge-buffer {
-    flex: 0 0 25%;
+    flex: 0 0 40%;
 }

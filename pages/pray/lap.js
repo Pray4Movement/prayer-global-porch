@@ -224,6 +224,7 @@ function celebrateAndDone() {
     `;
     const milestonesContainer = document.getElementById("milestones");
     /* Add API call to get new user stats */
+    let milestonesHTML = "";
     window
       .api_fetch(`${window.pg_global.root}pg-api/v1/user/milestones-and-badges`, {
         method: "POST",
@@ -235,7 +236,6 @@ function celebrateAndDone() {
         if (milestones.length === 0 && newly_earned_badges.length === 0) {
           return false;
         }
-        milestonesHTML = "";
         milestonesHTML += `<hr class="seperator-thick">`;
         if (newly_earned_badges.length > 0) {
           milestonesHTML += `

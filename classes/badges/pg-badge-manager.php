@@ -4,10 +4,25 @@ class PG_Badge_Manager {
     private int $user_id;
     private User_Stats $user_stats;
     private PG_Badges $pg_badges;
+    private array $month_translations;
     public function __construct( int $user_id ) {
         $this->user_id = $user_id;
         $this->user_stats = new User_Stats( $user_id );
         $this->pg_badges = new PG_Badges();
+        $this->month_translations = [
+            '01' => __( 'January', 'prayer-global-porch' ),
+            '02' => __( 'February', 'prayer-global-porch' ),
+            '03' => __( 'March', 'prayer-global-porch' ),
+            '04' => __( 'April', 'prayer-global-porch' ),
+            '05' => __( 'May', 'prayer-global-porch' ),
+            '06' => __( 'June', 'prayer-global-porch' ),
+            '07' => __( 'July', 'prayer-global-porch' ),
+            '08' => __( 'August', 'prayer-global-porch' ),
+            '09' => __( 'September', 'prayer-global-porch' ),
+            '10' => __( 'October', 'prayer-global-porch' ),
+            '11' => __( 'November', 'prayer-global-porch' ),
+            '12' => __( 'December', 'prayer-global-porch' ),
+        ];
     }
 
     public function get_all_badges(): array {
@@ -72,15 +87,16 @@ class PG_Badge_Manager {
                 foreach ( $earned_challenge_badges as $earned_challenge_badge ) {
                     if ( str_starts_with( $earned_challenge_badge['id'], $badge_id ) ) {
                         $id_parts = explode( '_', $earned_challenge_badge['id'] );
-                        $current_month = $id_parts[ count( $id_parts ) - 2 ];
-                        $current_year = $id_parts[ count( $id_parts ) - 1 ];
+                        $current_month_digits = $id_parts[ count( $id_parts ) - 1 ];
+                        $current_month = $this->month_translations[$current_month_digits];
+                        $current_year = $id_parts[ count( $id_parts ) - 2 ];
                         $earned_badge = new PG_Badge(
                             $earned_challenge_badge['id'],
                             sprintf( $badge->get_title(), $current_month, $current_year ),
                             sprintf( $badge->get_description_unearned(), $badge->get_value(), $current_month ),
                             sprintf( $badge->get_description_earned(), $badge->get_value(), $current_month ),
-                            implode( '_', [ 'challenge', $current_month, $current_year ] ) . '.png',
-                            implode( '_', [ 'challenge', $current_month, $current_year, 'bw.png' ] ),
+                            implode( '_', [ 'monthly_challenge', $current_year, $current_month_digits ] ) . '.png',
+                            implode( '_', [ 'monthly_challenge', $current_year, $current_month_digits, 'bw.png' ] ),
                             $badge->get_category(),
                             $badge->get_priority(),
                             $badge->get_value(),
@@ -95,20 +111,20 @@ class PG_Badge_Manager {
                     }
                 }
 
-                // get the current month as a word
-                $current_month = gmdate( 'F' );
-                $current_month_lower = strtolower( $current_month );
+                // get the current month as a 2 digit number
+                $current_month_digits = gmdate( 'm' );
+                $current_month = $this->month_translations[$current_month_digits];
                 // get the current year as a 4 digit number
                 $current_year = gmdate( 'Y' );
-                $current_month_badge_id = implode( '_', [ $badge_id, $current_month_lower, $current_year ] );
+                $current_month_badge_id = implode( '_', [ $badge_id, $current_year, $current_month_digits ] );
                 if ( !in_array( $current_month_badge_id, $all_earned_badge_ids ) ) {
                     $current_month_badge = new PG_Badge(
                         $current_month_badge_id,
                         sprintf( $badge->get_title(), $current_month, $current_year ),
                         sprintf( $badge->get_description_unearned(), $badge->get_value(), $current_month ),
                         sprintf( $badge->get_description_earned(), $badge->get_value(), $current_month ),
-                        implode( '_', [ 'challenge', $current_month_lower, $current_year, '.png' ] ),
-                        implode( '_', [ 'challenge', $current_month_lower, $current_year, 'bw.png' ] ),
+                        implode( '_', [ 'monthly_challenge', $current_year, $current_month_digits, '.png' ] ),
+                        implode( '_', [ 'monthly_challenge', $current_year, $current_month_digits, 'bw.png' ] ),
                         $badge->get_category(),
                         $badge->get_priority(),
                         $badge->get_value(),
@@ -168,7 +184,7 @@ class PG_Badge_Manager {
         }, $all_badges );
     }
 
-    public function earn_badge( string $badge_id, int $date_earned ) {
+    public function earn_badge( string $badge_id, int $date_earned = null ) {
         $badge = $this->pg_badges->get_badge( $badge_id );
         if ( !$badge && str_starts_with( $badge_id, 'monthly_challenge' ) ) {
             $badge = $this->pg_badges->get_badge( 'monthly_challenge' );
@@ -230,8 +246,6 @@ class PG_Badge_Manager {
                 }
             }
             if ( $badge->get_type() === PG_Badges::TYPE_MULTIPLE ) {
-                // someone has had a new perfect week or month, if their current streak is 7 or 30, and the last time they earned
-                // the badge was more than 1 week or month ago
                 $timestamp = $badge->get_timestamp();
                 $diff_in_days = 1000000;
                 if ( !empty( $timestamp ) ) {
@@ -252,6 +266,13 @@ class PG_Badge_Manager {
                     $badge->get_id() === PG_Badges::ID_PERFECT_MONTH &&
                     $this->user_stats->current_streak_in_days() === 30 &&
                     $diff_in_days >= 30 - 1
+                ) {
+                    $newly_earned_badges[] = $badge;
+                }
+                if (
+                    $badge->get_id() === PG_Badges::ID_PERFECT_YEAR &&
+                    $this->user_stats->current_streak_in_days() === 365 &&
+                    $diff_in_days >= 365 - 1
                 ) {
                     $newly_earned_badges[] = $badge;
                 }
