@@ -397,8 +397,8 @@ class PG_Badges {
                     'description_unearned' => __( 'Earn this badge by praying for the whole world', 'prayer-global-porch' ),
                     'description_earned' => __( 'You earned this badge by praying for the whole world', 'prayer-global-porch' ),
                     'value' => 1,
-                    'image' => 'whole_world.png',
-                    'bw_image' => 'whole_world_bw.png',
+                    'image' => 'WorldChanger.png',
+                    'bw_image' => 'WorldChanger_bw.png',
                 ]
             ],
             self::CATEGORY_MOBILIZATION => [
@@ -444,7 +444,7 @@ class PG_Badges {
                     'priority' => 10,
                     'value' => 1,
                     'image' => 'RelayCompleted_Leader.png',
-                    'bw_image' => 'RelayCompleted_Leader.png',
+                    'bw_image' => 'RelayCompleted_Leader_bw.png',
                 ],
                 [
                     'id' => self::ID_PRAYER_MOBILIZER,
@@ -795,8 +795,8 @@ class PG_Badges {
                     'title' => __( 'Perfect Year ', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by praying every day this year', 'prayer-global-porch' ),
                     'description_earned' => __( 'You have earned this badge by praying every day this year', 'prayer-global-porch' ),
-                    'image' => 'mystery_badge.png',
-                    'bw_image' => 'mystery_badge.png',
+                    'image' => 'perfect_year.png',
+                    'bw_image' => 'perfect_year_bw.png',
                     'value' => 365,
                 ],
                 [
