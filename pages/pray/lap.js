@@ -1,6 +1,8 @@
 CELEBRATION_TIMEOUT = 3000;
 ONE_MINUTE = 60;
 
+DEBUG = false
+
 window.seconds = ONE_MINUTE;
 window.items = 7;
 
@@ -90,7 +92,9 @@ async function init() {
   window.load_report_modal();
 
   /* DEBUG ONLY @TODO: Remove this */
-  celebrateAndDone();
+  if (DEBUG === true) {
+    celebrateAndDone();
+  }
 }
 
 function setupListeners() {
@@ -352,6 +356,7 @@ function celebrateAndDone() {
               </section>
             </div>
           `;
+        milestonesContainer.innerHTML = milestonesHTML;
       })
       .then(() => {
         if (hasEarnedBadges) {
@@ -384,7 +389,7 @@ function celebrateAndDone() {
                 </a>
               `;
           milestonesContainer.insertAdjacentElement("afterend", divContainer);
-        } else {
+        } else if ( !window.pg_global.is_logged_in ) {
           // Or if they aren't logged in, we will encourage them to sign up
           celebrateContentContainer.innerHTML = `
             <hr class="seperator-thick">
