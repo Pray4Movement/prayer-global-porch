@@ -12,6 +12,7 @@ export class PgBadgeItem extends OpenElement {
   lastScrollLeft: number = 0;
   scrollTimeout: NodeJS.Timeout | null = null;
   lastEarnedBadgeIndex: number = 0;
+  SIZE_OF_BUFFER_IN_SLIDES: number = 1.5;
 
   @property({ type: String }) badgeId: string = "";
   @property({ type: Object, attribute: false }) badge: Badge = {} as Badge;
@@ -52,7 +53,6 @@ export class PgBadgeItem extends OpenElement {
           break;
         }
       }
-      console.log(this.lastEarnedBadgeIndex);
       this.slideToBadge(firstUnearnedBadge);
     }
   }
@@ -103,8 +103,10 @@ export class PgBadgeItem extends OpenElement {
     if (!badge) {
       return;
     }
+    const left = this.sliderElement.scrollWidth * (this.progressionBadges.indexOf(badge) / (this.progressionBadges.length + this.SIZE_OF_BUFFER_IN_SLIDES))
+
     this.sliderElement.scrollTo({
-      left: this.sliderElement.scrollWidth * (this.progressionBadges.indexOf(badge) / (this.progressionBadges.length + 1)),
+      left: left,
     });
   }
 
@@ -123,7 +125,7 @@ export class PgBadgeItem extends OpenElement {
       return;
     }
 
-    this.currentBadgeIndex = Math.round(this.sliderElement.scrollLeft / this.sliderElement.scrollWidth * (this.progressionBadges.length + 1))
+    this.currentBadgeIndex = Math.round(this.sliderElement.scrollLeft / this.sliderElement.scrollWidth * (this.progressionBadges.length + this.SIZE_OF_BUFFER_IN_SLIDES))
     this.currentBadge = this.progressionBadges[this.currentBadgeIndex];
   }
 

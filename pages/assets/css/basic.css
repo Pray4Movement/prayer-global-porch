@@ -358,18 +358,18 @@ input[type="radio"] {
 input[type="radio"]:checked {
     border: 8px solid var(--pg-brand-color-lighter);
 }
+
 *::-webkit-scrollbar {
     block-size: 1rem;
 }
-
 *::-webkit-scrollbar-track {
     background-color: var(--scroll-track-color);
 }
-
 *::-webkit-scrollbar-thumb {
     background-color: var(--scroll-track-color);
     background-image: linear-gradient(var(--scroll-track-color) 0, var(--scroll-track-color) 0.25rem, var(--scroll-thumb-color) 0.25rem, var(--scroll-thumb-color) 0.75rem, var(--scroll-track-color) 0.75rem);
 }
+
 .form-check-input:checked {
     background-color: var(--pg-brand-color-lighter);
     border-color: var(--pg-brand-color-lighter);
@@ -2739,5 +2739,5 @@ input[type="password"],
     width: 100%;
 }
 .badge-buffer {
-    flex: 0 0 40%;
+    flex: 0 0 30%;
 }
