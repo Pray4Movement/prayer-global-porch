@@ -198,6 +198,7 @@ class Prayer_Global_Porch {
         require_once( 'support/build/loader.php' );
         require_once( 'support/build/test-push.php' );
         require_once( 'support/build/test-badges.php' );
+        require_once( 'support/build/give-badges.php' );
         require_once( 'support/build/content-a-b-test.php' );
         require_once( 'pages/about/about.php' );
         require_once( 'pages/give/give.php' );

@@ -194,9 +194,6 @@ class User_Stats {
     public function total_finished_relays_part_of(): int {
         global $wpdb;
 
-        // We need to count the number of distinct grid_ids in the latest lap.
-        // We can safely assume that if we are on lap 2, that lap 1 has finished.
-
         return (int) $wpdb->get_var( $wpdb->prepare(
             "SELECT COUNT( DISTINCT( CONCAT( r.post_id, '-', r.value ) ) )
                 FROM $wpdb->dt_reports r

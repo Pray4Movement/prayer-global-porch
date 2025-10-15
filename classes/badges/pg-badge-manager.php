@@ -184,13 +184,13 @@ class PG_Badge_Manager {
         }, $all_badges );
     }
 
-    public function earn_badge( string $badge_id, int $date_earned = null ) {
+    public function earn_badge( string $badge_id, ?int $date_earned = null, ?bool $retroactive = false ) {
         $badge = $this->pg_badges->get_badge( $badge_id );
         if ( !$badge && str_starts_with( $badge_id, 'monthly_challenge' ) ) {
             $badge = $this->pg_badges->get_badge( 'monthly_challenge' );
         }
         if ( $badge ) {
-            PG_Badge_Model::create_badge( $this->user_id, $badge_id, $badge->get_category(), $badge->get_value(), $date_earned );
+            PG_Badge_Model::create_badge( $this->user_id, $badge_id, $badge->get_category(), $badge->get_value(), $date_earned, $retroactive );
         }
     }
 
@@ -232,10 +232,12 @@ class PG_Badge_Manager {
                 if ( $badge->get_id() === PG_Badges::ID_FIRST_PRAYER_RELAY && $this->user_stats->total_relays_started() > 0 ) {
                     $newly_earned_badges[] = $badge;
                 }
-                if ( $badge->get_id() === PG_Badges::ID_RELAY_COMPLETED_PARTICIPANT && $this->user_stats->total_finished_relays_part_of() > 0 ) {
+                $total_finished_relays_part_of = $this->user_stats->total_finished_relays_part_of();
+                if ( $badge->get_id() === PG_Badges::ID_RELAY_COMPLETED_PARTICIPANT && $total_finished_relays_part_of > 0 ) {
                     $newly_earned_badges[] = $badge;
                 }
-                if ( $badge->get_id() === PG_Badges::ID_RELAY_COMPLETED_ORGANIZER && $this->user_stats->total_finished_relays_started() > 0 ) {
+                $total_finished_relays_started = $this->user_stats->total_finished_relays_started();
+                if ( $badge->get_id() === PG_Badges::ID_RELAY_COMPLETED_ORGANIZER && $total_finished_relays_started > 0 ) {
                     $newly_earned_badges[] = $badge;
                 }
                 if ( $badge->get_id() === PG_Badges::ID_WHOLE_WORLD && $this->user_stats->prayed_for_whole_world() ) {

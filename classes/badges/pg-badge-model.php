@@ -1,7 +1,7 @@
 <?php
 
 class PG_Badge_Model {
-    public static function create_badge( int $user_id, string $badge_id, string $category, int $value, int $timestamp = null ) {
+    public static function create_badge( int $user_id, string $badge_id, string $category, int $value, ?int $timestamp = null, bool $retroactive = false ) {
         global $wpdb;
         $data = [
             'user_id' => $user_id,
@@ -12,6 +12,10 @@ class PG_Badge_Model {
         $format = [ '%d', '%s', '%s', '%d' ];
         if ( $timestamp ) {
             $data['timestamp'] = $timestamp;
+            $format[] = '%d';
+        }
+        if ( $retroactive ) {
+            $data['retroactive'] = 1;
             $format[] = '%d';
         }
         return $wpdb->insert( $wpdb->dt_badges, $data, $format );
