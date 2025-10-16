@@ -30,9 +30,10 @@ export class PgBadgeItem extends OpenElement {
 
     const badges = window.jsObject.available_badges;
     this.badge = badges.find((badge: Badge) => badge.id === this.badgeId);
+
     this.currentBadge = this.badge;
     if (this.badge.type === 'progression') {
-      this.progressionBadges = Object.values(this.badge.progression_badges);
+      this.progressionBadges = []
     }
   }
 
@@ -56,7 +57,8 @@ export class PgBadgeItem extends OpenElement {
       this.slideToBadge(firstUnearnedBadge);
 
       // filter out unearned badges beyond 6 or so
-      this.progressionBadges = this.progressionBadges.filter((badge, index) => index < 6 + this.lastEarnedBadgeIndex);
+      const progressionBadges = Object.values(this.badge.progression_badges);
+      this.progressionBadges = progressionBadges.filter((badge, index) => index < 6 + this.lastEarnedBadgeIndex);
     }
   }
 
