@@ -12,7 +12,7 @@ if ( !defined( 'ABSPATH' ) ) {
 class Prayer_Global_Migration_Engine
 {
 
-    public static $migration_number = 21;
+    public static $migration_number = 22;
 
     protected static $migrations = null;
 
