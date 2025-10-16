@@ -54,6 +54,9 @@ export class PgBadgeItem extends OpenElement {
         }
       }
       this.slideToBadge(firstUnearnedBadge);
+
+      // filter out unearned badges beyond 6 or so
+      this.progressionBadges = this.progressionBadges.filter((badge, index) => index < 6 + this.lastEarnedBadgeIndex);
     }
   }
 
