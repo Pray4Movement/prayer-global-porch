@@ -456,6 +456,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'request_notifications' => esc_html__( 'Manage Device Notifications', 'prayer-global-porch' ),
                 'earned' => esc_html__( 'Earned', 'prayer-global-porch' ),
                 'unearned' => esc_html__( 'Unearned', 'prayer-global-porch' ),
+                'earned_retroactively' => esc_html_x( 'Earned retroactively %s', 'Earned retroactively 25/12/2025', 'prayer-global-porch' ),
+                'earned_date' => esc_html_x( 'Earned %s', 'Earned 25/12/2025', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),
