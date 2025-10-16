@@ -140,7 +140,11 @@ export class PgBadgeItem extends OpenElement {
         <div class="pg-container">
           <div class="stack-sm badge-item" data-grid data-small>
             <div class="badge-item__timestamp" ?data-empty=${!this.currentBadge.timestamp}>
-              Earned ${this.currentBadge.timestamp ? `${new Intl.DateTimeFormat().format(this.currentBadge.timestamp * 1000)}` : ''}
+              ${ this.currentBadge.retroactive ? html`
+                Earned retroactively ${this.currentBadge.timestamp ? `${new Intl.DateTimeFormat().format(this.currentBadge.timestamp * 1000)}` : ''}
+              ` : html`
+                Earned ${this.currentBadge.timestamp ? `${new Intl.DateTimeFormat().format(this.currentBadge.timestamp * 1000)}` : ''}
+              `}
             </div>
               ${this.badge.type !== 'progression' ? html`
                 <div class="center">

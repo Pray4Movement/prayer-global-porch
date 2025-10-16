@@ -18,6 +18,7 @@ class PG_Badge {
     private int $timestamp;
     private int $num_times_earned;
     private int $progression_value;
+    private bool $retroactive;
     public function __construct(
         string $id = '',
         string $title = '',
@@ -31,7 +32,8 @@ class PG_Badge {
         string $type = '',
         array $progression_badges = [],
         bool $hidden = false,
-        bool $deprecated = false
+        bool $deprecated = false,
+        bool $retroactive = false
     ) {
         $this->id = $id;
         $this->title = $title;
@@ -50,6 +52,7 @@ class PG_Badge {
         $this->timestamp = 0;
         $this->num_times_earned = 0;
         $this->progression_value = 0;
+        $this->retroactive = $retroactive;
     }
 
     public function get_id(): string {
@@ -139,6 +142,7 @@ class PG_Badge {
             'timestamp' => $this->timestamp,
             'num_times_earned' => $this->num_times_earned,
             'progression_value' => $this->progression_value,
+            'retroactive' => $this->retroactive,
         ];
     }
 
@@ -157,6 +161,7 @@ class PG_Badge {
         $this->has_earned_badge = $badge->has_earned_badge;
         $this->timestamp = $badge->timestamp;
         $this->progression_value = $badge->progression_value;
+        $this->retroactive = $badge->retroactive;
     }
 
     public function set_num_times_earned( int $num_times_earned ): void {
@@ -189,5 +194,13 @@ class PG_Badge {
 
     public function get_num_times_earned(): int {
         return $this->num_times_earned;
+    }
+
+    public function is_retroactive(): bool {
+        return $this->retroactive;
+    }
+
+    public function set_retroactive( bool $retroactive ): void {
+        $this->retroactive = $retroactive;
     }
 }

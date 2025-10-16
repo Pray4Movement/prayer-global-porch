@@ -46,6 +46,7 @@ export type Badge = {
   category: BadgeCategory;
   hidden: boolean;
   has_earned_badge: boolean;
+  retroactive: boolean;
   timestamp: number | null;
 } & (AchievementBadge | ProgressionBadge | MultipleBadge | ChallengeBadge);
 

@@ -30,7 +30,12 @@ class PG_Badge_Manager {
         $all_earned_badge_ids = array_column( $all_earned_badges, 'id' );
         $all_badges = $this->pg_badges->get_all_badges();
         $has_processed_monthly_challenge_badges = false;
-        foreach ( $all_badges as $key => &$badge ) {
+        foreach ( $all_badges as &$badge ) {
+            $badge_id = $badge->get_id();
+            if ( !in_array( $badge_id, $all_earned_badge_ids ) ) {
+                continue;
+            }
+            $badge->set_retroactive( $all_earned_badges[array_search( $badge->get_id(), $all_earned_badge_ids )]['retroactive'] );
             if ( $badge->get_type() === PG_Badges::TYPE_PROGRESSION ) {
                 // for progression badges, we need to have the current data of their progression in the badge also.
                 $first_progression_badge = null;
@@ -43,6 +48,7 @@ class PG_Badge_Manager {
                     if ( in_array( $badge_id, $all_earned_badge_ids ) ) {
                         $progression_badge->set_has_earned_badge( true );
                         $progression_badge->set_timestamp( $all_earned_badges[array_search( $badge_id, $all_earned_badge_ids )]['timestamp'] );
+                        $progression_badge->set_retroactive( $all_earned_badges[array_search( $badge_id, $all_earned_badge_ids )]['retroactive'] );
                         $latest_earned_badge = $progression_badge;
                     } else {
                         break;
@@ -104,6 +110,7 @@ class PG_Badge_Manager {
                             [],
                             $badge->is_hidden(),
                             $badge->is_deprecated(),
+                            $earned_challenge_badge['retroactive'],
                         );
                         $earned_badge->set_has_earned_badge( true );
                         $earned_badge->set_timestamp( $earned_challenge_badge['timestamp'] );
