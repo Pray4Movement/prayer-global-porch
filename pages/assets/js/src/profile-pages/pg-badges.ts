@@ -58,16 +58,12 @@ export class PgBadges extends navigator(OpenElement) {
 
       <div class="brand-bg white page px-3">
         <div class="pg-container flow-medium">
-          <h2 class="h3 font-base">${this.translations.earned}</h2>
           <div class="grid" data-grid data-small>
               ${this.earnedBadges.map((badge) => {
                 return html`
                   <pg-badge .badge=${badge}></pg-badge>
                 `;
               })}
-          </div>
-          <h2 class="h3 font-base">${this.translations.unearned}</h2>
-          <div class="grid" data-grid data-small>
               ${this.unearnedBadges.map((badge) => {
                 return html`
                   <pg-badge .badge=${badge}></pg-badge>
