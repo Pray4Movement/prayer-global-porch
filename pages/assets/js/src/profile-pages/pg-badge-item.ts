@@ -46,7 +46,8 @@ export class PgBadgeItem extends OpenElement {
       this.sliderElement = slides;
       let firstUnearnedBadge : Badge | null = null;
       this.lastEarnedBadgeIndex = 0;
-      for (const badge of this.progressionBadges) {
+      const progressionBadges = Object.values(this.badge.progression_badges);
+      for (const badge of progressionBadges) {
         if (badge.has_earned_badge) {
           this.lastEarnedBadgeIndex = this.lastEarnedBadgeIndex + 1;
         } else {
@@ -54,11 +55,12 @@ export class PgBadgeItem extends OpenElement {
           break;
         }
       }
-      this.slideToBadge(firstUnearnedBadge);
 
       // filter out unearned badges beyond 6 or so
-      const progressionBadges = Object.values(this.badge.progression_badges);
       this.progressionBadges = progressionBadges.filter((badge, index) => index < 6 + this.lastEarnedBadgeIndex);
+      this.updateComplete.then(() => {
+        this.slideToBadge(firstUnearnedBadge);
+      });
     }
   }
 
@@ -99,13 +101,13 @@ export class PgBadgeItem extends OpenElement {
   }
 
   slideToBadge(badge: Badge | null) {
+    if (!badge) {
+      return;
+    }
     if (this.badge.type !== 'progression') {
       return;
     }
     if (!this.sliderElement) {
-      return;
-    }
-    if (!badge) {
       return;
     }
     const left = this.sliderElement.scrollWidth * (this.progressionBadges.indexOf(badge) / (this.progressionBadges.length + this.SIZE_OF_BUFFER_IN_SLIDES))
