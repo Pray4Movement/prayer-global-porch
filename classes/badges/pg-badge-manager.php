@@ -31,7 +31,7 @@ class PG_Badge_Manager {
         $all_badges = $this->pg_badges->get_all_badges();
         $has_processed_monthly_challenge_badges = false;
         foreach ( $all_badges as &$badge ) {
-            $badge->set_retroactive( $all_earned_badges[array_search( $badge->get_id(), $all_earned_badge_ids )]['retroactive'] );
+            $badge->set_retroactive( $all_earned_badges[array_search( $badge->get_id(), $all_earned_badge_ids )]['retroactive'] ?? false );
             if ( $badge->get_type() === PG_Badges::TYPE_PROGRESSION ) {
                 // for progression badges, we need to have the current data of their progression in the badge also.
                 $first_progression_badge = null;
@@ -218,7 +218,7 @@ class PG_Badge_Manager {
         foreach ( $all_earnable_badges as $badge ) {
             if ( $badge->get_type() === PG_Badges::TYPE_PROGRESSION ) {
                 foreach ( $badge->get_progression_badges() as $progression_badge ) {
-                    if ( $badge->get_progression_value() > $progression_badge->get_value() ) {
+                    if ( !$progression_badge->has_earned_badge() && $badge->get_progression_value() > $progression_badge->get_value() ) {
                         $newly_earned_badges[] = $progression_badge;
                     }
                 }

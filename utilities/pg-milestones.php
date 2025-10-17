@@ -4,8 +4,6 @@ class PG_Milestones
 {
     private User_Stats $user_stats;
 
-    private $streak_milestones = [ 2, 7, 14, 30, 60, 100 ];
-
     private $inactivity_milestones;
 
     public function __construct( int $user_id )
@@ -17,55 +15,56 @@ class PG_Milestones
                 'title' => __( 'Keep your streak alive', 'prayer-global-porch' ),
                 'message' => __( 'Keep praying to maintain your streak!', 'prayer-global-porch' ),
                 'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                'use_hours' => true,
             ],
             2 => [
                 'title' => __( 'Oh no! Your streak has ended', 'prayer-global-porch' ),
                 'message' => __( 'Your prayer streak has ended. Start a new one today!', 'prayer-global-porch' ),
                 'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                'use_hours' => false,
+            ],
+            3 => [
+                'title' => __( 'Let’s Pray Together Again', 'prayer-global-porch' ),
+                'message' => __( 'It’s been a few days. Come back and join us in lifting up the needs of the world.', 'prayer-global-porch' ),
+                'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
+            ],
+            5 => [
+                'title' => __( 'Join the Mission Again', 'prayer-global-porch' ),
+                'message' => __( 'Every prayer matters. Add your voice again today and help us cover the world in prayer.', 'prayer-global-porch' ),
+                'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
             ],
             7 => [
                 'title' => __( 'We Miss You—Let\'s Pray Today!', 'prayer-global-porch' ),
                 'message' => __( 'Haven\'t seen you in a while—take a moment today to reconnect in prayer!', 'prayer-global-porch' ),
                 'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                'use_hours' => false,
             ],
             14 => [
                 'title' => __( 'Prayer Changes Everything—Come Back!', 'prayer-global-porch' ),
                 'message' => __( 'Your prayers matter! Take a moment today and join us in covering the world in prayer again.', 'prayer-global-porch' ),
                 'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                'use_hours' => false,
             ],
             30 => [
                 'title' => __( 'Let\'s Reconnect—Your Prayers Are Needed', 'prayer-global-porch' ),
                 'message' => __( 'The world needs prayer warriors like you. Jump back in today and be part of something bigger!', 'prayer-global-porch' ),
                 'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                'use_hours' => false,
             ],
             60 => [
                 'title' => __( 'Time to Come Back', 'prayer-global-porch' ),
                 'message' => __( 'We\'d love to have you back praying with us!', 'prayer-global-porch' ),
                 'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                'use_hours' => false,
             ],
             90 => [
                 'title' => __( 'Missing Your Prayers', 'prayer-global-porch' ),
                 'message' => __( 'Your prayer journey can restart anytime - join us again!', 'prayer-global-porch' ),
                 'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                'use_hours' => false,
             ],
             180 => [
                 'title' => __( 'It\'s been a while!', 'prayer-global-porch' ),
                 'message' => __( 'Would you like to restart with a fresh goal?', 'prayer-global-porch' ),
                 'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                'use_hours' => false,
             ],
             365 => [
                 'title' => __( 'Is This Goodbye?', 'prayer-global-porch' ),
                 'message' => __( 'We understand life gets busy, but your prayers make an impact. We\'d love to have you back whenever you\'re ready.', 'prayer-global-porch' ),
                 'channels' => [ PG_CHANNEL_EMAIL, PG_CHANNEL_PUSH ],
-                'use_hours' => false,
             ],
         ];
     }
@@ -121,29 +120,6 @@ class PG_Milestones
     private function get_streak_milestone( bool $next_milestone = false ): array
     {
         $current_streak = $this->user_stats->current_streak_in_days();
-        if ( $next_milestone ) {
-            foreach ( array_reverse( $this->streak_milestones ) as $i => $milestone ) {
-                if ( $current_streak > $milestone ) {
-                    $current_streak = $this->streak_milestones[ count( $this->streak_milestones ) - $i ];
-                    break;
-                }
-            }
-        }
-        if ( in_array( $current_streak, $this->streak_milestones ) ) {
-            $milestone = new PG_Milestone(
-                __( 'Your Streak is Alive!', 'prayer-global-porch' ),
-                sprintf(
-                    __( "You have prayed for %s days in a row! Let's keep that streak going!", 'prayer-global-porch' ),
-                    $current_streak
-                ),
-                'streak',
-                $current_streak,
-                [ PG_CHANNEL_IN_APP, PG_CHANNEL_PUSH, PG_CHANNEL_EMAIL ]
-            );
-            if ( !PG_Notifications_Sent::is_recent( $this->user_stats->user_id, $milestone ) ) {
-                return [ $milestone ];
-            }
-        }
         if ( $current_streak > 0 ) {
             return [
                 $this->get_celebratory_message()

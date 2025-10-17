@@ -264,8 +264,8 @@ class PG_User_API {
 
         $result = [];
         foreach ( $milestones as $milestone ) {
-            if ( !PG_Notifications_Sent::is_recent( $user_id, $milestone ) ) {
-                PG_Notifications_Sent::record( $user_id, $milestone, PG_CHANNEL_IN_APP );
+            if ( !PG_Notifications_Sent::is_recent( $user_id, PG_Notification::from_milestone( $milestone ) ) ) {
+                PG_Notifications_Sent::record( $user_id, PG_Notification::from_milestone( $milestone ), PG_CHANNEL_IN_APP );
             }
             $result[] = $milestone->to_array();
         }
@@ -297,13 +297,16 @@ class PG_User_API {
         $badges_manager = new PG_Badge_Manager( $user_id );
         $badges = $badges_manager->get_newly_earned_badges();
 
+        foreach ( $badges as $badge ) {
+            if ( !PG_Notifications_Sent::is_recent( $user_id, PG_Notification::from_badge( $badge ) ) ) {
+                PG_Notifications_Sent::record( $user_id, PG_Notification::from_badge( $badge ), PG_CHANNEL_IN_APP );
+            }
+            $badges_manager->earn_badge( $badge->get_id() );
+        }
+
         $newly_earned_badges = array_map( function( PG_Badge $badge ) {
             return $badge->to_array();
         }, $badges );
-
-        foreach ( $newly_earned_badges as $badge ) {
-            $badges_manager->earn_badge( $badge['id'] );
-        }
 
         return $newly_earned_badges;
     }

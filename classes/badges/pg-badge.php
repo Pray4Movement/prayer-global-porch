@@ -55,6 +55,30 @@ class PG_Badge {
         $this->retroactive = $retroactive;
     }
 
+    public static function from_array( array $badge ): PG_Badge {
+        $new_badge = new self(
+            $badge['id'],
+            $badge['title'],
+            $badge['description_unearned'] ?? '',
+            $badge['description_earned'] ?? '',
+            $badge['image'] ?? '',
+            $badge['bw_image'] ?? '',
+            $badge['category'] ?? '',
+            $badge['priority'] ?? 0,
+            $badge['value'] ?? 0,
+            $badge['type'] ?? '',
+            $badge['progression_badges'] ?? [],
+            $badge['hidden'] ?? false,
+            $badge['deprecated'] ?? false,
+            $badge['retroactive'] ?? false
+        );
+        $new_badge->set_has_earned_badge( $badge['has_earned_badge'] ?? false );
+        $new_badge->set_timestamp( $badge['timestamp'] ?? 0 );
+        $new_badge->set_progression_value( $badge['progression_value'] ?? 0 );
+        $new_badge->set_num_times_earned( $badge['num_times_earned'] ?? 0 );
+        return $new_badge;
+    }
+
     public function get_id(): string {
         return $this->id;
     }
