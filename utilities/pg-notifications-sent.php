@@ -39,7 +39,7 @@ class PG_Notifications_Sent {
             "SELECT COUNT(*) FROM $wpdb->dt_notifications_sent
             WHERE user_id = %d
             AND category = %s
-            AND milestone_value = %d
+            AND value = %d
             AND sent_at > %d",
             $user_id,
             $notification->category,

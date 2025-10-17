@@ -566,7 +566,7 @@ class PG_Test_Push extends PG_Public_Page {
                         document.querySelector('#prev-milestones-table-body').innerHTML = data.prev_milestones.map(milestone =>
                             `<tr>
                                 <td>${milestone.category}</td>
-                                <td>${milestone.milestone_value}</td>
+                                <td>${milestone.value}</td>
                                 <td>${new Date(milestone.sent_at * 1000).toLocaleDateString()}</td>
                             </tr>`
                         ).join('');

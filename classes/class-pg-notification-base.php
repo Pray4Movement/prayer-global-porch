@@ -37,7 +37,7 @@ abstract class PG_Notification_Base {
     /**
      * Check if notification has already been sent
      */
-    public function has_notification_been_sent_recently( int $user_id, int $milestone_value ): bool {
+    public function has_notification_been_sent_recently( int $user_id, int $value ): bool {
         global $wpdb;
 
         $result = $wpdb->get_var( $wpdb->prepare(
@@ -48,7 +48,7 @@ abstract class PG_Notification_Base {
             AND sent_at > UNIX_TIMESTAMP() - 60 * 60 * 24 * 2",
             $user_id,
             $this->notification_type,
-            $milestone_value
+            $value
         ) );
 
         return !empty( $result );
@@ -57,7 +57,7 @@ abstract class PG_Notification_Base {
     /**
      * Record that a notification has been sent
      */
-    public function record_notification_sent( int $user_id, int $milestone_value ): void {
+    public function record_notification_sent( int $user_id, int $value ): void {
         global $wpdb;
 
         $wpdb->insert(
@@ -65,7 +65,7 @@ abstract class PG_Notification_Base {
             [
                 'user_id' => $user_id,
                 'type' => $this->notification_type,
-                'value' => $milestone_value,
+                'value' => $value,
             ],
             [ '%d', '%s', '%d' ]
         );

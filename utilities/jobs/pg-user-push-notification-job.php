@@ -31,10 +31,10 @@ class PG_User_Push_Notification_Job extends Job {
         }
         if ( $this->notification->category === 'badges' ) {
             foreach ( $this->notification->data as $badge ) {
-                PG_Notifications_Sent::record( $this->user_id, PG_Notification::from_badge( PG_Badge::from_array( $badge ) ), PG_CHANNEL_IN_APP );
+                PG_Notifications_Sent::record( $this->user_id, PG_Notification::from_badge( PG_Badge::from_array( $badge ) ), PG_CHANNEL_PUSH );
             }
         } else {
-            PG_Notifications_Sent::record( $this->user_id, $this->notification, PG_CHANNEL_IN_APP );
+            PG_Notifications_Sent::record( $this->user_id, $this->notification, PG_CHANNEL_PUSH );
         }
     }
 }
