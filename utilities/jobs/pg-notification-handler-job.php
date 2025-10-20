@@ -42,24 +42,26 @@ class PG_Notification_Handler_Job extends Job {
 
             pg_switch_notifications_locale( $user_language );
 
-            // get the users new badges that haven't been awarded yet
-            $badges_manager = new PG_Badge_Manager( $user->ID );
-            $new_badges = $badges_manager->get_newly_earned_badges();
+            if ( !pg_is_user_in_ab_test( $user->ID ) ) {
+                // get the users new badges that haven't been awarded yet
+                $badges_manager = new PG_Badge_Manager( $user->ID );
+                $new_badges = $badges_manager->get_newly_earned_badges();
 
-            foreach ( $new_badges as $badge ) {
-                $badges_manager->earn_badge( $badge->get_id() );
-            }
+                foreach ( $new_badges as $badge ) {
+                    $badges_manager->earn_badge( $badge->get_id() );
+                }
 
-            if ( $can_send_push && count( $new_badges ) === 1 &&
-                !PG_Notifications_Sent::is_recent( $user->ID, PG_Notification::from_badge( $new_badges[0] ) )
-            ) {
-                wp_queue()->push( new PG_User_Push_Notification_Job( $user, PG_Notification::from_badge( $new_badges[0] ) ), 15 * MINUTE_IN_SECONDS );
-            }
+                if ( $can_send_push && count( $new_badges ) === 1 &&
+                    !PG_Notifications_Sent::is_recent( $user->ID, PG_Notification::from_badge( $new_badges[0] ) )
+                ) {
+                    wp_queue()->push( new PG_User_Push_Notification_Job( $user, PG_Notification::from_badge( $new_badges[0] ) ), 15 * MINUTE_IN_SECONDS );
+                }
 
-            if ( $can_send_push && count( $new_badges ) > 1 &&
-                !PG_Notifications_Sent::is_recent( $user->ID, PG_Notification::from_badges( $new_badges ) )
-            ) {
-                wp_queue()->push( new PG_User_Push_Notification_Job( $user, PG_Notification::from_badges( $new_badges ) ), 15 * MINUTE_IN_SECONDS );
+                if ( $can_send_push && count( $new_badges ) > 1 &&
+                    !PG_Notifications_Sent::is_recent( $user->ID, PG_Notification::from_badges( $new_badges ) )
+                ) {
+                    wp_queue()->push( new PG_User_Push_Notification_Job( $user, PG_Notification::from_badges( $new_badges ) ), 15 * MINUTE_IN_SECONDS );
+                }
             }
 
             // get the user milestones

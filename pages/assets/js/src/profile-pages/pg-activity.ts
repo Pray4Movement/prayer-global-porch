@@ -88,23 +88,28 @@ export class PgActivity extends navigator(OpenElement) {
             </section>
           </div>
 
-          <section class="prayer-badges">
-            <div class="d-flex justify-content-between align-items-center">
-              <h3 class="prayer-badges__title">
-                ${this.translations.prayer_milestones}
-              </h3>
-              <a href="dashboard/badges" @click=${this.navigateToBadges} class="link-light">
-                ${this.translations.see_all}
-              </a>
-            </div>
-            <div class="prayer-badges__list">
-              ${this.highlightedBadges.map((badge: Badge) => {
-                return html`
-                  <pg-badge .badge=${badge}></pg-badge>
-                `;
-              })}
-            </div>
-          </section>
+          ${
+            Number(window.jsObject.is_in_ab_test) === 0 ? html`
+              <section class="prayer-badges">
+                <div class="d-flex justify-content-between align-items-center">
+                  <h3 class="prayer-badges__title">
+                    ${this.translations.prayer_milestones}
+                  </h3>
+                  <a href="dashboard/badges" @click=${this.navigateToBadges} class="link-light">
+                    ${this.translations.see_all}
+                  </a>
+                </div>
+                <div class="prayer-badges__list">
+                  ${this.highlightedBadges.map((badge: Badge) => {
+                    return html`
+                      <pg-badge .badge=${badge}></pg-badge>
+                    `;
+                  })}
+                </div>
+              </section>
+            ` : ''
+          }
+
 
           <section class="activity-card">
             <table class="activity-table mx-auto">

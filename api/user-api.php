@@ -279,7 +279,7 @@ class PG_User_API {
             return new WP_Error( __METHOD__, 'Unauthorised', [ 'status' => 401 ] );
         }
 
-        $newly_earned_badges = self::get_user_badges();
+        $newly_earned_badges = pg_is_user_in_ab_test( $user_id ) ? [] : self::get_user_badges();
         $milestones = self::get_user_milestones();
 
         return [

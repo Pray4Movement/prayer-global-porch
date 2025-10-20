@@ -46,6 +46,10 @@ class PG_Give_Badges extends PG_Public_Page {
                 continue;
             }
 
+            if ( pg_is_user_in_ab_test( $user->ID ) ) {
+                continue;
+            }
+
             $badge_manager = new PG_Badge_Manager( $user->ID );
             $newly_earned_badges = $badge_manager->get_newly_earned_badges();
             foreach ( $newly_earned_badges as $badge ) {

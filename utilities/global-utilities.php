@@ -5518,6 +5518,16 @@ function pg_add_lang_to_cookie( string $lang ) {
     setcookie( 'dt-magic-link-lang', $lang, 0, '/' );
 }
 
+function pg_is_user_in_ab_test( int $user_id ) {
+    $is_user_in_ab_test = get_user_meta( $user_id, 'pg_ab_test', true );
+
+    if ( empty( $is_user_in_ab_test ) ) {
+        return false;
+    }
+
+    return $is_user_in_ab_test === 'group_b';
+}
+
 if ( ! function_exists( 'array_map_assoc' ) ) {
     /**
      * Map an array using a callback function that passes the value and the key

@@ -460,6 +460,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'earned_date' => esc_html_x( 'Earned %s', 'Earned 25/12/2025', 'prayer-global-porch' ),
             ],
             'is_logged_in' => is_user_logged_in() ? 1 : 0,
+            'is_in_ab_test' => pg_is_user_in_ab_test( $user->ID ) ? 1 : 0,
             'logout_url' => esc_url( '/user_app/logout' ),
             'user' => PG_User_API::get_user(),
             'languages' => pg_enabled_translations(),
