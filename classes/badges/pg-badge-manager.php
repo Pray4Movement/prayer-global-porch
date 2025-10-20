@@ -126,7 +126,7 @@ class PG_Badge_Manager {
                         sprintf( $badge->get_title(), $current_month, $current_year ),
                         sprintf( $badge->get_description_unearned(), $badge->get_value(), $current_month ),
                         sprintf( $badge->get_description_earned(), $badge->get_value(), $current_month ),
-                        implode( '_', [ 'monthly_challenge', $current_year, $current_month_digits, '.png' ] ),
+                        implode( '_', [ 'monthly_challenge', $current_year, $current_month_digits ] ) . '.png',
                         implode( '_', [ 'monthly_challenge', $current_year, $current_month_digits, 'bw.png' ] ),
                         $badge->get_category(),
                         $badge->get_priority(),
