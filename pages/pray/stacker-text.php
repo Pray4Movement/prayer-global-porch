@@ -9402,7 +9402,7 @@ class PG_Stacker_Text {
          */
         return [
             [
-                'section_summary' => __( 'How does God lead you to pray for this image?', 'prayer-global-porch' ),
+                'section_summary' => __( 'How does God lead you to pray for this location?', 'prayer-global-porch' ),
                 'prayer' => '',
             ],
         ];
