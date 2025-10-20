@@ -9402,31 +9402,7 @@ class PG_Stacker_Text {
          */
         return [
             [
-                'section_summary' => __( 'What people or activities could you pray for in this photo?', 'prayer-global-porch' ),
-                'prayer' => '',
-            ],
-            [
-                'section_summary' => __( 'What people or resources could you pray for in this photo?', 'prayer-global-porch' ),
-                'prayer' => '',
-            ],
-            [
-                'section_summary' => __( 'What needs would people have here?', 'prayer-global-porch' ),
-                'prayer' => '',
-            ],
-            [
-                'section_summary' => __( 'What blessing is needed here?', 'prayer-global-porch' ),
-                'prayer' => '',
-            ],
-            [
-                'section_summary' => __( 'What conditions of religion or environment could you pray for here?', 'prayer-global-porch' ),
-                'prayer' => '',
-            ],
-            [
-                'section_summary' => __( 'What challenges do people here face?', 'prayer-global-porch' ),
-                'prayer' => '',
-            ],
-            [
-                'section_summary' => __( 'What beauty can God be thanked for in this photo?', 'prayer-global-porch' ),
+                'section_summary' => __( 'How does God lead you to pray for this image?', 'prayer-global-porch' ),
                 'prayer' => '',
             ],
         ];
