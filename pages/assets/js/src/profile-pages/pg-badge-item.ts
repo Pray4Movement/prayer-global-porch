@@ -220,6 +220,11 @@ export class PgBadgeItem extends OpenElement {
                               <div class="progress-bar__slider blue-highlight-bg" style="width: ${this.badge.progression_value / this.currentBadge.value * 100}%"></div>
                           </div>
                           <span class="progress-bar__text">${this.badge.progression_value}/${this.currentBadge.value}</span>
+                          ${
+                            this.badge.id.startsWith('streak') ? html`
+                              <span class="progress-bar__text">${window.jsObject.translations.days}</span>
+                            ` : ''
+                          }
                         </div>
                       </div>
                   ` : ''
