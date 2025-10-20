@@ -21,7 +21,7 @@ class PG_Stacker {
         // PRAYER CONCEPTS
         /**************************/
         PG_Stacker_Text::_for_extraordinary_prayer( $lists, $stack );
-        PG_Stacker_Text::_for_intentional_movement_strategy( $lists, $stack );
+        PG_Stacker_Text::_for_intentional_movement_strategy( $lists, $stack, include_ai: true );
         PG_Stacker_Text::_for_abundant_gospel_sowing( $lists, $stack );
         PG_Stacker_Text::_for_persons_of_peace( $lists, $stack );
         PG_Stacker_Text::_for_prioritizing_priesthood_of_believers( $lists, $stack );
@@ -57,9 +57,13 @@ class PG_Stacker {
         PG_Stacker_Text::_for_suffering( $lists, $stack );
         PG_Stacker_Text::_for_love_and_generosity( $lists, $stack );
         PG_Stacker_Text::_for_kingdom_urgency( $lists, $stack );
-        PG_Stacker_Text::_for_unity_and_working_together( $lists, $stack );
-        PG_Stacker_Text::_for_i_am_statements( $lists, $stack );
+
+        /* K's new content */
+        PG_Stacker_Text::_for_unity_and_working_together( $lists, $stack, include_ai: true );
+        PG_Stacker_Text::_for_i_am_statements( $lists, $stack, include_ai: true );
 //        PG_Stacker_Text::_cities( $lists, $stack );
+
+
 
         foreach ( $lists as $content ) { // kill duplication
             $content['section_label'] = esc_html( $content['section_label'] );
