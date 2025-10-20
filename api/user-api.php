@@ -280,7 +280,7 @@ class PG_User_API {
         }
 
         $newly_earned_badges = pg_is_user_in_ab_test( $user_id ) ? [] : self::get_user_badges();
-        $milestones = self::get_user_milestones();
+        $milestones = empty( $newly_earned_badges ) ? self::get_user_milestones() : [];
 
         return [
             'newly_earned_badges' => $newly_earned_badges,
