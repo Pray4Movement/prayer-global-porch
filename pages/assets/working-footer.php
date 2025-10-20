@@ -7,9 +7,13 @@
             <?php echo wp_kses( sprintf( _x( 'Part of the %s network.', 'Part of the Pray4Movement network.', 'prayer-global-porch' ), '<a target="_blank" href="https://prayer.Tools">Prayer.Tools</a>' ), 'post' ) ?><br>
         </p>
 
-        <div id="pg-app-badges" class="center">
-            <?php pg_app_badges(); ?>
-        </div>
+        <?php if ( !empty( dt_get_url_path( true ) ) ) : ?>
+
+            <div id="pg-app-badges" class="center">
+                <?php pg_app_badges(); ?>
+            </div>
+
+        <?php endif; ?>
 
         <ul role="list" data-tight>
             <li><a class="white" href="/prayer_app/contact_us/"><?php echo esc_html( __( 'Contact Us', 'prayer-global-porch' ) ) ?></a></li>

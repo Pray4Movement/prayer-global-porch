@@ -23,14 +23,7 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
         parent::__construct();
 
         $url = dt_get_url_path( true );
-        if ( empty( $url ) && ! dt_is_rest() ) {
-
-            /* If the user is logged in, and the url doesn't contain the internal=true query param then redirect to the dashboard */
-            $url = new DT_URL( site_url( dt_get_url_path( false, true ) ) );
-            if ( is_user_logged_in() && ! $url->query_params->has( 'internal' ) ) {
-                wp_redirect( home_url( '/dashboard' ) );
-                exit;
-            }
+        if ( $url === 'stats-home' && ! dt_is_rest() ) {
 
             add_filter( 'dt_override_header_meta', function (){ return true;
             }, 100, 1 );
@@ -53,6 +46,7 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
             add_action( 'dt_blank_head', [ $this, '_header' ] );
             add_action( 'dt_blank_footer', [ $this, '_footer' ] );
             add_action( 'dt_blank_body', [ $this, 'body' ] );
+            add_filter( 'dt_templates_for_urls', [ $this, 'register_url' ], 199, 1 ); // registers url as valid once tests are passed
 
             add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
             add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
@@ -67,6 +61,13 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
         return $allowed_js;
+    }
+
+    public function register_url( $template_for_url ){
+        $url = dt_get_url_path( true );
+        $url_parts = explode( '/', $url );
+        $template_for_url[join( '/', $url_parts )] = 'template-blank.php';
+        return $template_for_url;
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
