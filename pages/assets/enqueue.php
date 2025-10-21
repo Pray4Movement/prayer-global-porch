@@ -82,6 +82,8 @@ add_action( 'wp_enqueue_scripts', function (){
         'map_key' => DT_Mapbox_API::get_key(),
         'mirror_url' => dt_get_location_grid_mirror( true ),
         'cache_url' => dt_get_location_grid_mirror( true ),
+        'json_cache_url' => 'https://s3.prayer.global/',
+        'language' => pg_get_current_lang(),
         'root' => esc_url_raw( rest_url() ),
         'nonce' => wp_create_nonce( 'wp_rest' ),
         'is_logged_in' => is_user_logged_in(),
