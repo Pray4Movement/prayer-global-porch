@@ -883,49 +883,45 @@ window.addEventListener("load", function ($) {
 
     show_location_details();
 
-    const response = await jQuery.ajax({
-      type: "GET",
-      contentType: "application/json; charset=utf-8",
-      dataType: "json",
-      url: window.pg_global.root + "prayer-global/fuel/" + grid_id,
-    });
-    if (response.error) {
-      return;
-    }
-    console.log(response);
+    const jsonUrl = pg_global.json_cache_url + "json/" + pg_global.language + "/" + grid_id + ".json";
 
-    window.report_content = response;
+    const response = await fetch(jsonUrl);
+    if (!response.ok) {
+      throw new Error("Failed to fetch JSON", response.status);
+    }
+    const json = await response.json();
+    window.report_content = json;
 
     let bodies_1 = "";
     let bodies_2 = "";
     let bodies_3 = "";
 
-    for (let i = 0; i < response.location.percent_non_christians; i++) {
+    for (let i = 0; i < json.location.percent_non_christians; i++) {
       bodies_1 += '<i class="ion-ios-body brand two-em"></i>';
     }
     console.log(bodies_1);
-    for (let i = 0; i < response.location.percent_christian_adherents; i++) {
+    for (let i = 0; i < json.location.percent_christian_adherents; i++) {
       bodies_2 += '<i class="ion-ios-body brand-lighter two-em"></i>';
     }
-    for (let i = 0; i < response.location.percent_believers; i++) {
+    for (let i = 0; i < json.location.percent_believers; i++) {
       bodies_3 += '<i class="ion-ios-body secondary two-em"></i>';
     }
 
     let admin_level =
-      response.location.admin_level_title.charAt(0).toUpperCase() +
-      response.location.admin_level_title.slice(1);
+      json.location.admin_level_title.charAt(0).toUpperCase() +
+      json.location.admin_level_title.slice(1);
     div.html(`
       <div class="row">
         <div class="col-12">
           <hr class="mt-0" />
           <p><span class="stats-title two-em">${
-            response.location.full_name
+            json.location.full_name
           }</span></p>
           <p>${translations.one_believer_for_every.replace(
             "%d",
             numberWithCommas(
               Math.ceil(
-                response.location.all_lost_int / response.location.believers_int
+                json.location.all_lost_int / json.location.believers_int
               )
             )
           )}</p>
@@ -935,16 +931,16 @@ window.addEventListener("load", function ($) {
           <div class="row">
             <div class="col-12 text-center">
               <p><strong>${translations["Don't Know Jesus"]}</strong></p>
-              <p>${bodies_1} <span>(${response.location.non_christians})</span></p>
+              <p>${bodies_1} <span>(${json.location.non_christians})</span></p>
             </div>
             <div class="col-12 text-center">
               <p><strong>${translations["Know about Jesus"]}</strong></p>
-              <p>${bodies_2} <span>(${response.location.christian_adherents})</span></p>
+              <p>${bodies_2} <span>(${json.location.christian_adherents})</span></p>
             </div>
 
             <div class="col-12 text-center">
               <p><strong>${translations["Know Jesus"]}</strong></p>
-              <p>${bodies_3} <span>(${response.location.believers})</span></p>
+              <p>${bodies_3} <span>(${json.location.believers})</span></p>
             </div>
           </div>
           <hr>
@@ -952,24 +948,24 @@ window.addEventListener("load", function ($) {
           <div class="col-12">
             ${translations.location_description1
               .replace("%1$s", admin_level)
-              .replace("%2$s", response.location.full_name)
-              .replace("%3$s", response.location.population)}
+              .replace("%2$s", json.location.full_name)
+              .replace("%3$s", json.location.population)}
             ${translations.location_description2
-              .replace("%1$s", response.location.name)
-              .replace("%2$s", response.location.believers)
-              .replace("%3$s", response.location.christian_adherents)
-              .replace("%4$s", response.location.non_christians)}
+              .replace("%1$s", json.location.name)
+              .replace("%2$s", json.location.believers)
+              .replace("%3$s", json.location.christian_adherents)
+              .replace("%4$s", json.location.non_christians)}
             ${translations.location_description3
-              .replace("%1$s", response.location.name)
-              .replace("%2$s", response.location.peer_locations)
-              .replace("%3$s", response.location.admin_level_name_plural)}
+              .replace("%1$s", json.location.name)
+              .replace("%2$s", json.location.peer_locations)
+              .replace("%3$s", json.location.admin_level_name_plural)}
             <hr>
           </div>
           <div class="col-12">
-            ${translations.religion}: ${response.location.primary_religion}<br>
+            ${translations.religion}: ${json.location.primary_religion}<br>
             ${
               translations.official_language
-            }: ${response.location.primary_language}<br>
+            }: ${json.location.primary_language}<br>
             <hr>
           </div>
       </div>`);
