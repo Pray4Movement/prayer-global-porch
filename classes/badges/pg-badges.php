@@ -419,7 +419,7 @@ class PG_Badges {
                     'title' => __( 'First Prayer Relay', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by creating your first relay', 'prayer-global-porch' ),
                     'description_earned' => __( 'You earned this badge by creating your first relay', 'prayer-global-porch' ),
-                    'priority' => 4,
+                    'priority' => 2,
                     'value' => 1,
                     'image' => 'FirstPrayerRelay.png',
                     'bw_image' => 'FirstPrayerRelay_bw.png',
@@ -449,7 +449,7 @@ class PG_Badges {
                 [
                     'id' => self::ID_PRAYER_MOBILIZER,
                     'type' => self::TYPE_PROGRESSION,
-                    'priority' => 5,
+                    'priority' => 3,
                     'progression_badges' => [
                         [
                             'id' => 'prayer_mobilizer_5',
@@ -810,7 +810,7 @@ class PG_Badges {
                 [
                     'id' => self::ID_STREAK,
                     'type' => self::TYPE_PROGRESSION,
-                    'priority' => 3,
+                    'priority' => 4,
                     'progression_badges' => [
                         [
                             'id' => 'streak_70',

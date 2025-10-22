@@ -319,14 +319,14 @@ class User_Stats {
                 CTE_ISLAND_END.island_end_timestamp,
                 CTE_ISLAND_START.island_start_timezone_timestamp,
                 CTE_ISLAND_END.island_end_timezone_timestamp,
-                (SELECT COUNT(*)
-                FROM CTE_TIMESTAMP
-                WHERE CTE_TIMESTAMP.timestamp BETWEEN
-                    CTE_ISLAND_START.island_start_timestamp AND
-                    CTE_ISLAND_END.island_end_timestamp)
-                AS island_row_count,
-                FLOOR( DATEDIFF( CTE_ISLAND_END.island_end_timezone_timestamp, CTE_ISLAND_START.island_start_timezone_timestamp ) / %d ) + 1
-                AS island_days
+                (
+                    SELECT COUNT(*)
+                    FROM CTE_TIMESTAMP
+                    WHERE CTE_TIMESTAMP.timestamp BETWEEN
+                        CTE_ISLAND_START.island_start_timestamp AND
+                        CTE_ISLAND_END.island_end_timestamp
+                ) AS island_row_count,
+                FLOOR( DATEDIFF( CTE_ISLAND_END.island_end_timezone_timestamp, CTE_ISLAND_START.island_start_timezone_timestamp ) / %d ) + 1 AS island_days
             FROM CTE_ISLAND_START
             INNER JOIN CTE_ISLAND_END
             ON CTE_ISLAND_END.island_number = CTE_ISLAND_START.island_number
