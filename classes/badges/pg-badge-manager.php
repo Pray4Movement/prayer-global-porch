@@ -218,7 +218,7 @@ class PG_Badge_Manager {
         foreach ( $all_earnable_badges as $badge ) {
             if ( $badge->get_type() === PG_Badges::TYPE_PROGRESSION ) {
                 foreach ( $badge->get_progression_badges() as $progression_badge ) {
-                    if ( !$progression_badge->has_earned_badge() && $badge->get_progression_value() > $progression_badge->get_value() ) {
+                    if ( !$progression_badge->has_earned_badge() && $badge->get_progression_value() >= $progression_badge->get_value() ) {
                         $newly_earned_badges[] = $progression_badge;
                     }
                 }

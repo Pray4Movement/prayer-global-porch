@@ -591,7 +591,7 @@ input[type="radio"]:checked {
     color: var(--pg-secondary-color);
 }
 .white {
-    color: white;
+    color: white !important;
 }
 .grey {
     color: var(--pg-grey);
@@ -2677,6 +2677,9 @@ input[type="password"],
 .badge-image-wrapper {
     position: relative;
 }
+.prayer-badge.disabled {
+    opacity: 0.5;
+}
 .badge-times-earned {
     position: absolute;
     bottom: 0;
@@ -2700,6 +2703,9 @@ input[type="password"],
 }
 .badge-item img {
     max-width: 200px;
+}
+.badge-item.disabled img {
+    opacity: 0.5;
 }
 .badge-item .progress-bar {
     padding-top: 15px;

@@ -2,6 +2,7 @@ import { html } from "lit";
 import { customElement, property } from "lit/decorators.js";
 import { OpenElement } from "./open-element";
 import { User, Badge, ProgressionBadge } from "../interfaces";
+import { PgBadge } from "../parts/pg-badge";
 
 @customElement("pg-badge-item")
 export class PgBadgeItem extends OpenElement {
@@ -145,7 +146,7 @@ export class PgBadgeItem extends OpenElement {
 
       <div class="brand-bg white page px-3 text-center">
         <div class="pg-container">
-          <div class="stack-sm badge-item" data-grid data-small>
+          <div class="stack-sm badge-item ${PgBadge.canEarnBadge(this.badge) ? '' : 'disabled'}" data-grid data-small>
             <div class="badge-item__timestamp" ?data-empty=${!this.currentBadge.timestamp}>
               ${ this.currentBadge.retroactive
                 ? this.translations.earned_retroactively.replace('%s', this.currentBadge.timestamp ? new Intl.DateTimeFormat().format(this.currentBadge.timestamp * 1000) : '')
@@ -200,9 +201,10 @@ export class PgBadgeItem extends OpenElement {
               <div class="badge-item__title">${this.currentBadge.title}</div>
               ${this.currentBadge.has_earned_badge ? html`
                   <div class="badge-item__description">${this.currentBadge.description_earned}</div>
-              ` : html`
+              ` : ''}
+              ${!this.currentBadge.has_earned_badge ? html`
                   <div class="badge-item__description">${this.currentBadge.description_unearned}</div>
-              `}
+              ` : ''}
               ${
                   (
                     (
@@ -229,6 +231,10 @@ export class PgBadgeItem extends OpenElement {
                       </div>
                   ` : ''
               }
+              ${!PgBadge.canEarnBadge(this.badge) ? html`
+                  <div class="badge-item__description white"><i>${window.jsObject.translations.challenge_not_available}</i></div>
+                  <div class="badge-item__description white"><i>${window.jsObject.translations.try_again_next_month}</i></div>
+              ` : ''}
           </div>
         </div>
       </div>

@@ -278,6 +278,9 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     <br />
                     <?php echo esc_html__( 'Prayer Added!', 'prayer-global-porch' ) ?>
                 </h2>
+                <p class="text-center">
+                    <i><?php echo esc_html__( 'Fetching next location...', 'prayer-global-porch' ) ?></i>
+                </p>
                 <div id="celebrate-content"></div>
             </div>
         </div>

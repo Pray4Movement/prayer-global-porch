@@ -22,6 +22,17 @@ export class PgBadge extends navigator(OpenElement) {
         }
     }
 
+    static canEarnBadge( badge: Badge ) {
+        if (badge.type !== 'challenge' || badge.has_earned_badge) {
+            return true;
+        }
+        const daysInMonth = new Date(new Date().getFullYear(), new Date().getMonth(), 0).getDate();
+        const daysLeftInMonth = daysInMonth - new Date().getDate();
+        const daysLeftToEarnChallenge = badge.value - badge.progression_value
+        console.log(daysLeftInMonth, daysLeftToEarnChallenge);
+        return daysLeftInMonth >= daysLeftToEarnChallenge;
+    }
+
     firstUpdated() {
         if (this.badge.type === 'progression') {
             this.lastEarnedBadgeIndex = 0;
@@ -44,7 +55,7 @@ export class PgBadge extends navigator(OpenElement) {
     render() {
         return html`
             <div
-                class="prayer-badge text-center"
+                class="prayer-badge text-center ${PgBadge.canEarnBadge(this.badge) ? '' : 'disabled'}"
                 @click=${() => this.navigate(`/dashboard/badge/${this.badge.id}`)}
             >
                 <div class="badge-image-wrapper">
@@ -61,7 +72,8 @@ export class PgBadge extends navigator(OpenElement) {
                         !this.currentBadge.has_earned_badge
                       ) || (
                         this.badge.type === 'challenge' &&
-                        !this.badge.has_earned_badge
+                        !this.badge.has_earned_badge &&
+                        PgBadge.canEarnBadge(this.badge)
                       )
                     ) ? html`
                         <div class="brand-highlight w-100">

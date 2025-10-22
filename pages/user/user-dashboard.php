@@ -123,6 +123,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         wp_localize_script( 'components-js', 'jsObject', [
             'parts' => $this->parts,
             'translations' => [
+                'challenge_not_available' => esc_html( __( 'There is not enough time left in the month to earn this challenge badge.', 'prayer-global-porch' ) ),
+                'try_again_next_month' => esc_html( __( 'Try again next month.', 'prayer-global-porch' ) ),
                 'see_all' => esc_html( __( 'See all', 'prayer-global-porch' ) ),
                 'prayer_milestones' => esc_html( __( 'Prayer Milestones', 'prayer-global-porch' ) ),
                 'start_praying' => esc_html( __( 'Start Praying', 'prayer-global-porch' ) ),
