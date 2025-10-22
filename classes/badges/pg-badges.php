@@ -28,14 +28,26 @@ class PG_Badges {
     const CATEGORY_MOBILIZATION = 'mobilization';
 
     public ?array $badges = null;
+    public ?array $priorities = null;
 
     public function __construct() {
+        $this->priorities = [
+            self::ID_LOCATION => 1,
+            self::ID_TEAM_PLAYER => 2,
+            self::ID_FIRST_PRAYER_RELAY => 2,
+            self::ID_PERFECT_WEEK => 2,
+            self::ID_PRAYER_MOBILIZER => 3,
+            self::ID_STREAK => 4,
+            self::ID_RELAY_LOCATION => 6,
+            self::ID_RELAY_COMPLETED_PARTICIPANT => 10,
+            self::ID_RELAY_COMPLETED_ORGANIZER => 10,
+        ];
         $badges = [
             self::CATEGORY_LOCATION => [
                 [
                     'id' => self::ID_LOCATION,
                     'type' => self::TYPE_PROGRESSION,
-                    'priority' => 1,
+                    'priority' => $this->priorities[self::ID_LOCATION],
                     'progression_badges' => [
                         [
                             'id' => 'location_10',
@@ -408,7 +420,7 @@ class PG_Badges {
                     'title' => __( 'Team Player', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by joining a relay', 'prayer-global-porch' ),
                     'description_earned' => __( 'You earned this badge by joining a relay', 'prayer-global-porch' ),
-                    'priority' => 2,
+                    'priority' => $this->priorities[self::ID_TEAM_PLAYER],
                     'value' => 1,
                     'image' => 'team_player.png',
                     'bw_image' => 'team_player_bw.png',
@@ -419,7 +431,7 @@ class PG_Badges {
                     'title' => __( 'First Prayer Relay', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by creating your first relay', 'prayer-global-porch' ),
                     'description_earned' => __( 'You earned this badge by creating your first relay', 'prayer-global-porch' ),
-                    'priority' => 2,
+                    'priority' => $this->priorities[self::ID_FIRST_PRAYER_RELAY],
                     'value' => 1,
                     'image' => 'FirstPrayerRelay.png',
                     'bw_image' => 'FirstPrayerRelay_bw.png',
@@ -430,7 +442,7 @@ class PG_Badges {
                     'title' => __( 'Relay Completed - Participant', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by helping to complete a relay', 'prayer-global-porch' ),
                     'description_earned' => __( 'You earned this badge by helping to complete a relay', 'prayer-global-porch' ),
-                    'priority' => 10,
+                    'priority' => $this->priorities[self::ID_RELAY_COMPLETED_PARTICIPANT],
                     'value' => 1,
                     'image' => 'RelayCompleted_Participant.png',
                     'bw_image' => 'RelayCompleted_Participant_bw.png',
@@ -441,7 +453,7 @@ class PG_Badges {
                     'title' => __( 'Relay Completed - Leader', 'prayer-global-porch' ),
                     'description_unearned' => __( 'Earn this badge by starting a relay that gets completed', 'prayer-global-porch' ),
                     'description_earned' => __( 'You earned this badge by starting a relay that gets completed', 'prayer-global-porch' ),
-                    'priority' => 10,
+                    'priority' => $this->priorities[self::ID_RELAY_COMPLETED_ORGANIZER],
                     'value' => 1,
                     'image' => 'RelayCompleted_Leader.png',
                     'bw_image' => 'RelayCompleted_Leader_bw.png',
@@ -449,7 +461,7 @@ class PG_Badges {
                 [
                     'id' => self::ID_PRAYER_MOBILIZER,
                     'type' => self::TYPE_PROGRESSION,
-                    'priority' => 3,
+                    'priority' => $this->priorities[self::ID_PRAYER_MOBILIZER],
                     'progression_badges' => [
                         [
                             'id' => 'prayer_mobilizer_5',
@@ -564,7 +576,7 @@ class PG_Badges {
                 [
                     'id' => self::ID_RELAY_LOCATION,
                     'type' => self::TYPE_PROGRESSION,
-                    'priority' => 6,
+                    'priority' => $this->priorities[self::ID_RELAY_LOCATION],
                     'progression_badges' => [
                         [
                             'id' => 'team_location_100',
@@ -776,7 +788,7 @@ class PG_Badges {
                     'description_earned' => __( 'You have earned this badge by praying every day for a week', 'prayer-global-porch' ),
                     'image' => 'perfect_week.png',
                     'bw_image' => 'perfect_week_bw.png',
-                    'priority' => 2,
+                    'priority' => $this->priorities[self::ID_PERFECT_WEEK],
                     'value' => 7,
                 ],
                 [
@@ -810,7 +822,7 @@ class PG_Badges {
                 [
                     'id' => self::ID_STREAK,
                     'type' => self::TYPE_PROGRESSION,
-                    'priority' => 4,
+                    'priority' => $this->priorities[self::ID_STREAK],
                     'progression_badges' => [
                         [
                             'id' => 'streak_70',
