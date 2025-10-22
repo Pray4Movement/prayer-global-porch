@@ -106,7 +106,7 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
                 <p><?php echo esc_html__( 'Team up in prayer!', 'prayer-global-porch' ) ?></p>
                 <p><?php echo esc_html__( 'Create a custom prayer relay to see if you and your friends, small group or church can pray for the whole world together.', 'prayer-global-porch' ) ?></p>
                 <a href="/dashboard/relays" class="btn btn-primary-light uppercase center w-fit mx-auto px-4">
-                    <?php echo esc_html__( 'Get started', 'prayer-global-porch' ) ?>
+                    <?php echo esc_html__( 'Create Prayer Relay', 'prayer-global-porch' ) ?>
                 </a>
             </div>
             <div class="drop-shadow">
@@ -125,13 +125,13 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
             <div class="w-fit mx-auto">
                 <p><?php echo esc_html__( 'Register for free to:', 'prayer-global-porch' ) ?></p>
                 <ul data-tight>
-                    <li><?php echo esc_html__( 'Create and join custom relays', 'prayer-global-porch' ) ?></li>
+                    <li><?php echo esc_html__( 'Create and join prayer relays', 'prayer-global-porch' ) ?></li>
                     <li><?php echo esc_html__( 'Track your prayers', 'prayer-global-porch' ) ?></li>
                     <li><?php echo esc_html__( 'See what you’ve prayed for', 'prayer-global-porch' ) ?></li>
                     <li><?php echo esc_html__( 'Build a daily prayer streak', 'prayer-global-porch' ) ?></li>
                 </ul>
             </div>
-            <a href="/dashboard" class="btn btn-primary-light uppercase center w-fit mx-auto px-4">
+            <a href="/register" class="btn btn-primary-light uppercase center w-fit mx-auto px-4">
                 <?php echo esc_html__( 'Register now', 'prayer-global-porch' ) ?>
             </a>
         </div>
@@ -176,7 +176,7 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
         </div>
         <span class="switcher">
             <a href="/dashboard/relays" class="btn btn-primary-light uppercase">
-                <?php echo esc_html__( 'Get started', 'prayer-global-porch' ) ?>
+                <?php echo esc_html__( 'Create Prayer Relay', 'prayer-global-porch' ) ?>
             </a>
             <a href="/events" class="btn btn-outline-light uppercase">
                 <?php echo esc_html__( 'Information for leaders', 'prayer-global-porch' ) ?>
@@ -231,7 +231,7 @@ $svgs_url = $svg_manager->get_cached_spritesheet_url( $icons );
             <h2 class="font-base h2"><?php echo esc_html__( 'Gospel Ambition tools and trainings are 100% free, thanks to people like you.', 'prayer-global-porch' ) ?></h2>
             <p><?php echo esc_html__( 'We love equipping the global Church with free tools to mobilize prayer and make disciples. You can help expand this mission by becoming a monthly giver or making a one-time gift. Your support keeps these resources free and accessible to believers worldwide.', 'prayer-global-porch' ) ?></p>
             <div class="cluster justify-content-between">
-                <a href="/donate" class="btn btn-outline-light uppercase center">
+                <a href="/give" class="btn btn-white uppercase center">
                     <?php echo esc_html__( 'Donate', 'prayer-global-porch' ) ?>
                 </a>
                 <div style="width: 135px;">

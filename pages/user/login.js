@@ -1,10 +1,10 @@
+let redirectTo = "";
 window.addEventListener("load", function () {
   if (pg_global.is_logged_in) {
     const url = new URL(location.href);
-    const redirectTo =
-      url.searchParams.get("redirect_to") || encodeURIComponent("/dashboard");
+    redirectTo = url.searchParams.has("redirect_to") ? decodeURIComponent(url.searchParams.get("redirect_to")) : "/dashboard";
 
-    location.href = decodeURIComponent(redirectTo);
+    location.href = redirectTo;
   }
 });
 
@@ -200,7 +200,7 @@ if (document.getElementById("section-login")) {
           });
       })
       .then((data) => {
-        location.href = "/dashboard";
+        location.href = redirectTo;
       });
   });
 

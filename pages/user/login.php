@@ -12,7 +12,12 @@ class PG_Login extends PG_Public_Page {
             return;
         }
         if ( is_user_logged_in() ){
-            wp_redirect( home_url( '/dashboard' ) );
+            $url = new DT_URL( dt_get_url_path() );
+            $redirect_to = $url->query_params->has( 'redirect_to' ) ? urldecode( $url->query_params->get( 'redirect_to' ) ) : '';
+            if ( empty( $redirect_to ) ) {
+                $redirect_to = home_url( '/dashboard' );
+            }
+            wp_redirect( $redirect_to  );
             exit;
         }
         /**

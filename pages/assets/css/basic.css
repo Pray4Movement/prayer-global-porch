@@ -1703,6 +1703,16 @@ button:not[role="listitem"] {
     --bs-btn-active-color: white;
     border: none;
 }
+.btn-white {
+    --bs-btn-bg: white;
+    --bs-btn-color: var(--pg-brand-color);
+    --bs-btn-border-color: white;
+    --bs-btn-hover-bg: var(--pg-brand-color-lighter);
+    --bs-btn-hover-color: white;
+    --bs-btn-active-bg: var(--pg-brand-color-lighter);
+    --bs-btn-active-color: white;
+    border: none;
+}
 .btn-xl {
     font-size: 13px;
     padding: 1.5rem;

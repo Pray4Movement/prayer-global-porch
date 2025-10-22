@@ -31,7 +31,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         }
 
         if ( !is_user_logged_in() ) {
-            wp_redirect( '/login' );
+            $redirect_to = urlencode( home_url( $url ) );
+            wp_redirect( '/login?redirect_to=' . $redirect_to );
             exit;
         }
 
