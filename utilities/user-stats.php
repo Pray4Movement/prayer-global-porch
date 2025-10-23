@@ -282,7 +282,7 @@ class User_Stats {
         return $max_streak;
     }
 
-    private function all_islands( int $in_days = 1 ): array {
+    public function all_islands( int $in_days = 1 ): array {
         global $wpdb;
 
         return $wpdb->get_results( $wpdb->prepare(

@@ -31,6 +31,16 @@ class PG_Give_Badges extends PG_Public_Page {
             'callback' => [ $this, 'give_badges' ],
             'permission_callback' => [ $this, 'permission_callback' ],
         ] );
+        register_rest_route( $this->rest_route, '/give-perfect-badges', [
+            'methods' => 'GET',
+            'callback' => [ $this, 'give_perfect_badges' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
+        register_rest_route( $this->rest_route, '/give-streak-badges', [
+            'methods' => 'GET',
+            'callback' => [ $this, 'give_streak_badges' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
         register_rest_route( $this->rest_route, '/clear-retroactive-badges', [
             'methods' => 'GET',
             'callback' => [ $this, 'clear_retroactive_badges' ],
@@ -65,6 +75,63 @@ class PG_Give_Badges extends PG_Public_Page {
             'finished' => true,
             'count' => count( $users ),
         ]);
+    }
+
+    public function give_perfect_badges() {
+        $users = get_users();
+        foreach ( $users as $user ) {
+            $has_given_perfect_badges = get_user_meta( $user->ID, 'give-perfect-badges-progress', true );
+            if ( $has_given_perfect_badges ) {
+                continue;
+            }
+            if ( pg_is_user_in_ab_test( $user->ID ) ) {
+                continue;
+            }
+
+            $badge_manager = new PG_Badge_Manager( $user->ID );
+            $user_stats = new User_Stats( $user->ID );
+            $all_islands = $user_stats->all_islands();
+            foreach ( $all_islands as $island ) {
+                if ( $island['island_days'] >= 7 ) {
+                    for ( $i = 0; $i < $island['island_days'] / 7; $i++ ) {
+                        $badge_manager->earn_badge( 'perfect_week', retroactive: true );
+                    }
+                }
+                if ( $island['island_days'] >= 30 ) {
+                    for ( $i = 0; $i < $island['island_days'] / 30; $i++ ) {
+                        $badge_manager->earn_badge( 'perfect_month', retroactive: true );
+                    }
+                }
+                if ( $island['island_days'] >= 365 ) {
+                    for ( $i = 0; $i < $island['island_days'] / 365; $i++ ) {
+                        $badge_manager->earn_badge( 'perfect_year', retroactive: true );
+                    }
+                }
+            }
+            add_user_meta( $user->ID, 'give-perfect-badges-progress', 1, true );
+        }
+    }
+
+    public function give_streak_badges() {
+        $users = get_users();
+        foreach ( $users as $user ) {
+            $has_given_streak_badges = get_user_meta( $user->ID, 'give-streak-badges-progress', true );
+            if ( $has_given_streak_badges ) {
+                continue;
+            }
+            if ( pg_is_user_in_ab_test( $user->ID ) ) {
+                continue;
+            }
+            $badge_manager = new PG_Badge_Manager( $user->ID );
+            $user_stats = new User_Stats( $user->ID );
+            if ( $user_stats->best_streak_in_days() >= 14 ) {
+                $badge_manager->earn_badge( 'streak_14', retroactive: true );
+            }
+            if ( $user_stats->best_streak_in_days() >= 35 ) {
+                $badge_manager->earn_badge( 'streak_35', retroactive: true );
+            }
+            add_user_meta( $user->ID, 'give-streak-badges-progress', 1, true );
+        }
     }
 
     public function clear_retroactive_badges() {
@@ -146,8 +213,13 @@ class PG_Give_Badges extends PG_Public_Page {
                     <h3>Give badges Retroactively to users</h3>
                 </div>
 
-                <button class="btn btn-primary" id="give-badges">Give Badges</button>
-                <button class="btn btn-primary" id="clear-retroactive-badges">Clear Retroactive Badges</button>
+                <div class="flow-small">
+                    <button class="btn btn-primary" id="give-badges">Give Badges</button>
+                    <button class="btn btn-primary" id="give-perfect-badges">Give Multiple Perfect X Badges</button>
+                    <button class="btn btn-primary" id="give-streak-badges">Give 2 & 5 Week streak Badges</button>
+
+                    <button class="btn btn-primary" id="clear-retroactive-badges">Clear Retroactive Badges</button>
+                </div>
                 <div class="progress-list"></div>
 
             </div>
@@ -174,6 +246,36 @@ class PG_Give_Badges extends PG_Public_Page {
                     })
 
                 giveBadges();
+            })
+
+            document.querySelector('#give-perfect-badges').addEventListener('click', () => {
+                fetch(jsObject.rest_url + '/give-perfect-badges', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                })
+                    .then((response) => response.json())
+                    .then((response) => {
+                        const progressDiv = document.createElement('div')
+                        progressDiv.innerHTML = 'Processed ' + response.count + ' users'
+                        progressList.appendChild(progressDiv)
+                    })
+            })
+
+            document.querySelector('#give-streak-badges').addEventListener('click', () => {
+                fetch(jsObject.rest_url + '/give-streak-badges', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                })
+                    .then((response) => response.json())
+                    .then((response) => {
+                        const progressDiv = document.createElement('div')
+                        progressDiv.innerHTML = 'Processed ' + response.count + ' users'
+                        progressList.appendChild(progressDiv)
+                    })
             })
 
             document.querySelector('#clear-retroactive-badges').addEventListener('click', () => {
