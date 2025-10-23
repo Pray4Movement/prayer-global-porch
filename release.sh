@@ -1,6 +1,6 @@
 #!/bin/bash
 
-TEMP=`getopt -o Mmf --long major,minor,fix -- "$@"`
+TEMP=$(getopt -o Mmf --long major,minor,fix -- "$@")
 eval set -- "$TEMP"
 
 while true; do
@@ -18,7 +18,7 @@ done
 
 currentVersion=$(grep version package.json | grep -oP '\d*\.\d*\.\d*')
 
-echo currentVersion is $currentVersion
+echo currentVersion is "$currentVersion"
 
 IFS='.' read -ra ADDR <<< "$currentVersion"
 major=${ADDR[0]}
@@ -65,5 +65,5 @@ sed -i "s/Version:.*/Version: ${version}/" prayer-global-porch.php
 echo 'Pushing new tag to master'
 git add .
 git commit -m "Release ${version}"
-git tag ${version}
-git push --tags origin master
+git tag "${version}"
+git push --tags origin div
