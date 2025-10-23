@@ -6,8 +6,7 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
     public $magic = false;
     public $parts = false;
     public $page_title = 'Global Prayer - Church';
-    public $root = 'content_app';
-    public $type = 'church';
+    public $root = 'church';
     public $type_name = 'Global Prayer - Church';
     public static $token = 'content_app_church';
     public $post_type = 'laps';
@@ -24,14 +23,10 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
         parent::__construct();
 
         $url = dt_get_url_path();
-        if ( ( $this->type ) === $url ) {
-
-            $this->magic = new DT_Magic_URL( $this->root );
-            $this->parts = $this->magic->parse_url_parts();
-
+        if ( ( $this->root ) === $url ) {
 
             // register url and access
-            add_action( "template_redirect", [ $this, 'theme_redirect' ] );
+            add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
             add_filter( 'dt_blank_access', function (){ return true;
             }, 100, 1 );
             add_filter( 'dt_allow_non_login_access', function (){ return true;
@@ -40,7 +35,7 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
             }, 100, 1 );
 
             // header content
-            add_filter( "dt_blank_title", [ $this, "page_tab_title" ] ); // adds basic title to browser tab
+            add_filter( 'dt_blank_title', [ $this, 'page_tab_title' ] ); // adds basic title to browser tab
             add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 1500 ); // authorizes scripts
             add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
 
@@ -52,11 +47,10 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
 
             add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
             add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
-
+            add_filter( 'dt_templates_for_urls', [ $this, 'register_url' ], 199, 1 ); // registers url as valid once tests are passed
             add_filter( 'dt_allow_rest_access', [ $this, 'authorize_url' ], 10, 1 );
 
         }
-
     }
 
     public function authorize_url( $authorized ){
@@ -70,7 +64,10 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
         return $authorized;
     }
 
-
+    public function register_url( $template_for_url ){
+        $template_for_url[$this->root] = 'template-blank.php';
+        return $template_for_url;
+    }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
         return array_merge( $allowed_js, [
@@ -82,16 +79,11 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return $allowed_css;
     }
 
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
-        ?>
-        <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400" rel="stylesheet">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/ionicons/css/ionicons.min.css">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/basic.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ) ) ?>" type="text/css" media="all">
-        <?php
     }
 
     public function footer_javascript(){
@@ -130,7 +122,7 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
                                 <p>
                                     <?php echo esc_html__( 'You will also be given a custom URL, QR code and more to use in promoting your prayer lap. The unique URL will connect your church family directly to your group’s prayer lap.', 'prayer-global' ) ?>
                                 </p>
-                                <a class="btn btn-primary uppercase center d-block w-fit" role="button" href="/user_app/profile" target="_blank"><?php echo esc_html__( 'Create group lap', 'prayer-global' ) ?> <i class="ion-android-open"></i></a>
+                                <a class="btn btn-primary uppercase text-center d-block w-fit" role="button" href="/dashboard" target="_blank"><?php echo esc_html__( 'Create group lap', 'prayer-global' ) ?> <i class="ion-android-open"></i></a>
                             </div>
                             <div class="flow-small">
                                 <h3><?php echo esc_html( __( 'Cast vision and set a goal for your church', 'prayer-global-porch' ) ) ?></h3>
@@ -269,7 +261,7 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
                                 <p>
                                     <?php echo esc_html__( 'Login or Register on Prayer.Global to create your own group lap.', 'prayer-global' ) ?>
                                 </p>
-                                <a class="btn btn-primary uppercase center d-block w-fit mx-auto" role="button" href="/user_app/profile"><?php echo esc_html__( 'Create group lap', 'prayer-global' ) ?></a>
+                                <a class="btn btn-primary uppercase text-center d-block w-fit mx-auto" role="button" href="/dashboard"><?php echo esc_html__( 'Create group lap', 'prayer-global' ) ?></a>
                             </div>
                         </div>
                     </div>
@@ -280,6 +272,5 @@ class Prayer_Global_Church extends DT_Magic_Url_Base
         <?php require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/working-footer.php' ) ?>
         <?php
     }
-
 }
 Prayer_Global_Church::instance();

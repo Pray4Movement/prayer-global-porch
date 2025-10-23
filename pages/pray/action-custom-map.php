@@ -74,30 +74,27 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
         if ( $url ) {
             $details['url'] = $url;
         }
-        $lap = pg_get_custom_lap_by_post_id( $this->parts['post_id'] );
-        $details['title'] = 'Prayer.Global '.$lap['title'].' '. esc_html( __( 'Map', 'prayer-global-porch' ) );
+        $lap = Prayer_Stats::get_relay_current_lap( $this->parts['public_key'], $this->parts['post_id'], true );
+        $details['title'] = 'Prayer.Global '. $lap['title'] . ' ' . esc_html( __( 'Map', 'prayer-global-porch' ) );
         pg_og_tags( $details );
 
+        $url = new DT_URL( dt_get_url_path( false, true ) );
+        $lap_number = $url->query_params->has( 'lap' ) ? $url->query_params->get( 'lap' ) : null;
         ?>
         <script>
             let jsObject = [<?php echo json_encode([
                 'parts' => $this->parts,
                 'grid_data' => [],
                 'participants' => [],
-                'stats' => pg_custom_lap_stats_by_post_id( $this->parts['post_id'] ),
+                'stats' => Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'], $lap_number ),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                 'map_type' => 'binary',
                 'is_cta_feature_on' => !$lap['ctas_off'],
             ]) ?>][0]
         </script>
-        <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400" rel="stylesheet">
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/bootstrap/bootstrap5.2.2.css">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/ionicons/css/ionicons.min.css">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/prayer-global/style.css">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/basic.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ) ) ?>" type="text/css" media="all">
         <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>heatmap.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'heatmap.css' ) ) ?>" type="text/css" media="all">
         <?php
     }
@@ -109,22 +106,24 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
 
     public function body(){
         $parts = $this->parts;
-        $lap_stats = pg_custom_lap_stats_by_post_id( $parts['post_id'] );
+        $url = new DT_URL( dt_get_url_path( false, true ) );
+        $lap_number = $url->query_params->has( 'lap' ) ? $url->query_params->get( 'lap' ) : null;
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $parts['public_key'], $parts['post_id'], $lap_number );
         $now = time();
         $has_challenge_started = $lap_stats['start_time'] < $now;
         DT_Mapbox_API::geocoder_scripts();
 
         $pray_href = '/prayer_app/custom/' . esc_attr( $parts['public_key'] );
-        if ( $lap_stats['event_lap'] ) {
-            $domain_param = isset( $_SERVER['HTTP_HOST'] ) ? '&domain=' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
-            $pray_href = PG_API_ENDPOINT . '?relay=' . $parts['public_key'] . $domain_param;
-        }
+//        if ( $lap_stats['event_lap'] ) {
+//            $domain_param = isset( $_SERVER['HTTP_HOST'] ) ? '&domain=' . sanitize_text_field( wp_unslash( $_SERVER['HTTP_HOST'] ) ) : '';
+//            $pray_href = PG_API_ENDPOINT . '?relay=' . $parts['public_key'] . $domain_param;
+//        }
 
         ?>
         <style id="custom-style"></style>
         <div id="map-content">
             <div id="initialize-screen">
-                <div id="initialize-spinner-wrapper" class="center">
+                <div id="initialize-spinner-wrapper" class="text-center">
                     <progress class="success initialize-progress" max="46" value="0"></progress><br>
                     <?php echo esc_html__( 'Loading the planet ...', 'prayer-global-porch' ) ?><br>
                     <span id="initialize-people" style="display:none;"><?php echo esc_html__( 'Locating world population...', 'prayer-global-porch' ) ?></span><br>
@@ -134,14 +133,17 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                 </div>
             </div>
             <div id="map-wrapper">
-                <div class="brand-bg white" id="head_block">
+                <div class="brand-bg white navbar-dark navbar" id="head_block">
                     <div class="d-flex align-items-center justify-content-between gap-2">
 
-                        <div class="d-flex align-items-center gap-2">
-                            <span class="font-weight-bold uppercase"><?php echo esc_html( $lap_stats['title'] ) ?></span>
-                            <button class="icon-button share-button two-rem d-flex align-items-center white" data-toggle="modal" data-target="#exampleModal">
-                                <i class="icon pg-share"></i>
-                            </button>
+                        <div class="cluster overflow-x-hidden">
+                            <span class="font-weight-bold uppercase text-ellipsis"><?php echo esc_html( $lap_stats['title'] ) ?></span>
+                            <div class="space-out">
+                                <button class="icon-button share-button two-rem d-flex align-items-center white" data-toggle="modal" data-target="#exampleModal">
+                                    <i class="icon pg-share"></i>
+                                </button>
+                                <?php pg_streak_icon(); ?>
+                            </div>
                         </div>
                         <a class="btn btn-cta" id="pray-button" href="<?php echo esc_url( $pray_href ) ?>"><?php echo esc_html__( 'Pray', 'prayer-global-porch' ) ?></a>
 
@@ -151,8 +153,8 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
 
                 </div>
                 <div class="holding-page flow-small">
-                    <span class="six-em center"><?php echo sprintf( esc_html__( 'Starts on %s', 'prayer-global-porch' ), '<span class="starts-on-date"></span>' ) ?></span>
-                    <span class="six-em center time-remaining text-secondary"></span>
+                    <span class="six-em text-center"><?php echo sprintf( esc_html__( 'Starts on %s', 'prayer-global-porch' ), '<span class="starts-on-date"></span>' ) ?></span>
+                    <span class="six-em text-center time-remaining text-secondary"></span>
                     <button class="btn btn-cta btn-lg start-praying-button"><?php echo esc_html__( 'Start Praying', 'prayer-global-porch' ) ?></button>
                 </div>
                 <span class="loading-spinner active"></span>
@@ -164,7 +166,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                 <div id="foot_block">
                     <div class="map-overlay" id="map-legend"></div>
                     <div class="row g-0 justify-content-center">
-                        <div class="col col-12 center">
+                        <div class="col col-12 text-center">
                             <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_stats">
                                 <i class="icon pg-chevron-up three-em blue"></i>
                             </button>
@@ -172,14 +174,14 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                             <h4 class="uppercase font-weight-bold two-em"><?php echo esc_html( sprintf( __( 'Lap %s', 'prayer-global-porch' ), $lap_stats['lap_number'] ) ) ?></h4>
 
                         </div>
-                        <div class="col col-sm-6 col-lg-2 center">
+                        <div class="col col-sm-6 col-lg-2 text-center">
                             <div class="blue-bg white blue-border rounded-start d-flex align-items-center justify-content-around py-1">
                                 <i class="icon pg-world-light three-em"></i>
                                 <div class="two-em white stats-figure remaining"></div>
                             </div>
                             <span class="uppercase small"><?php echo esc_html__( 'Places Remaining', 'prayer-global-porch' ) ?></span><br>
                         </div>
-                        <div class="col col-sm-6 col-lg-2 center">
+                        <div class="col col-sm-6 col-lg-2 text-center">
                             <div class="white-bg blue blue-border rounded-end d-flex align-items-center justify-content-around py-1">
                                 <i class="icon pg-world-light three-em"></i>
                                 <div class="two-em stats-figure completed"></div>
@@ -187,14 +189,14 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                             <span class="uppercase small"><?php echo esc_html__( 'Places Covered', 'prayer-global-porch' ) ?></span><br>
                         </div>
                         <div class="col col-lg-1 d-none d-lg-block"></div>
-                        <div class="col col-sm-6 col-lg-2 center d-none d-lg-block">
+                        <div class="col col-sm-6 col-lg-2 text-center d-none d-lg-block">
                             <div class="secondary-bg white secondary-border rounded-start d-flex align-items-center justify-content-around py-1">
                                 <i class="icon pg-prayer three-em"></i>
                                 <div class="two-em stats-figure warriors"></div>
                             </div>
                             <span class="uppercase small"><?php echo esc_html__( 'Intercessors', 'prayer-global-porch' ) ?></span><br>
                         </div>
-                        <div class="col col-sm-6 col-lg-2 center d-none d-lg-block">
+                        <div class="col col-sm-6 col-lg-2 text-center d-none d-lg-block">
                             <div class="blue-bg white blue-border rounded-end d-flex align-items-center justify-content-around py-1">
                                 <i class="icon pg-world-arrow three-em"></i>
                                 <div class="two-em stats-figure"><span class="completed_percent">0</span>%</div>
@@ -248,12 +250,12 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
             </button>
         </div>
         <div class="offcanvas offcanvas-bottom" id="offcanvas_stats">
-            <div class="center offcanvas__header d-flex justify-content-center align-items-center">
+            <div class="text-center offcanvas__header d-flex justify-content-center align-items-center">
                 <button type="button" data-bs-dismiss="offcanvas">
                     <i class="icon pg-chevron-down blue three-em"></i>
                 </button>
             </div>
-            <div class="container center uppercase pt-3">
+            <div class="container text-center uppercase pt-3">
                 <div class="row g-0 justify-content-center">
                     <div class="col col-12">
                         <div class="two-em font-weight-bold"><?php echo sprintf( esc_html__( 'Lap %s Stats', 'prayer-global-porch' ), esc_html( $lap_stats['lap_number'] ) ) ?></div>
@@ -274,14 +276,14 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                     </div>
                 </div>
                 <div class="row g-0 justify-content-center mt-4">
-                    <div class="col col-6 col-sm-5 col-md-4 col-xl-3 center">
+                    <div class="col col-6 col-sm-5 col-md-4 col-xl-3 text-center">
                         <div class="secondary-bg white secondary-border rounded-start d-flex align-items-center justify-content-between px-3">
                             <i class="icon pg-prayer three-em"></i>
                             <div class="two-em stats-figure warriors"></div>
                         </div>
                         <span class="uppercase small"><?php echo esc_html__( 'Intercessors', 'prayer-global-porch' ) ?></span><br>
                     </div>
-                    <div class="col col-6 col-sm-5 col-md-4 col-xl-3 center">
+                    <div class="col col-6 col-sm-5 col-md-4 col-xl-3 text-center">
                         <div class="blue-bg white blue-border rounded-end d-flex align-items-center justify-content-between px-3">
                             <i class="icon pg-world-arrow three-em"></i>
                             <div class="two-em stats-figure"><span class="completed_percent">0</span>%</div>
@@ -324,7 +326,8 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                     </div>
                 </div>
                 <div class="row">
-                    <a href="/" class="btn btn-small btn-outline-primary w-fit mb-2 d-block m-auto"><?php echo esc_html__( 'Leave this relay', 'prayer-global-porch' ) ?></a>
+                    <?php $url = is_user_logged_in() ? '/dashboard' : '/' ?>
+                    <a href="<?php echo esc_url( $url ) ?>" class="btn btn-small btn-outline-primary w-fit mb-2 d-block m-auto"><?php echo esc_html__( 'Leave this relay', 'prayer-global-porch' ) ?></a>
                 </div>
             </div>
         </div>
@@ -338,18 +341,20 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
 
     public function endpoint( WP_REST_Request $request ) {
         $params = $request->get_params();
+        $params = dt_recursive_sanitize_array( $params );
 
         if ( ! isset( $params['parts'], $params['action'] ) ) {
             return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
+        $lap_number = $params['data']['lap_number'] ?? null;
         switch ( $params['action'] ) {
             case 'get_stats':
-                return pg_custom_lap_stats_by_post_id( $params['parts']['post_id'] );
+                return Prayer_Stats::get_relay_current_lap_stats( $params['parts']['public_key'], $params['parts']['post_id'], $lap_number );
             case 'get_grid':
                 return [
-                    'grid_data' => $this->get_grid( $params['parts'] ),
-                    'participants' => $this->get_participants( $params['parts'] ),
+                    'grid_data' => $this->get_grid( $params['parts'], $lap_number ),
+                    'participants' => $this->get_participants( $params['parts'], $lap_number ),
                 ];
             case 'get_grid_details':
                 if ( isset( $params['data']['grid_id'] ) ) {
@@ -357,118 +362,49 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
                 }
                 return false;
             case 'get_participants':
-                return $this->get_participants( $params['parts'] );
+                return $this->get_participants( $params['parts'], $lap_number );
             case 'get_user_locations':
                 return $this->get_user_locations( $params['parts'], $params['data'] );
             default:
                 return new WP_Error( __METHOD__, 'missing action parameter' );
         }
-
     }
 
-    public function get_grid( $parts ) {
-        global $wpdb;
-
-        // map grid
-        $data_raw = $wpdb->get_results( $wpdb->prepare( "
-            SELECT
-                lg1.grid_id, SUM(r1.value) as value
-            FROM $wpdb->dt_location_grid lg1
-			JOIN $wpdb->dt_reports r1 ON r1.grid_id=lg1.grid_id AND r1.type = 'prayer_app' AND r1.post_id = %d AND ( r1.subtype = 'event' OR r1.subtype = 'custom' )
-            WHERE lg1.level = 0
-              AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
-              AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg1.grid_id
-            UNION ALL
-            SELECT
-                lg2.grid_id, SUM(r2.value) as value
-            FROM $wpdb->dt_location_grid lg2
-			JOIN $wpdb->dt_reports r2 ON r2.grid_id=lg2.grid_id AND r2.type = 'prayer_app' AND r2.post_id = %d AND ( r2.subtype = 'event' OR r2.subtype = 'custom' )
-            WHERE lg2.level = 1
-              AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg2.grid_id
-            UNION ALL
-            SELECT
-                lg3.grid_id, SUM(r3.value) as value
-            FROM $wpdb->dt_location_grid lg3
-			JOIN $wpdb->dt_reports r3 ON r3.grid_id=lg3.grid_id AND r3.type = 'prayer_app' AND r3.post_id = %d AND ( r3.subtype = 'event' OR r3.subtype = 'custom' )
-            WHERE lg3.level = 2
-              AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)
-          GROUP BY lg3.grid_id
-        ", $parts['post_id'], $parts['post_id'], $parts['post_id'] ), ARRAY_A );
-
-        $data = [];
-        foreach ( $data_raw as $row ) {
-            if ( ! isset( $data[$row['grid_id']] ) ) {
-                $data[$row['grid_id']] = (int) $row['value'] ?? 0;
-            }
-        }
-
+    public function get_grid( $parts, $lap_number ) {
+        $data = $this->get_custom_relay_map_stats( $parts['public_key'], $lap_number );
         return [
             'data' => $data,
         ];
     }
 
-    public function get_participants( $parts ){
+    public function get_custom_relay_map_stats( $relay_key, $lap_number = null ) {
         global $wpdb;
-        $participants_raw = $wpdb->get_results( $wpdb->prepare( "
-           SELECT r.lng as longitude, r.lat as latitude, r.hash
-           FROM $wpdb->dt_reports r
-           LEFT JOIN $wpdb->dt_location_grid lg ON lg.grid_id=r.grid_id
-            WHERE r.post_type = 'laps'
-                AND r.type = 'prayer_app'
-                AND r.post_id = %d
-                AND r.hash IS NOT NULL
-        ", $parts['post_id'] ), ARRAY_A );
-        $participants = [];
-        if ( ! empty( $participants_raw ) ) {
-            foreach ( $participants_raw as $p ) {
-                if ( ! empty( $p['longitude'] ) ) {
-                    $participants[$p['hash']] = [
-                        'longitude' => (float) $p['longitude'],
-                        'latitude' => (float) $p['latitude']
-                    ];
-                }
-            }
+
+        $lap_number = (int) $lap_number;
+
+        $current_lap_number = Prayer_Stats::get_relay_lap_number( $relay_key );
+        if ( $lap_number === null || $lap_number === $current_lap_number ) {
+            return Prayer_Stats::get_relay_current_lap_map_stats( $relay_key );
         }
 
-        return array_values( $participants );
+        $data = pg_query_4770_locations();
+
+        foreach ( $data as $key ) {
+            if ( $lap_number < $current_lap_number ) {
+                $data[$key] = 1;
+            } else {
+                $data[$key] = 0;
+            }
+        }
+        return $data;
+    }
+
+    public function get_participants( $parts, $lap_number = null ){
+        return Prayer_Stats::get_relay_lap_map_participants( $parts['post_id'], $parts['public_key'], $lap_number );
     }
 
     public function get_user_locations( $parts, $data ){
-        global $wpdb;
-        // Query based on hash
-        $hash = $data['hash'];
-        if ( empty( $hash ) ) {
-            return [];
-        }
-//        $lap_stats = pg_custom_lap_stats_by_post_id( $parts['post_id'] );
-
-        $user_locations_raw  = $wpdb->get_results( $wpdb->prepare( "
-               SELECT lg.longitude, lg.latitude
-               FROM $wpdb->dt_reports r
-               LEFT JOIN $wpdb->dt_location_grid lg ON lg.grid_id=r.grid_id
-               WHERE r.post_type = 'laps'
-                    AND r.type = 'prayer_app'
-                    AND r.hash = %s
-                    AND r.post_id = %s
-                    AND r.label IS NOT NULL
-            ", $hash, $parts['post_id'] ), ARRAY_A );
-
-        $user_locations = [];
-        if ( ! empty( $user_locations_raw ) ) {
-            foreach ( $user_locations_raw as $p ) {
-                if ( ! empty( $p['longitude'] ) ) {
-                    $user_locations[] = [
-                        'longitude' => (float) $p['longitude'],
-                        'latitude' => (float) $p['latitude']
-                    ];
-                }
-            }
-        }
-
-        return $user_locations;
+        return PG_User_API::get_user_locations_prayed_for( $parts['public_key'], $data['hash'], $data['lap_number'] ?? null );
     }
-
 }
 PG_Custom_Prayer_App_Map::instance();

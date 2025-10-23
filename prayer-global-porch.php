@@ -5,7 +5,7 @@
  * Description: Prayer.Global front porch app for Disciple.Tools
  * Text Domain: prayer-global-porch
  * Domain Path: /languages
- * Version: 2.9.2
+ * Version: 2.11.0
  * Author URI: https://github.com/DiscipleTools
  * GitHub Plugin URI: https://github.com/Pray4Movement/prayer-global-porch
  * Requires at least: 4.7.0
@@ -25,8 +25,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 define( 'PG_TOTAL_STATES', 4770 );
 define( 'PG_NAMESPACE', 'pg_' );
 define( 'PG_API_ENDPOINT', 'https://api.prayer.global/' );
-
-
+define( 'PG_CHANNEL_IN_APP', 'in_app' );
+define( 'PG_CHANNEL_PUSH', 'push' );
+define( 'PG_CHANNEL_EMAIL', 'email' );
 
 /**
  * Gets the instance of the `Prayer_Global_Porch` class.
@@ -51,6 +52,13 @@ function prayer_global_porch() {
     }
     if ( !$is_theme_dt ){
         return false;
+    }
+
+    try {
+        require_once( 'support/migrations/class-migration-engine.php' );
+        Prayer_Global_Migration_Engine::migrate( Prayer_Global_Migration_Engine::$migration_number );
+    } catch ( Exception $e ) {
+        new WP_Error( 'migration_error', 'Prayer Global Migration engine failed to migrate.', [ 'message' => $e->getMessage() ] );
     }
 
     /**
@@ -106,16 +114,42 @@ class Prayer_Global_Porch {
         $wpdb->location_grid_cities = 'location_grid_cities';
         $wpdb->location_grid_people_groups = 'location_grid_people_groups';
         $wpdb->location_grid_names = 'location_grid_names';
+        $wpdb->dt_relays = $wpdb->prefix . 'dt_relays';
+        $wpdb->dt_notifications_sent = $wpdb->prefix . 'dt_notifications_sent';
+        $wpdb->dt_badges = $wpdb->prefix . 'dt_badges';
 
+        require_once( 'utilities/cron-jobs.php' );
         require_once( 'utilities/global-utilities.php' );
+        require_once( 'utilities/prayer-stats.php' );
+        require_once( 'utilities/user-stats.php' );
         require_once( 'utilities/enqueue-async.php' );
         require_once( 'utilities/login-functions.php' );
+        require_once( 'utilities/pg-onesignal.php' );
+        require_once( 'utilities/pg-milestone.php' );
+        require_once( 'utilities/pg-milestones.php' );
+        require_once( 'utilities/pg-notification.php' );
+        require_once( 'utilities/pg-notifications-sent.php' );
+        require_once( 'utilities/jobs/pg-notification-handler-job.php' );
+        require_once( 'utilities/jobs/pg-user-push-notification-job.php' );
+        require_once( 'utilities/pg-notifications-scheduler.php' );
         require_once( 'classes/pg-feature-flag.php' );
         require_once( 'classes/pg-flags.php' );
+        require_once( 'classes/svg-spritesheet-manager.php' );
+        require_once( 'classes/public-page-base.php' );
+
+        /* Badges */
+        require_once( 'classes/badges/pg-badge.php' );
+        require_once( 'classes/badges/pg-badge-model.php' );
+        require_once( 'classes/badges/pg-badges.php' );
+        require_once( 'classes/badges/pg-badge-manager.php' );
+
         require_once( 'pages/assets/menu.php' );
         require_once( 'pages/pray/stacker-text.php' );
         require_once( 'pages/pray/stacker-positions.php' );
         require_once( 'pages/pray/stacker.php' );
+
+        /* Notification system */
+        require_once( 'classes/class-pg-notification-base.php' );
 
         if ( is_admin() ) {
             require_once( 'support/admin.php' );
@@ -133,9 +167,13 @@ class Prayer_Global_Porch {
         require_once( 'pages/privacy/magic-privacy.php' );
         require_once( 'pages/data-sources/magic-data-sources.php' );
 
+        // new home
+        require_once( 'pages/home/magic-home2.php' );
+
         // prayer_app
         require_once( 'pages/pray/magic-global.php' );
         require_once( 'pages/pray/magic-custom.php' );
+        require_once( 'pages/pray/page-dashboard-map/action-my-map.php' );
 
         // race_app
         require_once( 'pages/race/race-list.php' );
@@ -145,9 +183,13 @@ class Prayer_Global_Porch {
         require_once( 'pages/challenges/active-list.php' );
 
         // user
-        require_once( 'pages/user/user-profile.php' );
-        require_once( 'pages/user/user-login.php' );
+        require_once( 'pages/user/user-dashboard.php' );
+        require_once( 'pages/user/login.php' );
+        require_once( 'pages/user/register.php' );
         require_once( 'pages/user/user-logout.php' );
+
+        // events
+        require_once( 'pages/events/events.php' );
 
         // Global API
         require_once( 'api/loader.php' );
@@ -155,9 +197,16 @@ class Prayer_Global_Porch {
         // admin
 //      require_once( 'charts/charts-loader.php' );
         require_once( 'support/build/loader.php' );
+        require_once( 'support/build/test-push.php' );
+        require_once( 'support/build/test-badges.php' );
+        require_once( 'support/build/give-badges.php' );
+        require_once( 'support/build/content-a-b-test.php' );
         require_once( 'pages/about/about.php' );
         require_once( 'pages/give/give.php' );
         require_once( 'pages/church/church.php' );
+        require_once( 'pages/events/events.php' );
+        require_once( 'pages/events/conferences.php' );
+        require_once( 'pages/events/churches.php' );
 
         // 404
         require_once( 'pages/404/404.php' ); // MUST BE LAST LOADED
@@ -170,7 +219,6 @@ class Prayer_Global_Porch {
         $lang = pg_get_current_lang();
         pg_set_translation( $lang );
         pg_add_lang_to_cookie( $lang );
-
     }
 
     /**
@@ -342,8 +390,5 @@ add_action( 'plugins_loaded', function (){
         }
     }
 } );
-
-
-
 
 

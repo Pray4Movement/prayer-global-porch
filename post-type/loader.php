@@ -13,29 +13,29 @@ if ( ! class_exists( 'DT_Module_Base' ) ) {
  * Add any modules required or added for the post type
  */
 add_filter( 'dt_post_type_modules', function( $modules ){
-    $modules["laps_base"] = [
-        "name" => "Laps",
-        "enabled" => true,
-        "locked" => true,
-        "prerequisites" => [ 'contacts_base' ],
-        "post_type" => "laps",
-        "description" => "Prayer Laps"
+    $modules['relays_base'] = [
+        'name' => 'Relays',
+        'enabled' => true,
+        'locked' => true,
+        'prerequisites' => [ 'contacts_base' ],
+        'post_type' => 'pg_relays',
+        'description' => 'Prayer Relays'
     ];
-    $modules["feedback_base"] = [
-        "name" => "Feedback",
-        "enabled" => true,
-        "locked" => true,
-        "prerequisites" => [ 'contacts_base' ],
-        "post_type" => "feedback",
-        "description" => "Feedback"
+    $modules['feedback_base'] = [
+        'name' => 'Feedback',
+        'enabled' => true,
+        'locked' => true,
+        'prerequisites' => [ 'contacts_base' ],
+        'post_type' => 'feedback',
+        'description' => 'Feedback'
     ];
 
 
     return $modules;
 }, 20, 1 );
 
-require_once 'laps.php';
-Prayer_Global_Laps_Post_Type::instance();
+require_once 'relays.php';
+Prayer_Global_Relays_Post_Type::instance();
 
 require_once 'feedback.php';
 Prayer_Global_Feedback_Post_Type::instance();
@@ -80,14 +80,14 @@ function prayer_global_list_languages(){
             'prayer_fuel' => true
         ],
         'id_ID' => [
-            'language' => "id_ID",
+            'language' => 'id_ID',
             'english_name' => 'Indonesian',
             'native_name' => 'Bahasa Indonesia',
             'flag' => '🇮🇩',
             'prayer_fuel' => true
         ],
         'nl_NL' => [
-            'language' => "nl_NL",
+            'language' => 'nl_NL',
             'english_name' => 'Dutch',
             'native_name' => 'Nederlands',
             'flag' => '🇳🇱',
@@ -117,7 +117,7 @@ function prayer_global_list_languages(){
     ];
 
     foreach ( $available_language_codes as $code ){
-        $code = str_replace( "prayer-global-", "", $code );
+        $code = str_replace( 'prayer-global-', '', $code );
         if ( isset( $translations[$code] ) ){
             $available_translations[$code] = $translations[$code];
         }

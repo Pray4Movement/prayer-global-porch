@@ -1,12 +1,15 @@
 <?php
 
+use Google\Auth\HttpHandler\HttpHandlerFactory;
+
 function pg_enabled_translations(){
-    return [
+    $enabled_translations = [
         'en_US' => [
             'parent_code' => 'en',
             'po_code' => 'en_US',
             'datatables_url' => '',
             'firebase_code' => 'en',
+
         ],
         'fr_FR' => [
             'parent_code' => 'fr',
@@ -14,7 +17,22 @@ function pg_enabled_translations(){
             'datatables_url' => '//cdn.datatables.net/plug-ins/1.13.4/i18n/fr-FR.json',
             'firebase_code' => 'fr',
         ],
+        'pt_BR' => [
+            'parent_code' => 'pt',
+            'po_code' => 'pt_BR',
+            'datatables_url' => '//cdn.datatables.net/plug-ins/1.13.4/i18n/pt-BR.json',
+            'firebase_code' => 'pt',
+        ],
     ];
+    $dt_languages = dt_get_available_languages( true, true );
+    $result = [];
+    foreach ( $enabled_translations as $code => $language ) {
+        $dt_lang = $dt_languages[$language['parent_code']] ?? [];
+        if ( isset( $dt_lang['native_name'] ) ) {
+            $result[$code] = array_merge( $language, $dt_lang );
+        }
+    }
+    return $result;
 }
 
 function pg_generate_key() {
@@ -32,338 +50,169 @@ function pg_grid_images_version(){
 function pg_jp_images_version(){
     return get_option( 'pg_jp_images_version' );
 }
-function pg_profile_icon() {
+function pg_profile_icon( $manual = false ) {
     if ( is_user_logged_in() ) {
         $user = wp_get_current_user();
 
-        $gravatar_url = get_avatar_url( $user->user_login );
+        if ( $manual ) {
+            // get initials of the users display name
+            $initial_parts = explode( ' ', $user->display_name );
+            $initials = substr( $initial_parts[0], 0, 1 );
+            if ( count( $initial_parts ) > 1 ) {
+                $initials .= substr( $initial_parts[1], 0, 1 );
+            }
+            $initials = strtoupper( $initials );
+            $return = '<style>
+                .circle {
+                    position: relative;
+                    border-radius: 1000px;
+                    aspect-ratio: 1;
+                    padding: 0.3em;
+                    background-color: var(--pg-avatar-bg-color, #ccc);
+                    color: inherit;
+                    text-align: center;
+                    font-family: var(--pg-font-family-title);
+                    font-size: inherit;
 
-        return '<div class="user__gravatar" style="background-image: url(\''.$gravatar_url.'\')"></div>';
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    line-height: 1;
+                }
+                .circle > * {
+                    min-width: 1em;
+                }
+                </style>
+                ';
+            $return .= '<div class="user__avatar" size="small"><div class="circle"><div>'.$initials.'</div></div></div>';
+            return $return;
+        }
+
+        return '<div class="user__avatar" size="small"><pg-avatar text="'.$user->display_name.'"></pg-avatar></div>';
     }
 
     return "<i class='icon pg-profile'></i>";
 }
-function pg_current_global_lap() : array {
-    /**
-     * Example:
-     *  [lap_number] => 5
-     *  [post_id] => 19
-     *  [key] => d7dcd4
-     *  [start_time] => 1651269768
-     */
-    $lap = get_option( 'pg_current_global_lap', [] );
-    return $lap;
+function pg_streak_icon() {
+
+    $user_stats = new User_Stats( get_current_user_id() );
+    $current_streak = $user_stats->current_streak_in_days();
+    $is_streak_secure = $user_stats->streak_secure();
+    $icon_url = plugins_url( 'pages/assets/images/icons/pg-streak.svg', __DIR__ );
+
+    $activity_url = urlencode( site_url( '/dashboard/activity' ) );
+    $streak_url = is_user_logged_in() ? '/dashboard/activity' : '/login?redirect_url='.$activity_url;
+
+    ?>
+
+
+            <a href="<?php echo esc_url( $streak_url ); ?>" class="streak-link icon-button">
+                <div class="cluster gap-xsm">
+                    <div
+                        class="brand-light-bg icon-md streak-icon streak-icon-highlight"
+                        <?php echo $is_streak_secure ? 'data-streak-secure="true"' : ''; ?>
+                        style="--pg-icon-streak-highlight: url('<?php echo esc_url( $icon_url ); ?>')"
+                    ></div>
+                    <span class="f-sm font-weight-bold">
+                        <?php echo esc_html( $current_streak ); ?>
+                    </span>
+                </div>
+            </a>
+
+            <script>
+                window.addEventListener('DOMContentLoaded', () => {
+                    const streakIcon = document.querySelector('.streak-icon-highlight');
+                    if (streakIcon) {
+                        streakIcon.addEventListener('animationend', () => {
+                            if (streakIcon.dataset.streakSecure === "true") {
+                                return
+                            }
+                            streakIcon.classList.remove('streak-icon-highlight');
+                        });
+                    }
+                });
+            </script>
+
+    <?php
 }
 
-function pg_current_custom_lap( int $post_id ) : array {
-    /* Search down the child lap tree to find the last lap that is active. That is the current custom lap. */
-    global $wpdb;
+function pg_app_badges() {
 
-    /* === THIS QUERY WORKS UP TO MYSQL 5.7 AND SHOULD BE REMOVED IN FAVOR OF BELOW QUERY WHEN MYSQL IS UPGRADED TO 8 === */
-/*     $results = $wpdb->get_results( $wpdb->prepare(
-        "SELECT
-            t.p2p_from,
-            @pv:= t.p2p_to p2p_to,
-            t.p2p_to as post_id
-        FROM ( SELECT * FROM wp_p2p ORDER BY p2p_from ASC ) t
-        JOIN ( SELECT @pv := %d ) tmp
-        WHERE p2p_type = 'parent-lap_to_child-lap'
-        AND t.p2p_from = @pv;",
-    $post_id ), ARRAY_A ); */
+    $language = pg_get_current_lang();
+    $app_store_url = 'https://apps.apple.com/us/app/prayer-global/id1636889534?uo=4';
+    $google_play_url = 'https://play.google.com/store/apps/details?id=app.global.prayer';
 
-    /* === THIS QUERY SHOULD BE USED WHEN THE MYSQL DB IS UPGRADED TO 8 IN FAVOR OF THE ABOVE ONE === */
-    $results = $wpdb->get_results( $wpdb->prepare(
-        "WITH RECURSIVE cte ( p2p_from_, p2p_to_ ) AS (
-            SELECT p2p_from, p2p_to FROM $wpdb->p2p WHERE p2p_from = %d AND p2p_type = 'parent-lap_to_child-lap'
-            UNION ALL
-            SELECT
-                c.p2p_to_, p.p2p_to
-            FROM
-                cte c
-            JOIN
-                $wpdb->p2p p
-            ON
-                c.p2p_to_ = p.p2p_from
-            AND
-                p.p2p_type = 'parent-lap_to_child-lap'
-        )
-        SELECT p2p_to_, p2p_from_, c.p2p_to_ as post_id
-        FROM cte c
+    $app_store_badge = plugin_dir_url( __DIR__ ) . 'pages/assets/images/app-store-en.svg';
+    $google_play_badge = plugin_dir_url( __DIR__ ) . 'pages/assets/images/google-badge-en.png';
 
-    ", [ $post_id ] ), ARRAY_A );
+    if ( $language === 'fr_FR' ) {
+        $app_store_url = 'https://apps.apple.com/fr/app/prayer-global/id1636889534?uo=4';
+        $google_play_url = 'https://play.google.com/store/apps/details?id=app.global.prayer';
 
-    if ( is_wp_error( $results ) ) {
-        return [];
+        $app_store_badge = plugin_dir_url( __DIR__ ) . 'pages/assets/images/app-store-fr.svg';
+        $google_play_badge = plugin_dir_url( __DIR__ ) . 'pages/assets/images/google-badge-fr.png';
     }
 
-    if ( empty( $results ) ) {
-        $current_lap_post_id = $post_id;
-    } else {
-        $current_lap_details = $results[ count( $results ) - 1 ];
-        $current_lap_post_id = $current_lap_details['post_id'];
+    ?>
+
+        <ul class="d-flex flex-column" role="list">
+            <li>
+                <a target="_blank" href="<?php echo esc_url( $app_store_url ) ?>">
+                    <img class="w-100" src="<?php echo esc_url( $app_store_badge ) ?>" alt="<?php echo esc_attr__( 'Get it on the app store', 'prayer-global-porch' ) ?>">
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="<?php echo esc_url( $google_play_url ) ?>">
+                    <img class="w-100" src="<?php echo esc_url( $google_play_badge ) ?>" alt="<?php echo esc_attr__( 'Get it on google play', 'prayer-global-porch' ) ?>">
+                </a>
+            </li>
+        </ul>
+
+    <?php
+}
+
+function pg_get_relay_key( int $relay_id ) {
+    global $wpdb;
+    $result = $wpdb->get_var( $wpdb->prepare( "
+        SELECT pm.meta_value
+        FROM $wpdb->postmeta as pm
+        WHERE pm.meta_key = %s
+        AND pm.post_id = %s
+        ORDER BY pm.post_id DESC
+        LIMIT 1
+    ", 'prayer_app_relay_key', $relay_id ) );
+    if ( ! empty( $result ) && ! is_wp_error( $result ) ){
+        return $result;
     }
-
-
-
-    $current_lap = pg_get_custom_lap_by_post_id( $current_lap_post_id );
-
-    if ( !$current_lap ) {
-        return [];
+    return false;
+}
+function pg_get_relay_id( string $public_key = '49ba4c' ) {
+    return pg_get_post_id( 'prayer_app_relay_key', $public_key );
+}
+function pg_get_post_id( string $meta_key, string $public_key ) {
+    global $wpdb;
+    $result = $wpdb->get_var( $wpdb->prepare( "
+        SELECT pm.post_id
+        FROM $wpdb->postmeta as pm
+        WHERE pm.meta_key = %s
+        AND pm.meta_value = %s
+        ORDER BY pm.post_id DESC
+        LIMIT 1
+    ", $meta_key, $public_key ) );
+    if ( ! empty( $result ) && ! is_wp_error( $result ) ){
+        return $result;
     }
-
-    return $current_lap;
+    return false;
 }
-
-/**
- * @param $key
- * @return array|false
- */
-function pg_get_global_lap_by_key( $key ) {
-
-//    if ( wp_cache_get( __METHOD__. $key ) ) {
-//        return wp_cache_get( __METHOD__. $key );
-//    }
-
-    global $wpdb;
-    $result = $wpdb->get_row( $wpdb->prepare(
-        "SELECT pm.meta_value as lap_key, pm1.meta_value as lap_number, pm.post_id, pm2.meta_value as start_time, pm3.meta_value as end_time, p.post_title as title
-                    FROM $wpdb->postmeta pm
-                    LEFT JOIN $wpdb->postmeta pm1 ON pm.post_id=pm1.post_id AND pm1.meta_key = 'global_lap_number'
-                    LEFT JOIN $wpdb->postmeta pm2 ON pm.post_id=pm2.post_id AND pm2.meta_key = 'start_time'
-                    LEFT JOIN $wpdb->postmeta pm3 ON pm.post_id=pm3.post_id AND pm3.meta_key = 'end_time'
-                    LEFT JOIN $wpdb->posts p ON pm.post_id=p.ID
-                    WHERE pm.meta_key = 'prayer_app_global_magic_key' AND pm.meta_value = %s",
-        $key
-    ), ARRAY_A);
-
-    if ( empty( $result ) ) {
-        $lap = false;
-    } else {
-        $ongoing = false;
-        if ( empty( $result['end_time'] ) ) {
-            $result['end_time'] = time();
-            $ongoing = true;
-        }
-        $lap = [
-            'title' => $result['title'],
-            'lap_number' => (int) $result['lap_number'],
-            'post_id' => (int) $result['post_id'],
-            'key' => $result['lap_key'],
-            'start_time' => (int) $result['start_time'],
-            'end_time' => (int) $result['end_time'],
-            'on_going' => $ongoing
-        ];
-    }
-
-//    wp_cache_set( __METHOD__.$key, $lap );
-
-    return $lap;
+function pg_get_body_params( WP_REST_Request $request ) {
+    $body = $request->get_body();
+    return json_decode( $body, true );
 }
-
-/**
- * @param int|string $post_id
- *
- * @return array
- */
-function pg_get_custom_lap_by_post_id( $post_id ) {
-
-//    if ( wp_cache_get( __METHOD__. $post_id ) ) {
-//        return wp_cache_get( __METHOD__. $post_id );
-//    }
-
-    $result = DT_Posts::get_post( 'laps', $post_id, true, false );
-
-    if ( is_wp_error( $result ) ) {
-        $lap = false;
-    } else if ( empty( $result ) ) {
-        $lap = false;
-    } else {
-        $ongoing = false;
-        if ( empty( $result['end_time'] ) ) {
-            $result['end_time'] = time();
-            $ongoing = true;
-        }
-        $contacts = [];
-        if ( !empty( $result['contacts'] ) ) {
-            foreach ( $result['contacts'] as $contact ) {
-                $contacts[] = $contact['ID'];
-            }
-        }
-
-        $lap = [
-            'title' => $result['title'],
-            'lap_number' => (int) isset( $result['global_lap_number'] ) ? $result['global_lap_number'] : 1,
-            'post_id' => (int) $post_id,
-            'key' => $result['prayer_app_custom_magic_key'],
-            'start_time' => (int) $result['start_time'],
-            'end_time' => (int) isset( $result['end_time'] ) ? $result['end_time'] : time(),
-            'on_going' => $ongoing,
-            'visibility' => isset( $result['visibility']['key'] ) ? $result['visibility']['key'] : 'public',
-            'challenge_type' => isset( $result['challenge_type']['key'] ) ? $result['challenge_type']['key'] : 'ongoing',
-            'single_lap' => isset( $result['single_lap'] ) ? $result['single_lap'] : false,
-            'event_lap' => isset( $result['event_lap'] ) ? $result['event_lap'] : false,
-            'assigned_to' => isset( $result['assigned_to']['assigned-to'] ) ? $result['assigned_to']['assigned-to'] : null,
-            'contacts' => $contacts,
-            'ctas_off' => isset( $result['ctas_off'] ) ? $result['ctas_off'] : false,
-        ];
-    }
-
-//    wp_cache_set( __METHOD__.$post_id, $lap );
-
-    return $lap;
-}
-
-function pg_get_global_lap_by_lap_number( $lap_number ) {
-
-//    if ( wp_cache_get( __METHOD__.$lap_number ) ) {
-//        return wp_cache_get( __METHOD__.$lap_number );
-//    }
-
-    global $wpdb;
-    $result = $wpdb->get_row( $wpdb->prepare(
-        "SELECT pm.meta_value as lap_number, pm1.meta_value as lap_key, pm.post_id, pm2.meta_value as start_time, pm3.meta_value as end_time, p.post_title as title
-                    FROM $wpdb->postmeta pm
-                    LEFT JOIN $wpdb->postmeta pm1 ON pm.post_id=pm1.post_id AND pm1.meta_key = 'prayer_app_global_magic_key'
-                    LEFT JOIN $wpdb->postmeta pm2 ON pm.post_id=pm2.post_id AND pm2.meta_key = 'start_time'
-                    LEFT JOIN $wpdb->postmeta pm3 ON pm.post_id=pm3.post_id AND pm3.meta_key = 'end_time'
-                    LEFT JOIN $wpdb->posts p ON pm.post_id=p.ID
-                    WHERE pm.meta_key = 'global_lap_number' AND pm.meta_value = %d",
-        $lap_number
-    ), ARRAY_A);
-
-    if ( empty( $result ) ) {
-        $lap = false;
-    } else {
-        $ongoing = false;
-        if ( empty( $result['end_time'] ) ) {
-            $result['end_time'] = time();
-            $ongoing = true;
-        }
-        $lap = [
-            'title' => $result['title'],
-            'lap_number' => (int) $result['lap_number'],
-            'post_id' => (int) $result['post_id'],
-            'key' => $result['lap_key'],
-            'start_time' => (int) $result['start_time'],
-            'end_time' => (int) $result['end_time'],
-            'on_going' => $ongoing
-        ];
-    }
-
-//    wp_cache_set( __METHOD__.$lap_number, $lap );
-
-    return $lap;
-}
-function pg_global_stats_by_lap_number( $lap_number ) {
-    $data = pg_get_global_lap_by_lap_number( $lap_number );
-    _pg_global_stats_builder_query( $data );
-    return _pg_stats_builder( $data );
-}
-function pg_global_stats_by_key( $key ) {
-    $data = pg_get_global_lap_by_key( $key );
-    _pg_global_stats_builder_query( $data );
-    return _pg_stats_builder( $data );
-}
-function pg_get_global_race(){
-
-//    if ( wp_cache_get( __METHOD__ ) ) {
-//        return wp_cache_get( __METHOD__ );
-//    }
-
-    global $wpdb;
-    $result = $wpdb->get_row(
-        "SELECT pm.meta_value as lap_number, pm1.meta_value as lap_key, pm.post_id, pm2.meta_value as start_time, pm3.meta_value as end_time, p.post_title as title
-            FROM $wpdb->postmeta pm
-            LEFT JOIN $wpdb->postmeta pm1 ON pm.post_id=pm1.post_id AND pm1.meta_key = 'prayer_app_global_magic_key'
-            LEFT JOIN $wpdb->postmeta pm2 ON pm.post_id=pm2.post_id AND pm2.meta_key = 'start_time'
-            LEFT JOIN $wpdb->postmeta pm3 ON pm.post_id=pm3.post_id AND pm3.meta_key = 'end_time'
-            LEFT JOIN $wpdb->posts p ON pm.post_id=p.ID
-            WHERE pm.meta_key = 'global_lap_number' AND pm.meta_value = '1'", ARRAY_A); // queries the first global lap
-
-    $lap = [
-        'title' => $result['title'],
-        'lap_number' => (int) $result['lap_number'],
-        'post_id' => (int) $result['post_id'],
-        'key' => $result['lap_key'],
-        'start_time' => (int) $result['start_time'],
-        'end_time' => time(), // current time is the end of the query
-        'on_going' => true,
-    ];
-
-//    wp_cache_set( __METHOD__, $lap );
-
-    return $lap;
-}
-
-function pg_global_race_stats() {
-    $current_lap = pg_current_global_lap();
-    $data = pg_get_global_race();
-    _pg_global_stats_builder_query( $data );
-    $data['number_of_laps'] = $current_lap['lap_number'] + $data['lap_number'];
-    return _pg_stats_builder( $data );
-}
-function _pg_global_stats_builder_query( &$data ) {
-    global $wpdb;
-    $counts = $wpdb->get_row( $wpdb->prepare( "
-        SELECT SUM(r.value) as minutes_prayed, COUNT( DISTINCT( r.grid_id ) ) as locations_completed, COUNT( DISTINCT( r.hash ) ) as participants, COUNT(DISTINCT(r.label)) as participant_country_count
-        FROM $wpdb->dt_reports r
-        WHERE r.post_type = 'laps'
-        AND r.type = 'prayer_app'
-        AND ( r.subtype = 'global' OR r.subtype = 'custom' )  
-        AND r.timestamp >= %d AND r.timestamp <= %d
-    ", $data['start_time'], $data['end_time'] ), ARRAY_A );
-    $data['locations_completed'] = (int) $counts['locations_completed'];
-    $data['participants'] = (int) $counts['participants'];
-    $data['minutes_prayed'] = (int) $counts['minutes_prayed'];
-    $data['participant_country_count'] = (int) $counts['participant_country_count'];
-
-    $completed_event_laps = pg_number_completed_event_laps();
-    $data['lap_number'] += $completed_event_laps;
-
-    return $data;
-}
-function pg_custom_lap_stats_by_post_id( $post_id ) {
-    $data = pg_get_custom_lap_by_post_id( $post_id );
-    _pg_custom_stats_builder_query( $data );
-    return _pg_stats_builder( $data );
-}
-function _pg_custom_stats_builder_query( &$data ) {
-    global $wpdb;
-    $counts = $wpdb->get_row( $wpdb->prepare( "
-       SELECT SUM(r.value) as minutes_prayed, COUNT( DISTINCT( r.grid_id ) ) as locations_completed, COUNT( DISTINCT( r.hash ) ) as participants, COUNT(DISTINCT(r.label)) as participant_country_count
-       FROM $wpdb->dt_reports r
-        WHERE r.post_type = 'laps'
-            AND r.type = 'prayer_app'
-       AND ( r.subtype = 'custom' OR r.subtype = 'event' ) AND r.post_id = %d
-    ", $data['post_id'] ), ARRAY_A );
-
-    $data['locations_completed'] = (int) $counts['locations_completed'];
-    $data['participants'] = (int) $counts['participants'];
-    $data['minutes_prayed'] = (int) $counts['minutes_prayed'];
-    $data['participant_country_count'] = (int) $counts['participant_country_count'];
-
-    return $data;
-}
-
-function pg_number_completed_event_laps(){
-    global $wpdb;
-    $completed_event_laps = $wpdb->query("
-        SELECT count( DISTINCT( p.ID ) ) as completed_event_laps
-        FROM $wpdb->posts p
-        INNER JOIN $wpdb->postmeta pm1 on ( p.ID = pm1.post_id AND pm1.meta_key = 'event_lap' AND pm1.meta_value = '1' )
-        INNER JOIN $wpdb->postmeta pm2 on ( p.ID = pm2.post_id AND pm2.meta_key = 'status' AND pm2.meta_value = 'complete' )
-        INNER JOIN $wpdb->postmeta pm3 on ( p.ID = pm3.post_id AND pm3.meta_key = 'visibility' AND pm2.meta_value = 'public' )
-        WHERE post_type = 'laps'
-    ");
-    return $completed_event_laps ?? 0;
-}
-
 function _pg_stats_builder( $data ) : array {
-//    dt_write_log(__METHOD__);
     /**
      * TIME CALCULATIONS
      */
-    $now = $data['end_time'];
+    $now = $data['end_time'] ?? time();
     $time_difference = $now - $data['start_time'];
     _pg_format_duration( $data, $time_difference, 'time_elapsed', 'time_elapsed_small' );
 
@@ -402,7 +251,7 @@ function _pg_stats_builder( $data ) : array {
     }
     $data['completed'] = number_format( $completed );
     $data['completed_int'] = $completed;
-    $completed_percent = ROUND( $completed / PG_TOTAL_STATES * 100, 0 );
+    $completed_percent = ROUND( $completed / PG_TOTAL_STATES * 100, 1 );
     if ( 100 < $completed_percent ) {
         $completed_percent = 100;
     }
@@ -423,11 +272,9 @@ function _pg_stats_builder( $data ) : array {
     $data['participants_int'] = $participants;
 
     $data['start_time_formatted'] = gmdate( 'M d, Y', $data['start_time'] );
-    $data['end_time_formatted'] = gmdate( 'M d, Y', $data['end_time'] );
+    $data['end_time_formatted'] = $data['end_time'] ? gmdate( 'M d, Y', $data['end_time'] ) : null;
     $data['timestamp'] = time();
 
-//    dt_write_log(__METHOD__);
-//    dt_write_log($data);
     return $data;
 }
 
@@ -438,8 +285,9 @@ function _pg_format_duration( &$data, $time, $key_long, $key_short, $key_data = 
     }
 
     if ( $time === 0 ) {
-        $data[$key_long] = "--";
-        $data[$key_short] = "--";
+        $data[$key_long] = '--';
+        $data[$key_short] = '--';
+        $data[$key_data] = [];
         return;
     }
     $days = floor( $time / 60 / 60 / 24 );
@@ -447,14 +295,14 @@ function _pg_format_duration( &$data, $time, $key_long, $key_short, $key_data = 
     $minutes = floor( ( $time / 60 ) - ( $hours * 60 ) - ( $days * 24 * 60 ) );
     if ( empty( $days ) && empty( $hours ) ){
         $data[$key_long] = "$minutes minutes";
-        $data[$key_short] = $minutes." min";
+        $data[$key_short] = $minutes.' min';
         $data[$key_data] = [
             'minutes' => $minutes,
         ];
     }
     else if ( empty( $days ) ) {
         $data[$key_long] = "$hours hours, $minutes minutes";
-        $data[$key_short] = $hours."h, ".$minutes."m";
+        $data[$key_short] = $hours.'h, '.$minutes.'m';
         $data[$key_data] = [
             'minutes' => $minutes,
             'hours' => $hours,
@@ -464,7 +312,7 @@ function _pg_format_duration( &$data, $time, $key_long, $key_short, $key_data = 
         $years = floor( $time / 60 / 60 / 24 / 365 );
         $days = floor( $days - ( $years * 365 ) );
         $data[$key_long] = "$years years, $days days, $hours hours, $minutes minutes";
-        $data[$key_short] = $years."y, ".$days."d, ".$hours."h, ".$minutes."m";
+        $data[$key_short] = $years.'y, '.$days.'d, '.$hours.'h, '.$minutes.'m';
         $data[$key_data] = [
             'minutes' => $minutes,
             'hours' => $hours,
@@ -474,13 +322,61 @@ function _pg_format_duration( &$data, $time, $key_long, $key_short, $key_data = 
     }
     else {
         $data[$key_long] = "$days days, $hours hours, $minutes minutes";
-        $data[$key_short] = $days."d, ".$hours."h, ".$minutes."m";
+        $data[$key_short] = $days.'d, '.$hours.'h, '.$minutes.'m';
         $data[$key_data] = [
             'minutes' => $minutes,
             'hours' => $hours,
             'days' => $days,
         ];
     }
+}
+
+function generate_4770_locations_for_folder_creation() {
+    global $wpdb;
+    $raw_list = $wpdb->get_results(
+        "SELECT
+                        lg1.grid_id, lgn1.full_name
+                    FROM $wpdb->dt_location_grid lg1
+                    JOIN location_grid_names lgn1
+                        ON lgn1.grid_id = lg1.grid_id
+                    WHERE lg1.level = 0
+                      AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
+                      AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
+                      AND lgn1.language_code = 'en'
+                    UNION ALL
+                    SELECT
+                        lg2.grid_id, lgn2.full_name
+                    FROM $wpdb->dt_location_grid lg2
+                    JOIN location_grid_names lgn2
+                        ON lgn2.grid_id = lg2.grid_id
+                    WHERE lg2.level = 1
+                      AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
+                      AND lgn2.language_code = 'en'
+                    UNION ALL
+                    SELECT
+                        lg3.grid_id, lgn3.full_name
+                    FROM $wpdb->dt_location_grid lg3
+                    JOIN location_grid_names lgn3
+                        ON lgn3.grid_id = lg3.grid_id
+                    WHERE lg3.level = 2
+                      AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)
+                      AND lgn3.language_code = 'en'
+        ",
+        ARRAY_A,
+    );
+
+    $list = [];
+    if ( ! empty( $raw_list ) ) {
+        foreach ( $raw_list as $item ) {
+            $full_name = $item['full_name'];
+            $full_name = str_replace( ', ', '-', $full_name );
+            $full_name = str_replace( ' ', '-', $full_name );
+            $full_name = str_replace( '/', '-', $full_name );
+            $list[] = $item['grid_id'].'_'.$full_name;
+        }
+    }
+
+    set_transient( __METHOD__, json_encode( $list, JSON_UNESCAPED_UNICODE ), 60 * 60 * 12 );
 }
 
 function pg_query_4770_locations() {
@@ -5257,42 +5153,42 @@ function pg_query_4770_locations() {
         100260018 => '100260018',
     ];
 
-//    if ( get_transient( __METHOD__ ) ) {
-//        return get_transient( __METHOD__ );
-//    }
-//
-//    global $wpdb;
-//    $raw_list = $wpdb->get_col(
-//        "SELECT
-//                        lg1.grid_id
-//                    FROM $wpdb->dt_location_grid lg1
-//                    WHERE lg1.level = 0
-//                      AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
-//                      AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-//                    UNION ALL
-//                    SELECT
-//                        lg2.grid_id
-//                    FROM $wpdb->dt_location_grid lg2
-//                    WHERE lg2.level = 1
-//                      AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-//                    UNION ALL
-//                    SELECT
-//                        lg3.grid_id
-//                    FROM $wpdb->dt_location_grid lg3
-//                    WHERE lg3.level = 2
-//                      AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)"
-//    );
-//
-//    $list = [];
-//    if ( ! empty( $raw_list ) ) {
-//        foreach ( $raw_list as $item ) {
-//            $list[$item] = $item;
-//        }
-//    }
-//
-//    set_transient( __METHOD__, $list, 60 *60 *12 );
-//
-//    return $list;
+/*     if ( get_transient( __METHOD__ ) ) {
+        return get_transient( __METHOD__ );
+    } */
+/*
+    global $wpdb;
+    $raw_list = $wpdb->get_col(
+        "SELECT
+                        lg1.grid_id
+                    FROM $wpdb->dt_location_grid lg1
+                    WHERE lg1.level = 0
+                      AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
+                      AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
+                    UNION ALL
+                    SELECT
+                        lg2.grid_id
+                    FROM $wpdb->dt_location_grid lg2
+                    WHERE lg2.level = 1
+                      AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
+                    UNION ALL
+                    SELECT
+                        lg3.grid_id
+                    FROM $wpdb->dt_location_grid lg3
+                    WHERE lg3.level = 2
+                      AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)"
+    );
+
+    $list = [];
+    if ( ! empty( $raw_list ) ) {
+        foreach ( $raw_list as $item ) {
+            $list[$item] = $item;
+        }
+    }
+
+    set_transient( __METHOD__, $list, 60 *60 *12 );
+    return $list;
+ */
 }
 
 function pg_fields() {
@@ -5402,7 +5298,7 @@ function pg_recursive_parse_args( $args, $defaults ) {
         if ( is_array( $value ) && isset( $new_args[ $key ] ) ) {
             $new_args[ $key ] = pg_recursive_parse_args( $value, $new_args[ $key ] );
         }
-        elseif ( $key !== "default" ){
+        elseif ( $key !== 'default' ){
             $new_args[ $key ] = $value;
         }
     }
@@ -5410,30 +5306,15 @@ function pg_recursive_parse_args( $args, $defaults ) {
     return $new_args;
 }
 
-function pg_is_lap_complete( $post_id ) {
-    $complete = get_post_meta( $post_id, 'lap_completed', true );
-    if ( ! $complete ) {
-        global $wpdb;
-        $count = $wpdb->get_var( $wpdb->prepare( "SELECT COUNT( DISTINCT( grid_id ) ) FROM $wpdb->dt_reports WHERE post_id = %d AND type = 'prayer_app' AND subtype = 'custom'", $post_id ) );
-        if ( $count >= PG_TOTAL_STATES ){
-            update_post_meta( $post_id, 'lap_completed', time() );
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return true;
-    }
-}
 
 function pg_og_tags( $details = [] ) {
     global $wp;
     $details = array_merge([
-        "url" => home_url(),
-        "type" => "app",
-        "title" => 'Prayer.Global',
-        "description" => 'Join us in covering the world in prayer for disciple making using a creative, community-driven prayer coordination app.',
-        "image" => trailingslashit( plugin_dir_url( __DIR__ ) ) . 'pages/assets/images/favicons/prayer-global-og.png',
+        'url' => home_url(),
+        'type' => 'app',
+        'title' => 'Prayer.Global',
+        'description' => 'Join us in covering the world in prayer for disciple making using a creative, community-driven prayer coordination app.',
+        'image' => trailingslashit( plugin_dir_url( __DIR__ ) ) . 'pages/assets/images/favicons/prayer-global-og.png',
     ], $details);
 
     ?>
@@ -5489,7 +5370,7 @@ function pg_soft_time_format( $object, $timestamp_key, $when_key, $timestamp_for
         $months_word = $months > 1 ? __( 'months', 'prayer-global-porch' ) : __( 'month', 'prayer-global-porch' );
         $object[$when_key] = sprintf( _x( '%1$d %2$s ago', '23 seconds ago', 'prayer-global-porch' ), $months, $months_word );
     } else {
-        $object[$when_key] = "";
+        $object[$when_key] = '';
     }
 
     $object[$timestamp_formatted_key] = gmdate( $time );
@@ -5570,229 +5451,7 @@ function pg_release_lock( $lock_name ) {
  * @param string $post_id
  * @return array|false|mixed
  */
-function pg_generate_new_global_prayer_lap( $post_id ) {
-    // hold generation while being created
-    $lock_created = pg_create_lock( 'pg_generate_new_lap_in_progress', 30 );
-    if ( ! $lock_created ) {
-        pg_log( 'lock exists, sleeping for 25' );
-        sleep( 25 );
-        return pg_query_4770_locations();
-    }
 
-    pg_log( '*** creating new lap' );
-
-    global $wpdb;
-
-    $lap_status = $wpdb->get_var($wpdb->prepare(
-        "SELECT meta_value as status FROM $wpdb->postmeta
-        WHERE
-            meta_key = 'status'
-            AND post_id = %d
-        ", $post_id, ARRAY_A )
-    );
-    if ( $lap_status !== 'active' ) {
-        pg_release_lock( 'pg_generate_new_lap_in_progress' );
-        pg_log( '!!! lap has already been generated' );
-        return pg_query_4770_locations();
-    }
-
-    $completed_prayer_lap_number = pg_calculate_lap_number( $post_id );
-    $next_global_lap_number = $completed_prayer_lap_number + 1;
-
-    $current_lap = pg_current_global_lap();
-    $current_lap_key = $current_lap['key'];
-
-    // create key
-    $new_key = pg_generate_key();
-    $time = time();
-    $date = gmdate( 'Y-m-d H:m:s', time() );
-
-    $fields = [];
-    $fields['title'] = 'Global #' . $next_global_lap_number;
-    $fields['status'] = 'active';
-    $fields['type'] = 'global';
-    $fields['start_date'] = $date;
-    $fields['start_time'] = $time;
-    $fields['global_lap_number'] = $next_global_lap_number;
-    $fields['prayer_app_global_magic_key'] = $current_lap_key;
-    $fields['parent_lap'] = [
-        'values' => [
-            [ 'value' => $current_lap['post_id'] ]
-        ],
-    ];
-    $new_post = DT_Posts::create_post( 'laps', $fields, true, false );
-    if ( is_wp_error( $new_post ) ) {
-        // @handle error
-        pg_release_lock( 'pg_generate_new_lap_in_progress' );
-        pg_log( '!!! failed to create' );
-        pg_log( $new_post );
-        return pg_query_4770_locations();
-    }
-
-    // update current_lap
-    $previous_lap = pg_current_global_lap();
-    $lap = [
-        'lap_number' => $next_global_lap_number,
-        'post_id' => $new_post['ID'],
-        'key' => $current_lap_key,
-        'start_time' => $time,
-    ];
-    update_option( 'pg_current_global_lap', $lap, true );
-
-    // close previous lap
-    DT_Posts::update_post( 'laps', $previous_lap['post_id'], [
-        'status' => 'complete',
-        'end_date' => $date,
-        'end_time' => $time,
-        'prayer_app_global_magic_key' => $new_key,
-        'child_lap' => [
-            'values' => [
-                [ 'value' => $new_post['ID'] ]
-            ],
-        ],
-    ], true, false );
-
-    pg_log( '*** finished generating lap ' . $next_global_lap_number );
-    pg_release_lock( 'pg_generate_new_lap_in_progress' );
-
-    return pg_query_4770_locations();
-}
-
-/**
- * @return array|false|mixed
- */
-function pg_generate_new_custom_prayer_lap( $post_id ) {
-    // hold generation while being created
-    $lock_created = pg_create_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
-    if ( !$lock_created ) {
-        pg_log( '!!! lock exists, sleeping for 25' );
-        sleep( 25 );
-        return pg_query_4770_locations();
-    }
-    global $wpdb;
-    pg_log( '*** generating new lap' );
-
-    $lap_status = $wpdb->get_var($wpdb->prepare(
-        "SELECT meta_value as status FROM $wpdb->postmeta
-        WHERE
-            meta_key = 'status'
-            AND post_id = %d
-        ", $post_id, ARRAY_A )
-    );
-    if ( $lap_status !== 'active' ) {
-        pg_log( '!!! lap has already been generated' );
-        pg_release_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
-        return pg_query_4770_locations();
-    }
-
-    $current_lap = pg_current_custom_lap( $post_id );
-    $current_lap_key = $current_lap['key'];
-
-    // create key
-    $new_key = pg_generate_key();
-    $time = time();
-    $date = gmdate( 'Y-m-d H:m:s', time() );
-
-    // build new lap number
-    $current_lap_number = pg_calculate_lap_number( $post_id );
-    $next_custom_lap_number = $current_lap_number + 1;
-
-    $contacts = [];
-    foreach ( $current_lap['contacts'] as $contact_id ) {
-        $contacts[] = [ 'value' => $contact_id, ];
-    }
-
-    $fields = [];
-    $fields['title'] = $current_lap['title'];
-    $fields['status'] = 'active';
-    $fields['type'] = 'custom';
-    $fields['visibility'] = $current_lap['visibility'] ? $current_lap['visibility'] : 'public';
-    $fields['challenge_type'] = $current_lap['challenge_type'] ? $current_lap['challenge_type'] : 'ongoing';
-    $fields['start_date'] = $date;
-    $fields['start_time'] = $time;
-    $fields['global_lap_number'] = $next_custom_lap_number;
-    $fields['prayer_app_custom_magic_key'] = $current_lap_key;
-    $fields['ctas_off'] = $current_lap['ctas_off'];
-    $fields['event_lap'] = $current_lap['event_lap'];
-    $fields['parent_lap'] = [
-        'values' => [
-            [ 'value' => $current_lap['post_id'] ]
-        ],
-    ];
-    $fields['contacts'] = [
-        'values' => $contacts,
-    ];
-    if ( $current_lap['assigned_to'] ){
-        $fields['assigned_to'] = $current_lap['assigned_to'];
-    }
-
-    $new_post = DT_Posts::create_post( 'laps', $fields, true, false );
-    if ( is_wp_error( $new_post ) ) {
-        // @handle error
-        pg_release_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
-        pg_log( '!!! failed to create new custom lap' );
-        return pg_query_4770_locations();
-    }
-
-    // close previous lap
-    DT_Posts::update_post( 'laps', $current_lap['post_id'], [
-        'status' => 'complete',
-        'end_date' => $date,
-        'end_time' => $time,
-        'prayer_app_custom_magic_key' => $new_key,
-        'child_lap' => [
-            'values' => [
-                [ 'value' => $new_post['ID'] ]
-            ],
-        ],
-    ], true, false );
-
-    pg_release_lock( 'pg_generate_new_custom_lap_in_progress_post_id' . $post_id );
-    pg_log( '*** finished creating custom lap post_id=' . $post_id );
-
-    return pg_query_4770_locations();
-}
-
-function pg_calculate_lap_number( $post_id ) {
-    global $wpdb;
-
-    /* === THIS QUERY WORKS UP TO MYSQL 5.7 AND SHOULD BE REMOVED IN FAVOR OF BELOW QUERY WHEN MYSQL IS UPGRADED TO 8 === */
-/*     $results = $wpdb->get_results( $wpdb->prepare(
-        "SELECT  @pv:= t.p2p_from, t.p2p_to
-        FROM (SELECT * FROM wp_p2p ORDER BY p2p_to DESC) t
-        JOIN (SELECT @pv := %d) tmp
-        WHERE p2p_type = 'parent-lap_to_child-lap'
-        AND t.p2p_to = @pv",
-    $post_id ), ARRAY_A ); */
-    /* === THIS QUERY ONLY WORKS ON MYQSL 8+ === */
-    $results = $wpdb->get_var( $wpdb->prepare(
-        "WITH RECURSIVE cte ( p2p_from_, p2p_to_ ) AS (
-            SELECT
-                p2p_from, p2p_to
-            FROM
-                wp_p2p
-            WHERE
-                p2p_to = %d
-            AND
-                p2p_type = 'parent-lap_to_child-lap'
-            UNION ALL
-            SELECT
-                p.p2p_from, p.p2p_to
-            FROM
-                cte c
-            JOIN
-                wp_p2p p
-            ON
-                c.p2p_from_ = p.p2p_to
-            AND
-                p.p2p_type = 'parent-lap_to_child-lap'
-        )
-        SELECT COUNT(*) FROM cte
-    ", [ $post_id ] ) );
-
-    return $results + 1;
-
-}
 
 if ( ! function_exists( 'dt_sanitize_array' ) ) {
     function dt_sanitize_array( &$array ) {
@@ -5828,9 +5487,13 @@ function pg_get_current_lang(): string {
     }
     return $lang;
 }
-
-function pg_set_translation( $lang ){
-    if ( $lang !== 'en_US' ){
+function pg_switch_notifications_locale( $user_locale = null ){
+    if ( !empty( $user_locale ) ){
+        load_textdomain( 'prayer-global-porch', WP_LANG_DIR . '/plugins/prayer-global-porch-' . $user_locale . '.mo', $user_locale );
+    }
+}
+function pg_set_translation( $lang, $force = false ){
+    if ( $lang !== 'en_US' || $force ){
         add_filter( 'determine_locale', function ( $locale ) use ( $lang ){
             if ( !empty( $lang ) ){
                 return $lang;
@@ -5853,4 +5516,29 @@ function pg_add_lang_to_cookie( string $lang ) {
         return;
     }
     setcookie( 'dt-magic-link-lang', $lang, 0, '/' );
+}
+
+function pg_is_user_in_ab_test( int $user_id ) {
+    $is_user_in_ab_test = get_user_meta( $user_id, 'pg_ab_test', true );
+
+    if ( empty( $is_user_in_ab_test ) ) {
+        return false;
+    }
+
+    return $is_user_in_ab_test === 'group_b';
+}
+
+if ( ! function_exists( 'array_map_assoc' ) ) {
+    /**
+     * Map an array using a callback function that passes the value and the key
+     *
+     * @param mixed $callback
+     * @param mixed $array
+     * @return array
+     */
+    function array_map_assoc( $callback, $array ) {
+        return array_map( function( $key ) use ( $callback, $array ) {
+            return $callback( $array[$key], $key );
+        }, array_keys( $array ) );
+    }
 }

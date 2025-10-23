@@ -37,7 +37,6 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
         add_action( 'dt_blank_body', [ $this, 'body' ] );
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
-
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -45,7 +44,7 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return $allowed_css;
     }
 
     public function _header() {
@@ -107,15 +106,10 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
 
     public function body(){
         $parts = $this->parts;
-        $lap_stats = pg_custom_lap_stats_by_post_id( $parts['post_id'] );
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $parts['public_key'], $parts['post_id'] );
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' );
         ?>
-        <style>
-            section {
-                margin-top: 110px;
-            }
-        </style>
-        <section>
+        <section class="page">
             <div class="container pb-4">
                 <div class="row">
                     <div class="col-md text-center">
@@ -126,17 +120,17 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
             <div class="container" id="content">
 
                 <div class="row ">
-                    <div class="col center">
+                    <div class="col text-center">
                         <hr>
                     </div>
                 </div>
                 <div class="row ">
-                    <div class="col center p-3">
+                    <div class="col text-center p-3">
                         <h3><?php echo esc_html( sprintf( __( '%s Relay Map', 'prayer-global-porch' ), $lap_stats['title'] ) ) ?></h3>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col col-6 col-md-4 col-lg-3 center">
+                    <div class="col col-6 col-md-4 col-lg-3 text-center">
                         <img src="https://api.qrserver.com/v1/create-qr-code/?size=1000x1000&amp;data=<?php echo esc_url( get_site_url() ) ?>/prayer_app/custom/<?php echo esc_html( $lap_stats['key'] ) ?>/map" style="width: 100%;max-width:400px;"><br><br>
                     </div>
                 </div>
@@ -152,12 +146,12 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
 
 
                 <div class="row ">
-                    <div class="col center">
+                    <div class="col text-center">
                         <hr>
                     </div>
                 </div>
                 <div class="row ">
-                    <div class="col center p-3">
+                    <div class="col text-center p-3">
                         <h3><?php echo esc_html__( 'Display Map (60 Second Refresh)', 'prayer-global-porch' ) ?></h3>
                     </div>
                 </div>
@@ -173,17 +167,17 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
 
 
                 <div class="row ">
-                    <div class="col center">
+                    <div class="col text-center">
                         <hr>
                     </div>
                 </div>
                 <div class="row ">
-                    <div class="col center p-3">
+                    <div class="col text-center p-3">
                         <h3><?php echo esc_html( sprintf( __( 'App Stores: %s App', 'prayer-global-porch' ), 'Prayer.Global' ) ) ?></h3>
                     </div>
                 </div>
                 <div class="row justify-content-center">
-                    <div class="col col-6 col-md-4 col-lg-3 center">
+                    <div class="col col-6 col-md-4 col-lg-3 text-center">
                         <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) . 'assets/images/prayer.global.app.png' ) ?>" style="width: 100%;max-width:400px;"><br><br>
                     </div>
                 </div>
@@ -206,6 +200,5 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
         <?php require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/working-footer.php' ) ?>
         <?php // end html
     }
-
 }
 PG_Custom_Prayer_App_Tools::instance();

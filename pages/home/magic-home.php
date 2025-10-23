@@ -23,14 +23,13 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
         parent::__construct();
 
         $url = dt_get_url_path( true );
-        if ( empty( $url ) && ! dt_is_rest() ) {
+        if ( $url === 'stats-home' && ! dt_is_rest() ) {
 
-
-            add_filter( "dt_override_header_meta", function (){ return true;
+            add_filter( 'dt_override_header_meta', function (){ return true;
             }, 100, 1 );
 
             // register url and access
-            add_action( "template_redirect", [ $this, 'theme_redirect' ] );
+            add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
             add_filter( 'dt_blank_access', function (){ return true;
             }, 100, 1 ); // allows non-logged in visit
             add_filter( 'dt_allow_non_login_access', function (){ return true;
@@ -39,7 +38,7 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
             }, 100, 1 );
 
             // header content
-            add_filter( "dt_blank_title", [ $this, "page_tab_title" ] ); // adds basic title to browser tab
+            add_filter( 'dt_blank_title', [ $this, 'page_tab_title' ] ); // adds basic title to browser tab
             add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 1500 ); // authorizes scripts
             add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
 
@@ -47,6 +46,7 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
             add_action( 'dt_blank_head', [ $this, '_header' ] );
             add_action( 'dt_blank_footer', [ $this, '_footer' ] );
             add_action( 'dt_blank_body', [ $this, 'body' ] );
+            add_filter( 'dt_templates_for_urls', [ $this, 'register_url' ], 199, 1 ); // registers url as valid once tests are passed
 
             add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
             add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
@@ -55,22 +55,27 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
         else if ( dt_is_rest() ) {
             add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
         }
-
     }
 
     public function wp_enqueue_scripts() {}
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        return [];
+        return $allowed_js;
+    }
+
+    public function register_url( $template_for_url ){
+        $url = dt_get_url_path( true );
+        $url_parts = explode( '/', $url );
+        $template_for_url[join( '/', $url_parts )] = 'template-blank.php';
+        return $template_for_url;
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return $allowed_css;
     }
 
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
-
     }
 
     public function footer_javascript(){
@@ -83,7 +88,6 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
                 'type' => $this->type,
                 'root' => $this->root,
             ],
-            'current_lap' => pg_current_global_lap(),
             'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
         ]) ?>][0]
 
@@ -169,16 +173,19 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
         $params = $request->get_params();
 
         if ( ! isset( $params['parts'], $params['action'], $params['data'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
-//        $params = dt_recursive_sanitize_array( $params );
+        $data = get_transient( 'pg_home_stats' );
+        if ( !empty( $data ) ) {
+            return $data;
+        }
 
-        $current_global_lap = pg_current_global_lap();
-        $current_global_stats = pg_global_stats_by_lap_number( $current_global_lap['lap_number'] );
-        $global_race = pg_global_race_stats();
+        $current_global_stats = Prayer_Stats::get_relay_current_lap_stats( '49ba4c' );
+        $relay_id = pg_get_relay_id( '49ba4c' );
+        $global_race = Prayer_Stats::stats_since_start_of_relay( $relay_id );
 
-        return [
+        $data = [
             'current_time_elapsed' => $current_global_stats['time_elapsed'],
             'current_time_elapsed_data' => $current_global_stats['time_elapsed_data'],
             'current_participants' => $current_global_stats['participants'],
@@ -188,9 +195,11 @@ class Prayer_Global_Porch_Home extends DT_Magic_Url_Base
             'global_time_elapsed_data' => $global_race['time_elapsed_data'],
             'global_participants' => $global_race['participants'],
             'global_minutes_prayed' => $global_race['minutes_prayed'],
-            'global_lap_number' => (int) $global_race['number_of_laps'] - 1,
+            'global_lap_number' => (int) $global_race['lap_number'] - 1,
+            'race' => $global_race
         ];
+        set_transient( 'pg_home_stats', $data, 5 * MINUTE_IN_SECONDS );
+        return $data;
     }
-
 }
 Prayer_Global_Porch_Home::instance();

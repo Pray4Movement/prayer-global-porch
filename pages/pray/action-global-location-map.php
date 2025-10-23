@@ -38,18 +38,15 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
         }
 
         // redirect to completed if not current global lap
-        $current_lap = pg_current_global_lap();
-        if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
-            add_action( 'dt_blank_body', [ $this, 'body' ] );
-        } else {
-            wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/completed' );
+        $current_lap = Prayer_Stats::get_relay_details( $this->parts['public_key'], $this->parts['post_id'] );
+        if ( $current_lap['status'] === 'complete' ) {
+            wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/map' );
             exit;
         }
 
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
-
     }
 
     public function _header() {
@@ -301,10 +298,9 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [
-            'lap-css',
-            'mapbox-gl-css',
-        ];
+        $allowed_css[] = 'lap-css';
+        $allowed_css[] = 'mapbox-gl-css';
+        return $allowed_css;
     }
 
     public function wp_enqueue_scripts(){
@@ -330,7 +326,6 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
         <script>
             let jsObject = [<?php echo json_encode([
                 'parts' => $this->parts,
-                'current_lap' => pg_current_global_lap(),
                 'translations' => [
                     'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
                     'Keep Praying...' => __( 'Keep Praying...', 'prayer-global-porch' ),
@@ -348,7 +343,6 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
                 'images_url' => pg_grid_image_url(),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                 'current_url' => $current_url,
-                'stats_url' => $current_url . 'stats',
                 'map_url' => $current_url . 'map',
                 'is_custom' => ( 'custom' === $this->parts['type'] ),
                 'is_cta_feature_on' => true,
@@ -362,6 +356,5 @@ class PG_Global_Prayer_App_Location_Map extends PG_Global_Prayer_App {
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/footer.php' );
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/share-modal.php' );
     }
-
 }
 PG_Global_Prayer_App_Location_Map::instance();

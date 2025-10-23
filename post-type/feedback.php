@@ -7,8 +7,8 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
  */
 class Prayer_Global_Feedback_Post_Type extends DT_Module_Base {
 
-    public $post_type = "feedback";
-    public $module = "feedback_base";
+    public $post_type = 'feedback';
+    public $module = 'feedback_base';
     public $single_name = 'Feedback';
     public $plural_name = 'Feedback';
     public static function post_type(){
@@ -40,17 +40,16 @@ class Prayer_Global_Feedback_Post_Type extends DT_Module_Base {
         add_action( 'wp_enqueue_scripts', [ $this, 'scripts' ], 99 );
 
         // hooks
-        add_action( "post_connection_removed", [ $this, "post_connection_removed" ], 10, 4 );
-        add_action( "post_connection_added", [ $this, "post_connection_added" ], 10, 4 );
-        add_filter( "dt_post_update_fields", [ $this, "dt_post_update_fields" ], 10, 3 );
-        add_filter( "dt_post_create_fields", [ $this, "dt_post_create_fields" ], 10, 2 );
-        add_action( "dt_post_created", [ $this, "dt_post_created" ], 10, 3 );
-        add_action( "dt_comment_created", [ $this, "dt_comment_created" ], 10, 4 );
+        add_action( 'post_connection_removed', [ $this, 'post_connection_removed' ], 10, 4 );
+        add_action( 'post_connection_added', [ $this, 'post_connection_added' ], 10, 4 );
+        add_filter( 'dt_post_update_fields', [ $this, 'dt_post_update_fields' ], 10, 3 );
+        add_filter( 'dt_post_create_fields', [ $this, 'dt_post_create_fields' ], 10, 2 );
+        add_action( 'dt_post_created', [ $this, 'dt_post_created' ], 10, 3 );
+        add_action( 'dt_comment_created', [ $this, 'dt_comment_created' ], 10, 4 );
 
         //list
-        add_filter( "dt_user_list_filters", [ $this, "dt_user_list_filters" ], 10, 2 );
-        add_filter( "dt_filter_access_permissions", [ $this, "dt_filter_access_permissions" ], 20, 2 );
-
+        add_filter( 'dt_user_list_filters', [ $this, 'dt_user_list_filters' ], 10, 2 );
+        add_filter( 'dt_filter_access_permissions', [ $this, 'dt_filter_access_permissions' ], 20, 2 );
     }
 
     public function after_setup_theme(){
@@ -61,40 +60,34 @@ class Prayer_Global_Feedback_Post_Type extends DT_Module_Base {
 
     public function dt_set_roles_and_permissions( $expected_roles ){
 
-        if ( !isset( $expected_roles["multiplier"] ) ){
-            $expected_roles["multiplier"] = [
+        if ( !isset( $expected_roles['prayer_warrior'] ) ){
+            $expected_roles['prayer_warrior'] = [
 
-                "label" => __( 'Multiplier', 'prayer-global-porch' ),
-                "description" => "Interacts with Contacts and Groups",
-                "permissions" => []
+                'label' => __( 'Prayer Intercessor', 'prayer-global-porch' ),
+                'description' => 'Interacts with Laps and Feedback',
+                'permissions' => []
             ];
         }
 
-        if ( !isset( $expected_roles["prayer_warrior"] ) ){
-            $expected_roles["prayer_warrior"] = [
+        $expected_roles['prayer_warrior']['permissions']['access_' . $this->post_type ] = true;
+        $expected_roles['prayer_warrior']['permissions']['create_' . $this->post_type] = true;
+        $expected_roles['prayer_warrior']['permissions']['update_' . $this->post_type] = true;
 
-                "label" => __( 'Prayer Intercessor', 'prayer-global-porch' ),
-                "description" => "Interacts with Laps and Feedback",
-                "permissions" => []
-            ];
-        }
-
-        // if the user can access contact they also can access this post type
         foreach ( $expected_roles as $role => $role_value ){
-            if ( isset( $expected_roles[$role]["permissions"]['access_contacts'] ) && $expected_roles[$role]["permissions"]['access_contacts'] ){
-                $expected_roles[$role]["permissions"]['access_' . $this->post_type ] = true;
-                $expected_roles[$role]["permissions"]['create_' . $this->post_type] = true;
-                $expected_roles[$role]["permissions"]['update_' . $this->post_type] = true;
+            if ( isset( $expected_roles[$role]['permissions']['access_contacts'] ) && $expected_roles[$role]['permissions']['access_contacts'] ){
+                $expected_roles[$role]['permissions']['access_' . $this->post_type ] = true;
+                $expected_roles[$role]['permissions']['create_' . $this->post_type] = true;
+                $expected_roles[$role]['permissions']['update_' . $this->post_type] = true;
             }
         }
 
-        if ( isset( $expected_roles["administrator"] ) ){
-            $expected_roles["administrator"]["permissions"]['view_any_'.$this->post_type ] = true;
-            $expected_roles["administrator"]["permissions"]['update_any_'.$this->post_type ] = true;
+        if ( isset( $expected_roles['administrator'] ) ){
+            $expected_roles['administrator']['permissions']['view_any_'.$this->post_type ] = true;
+            $expected_roles['administrator']['permissions']['update_any_'.$this->post_type ] = true;
         }
-        if ( isset( $expected_roles["dt_admin"] ) ){
-            $expected_roles["dt_admin"]["permissions"]['view_any_'.$this->post_type ] = true;
-            $expected_roles["dt_admin"]["permissions"]['update_any_'.$this->post_type ] = true;
+        if ( isset( $expected_roles['dt_admin'] ) ){
+            $expected_roles['dt_admin']['permissions']['view_any_'.$this->post_type ] = true;
+            $expected_roles['dt_admin']['permissions']['update_any_'.$this->post_type ] = true;
         }
 
         return $expected_roles;
@@ -119,8 +112,8 @@ class Prayer_Global_Feedback_Post_Type extends DT_Module_Base {
                 ],
                 'tile'     => 'status',
                 'icon' => get_template_directory_uri() . '/dt-assets/images/nametag.svg',
-                "default_color" => "#366184",
-                "show_in_table" => 1,
+                'default_color' => '#366184',
+                'show_in_table' => 1,
             ];
             $fields['status'] = [
                 'name'        => __( 'Status', 'prayer-global-porch' ),
@@ -130,55 +123,55 @@ class Prayer_Global_Feedback_Post_Type extends DT_Module_Base {
                     'new'   => [
                         'label' => __( 'New', 'prayer-global-porch' ),
                         'description' => __( 'Is new', 'prayer-global-porch' ),
-                        'color' => "orange"
+                        'color' => 'orange'
                     ],
                     'accepted'   => [
                         'label' => __( 'Accepted', 'prayer-global-porch' ),
                         'description' => __( 'Accepted as valid feedback', 'prayer-global-porch' ),
-                        'color' => "#366184"
+                        'color' => '#366184'
                     ],
                     'in_progress'   => [
                         'label' => __( 'In Progress', 'prayer-global-porch' ),
                         'description' => __( 'Active and assigned', 'prayer-global-porch' ),
-                        'color' => "#366184"
+                        'color' => '#366184'
                     ],
                     'closed_fixed' => [
                         'label' => __( 'Closed (Fixed)', 'prayer-global-porch' ),
                         'description' => __( 'Closed and feedback implemented.', 'prayer-global-porch' ),
-                        'color' => "gray"
+                        'color' => 'gray'
                     ],
                     'closed_ignore' => [
                         'label' => __( 'Closed (Denied)', 'prayer-global-porch' ),
                         'description' => __( 'Closed and feedback not implemented.', 'prayer-global-porch' ),
-                        'color' => "gray"
+                        'color' => 'gray'
                     ],
                 ],
                 'tile'     => 'status',
                 'icon' => get_template_directory_uri() . '/dt-assets/images/status.svg',
-                "default_color" => "#366184",
-                "show_in_table" => 2,
-                "in_create_form" => true,
+                'default_color' => '#366184',
+                'show_in_table' => 2,
+                'in_create_form' => true,
             ];
             $fields['assigned_to'] = [
                 'name'        => __( 'Assigned To', 'prayer-global-porch' ),
-                'description' => __( "Select the main person who is responsible for reporting on this record.", 'prayer-global-porch' ),
+                'description' => __( 'Select the main person who is responsible for reporting on this record.', 'prayer-global-porch' ),
                 'type'        => 'user_select',
                 'default'     => '',
                 'tile' => 'status',
                 'icon' => get_template_directory_uri() . '/dt-assets/images/assigned-to.svg',
-                "show_in_table" => 16,
+                'show_in_table' => 16,
             ];
             $fields['contacts'] = [
-                "name" => __( 'Reporter', 'prayer-global-porch' ),
-                "description" => '',
-                "type" => "connection",
-                "post_type" => "contacts",
-                "p2p_direction" => "to",
-                "p2p_key" => $this->post_type."_to_contacts",
-                "tile" => "status",
-                'icon' => get_template_directory_uri() . "/dt-assets/images/group-type.svg",
-                'create-icon' => get_template_directory_uri() . "/dt-assets/images/add-contact.svg",
-                "show_in_table" => 35
+                'name' => __( 'Reporter', 'prayer-global-porch' ),
+                'description' => '',
+                'type' => 'connection',
+                'post_type' => 'contacts',
+                'p2p_direction' => 'to',
+                'p2p_key' => $this->post_type.'_to_contacts',
+                'tile' => 'status',
+                'icon' => get_template_directory_uri() . '/dt-assets/images/group-type.svg',
+                'create-icon' => get_template_directory_uri() . '/dt-assets/images/add-contact.svg',
+                'show_in_table' => 35
             ];
 
             $fields['payload'] = [
@@ -203,7 +196,7 @@ class Prayer_Global_Feedback_Post_Type extends DT_Module_Base {
                 'default' => '',
                 'tile' => 'status',
                 'icon' => get_template_directory_uri() . '/dt-assets/images/assigned-to.svg',
-                "show_in_table" => 16,
+                'show_in_table' => 16,
             ];
 
             // add location fields
@@ -212,66 +205,66 @@ class Prayer_Global_Feedback_Post_Type extends DT_Module_Base {
                 'description' => _x( 'The general location where this contact is located.', 'Optional Documentation', 'disciple_tools' ),
                 'type'        => 'location',
                 'mapbox'    => false,
-                "in_create_form" => true,
-                "tile" => "details",
-                "icon" => get_template_directory_uri() . "/dt-assets/images/location.svg?v=2",
+                'in_create_form' => true,
+                'tile' => 'details',
+                'icon' => get_template_directory_uri() . '/dt-assets/images/location.svg?v=2',
             ];
             $fields['location_grid_meta'] = [
                 'name'        => __( 'Locations or Address', 'disciple_tools' ),
                 'type'        => 'location_meta',
-                "tile"      => "details",
+                'tile'      => 'details',
                 'mapbox'    => false,
                 'hidden' => true,
-                "in_create_form" => true,
-                "icon" => get_template_directory_uri() . "/dt-assets/images/map-marker-multiple.svg?v=2",
+                'in_create_form' => true,
+                'icon' => get_template_directory_uri() . '/dt-assets/images/map-marker-multiple.svg?v=2',
             ];
-            $fields["contact_address"] = [
-                "name" => __( 'Address', 'disciple_tools' ),
-                "icon" => get_template_directory_uri() . "/dt-assets/images/house.svg?v=2",
-                "type" => "communication_channel",
-                "tile" => "details",
+            $fields['contact_address'] = [
+                'name' => __( 'Address', 'disciple_tools' ),
+                'icon' => get_template_directory_uri() . '/dt-assets/images/house.svg?v=2',
+                'type' => 'communication_channel',
+                'tile' => 'details',
                 'mapbox'    => false,
-                "customizable" => false
+                'customizable' => false
             ];
             if ( DT_Mapbox_API::get_key() ){
-                $fields["contact_address"]["custom_display"] = true;
-                $fields["contact_address"]["mapbox"] = true;
-                $fields["contact_address"]["hidden"] = true;
-                unset( $fields["contact_address"]["tile"] );
-                $fields["location_grid"]["mapbox"] = true;
-                $fields["location_grid"]["hidden"] = true;
-                $fields["location_grid_meta"]["mapbox"] = true;
-                $fields["location_grid_meta"]["hidden"] = false;
+                $fields['contact_address']['custom_display'] = true;
+                $fields['contact_address']['mapbox'] = true;
+                $fields['contact_address']['hidden'] = true;
+                unset( $fields['contact_address']['tile'] );
+                $fields['location_grid']['mapbox'] = true;
+                $fields['location_grid']['hidden'] = true;
+                $fields['location_grid_meta']['mapbox'] = true;
+                $fields['location_grid_meta']['hidden'] = false;
             }
         }
 
-        if ( $post_type === "contacts" ){
+        if ( $post_type === 'contacts' ){
             $fields[$this->post_type] = [
-                "name" => $this->plural_name,
-                "description" => '',
-                "type" => "connection",
-                "post_type" => $this->post_type,
-                "p2p_direction" => "from",
-                "p2p_key" => $this->post_type."_to_contacts",
-                "tile" => "other",
-                'icon' => get_template_directory_uri() . "/dt-assets/images/group-type.svg",
-                'create-icon' => get_template_directory_uri() . "/dt-assets/images/add-group.svg",
-                "show_in_table" => 35
+                'name' => $this->plural_name,
+                'description' => '',
+                'type' => 'connection',
+                'post_type' => $this->post_type,
+                'p2p_direction' => 'from',
+                'p2p_key' => $this->post_type.'_to_contacts',
+                'tile' => 'other',
+                'icon' => get_template_directory_uri() . '/dt-assets/images/group-type.svg',
+                'create-icon' => get_template_directory_uri() . '/dt-assets/images/add-group.svg',
+                'show_in_table' => 35
             ];
         }
 
         return $fields;
     }
 
-    public function dt_details_additional_tiles( $tiles, $post_type = "" ){
+    public function dt_details_additional_tiles( $tiles, $post_type = '' ){
         if ( $post_type === $this->post_type ){
-            $tiles["other"] = [ "label" => __( "Other", 'prayer-global-porch' ) ];
+            $tiles['other'] = [ 'label' => __( 'Other', 'prayer-global-porch' ) ];
         }
         return $tiles;
     }
 
     public function dt_details_additional_section( $section, $post_type ){
-        if ( $post_type === $this->post_type && $section === "other" ) {
+        if ( $post_type === $this->post_type && $section === 'other' ) {
             // hide opposite key app
             $post = DT_Posts::get_post( $this->post_type, get_the_ID() );
             dt_write_log( $post );
@@ -325,11 +318,11 @@ class Prayer_Global_Feedback_Post_Type extends DT_Module_Base {
         if ( $post_type === $this->post_type ){
             $post = DT_Posts::get_post( $this->post_type, $post_id, true, false );
             if ( isset( $post['type']['key'] ) && 'custom' === $post['type']['key'] ) {
-                if ( isset( $fields["start_date"] ) ){
-                    $fields["start_time"] = $fields["start_date"];
+                if ( isset( $fields['start_date'] ) ){
+                    $fields['start_time'] = $fields['start_date'];
                 }
-                if ( isset( $fields["end_date"] ) ){
-                    $fields["end_time"] = $fields["end_date"];
+                if ( isset( $fields['end_date'] ) ){
+                    $fields['end_time'] = $fields['end_date'];
                 }
             }
         }
@@ -426,58 +419,58 @@ class Prayer_Global_Feedback_Post_Type extends DT_Module_Base {
             $status_counts = [];
             $total_my = 0;
             foreach ( $counts as $count ){
-                $total_my += $count["count"];
-                dt_increment( $status_counts[$count["status"]], $count["count"] );
-                if ( $count["status"] === "active" ){
-                    if ( isset( $count["update_needed"] ) ) {
-                        $update_needed += (int) $count["update_needed"];
+                $total_my += $count['count'];
+                dt_increment( $status_counts[$count['status']], $count['count'] );
+                if ( $count['status'] === 'active' ){
+                    if ( isset( $count['update_needed'] ) ) {
+                        $update_needed += (int) $count['update_needed'];
                     }
-                    dt_increment( $active_counts[$count["status"]], $count["count"] );
+                    dt_increment( $active_counts[$count['status']], $count['count'] );
                 }
             }
 
-            $filters["tabs"][] = [
-                "key" => "assigned_to_me",
-                "label" => __( "Assigned to me", 'prayer-global-porch' ),
-                "count" => $total_my,
-                "order" => 20
+            $filters['tabs'][] = [
+                'key' => 'assigned_to_me',
+                'label' => __( 'Assigned to me', 'prayer-global-porch' ),
+                'count' => $total_my,
+                'order' => 20
             ];
             // add assigned to me filters
-            $filters["filters"][] = [
+            $filters['filters'][] = [
                 'ID' => 'my_all',
                 'tab' => 'assigned_to_me',
-                'name' => __( "All", 'prayer-global-porch' ),
+                'name' => __( 'All', 'prayer-global-porch' ),
                 'query' => [
                     'assigned_to' => [ 'me' ],
                     'sort' => 'status'
                 ],
-                "count" => $total_my,
+                'count' => $total_my,
             ];
-            foreach ( $fields["status"]["default"] as $status_key => $status_value ) {
+            foreach ( $fields['status']['default'] as $status_key => $status_value ) {
                 if ( isset( $status_counts[$status_key] ) ){
-                    $filters["filters"][] = [
-                        "ID" => 'my_' . $status_key,
-                        "tab" => 'assigned_to_me',
-                        "name" => $status_value["label"],
-                        "query" => [
+                    $filters['filters'][] = [
+                        'ID' => 'my_' . $status_key,
+                        'tab' => 'assigned_to_me',
+                        'name' => $status_value['label'],
+                        'query' => [
                             'assigned_to' => [ 'me' ],
                             'status' => [ $status_key ],
                             'sort' => '-post_date'
                         ],
-                        "count" => $status_counts[$status_key]
+                        'count' => $status_counts[$status_key]
                     ];
-                    if ( $status_key === "active" ){
+                    if ( $status_key === 'active' ){
                         if ( $update_needed > 0 ){
-                            $filters["filters"][] = [
-                                "ID" => 'my_update_needed',
-                                "tab" => 'assigned_to_me',
-                                "name" => $fields["requires_update"]["name"],
-                                "query" => [
+                            $filters['filters'][] = [
+                                'ID' => 'my_update_needed',
+                                'tab' => 'assigned_to_me',
+                                'name' => $fields['requires_update']['name'],
+                                'query' => [
                                     'assigned_to' => [ 'me' ],
                                     'status' => [ 'active' ],
                                     'requires_update' => [ true ],
                                 ],
-                                "count" => $update_needed,
+                                'count' => $update_needed,
                                 'subfilter' => true
                             ];
                         }
@@ -492,55 +485,55 @@ class Prayer_Global_Feedback_Post_Type extends DT_Module_Base {
                 $status_counts = [];
                 $total_all = 0;
                 foreach ( $counts as $count ){
-                    $total_all += $count["count"];
-                    dt_increment( $status_counts[$count["status"]], $count["count"] );
-                    if ( $count["status"] === "active" ){
-                        if ( isset( $count["update_needed"] ) ) {
-                            $update_needed += (int) $count["update_needed"];
+                    $total_all += $count['count'];
+                    dt_increment( $status_counts[$count['status']], $count['count'] );
+                    if ( $count['status'] === 'active' ){
+                        if ( isset( $count['update_needed'] ) ) {
+                            $update_needed += (int) $count['update_needed'];
                         }
-                        dt_increment( $active_counts[$count["status"]], $count["count"] );
+                        dt_increment( $active_counts[$count['status']], $count['count'] );
                     }
                 }
-                $filters["tabs"][] = [
-                    "key" => "all",
-                    "label" => __( "All", 'prayer-global-porch' ),
-                    "count" => $total_all,
-                    "order" => 10
+                $filters['tabs'][] = [
+                    'key' => 'all',
+                    'label' => __( 'All', 'prayer-global-porch' ),
+                    'count' => $total_all,
+                    'order' => 10
                 ];
                 // add assigned to me filters
-                $filters["filters"][] = [
+                $filters['filters'][] = [
                     'ID' => 'all',
                     'tab' => 'all',
-                    'name' => __( "All", 'prayer-global-porch' ),
+                    'name' => __( 'All', 'prayer-global-porch' ),
                     'query' => [
                         'sort' => '-post_date'
                     ],
-                    "count" => $total_all
+                    'count' => $total_all
                 ];
 
-                foreach ( $fields["status"]["default"] as $status_key => $status_value ) {
+                foreach ( $fields['status']['default'] as $status_key => $status_value ) {
                     if ( isset( $status_counts[$status_key] ) ){
-                        $filters["filters"][] = [
-                            "ID" => 'all_' . $status_key,
-                            "tab" => 'all',
-                            "name" => $status_value["label"],
-                            "query" => [
+                        $filters['filters'][] = [
+                            'ID' => 'all_' . $status_key,
+                            'tab' => 'all',
+                            'name' => $status_value['label'],
+                            'query' => [
                                 'status' => [ $status_key ],
                                 'sort' => '-post_date'
                             ],
-                            "count" => $status_counts[$status_key]
+                            'count' => $status_counts[$status_key]
                         ];
-                        if ( $status_key === "active" ){
+                        if ( $status_key === 'active' ){
                             if ( $update_needed > 0 ){
-                                $filters["filters"][] = [
-                                    "ID" => 'all_update_needed',
-                                    "tab" => 'all',
-                                    "name" => $fields["requires_update"]["name"],
-                                    "query" => [
+                                $filters['filters'][] = [
+                                    'ID' => 'all_update_needed',
+                                    'tab' => 'all',
+                                    'name' => $fields['requires_update']['name'],
+                                    'query' => [
                                         'status' => [ 'active' ],
                                         'requires_update' => [ true ],
                                     ],
-                                    "count" => $update_needed,
+                                    'count' => $update_needed,
                                     'subfilter' => true
                                 ];
                             }
@@ -580,7 +573,7 @@ class Prayer_Global_Feedback_Post_Type extends DT_Module_Base {
     // scripts
     public function scripts(){
         if ( is_singular( $this->post_type ) && get_the_ID() && DT_Posts::can_view( $this->post_type, get_the_ID() ) ){
-            $test = "";
+            $test = '';
             // @todo add enqueue scripts
         }
     }

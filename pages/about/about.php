@@ -31,7 +31,7 @@ class Prayer_Global_About extends DT_Magic_Url_Base
 
 
             // register url and access
-            add_action( "template_redirect", [ $this, 'theme_redirect' ] );
+            add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
             add_filter( 'dt_blank_access', function (){ return true;
             }, 100, 1 );
             add_filter( 'dt_allow_non_login_access', function (){ return true;
@@ -40,7 +40,7 @@ class Prayer_Global_About extends DT_Magic_Url_Base
             }, 100, 1 );
 
             // header content
-            add_filter( "dt_blank_title", [ $this, "page_tab_title" ] ); // adds basic title to browser tab
+            add_filter( 'dt_blank_title', [ $this, 'page_tab_title' ] ); // adds basic title to browser tab
             add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 1500 ); // authorizes scripts
             add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
 
@@ -53,7 +53,6 @@ class Prayer_Global_About extends DT_Magic_Url_Base
             add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
             add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
         }
-
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -61,16 +60,11 @@ class Prayer_Global_About extends DT_Magic_Url_Base
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return $allowed_css;
     }
 
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
-        ?>
-        <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400" rel="stylesheet">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/ionicons/css/ionicons.min.css">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/basic.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ) ) ?>" type="text/css" media="all">
-        <?php
     }
 
     public function footer_javascript(){
@@ -82,7 +76,7 @@ class Prayer_Global_About extends DT_Magic_Url_Base
 
 
 
-        <section class="page-section center mt-0" data-section="about" id="section-about">
+        <section class="page text-center" data-section="about" id="section-about">
             <a href="#" class="text-decoration-none btn-top hide"><i class="icon pg-chevron-up"></i></a>
             <div class="container px-4">
                 <div class="row justify-content-md-center text-center">
@@ -117,7 +111,7 @@ class Prayer_Global_About extends DT_Magic_Url_Base
 
             </div>
         </section>
-        <section class="page-section center mt-0 pb-4" id="historic-moment">
+        <section class="page-section text-center mt-0 pb-4" id="historic-moment">
             <div class="container px-4">
                 <div class="row justify-content-md-center text-center">
                     <div class="col-lg-8 flow-medium">
@@ -140,7 +134,7 @@ class Prayer_Global_About extends DT_Magic_Url_Base
                 </div>
             </div>
         </section>
-        <section class="page-section center white brand-bg mt-0 pb-4" id="how-it-works">
+        <section class="page-section text-center white brand-bg mt-0 pb-4" id="how-it-works">
             <div class="container px-4 font-weight-bold">
                 <div class="row justify-content-md-center text-center">
                     <div class="col-lg-8 flow-medium">
@@ -165,7 +159,7 @@ class Prayer_Global_About extends DT_Magic_Url_Base
                 </div>
             </div>
         </section>
-        <section class="page-section center mt-0 pb-4" id="global-race">
+        <section class="page-section text-center mt-0 pb-4" id="global-race">
             <div class="container px-4">
                 <div class="row justify-content-md-center text-center">
                     <div class="col-lg-8 flow-medium">
@@ -230,7 +224,7 @@ class Prayer_Global_About extends DT_Magic_Url_Base
                 </div>
             </div>
         </section>
-        <section class="page-section center white brand-bg mb-5 mt-0" id="prayer-challenge">
+        <section class="page-section text-center white brand-bg mb-5 mt-0" id="prayer-challenge">
             <div class="container px-4 font-weight-bold">
                 <div class="row justify-content-md-center text-center">
                     <div class="col-lg-8 flow-medium">
@@ -260,6 +254,5 @@ class Prayer_Global_About extends DT_Magic_Url_Base
         <?php require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/working-footer.php' ) ?>
         <?php
     }
-
 }
 Prayer_Global_About::instance();

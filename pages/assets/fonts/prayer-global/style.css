@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'PrayerGlobal';
-  src:  url('fonts/PrayerGlobal.eot?toiqar');
-  src:  url('fonts/PrayerGlobal.eot?toiqar#iefix') format('embedded-opentype'),
-    url('fonts/PrayerGlobal.ttf?toiqar') format('truetype'),
-    url('fonts/PrayerGlobal.woff?toiqar') format('woff'),
-    url('fonts/PrayerGlobal.svg?toiqar#PrayerGlobal') format('svg');
+  src:  url('fonts/PrayerGlobal.eot?vwpiae');
+  src:  url('fonts/PrayerGlobal.eot?vwpiae#iefix') format('embedded-opentype'),
+    url('fonts/PrayerGlobal.ttf?vwpiae') format('truetype'),
+    url('fonts/PrayerGlobal.woff?vwpiae') format('woff'),
+    url('fonts/PrayerGlobal.svg?vwpiae#PrayerGlobal') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -25,20 +25,8 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.pg-chevron-down:before {
-  content: "\e91b";
-}
-.pg-chevron-left:before {
-  content: "\e91c";
-}
-.pg-chevron-right:before {
-  content: "\e91d";
-}
-.pg-chevron-up:before {
-  content: "\e91e";
-}
-.pg-menu:before {
-  content: "\e91f";
+.pg-streak:before {
+  content: "\e907";
 }
 .pg-check:before {
   content: "\e900";
@@ -62,7 +50,7 @@
   content: "\e906";
 }
 .pg-information:before {
-  content: "\e907";
+  content: "\e90a";
 }
 .pg-profile:before {
   content: "\e908";
@@ -71,7 +59,7 @@
   content: "\e909";
 }
 .pg-pause:before {
-  content: "\e90a";
+  content: "\e910";
 }
 .pg-pray-hands-dark:before {
   content: "\e90b";
@@ -89,7 +77,7 @@
   content: "\e90f";
 }
 .pg-question-light:before {
-  content: "\e910";
+  content: "\e913";
 }
 .pg-race:before {
   content: "\e911";
@@ -98,13 +86,13 @@
   content: "\e912";
 }
 .pg-settings:before {
-  content: "\e913";
-}
-.pg-share:before {
   content: "\e914";
 }
-.pg-start:before {
+.pg-share:before {
   content: "\e915";
+}
+.pg-start:before {
+  content: "\e920";
 }
 .pg-status:before {
   content: "\e916";
@@ -120,4 +108,19 @@
 }
 .pg-world-light:before {
   content: "\e91a";
+}
+.pg-chevron-down:before {
+  content: "\e91b";
+}
+.pg-chevron-left:before {
+  content: "\e91c";
+}
+.pg-chevron-right:before {
+  content: "\e91d";
+}
+.pg-chevron-up:before {
+  content: "\e91e";
+}
+.pg-menu:before {
+  content: "\e91f";
 }

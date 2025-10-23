@@ -47,7 +47,7 @@ class PG_User_Logout extends DT_Magic_Url_Base {
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return $allowed_css;
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -66,19 +66,32 @@ class PG_User_Logout extends DT_Magic_Url_Base {
 
 
     public function body() {
+        if ( is_user_logged_in() ) {
+            wp_logout();
 
-        /* Get redirect url */
-        if ( isset( $_GET['redirect_to'] ) ) {
-            $redirect_to = urldecode( wp_sanitize_redirect( wp_unslash( $_GET['redirect_to'] ) ) );
+            if ( isset( $_GET['redirect_to'] ) ) {
+                $redirect_to = urldecode( wp_sanitize_redirect( wp_unslash( $_GET['redirect_to'] ) ) );
+            } else {
+                $redirect_to = home_url();
+            }
+
+            ?>
+            <script>
+                if (window.isMedianApp) {
+                    window.median.oneSignal.logout().then(function() {
+                        window.isMedianAppLoggedIn = false;
+                        window.isMedianAppAnonymouslyLoggedIn = false;
+                        window.location.href = "<?php echo esc_url( $redirect_to ); ?>";
+                    });
+                } else {
+                    window.location.href = "<?php echo esc_url( $redirect_to ); ?>";
+                }
+            </script>
+            <?php
         } else {
-            $redirect_to = '/';
+            wp_redirect( home_url( '/login' ) );
+            exit;
         }
-
-        wp_logout();
-
-        wp_redirect( $redirect_to );
-
     }
-
 }
 PG_User_Logout::instance();

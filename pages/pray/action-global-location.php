@@ -45,20 +45,23 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
          */
         $this->if_rest_add_actions();
 
-        // redirect to completed if not current global lap
-        $current_lap = pg_current_global_lap();
-        if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
-            add_action( 'dt_blank_body', [ $this, 'body' ] );
-        } else {
-            wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/completed' );
-            exit;
-        }
-
+        add_action( 'dt_blank_body', [ $this, 'body' ] );
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
-        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
+        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 200, 1 );
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
 
+        add_action( 'disciple_tools_loaded', [ $this, 'disciple_tools_loaded' ] );
     }
+
+    public function disciple_tools_loaded(){
+        // redirect to completed if not current global lap
+        $status = get_post_meta( $this->parts['post_id'], 'status', true );
+        if ( $status === 'complete' ) {
+            wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/map' );
+            exit;
+        }
+    }
+
 
     public function _header() {
         $this->header_style();
@@ -112,7 +115,7 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
     public function question_buttons() {
         ?>
 
-        <button type="button" class="btn btn-primary question" id="question__yes_done">Done</button>
+        <button type="button" class="btn btn-primary question" id="question__yes_done"><?php echo esc_html__( 'Done', 'prayer-global-porch' ) ?></button>
 
         <?php
     }
@@ -120,8 +123,7 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
     public function decision_buttons() {
         ?>
 
-        <button type="button" class="btn btn-primary-dark uppercase decision" id="decision__home">Home</button>
-        <button type="button" class="btn btn-primary decision" id="decision__map">Map</button>
+        <button type="button" class="btn btn-primary decision" id="decision__leave"><?php echo esc_html__( 'Leave', 'prayer-global-porch' ) ?></button>
 
         <?php
     }
@@ -151,36 +153,19 @@ class PG_Global_Prayer_App_Location extends PG_Global_Prayer_App {
         $params = $request->get_params();
 
         if ( ! isset( $params['parts'], $params['action'], $params['data'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['action'] ) {
-            case 'refresh-all':
-                $all = true;
-                // intenentional drop through to add $all = true
-            case 'refresh':
-                $grid_id = isset( $params['data']['grid_id'] ) ? $params['data']['grid_id'] : null;
-                if ( $grid_id ) {
-                    return $this->get_location_by_grid_id( $grid_id, $all );
-                }
-                return $this->get_new_location( $params['parts'] );
-            case 'log':
-                return $this->save_log( $params['parts'], $params['data'] );
-            case 'increment_log':
-                return $this->increment_log( $params['parts'], $params['data'] );
+            case 'increment_prayer_time':
+                return $this->increment_prayer_time( $params['parts'], $params['data'] );
             case 'correction':
                 return $this->save_correction( $params['parts'], $params['data'] );
-            case 'ip_location':
-                return $this->get_ip_location();
             default:
-                return new WP_Error( __METHOD__, "Incorrect action", [ 'status' => 400 ] );
+                return new WP_Error( __METHOD__, 'Incorrect action', [ 'status' => 400 ] );
         }
-    }
-
-    public function get_location_by_grid_id( $grid_id, $all = false ) {
-        return PG_Stacker::build_location_stack( $grid_id, $all );
     }
 }
 PG_Global_Prayer_App_Location::instance();

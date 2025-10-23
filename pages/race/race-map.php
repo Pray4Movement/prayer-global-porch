@@ -33,7 +33,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
             $this->parts = $this->magic->parse_url_parts();
 
             // register url and access
-            add_action( "template_redirect", [ $this, 'theme_redirect' ] );
+            add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
             add_filter( 'dt_blank_access', function (){ return true;
             }, 100, 1 );
             add_filter( 'dt_allow_non_login_access', function (){ return true;
@@ -42,7 +42,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
             }, 100, 1 );
 
             // header content
-            add_filter( "dt_blank_title", [ $this, "page_tab_title" ] ); // adds basic title to browser tab
+            add_filter( 'dt_blank_title', [ $this, 'page_tab_title' ] ); // adds basic title to browser tab
             add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 1500 ); // authorizes scripts
             add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
 
@@ -54,7 +54,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
 
             add_action( 'wp_enqueue_scripts', [ $this, '_wp_enqueue_scripts' ], 100 );
 
-            add_filter( "dt_override_header_meta", function (){ return true;
+            add_filter( 'dt_override_header_meta', function (){ return true;
             }, 100, 1 );
         }
 
@@ -99,18 +99,13 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
                 'parts' => $this->parts,
                 'grid_data' => [],
                 'participants' => [],
-                'stats' => pg_global_race_stats(),
+                'stats' => $this->get_stats(),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                 'translations' => [],
                 'map_type' => $this->map_type,
                 'details_type' => $this->details_type,
             ]) ?>][0]
         </script>
-        <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400" rel="stylesheet">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/bootstrap/bootstrap5.2.2.css">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/ionicons/css/ionicons.min.css">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/prayer-global/style.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/fonts/prayer-global/style.css' ) ) ?>">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/basic.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ) ) ?>" type="text/css" media="all">
         <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>pray/heatmap.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'pray/heatmap.css' ) ) ?>" type="text/css" media="all">
         <?php
     }
@@ -120,14 +115,14 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
     }
 
     public function body(){
-        $lap_stats = pg_global_race_stats();
-        $finished_laps = number_format( (int) $lap_stats['number_of_laps'] - 1 );
+        $lap_stats = $this->get_stats();
+        $finished_laps = number_format( (int) $lap_stats['lap_number'] - 1 );
         DT_Mapbox_API::geocoder_scripts();
         ?>
         <style id="custom-style"></style>
         <div id="map-content">
             <div id="initialize-screen">
-                <div id="initialize-spinner-wrapper" class="center">
+                <div id="initialize-spinner-wrapper" class="text-center">
                     <progress class="success initialize-progress" max="46" value="0"></progress><br>
                     <?php echo esc_html__( 'Loading the planet ...', 'prayer-global-porch' ) ?><br>
                     <span id="initialize-people" style="display:none;"><?php echo esc_html__( 'Locating world population...', 'prayer-global-porch' ) ?></span><br>
@@ -146,13 +141,13 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
                 <div id="foot_block">
                     <div class="map-overlay" id="map-legend" data-map-type="<?php echo esc_attr( $this->map_type ) ?>"></div>
                     <div class="row g-0 justify-content-center">
-                        <div class="col col-12 center">
+                        <div class="col col-12 text-center">
                             <button type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvas_stats">
                                 <i class="icon pg-chevron-up three-em blue"></i>
                             </button>
                             <div class="one-em uppercase font-weight-bold"><?php echo esc_html__( 'Race Map Stats', 'prayer-global-porch' ) ?></div>
                         </div>
-                        <div class="col col-6 col-md-3 center ">
+                        <div class="col col-6 col-md-3 text-center ">
                             <div class="blue-bg white blue-border rounded-start d-flex align-items-center justify-content-around py-1">
                                 <i class="icon pg-prayer three-em"></i>
                                 <div class="two-em stats-figure">
@@ -161,7 +156,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
                             </div>
                             <span class="uppercase small"><?php echo esc_html__( 'Intercessors', 'prayer-global-porch' ) ?></span><br>
                         </div>
-                        <div class="col col-6 col-md-3 center ">
+                        <div class="col col-6 col-md-3 text-center ">
                             <div class="white-bg blue blue-border rounded-end d-flex align-items-center justify-content-around py-1">
                                 <i class="icon pg-world-arrow three-em"></i>
                                 <div class="two-em stats-figure">
@@ -171,7 +166,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
                             <span class="uppercase small"><?php echo esc_html__( 'World Prayer Coverage', 'prayer-global-porch' ) ?></span><br>
                         </div>
                         <div class="col d-none d-md-block col-md-1"></div>
-                        <div class="col d-none d-md-block col-md-3 center ">
+                        <div class="col d-none d-md-block col-md-3 text-center ">
                             <div class="white-bg blue d-flex align-items-center justify-content-around">
                                 <div class="two-em stats-figure time_elapsed">
                                     0
@@ -188,8 +183,8 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
             <div class="row offcanvas__content" id="grid_details_content"></div>
         </div>
         <div class="offcanvas offcanvas-bottom" id="offcanvas_stats">
-            <div class="center offcanvas__header"><button type="button" data-bs-toggle="offcanvas"><i class="icon pg-chevron-down three-em"></i></button></div>
-            <div class="row center uppercase offcanvas__content">
+            <div class="text-center offcanvas__header"><button type="button" data-bs-toggle="offcanvas"><i class="icon pg-chevron-down three-em"></i></button></div>
+            <div class="row text-center uppercase offcanvas__content">
                 <div class="col col-12">
                     <div class="two-em font-weight-bold"><?php echo esc_html__( 'Race Map Stats', 'prayer-global-porch' ) ?></div>
                 </div>
@@ -240,12 +235,12 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
         $params = $request->get_params();
 
         if ( ! isset( $params['parts'], $params['action'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
         switch ( $params['action'] ) {
             case 'get_stats':
-                return pg_global_race_stats();
+                return $this->get_stats();
             case 'get_grid':
                 return [
                     'grid_data' => $this->get_grid( $params['parts'] ),
@@ -270,51 +265,54 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
             default:
                 return new WP_Error( __METHOD__, 'missing action parameter' );
         }
+    }
 
+    public function get_stats(){
+
+        global $wpdb;
+        $result = $wpdb->get_row( "
+            SELECT
+            MIN( r.timestamp ) as start_time,
+            MAX( r.timestamp ) as end_time,
+            COUNT( DISTINCT( r.grid_id ) ) as locations_completed,
+            SUM( r.value ) as minutes_prayed,
+            COUNT( DISTINCT( r.hash ) ) as participants,
+            COUNT( DISTINCT( r.label ) ) as participant_country_count
+            FROM $wpdb->dt_reports r
+            WHERE r.post_type = 'pg_relays'
+        ", ARRAY_A);
+
+
+        $global_lap = Prayer_Stats::get_relay_current_lap();
+        $data = [
+            'tile' => '',
+            'lap_number' => (int) $global_lap['lap_number'],
+            'start_time' => (int) $result['start_time'],
+            'end_time' => (int) $result['end_time'],
+            'on_going' => true,
+            'locations_completed' => (int) $result['locations_completed'],
+            'minutes_prayed' => (int) $result['minutes_prayed'],
+            'participants' => (int) $result['participants'],
+            'participant_country_count' => (int) $result['participant_country_count'],
+
+        ];
+        return _pg_stats_builder( $data );
     }
 
     public function get_grid( $parts ) {
         global $wpdb;
-        $lap_stats = pg_global_race_stats();
 
-        // map grid
-        $data_raw = $wpdb->get_results( $wpdb->prepare( "
-            SELECT
-                lg1.grid_id, SUM(r1.value) as value
-            FROM $wpdb->dt_location_grid lg1
-			LEFT JOIN $wpdb->dt_reports r1 ON r1.grid_id=lg1.grid_id AND r1.type = 'prayer_app' AND r1.timestamp >= %d AND r1.timestamp <= %d
-            WHERE lg1.level = 0
-              AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
-              AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg1.grid_id
-            UNION ALL
-            SELECT
-                lg2.grid_id, SUM(r2.value) as value
-            FROM $wpdb->dt_location_grid lg2
-			LEFT JOIN $wpdb->dt_reports r2 ON r2.grid_id=lg2.grid_id AND r2.type = 'prayer_app' AND r2.timestamp >= %d AND r2.timestamp <= %d
-            WHERE lg2.level = 1
-              AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg2.grid_id
-            UNION ALL
-            SELECT
-                lg3.grid_id, SUM(r3.value) as value
-            FROM $wpdb->dt_location_grid lg3
-			LEFT JOIN $wpdb->dt_reports r3 ON r3.grid_id=lg3.grid_id AND r3.type = 'prayer_app' AND r3.timestamp >= %d AND r3.timestamp <= %d
-            WHERE lg3.level = 2
-              AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg3.grid_id
-        ", $lap_stats['start_time'], $lap_stats['end_time'], $lap_stats['start_time'], $lap_stats['end_time'], $lap_stats['start_time'], $lap_stats['end_time'] ), ARRAY_A );
+        $locations = $wpdb->get_results(
+            "SELECT grid_id, count(*) as completed
+            FROM $wpdb->dt_reports
+            WHERE post_type = 'pg_relays'
+            AND type = 'prayer_app'
+            GROUP BY grid_id
+        ", ARRAY_A );
 
         $data = [];
-        foreach ( $data_raw as $row ) {
-            //if ( ! isset( $data[$row['grid_id']] ) ) {
-            //    $data[$row['grid_id']] = (int) $row['value'] ?? 0;
-            //}
-            if ( ! isset( $data[$row['grid_id']] ) ) {
-                $data[$row['grid_id']] = 1 ?? 0;
-            } else {
-                $data[$row['grid_id']] = $data[$row['grid_id']] + 1;
-            }
+        foreach ( $locations as $location ){
+            $data[$location['grid_id']] = (int) $location['completed'];
         }
 
         return [
@@ -324,29 +322,21 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
 
     public function get_participants( $parts ){
         global $wpdb;
-        $lap_stats = pg_global_race_stats();
 
-        $participants_raw = $wpdb->get_results( $wpdb->prepare( "
-           SELECT r.lng as longitude, r.lat as latitude
-           FROM $wpdb->dt_reports r
-           LEFT JOIN $wpdb->dt_location_grid lg ON lg.grid_id=r.grid_id
-            WHERE r.post_type = 'laps'
-            AND r.type = 'prayer_app'
-           AND r.timestamp >= %d AND r.timestamp <= %d AND r.hash IS NOT NULL
-        ", $lap_stats['start_time'], $lap_stats['end_time'] ), ARRAY_A );
-        $participants = [];
-        if ( ! empty( $participants_raw ) ) {
-            foreach ( $participants_raw as $p ) {
-                if ( ! empty( $p['longitude'] ) ) {
-                    $participants[] = [
-                        'longitude' => (float) $p['longitude'],
-                        'latitude' => (float) $p['latitude']
-                    ];
-                }
-            }
+
+        $locations = $wpdb->get_results(
+            "SELECT r.lng as longitude, r.lat as latitude, r.hash
+            FROM $wpdb->dt_reports r
+            WHERE r.type = 'prayer_app'
+            AND r.lng IS NOT NULL
+            GROUP BY r.hash
+        ", ARRAY_A );
+
+        $data = [];
+        foreach ( $locations as $location ){
+            $data[] = [ 'longitude' => (float) $location['longitude'], 'latitude' => (float) $location['latitude'] ];
         }
-
-        return $participants;
+        return $data;
     }
 
     public function get_user_locations( $parts, $data ){
@@ -356,31 +346,21 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
         if ( empty( $hash ) ) {
             return [];
         }
+        $post_id = pg_get_relay_id( '49ba4c' );
 
         $user_locations_raw  = $wpdb->get_results( $wpdb->prepare( "
-               SELECT lg.longitude, lg.latitude
-               FROM $wpdb->dt_reports r
-               LEFT JOIN $wpdb->dt_location_grid lg ON lg.grid_id=r.grid_id
-               WHERE r.post_type = 'laps'
-                    AND r.type = 'prayer_app'
-                    AND r.hash = %s
+           SELECT lg.longitude, lg.latitude
+           FROM $wpdb->dt_reports r
+           INNER JOIN $wpdb->dt_location_grid lg ON lg.grid_id = r.grid_id
+           WHERE r.post_type = 'pg_relays'
+                AND r.type = 'prayer_app'
+                AND r.hash = %s
                 AND r.label IS NOT NULL
-            ", $hash ), ARRAY_A );
+                AND lg.longitude IS NOT NULL
+                AND lg.latitude IS NOT NULL
+        ", $hash, $post_id  ), ARRAY_A );
 
-        $user_locations = [];
-        if ( ! empty( $user_locations_raw ) ) {
-            foreach ( $user_locations_raw as $p ) {
-                if ( ! empty( $p['longitude'] ) ) {
-                    $user_locations[] = [
-                        'longitude' => (float) $p['longitude'],
-                        'latitude' => (float) $p['latitude']
-                    ];
-                }
-            }
-        }
-
-        return $user_locations;
+        return $user_locations_raw;
     }
-
 }
 Prayer_Global_Porch_Stats_Race_Map::instance();

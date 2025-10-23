@@ -74,31 +74,27 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
             let jsObject = [<?php echo json_encode([
                 'parts' => $this->parts,
                 'grid_data' => [],
-                'stats' => $this->stats,
+                'stats' => Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] ),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
+                'is_single_lap' => get_post_meta( $this->parts['post_id'], 'single_lap', true ),
                 'translations' => [
                     'lap' => __( 'Lap %d', 'prayer-global-porch' ),
                 ],
                 'map_type' => 'binary',
             ]) ?>][0]
         </script>
-        <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400" rel="stylesheet">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/bootstrap/bootstrap5.2.2.css">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/ionicons/css/ionicons.min.css">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/prayer-global/style.css">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/basic.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ) ) ?>" type="text/css" media="all">
         <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __FILE__ ) ) ) ?>heatmap.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'heatmap.css' ) ) ?>" type="text/css" media="all">
         <?php
     }
 
     public function body(){
-        $lap_stats = $this->stats;
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $this->parts['public_key'], $this->parts['post_id'] );
         DT_Mapbox_API::geocoder_scripts();
         ?>
         <style id="custom-style"></style>
         <div id="map-content">
             <div id="initialize-screen">
-                <div id="initialize-spinner-wrapper" class="center">
+                <div id="initialize-spinner-wrapper" class="text-center">
                     <progress class="success initialize-progress" max="46" value="0"></progress><br>
                     <?php echo esc_html__( 'Loading the planet ...', 'prayer-global-porch' ) ?><br>
                     <span id="initialize-people" style="display:none;"><?php echo esc_html__( 'Locating world population...', 'prayer-global-porch' ) ?></span><br>
@@ -109,7 +105,7 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
             </div>
             <div id="map-wrapper">
                 <div id="head_block_wrapper">
-                    <div id="head_block_display" class="center brand-bg white relative">
+                    <div id="head_block_display" class="text-center brand-bg white relative">
                         <h2 class="uppercase"><?php echo esc_html( sprintf( __( '%s Prayer Relay', 'prayer-global-porch' ), $lap_stats['title'] ) ) ?></h2>
                         <h4 class="uppercase"><?php echo esc_html__( 'Cover The World In Prayer', 'prayer-global-porch' ) ?></h4>
                         <h4 class="uppercase lap-number"><?php echo esc_html__( 'Lap:', 'prayer-global-porch' ) ?> <span><?php echo esc_html( $lap_stats['lap_number'] ) ?></span></h4>
@@ -118,7 +114,7 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
                 <span class="loading-spinner active"></span>
                 <div id='map'></div>
                 <div id="foot_block">
-                    <div class="row d-flex justify-content-between center gap-5 flex-nowrap">
+                    <div class="row d-flex justify-content-between text-center gap-5 flex-nowrap">
                         <div class="col col-sm-3" id="qr-cell"></div>
                         <div class="w-auto flex-1">
                             <div class="blue-bg white blue-border rounded d-flex align-items-center justify-content-around font-weight-bold">
@@ -150,14 +146,14 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
                         <div class=""></div>
                     </div>
                     <div id="qr-code-block">
-                        <div class="two-em center uppercase"><?php echo esc_html__( 'Pray with us', 'prayer-global-porch' ) ?></div>
+                        <div class="two-em text-center uppercase"><?php echo esc_html__( 'Pray with us', 'prayer-global-porch' ) ?></div>
                         <?php if ( !empty( $lap_stats['event_lap'] ) ) : ?>
                             <!--Event relay-->
                             <img class="qr-code-image" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&amp;data=https://api.prayer.global/?relay=<?php echo esc_html( $lap_stats['key'] ) ?>">
                         <?php else : ?>
                             <img class="qr-code-image" src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&amp;data=<?php echo esc_url( get_site_url() ) ?>/prayer_app/custom/<?php echo esc_html( $lap_stats['key'] ) ?>">
                         <?php endif; ?>
-                        <div class="center uppercase"><?php echo esc_html__( 'Turn the map from dark to light', 'prayer-global-porch' ) ?></div>
+                        <div class="text-center uppercase"><?php echo esc_html__( 'Turn the map from dark to light', 'prayer-global-porch' ) ?></div>
                     </div>
                 </div>
             </div>
@@ -173,23 +169,23 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
                     </div>
                     <div class="modal-body">
                         <p>
-                            <?php echo esc_html__( "The display map is designed and optimised for use on a large screen. It refreshes regularly to always show the latest state of the prayer relay, and displays a QR code for people to scan to start praying for the world.", 'prayer-global-porch' ) ?>
+                            <?php echo esc_html__( 'The display map is designed and optimised for use on a large screen. It refreshes regularly to always show the latest state of the prayer relay, and displays a QR code for people to scan to start praying for the world.', 'prayer-global-porch' ) ?>
                         </p>
                         <p>
-                            <?php echo esc_html__( "Some examples of where the display map could be used are:", 'prayer-global-porch' ) ?>
+                            <?php echo esc_html__( 'Some examples of where the display map could be used are:', 'prayer-global-porch' ) ?>
                         </p>
                         <ul>
                             <li>
-                                <?php echo esc_html__( "An event main screen", 'prayer-global-porch' ) ?>
+                                <?php echo esc_html__( 'An event main screen', 'prayer-global-porch' ) ?>
                             </li>
                             <li>
-                                <?php echo esc_html__( "A church lobby screen", 'prayer-global-porch' ) ?>
+                                <?php echo esc_html__( 'A church lobby screen', 'prayer-global-porch' ) ?>
                             </li>
                         </ul>
                     </div>
-                    <div class="modal-footer center">
-                        <button type="button" class="btn btn-outline-primary uppercase" id="display_map_back" data-bs-dismiss="modal"><?php echo esc_html__( "Back", 'prayer-global-porch' ) ?></button>
-                        <button type="button" class="btn btn-primary" id="display_map_onwards" data-bs-dismiss="modal"><?php echo esc_html__( "Onwards", 'prayer-global-porch' ) ?></button>
+                    <div class="modal-footer repel">
+                        <button type="button" class="btn btn-outline-primary uppercase" id="display_map_back" data-bs-dismiss="modal"><?php echo esc_html__( 'Back', 'prayer-global-porch' ) ?></button>
+                        <button type="button" class="btn btn-primary" id="display_map_onwards" data-bs-dismiss="modal"><?php echo esc_html__( 'Stay', 'prayer-global-porch' ) ?></button>
                     </div>
                 </div>
             </div>
@@ -227,67 +223,28 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
         $params = $request->get_params();
 
         if ( ! isset( $params['parts'], $params['action'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
         switch ( $params['action'] ) {
             case 'get_stats':
-                $current_lap = pg_current_custom_lap( $params['parts']['post_id'] );
-                return pg_custom_lap_stats_by_post_id( $current_lap['post_id'] );
+                return Prayer_Stats::get_relay_current_lap_stats( $params['parts']['public_key'] );
             case 'get_grid':
-                $current_lap = pg_current_custom_lap( $params['parts']['post_id'] );
                 return [
-                    'grid_data' => $this->get_grid( $current_lap['post_id'] ),
+                    'grid_data' => $this->get_grid( $params['parts'] ),
                     'participants' => [],
-                    'stats' => pg_custom_lap_stats_by_post_id( $current_lap['post_id'] ),
+                    'stats' => Prayer_Stats::get_relay_current_lap_stats( $params['parts']['public_key'] )
                 ];
             default:
                 return new WP_Error( __METHOD__, 'missing action parameter' );
         }
     }
 
-    public function get_grid( $post_id ) {
-        global $wpdb;
-
-        // map grid
-        $data_raw = $wpdb->get_results( $wpdb->prepare( "
-            SELECT
-                lg1.grid_id, SUM(r1.value) as value
-            FROM $wpdb->dt_location_grid lg1
-			JOIN $wpdb->dt_reports r1 ON r1.grid_id=lg1.grid_id AND r1.type = 'prayer_app' AND r1.post_id = %d AND ( r1.subtype = 'event' OR r1.subtype = 'custom' )
-            WHERE lg1.level = 0
-              AND lg1.grid_id NOT IN ( SELECT lg11.admin0_grid_id FROM $wpdb->dt_location_grid lg11 WHERE lg11.level = 1 AND lg11.admin0_grid_id = lg1.grid_id )
-              AND lg1.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg1.grid_id
-            UNION ALL
-            SELECT
-                lg2.grid_id, SUM(r2.value) as value
-            FROM $wpdb->dt_location_grid lg2
-			JOIN $wpdb->dt_reports r2 ON r2.grid_id=lg2.grid_id AND r2.type = 'prayer_app' AND r2.post_id = %d AND ( r2.subtype = 'event' OR r2.subtype = 'custom' )
-            WHERE lg2.level = 1
-              AND lg2.admin0_grid_id NOT IN (100050711,100219347,100089589,100074576,100259978,100018514)
-            GROUP BY lg2.grid_id
-            UNION ALL
-            SELECT
-                lg3.grid_id, SUM(r3.value) as value
-            FROM $wpdb->dt_location_grid lg3
-			JOIN $wpdb->dt_reports r3 ON r3.grid_id=lg3.grid_id AND r3.type = 'prayer_app' AND r3.post_id = %d AND ( r3.subtype = 'event' OR r3.subtype = 'custom' )
-            WHERE lg3.level = 2
-              AND lg3.admin0_grid_id IN (100050711,100219347,100089589,100074576,100259978,100018514)
-          GROUP BY lg3.grid_id
-        ", $post_id, $post_id, $post_id ), ARRAY_A );
-
-        $data = [];
-        foreach ( $data_raw as $row ) {
-            if ( ! isset( $data[$row['grid_id']] ) ) {
-                $data[$row['grid_id']] = (int) $row['value'] ?? 0;
-            }
-        }
-
+    public function get_grid( $parts ) {
+        $data = Prayer_Stats::get_relay_current_lap_map_stats( $parts['public_key'] );
         return [
             'data' => $data,
         ];
     }
-
 }
 PG_Custom_Prayer_App_Map_Display::instance();

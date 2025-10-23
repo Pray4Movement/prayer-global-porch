@@ -31,7 +31,7 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
 
 
             // register url and access
-            add_action( "template_redirect", [ $this, 'theme_redirect' ] );
+            add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
             add_filter( 'dt_blank_access', function (){ return true;
             }, 100, 1 );
             add_filter( 'dt_allow_non_login_access', function (){ return true;
@@ -40,7 +40,7 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
             }, 100, 1 );
 
             // header content
-            add_filter( "dt_blank_title", [ $this, "page_tab_title" ] ); // adds basic title to browser tab
+            add_filter( 'dt_blank_title', [ $this, 'page_tab_title' ] ); // adds basic title to browser tab
             add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 1500 ); // authorizes scripts
             add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
 
@@ -53,7 +53,6 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
             add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
             add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
         }
-
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -61,16 +60,11 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return $allowed_css;
     }
 
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
-        ?>
-        <link href="https://fonts.googleapis.com/css?family=Crimson+Text:400,400i,600|Montserrat:200,300,400" rel="stylesheet">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/fonts/ionicons/css/ionicons.min.css">
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/basic.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ) ) ?>" type="text/css" media="all">
-        <?php
     }
 
     public function footer_javascript(){
@@ -80,7 +74,7 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
     public function body(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' ) ?>
 
-        <section class="page-section mt-5" >
+        <section class="page" >
             <div class="container">
                 <div class="row justify-content-md-center text-center mb-4">
                     <div class="col-lg-7">
@@ -90,19 +84,19 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
                 <div class="row g-0">
 
                     <!-- Item -->
-                    <div class="col-12 center">
+                    <div class="col-12 text-center">
                         <p>
-                            <?php echo esc_html( __( "We acknowledge that there is no way to possess 100% accurate knowledge of the faith status or location status of every person in the world.", 'prayer-global-porch' ) ) ?>
+                            <?php echo esc_html( __( 'We acknowledge that there is no way to possess 100% accurate knowledge of the faith status or location status of every person in the world.', 'prayer-global-porch' ) ) ?>
                         </p>
                         <p>
                             <?php echo esc_html( __( "No government has this exact number, no business, ... nobody but God has the facts of a person's true faith or whereabouts. Therefore, every demographic fact is a mathematical deduction or extrapolation. (Sorry friends who like exact numbers.)", 'prayer-global-porch' ) ) ?>
                         </p>
                         <p>
-                            <?php echo esc_html( __( "But leveraging the best data sources we can access, we have created a prayer tool to offer informative prayer guidance featuring a unique, close-up location breakdown of the world.", 'prayer-global-porch' ) ) ?>
+                            <?php echo esc_html( __( 'But leveraging the best data sources we can access, we have created a prayer tool to offer informative prayer guidance featuring a unique, close-up location breakdown of the world.', 'prayer-global-porch' ) ) ?>
                         </p>
                     </div>
 
-                    <div class="center" style="padding:1em;border:2px solid gray;">
+                    <div class="text-center" style="padding:1em;border:2px solid gray;">
                         <h4><?php echo esc_html__( 'Recommended Resource:', 'prayer-global-porch' ) ?> <a href="https://locationgrid.app">Location Grid Project</a></h4>
                         <p>
                             <?php echo esc_html( sprintf( __( '%1$s is build on %2$s open source software, and %2$s mapping and geolocation system is an open source project called %3$s. The %3$s is a geographic framework of world locations and polygons for disciple making movement saturation efforts.', 'prayer-global-porch' ), 'Prayer.Global', 'Disciple.Tools', 'Location Grid Project' ) ) ?>
@@ -120,7 +114,7 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
                         <hr>
                         <h3 class="secondary"><?php echo esc_html( __( 'Population Data', 'prayer-global-porch' ) ) ?></h3>
                         <p>
-                            <?php echo esc_html( __( "The population data was acquired and cross-checked through multiple sources; country level data is easy to find; most state level data is relatively easy to find; but county level data for non-western countries often required significant research to compile recent census data.", 'prayer-global-porch' ) ) ?>
+                            <?php echo esc_html( __( 'The population data was acquired and cross-checked through multiple sources; country level data is easy to find; most state level data is relatively easy to find; but county level data for non-western countries often required significant research to compile recent census data.', 'prayer-global-porch' ) ) ?>
                         </p>
 
                         <u><?php echo esc_html__( 'Country Level Population', 'prayer-global-porch' ) ?></u>
@@ -172,16 +166,16 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
                             <li>
                                 <u><?php echo esc_html__( 'Acknowledged Weakness', 'prayer-global-porch' ) ?></u><br>
                                 <p>
-                                    <?php echo esc_html( __( "At best, this methodology can offer a general, estimated target for the faith status of various locations. Actual faith status for each location could vary enormously above or below our estimates.", 'prayer-global-porch' ) ) ?>
+                                    <?php echo esc_html( __( 'At best, this methodology can offer a general, estimated target for the faith status of various locations. Actual faith status for each location could vary enormously above or below our estimates.', 'prayer-global-porch' ) ) ?>
                                 </p>
                                 <p>
-                                    <?php echo esc_html( __( "All calculations of faith status data anywhere suffer the same limitations ... no matter the source ... they are all generalizations.", 'prayer-global-porch' ) ) ?>
+                                    <?php echo esc_html( __( 'All calculations of faith status data anywhere suffer the same limitations ... no matter the source ... they are all generalizations.', 'prayer-global-porch' ) ) ?>
                                 </p>
                                 <p>
-                                    <?php echo esc_html( __( "Our belief is that the estimated numbers for non-christian, cultural christian, and disciple help the person praying to better understand the challenge facing the church in that location. It helps answer questions like: Is this a weak and small church surrounded by a dominant religion? Is this church holding out against an atheist culture? Is this a church trying to be faithful while surrounded by a lukewarm historic cultural church?", 'prayer-global-porch' ) ) ?>
+                                    <?php echo esc_html( __( 'Our belief is that the estimated numbers for non-christian, cultural christian, and disciple help the person praying to better understand the challenge facing the church in that location. It helps answer questions like: Is this a weak and small church surrounded by a dominant religion? Is this church holding out against an atheist culture? Is this a church trying to be faithful while surrounded by a lukewarm historic cultural church?', 'prayer-global-porch' ) ) ?>
                                 </p>
                                 <p>
-                                    <?php echo esc_html( __( "More than the exact number, it is the distribution of knowledge of Jesus that is informative to the praying person.", 'prayer-global-porch' ) ) ?>
+                                    <?php echo esc_html( __( 'More than the exact number, it is the distribution of knowledge of Jesus that is informative to the praying person.', 'prayer-global-porch' ) ) ?>
                                 </p>
                             </li>
                         </ul>
@@ -533,6 +527,5 @@ class Prayer_Global_Porch_Data_Source extends DT_Magic_Url_Base
         <?php require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/working-footer.php' ) ?>
         <?php
     }
-
 }
 Prayer_Global_Porch_Data_Source::instance();

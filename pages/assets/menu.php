@@ -16,11 +16,11 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
 
     <div class="offcanvas offcanvas-end pg-navmenu" data-bs-backdrop="true" data-bs-scroll="true" id="probootstrap-navbar">
         <div class="offcanvas-header blue-bg white p-3">
-            <a href="/" class="icon-button two-rem d-flex align-items-center mx-2" title="Home">
+            <a href="/?internal" class="icon-button two-rem d-flex align-items-center mx-2" title="Home">
                 <i class="icon pg-home"></i>
             </a>
             <div class="d-flex">
-                <a href="/user_app/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
+                <a href="/dashboard" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
 
                     <?php if ( is_user_logged_in() ) : ?>
 
@@ -34,18 +34,24 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
                     <?php endif; ?>
 
                 </a>
-                <div class="d-flex justify-content-end align-items-center mx-2">
 
-                    <?php require( __DIR__ . '/language-menu.php' ) ?>
+                <?php if ( !is_user_logged_in() ) : ?>
 
-                </div>
+                    <div class="d-flex justify-content-end align-items-center mx-2">
+
+                        <?php require( __DIR__ . '/language-menu.php' ) ?>
+
+                    </div>
+
+                <?php endif; ?>
+
                 <button type="button" class="icon-button p-0 two-rem d-flex ms-2" data-bs-dismiss="offcanvas" aria-label="Close">
                     <i class="icon pg-close"></i>
                 </button>
             </div>
         </div>
         <div class="offcanvas-body">
-            <div class="navbar-nav justify-content-end center uppercase brand-light" id="nav-links">
+            <div class="navbar-nav justify-content-end text-center uppercase brand-light" id="nav-links">
 
                 <a class="nav-link" href="<?php echo ( $url !== '' ) ? esc_url( trailingslashit( site_url() ) ) : '' ?>#section-lap">
                     <div class="nav-link__inner">
@@ -71,11 +77,10 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
 
                 <?php endif; ?>
 
-                <a class="nav-link" href="https://give.prayer.global/" target="_blank">
+                <a class="nav-link" href="/give">
                     <div class="nav-link__inner">
                         <i class="icon pg-give"></i>
-                        <span><?php echo esc_html( __( 'Give', 'prayer-global-porch' ) ) ?></span>
-                        <i class="ion-android-open absolute right-0"></i>
+                        <span><?php echo esc_html( __( 'Donate', 'prayer-global-porch' ) ) ?></span>
                     </div>
                 </a>
 
@@ -93,7 +98,6 @@ function pg_menu( bool $is_custom_lap = false, string $key = '' ) {
     </div>
 
     <?php
-
 }
 
 ?>

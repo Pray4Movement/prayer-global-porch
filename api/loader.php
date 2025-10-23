@@ -6,4 +6,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once 'user-api.php';
 require_once 'ctas-api.php';
-require_once 'pray-sync.php';
+require_once 'stats-api.php';
+require_once 'fuel-api.php';

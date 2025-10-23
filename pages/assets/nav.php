@@ -6,22 +6,22 @@ $url = dt_get_url_path( true );
  */
 $nav_class = 'white-bg brand';
 $home_page = false;
-if ( '' === $url ) {
+if ( '' === $url || 'stats-home' === $url ) {
     $nav_class = 'navbar-home navbar-dark';
     $home_page = true;
-} else if ( str_contains( $url, 'stats' ) ||
-            str_contains( $url, 'completed' ) ||
-            str_contains( $url, 'about' ) ||
-            str_contains( $url, 'stats' ) ||
+} else if ( str_contains( $url, 'about' ) ||
             str_contains( $url, 'login' ) ||
+            str_contains( $url, 'register' ) ||
             str_contains( $url, 'profile' )
 ) {
     $nav_class = 'navbar-dark';
 }
 $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'user_app' ) ? 'd-none' : '';
 
+$hide_share_button = str_contains( $url, 'dashboard' ) ? 'd-none' : '';
+
 ?>
-<nav class="pg-navbar navbar p-0 d-block <?php echo esc_html( $nav_class ) ?>" id="pg-navbar">
+<nav class="pg-navbar navbar p-0 d-block <?php echo esc_html( $nav_class ) ?>" id="pg-navbar" <?php echo $home_page === true ? 'data-home' : '' ?>>
 
     <?php if ( ( new PG_Feature_Flag( 'icom_banner' ) )->is_on() && true === $home_page ) : ?>
 
@@ -49,15 +49,21 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
 
     <?php endif; ?>
 
-    <div class="container d-flex align-items-center justify-content-between container py-3 flex-nowrap">
-        <button class="p-0 icon-button share-button two-rem d-flex" data-toggle="modal" data-target="#exampleModal">
-            <i class="icon pg-share"></i>
-        </button>
+    <div class="container py-3">
+        <div class="cluster">
+            <button class="p-0 icon-button share-button two-rem d-flex <?php echo esc_html( $hide_share_button ) ?>" data-toggle="modal" data-target="#exampleModal">
+                <i class="icon pg-share"></i>
+            </button>
 
-        <h5 class="border border-brand-light offcanvas-title px-3 rounded navbar__title"><a href="/" class="brand-light navbar__title-link">Prayer.Global</a></h5>
+            <?php pg_streak_icon(); ?>
 
+        </div>
+
+        <h5 class="border border-brand-light offcanvas-title px-3 rounded navbar__title"><a href="/?internal" class="brand-light navbar__title-link">Prayer.Global</a></h5>
+
+        <?php $login_url = is_user_logged_in() ? site_url( '/dashboard' ) : site_url( '/login' ); ?>
         <div class="d-flex justify-content-end align-items-center">
-            <a href="/user_app/profile" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
+            <a href="<?php echo esc_url( $login_url ); ?>" class="icon-button mx-2 two-rem d-flex align-items-center" title="Profile" id="user-profile-link">
 
                 <?php if ( is_user_logged_in() ) : ?>
 
@@ -71,11 +77,17 @@ $hide_cta_class = str_contains( $url, 'challenges' ) || str_contains( $url, 'use
                 <?php endif; ?>
 
             </a>
-            <div class="d-flex justify-content-end align-items-center mx-2">
 
-                <?php require( __DIR__ . '/language-menu.php' ) ?>
+            <?php if ( !is_user_logged_in() ) : ?>
 
-            </div>
+                <div class="d-flex justify-content-end align-items-center mx-2">
+
+                    <?php require( __DIR__ . '/language-menu.php' ) ?>
+
+                </div>
+
+            <?php endif; ?>
+
             <button class="icon-button navbar-toggler mx-2 two-rem d-flex align-items-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#probootstrap-navbar" aria-controls="probootstrap-navbar" aria-expanded="false" aria-label="Toggle navigation">
                 <i class="icon pg-menu"></i>
             </button>

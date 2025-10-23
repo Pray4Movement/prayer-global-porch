@@ -10,19 +10,17 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
     public $magic = false;
     public $page_title = 'Custom Prayer Lap';
     public $page_description = 'Custom Prayer Lap';
-    public $root = "prayer_app";
+    public $root = 'prayer_app';
     public $type = 'custom';
     public $type_actions = [
-        '' => "Pray",
-        'map' => "Map",
-        'stats' => "Stats",
-        'completed' => "Completed",
-        'tools' => "Tools",
-        'display' => "Display",
-        'event' => "Event",
+        '' => 'Pray',
+        'map' => 'Map',
+        'tools' => 'Tools',
+        'display' => 'Display',
+        'event' => 'Event',
     ];
     public $show_bulk_send = false;
-    public $post_type = 'laps';
+    public $post_type = 'pg_relays';
     private $meta_key = '';
     public $show_app_tile = true;
     public $stats = [];
@@ -62,38 +60,70 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
             return;
         }
 
-        add_filter( "dt_override_header_meta", function (){ return true;
+        $relay_post_id = pg_get_relay_id( $this->parts['public_key'] );
+
+        if ( !$relay_post_id ) {
+            return;
+        }
+
+        $this->parts['post_id'] = $relay_post_id;
+
+        add_filter( 'dt_override_header_meta', function (){ return true;
         }, 1000, 1 );
 
+        add_action( 'disciple_tools_loaded', [ $this, 'disciple_tools_loaded' ] );
+    }
+
+    public function disciple_tools_loaded(){
+
+        $action = $this->parts['action'];
         // load different actions
-        if ( empty( $this->parts['action'] ) ) {
-            if ( pg_is_lap_complete( $this->parts['post_id'] ) ) {
-                wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/completed' );
+        if ( empty( $action ) ) {
+            $status = get_post_meta( $this->parts['post_id'], 'status', true );
+            if ( $status === 'complete' ) {
+                wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/map' );
                 exit;
-            } else {
-                require_once( 'action-custom-lap.php' );
             }
-        } else if ( 'event' === $this->parts['action'] ) {
+            if ( $status === 'inactive' ) {
+                //make active
+                update_post_meta( $this->parts['post_id'], 'status', 'active' );
+                //recreate missing dt_relays rows
+                $this->recreate_pg_relay();
+            }
+
+            require_once( 'action-custom-lap.php' );
+        } else if ( 'event' === $action ) {
             require_once( 'action-custom-event-lap.php' );
-        } else if ( 'completed' === $this->parts['action'] ) {
-            require_once( 'action-custom-completed.php' );
-        } else if ( 'map' === $this->parts['action'] ) {
+        } else if ( 'map' === $action ) {
             require_once( 'action-custom-map.php' );
-        } else if ( 'stats' === $this->parts['action'] ) {
-            require_once( 'action-custom-stats.php' );
-        } else if ( 'display' === $this->parts['action'] ) {
+        } else if ( 'display' === $action ) {
             require_once( 'action-custom-map-display.php' );
-        } else if ( 'tools' === $this->parts['action'] ) {
+        } else if ( 'tools' === $action ) {
             require_once( 'action-custom-tools.php' );
         } else {
             wp_redirect( trailingslashit( site_url() ) );
         }
 
         // set page title
-        $this->stats = pg_custom_lap_stats_by_post_id( $this->parts['post_id'] );
-        $this->page_title = $this->stats['title'] ?? 'Prayer Relay';
-
+        $this->page_title = get_the_title( $this->parts['post_id'] );
     }
+
+    public function recreate_pg_relay() {
+        global $wpdb;
+        $wpdb->query( $wpdb->prepare( "
+            INSERT INTO $wpdb->dt_relays
+                (relay_key, grid_id, epoch)
+                SELECT %s as relay_key, grid_id, FLOOR(RAND() * 1001) as epoch
+                FROM $wpdb->dt_relays
+                WHERE relay_key = '49ba4c'
+                AND grid_id NOT IN (
+                    SELECT grid_id FROM $wpdb->dt_relays
+                    WHERE relay_key = %s
+                )
+        ", $this->parts['public_key'], $this->parts['public_key'] ) );
+    }
+
+    /* Setup $parts manually */
 
     public function dt_settings_apps_list( $apps_list ) {
         $apps_list[$this->meta_key] = [
@@ -130,55 +160,46 @@ class PG_Custom_Prayer_App extends DT_Magic_Url_Base {
      * @return array|bool|void|WP_Error
      */
     public function endpoint( WP_REST_Request $request ) {
-        $params = $request->get_params();
+        $params = pg_get_body_params( $request );
 
         if ( ! isset( $params['parts'], $params['action'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['parts']['action'] ) {
-            case 'completed':
-                return true;
             case 'map':
                 require_once( 'action-custom-map.php' );
                 if ( class_exists( 'PG_Custom_Prayer_App_Map' ) ) {
                     return PG_Custom_Prayer_App_Map::instance()->endpoint( $request );
                 }
-                return new WP_Error( __METHOD__, "Class not loaded: PG_Custom_Prayer_App_Map", [ 'status' => 400 ] );
-            case 'stats':
-                require_once( 'action-custom-stats.php' );
-                if ( class_exists( 'PG_Custom_Prayer_App_Stats' ) ) {
-                    return PG_Custom_Prayer_App_Stats::instance()->endpoint( $request );
-                }
-                return new WP_Error( __METHOD__, "Class not loaded: PG_Custom_Prayer_App_Stats", [ 'status' => 400 ] );
+                return new WP_Error( __METHOD__, 'Class not loaded: PG_Custom_Prayer_App_Map', [ 'status' => 400 ] );
             case 'tools':
                 require_once( 'action-custom-tools.php' );
                 if ( class_exists( 'PG_Custom_Prayer_App_Tools' ) ) {
                     return PG_Custom_Prayer_App_Tools::instance()->endpoint( $request );
                 }
-                return new WP_Error( __METHOD__, "Class not loaded: PG_Custom_Prayer_App_Tools", [ 'status' => 400 ] );
+                return new WP_Error( __METHOD__, 'Class not loaded: PG_Custom_Prayer_App_Tools', [ 'status' => 400 ] );
             case 'display':
                 require_once( 'action-custom-map-display.php' );
                 if ( class_exists( 'PG_Custom_Prayer_App_Map_Display' ) ) {
                     return PG_Custom_Prayer_App_Map_Display::instance()->endpoint( $request );
                 }
-                return new WP_Error( __METHOD__, "Class not loaded: PG_Custom_Prayer_App_Map_Display", [ 'status' => 400 ] );
+                return new WP_Error( __METHOD__, 'Class not loaded: PG_Custom_Prayer_App_Map_Display', [ 'status' => 400 ] );
             case 'event':
                 require_once( 'action-custom-event-lap.php' );
                 if ( class_exists( 'PG_Custom_High_Volume_Prayer_App_Lap' ) ) {
                     return PG_Custom_High_Volume_Prayer_App_Lap::instance()->endpoint( $request );
                 }
-                return new WP_Error( __METHOD__, "Class not loaded: PG_Custom_High_Volume_Prayer_App_Lap", [ 'status' => 400 ] );
+                return new WP_Error( __METHOD__, 'Class not loaded: PG_Custom_High_Volume_Prayer_App_Lap', [ 'status' => 400 ] );
             default:
                 require_once( 'action-custom-lap.php' );
                 if ( class_exists( 'PG_Custom_Prayer_App_Lap' ) ) {
                     return PG_Custom_Prayer_App_Lap::instance()->endpoint( $request );
                 }
-                return new WP_Error( __METHOD__, "Class not loaded: PG_Custom_Prayer_App_Lap", [ 'status' => 400 ] );
+                return new WP_Error( __METHOD__, 'Class not loaded: PG_Custom_Prayer_App_Lap', [ 'status' => 400 ] );
         }
     }
-
 }
 PG_Custom_Prayer_App::instance();

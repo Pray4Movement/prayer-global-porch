@@ -3,67 +3,106 @@ if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 trait PG_Lap_Trait {
 
+    private $icons = [
+        'ion-android-warning',
+        'ion-happy',
+        'ion-ios-body',
+        'ion-map',
+        'ion-sad',
+        'pg-chevron-down',
+        'pg-close',
+        'pg-pause',
+        'pg-play',
+        'pg-pray-hands-dark',
+        'pg-prayer',
+        'pg-settings',
+        'pg-streak',
+        'pg-relay',
+    ];
+
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        $allowed_js = [];
-        $allowed_js[] = 'lap-js';
-        $allowed_js[] = 'report-js';
-        return $allowed_js;
+        return [
+            'lap-js',
+            'report-js',
+            'global-functions',
+            'canvas-confetti',
+            'umami',
+        ];
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
         return [
             'lap-css',
-            'mapbox-gl-css',
         ];
     }
 
     public function wp_enqueue_scripts(){
-        pg_enqueue_script( 'report-js', 'pages/pray/report.js', [ 'jquery', 'global-functions' ], true );
-        pg_enqueue_script( 'lap-js', 'pages/pray/lap.js', [ 'jquery', 'global-functions', 'report-js' ], true );
+        pg_enqueue_script( 'report-js', 'pages/pray/report.js', [ 'global-functions' ], true );
+        pg_enqueue_script( 'lap-js', 'pages/pray/lap.js', [ 'global-functions', 'report-js' ], true );
 
-        wp_enqueue_style_async( 'mapbox-gl-css', DT_Mapbox_API::$mapbox_gl_css, [], '1.1.0', 'all' );
-        wp_enqueue_style( 'lap-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'lap.css', [ 'basic-css' ], fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap.css' ), 'all' );
+        wp_enqueue_style( 'lap-css', trailingslashit( plugin_dir_url( __FILE__ ) ) . 'lap.css', [], fileatime( trailingslashit( plugin_dir_path( __FILE__ ) ) . 'lap.css' ), 'all' );
     }
 
     public function header_javascript(){
-        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header-event.php' );
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '../utilities/security.php' );
 
-        $current_lap = pg_current_global_lap();
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
-        if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
-            ?>
-            <!-- Resources -->
-            <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js?ver=3" defer></script>
-            <script>
-                let jsObject = [<?php echo json_encode([
-                    'parts' => $this->parts,
-                    'current_lap' => pg_current_global_lap(),
-                    'translations' => [
-                        'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
-                        'Keep Praying...' => __( 'Keep Praying...', 'prayer-global-porch' ),
-                        "Don't Know Jesus" => __( "Don't Know Jesus", 'prayer-global-porch' ),
-                        'Know About Jesus' => __( 'Know About Jesus', 'prayer-global-porch' ),
-                        'Know Jesus' => __( 'Know Jesus', 'prayer-global-porch' ),
-                        'Praying Paused' => __( 'Praying Paused', 'prayer-global-porch' ),
-                        'Great Job!' => __( 'Great Job!', 'prayer-global-porch' ),
-                        'Prayer Added!' => __( 'Prayer Added!', 'prayer-global-porch' ),
-                    ],
-                    'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
-                    'images_url' => pg_grid_image_url(),
-                    'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
-                    'current_url' => $current_url,
-                    'stats_url' => $current_url . 'stats',
-                    'map_url' => $current_url . 'map',
-                    'is_custom' => ( 'custom' === $this->parts['type'] ),
-                    'is_cta_feature_on' => true,
-                ]) ?>][0]
-            </script>
-            <script type="text/javascript" src="<?php echo esc_url( DT_Mapbox_API::$mapbox_gl_js ) ?>" defer></script>
-            <link rel="prefetch" href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/celebrate1.gif' ) ?>" >
-            <link rel="prefetch" href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/celebrate2.gif' ) ?>" >
-            <link rel="prefetch" href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/celebrate3.gif' ) ?>" >
-            <?php
-        }
+        $nonce = PG_Nonce::create( 'direct-api' );
+
+        $svg_manager = new SVG_Spritesheet_Manager();
+        $spritesheet_url = $svg_manager->get_cached_spritesheet_url( $this->icons, 'pg' );
+        ?>
+        <!-- Resources -->
+        <script>
+            let jsObject = [<?php echo json_encode([
+                'parts' => $this->parts,
+                'nonce' => PG_Nonce::create( 'direct-api' ),
+                'language' => pg_get_current_lang(),
+                'translations' => [
+                    'state_of_location' => esc_html__( '%1$s of %2$s', 'prayer-global-porch' ),
+                    'Keep Praying...' => esc_html__( 'Keep Praying...', 'prayer-global-porch' ),
+                    "Don't Know Jesus" => esc_html__( "Don't Know Jesus", 'prayer-global-porch' ),
+                    'Know About Jesus' => esc_html__( 'Know About Jesus', 'prayer-global-porch' ),
+                    'Know Jesus' => esc_html__( 'Know Jesus', 'prayer-global-porch' ),
+                    'Praying Paused' => esc_html__( 'Praying Paused', 'prayer-global-porch' ),
+                    'Great Job!' => esc_html__( 'Great Job!', 'prayer-global-porch' ),
+                    'Prayer Added!' => esc_html__( 'Prayer Added!', 'prayer-global-porch' ),
+                    'join_and_create_custom_prayer_relays' => esc_html__( 'Join and create custom prayer relays', 'prayer-global-porch' ),
+                    'view_your_interactive_prayer_history' => esc_html__( 'View your interactive prayer history', 'prayer-global-porch' ),
+                    'prayer_streaks_badges_and_more' => esc_html__( 'Prayer streaks and more', 'prayer-global-porch' ),
+                    'register_now' => esc_html__( 'Register Now', 'prayer-global-porch' ),
+                    'create_your_own_free_login' => esc_html__( 'Create your own free login', 'prayer-global-porch' ),
+                    'no_thanks' => esc_html__( 'No Thanks', 'prayer-global-porch' ),
+                    'daily_streak' => esc_html__( 'Daily Prayer Streak', 'prayer-global-porch' ),
+                    'best' => esc_html__( 'Best', 'prayer-global-porch' ),
+                    'done' => esc_html__( 'Done', 'prayer-global-porch' ),
+                    'map' => esc_html__( 'Map', 'prayer-global-porch' ),
+                    'fetching_stats' => esc_html__( 'Fetching your stats...', 'prayer-global-porch' ),
+                    'congratulations' => esc_html__( 'Congratulations!', 'prayer-global-porch' ),
+                    'you_have_earned_a_badge' => esc_html__( 'You just earned a new badge.', 'prayer-global-porch' ),
+                    'you_have_earned_badges' => esc_html__( 'You just earned new badges.', 'prayer-global-porch' ),
+                    'view_badges' => esc_html__( 'View Badges', 'prayer-global-porch' ),
+                    'download_the_app' => esc_html__( 'Download the Prayer.Global app to get streak notifications and more!', 'prayer-global-porch' ),
+                    'update_the_app' => esc_html__( 'Update the Prayer.Global app to get streak notifications and more!', 'prayer-global-porch' ),
+                    'go_to_app_store' => esc_html__( 'Go to App Store', 'prayer-global-porch' ),
+                ],
+                'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/anon.jpeg',
+                'images_url' => pg_grid_image_url(),
+                'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
+                'current_url' => $current_url,
+                'map_url' => $current_url . 'map',
+                'is_custom' => ( 'custom' === $this->parts['type'] ),
+                'is_cta_feature_on' => true,
+                'user_id' => get_current_user_id(),
+                'cache_url' => 'https://s3.prayer.global/',
+                'direct_api_url' => plugin_dir_url( dirname( __DIR__ ) ),
+                'icons_url' => plugin_dir_url( __DIR__ ) . 'assets/images/icons',
+                'badges_url' => plugin_dir_url( __DIR__ ) . 'assets/images/badges',
+                'spritesheet_url' => $spritesheet_url,
+            ]) ?>][0]
+        </script>
+        <?php
     }
 
     public function footer_javascript(){
@@ -71,114 +110,266 @@ trait PG_Lap_Trait {
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/share-modal.php' );
     }
 
-    public function body(){
-        DT_Mapbox_API::geocoder_scripts();
+    public function body(): void {
+
+        $svg_manager = new SVG_Spritesheet_Manager();
+
+        $spritesheet_dir = $svg_manager->get_cached_spritesheet_dir( $this->icons, 'pg' );
         ?>
 
+        <?php //phpcs:ignore ?>
+        <?php echo file_get_contents( $spritesheet_dir ); ?>
+
         <!-- navigation & widget -->
-        <nav class="navbar prayer_navbar fixed-top" id="pb-pray-navbar">
-            <div class="container" id="praying-panel">
-                <div class="d-flex w-100 gap-2 praying_button_group" role="group" aria-label="<?php echo esc_attr__( 'Praying Button', 'prayer-global-porch' ) ?>">
-                    <div class="align-items-center brand-lighter-bg btn-praying d-flex gap-2 prayer-odometer px-2">
+        <nav class="prayer-navbar">
+            <div class="container praying-button-group" id="praying-panel" role="group" aria-label="Praying Button">
+                <div class="btn btn-praying prayer-odometer">
 
-                        <?php if ( is_user_logged_in() ) : ?>
+                    <?php if ( is_user_logged_in() ) : ?>
 
-                            <?php //phpcs:ignore ?>
-                            <?php echo pg_profile_icon(); ?>
+                        <?php //phpcs:ignore ?>
+                        <?php echo pg_profile_icon( true ) ?>
 
-                        <?php else : ?>
+                    <?php else : ?>
 
-                            <i class='icon pg-prayer'></i>
+                        <svg fill="currentColor" width="1em" height="1em" >
+                            <use href="#pg-prayer"></use>
+                        </svg>
 
-                        <?php endif; ?>
+                    <?php endif; ?>
 
-                        <span class="two-rem location-count">0</span>
-                    </div>
-                    <button type="button" class="btn p-2" id="praying_button" data-percent="0" data-seconds="0">
-                        <div class="praying__progress"></div>
-                        <span class="praying__text uppercase font-weight-normal"></span>
-                    </button>
-                    <button type="button" class="btn btn-primary-dark btn-praying" id="praying__pause_button">
-                        <i class="icon pg-pause"></i>
-                    </button>
-                    <button type="button" class="btn btn-primary-dark btn-praying" id="praying__continue_button">
-                        <i class="icon pg-start"></i>
-                    </button>
-                    <button type="button" class="btn btn-primary-dark btn-praying" id="praying__open_options" data-bs-toggle="modal" data-bs-target="#option_filter">
-                        <i class="icon pg-settings"></i>
-                    </button>
+                    <span class="location-count">-</span>
                 </div>
+                <button type="button" class="btn praying-timer" id="praying-button" data-percent="0" data-seconds="0">
+                    <div class="praying__progress"></div>
+                    <span class="praying__text uppercase font-weight-normal"></span>
+                </button>
+                <button type="button" class="btn btn-praying bg-dark" data-display="flex" id="praying__pause_button">
+                    <svg fill="currentColor" width="1em" height="1em" >
+                        <use href="#pg-pause"></use>
+                    </svg>
+                </button>
+                <button type="button" class="btn btn-praying bg-dark" data-display="flex" id="praying__continue_button">
+                    <svg height="1em" width="1em" fill="currentColor" >
+                        <use href="#pg-play"></use>
+                    </svg>
+                </button>
+                <button type="button" class="btn btn-praying bg-light" id="praying__open_options" data-bs-toggle="modal" data-bs-target="#option_filter">
+                    <svg height="1em" width="1em" fill="currentColor" >
+                        <use href="#pg-settings"></use>
+                    </svg>
+                </button>
             </div>
-
-            <div class="container question" id="question-panel">
-                <div class="d-flex w-100 gap-2 question_button_group" role="group" aria-label="<?php echo esc_attr__( 'Praying Button', 'prayer-global-porch' ) ?>">
+            <div class="container" id="question-panel">
+                <div class="btn-group question" role="group" aria-label="Praying Button">
 
                     <?php $this->question_buttons() ?>
 
                 </div>
             </div>
             <div class="w-100" ></div>
-            <div class="container decision" id="decision-panel">
-                <div class="d-flex w-100 gap-2 decision_button_group" role="group" aria-label="<?php echo esc_attr__( 'Decision Button', 'prayer-global-porch' ) ?>">
+            <div class="container" id="decision-panel">
+                <div class="btn-group decision" role="group" aria-label="Decision Button">
 
                     <?php $this->decision_buttons() ?>
 
                 </div>
             </div>
-            <div class="container celebrate text-center" id="celebrate-panel"></div>
             <div class="w-100" ></div>
-            <div class="container flex-column justify-content-center">
-                <p class="my-0 font-weight-normal text-center tutorial uppercase one-em lh-1" id="tutorial-location"><?php echo esc_html__( 'Pray for', 'prayer-global-porch' ) ?></p>
-                <h5 class="my-0 font-weight-bold text-center w-75" id="location-name"></h5>
+            <div class="container flow space-sm text-center">
+                <p class="tutorial uc f-xlg lh-1" id="tutorial-location"><?php echo esc_html__( 'Pray for', 'prayer-global-porch' ) ?></p>
+                <h2 class="lh-1 text-center bold f-md" id="location-name">
+                    <div class="skeleton" data-title></div>
+                </h2>
+                <p class="f-sm">
+                    <?php echo sprintf( esc_html__( 'In Prayer Relay %s', 'prayer-global-porch' ), esc_html( $this->page_title ) ) ?>
+                </p>
             </div>
         </nav>
 
+        <div class="celebrate-panel text-center" id="celebrate-panel">
+            <div class="container flow">
+                <h2>
+                    <?php echo esc_html__( 'Great Job!', 'prayer-global-porch' ) ?>
+                    <br />
+                    <?php echo esc_html__( 'Prayer Added!', 'prayer-global-porch' ) ?>
+                </h2>
+                <div id="celebrate-content">
+                    <p class="text-center">
+                        <i><?php echo esc_html__( 'Fetching next location...', 'prayer-global-porch' ) ?></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+
         <!-- Modal -->
+        <div class="modal fade" id="decision_leave_modal" tabindex="-1" role="dialog" aria-labelledby="option_filter_label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="option_filter_label"><?php echo esc_html__( 'Are you sure you want to leave?', 'prayer-global-porch' ) ?></h5>
+                        <button type="button" id="decision__close" aria-label="<?php esc_attr( __( 'Close', 'prayer-global-porch' ) ) ?>">
+                            <svg class="f-xlg" height="1em" width="1em" fill="currentColor" >
+                                <use href="#pg-close"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="modal-body">
+                        <?php echo esc_html__( "If you leave now, this place won't have been prayed for." ) ?>
+                    </p>
+                    <div class="modal-footer">
+                        <button type="button" class="btn outline" id="decision__keep_praying" data-bs-dismiss="modal"><?php echo esc_html__( 'Keep Praying', 'prayer-global-porch' ) ?></button>
+                        <button type="button" class="btn bg-dark" id="decision__leave" data-bs-dismiss="modal"><?php echo esc_html__( 'Leave', 'prayer-global-porch' ) ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- content section -->
+        <section class="prayer-content flow space-lg">
+            <div class="container" id="map">
+                <div class="text-md-center location-map" id="location-map">
+                    <div class="skeleton" data-map></div>
+                </div>
+                <div class="population-info">
+                    <div>
+                        <svg class="icon dark" width="0.75em" height="0.75em">
+                            <use href="#ion-ios-body"></use>
+                        </svg>
+                        <span class="no">
+                            <div class="skeleton" data-number></div>
+                        </span>
+                    </div>
+                    <div>
+                        <svg class="icon light" width="0.75em" height="0.75em">
+                            <use href="#ion-ios-body"></use>
+                        </svg>
+                        <span class="neutral">
+                            <div class="skeleton" data-number></div>
+                        </span>
+                    </div>
+                    <div>
+                        <svg class="icon orange" width="0.75em" height="0.75em">
+                            <use href="#ion-ios-body"></use>
+                        </svg>
+                        <span class="yes">
+                            <div class="skeleton" data-number></div>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <a href="#content-anchor" class="btn bg-orange" id="see-more-button" style="display: none">
+                <?php echo esc_html__( 'See more', 'prayer-global-porch' ) ?>
+                <svg width="1em" height="1em" fill="currentColor">
+                    <use href="#pg-chevron-down"></use>
+                </svg>
+            </a>
+            <div class="container flow space-md relative" id="content">
+
+                <hr />
+
+                <div class="block basic-block text-center">
+                    <div class="block__header">
+                        <h5 class="mb-0 uc">
+                            <div class="skeleton" data-title></div>
+                        </h5>
+                    </div>
+                    <div class="block__content">
+                        <p class="skeleton" data-text></p>
+                        <p class="skeleton" data-text></p>
+                    </div>
+                </div>
+
+                <hr />
+
+
+                <div class="block basic-block text-center">
+                    <div class="block__header">
+                        <h5 class="mb-0 uc">
+                            <div class="skeleton" data-title></div>
+                        </h5>
+                    </div>
+                    <div class="block__content">
+                        <p class="skeleton" data-text></p>
+                        <p class="skeleton" data-text></p>
+                    </div>
+                </div>
+
+                <hr>
+            </div>
+            <div class="container">
+                <div class="flow text-center center">
+                    <svg class="f-xxlg" height="1em" width="1em" fill="currentColor" >
+                        <use href="#pg-pray-hands-dark"></use>
+                    </svg>
+                    <button type="button" class="btn outline" id="more_prayer_fuel"><?php echo esc_html__( 'Show More Guided Prayers', 'prayer-global-porch' ) ?><i class="icon pg-chevron-down"></i></button>
+                    <button class="btn simple" id="correction_button"><?php echo esc_html__( 'Correction Needed?', 'prayer-global-porch' ) ?></button>
+                </div>
+            </div>
+
+        </section>
+        <div class="modal fade" id="correction_modal" tabindex="-1" role="dialog" aria-labelledby="correction_modal_label" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title"><?php echo esc_html( __( 'Thank you! Leave us a correction below.', 'prayer-global-porch' ) ) ?></h5>
+                        <button type="button" id="correction_close" data-bs-dismiss="modal" aria-label="<?php esc_attr( __( 'Close', 'prayer-global-porch' ) ) ?>">
+                            <svg class="f-xlg" height="1em" width="1em" fill="currentColor" >
+                                <use href="#pg-close"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body flow space-md">
+                        <p><span id="correction_title" class="correction_field"></span></p>
+                        <div class="flow space-sm form-group">
+                            <label for="correction_select">
+                                <?php echo esc_html( __( 'Section:', 'prayer-global-porch' ) ) ?>
+                            </label>
+                            <select class="form-control form-select correction_field" id="correction_select"></select>
+                        </div>
+                        <div class="flow space-sm form-group">
+                            <label for="correction_response">
+                                <?php echo esc_html( __( 'Correction Requested:', 'prayer-global-porch' ) ) ?>
+                            </label>
+                            <textarea class="form-control correction_field" id="correction_response" rows="3"></textarea>
+                        </div>
+                        <p id="correction_error" class="correction_field"></p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn" id="correction_submit_button">
+                            <?php echo esc_html( __( 'Submit', 'prayer-global-porch' ) ) ?>
+                            <div class="loading-spinner correction_modal_spinner"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="option_filter" tabindex="-1" role="dialog" aria-labelledby="option_filter_label" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel"><?php echo esc_html__( 'Set Your Prayer Experience', 'prayer-global-porch' ) ?></h5>
-                        <button type="button" class="d-flex brand-light" data-bs-dismiss="modal" aria-label="<?php echo esc_attr__( 'Close', 'prayer-global-porch' ) ?>">
-                            <i class="icon pg-close two-em"></i>
+                        <button type="button" id="option_filter_close" data-bs-dismiss="modal" aria-label="<?php esc_attr( __( 'Close', 'prayer-global-porch' ) ) ?>">
+                            <svg class="f-xlg" height="1em" width="1em" fill="currentColor" >
+                                <use href="#pg-close"></use>
+                            </svg>
                         </button>
                     </div>
                     <div class="modal-body">
                         <div>
                             <p><?php echo esc_html__( 'Prayer pace per place', 'prayer-global-porch' ) ?></p>
                         </div>
-                        <div class="btn-group-vertical pace-wrapper">
-                            <button type="button" class="btn btn-secondary pace" id="pace__1" value="1"><?php echo esc_html( sprintf( __( '%d Minute', 'prayer-global-porch' ), 1 ) ) ?></button>
-                            <button type="button" class="btn btn-outline-secondary pace" id="pace__2" value="2"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 2 ) ) ?></button>
-                            <button type="button" class="btn btn-outline-secondary pace" id="pace__3" value="3"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 3 ) ) ?></button>
-                            <button type="button" class="btn btn-outline-secondary pace" id="pace__5" value="5"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 5 ) ) ?></button>
-                            <button type="button" class="btn btn-outline-secondary pace" id="pace__10" value="10"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 10 ) ) ?></button>
-                            <button type="button" class="btn btn-outline-secondary pace" id="pace__15" value="15"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 15 ) ) ?></button>
+                        <div class="btn-group vertical">
+                            <button type="button" class="btn pace-btn" id="pace__1" value="1"><?php echo esc_html( sprintf( __( '%d Minute', 'prayer-global-porch' ), 1 ) ) ?></button>
+                            <button type="button" class="btn pace-btn" id="pace__2" value="2"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 2 ) ) ?></button>
+                            <button type="button" class="btn pace-btn" id="pace__3" value="3"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 3 ) ) ?></button>
+                            <button type="button" class="btn pace-btn" id="pace__5" value="5"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 5 ) ) ?></button>
+                            <button type="button" class="btn pace-btn" id="pace__10" value="10"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 10 ) ) ?></button>
+                            <button type="button" class="btn pace-btn" id="pace__15" value="15"><?php echo esc_html( sprintf( __( '%d Minutes', 'prayer-global-porch' ), 15 ) ) ?></button>
                         </div>
                     </div>
-                    <div class="modal-footer center">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><?php echo esc_html__( "Let's Go!", 'prayer-global-porch' ) ?></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="decision_leave_modal" tabindex="-1" role="dialog" aria-labelledby="option_filter_label" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel"><?php echo esc_html__( 'Are you sure you want to leave?', 'prayer-global-porch' ) ?></h5>
-                        <button type="button" class="d-flex brand-light" data-bs-dismiss="modal" aria-label="<?php esc_attr( __( 'Close', 'prayer-global-porch' ) ) ?>">
-                            <i class="icon pg-close two-em"></i>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <p>
-                            <?php echo esc_html__( "If you leave now, this place won't count as having been prayed for and will remain available for the next person to pray over." ) ?>
-                        </p>
-                    </div>
-                    <div class="modal-footer center">
-                        <button type="button" class="btn btn-outline-primary uppercase" id="decision__keep_praying" data-bs-dismiss="modal"><?php echo esc_html__( "Keep Praying", 'prayer-global-porch' ) ?></button>
-                        <button type="button" class="btn btn-primary" id="decision__leave" data-bs-dismiss="modal"><?php echo esc_html__( "Leave", 'prayer-global-porch' ) ?></button>
+                    <div class="modal-footer text-center">
+                        <button type="button" class="btn btn-primary" id="option_filter_done" data-bs-dismiss="modal"><?php echo esc_html__( "Let's Go!", 'prayer-global-porch' ) ?></button>
                     </div>
                 </div>
             </div>
@@ -186,21 +377,28 @@ trait PG_Lap_Trait {
         <div class="modal fade" id="welcome_screen" tabindex="-1" role="dialog" aria-labelledby="welcome_screen_label" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-body pb-0">
-                        <p class="center"><?php echo esc_html( sprintf( __( 'How %s works', 'prayer-global-porch' ), 'Prayer.Global' ) ) ?></p>
-                        <h4 class="center"><?php echo esc_html( __( 'Step 1', 'prayer-global-porch' ) ) ?></h4>
+                    <div class="modal-header">
+                        <button type="button" id="welcome_screen_close" data-bs-dismiss="modal" aria-label="<?php esc_attr( __( 'Close', 'prayer-global-porch' ) ) ?>">
+                            <svg class="f-xlg" height="1em" width="1em" viewBox="0 0 33 33" fill="currentColor" >
+                                <use href="<?php echo esc_url( plugin_dir_url( __DIR__ ) . 'assets/images/close.svg#pg-icon' ) ?>"></use>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <h5 class="text-center"><?php echo esc_html( sprintf( __( 'How %s works', 'prayer-global-porch' ), 'Prayer.Global' ) ) ?></h5>
+                        <h4 class="text-center"><?php echo esc_html( __( 'Step 1', 'prayer-global-porch' ) ) ?></h4>
                         <p>
                             <?php echo esc_html( __( 'Pray over the location provided using the maps, photos, prayers, people group info, and facts.', 'prayer-global-porch' ) ) ?>
                         </p>
 
-                        <h4 class="center"><?php echo esc_html( __( 'Step 2', 'prayer-global-porch' ) ) ?></h4>
+                        <h4 class="text-center"><?php echo esc_html( __( 'Step 2', 'prayer-global-porch' ) ) ?></h4>
                         <p>
                             <?php echo esc_html( __( 'Pray for one minute (or longer) as the Spirit leads.', 'prayer-global-porch' ) ) ?>
                         </p>
                         <p>
                             <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/welcome-keep.png" style="opacity:0.5;" class="img-fluid" />
                         </p>
-                        <h4 class="center"><?php echo esc_html( __( 'Step 3', 'prayer-global-porch' ) ) ?></h4>
+                        <h4 class="text-center"><?php echo esc_html( __( 'Step 3', 'prayer-global-porch' ) ) ?></h4>
                         <p>
                             <?php echo sprintf( esc_html( __( 'Click Done to see your impact on the map or %sclick Next to pray for another location', 'prayer-global-porch' ) ), '<br>' ) ?>
                         </p>
@@ -209,85 +407,19 @@ trait PG_Lap_Trait {
                         </p>
                     </div>
                     <div class="modal-footer justify-content-center pt-0">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal"><?php echo esc_html( __( "Let's Go!", 'prayer-global-porch' ) ) ?></button>
+                        <button id="welcome_screen_done" class="btn"><?php echo esc_html( __( "Let's Go!", 'prayer-global-porch' ) ) ?></button>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="correction_modal"  role="dialog" aria-labelledby="correction_modal_label" aria-hidden="true">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                <h5 class="modal-title"><?php echo esc_html__( 'Thank you! Leave us a correction below.', 'prayer-global-porch' ) ?></h5>
-                                    <button type="button" id="correction_close" class="d-flex brand-light" data-bs-dismiss="modal" aria-label="<?php echo esc_attr__( 'Close', 'prayer-global-porch' ) ?>">
-                                        <i class="icon pg-close two-em"></i>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <p><span id="correction_title" class="correction_field"></span></p>
-                                    <p>
-                                        <?php echo esc_html( __( 'Section:', 'prayer-global-porch' ) ) ?><br>
-                                        <select class="form-control form-select correction_field" id="correction_select"></select>
-                                    </p>
-                                    <p>
-                                        <?php echo esc_html( __( 'Correction Requested:', 'prayer-global-porch' ) ) ?><br>
-                                        <textarea class="form-control correction_field" id="correction_response" rows="3"></textarea>
-                                    </p>
-                                    <p>
-                                        <button type="button" class="btn btn-primary" id="correction_submit_button"><?php echo esc_html( __( 'Submit', 'prayer-global-porch' ) ) ?></button> <span class="loading-spinner correction_modal_spinner"></span>
-                                    </p>
-                                    <p id="correction_error" class="correction_field"></p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-        <!-- Location counter -->
-        <div class="prayer-odometer">
-            <div>
-                <i class="ion-location"></i><span class="location-count">0</span>
-            </div>
-        </div>
-
-        <!-- content section -->
-        <section>
-            <div class="container" id="map">
-                <div class="row">
-                    <div class="col">
-                        <div class="text-md-center" id="location-map"><span class="loading-spinner active"></span></div>
-                    </div>
-                </div>
-            </div>
-            <a href="#content" class="text-decoration-none" id="see-more-button">
-                <div class="btn btn-secondary center d-block m-auto uppercase w-fit">
-                    <?php echo esc_html__( 'See more', 'prayer-global-porch' ) ?>
-                    <i class="icon pg-chevron-down d-block center"></i>
-                </div>
-            </a>
-            <div id="content"></div>
-            <div class="container">
-                <div class="row text-center mb-3">
-                    <div class="col">
-                        <i class="icon pg-pray-hands-dark d-block icon-small mb-3" style="margin-top: -2rem"></i>
-                        <button type="button" class="btn btn-outline-primary px-4 mx-auto gap-2" id="more_prayer_fuel"><?php echo esc_html__( 'Show More Guided Prayers', 'prayer-global-porch' ) ?><i class="icon pg-chevron-down"></i></button>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col text-center" style="padding-bottom:2em;">
-                        <button class="brand-lighter" id="correction_button"><?php echo esc_html__( 'Correction Needed?', 'prayer-global-porch' ) ?></button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <?php
     }
 
     public function question_buttons() {
         ?>
 
-        <button type="button" class="btn btn-primary-dark btn-praying uppercase font-weight-normal two-em lh-sm" id="question__yes_done"><?php echo esc_html__( 'Done', 'prayer-global-porch' ) ?></button>
-        <button type="button" class="btn btn-secondary btn-praying question__yes uppercase font-weight-normal two-em lh-sm" id="question__yes_next"><?php echo esc_html__( 'Next', 'prayer-global-porch' ) ?></button>
+        <button type="button" class="btn btn-praying lh-sm bg-dark" id="question__yes_done"><?php echo esc_html( __( 'Done', 'prayer-global-porch' ) ) ?></button>
+        <button type="button" class="btn btn-praying lh-sm bg-orange" id="question__yes_next"><?php echo esc_html( __( 'Next', 'prayer-global-porch' ) ) ?></button>
 
         <?php
     }
@@ -295,80 +427,22 @@ trait PG_Lap_Trait {
     public function decision_buttons() {
         ?>
 
-        <button type="button" class="btn btn-primary-dark btn-praying flex-1" id="decision__home">
-            <i class="icon pg-home"></i>
+        <button type="button" class="btn btn-praying bg-dark" id="decision__home">
+            <?php echo esc_html__( 'Map', 'prayer-global-porch' ) ?>
         </button>
-        <button type="button" class="btn btn-primary-dark btn-praying uppercase flex-2 two-em font-weight-normal" id="decision__map"><?php echo esc_html__( 'Map', 'prayer-global-porch' ) ?></button>
-        <button type="button" class="btn btn-primary-light btn-praying uppercase flex-1 two-em font-weight-normal" id="decision__next"><?php echo esc_html__( 'Next', 'prayer-global-porch' ) ?></button>
 
         <?php
     }
 
 
     /**
-     * Log Data Model
-     *
-     * Lap information includes (post_id, post_type, type, subtype)
-     *
-     * Prayer information includes (value = number of minutes in prayer, grid_id = location_grid prayed for)
-     *
-     * User information includes (lng, lat, level, label = location information of the visitors ip address, hash = the unique user id stored by cookie on their client)
-     *
-     * @param $parts
-     * @param $data
-     * @return array|false|void|WP_Error
-     */
-    public function save_log( $parts, $data ) {
-
-        if ( !isset( $parts['post_id'], $parts['root'], $parts['type'], $data['grid_id'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
-        }
-
-        // prayer location log
-        $args = [
-
-            // lap information
-            'post_id' => $parts['post_id'],
-            'post_type' => 'laps',
-            'type' => $parts['root'],
-            'subtype' => $parts['type'],
-
-            // prayer information
-            'value' => $data['pace'] ?? 1,
-            'grid_id' => $data['grid_id'],
-
-            // user information
-            'payload' => [
-                'user_location' => $data['user']['label'] ?? null,
-                'user_language' => 'en' // @todo expand for other languages
-            ],
-            'lng' => $data['user']['lng'] ?? null,
-            'lat' => $data['user']['lat'] ?? null,
-            'level' => $data['user']['level'] ?? null,
-            'label' => $data['user']['country'] ?? null,
-            'hash' => $data['user']['hash'] ?? null,
-        ];
-        if ( is_user_logged_in() ) {
-            $args['user_id'] = get_current_user_id();
-        }
-        $id = dt_report_insert( $args, true, false );
-
-        $response = $this->get_new_location( $parts );
-        if ( $response ) {
-            $response['report_id'] = $id;
-        }
-
-        return $response;
-    }
-
-    /**
      * @param $parts
      * @param $data
      * @return int|WP_Error
      */
-    public function increment_log( $parts, $data) {
+    public function increment_prayer_time( $parts, $data ) {
         if ( !isset( $parts['post_id'], $parts['root'], $parts['type'], $data['report_id'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
         /* Check that the report exists */
         $report = Disciple_Tools_Reports::get( $data['report_id'], 'id' );
@@ -378,11 +452,15 @@ trait PG_Lap_Trait {
         }
 
         $new_value = (int) $report['value'] + 1;
-        /* update the report */
-        Disciple_Tools_Reports::update( [
-            'id' => $data['report_id'],
-            'value' => $new_value,
-        ] );
+        if ( $new_value <= 60 ){
+            /* update the report */
+            global $wpdb;
+            $wpdb->query( $wpdb->prepare( "
+                UPDATE $wpdb->dt_reports
+                SET value = value + 1
+                WHERE id = %d
+            ", $data['report_id'] ) );
+        }
 
         return $new_value;
     }
@@ -459,152 +537,4 @@ trait PG_Lap_Trait {
 
         return $result;
     }
-
-    /**
-     * Global query
-     * @return array|false|void
-     */
-    public function get_new_location( $parts, $all = false ) {
-        // get 4770 list
-        $list_4770 = pg_query_4770_locations();
-
-        // subtract prayed places
-        $global_list_prayed = $this->_query_prayed_list();
-        $remaining_global = array_diff( $list_4770, $global_list_prayed );
-
-        /**
-         * If empty, generate a new global prayer lap and continue
-         */
-        if ( empty( $remaining_global ) ) {
-            dt_write_log( __METHOD__ . ' : generated a new prayer lap' );
-            $post_id = $parts['post_id'];
-            $remaining_global = pg_generate_new_global_prayer_lap( $post_id );
-        }
-
-        /**
-         * Most restrictive, available global locations without all promises both global and custom
-         */
-        $recently_promised_locations = $this->_recently_promised_locations();
-        $list_4770_without_all_promises = array_diff( $remaining_global, $recently_promised_locations['all'] );
-        if ( ! empty( $list_4770_without_all_promises ) ) {
-            shuffle( $list_4770_without_all_promises );
-            if ( isset( $list_4770_without_all_promises[0] ) ) {
-                $this->_log_promise( $parts, $list_4770_without_all_promises[0] );
-                return PG_Stacker::build_location_stack( $list_4770_without_all_promises[0], $all );
-            }
-        }
-        /**
-         * Next level restrictive, available global locations without the global promises
-         */
-        $list_4770_without_custom_promises = array_diff( $remaining_global, $recently_promised_locations['minus_custom'] );
-        if ( ! empty( $list_4770_without_custom_promises ) ) {
-            shuffle( $list_4770_without_custom_promises );
-            if ( isset( $list_4770_without_custom_promises[0] ) ) {
-                $this->_log_promise( $parts, $list_4770_without_custom_promises[0] );
-                return PG_Stacker::build_location_stack( $list_4770_without_custom_promises[0], $all );
-            }
-        }
-        /**
-         * Only the available global locations
-         */
-        shuffle( $remaining_global );
-        return PG_Stacker::build_location_stack( $remaining_global[0], $all );
-    }
-
-    public function _query_prayed_list() {
-        global $wpdb;
-        $current_lap = pg_current_global_lap();
-        $time = time();
-
-        $raw_list = $wpdb->get_col( $wpdb->prepare(
-            "SELECT DISTINCT grid_id
-                    FROM $wpdb->dt_reports
-                    WHERE timestamp >= %d
-                      AND type = 'prayer_app'
-                      AND timestamp <= %d
-                      AND ( subtype = 'global' OR subtype = 'custom' )
-                      ",
-        $current_lap['start_time'], $time ) );
-
-        return array_unique( $raw_list );
-    }
-
-    public function get_ip_location() {
-        if ( is_user_logged_in() ) {
-            $user_id = get_current_user_id();
-            $location_meta = get_user_meta( $user_id, PG_NAMESPACE . 'location', true );
-
-            return $location_meta;
-        } else {
-            $response = DT_Ipstack_API::get_location_grid_meta_from_current_visitor();
-            if ( $response ) {
-                $response['hash'] = hash( 'sha256', serialize( $response ) . mt_rand( 1000000, 10000000000000000 ) );
-                $array = array_reverse( explode( ', ', $response['label'] ) );
-                $response['country'] = $array[0] ?? '';
-            }
-            return $response;
-        }
-    }
-    public function _recently_promised_locations() {
-        global $wpdb;
-        $current_lap = pg_current_global_lap();
-        $time = time();
-        $time = $time - 150; // 150 seconds. 1 minute in que, 1 minute to pray, 30 sec to transition
-
-        $raw_list = $wpdb->get_results( $wpdb->prepare(
-            "
-            SELECT meta_value as grid_id, 'global' as type
-            FROM $wpdb->dt_activity_log
-            WHERE hist_time > %d
-                AND action = 'prayer_promise'
-                AND object_type = 'prayer_global'
-                AND object_subtype = 'global'
-                AND object_id = %d
-            UNION ALL
-            SELECT meta_value as grid_id, 'custom' as type
-            FROM $wpdb->dt_activity_log
-            WHERE hist_time > %d
-                AND action = 'prayer_promise'
-                AND object_type = 'prayer_global'
-                AND object_subtype = 'custom'
-            ",
-            $time, $current_lap['post_id'], $time
-        ), ARRAY_A );
-
-        $list = [
-            'all' => [],
-            'minus_custom' => []
-        ];
-
-        if ( empty( $raw_list ) ) {
-            return $list;
-        }
-
-        // build different ranges of arrays
-        foreach ( $raw_list as $item ) {
-            $list['all'][] = $item['grid_id'];
-            if ( 'global' === $item['type'] ) {
-                $list['minus_custom'][] = $item['grid_id'];
-            }
-        }
-
-        $list['all'] = array_unique( $list['all'] );
-        $list['minus_custom'] = array_unique( $list['minus_custom'] );
-
-        return $list;
-    }
-
-    public function _log_promise( $parts, $grid_id ) {
-        dt_activity_insert( // insert activity record
-            [
-                'action'         => 'prayer_promise',
-                'object_type'    => 'prayer_global',
-                'object_subtype' => 'global',
-                'object_id'      => $parts['post_id'],
-                'object_name'    => '',
-                'meta_value'    => $grid_id,
-            ]
-        );
-    }
-
 }

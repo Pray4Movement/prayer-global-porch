@@ -40,7 +40,7 @@ class PG_Porch_404 extends DT_Magic_Url_Base
             $this->parts = $this->magic->parse_url_parts();
 
             // register url and access
-            add_action( "template_redirect", [ $this, 'theme_redirect' ] );
+            add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
             add_filter( 'dt_blank_access', function (){ return true;
             }, 100, 1 );
             add_filter( 'dt_allow_non_login_access', function (){ return true;
@@ -49,7 +49,7 @@ class PG_Porch_404 extends DT_Magic_Url_Base
             }, 100, 1 );
 
             // header content
-            add_filter( "dt_blank_title", [ $this, "page_tab_title" ] ); // adds basic title to browser tab
+            add_filter( 'dt_blank_title', [ $this, 'page_tab_title' ] ); // adds basic title to browser tab
             add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 1500 ); // authorizes scripts
             add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
 
@@ -62,10 +62,9 @@ class PG_Porch_404 extends DT_Magic_Url_Base
             add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
             add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
 
-            add_filter( "dt_override_header_meta", function (){ return true;
+            add_filter( 'dt_override_header_meta', function (){ return true;
             }, 100, 1 );
         }
-
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
@@ -73,7 +72,7 @@ class PG_Porch_404 extends DT_Magic_Url_Base
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return $allowed_css;
     }
 
     public function header_javascript(){
@@ -82,21 +81,14 @@ class PG_Porch_404 extends DT_Magic_Url_Base
         <script>
             let jsObject = [<?php echo json_encode([
                 'parts' => $this->parts,
-                'current_lap' => pg_current_global_lap(),
-                'global_race' => pg_global_race_stats(),
                 'translations' => [],
                 'nope' => plugin_dir_url( __DIR__ ) . 'assets/images/nope.jpg',
                 'images_url' => pg_grid_image_url(),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
             ]) ?>][0]
         </script>
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/basic.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ) ) ?>" type="text/css" media="all">
-        <style>
-            section {
-                margin-top: 110px;
-            }
-        </style>
         <?php
+        require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/footer.php' );
     }
 
     public function footer_javascript(){
@@ -107,7 +99,7 @@ class PG_Porch_404 extends DT_Magic_Url_Base
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' );
         ?>
         <!-- content section -->
-        <section class="page-section">
+        <section class="page">
             <div class="container pb-4">
                 <div class="row">
                     <div class="col-md text-center">
@@ -115,21 +107,20 @@ class PG_Porch_404 extends DT_Magic_Url_Base
                     </div>
                 </div>
             </div>
-            <div class="container center">
+            <div class="container text-center">
                 <div class="row">
-                    <div class="col center">
+                    <div class="col text-center">
                         <p><?php echo esc_html__( 'Not where you meant to be? Try some of the links below (or above) to get back into the action...', 'prayer-global-porch' ) ?></p>
                     </div>
                 </div>
             </div>
             <hr>
-            <div class="container center">
+            <div class="container text-center">
                 <div class="row">
-                    <div class="col center">
+                    <div class="col text-center">
                         <ul style="list-style: none; padding-left: 0;">
                             <li><a href="/newest/lap"><?php echo esc_html__( 'Start Praying', 'prayer-global-porch' ) ?></a></li>
                             <li><a href="/newest/map"><?php echo esc_html__( 'The map', 'prayer-global-porch' ) ?></a></li>
-                            <li><a href="/newest/stats"><?php echo esc_html__( 'More stats', 'prayer-global-porch' ) ?></a></li>
                             <li><a href="/challenges/active"><?php echo esc_html__( 'Prayer Relays', 'prayer-global-porch' ) ?></a></li>
                         </ul>
                     </div>
@@ -143,9 +134,9 @@ class PG_Porch_404 extends DT_Magic_Url_Base
                     </div>
                 </div>
             </div>
-            <div class="container center">
+            <div class="container text-center">
                 <div class="row">
-                    <div class="col center">
+                    <div class="col text-center">
                         <ul style="list-style: none; padding-left: 0;">
                             <li><a href="/prayer_app/contact_us/"><?php echo esc_html__( 'Anything to share/request? Please contact us :)', 'prayer-global-porch' ) ?></a></li>
                             <li><a href="/content_app/data_sources"><?php echo esc_html__( 'Where does all the data come from?', 'prayer-global-porch' ) ?></a></li>

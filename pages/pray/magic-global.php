@@ -10,18 +10,16 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
     public $magic = false;
     public $page_title = 'Global Lap';
     public $page_description = 'Prayer Laps';
-    public $root = "prayer_app";
+    public $root = 'prayer_app';
     public $type = 'global';
     public $type_actions = [
-        '' => "Pray",
-        'map' => "Map",
-        'stats' => "Stats",
-        'completed' => "Completed",
-        'location' => "Location",
-        'location-map' => "Location Map",
+        '' => 'Pray',
+        'map' => 'Map',
+        'location' => 'Location',
+        'location-map' => 'Location Map',
     ];
     public $show_bulk_send = false;
-    public $post_type = 'laps';
+    public $post_type = 'pg_relays';
     private $meta_key = '';
     public $show_app_tile = true;
 
@@ -57,33 +55,24 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
         if ( !$this->check_parts_match( true ) ){
             return;
         }
+        $post_id = pg_get_relay_id( $this->parts['public_key'] );
+        $this->parts['post_id'] = $post_id;
 
-        add_filter( "dt_override_header_meta", function (){ return true;
+        add_filter( 'dt_override_header_meta', function (){ return true;
         }, 1000, 1 );
 
         // load different actions
         if ( empty( $this->parts['action'] ) ) {
-            $current_lap = pg_current_global_lap();
-            if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
-                require_once( 'action-global-lap.php' );
-            } else {
-                wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/completed' );
-                exit;
-            }
-        } else if ( 'completed' === $this->parts['action'] ) {
-            require_once( 'action-global-completed.php' );
+            require_once( 'action-global-lap.php' );
         } else if ( 'map' === $this->parts['action'] ) {
             require_once( 'action-global-map.php' );
-        } else if ( 'stats' === $this->parts['action'] ) {
-            require_once( 'action-global-stats.php' );
-        } else if ( 'location' === $this->parts['action'] ) {
+        }else if ( 'location' === $this->parts['action'] ) {
             require_once( 'action-global-location.php' );
         } else if ( 'location-map' === $this->parts['action'] ) {
             require_once( 'action-global-location-map.php' );
         } else {
             wp_redirect( trailingslashit( site_url() ) );
         }
-
     }
 
     public function if_rest_add_actions() {
@@ -126,43 +115,34 @@ class PG_Global_Prayer_App extends DT_Magic_Url_Base {
      * @param WP_REST_Request $request
      * @return array|bool|void|WP_Error
      */
-    public function endpoint( WP_REST_Request $request ) {        $params = $request->get_params();
-
+    public function endpoint( WP_REST_Request $request ) {
+        $params = pg_get_body_params( $request );
         if ( ! isset( $params['parts'], $params['action'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['parts']['action'] ) {
-            case 'completed':
-                return true;
             case 'map':
                 require_once( 'action-global-map.php' );
                 if ( class_exists( 'PG_Global_Prayer_App_Map' ) ) {
                     return PG_Global_Prayer_App_Map::instance()->endpoint( $request );
                 }
-                return new WP_Error( __METHOD__, "Class not loaded: PG_Global_Prayer_App_Map", [ 'status' => 400 ] );
-            case 'stats':
-                require_once( 'action-global-stats.php' );
-                if ( class_exists( 'PG_Global_Prayer_App_Stats' ) ) {
-                    return PG_Global_Prayer_App_Stats::instance()->endpoint( $request );
-                }
-                return new WP_Error( __METHOD__, "Class not loaded: PG_Global_Prayer_App_Stats", [ 'status' => 400 ] );
+                return new WP_Error( __METHOD__, 'Class not loaded: PG_Global_Prayer_App_Map', [ 'status' => 400 ] );
             case 'location':
                 require_once( 'action-global-location.php' );
                 if ( class_exists( 'PG_Global_Prayer_App_Location' ) ) {
                     return PG_Global_Prayer_App_Location::instance()->endpoint( $request );
                 }
-                return new WP_Error( __METHOD__, "Class not loaded: PG_Global_Prayer_App_Location", [ 'status' => 400 ] );
+                return new WP_Error( __METHOD__, 'Class not loaded: PG_Global_Prayer_App_Location', [ 'status' => 400 ] );
             default:
                 require_once( 'action-global-lap.php' );
                 if ( class_exists( 'PG_Global_Prayer_App_Lap' ) ) {
                     return PG_Global_Prayer_App_Lap::instance()->endpoint( $request );
                 }
-                return new WP_Error( __METHOD__, "Class not loaded: PG_Global_Prayer_App_Lap", [ 'status' => 400 ] );
+                return new WP_Error( __METHOD__, 'Class not loaded: PG_Global_Prayer_App_Lap', [ 'status' => 400 ] );
         }
     }
-
 }
 PG_Global_Prayer_App::instance();

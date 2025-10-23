@@ -34,25 +34,17 @@ class PG_Global_Prayer_App_Lap extends PG_Global_Prayer_App {
         }
 
         // has empty action, of stop
-        if ( !$this->validate_action( $this->parts['action'] ) ) {
+        if ( !empty( $this->parts['action'] ) ) {
             return;
         }
 
-        // redirect to completed if not current global lap
-        $current_lap = pg_current_global_lap();
-        if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
-            add_action( 'dt_blank_body', [ $this, 'body' ] );
-        } else {
-            wp_redirect( trailingslashit( site_url() ) . $this->root . '/' . $this->type . '/' . $this->parts['public_key'] . '/completed' );
-            exit;
-        }
+        add_action( 'dt_blank_body', [ $this, 'body' ] );
 
         $this->lap_title = 'Global';
 
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
-        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
+        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 200, 1 );
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
-
     }
     public function _header() {
         $this->header_style();
@@ -60,11 +52,6 @@ class PG_Global_Prayer_App_Lap extends PG_Global_Prayer_App {
     }
     public function _footer(){
         $this->footer_javascript();
-    }
-
-    public function validate_action( $action ) {
-        /* We want the $action to be empty to signify we are praying for the lap */
-        return empty( $action );
     }
 
     /**
@@ -87,42 +74,21 @@ class PG_Global_Prayer_App_Lap extends PG_Global_Prayer_App {
     }
 
     public function endpoint( WP_REST_Request $request ) {
-        $params = $request->get_params();
-
-        //dt_write_log( 'action-global-lap: ' . $_SERVER['REQUEST_URI'] . ' - ' .  $params['action'] );
+        $params = pg_get_body_params( $request );
 
         if ( ! isset( $params['parts'], $params['action'], $params['data'] ) ) {
-            return new WP_Error( __METHOD__, "Missing parameters", [ 'status' => 400 ] );
+            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
         $params = dt_recursive_sanitize_array( $params );
 
         switch ( $params['action'] ) {
-            case 'log':
-                $stack = $this->save_log( $params['parts'], $params['data'] );
-                $global_lap = pg_current_global_lap();
-                $params['parts']['post_id'] = $global_lap['post_id'];
-                $params['parts']['public_key'] = $global_lap['key'];
-                $stack['parts'] = $params['parts'];
-                return $stack;
-            case 'increment_log':
-                return $this->increment_log( $params['parts'], $params['data'] );
+            case 'increment_prayer_time':
+                return $this->increment_prayer_time( $params['parts'], $params['data'] );
             case 'correction':
                 return $this->save_correction( $params['parts'], $params['data'] );
-            case 'refresh-all':
-                $all = true;
-                // intentional fall through with $all set to true
-            case 'refresh':
-                $stack = $this->get_new_location( $params['parts'], $all );
-                $global_lap = pg_current_global_lap();
-                $params['parts']['post_id'] = $global_lap['post_id'];
-                $params['parts']['public_key'] = $global_lap['key'];
-                $stack['parts'] = $params['parts'];
-                return $stack;
-            case 'ip_location':
-                return $this->get_ip_location();
             default:
-                return new WP_Error( __METHOD__, "Incorrect action", [ 'status' => 400 ] );
+                return new WP_Error( __METHOD__, 'Incorrect action', [ 'status' => 400 ] );
         }
     }
 }

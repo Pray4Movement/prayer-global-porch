@@ -42,12 +42,12 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 200, 1 );
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
 
-        $lap = pg_get_custom_lap_by_post_id( $this->parts['post_id'] );
-        $title_words = preg_split( "/[\s\-_]+/", $lap['title'] );
+        $title = get_the_title( $this->parts['post_id'] );
+        $title_words = preg_split( '/[\s\-_]+/', $title );
 
-        $this->lap_title = $lap['title'];
-        if ( strlen( $lap['title'] ) < 6 ) {
-            $this->lap_title = $lap['title'];
+        $this->lap_title = $title;
+        if ( strlen( $title ) < 6 ) {
+            $this->lap_title = $title;
         } else if ( $title_words !== false ) {
             $little_words = [
                 'of',
@@ -78,7 +78,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return $allowed_css;
     }
 
     public function wp_enqueue_scripts(){}
@@ -97,7 +97,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
         $url = new DT_URL( dt_get_url_path() );
         $grid_id = $url->query_params->has( 'grid_id' ) ? $url->query_params->get( 'grid_id' ) : 0;
 
-        $current_lap = pg_get_custom_lap_by_post_id( $this->parts['post_id'] );
+        $current_lap = Prayer_Stats::get_relay_current_lap( $this->parts['public_key'], $this->parts['post_id'], true );
         $current_url = trailingslashit( site_url() ) . $this->parts['root'] . '/' . $this->parts['type'] . '/' . $this->parts['public_key'] . '/';
         if ( (int) $current_lap['post_id'] === (int) $this->parts['post_id'] ) {
 
@@ -106,7 +106,6 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <script>
                 let jsObject = [<?php echo json_encode([
                     'parts' => $this->parts,
-                    'current_lap' => pg_current_global_lap(),
                     'translations' => [
                         'state_of_location' => _x( '%1$s of %2$s', 'state of California', 'prayer-global-porch' ),
                         'keep_praying' => __( 'Keep Praying...', 'prayer-global-porch' ),
@@ -122,9 +121,9 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                     'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                     'json_folder' => plugin_dir_url( __DIR__ ) . 'assets/json/',
                     'current_url' => $current_url,
-                    'stats_url' => $current_url . 'stats',
                     'map_url' => $current_url . 'map',
                     'api_url' => PG_API_ENDPOINT,
+                    'language' => pg_get_current_lang(),
                     'is_custom' => ( 'custom' === $this->parts['type'] ),
                     'is_cta_feature_on' => !$current_lap['ctas_off'],
                 ]) ?>][0]
@@ -1335,7 +1334,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                             <h5>${data.section_label}</h5>
                             <p class="f-xlg">${data.focus_label}</p>
                             ${icon}
-                            <div class="w-75 center">
+                            <div class="w-75 text-center">
                                 <p class="f-lg">${data.section_summary}</p>
                                 <p class="f-xlg">${data.prayer}</p>
                             </div>
@@ -1517,7 +1516,7 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
             <div class="w-100" ></div>
             <div class="container flow sm text-center">
                 <p class="tutorial uc f-xlg lh-1" id="tutorial-location"><?php echo esc_html__( 'Pray for', 'prayer-global-porch' ) ?></p>
-                <h2 class="lh-1 center bold w-75 f-md" id="location-name">
+                <h2 class="lh-1 text-center bold w-75 f-md" id="location-name">
                     <div class="skeleton" data-title></div>
                 </h2>
                 <p class="f-sm">
@@ -1552,8 +1551,8 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
                         <?php echo esc_html__( "If you leave now, this place won't have been prayed for." ) ?>
                     </p>
                     <div class="modal-footer">
-                        <button type="button" class="btn outline" id="decision__keep_praying" data-bs-dismiss="modal"><?php echo esc_html__( "Keep Praying", 'prayer-global-porch' ) ?></button>
-                        <button type="button" class="btn bg-dark" id="decision__leave" data-bs-dismiss="modal"><?php echo esc_html__( "Leave", 'prayer-global-porch' ) ?></button>
+                        <button type="button" class="btn outline" id="decision__keep_praying" data-bs-dismiss="modal"><?php echo esc_html__( 'Keep Praying', 'prayer-global-porch' ) ?></button>
+                        <button type="button" class="btn bg-dark" id="decision__leave" data-bs-dismiss="modal"><?php echo esc_html__( 'Leave', 'prayer-global-porch' ) ?></button>
                     </div>
                 </div>
             </div>
@@ -1643,7 +1642,6 @@ class PG_Custom_High_Volume_Prayer_App_Lap extends PG_Custom_Prayer_App {
 
         <?php
     }
-
 }
 PG_Custom_High_Volume_Prayer_App_Lap::instance();
 

@@ -68,7 +68,7 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
-        return [];
+        return $allowed_css;
     }
 
     public function wp_enqueue_scripts(){
@@ -104,7 +104,6 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
     public function header_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/header.php' );
         ?>
-        <link rel="stylesheet" href="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/css/basic.css?ver=<?php echo esc_attr( fileatime( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/css/basic.css' ) ) ?>" type="text/css" media="all">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/r-2.3.0/datatables.min.css"/>
         <?php
     }
@@ -146,7 +145,10 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
                 <div class="row">
                     <div class="col-md text-center brand-bg white py-4">
                         <h4><?php echo esc_html__( 'Want to create your own Prayer Relay?', 'prayer-global-porch' ) ?></h4>
-                        <a class="btn btn-cta two-rem has-icon cta-blue px-5 mt-4" href="/user_app/login"><?php echo esc_html( __( 'Login', 'prayer-global-porch' ) ) ?><i class="icon pg-chevron-right icon-end two-rem end-0 me-2"></i></a>
+                        <a class="btn btn-cta two-rem has-icon cta-blue px-5 mt-4" href="/login">
+                            <?php echo esc_html( is_user_logged_in() ? __( 'Profile', 'prayer-global-porch' ) : __( 'Login', 'prayer-global-porch' ) ) ?>
+                            <i class="icon pg-chevron-right icon-end two-rem end-0 me-2"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -223,18 +225,17 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
                 LEFT JOIN $wpdb->postmeta pm6 ON pm6.post_id=p.ID AND pm6.meta_key = 'global_lap_number'
                 LEFT JOIN $wpdb->postmeta pm7 ON pm7.post_id=p.ID AND pm7.meta_key = 'single_lap'
                 LEFT JOIN $wpdb->postmeta pm8 ON pm8.post_id=p.ID AND pm8.meta_key = 'event_lap'
-                WHERE p.post_type = 'laps'
-                AND pm5.meta_value = 'public' OR pm5.meta_value IS NULL OR pm5.meta_value = 'none'
+                WHERE p.post_type = 'pg_relays'
+                AND ( pm5.meta_value = 'public' OR pm5.meta_value IS NULL OR pm5.meta_value = 'none' )
                 ORDER BY p.post_title
              ", ARRAY_A );
 
         foreach ( $results as $row ){
-            $row['stats'] = pg_custom_lap_stats_by_post_id( $row['post_id'] );
+            $row['stats'] = Prayer_Stats::get_lap_stats( $row['post_id'] );
             $data[] = $row;
         }
 
         return $data;
     }
-
 }
 Prayer_Global_Porch_Challenge_List::instance();

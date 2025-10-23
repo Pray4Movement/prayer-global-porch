@@ -1,12 +1,12 @@
-<nav class="navbar bg-none p-0 d-block" id="pg-navbar">
+<nav class="navbar navbar-dark bg-none p-0 d-block" id="pg-navbar">
     <div class="d-flex align-items-center justify-content-between mx-0 px-0 mw-100 flex-nowrap">
-        <a href="/" class="icon-button two-rem d-flex align-items-center mx-2 white" title="Home">
-            <i class="icon pg-home"></i>
-        </a>
+        <div class="cluster">
+            <?php pg_streak_icon(); ?>
+        </div>
 
         <div class="d-flex justify-content-end align-items-center">
-            <div><a class="btn btn-cta mx-2" href="/newest/lap/"><?php echo esc_html__( 'Start Praying', 'prayer-global-porch' ) ?></a></div>
-            <a href="/user_app/profile" class="icon-button mx-2 two-rem d-flex align-items-center white" title="<?php echo esc_attr__( 'Profile', 'prayer-global-porch' ) ?>" id="user-profile-link">
+            <div><a class="btn btn-cta mx-2" href="/newest/lap/"><?php echo esc_html__( 'Pray', 'prayer-global-porch' ) ?></a></div>
+            <a href="/dashboard" class="icon-button mx-2 two-rem d-flex align-items-center white" title="<?php echo esc_attr__( 'Profile', 'prayer-global-porch' ) ?>" id="user-profile-link">
 
                 <?php if ( is_user_logged_in() ) : ?>
 

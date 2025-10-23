@@ -30,7 +30,7 @@ class Prayer_Global_Porch_ICOM_Tshirt_Signup extends DT_Magic_Url_Base
     }
 
     public function redirect() {
-        $link = '/user_app/login?action=register';
+        $link = '/register';
         wp_redirect( $link );
         exit;
     }
@@ -102,8 +102,7 @@ class Prayer_Global_Porch_Newest_Lap extends DT_Magic_Url_Base
     }
 
     public function redirect() {
-        $current_lap = pg_current_global_lap();
-        $link = '/prayer_app/global/' . $current_lap['key'];
+        $link = '/prayer_app/global/49ba4c';
         wp_redirect( $link );
         exit;
     }
@@ -199,54 +198,12 @@ class Prayer_Global_Porch_Newest_Lap_Location extends DT_Magic_Url_Base
     }
 
     public function redirect( $grid_id ) {
-        $current_lap = pg_current_global_lap();
-        $link = '/prayer_app/global/' . $current_lap['key'] . '/location?grid_id=' . $grid_id;
+        $link = '/prayer_app/global/49ba4c/location?grid_id=' . $grid_id;
         wp_redirect( $link );
         exit;
     }
 }
 Prayer_Global_Porch_Newest_Lap_Location::instance();
-
-
-
-class Prayer_Global_Porch_Newest_Lap_Stats extends DT_Magic_Url_Base
-{
-    public $page_title = 'Prayer.Global';
-    public $root = 'newest';
-    public $type = 'stats';
-    public $url_token = 'newest/stats';
-    public $type_name = 'Newest Lap Stats';
-    public $post_type = 'laps';
-
-    private static $_instance = null;
-
-    public static function instance() {
-        if (is_null( self::$_instance )) {
-            self::$_instance = new self();
-        }
-        return self::$_instance;
-    } // End instance()
-
-    public function __construct() {
-        parent::__construct();
-
-        $url = dt_get_url_path();
-
-        if (substr( $url, 0, strlen( $this->url_token ) ) !== $this->root . '/' . $this->type) {
-            return;
-        }
-
-        $this->redirect();
-    }
-
-    public function redirect() {
-        $current_lap = pg_current_global_lap();
-        $link = '/prayer_app/global/' . $current_lap['key'] . '/stats';
-        wp_redirect( $link );
-        exit;
-    }
-}
-Prayer_Global_Porch_Newest_Lap_Stats::instance();
 
 
 class Prayer_Global_Porch_Newest_Lap_Map extends DT_Magic_Url_Base
@@ -261,7 +218,7 @@ class Prayer_Global_Porch_Newest_Lap_Map extends DT_Magic_Url_Base
     private static $_instance = null;
 
     public static function instance() {
-        if (is_null( self::$_instance )) {
+        if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
         }
         return self::$_instance;
@@ -272,63 +229,60 @@ class Prayer_Global_Porch_Newest_Lap_Map extends DT_Magic_Url_Base
 
         $url = dt_get_url_path();
 
-        if (substr( $url, 0, strlen( $this->url_token ) ) === $this->root . '/' . $this->type) {
+        if ( substr( $url, 0, strlen( $this->url_token ) ) === $this->root . '/' . $this->type ) {
             $this->redirect();
         }
 
         if ( $url === 'map' ) {
             $this->redirect();
         }
-
-
     }
 
     public function redirect() {
-        $current_lap = pg_current_global_lap();
-        $link = '/prayer_app/global/' . $current_lap['key'] . '/map';
+        $link = '/prayer_app/global/49ba4c/map';
         wp_redirect( $link );
         exit;
     }
 }
 Prayer_Global_Porch_Newest_Lap_Map::instance();
 
-class Prayer_Global_Give extends DT_Magic_Url_Base
-{
-    public $page_title = 'Global Prayer - Give';
-    public $root = 'content_app';
-    public $type = 'give_page';
-    public $type_name = 'Global Prayer - Give';
-    public static $token = 'content_app_give';
-    public $post_type = 'laps';
-
-    private static $_instance = null;
-
-    public static function instance() {
-        if (is_null( self::$_instance )) {
-            self::$_instance = new self();
-        }
-        return self::$_instance;
-    } // End instance()
-
-    public function __construct() {
-        parent::__construct();
-
-        $url = dt_get_url_path();
-
-        $url_token = $this->root . '/' . $this->type;
-        if (substr( $url, 0, strlen( $url_token ) ) === $url_token ) {
-            $this->redirect();
-        }
-
-    }
-
-    public function redirect() {
-        $link = 'https://give.prayer.global/';
-        wp_redirect( $link );
-        exit;
-    }
-}
-Prayer_Global_Give::instance();
+//class Prayer_Global_Give_Redirect extends DT_Magic_Url_Base
+//{
+//    public $page_title = 'Global Prayer - Give';
+//    public $root = 'content_app';
+//    public $type = 'give_page';
+//    public $type_name = 'Global Prayer - Give';
+//    public static $token = 'content_app_give';
+//    public $post_type = 'laps';
+//
+//    private static $_instance = null;
+//
+//    public static function instance() {
+//        if (is_null( self::$_instance )) {
+//            self::$_instance = new self();
+//        }
+//        return self::$_instance;
+//    } // End instance()
+//
+//    public function __construct() {
+//        parent::__construct();
+//
+//        $url = dt_get_url_path();
+//
+//        $url_token = $this->root . '/' . $this->type;
+//        if (substr( $url, 0, strlen( $url_token ) ) === $url_token ) {
+//            $this->redirect();
+//        }
+//
+//    }
+//
+//    public function redirect() {
+//        $link = 'https://give.prayer.global/';
+//        wp_redirect( $link );
+//        exit;
+//    }
+//}
+//Prayer_Global_Give_Redirect::instance();
 
 class Prayer_Global_Porch_App_Store_Redirect extends DT_Magic_Url_Base
 {
@@ -342,7 +296,7 @@ class Prayer_Global_Porch_App_Store_Redirect extends DT_Magic_Url_Base
     private static $_instance = null;
 
     public static function instance() {
-        if (is_null( self::$_instance )) {
+        if ( is_null( self::$_instance ) ) {
             self::$_instance = new self();
         }
         return self::$_instance;
@@ -353,7 +307,7 @@ class Prayer_Global_Porch_App_Store_Redirect extends DT_Magic_Url_Base
 
         $url = dt_get_url_path();
 
-        if (substr( $url, 0, strlen( $this->url_token ) ) === $this->root . '/' . $this->type) {
+        if ( substr( $url, 0, strlen( $this->url_token ) ) === $this->root . '/' . $this->type ) {
             $this->redirect();
         }
     }
