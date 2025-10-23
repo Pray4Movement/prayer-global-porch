@@ -158,6 +158,38 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="display_map_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel"><?php echo esc_html__( 'Visit the display map?', 'prayer-global-porch' ) ?></h5>
+                        <button type="button" class="d-flex brand-light" data-bs-dismiss="modal" aria-label="<?php esc_attr( __( 'Close', 'prayer-global-porch' ) ) ?>">
+                            <i class="icon pg-close two-em"></i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            <?php echo esc_html__( 'The display map is designed and optimised for use on a large screen. It refreshes regularly to always show the latest state of the prayer relay, and displays a QR code for people to scan to start praying for the world.', 'prayer-global-porch' ) ?>
+                        </p>
+                        <p>
+                            <?php echo esc_html__( 'Some examples of where the display map could be used are:', 'prayer-global-porch' ) ?>
+                        </p>
+                        <ul>
+                            <li>
+                                <?php echo esc_html__( 'An event main screen', 'prayer-global-porch' ) ?>
+                            </li>
+                            <li>
+                                <?php echo esc_html__( 'A church lobby screen', 'prayer-global-porch' ) ?>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="modal-footer repel">
+                        <button type="button" class="btn btn-outline-primary uppercase" id="display_map_back" data-bs-dismiss="modal"><?php echo esc_html__( 'Back', 'prayer-global-porch' ) ?></button>
+                        <button type="button" class="btn btn-primary" id="display_map_onwards" data-bs-dismiss="modal"><?php echo esc_html__( 'Stay', 'prayer-global-porch' ) ?></button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <?php
     }
 
