@@ -16,11 +16,11 @@ $is_church = $this instanceof PG_Churches;
 $is_event = $this instanceof PG_Events;
 
 if ( $is_church ) {
-    $promotion_resources_url = '#';
+    $promotion_resources_url = 'https://drive.google.com/drive/folders/1tdBPCSzoyukqU7-fXe_93NexCGgoSlLd?usp=sharing';
 } else if ( $is_conference ) {
-    $promotion_resources_url = '#';
+    $promotion_resources_url = 'https://drive.google.com/drive/folders/1tdBPCSzoyukqU7-fXe_93NexCGgoSlLd?usp=sharing';
 } else if ( $is_event ) {
-    $promotion_resources_url = '#';
+    $promotion_resources_url = 'https://drive.google.com/drive/folders/1tdBPCSzoyukqU7-fXe_93NexCGgoSlLd?usp=sharing';
 }
 ?>
 
@@ -157,7 +157,7 @@ if ( $is_church ) {
                     <img src="<?php echo esc_url( trailingslashit( plugin_dir_url( __DIR__ ) ) ) ?>assets/images/3X5Mockup-PGonly-crop2.png" alt="">
                 </div>
             </div>
-            <a class="btn btn-outline-light d-block w-fit mx-auto py-1" href="<?php echo esc_url( $promotion_resources_url ) ?>"><?php echo esc_html__( 'Promo resources', 'prayer-global-porch' ) ?></a>
+            <a class="btn btn-outline-light d-block w-fit mx-auto py-1" href="<?php echo esc_url( $promotion_resources_url ) ?>" target="_blank"><?php echo esc_html__( 'Promo resources', 'prayer-global-porch' ) ?></a>
         </div>
     </section>
     <section class="container flow-medium | py-5">
