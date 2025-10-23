@@ -5,7 +5,7 @@ msgstr ""
 "Project-Id-Version: Prayer.Global Porch 2.8.1\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/prayer-global-"
 "porch\n"
-"POT-Creation-Date: 2025-09-02T10:39:12+00:00\n"
+"POT-Creation-Date: 2025-09-08T08:26:01+00:00\n"
 "PO-Revision-Date: 2025-09-03 16:58+0000\n"
 "Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
 "Language-Team: Ukrainian <https://translate.disciple.tools/projects/"
@@ -131,8 +131,8 @@ msgstr "Як воно працює"
 msgid "Click on %1$sStart Praying%2$s."
 msgstr "Тисніть на %1$sПочати молитву%2$s."
 
-#: pages/about/about.php:147 pages/pray/action-custom-lap.php:467
-#: pages/pray/trait-lap.php:379
+#: pages/about/about.php:147 pages/pray/action-custom-lap.php:468
+#: pages/pray/trait-lap.php:380
 msgid ""
 "Pray over the location provided using the maps, photos, prayers, people "
 "group info, and facts."
@@ -140,8 +140,8 @@ msgstr ""
 "Моліться над вказаним місцем, використовуючи мапи, світлини, молитви, "
 "відомості про групу людей та факти."
 
-#: pages/about/about.php:150 pages/pray/action-custom-lap.php:472
-#: pages/pray/trait-lap.php:384
+#: pages/about/about.php:150 pages/pray/action-custom-lap.php:473
+#: pages/pray/trait-lap.php:385
 msgid "Pray for one minute (or longer) as the Spirit leads."
 msgstr "Моліться одну хвилину (або довше), як Дух веде."
 
@@ -149,8 +149,8 @@ msgstr "Моліться одну хвилину (або довше), як Ду�
 msgid "When the timer finishes"
 msgstr "Коли таймер завершиться"
 
-#: pages/about/about.php:155 pages/pray/action-custom-lap.php:479
-#: pages/pray/trait-lap.php:391
+#: pages/about/about.php:155 pages/pray/action-custom-lap.php:480
+#: pages/pray/trait-lap.php:392
 #, php-format
 msgid ""
 "Click Done to see your impact on the map or %sclick Next to pray for another "
@@ -240,28 +240,28 @@ msgstr "Становище віри"
 
 #: pages/about/about.php:210 pages/assets/enqueue.php:122
 #: pages/pray/action-custom-event-lap.php:114
-#: pages/pray/action-custom-lap.php:148
+#: pages/pray/action-custom-lap.php:149
 #: pages/pray/action-global-location-map.php:334
 #: pages/pray/stacker-positions.php:52 pages/pray/stacker-positions.php:86
-#: pages/pray/trait-lap.php:65
+#: pages/pray/trait-lap.php:66
 msgid "Know Jesus"
 msgstr "Знають Ісуса"
 
 #: pages/about/about.php:214 pages/assets/enqueue.php:121
 #: pages/pray/action-custom-event-lap.php:113
-#: pages/pray/action-custom-lap.php:147
+#: pages/pray/action-custom-lap.php:148
 #: pages/pray/action-global-location-map.php:333
 #: pages/pray/stacker-positions.php:49 pages/pray/stacker-positions.php:83
-#: pages/pray/trait-lap.php:64
+#: pages/pray/trait-lap.php:65
 msgid "Know About Jesus"
 msgstr "Знають про Ісуса"
 
 #: pages/about/about.php:218 pages/assets/enqueue.php:119
 #: pages/pray/action-custom-event-lap.php:112
-#: pages/pray/action-custom-lap.php:146
+#: pages/pray/action-custom-lap.php:147
 #: pages/pray/action-global-location-map.php:332
 #: pages/pray/stacker-positions.php:46 pages/pray/stacker-positions.php:80
-#: pages/pray/trait-lap.php:63
+#: pages/pray/trait-lap.php:64
 msgid "Don't Know Jesus"
 msgstr "Не знають Ісуса"
 
@@ -428,8 +428,8 @@ msgid "Status"
 msgstr "Статус"
 
 #: pages/assets/menu.php:65 pages/challenges/active-list.php:83
-#: pages/pray/action-custom-lap.php:250 pages/pray/action-custom-map.php:78
-#: pages/pray/trait-lap.php:419 pages/user/user-dashboard.php:181
+#: pages/pray/action-custom-lap.php:251 pages/pray/action-custom-map.php:78
+#: pages/pray/trait-lap.php:420 pages/user/user-dashboard.php:181
 #, fuzzy
 msgid "Map"
 msgstr "Карта"
@@ -492,11 +492,11 @@ msgstr "Посилання %s"
 msgid "Copied"
 msgstr "Скопійовано"
 
-#: pages/assets/share-modal.php:43 pages/pray/action-custom-event-lap.php:1543
-#: pages/pray/action-custom-lap.php:283 pages/pray/action-custom-lap.php:392
-#: pages/pray/action-custom-lap.php:428 pages/pray/action-custom-lap.php:457
-#: pages/pray/trait-lap.php:199 pages/pray/trait-lap.php:304
-#: pages/pray/trait-lap.php:340 pages/pray/trait-lap.php:369
+#: pages/assets/share-modal.php:43 pages/pray/action-custom-event-lap.php:1544
+#: pages/pray/action-custom-lap.php:284 pages/pray/action-custom-lap.php:393
+#: pages/pray/action-custom-lap.php:429 pages/pray/action-custom-lap.php:458
+#: pages/pray/trait-lap.php:200 pages/pray/trait-lap.php:305
+#: pages/pray/trait-lap.php:341 pages/pray/trait-lap.php:370
 #, fuzzy
 msgid "Close"
 msgstr "Закрити"
@@ -757,9 +757,9 @@ msgstr ""
 "Підпишіться на новини та можливості Prayer.Global, а також періодичні "
 "повідомлення від Prayer.Tools та GospelAmbition.org"
 
-#: pages/contact/magic-contact-us.php:210 pages/pray/action-custom-lap.php:416
+#: pages/contact/magic-contact-us.php:210 pages/pray/action-custom-lap.php:417
 #: pages/pray/action-custom-map.php:243 pages/pray/action-global-map.php:211
-#: pages/pray/trait-lap.php:328
+#: pages/pray/trait-lap.php:329
 #, fuzzy
 msgid "Submit"
 msgstr "Надіслати"
@@ -1593,8 +1593,8 @@ msgid ""
 "Collectively complete one prayer lap around the world in each event session "
 "(covering all 4,770 states in prayer)"
 msgstr ""
-"Колективно виконати одне молитовне коло навколо світу в кожній сесії заходу ("
-"охоплюючи молитвою всі 4770 штатів)"
+"Колективно виконати одне молитовне коло навколо світу в кожній сесії заходу "
+"(охоплюючи молитвою всі 4770 штатів)"
 
 #: pages/events/events-body.php:135
 #, fuzzy
@@ -1614,8 +1614,8 @@ msgid ""
 "Collectively complete one prayer lap around the world in the course of the "
 "event  (covering all 4,770 states in prayer)"
 msgstr ""
-"Колективно здійснити одне молитовне коло навколо світу під час заходу ("
-"охоплюючи молитвою всі 4770 штатів)"
+"Колективно здійснити одне молитовне коло навколо світу під час заходу "
+"(охоплюючи молитвою всі 4770 штатів)"
 
 #: pages/events/events-body.php:136
 #, fuzzy
@@ -1712,8 +1712,8 @@ msgid ""
 "Send a text the day before the event with a link to Prayer.Global, if you "
 "have a texting service."
 msgstr ""
-"Надішліть текстове повідомлення за день до події з посиланням на "
-"Prayer.Global, якщо у вас є сервіс текстових повідомлень."
+"Надішліть текстове повідомлення за день до події з посиланням на Prayer."
+"Global, якщо у вас є сервіс текстових повідомлень."
 
 #: pages/events/events-body.php:171
 #, fuzzy
@@ -1731,9 +1731,9 @@ msgid ""
 "your custom group URL until the day of the event. This helps ensure better "
 "tracking of how many people prayed with you during the event."
 msgstr ""
-"У рекламі перед заходом ми рекомендуємо просувати лише веб-сайт "
-"Prayer.Global та посилання для завантаження застосунку. Ми не рекомендуємо "
-"ділитися URL-адресою вашої власної групи до дня заходу. Це допоможе краще "
+"У рекламі перед заходом ми рекомендуємо просувати лише веб-сайт Prayer."
+"Global та посилання для завантаження застосунку. Ми не рекомендуємо ділитися "
+"URL-адресою вашої власної групи до дня заходу. Це допоможе краще "
 "відстежувати, скільки людей молилися з вами під час заходу."
 
 #: pages/events/events-body.php:190
@@ -1767,7 +1767,8 @@ msgstr ""
 #: pages/events/events-body.php:197
 #, fuzzy
 msgid "Display the QR code on your venue’s projection screens or TVs"
-msgstr "Розмістіть QR-код на проекційних екранах або телевізорах вашого закладу"
+msgstr ""
+"Розмістіть QR-код на проекційних екранах або телевізорах вашого закладу"
 
 #: pages/events/events-body.php:198
 #, fuzzy
@@ -2235,8 +2236,8 @@ msgid ""
 "Our ﬁrst global race started %1$s days ago and we’ve completed %2$s laps "
 "together so far."
 msgstr ""
-"Наші перші світові перегони розпочалися %1$s днів тому, і ми вже подолали %2$"
-"s кіл разом."
+"Наші перші світові перегони розпочалися %1$s днів тому, і ми вже подолали "
+"%2$s кіл разом."
 
 #: pages/home/body.php:171
 #, fuzzy, php-format
@@ -2255,8 +2256,8 @@ msgstr "Завершено"
 msgid "Previous"
 msgstr "Попередній"
 
-#: pages/home/body.php:207 pages/pray/action-custom-event-lap.php:1502
-#: pages/pray/action-custom-lap.php:243 pages/pray/trait-lap.php:410
+#: pages/home/body.php:207 pages/pray/action-custom-event-lap.php:1503
+#: pages/pray/action-custom-lap.php:244 pages/pray/trait-lap.php:411
 #, fuzzy
 msgid "Next"
 msgstr "Далі"
@@ -2376,145 +2377,145 @@ msgid "%1$s of %2$s"
 msgstr "%1$s в %2$s"
 
 #: pages/pray/action-custom-event-lap.php:111
-#: pages/pray/action-custom-lap.php:145
-#: pages/pray/action-global-location-map.php:331 pages/pray/trait-lap.php:62
+#: pages/pray/action-custom-lap.php:146
+#: pages/pray/action-global-location-map.php:331 pages/pray/trait-lap.php:63
 #, fuzzy
 msgid "Keep Praying..."
 msgstr "Продовжуйте молитися..."
 
 #: pages/pray/action-custom-event-lap.php:115
-#: pages/pray/action-custom-lap.php:149
-#: pages/pray/action-global-location-map.php:335 pages/pray/trait-lap.php:66
+#: pages/pray/action-custom-lap.php:150
+#: pages/pray/action-global-location-map.php:335 pages/pray/trait-lap.php:67
 #, fuzzy
 msgid "Praying Paused"
 msgstr "Молитва призупинена"
 
 #: pages/pray/action-custom-event-lap.php:116
-#: pages/pray/action-custom-event-lap.php:1532
-#: pages/pray/action-custom-lap.php:151 pages/pray/action-custom-lap.php:271
-#: pages/pray/action-global-location-map.php:337 pages/pray/trait-lap.php:68
-#: pages/pray/trait-lap.php:187
+#: pages/pray/action-custom-event-lap.php:1533
+#: pages/pray/action-custom-lap.php:152 pages/pray/action-custom-lap.php:272
+#: pages/pray/action-global-location-map.php:337 pages/pray/trait-lap.php:69
+#: pages/pray/trait-lap.php:188
 #, fuzzy
 msgid "Prayer Added!"
 msgstr "Молитва додана!"
 
-#: pages/pray/action-custom-event-lap.php:1501
-#: pages/pray/action-custom-lap.php:160 pages/pray/action-custom-lap.php:242
-#: pages/pray/action-global-location.php:118 pages/pray/trait-lap.php:77
-#: pages/pray/trait-lap.php:409
+#: pages/pray/action-custom-event-lap.php:1502
+#: pages/pray/action-custom-lap.php:161 pages/pray/action-custom-lap.php:243
+#: pages/pray/action-global-location.php:118 pages/pray/trait-lap.php:78
+#: pages/pray/trait-lap.php:410
 #, fuzzy
 msgid "Done"
 msgstr "Готово"
 
-#: pages/pray/action-custom-event-lap.php:1517
-#: pages/pray/action-custom-lap.php:256 pages/pray/trait-lap.php:172
+#: pages/pray/action-custom-event-lap.php:1518
+#: pages/pray/action-custom-lap.php:257 pages/pray/trait-lap.php:173
 #, fuzzy
 msgid "Pray for"
 msgstr "Моліться за"
 
-#: pages/pray/action-custom-event-lap.php:1522
-#: pages/pray/action-custom-lap.php:261 pages/pray/trait-lap.php:177
+#: pages/pray/action-custom-event-lap.php:1523
+#: pages/pray/action-custom-lap.php:262 pages/pray/trait-lap.php:178
 #, fuzzy, php-format
 msgid "In Prayer Relay %s"
 msgstr "У Молитовній естафеті %s"
 
-#: pages/pray/action-custom-event-lap.php:1530
-#: pages/pray/action-custom-lap.php:150 pages/pray/action-custom-lap.php:269
-#: pages/pray/action-global-location-map.php:336 pages/pray/trait-lap.php:67
-#: pages/pray/trait-lap.php:185
+#: pages/pray/action-custom-event-lap.php:1531
+#: pages/pray/action-custom-lap.php:151 pages/pray/action-custom-lap.php:270
+#: pages/pray/action-global-location-map.php:336 pages/pray/trait-lap.php:68
+#: pages/pray/trait-lap.php:186
 #, fuzzy
 msgid "Great Job!"
 msgstr "Чудова робота!"
 
-#: pages/pray/action-custom-event-lap.php:1542
-#: pages/pray/action-custom-lap.php:282 pages/pray/trait-lap.php:198
+#: pages/pray/action-custom-event-lap.php:1543
+#: pages/pray/action-custom-lap.php:283 pages/pray/trait-lap.php:199
 #, fuzzy
 msgid "Are you sure you want to leave?"
 msgstr "Ви впевнені, що хочете видалити %s?"
 
-#: pages/pray/action-custom-event-lap.php:1553
-#: pages/pray/action-custom-lap.php:293 pages/pray/trait-lap.php:209
+#: pages/pray/action-custom-event-lap.php:1554
+#: pages/pray/action-custom-lap.php:294 pages/pray/trait-lap.php:210
 #, fuzzy
 msgid "Keep Praying"
 msgstr "Продовжуйте молитися"
 
-#: pages/pray/action-custom-event-lap.php:1554
-#: pages/pray/action-custom-lap.php:294
-#: pages/pray/action-global-location.php:126 pages/pray/trait-lap.php:210
+#: pages/pray/action-custom-event-lap.php:1555
+#: pages/pray/action-custom-lap.php:295
+#: pages/pray/action-global-location.php:126 pages/pray/trait-lap.php:211
 #, fuzzy
 msgid "Leave"
 msgstr "Залишити"
 
-#: pages/pray/action-custom-event-lap.php:1594
-#: pages/pray/action-custom-lap.php:334 pages/pray/trait-lap.php:250
+#: pages/pray/action-custom-event-lap.php:1595
+#: pages/pray/action-custom-lap.php:335 pages/pray/trait-lap.php:251
 #, fuzzy
 msgid "See more"
 msgstr "Дивитися більше"
 
-#: pages/pray/action-custom-event-lap.php:1637
-#: pages/pray/action-custom-lap.php:377 pages/pray/trait-lap.php:293
+#: pages/pray/action-custom-event-lap.php:1638
+#: pages/pray/action-custom-lap.php:378 pages/pray/trait-lap.php:294
 #, fuzzy
 msgid "Show More Guided Prayers"
 msgstr "Показати більше керованих молитов"
 
-#: pages/pray/action-custom-lap.php:144 pages/pray/trait-lap.php:61
+#: pages/pray/action-custom-lap.php:145 pages/pray/trait-lap.php:62
 #, fuzzy, php-format
 msgid "%1$s of %2$s"
 msgstr "%1$s в %2$s"
 
-#: pages/pray/action-custom-lap.php:152 pages/pray/trait-lap.php:69
+#: pages/pray/action-custom-lap.php:153 pages/pray/trait-lap.php:70
 #: pages/user/login.php:237 pages/user/register.php:216
 #, fuzzy
 msgid "Join and create custom prayer relays"
 msgstr "Приєднуйтесь та створюйте власні молитовні естафети"
 
-#: pages/pray/action-custom-lap.php:153 pages/pray/trait-lap.php:70
+#: pages/pray/action-custom-lap.php:154 pages/pray/trait-lap.php:71
 #: pages/user/login.php:241 pages/user/register.php:220
 #, fuzzy
 msgid "View your interactive prayer history"
 msgstr "Перегляд вашої інтерактивної історії молитов"
 
-#: pages/pray/action-custom-lap.php:154 pages/pray/trait-lap.php:71
+#: pages/pray/action-custom-lap.php:155 pages/pray/trait-lap.php:72
 #: pages/user/register.php:224
 #, fuzzy
 msgid "Prayer streaks, badges and more"
 msgstr "Молитовні смуги, значки та інше"
 
-#: pages/pray/action-custom-lap.php:155 pages/pray/trait-lap.php:72
+#: pages/pray/action-custom-lap.php:156 pages/pray/trait-lap.php:73
 #, fuzzy
 msgid "Register Now"
 msgstr "Зареєструватися зараз"
 
-#: pages/pray/action-custom-lap.php:156 pages/pray/trait-lap.php:73
+#: pages/pray/action-custom-lap.php:157 pages/pray/trait-lap.php:74
 #: pages/user/register.php:212
 #, fuzzy
 msgid "Create your own free login"
 msgstr "Створіть свій власний безкоштовний логін"
 
-#: pages/pray/action-custom-lap.php:157 pages/pray/trait-lap.php:74
+#: pages/pray/action-custom-lap.php:158 pages/pray/trait-lap.php:75
 #: pages/user/login.php:218
 #, fuzzy
 msgid "No Thanks"
 msgstr "Ні, дякую."
 
-#: pages/pray/action-custom-lap.php:158 pages/pray/trait-lap.php:75
+#: pages/pray/action-custom-lap.php:159 pages/pray/trait-lap.php:76
 #: pages/user/user-dashboard.php:170
 #, fuzzy
 msgid "Daily Prayer Streak"
 msgstr "Молитовні естафети"
 
-#: pages/pray/action-custom-lap.php:159 pages/pray/trait-lap.php:76
+#: pages/pray/action-custom-lap.php:160 pages/pray/trait-lap.php:77
 #: pages/user/user-dashboard.php:171
 #, fuzzy
 msgid "Best"
 msgstr "Найкращий"
 
-#: pages/pray/action-custom-lap.php:161 pages/pray/trait-lap.php:78
+#: pages/pray/action-custom-lap.php:162 pages/pray/trait-lap.php:79
 #, fuzzy
 msgid "Fetching your stats..."
 msgstr "Отримання вашої статистики..."
 
-#: pages/pray/action-custom-lap.php:162 pages/pray/trait-lap.php:79
+#: pages/pray/action-custom-lap.php:163 pages/pray/trait-lap.php:80
 #: pages/user/user-dashboard.php:207
 #, fuzzy
 msgid "Download the Prayer.Global app to get streak notifications and more!"
@@ -2522,7 +2523,7 @@ msgstr ""
 "Завантажте застосунок Prayer.Global, щоб отримувати сповіщення про смуги та "
 "багато іншого!"
 
-#: pages/pray/action-custom-lap.php:163 pages/pray/trait-lap.php:80
+#: pages/pray/action-custom-lap.php:164 pages/pray/trait-lap.php:81
 #: pages/user/user-dashboard.php:208
 #, fuzzy
 msgid "Update the Prayer.Global app to get streak notifications and more!"
@@ -2530,81 +2531,81 @@ msgstr ""
 "Оновіть застосунок Prayer.Global, щоб отримувати сповіщення про смуги та "
 "багато іншого!"
 
-#: pages/pray/action-custom-lap.php:164 pages/pray/trait-lap.php:81
+#: pages/pray/action-custom-lap.php:165 pages/pray/trait-lap.php:82
 #: pages/user/user-dashboard.php:209
 #, fuzzy
 msgid "Go to App Store"
 msgstr "Перейти до App Store"
 
-#: pages/pray/action-custom-lap.php:382 pages/pray/trait-lap.php:294
+#: pages/pray/action-custom-lap.php:383 pages/pray/trait-lap.php:295
 #, fuzzy
 msgid "Correction Needed?"
 msgstr "Потрібна корекція?"
 
-#: pages/pray/action-custom-lap.php:391 pages/pray/action-custom-map.php:229
-#: pages/pray/action-global-map.php:197 pages/pray/trait-lap.php:303
+#: pages/pray/action-custom-lap.php:392 pages/pray/action-custom-map.php:229
+#: pages/pray/action-global-map.php:197 pages/pray/trait-lap.php:304
 #, fuzzy
 msgid "Thank you! Leave us a correction below."
 msgstr "Дякуємо! Залиште нам виправлення нижче."
 
-#: pages/pray/action-custom-lap.php:402 pages/pray/action-custom-map.php:235
-#: pages/pray/action-global-map.php:203 pages/pray/trait-lap.php:314
+#: pages/pray/action-custom-lap.php:403 pages/pray/action-custom-map.php:235
+#: pages/pray/action-global-map.php:203 pages/pray/trait-lap.php:315
 #, fuzzy
 msgid "Section:"
 msgstr "Розділ:"
 
-#: pages/pray/action-custom-lap.php:408 pages/pray/action-custom-map.php:239
-#: pages/pray/action-global-map.php:207 pages/pray/trait-lap.php:320
+#: pages/pray/action-custom-lap.php:409 pages/pray/action-custom-map.php:239
+#: pages/pray/action-global-map.php:207 pages/pray/trait-lap.php:321
 #, fuzzy
 msgid "Correction Requested:"
 msgstr "Запит на виправлення:"
 
-#: pages/pray/action-custom-lap.php:427 pages/pray/trait-lap.php:339
+#: pages/pray/action-custom-lap.php:428 pages/pray/trait-lap.php:340
 #, fuzzy
 msgid "Set Your Prayer Experience"
 msgstr "Встановіть свій молитовний досвід"
 
-#: pages/pray/action-custom-lap.php:436 pages/pray/trait-lap.php:348
+#: pages/pray/action-custom-lap.php:437 pages/pray/trait-lap.php:349
 #, fuzzy
 msgid "Prayer pace per place"
 msgstr "Темп молитви за місцем"
 
-#: pages/pray/action-custom-lap.php:439 pages/pray/trait-lap.php:351
+#: pages/pray/action-custom-lap.php:440 pages/pray/trait-lap.php:352
 #, fuzzy, php-format
 msgid "%d Minute"
 msgstr "%d Хвилина"
 
-#: pages/pray/action-custom-lap.php:440 pages/pray/action-custom-lap.php:441
-#: pages/pray/action-custom-lap.php:442 pages/pray/action-custom-lap.php:443
-#: pages/pray/action-custom-lap.php:444 pages/pray/trait-lap.php:352
-#: pages/pray/trait-lap.php:353 pages/pray/trait-lap.php:354
-#: pages/pray/trait-lap.php:355 pages/pray/trait-lap.php:356
+#: pages/pray/action-custom-lap.php:441 pages/pray/action-custom-lap.php:442
+#: pages/pray/action-custom-lap.php:443 pages/pray/action-custom-lap.php:444
+#: pages/pray/action-custom-lap.php:445 pages/pray/trait-lap.php:353
+#: pages/pray/trait-lap.php:354 pages/pray/trait-lap.php:355
+#: pages/pray/trait-lap.php:356 pages/pray/trait-lap.php:357
 #, fuzzy, php-format
 msgid "%d Minutes"
 msgstr "%d Хвилин"
 
-#: pages/pray/action-custom-lap.php:448 pages/pray/action-custom-lap.php:486
-#: pages/pray/trait-lap.php:360 pages/pray/trait-lap.php:398
+#: pages/pray/action-custom-lap.php:449 pages/pray/action-custom-lap.php:487
+#: pages/pray/trait-lap.php:361 pages/pray/trait-lap.php:399
 #, fuzzy
 msgid "Let's Go!"
 msgstr "Ходімо!"
 
-#: pages/pray/action-custom-lap.php:464 pages/pray/trait-lap.php:376
+#: pages/pray/action-custom-lap.php:465 pages/pray/trait-lap.php:377
 #, fuzzy, php-format
 msgid "How %s works"
 msgstr "Як це працює"
 
-#: pages/pray/action-custom-lap.php:465 pages/pray/trait-lap.php:377
+#: pages/pray/action-custom-lap.php:466 pages/pray/trait-lap.php:378
 #, fuzzy
 msgid "Step 1"
 msgstr "Крок 1"
 
-#: pages/pray/action-custom-lap.php:470 pages/pray/trait-lap.php:382
+#: pages/pray/action-custom-lap.php:471 pages/pray/trait-lap.php:383
 #, fuzzy
 msgid "Step 2"
 msgstr "Крок 2"
 
-#: pages/pray/action-custom-lap.php:477 pages/pray/trait-lap.php:389
+#: pages/pray/action-custom-lap.php:478 pages/pray/trait-lap.php:390
 #, fuzzy
 msgid "Step 3"
 msgstr "Крок 3"
@@ -3049,8 +3050,8 @@ msgid ""
 "On average, %1$s babies will be born in the next 100 hours to families who "
 "are far from God in %2$s."
 msgstr ""
-"В середньому, протягом наступних 100 годин у сім'ях, далеких від Бога, у %2$"
-"s народиться %1$s дітей."
+"В середньому, протягом наступних 100 годин у сім'ях, далеких від Бога, у "
+"%2$s народиться %1$s дітей."
 
 #: pages/pray/stacker-positions.php:345
 #, fuzzy
@@ -3201,8 +3202,8 @@ msgid ""
 "Spirit, awaken a burning desire for your presence and intimacy among the "
 "%1$s people living in %2$s of %3$s."
 msgstr ""
-"Духу, пробуди палке бажання Твоєї присутності та близькості серед людей %1$"
-"s, які живуть у %2$s з %3$s."
+"Духу, пробуди палке бажання Твоєї присутності та близькості серед людей "
+"%1$s, які живуть у %2$s з %3$s."
 
 #: pages/pray/stacker-text.php:54
 #, fuzzy, php-format
@@ -3739,8 +3740,8 @@ msgid ""
 "Father, thank you that in your kindness you have made every believer in %1$s "
 "a priest, who can offer spiritual sacrifices to you through Jesus."
 msgstr ""
-"Отче, дякую Тобі за те, що у Своїй доброті Ти зробив кожного віруючого в %1$"
-"s священиком, який може приносити Тобі духовні жертви через Ісуса."
+"Отче, дякую Тобі за те, що у Своїй доброті Ти зробив кожного віруючого в "
+"%1$s священиком, який може приносити Тобі духовні жертви через Ісуса."
 
 #: pages/pray/stacker-text.php:317
 #, fuzzy
@@ -4339,8 +4340,9 @@ msgid ""
 "%1$s cultural Christians in %2$s of %3$s to read your Word for themselves "
 "today."
 msgstr ""
-"Отче, Твоє Слово є важливим для життя та зростання. Будь ласка, закликай %1$"
-"s культурних християн у %2$s з %3$s прочитати Твоє Слово сьогодні самостійно."
+"Отче, Твоє Слово є важливим для життя та зростання. Будь ласка, закликай "
+"%1$s культурних християн у %2$s з %3$s прочитати Твоє Слово сьогодні "
+"самостійно."
 
 #: pages/pray/stacker-text.php:586
 #, fuzzy
@@ -4495,7 +4497,8 @@ msgstr "Отче, забезпеч гарний переклад Біблії д
 #, fuzzy, php-format
 msgid ""
 "Jesus, provide a Bible for every believer in %1$s, and teach them to obey it."
-msgstr "Ісусе, дай Біблію кожному віруючому в %1$s і навчи їх дотримуватися її."
+msgstr ""
+"Ісусе, дай Біблію кожному віруючому в %1$s і навчи їх дотримуватися її."
 
 #: pages/pray/stacker-text.php:668
 #, fuzzy
@@ -4863,7 +4866,8 @@ msgstr "Якова 4:7"
 msgctxt "James 4:7"
 msgid ""
 "Submit yourselves, then, to God. Resist the devil, and he will flee from you."
-msgstr "Тож підкоріться Богові, а протистояйте дияволу, то й він утече від вас."
+msgstr ""
+"Тож підкоріться Богові, а протистояйте дияволу, то й він утече від вас."
 
 #: pages/pray/stacker-text.php:844
 #, fuzzy, php-format
@@ -4993,8 +4997,9 @@ msgid ""
 "be yours out of the %1$s people living in %2$s. Please, call your lost sheep "
 "to yourself."
 msgstr ""
-"Отче, Ти знаєш кожну душу, і Ти знаєш, хто Твій, а хто ще не буде Твоїм з %1$"
-"s людей, що живуть у %2$s. Будь ласка, поклич Своїх загублених овець до Себе."
+"Отче, Ти знаєш кожну душу, і Ти знаєш, хто Твій, а хто ще не буде Твоїм з "
+"%1$s людей, що живуть у %2$s. Будь ласка, поклич Своїх загублених овець до "
+"Себе."
 
 #: pages/pray/stacker-text.php:991
 #, fuzzy
@@ -5087,7 +5092,8 @@ msgctxt "Psalm 24:1"
 msgid ""
 "The earth is Yahweh’s, with its fullness; the world, and those who dwell "
 "therein."
-msgstr "Ягве належить земля з усім, що на ній, вселенна та ті, хто живе на ній."
+msgstr ""
+"Ягве належить земля з усім, що на ній, вселенна та ті, хто живе на ній."
 
 #: pages/pray/stacker-text.php:1051
 #, fuzzy, php-format
@@ -5387,7 +5393,8 @@ msgctxt "Proverbs 11:14"
 msgid ""
 "Where there is no guidance, a people falls, but in an abundance of "
 "counselors there is safety."
-msgstr "Де немає настанови, народ падає, а де багато порадників, там є безпека."
+msgstr ""
+"Де немає настанови, народ падає, а де багато порадників, там є безпека."
 
 #: pages/pray/stacker-text.php:1725
 #, fuzzy, php-format
@@ -5858,8 +5865,8 @@ msgid ""
 "Herod the tetrarch), and Saul."
 msgstr ""
 "У церкві ж в Антіохії були пророки та вчителі: Варнава, Симеон, якого звали "
-"Нігер, Луцій Киренейський, Манаїл (який виховувався разом з тетрархом Іродом)"
-" та Савл."
+"Нігер, Луцій Киренейський, Манаїл (який виховувався разом з тетрархом "
+"Іродом) та Савл."
 
 #: pages/pray/stacker-text.php:1938
 #, fuzzy, php-format
@@ -5950,8 +5957,8 @@ msgid ""
 "Lord, give grace to the local leaders who shepherd the %1$s believers in "
 "%2$s of %3$s."
 msgstr ""
-"Господи, дай благодать місцевим лідерам, які опікуються віруючими %1$s у %2$"
-"s з %3$s."
+"Господи, дай благодать місцевим лідерам, які опікуються віруючими %1$s у "
+"%2$s з %3$s."
 
 #: pages/pray/stacker-text.php:1989
 #, fuzzy
@@ -6885,8 +6892,8 @@ msgid ""
 "Father, please reward those who diligently seek you with a heart of faith in "
 "%1$s of %2$s."
 msgstr ""
-"Отче, будь ласка, винагороди тих, хто старанно шукає Тебе, серцем віри в %1$"
-"s з %2$s."
+"Отче, будь ласка, винагороди тих, хто старанно шукає Тебе, серцем віри в "
+"%1$s з %2$s."
 
 #: pages/pray/stacker-text.php:2410
 #, fuzzy
@@ -7338,8 +7345,8 @@ msgid ""
 "Yet you do not know what your life will be like tomorrow. you are just a "
 "vapor that appears for a little while and then vanishes away."
 msgstr ""
-"Однак ти не знаєш, яким буде твоє життя завтра. Ти — лише пара, що з’"
-"являється на мить, а потім зникає."
+"Однак ти не знаєш, яким буде твоє життя завтра. Ти — лише пара, що "
+"з’являється на мить, а потім зникає."
 
 #: pages/pray/stacker-text.php:2610
 #, fuzzy, php-format
@@ -7447,7 +7454,8 @@ msgstr "Ісая 55:6"
 #, fuzzy
 msgctxt "Isaiah 55:6"
 msgid "Seek the Lord while he may be found; call upon him while he is near."
-msgstr "Шукайте Господа, поки можна знайти Його; кличте Його, поки Він близько."
+msgstr ""
+"Шукайте Господа, поки можна знайти Його; кличте Його, поки Він близько."
 
 #: pages/pray/stacker-text.php:2640
 #, fuzzy, php-format
@@ -8522,8 +8530,8 @@ msgid ""
 "Push notifications are only available on the latest version of the Prayer."
 "Global mobile app."
 msgstr ""
-"Push-сповіщення доступні лише в останній версії мобільного додатку "
-"Prayer.Global."
+"Push-сповіщення доступні лише в останній версії мобільного додатку Prayer."
+"Global."
 
 #: pages/user/user-dashboard.php:213
 #, fuzzy
@@ -8698,7 +8706,8 @@ msgstr "Хто бачить таємно, той винагородить — д
 #: utilities/pg-milestones.php:125
 #, fuzzy
 msgid "Imagine it: a global prayer chorus rising. You're part of it."
-msgstr "Уявіть собі: піднімається всесвітній молитовний хор. Ви — його частина."
+msgstr ""
+"Уявіть собі: піднімається всесвітній молитовний хор. Ви — його частина."
 
 #: utilities/pg-milestones.php:126
 #, fuzzy

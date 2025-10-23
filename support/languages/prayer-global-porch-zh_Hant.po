@@ -5,11 +5,11 @@ msgstr ""
 "Project-Id-Version: Prayer.Global Porch 2.9.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/prayer-global-"
 "porch\n"
-"POT-Creation-Date: 2025-09-02T10:39:12+00:00\n"
+"POT-Creation-Date: 2025-09-08T08:26:01+00:00\n"
 "PO-Revision-Date: 2025-09-03 16:58+0000\n"
 "Last-Translator: Weblate <noreply-mt-weblate@weblate.org>\n"
-"Language-Team: Chinese (Traditional Han script) <https://"
-"translate.disciple.tools/projects/pray4movement/prayer-global/zh_Hant/>\n"
+"Language-Team: Chinese (Traditional Han script) <https://translate.disciple."
+"tools/projects/pray4movement/prayer-global/zh_Hant/>\n"
 "Language: zh_Hant\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -118,9 +118,9 @@ msgid ""
 "(2) God has used technology for the advance of His kingdom (i.e. written "
 "language, Roman roads, printing presses, etc.), and is now using the "
 "Internet."
-msgstr "(2) "
-"上帝使用科技來擴展祂的國度（即書面語言、羅馬道路、印刷機等），現在正在使用網"
-"路。"
+msgstr ""
+"(2) 上帝使用科技來擴展祂的國度（即書面語言、羅馬道路、印刷機等），現在正在使"
+"用網路。"
 
 #: pages/about/about.php:130
 #, fuzzy
@@ -139,16 +139,16 @@ msgstr "如何運作"
 msgid "Click on %1$sStart Praying%2$s."
 msgstr "點擊%1$s開始祈禱%2$s。"
 
-#: pages/about/about.php:147 pages/pray/action-custom-lap.php:467
-#: pages/pray/trait-lap.php:379
+#: pages/about/about.php:147 pages/pray/action-custom-lap.php:468
+#: pages/pray/trait-lap.php:380
 #, fuzzy
 msgid ""
 "Pray over the location provided using the maps, photos, prayers, people "
 "group info, and facts."
 msgstr "使用地圖、照片、祈禱、人群資訊和事實為提供的地點祈禱。"
 
-#: pages/about/about.php:150 pages/pray/action-custom-lap.php:472
-#: pages/pray/trait-lap.php:384
+#: pages/about/about.php:150 pages/pray/action-custom-lap.php:473
+#: pages/pray/trait-lap.php:385
 #, fuzzy
 msgid "Pray for one minute (or longer) as the Spirit leads."
 msgstr "按照聖神的引導祈禱一分鐘（或更長）。"
@@ -158,8 +158,8 @@ msgstr "按照聖神的引導祈禱一分鐘（或更長）。"
 msgid "When the timer finishes"
 msgstr "當計時器結束時"
 
-#: pages/about/about.php:155 pages/pray/action-custom-lap.php:479
-#: pages/pray/trait-lap.php:391
+#: pages/about/about.php:155 pages/pray/action-custom-lap.php:480
+#: pages/pray/trait-lap.php:392
 #, fuzzy, php-format
 msgid ""
 "Click Done to see your impact on the map or %sclick Next to pray for another "
@@ -252,30 +252,30 @@ msgstr "信仰狀態"
 
 #: pages/about/about.php:210 pages/assets/enqueue.php:122
 #: pages/pray/action-custom-event-lap.php:114
-#: pages/pray/action-custom-lap.php:148
+#: pages/pray/action-custom-lap.php:149
 #: pages/pray/action-global-location-map.php:334
 #: pages/pray/stacker-positions.php:52 pages/pray/stacker-positions.php:86
-#: pages/pray/trait-lap.php:65
+#: pages/pray/trait-lap.php:66
 #, fuzzy
 msgid "Know Jesus"
 msgstr "認識耶穌"
 
 #: pages/about/about.php:214 pages/assets/enqueue.php:121
 #: pages/pray/action-custom-event-lap.php:113
-#: pages/pray/action-custom-lap.php:147
+#: pages/pray/action-custom-lap.php:148
 #: pages/pray/action-global-location-map.php:333
 #: pages/pray/stacker-positions.php:49 pages/pray/stacker-positions.php:83
-#: pages/pray/trait-lap.php:64
+#: pages/pray/trait-lap.php:65
 #, fuzzy
 msgid "Know About Jesus"
 msgstr "了解耶穌"
 
 #: pages/about/about.php:218 pages/assets/enqueue.php:119
 #: pages/pray/action-custom-event-lap.php:112
-#: pages/pray/action-custom-lap.php:146
+#: pages/pray/action-custom-lap.php:147
 #: pages/pray/action-global-location-map.php:332
 #: pages/pray/stacker-positions.php:46 pages/pray/stacker-positions.php:80
-#: pages/pray/trait-lap.php:63
+#: pages/pray/trait-lap.php:64
 #, fuzzy
 msgid "Don't Know Jesus"
 msgstr "不認識耶穌"
@@ -298,10 +298,9 @@ msgid ""
 "measurable units, as a community, and to know at the end when we have "
 "finished ... and are ready to start another lap."
 msgstr ""
-"受到 %1$s摩拉維亞弟兄會 %2$s "
-"一百年來不間斷祈禱的啟發，我們精心設計了這個網站，幫助教會以可衡量的單位為整"
-"個世界、作為一個社區進行祈禱，並在最後知道我們何時完成......並準備開始另一圈"
-"。"
+"受到 %1$s摩拉維亞弟兄會 %2$s 一百年來不間斷祈禱的啟發，我們精心設計了這個網"
+"站，幫助教會以可衡量的單位為整個世界、作為一個社區進行祈禱，並在最後知道我們"
+"何時完成......並準備開始另一圈。"
 
 #: pages/about/about.php:238
 #, fuzzy
@@ -309,7 +308,8 @@ msgid ""
 "Once every location in the world has been prayed for (we finish a lap), then "
 "the prayer map resets, and we try to pray over the world again ... maybe "
 "faster."
-msgstr "一旦世界上每個地方都得到了祈禱（我們完成了一圈），那麼祈禱地圖就會重置，我們"
+msgstr ""
+"一旦世界上每個地方都得到了祈禱（我們完成了一圈），那麼祈禱地圖就會重置，我們"
 "會嘗試再次為世界祈禱......也許更快。"
 
 #: pages/about/about.php:241
@@ -377,7 +377,8 @@ msgctxt ""
 msgid ""
 "We estimate %1$s has %2$s people who might know Jesus, %3$s people who might "
 "know about Jesus culturally, and %4$s people who do not know Jesus."
-msgstr "我們估計 %1$s 中有 %2$s 人可能認識耶穌，%3$s 人可能從文化角度了解耶穌，還有 "
+msgstr ""
+"我們估計 %1$s 中有 %2$s 人可能認識耶穌，%3$s 人可能從文化角度了解耶穌，還有 "
 "%4$s 人不認識耶穌。"
 
 #: pages/assets/enqueue.php:125
@@ -445,8 +446,8 @@ msgid "Status"
 msgstr "狀態"
 
 #: pages/assets/menu.php:65 pages/challenges/active-list.php:83
-#: pages/pray/action-custom-lap.php:250 pages/pray/action-custom-map.php:78
-#: pages/pray/trait-lap.php:419 pages/user/user-dashboard.php:181
+#: pages/pray/action-custom-lap.php:251 pages/pray/action-custom-map.php:78
+#: pages/pray/trait-lap.php:420 pages/user/user-dashboard.php:181
 #, fuzzy
 msgid "Map"
 msgstr "地圖"
@@ -507,11 +508,11 @@ msgstr "連結 %s"
 msgid "Copied"
 msgstr "已複製"
 
-#: pages/assets/share-modal.php:43 pages/pray/action-custom-event-lap.php:1543
-#: pages/pray/action-custom-lap.php:283 pages/pray/action-custom-lap.php:392
-#: pages/pray/action-custom-lap.php:428 pages/pray/action-custom-lap.php:457
-#: pages/pray/trait-lap.php:199 pages/pray/trait-lap.php:304
-#: pages/pray/trait-lap.php:340 pages/pray/trait-lap.php:369
+#: pages/assets/share-modal.php:43 pages/pray/action-custom-event-lap.php:1544
+#: pages/pray/action-custom-lap.php:284 pages/pray/action-custom-lap.php:393
+#: pages/pray/action-custom-lap.php:429 pages/pray/action-custom-lap.php:458
+#: pages/pray/trait-lap.php:200 pages/pray/trait-lap.php:305
+#: pages/pray/trait-lap.php:341 pages/pray/trait-lap.php:370
 #, fuzzy
 msgid "Close"
 msgstr "關閉"
@@ -614,7 +615,8 @@ msgid ""
 "Prayer Relays are communities of prayer intercessors who have picked up the "
 "challenge of praying for the entire world as a group. All prayers prayed in "
 "the prayer relays contribute to the global laps."
-msgstr "禱告接力是由一群接受挑戰的代禱者組成的團體，他們集體為全世界禱告。所有在禱告"
+msgstr ""
+"禱告接力是由一群接受挑戰的代禱者組成的團體，他們集體為全世界禱告。所有在禱告"
 "接力中所做的禱告都為全球禱告圈做出了貢獻。"
 
 #: pages/challenges/active-list.php:147
@@ -691,8 +693,9 @@ msgid ""
 "We broke that down into getting people connected to the prayer lap, "
 "facilitating the actual prayer time and then providing next steps after it "
 "was completed. "
-msgstr "我們將其分解為讓人們參與祈禱、促進實際的祈禱時間以及在祈禱完成後提供後續步驟"
-"。 "
+msgstr ""
+"我們將其分解為讓人們參與祈禱、促進實際的祈禱時間以及在祈禱完成後提供後續步"
+"驟。 "
 
 #: pages/church/church.php:177
 #, fuzzy
@@ -742,7 +745,8 @@ msgid ""
 "Second, we're a group of volunteers striving to see the Great Commission "
 "fulfilled in this generation ... and we also have other jobs ... so be "
 "patient as we get back to you!"
-msgstr "其次，我們是一群志願者，致力於看到這一代人的偉大使命得以實現......而且我們還"
+msgstr ""
+"其次，我們是一群志願者，致力於看到這一代人的偉大使命得以實現......而且我們還"
 "有其他工作......所以請耐心等待，我們會回复您！"
 
 #: pages/contact/magic-contact-us.php:187
@@ -756,12 +760,13 @@ msgstr "問題或評論"
 msgid ""
 "Sign up for Prayer.Global news and opportunities, and occasional "
 "communication from Prayer.Tools and GospelAmbition.org"
-msgstr "註冊 Prayer.Global 新聞和機會，以及 Prayer.Tools 和 GospelAmbition.org "
-"的不定期通訊"
+msgstr ""
+"註冊 Prayer.Global 新聞和機會，以及 Prayer.Tools 和 GospelAmbition.org 的不定"
+"期通訊"
 
-#: pages/contact/magic-contact-us.php:210 pages/pray/action-custom-lap.php:416
+#: pages/contact/magic-contact-us.php:210 pages/pray/action-custom-lap.php:417
 #: pages/pray/action-custom-map.php:243 pages/pray/action-global-map.php:211
-#: pages/pray/trait-lap.php:328
+#: pages/pray/trait-lap.php:329
 #, fuzzy
 msgid "Submit"
 msgstr "送出"
@@ -776,7 +781,8 @@ msgstr "謝謝"
 msgid ""
 "We acknowledge that there is no way to possess 100% accurate knowledge of "
 "the faith status or location status of every person in the world."
-msgstr "我們承認，我們不可能 100% a準確地了解世界上每個人的信仰狀況或所在地狀況。"
+msgstr ""
+"我們承認，我們不可能 100% a準確地了解世界上每個人的信仰狀況或所在地狀況。"
 
 #: pages/data-sources/magic-data-sources.php:92
 #, fuzzy
@@ -787,8 +793,8 @@ msgid ""
 "exact numbers.)"
 msgstr ""
 "沒有一個政府掌握這個確切的數字，也沒有任何企業……除了上帝，沒有人知道一個人的"
-"真實信仰或行蹤。因此，每一個人口統計事實都是一種數學推論或推論。 "
-"（抱歉，喜歡精確數字的朋友。）"
+"真實信仰或行蹤。因此，每一個人口統計事實都是一種數學推論或推論。 （抱歉，喜歡"
+"精確數字的朋友。）"
 
 #: pages/data-sources/magic-data-sources.php:95
 #, fuzzy
@@ -796,7 +802,8 @@ msgid ""
 "But leveraging the best data sources we can access, we have created a prayer "
 "tool to offer informative prayer guidance featuring a unique, close-up "
 "location breakdown of the world."
-msgstr "但利用我們可以訪問的最佳數據來源，我們創建了一個祈禱工具，提供資訊豐富的祈禱"
+msgstr ""
+"但利用我們可以訪問的最佳數據來源，我們創建了一個祈禱工具，提供資訊豐富的祈禱"
 "指導，具有獨特的、特寫的世界位置細分。"
 
 #: pages/data-sources/magic-data-sources.php:100
@@ -812,9 +819,9 @@ msgid ""
 "framework of world locations and polygons for disciple making movement "
 "saturation efforts."
 msgstr ""
-"%1$s 是基於 %2$s 開源軟體構建的，而 %2$s 地圖和地理定位系統是一個名為 %3$s "
-"的開源專案。 %3$s "
-"是一個包含全球位置和多邊形的地理框架，用於門徒訓練運動的飽和度推廣。"
+"%1$s 是基於 %2$s 開源軟體構建的，而 %2$s 地圖和地理定位系統是一個名為 %3$s 的"
+"開源專案。 %3$s 是一個包含全球位置和多邊形的地理框架，用於門徒訓練運動的飽和"
+"度推廣。"
 
 #: pages/data-sources/magic-data-sources.php:108
 #, fuzzy
@@ -952,7 +959,8 @@ msgid ""
 "(aka. Christian Adherent) Someone who has access to the knowledge of Jesus "
 "Christ through a cultural presence of the Church, but may or may not have "
 "been encouraged to seek Jesus in a personal, intimate way."
-msgstr "（又稱基督教信徒）透過教會的文化存在了解耶穌基督的人，但可能被鼓勵以個人、親"
+msgstr ""
+"（又稱基督教信徒）透過教會的文化存在了解耶穌基督的人，但可能被鼓勵以個人、親"
 "密的方式尋求耶穌。"
 
 #: pages/data-sources/magic-data-sources.php:152
@@ -966,7 +974,8 @@ msgid ""
 "(aka. Disciple, Christian) Someone who has accepted in faith the knowledge "
 "of Jesus Christ and who has surrendered their life to Jesus as a personal "
 "savior."
-msgstr "（又稱門徒、基督徒）滿懷信仰地接受耶穌基督的知識並將自己的生命交給耶穌作為個"
+msgstr ""
+"（又稱門徒、基督徒）滿懷信仰地接受耶穌基督的知識並將自己的生命交給耶穌作為個"
 "人救世主的人。"
 
 #: pages/data-sources/magic-data-sources.php:155
@@ -992,7 +1001,8 @@ msgid ""
 "Values for \"Christian Adherent\" and \"Evangelical\" (which determine "
 "unreached status) are often informed estimates, some more accurate than "
 "others at the country level."
-msgstr "「基督教信徒」和「福音派」的價值觀（決定未接觸福音的人的地位）通常是有根據的"
+msgstr ""
+"「基督教信徒」和「福音派」的價值觀（決定未接觸福音的人的地位）通常是有根據的"
 "估計，在國家層面上，有些比其他的更準確。"
 
 #: pages/data-sources/magic-data-sources.php:163
@@ -1006,9 +1016,9 @@ msgid ""
 "%s has used the population data at the county and state levels from the "
 "Location Grid project and divided percentages by the location population to "
 "arrive at the faith status population estimates."
-msgstr "%s "
-"使用了來自位置網格項目的縣和州級人口數據，並將百分比除以位置人口，得出了信仰"
-"狀況人口估計數。"
+msgstr ""
+"%s 使用了來自位置網格項目的縣和州級人口數據，並將百分比除以位置人口，得出了信"
+"仰狀況人口估計數。"
 
 #: pages/data-sources/magic-data-sources.php:167
 #, fuzzy
@@ -1021,7 +1031,8 @@ msgid ""
 "At best, this methodology can offer a general, estimated target for the "
 "faith status of various locations. Actual faith status for each location "
 "could vary enormously above or below our estimates."
-msgstr "此方法充其量只能為不同地區的信仰狀況提供一個大致的預估目標。每個地區的實際信"
+msgstr ""
+"此方法充其量只能為不同地區的信仰狀況提供一個大致的預估目標。每個地區的實際信"
 "仰狀況可能與我們的預估值有巨大差異。"
 
 #: pages/data-sources/magic-data-sources.php:172
@@ -1029,7 +1040,8 @@ msgstr "此方法充其量只能為不同地區的信仰狀況提供一個大致
 msgid ""
 "All calculations of faith status data anywhere suffer the same "
 "limitations ... no matter the source ... they are all generalizations."
-msgstr "任何地方的信仰狀況資料計算都存在同樣的限制……無論來源為何……它們都是概括。"
+msgstr ""
+"任何地方的信仰狀況資料計算都存在同樣的限制……無論來源為何……它們都是概括。"
 
 #: pages/data-sources/magic-data-sources.php:175
 #, fuzzy
@@ -1043,8 +1055,8 @@ msgid ""
 msgstr ""
 "我們相信，非基督徒、文化基督徒和門徒的估計人數，可以幫助禱告者更好地理解當地"
 "教會面臨的挑戰。這有助於回答以下問題：這是一個被主流宗教包圍的軟弱小教會嗎？"
-"這個教會是否在抵制無神論文化？這個教會是否在被冷淡的歷史文化教會包圍的情況下"
-"，努力保持忠誠？"
+"這個教會是否在抵制無神論文化？這個教會是否在被冷淡的歷史文化教會包圍的情況"
+"下，努力保持忠誠？"
 
 #: pages/data-sources/magic-data-sources.php:178
 #, fuzzy
@@ -1075,7 +1087,8 @@ msgid ""
 "Language and Primary Religion. These were identified at the country level, "
 "and future versions of Prayer Global intend to push deeper and more "
 "accurately into the spoken languages per location."
-msgstr "約書亞計劃資源中的兩列用於識別主要語言和主要宗教。這些是在國家層面確定的，未"
+msgstr ""
+"約書亞計劃資源中的兩列用於識別主要語言和主要宗教。這些是在國家層面確定的，未"
 "來版本的「全球禱告」計劃將更深入、更準確地探討每個地區的口語。"
 
 #: pages/data-sources/magic-data-sources.php:207
@@ -1095,8 +1108,8 @@ msgid ""
 "open source project. It was built to support a standardized geolocation grid "
 "for disciple making movements activity.  (%2$s) (%3$s)"
 msgstr ""
-"位置網格專案 (Location Grid Project) 是一個開源項目，源自於 %1$s "
-"開源專案。該計畫旨在為門徒訓練運動提供標準化的地理位置網格。 (%2$s) (%3$s)"
+"位置網格專案 (Location Grid Project) 是一個開源項目，源自於 %1$s 開源專案。該"
+"計畫旨在為門徒訓練運動提供標準化的地理位置網格。 (%2$s) (%3$s)"
 
 #: pages/data-sources/magic-data-sources.php:214
 #, fuzzy
@@ -1109,7 +1122,8 @@ msgid ""
 "The Location Grid database and polygon set are derived these data sources, "
 "although significant processing of original polygon files were implemented "
 "for lightweight web distribution:"
-msgstr "位置網格資料庫和多邊形集合源自這些資料來源，儘管為了輕量級網路分發對原始多邊"
+msgstr ""
+"位置網格資料庫和多邊形集合源自這些資料來源，儘管為了輕量級網路分發對原始多邊"
 "形檔案進行了大量處理："
 
 #: pages/data-sources/magic-data-sources.php:218
@@ -1117,7 +1131,8 @@ msgstr "位置網格資料庫和多邊形集合源自這些資料來源，儘管
 msgid ""
 "GADM is an academic project that provides administrative polygon boundaries. "
 "These boundaries provided the seed for the grid system."
-msgstr "GADM 是一個提供行政多邊形邊界的學術計畫。這些邊界為網格系統提供了基礎。"
+msgstr ""
+"GADM 是一個提供行政多邊形邊界的學術計畫。這些邊界為網格系統提供了基礎。"
 
 #: pages/data-sources/magic-data-sources.php:219
 #, fuzzy
@@ -1126,9 +1141,8 @@ msgid ""
 "has a redistributable polygon set and associated location name database that "
 "also served as a seed for the location grid system."
 msgstr ""
-"GeoNames 是一個開源位置資料庫，包含超過 1,100 "
-"萬個地點。它擁有可重新分配的多邊形集合和相關的位置名稱資料庫，該資料庫也可作"
-"為位置網格系統的種子。"
+"GeoNames 是一個開源位置資料庫，包含超過 1,100 萬個地點。它擁有可重新分配的多"
+"邊形集合和相關的位置名稱資料庫，該資料庫也可作為位置網格系統的種子。"
 
 #: pages/data-sources/magic-data-sources.php:220
 #, fuzzy
@@ -1142,17 +1156,17 @@ msgid ""
 "Google Maps or Apple Maps. Intentional coordination and polygon preparation "
 "was designed for use with this tiling system."
 msgstr ""
-"Open Street Maps 是 Google Maps 或 Apple Maps "
-"等封閉式地圖系統的最佳替代方案。此切片系統專門設計了協調和多邊形準備功能。"
+"Open Street Maps 是 Google Maps 或 Apple Maps 等封閉式地圖系統的最佳替代方"
+"案。此切片系統專門設計了協調和多邊形準備功能。"
 
 #: pages/data-sources/magic-data-sources.php:221
 #, fuzzy
 msgid ""
 "Mapbox is a service that uses Open Street Maps system but adds a developer "
 "friendly programming and hosting layer to mapping source."
-msgstr "Mapbox "
-"是一種使用開放街道地圖系統的服務，但在地圖來源中添加了開發人員友好的程式設計"
-"和託管層。"
+msgstr ""
+"Mapbox 是一種使用開放街道地圖系統的服務，但在地圖來源中添加了開發人員友好的程"
+"式設計和託管層。"
 
 #: pages/data-sources/magic-data-sources.php:222
 #, fuzzy
@@ -1188,7 +1202,8 @@ msgstr "位置網格 - 地理編碼"
 msgid ""
 "Populated cities from geonames were coded against the Location Grid using "
 "the longitude, latitude. Then they were crafted into a new resource table."
-msgstr "根據地名，將人口稠密的城市根據經度和緯度，根據位置網格進行編碼。然後，它們被"
+msgstr ""
+"根據地名，將人口稠密的城市根據經度和緯度，根據位置網格進行編碼。然後，它們被"
 "製作成一個新的資源表。"
 
 #: pages/data-sources/magic-data-sources.php:239
@@ -1237,7 +1252,8 @@ msgid ""
 "Project that creates and provides free geographic data especially about "
 "streets and other points of interest; contains partly also administrative "
 "boundaries."
-msgstr "該計畫創建並提供免費地理數據，特別是有關街道和其他興趣點的數據；其中還包含部"
+msgstr ""
+"該計畫創建並提供免費地理數據，特別是有關街道和其他興趣點的數據；其中還包含部"
 "分行政邊界。"
 
 #: pages/data-sources/magic-data-sources.php:511
@@ -1296,7 +1312,8 @@ msgstr "人口普查日期概述和一些連結。"
 msgid ""
 "Wikidata is a free and open knowledge base representing a subset of "
 "Wikipedia data in a structured way."
-msgstr "Wikidata 是一個免費開放的知識庫，以結構化的方式呈現維基百科資料的一個子集。"
+msgstr ""
+"Wikidata 是一個免費開放的知識庫，以結構化的方式呈現維基百科資料的一個子集。"
 
 #: pages/data-sources/magic-data-sources.php:517
 #, fuzzy
@@ -1389,9 +1406,8 @@ msgid ""
 "key mark of disciple-making movements. With Prayer.Global, you and your "
 "community can take part in God’s mission to cover the world in prayer."
 msgstr ""
-"Prayer.Global "
-"是一個強大的工具，旨在動員有策略性的、基於聖經的禱告，以完成大使命。它裝備個"
-"人、教會和會議參與非凡的禱告——這是門徒訓練運動的關鍵標誌。透過 "
+"Prayer.Global 是一個強大的工具，旨在動員有策略性的、基於聖經的禱告，以完成大"
+"使命。它裝備個人、教會和會議參與非凡的禱告——這是門徒訓練運動的關鍵標誌。透過 "
 "Prayer.Global，您和您的社區可以參與上帝的使命，以禱告覆蓋世界。"
 
 #: pages/events/events-body.php:87
@@ -1434,8 +1450,9 @@ msgstr "在最近的一次會議上，與會者在幾天的時間裡繞著世界
 msgid ""
 "On one Sunday morning, a church of 1200 prayed for the entire world in less "
 "that 10 minutes!"
-msgstr "一個星期天的早上，一座擁有 1200 名信徒的教堂在不到 10 "
-"分鐘的時間內為全世界祈禱！"
+msgstr ""
+"一個星期天的早上，一座擁有 1200 名信徒的教堂在不到 10 分鐘的時間內為全世界祈"
+"禱！"
 
 #: pages/events/events-body.php:102
 #, fuzzy
@@ -1469,8 +1486,9 @@ msgstr "創建自訂小組祈禱接力"
 msgid ""
 "Choose a name and decide if it’s public (anyone can join) or private "
 "(accessible only through the URL or QR code)."
-msgstr "選擇名稱並決定它是公開的（任何人都可以加入）還是私人的（只能透過 URL "
-"或二維碼存取）。"
+msgstr ""
+"選擇名稱並決定它是公開的（任何人都可以加入）還是私人的（只能透過 URL 或二維碼"
+"存取）。"
 
 #: pages/events/events-body.php:119 pages/events/events-body.php:123
 #, fuzzy
@@ -1498,7 +1516,8 @@ msgid ""
 "Share the importance of prayer in fulfilling the Great Commission. Lay a "
 "foundation for the Prayer.Global experience by casting a vision - the “why” "
 "- and setting a goal for your event."
-msgstr "分享禱告在完成大使命中的重要性。透過闡述願景——「為什麼」——並設定活動目標，為 "
+msgstr ""
+"分享禱告在完成大使命中的重要性。透過闡述願景——「為什麼」——並設定活動目標，為 "
 "Prayer.Global 的體驗奠定基礎。"
 
 #: pages/events/events-body.php:128
@@ -1529,7 +1548,8 @@ msgid ""
 "Each individual would pray for multiple regions, depending on the amount of "
 "time allotted, each time the activity is offered. For reference, on average "
 "ten minutes would allow each person to cover about seven states in prayer."
-msgstr "每次活動期間，每個人都會根據分配的時間，為多個地區祈禱。作為參考，平均每人十"
+msgstr ""
+"每次活動期間，每個人都會根據分配的時間，為多個地區祈禱。作為參考，平均每人十"
 "分鐘的祈禱時間，可以涵蓋大約七個州。"
 
 #: pages/events/events-body.php:136
@@ -1599,9 +1619,9 @@ msgid ""
 "Give your attendees advance notice of the upcoming Prayer.Global event to "
 "encourage their participation and to help them be prepared to pray on the "
 "day of your event. Here is a proposed timeline for promotion."
-msgstr "提前通知您的與會者即將舉行的 Prayer.Global "
-"活動，鼓勵他們參與，並幫助他們做好在活動當天祈禱的準備。以下是一份推廣活動時"
-"間表。"
+msgstr ""
+"提前通知您的與會者即將舉行的 Prayer.Global 活動，鼓勵他們參與，並幫助他們做好"
+"在活動當天祈禱的準備。以下是一份推廣活動時間表。"
 
 #: pages/events/events-body.php:168
 #, fuzzy
@@ -1616,15 +1636,17 @@ msgid ""
 "Send an email at least 3 days before to cast vision and to encourage your "
 "event attendees to download the Prayer.Global app. Include links to both app "
 "stores."
-msgstr "至少提前三天發送電子郵件，闡述願景並鼓勵活動參與者下載 Prayer.Global "
-"應用程式。請附上兩家應用程式商店的連結。"
+msgstr ""
+"至少提前三天發送電子郵件，闡述願景並鼓勵活動參與者下載 Prayer.Global 應用程"
+"式。請附上兩家應用程式商店的連結。"
 
 #: pages/events/events-body.php:170
 #, fuzzy
 msgid ""
 "Send a text the day before the event with a link to Prayer.Global, if you "
 "have a texting service."
-msgstr "如果您有簡訊服務，請在活動前一天發送一條包含 Prayer.Global 連結的簡訊。"
+msgstr ""
+"如果您有簡訊服務，請在活動前一天發送一條包含 Prayer.Global 連結的簡訊。"
 
 #: pages/events/events-body.php:171
 #, fuzzy
@@ -1640,9 +1662,9 @@ msgid ""
 "your custom group URL until the day of the event. This helps ensure better "
 "tracking of how many people prayed with you during the event."
 msgstr ""
-"在活動前推廣中，我們建議僅推廣 Prayer.Global "
-"網站及其應用程式的下載連結。建議您在活動當天之前不要分享您的自訂群組網址。這"
-"有助於更好地追蹤活動期間與您一起祈禱的人數。"
+"在活動前推廣中，我們建議僅推廣 Prayer.Global 網站及其應用程式的下載連結。建議"
+"您在活動當天之前不要分享您的自訂群組網址。這有助於更好地追蹤活動期間與您一起"
+"祈禱的人數。"
 
 #: pages/events/events-body.php:190
 #, fuzzy
@@ -1678,8 +1700,9 @@ msgstr "在場地的投影螢幕或電視上顯示二維碼"
 msgid ""
 "Add a link – like a ‘Pray Now’ button – to your website or other online "
 "resources you are using in the course of your event"
-msgstr "新增一個連結 - 例如「立即祈禱」按鈕 - "
-"指向您的網站或您在活動期間使用的其他線上資源"
+msgstr ""
+"新增一個連結 - 例如「立即祈禱」按鈕 - 指向您的網站或您在活動期間使用的其他線"
+"上資源"
 
 #: pages/events/events-body.php:202
 #, fuzzy
@@ -1706,8 +1729,8 @@ msgid ""
 "the full minute to scroll through the prompts, demonstrating how to use the "
 "different pieces of information to guide your prayers."
 msgstr ""
-"透過使用螢幕分享、簡報電腦或影片引導人們完成禱告提示，展示 Prayer.Global "
-"工具的工作原理。花一分鐘瀏覽這些提示，示範如何運用不同的訊息來引導你的禱告。"
+"透過使用螢幕分享、簡報電腦或影片引導人們完成禱告提示，展示 Prayer.Global 工具"
+"的工作原理。花一分鐘瀏覽這些提示，示範如何運用不同的訊息來引導你的禱告。"
 
 #: pages/events/events-body.php:207
 #, fuzzy
@@ -1715,7 +1738,8 @@ msgid ""
 "Provide time for people to get out their devices, scan the codes and to be "
 "ready to go. Give the go ahead to start praying and start the countdown "
 "timer."
-msgstr "提供人們時間，讓他們拿出設備，掃描二維碼，準備出發。允許他們開始祈禱，並啟動"
+msgstr ""
+"提供人們時間，讓他們拿出設備，掃描二維碼，準備出發。允許他們開始祈禱，並啟動"
 "倒數計時。"
 
 #: pages/events/events-body.php:208
@@ -1732,7 +1756,8 @@ msgid ""
 "during that time. You can use the display map to showcase this or provide "
 "that information to a host or worship minister to share when they come on "
 "stage."
-msgstr "如果可能的話，請提供你們小組在這段時間內為多少個州禱告的最新情況。你可以使用"
+msgstr ""
+"如果可能的話，請提供你們小組在這段時間內為多少個州禱告的最新情況。你可以使用"
 "展示地圖來展示這些訊息，或是在主持人或敬拜牧師上台時分享這些訊息。"
 
 #: pages/events/events-body.php:213
@@ -1745,8 +1770,9 @@ msgstr "提供後續步驟（5 分鐘）"
 msgid ""
 "How do you encourage continued prayer for the nations? Help people "
 "brainstorm ways they can use the Prayer.Global app moving forward."
-msgstr "你如何鼓勵大家繼續為列國禱告？幫助大家集思廣益，思考如何更好地使用 "
-"Prayer.Global 應用程式。"
+msgstr ""
+"你如何鼓勵大家繼續為列國禱告？幫助大家集思廣益，思考如何更好地使用 Prayer."
+"Global 應用程式。"
 
 #: pages/events/events-body.php:215
 #, fuzzy
@@ -1790,9 +1816,8 @@ msgid ""
 "leadership, ushers, and volunteers with a Prayer.Global experience before "
 "the event, as well."
 msgstr ""
-"在推廣 Prayer.Global "
-"之前，請先親自體驗一下。此外，還可以考慮在活動開始前，讓領導者、"
-"引座員和志工也體驗 Prayer.Global 的魅力。"
+"在推廣 Prayer.Global 之前，請先親自體驗一下。此外，還可以考慮在活動開始前，讓"
+"領導者、引座員和志工也體驗 Prayer.Global 的魅力。"
 
 #: pages/events/events-body.php:249
 #, fuzzy
@@ -1807,7 +1832,8 @@ msgid ""
 "Recruit a few technology helpers to be positioned around the room when your "
 "prayer time begins. They can help people troubleshoot any issues with their "
 "device or access the correct prayer relay."
-msgstr "招募幾位技術助手，在禱告開始時待在房間各處。他們可以幫助人們排除設備故障，或"
+msgstr ""
+"招募幾位技術助手，在禱告開始時待在房間各處。他們可以幫助人們排除設備故障，或"
 "連接正確的禱告接力。"
 
 #: pages/events/events-body.php:251
@@ -1816,7 +1842,8 @@ msgid ""
 "Encourage people to pray out loud. Model this from the stage and play some "
 "soft music during the prayer time. This will help the room not feel empty "
 "while also encouraging participation."
-msgstr "鼓勵大家大聲禱告。在台上示範，並在禱告時播放一些輕柔的音樂。這能讓禱告室不那"
+msgstr ""
+"鼓勵大家大聲禱告。在台上示範，並在禱告時播放一些輕柔的音樂。這能讓禱告室不那"
 "麼空曠，同時也能鼓勵大家參與。"
 
 #: pages/events/events-body.php:252
@@ -1839,10 +1866,9 @@ msgid ""
 "celebrate once your lap is complete, if not completed during the event.  "
 "Keep the vision and goal of daily prayer for the nations in front of them."
 msgstr ""
-"根據你在 Prayer.Global "
-"活動中的體驗，提供後續資訊、簡訊或電子郵件，鼓勵人們繼續禱告，並在你完成禱告"
-"一圈後（如果在活動中沒有完成）慶祝。記住，每天為萬國禱告的異象和目標要放在他"
-"們面前。"
+"根據你在 Prayer.Global 活動中的體驗，提供後續資訊、簡訊或電子郵件，鼓勵人們繼"
+"續禱告，並在你完成禱告一圈後（如果在活動中沒有完成）慶祝。記住，每天為萬國禱"
+"告的異象和目標要放在他們面前。"
 
 #: pages/events/events-body.php:268
 #, fuzzy
@@ -1858,10 +1884,9 @@ msgid ""
 "lifting their voices to God, may you see hearts ignited with a passion to "
 "pray boldly and consistently — not just during your event, but far beyond it."
 msgstr ""
-"感謝您抽空探索如何舉辦 Prayer.Global "
-"活動。遵循以下步驟，您將為活動參與者創造一個強大的機會，讓他們團結起來，為萬"
-"國禱告。當您引導其他人向上帝發出禱告之聲時，願您看到人們的心被點燃，勇敢而持"
-"續地禱告——不僅在活動期間，也遠不止於此。"
+"感謝您抽空探索如何舉辦 Prayer.Global 活動。遵循以下步驟，您將為活動參與者創造"
+"一個強大的機會，讓他們團結起來，為萬國禱告。當您引導其他人向上帝發出禱告之聲"
+"時，願您看到人們的心被點燃，勇敢而持續地禱告——不僅在活動期間，也遠不止於此。"
 
 #: pages/events/events-body.php:270
 #, fuzzy
@@ -1872,8 +1897,8 @@ msgid ""
 "to all nations and people groups."
 msgstr ""
 "願主祝福你們的努力，使每一次禱告都產生更大的影響。願你們的聚會能激發出一群非"
-"凡的禱告勇士，他們願意為迷失的人站在破口上，見證神的國度擴展到所有國家和民族"
-"。"
+"凡的禱告勇士，他們願意為迷失的人站在破口上，見證神的國度擴展到所有國家和民"
+"族。"
 
 #: pages/events/events-body.php:271
 #, fuzzy
@@ -1945,14 +1970,16 @@ msgstr "筆記："
 msgid ""
 "If you'd like to avoid the 3% fee that credit card companies charge "
 "everyone, you can send tax deductible donations via check to:"
-msgstr "如果您想避免信用卡公司向每個人收取的 3% fee，您可以透過支票將免稅捐款寄至："
+msgstr ""
+"如果您想避免信用卡公司向每個人收取的 3% fee，您可以透過支票將免稅捐款寄至："
 
 #: pages/give/give.php:154
 #, fuzzy, php-format
 msgid ""
 "%1$s and by extension %2$s is part of %3$s. You may see %4$s on your invoice "
 "or receipt."
-msgstr "%1$s 及其副檔名 %2$s 是 %3$s 的一部份。您可能會在發票或收據上看到 %4$s。"
+msgstr ""
+"%1$s 及其副檔名 %2$s 是 %3$s 的一部份。您可能會在發票或收據上看到 %4$s。"
 
 #: pages/home/body.php:10 pages/home/body.php:109
 #, fuzzy
@@ -1974,8 +2001,9 @@ msgstr "目標"
 msgid ""
 "The clock is ticking. %sPrayer.Global seeks to encourage extraordinary "
 "prayer for the fulﬁllment of the Great Commission in our generation."
-msgstr "時鐘滴答作響。 %sPrayer.Global "
-"致力於鼓勵非凡的禱告，為我們這一代完成偉大的使命而努力。"
+msgstr ""
+"時鐘滴答作響。 %sPrayer.Global 致力於鼓勵非凡的禱告，為我們這一代完成偉大的使"
+"命而努力。"
 
 #: pages/home/body.php:45 pages/home/body.php:129
 #, fuzzy
@@ -1994,7 +2022,8 @@ msgid ""
 "covering the entire world in prayer. An interactive map gives us real time "
 "updates on who we’ve prayed for and stats on our collective prayer lap "
 "status."
-msgstr "如同賽跑一樣，我們迫切而專注地祈禱，力求用禱告覆蓋全世界來完成每圈的禱告。互"
+msgstr ""
+"如同賽跑一樣，我們迫切而專注地祈禱，力求用禱告覆蓋全世界來完成每圈的禱告。互"
 "動地圖即時更新我們為誰禱告，以及我們集體禱告圈的進度。"
 
 #: pages/home/body.php:61 pages/home/body.php:153
@@ -2014,8 +2043,9 @@ msgstr "Prayer.Global 根據地理和政府邊界將世界劃分為 4,770 個國
 msgid ""
 "When you press the Start Praying button, location specific prayer fuel will "
 "help guide your prayers for each of these regions."
-msgstr "當您按下「開始祈禱」按鈕時，特定位置的祈禱燃料將幫助引導您為每個地區進行祈禱"
-"。"
+msgstr ""
+"當您按下「開始祈禱」按鈕時，特定位置的祈禱燃料將幫助引導您為每個地區進行祈"
+"禱。"
 
 #: pages/home/body.php:67
 #, fuzzy
@@ -2044,7 +2074,8 @@ msgstr "已完成"
 msgid ""
 "Our ﬁrst global race started %1$s year and %2$s days ago and we’ve completed "
 "%3$s laps together so far."
-msgstr "我們的第一場全球比賽於 %1$s 年零 %2$s 天前開始，到目前為止我們已經一起完成了 "
+msgstr ""
+"我們的第一場全球比賽於 %1$s 年零 %2$s 天前開始，到目前為止我們已經一起完成了 "
 "%3$s 圈。"
 
 #: pages/home/body.php:87 pages/home/body.php:175
@@ -2063,8 +2094,9 @@ msgid ""
 "With each prayer lap we complete, we are that much closer to ushering in "
 "God’s Kingdom and the return of Jesus Christ! %sClick Start Praying to start "
 "your Prayer.Global experience today!"
-msgstr "我們每完成一圈禱告，就離迎接神的國和耶穌基督的再來更近一步！ "
-"%s點擊“開始禱告”，立即開啟您的 Prayer.Global 體驗！"
+msgstr ""
+"我們每完成一圈禱告，就離迎接神的國和耶穌基督的再來更近一步！ %s點擊“開始禱"
+"告”，立即開啟您的 Prayer.Global 體驗！"
 
 #: pages/home/body.php:102
 #, fuzzy
@@ -2080,16 +2112,17 @@ msgid ""
 "for each of these regions. %2$sThen, watch on the map as our united prayers "
 "light up the darkness."
 msgstr ""
-"Prayer.Global 根據地理和政府邊界將世界劃分為 4,770 個州。 "
-"%1$s當您按下「開始祈禱」按鈕時，特定地區的祈禱資源將幫助您為每個地區提供祈禱"
-"指引。 %2$s然後，在地圖上觀察我們團結一致的祈禱如何照亮黑暗。"
+"Prayer.Global 根據地理和政府邊界將世界劃分為 4,770 個州。 %1$s當您按下「開始"
+"祈禱」按鈕時，特定地區的祈禱資源將幫助您為每個地區提供祈禱指引。 %2$s然後，在"
+"地圖上觀察我們團結一致的祈禱如何照亮黑暗。"
 
 #: pages/home/body.php:168
 #, fuzzy, php-format
 msgid ""
 "Our ﬁrst global race started %1$s days ago and we’ve completed %2$s laps "
 "together so far."
-msgstr "我們的第一場全球比賽於 %1$s 天前開始，到目前為止我們已經一起完成了 %2$s 圈。"
+msgstr ""
+"我們的第一場全球比賽於 %1$s 天前開始，到目前為止我們已經一起完成了 %2$s 圈。"
 
 #: pages/home/body.php:171
 #, fuzzy, php-format
@@ -2108,8 +2141,8 @@ msgstr "已完成"
 msgid "Previous"
 msgstr "上一節"
 
-#: pages/home/body.php:207 pages/pray/action-custom-event-lap.php:1502
-#: pages/pray/action-custom-lap.php:243 pages/pray/trait-lap.php:410
+#: pages/home/body.php:207 pages/pray/action-custom-event-lap.php:1503
+#: pages/pray/action-custom-lap.php:244 pages/pray/trait-lap.php:411
 #, fuzzy
 msgid "Next"
 msgstr "下一節"
@@ -2229,231 +2262,231 @@ msgid "%1$s of %2$s"
 msgstr "在％2 $ s中的％1 $ s"
 
 #: pages/pray/action-custom-event-lap.php:111
-#: pages/pray/action-custom-lap.php:145
-#: pages/pray/action-global-location-map.php:331 pages/pray/trait-lap.php:62
+#: pages/pray/action-custom-lap.php:146
+#: pages/pray/action-global-location-map.php:331 pages/pray/trait-lap.php:63
 #, fuzzy
 msgid "Keep Praying..."
 msgstr "繼續祈禱..."
 
 #: pages/pray/action-custom-event-lap.php:115
-#: pages/pray/action-custom-lap.php:149
-#: pages/pray/action-global-location-map.php:335 pages/pray/trait-lap.php:66
+#: pages/pray/action-custom-lap.php:150
+#: pages/pray/action-global-location-map.php:335 pages/pray/trait-lap.php:67
 #, fuzzy
 msgid "Praying Paused"
 msgstr "祈禱暫停"
 
 #: pages/pray/action-custom-event-lap.php:116
-#: pages/pray/action-custom-event-lap.php:1532
-#: pages/pray/action-custom-lap.php:151 pages/pray/action-custom-lap.php:271
-#: pages/pray/action-global-location-map.php:337 pages/pray/trait-lap.php:68
-#: pages/pray/trait-lap.php:187
+#: pages/pray/action-custom-event-lap.php:1533
+#: pages/pray/action-custom-lap.php:152 pages/pray/action-custom-lap.php:272
+#: pages/pray/action-global-location-map.php:337 pages/pray/trait-lap.php:69
+#: pages/pray/trait-lap.php:188
 #, fuzzy
 msgid "Prayer Added!"
 msgstr "已加入禱告！"
 
-#: pages/pray/action-custom-event-lap.php:1501
-#: pages/pray/action-custom-lap.php:160 pages/pray/action-custom-lap.php:242
-#: pages/pray/action-global-location.php:118 pages/pray/trait-lap.php:77
-#: pages/pray/trait-lap.php:409
+#: pages/pray/action-custom-event-lap.php:1502
+#: pages/pray/action-custom-lap.php:161 pages/pray/action-custom-lap.php:243
+#: pages/pray/action-global-location.php:118 pages/pray/trait-lap.php:78
+#: pages/pray/trait-lap.php:410
 #, fuzzy
 msgid "Done"
 msgstr "完畢"
 
-#: pages/pray/action-custom-event-lap.php:1517
-#: pages/pray/action-custom-lap.php:256 pages/pray/trait-lap.php:172
+#: pages/pray/action-custom-event-lap.php:1518
+#: pages/pray/action-custom-lap.php:257 pages/pray/trait-lap.php:173
 #, fuzzy
 msgid "Pray for"
 msgstr "祈禱"
 
-#: pages/pray/action-custom-event-lap.php:1522
-#: pages/pray/action-custom-lap.php:261 pages/pray/trait-lap.php:177
+#: pages/pray/action-custom-event-lap.php:1523
+#: pages/pray/action-custom-lap.php:262 pages/pray/trait-lap.php:178
 #, fuzzy, php-format
 msgid "In Prayer Relay %s"
 msgstr "禱告接力 %s"
 
-#: pages/pray/action-custom-event-lap.php:1530
-#: pages/pray/action-custom-lap.php:150 pages/pray/action-custom-lap.php:269
-#: pages/pray/action-global-location-map.php:336 pages/pray/trait-lap.php:67
-#: pages/pray/trait-lap.php:185
+#: pages/pray/action-custom-event-lap.php:1531
+#: pages/pray/action-custom-lap.php:151 pages/pray/action-custom-lap.php:270
+#: pages/pray/action-global-location-map.php:336 pages/pray/trait-lap.php:68
+#: pages/pray/trait-lap.php:186
 #, fuzzy
 msgid "Great Job!"
 msgstr "做得好！"
 
-#: pages/pray/action-custom-event-lap.php:1542
-#: pages/pray/action-custom-lap.php:282 pages/pray/trait-lap.php:198
+#: pages/pray/action-custom-event-lap.php:1543
+#: pages/pray/action-custom-lap.php:283 pages/pray/trait-lap.php:199
 #, fuzzy
 msgid "Are you sure you want to leave?"
 msgstr "確定要刪除 %s 嗎？"
 
-#: pages/pray/action-custom-event-lap.php:1553
-#: pages/pray/action-custom-lap.php:293 pages/pray/trait-lap.php:209
+#: pages/pray/action-custom-event-lap.php:1554
+#: pages/pray/action-custom-lap.php:294 pages/pray/trait-lap.php:210
 #, fuzzy
 msgid "Keep Praying"
 msgstr "繼續祈禱"
 
-#: pages/pray/action-custom-event-lap.php:1554
-#: pages/pray/action-custom-lap.php:294
-#: pages/pray/action-global-location.php:126 pages/pray/trait-lap.php:210
+#: pages/pray/action-custom-event-lap.php:1555
+#: pages/pray/action-custom-lap.php:295
+#: pages/pray/action-global-location.php:126 pages/pray/trait-lap.php:211
 #, fuzzy
 msgid "Leave"
 msgstr "放手"
 
-#: pages/pray/action-custom-event-lap.php:1594
-#: pages/pray/action-custom-lap.php:334 pages/pray/trait-lap.php:250
+#: pages/pray/action-custom-event-lap.php:1595
+#: pages/pray/action-custom-lap.php:335 pages/pray/trait-lap.php:251
 #, fuzzy
 msgid "See more"
 msgstr "看更多"
 
-#: pages/pray/action-custom-event-lap.php:1637
-#: pages/pray/action-custom-lap.php:377 pages/pray/trait-lap.php:293
+#: pages/pray/action-custom-event-lap.php:1638
+#: pages/pray/action-custom-lap.php:378 pages/pray/trait-lap.php:294
 #, fuzzy
 msgid "Show More Guided Prayers"
 msgstr "顯示更多引導祈禱"
 
-#: pages/pray/action-custom-lap.php:144 pages/pray/trait-lap.php:61
+#: pages/pray/action-custom-lap.php:145 pages/pray/trait-lap.php:62
 #, fuzzy, php-format
 msgid "%1$s of %2$s"
 msgstr "在％2 $ s中的％1 $ s"
 
-#: pages/pray/action-custom-lap.php:152 pages/pray/trait-lap.php:69
+#: pages/pray/action-custom-lap.php:153 pages/pray/trait-lap.php:70
 #: pages/user/login.php:237 pages/user/register.php:216
 #, fuzzy
 msgid "Join and create custom prayer relays"
 msgstr "加入並創建自訂祈禱接力"
 
-#: pages/pray/action-custom-lap.php:153 pages/pray/trait-lap.php:70
+#: pages/pray/action-custom-lap.php:154 pages/pray/trait-lap.php:71
 #: pages/user/login.php:241 pages/user/register.php:220
 #, fuzzy
 msgid "View your interactive prayer history"
 msgstr "查看您的互動祈禱歷史"
 
-#: pages/pray/action-custom-lap.php:154 pages/pray/trait-lap.php:71
+#: pages/pray/action-custom-lap.php:155 pages/pray/trait-lap.php:72
 #: pages/user/register.php:224
 #, fuzzy
 msgid "Prayer streaks, badges and more"
 msgstr "祈禱條紋、徽章等等"
 
-#: pages/pray/action-custom-lap.php:155 pages/pray/trait-lap.php:72
+#: pages/pray/action-custom-lap.php:156 pages/pray/trait-lap.php:73
 #, fuzzy
 msgid "Register Now"
 msgstr "立即註冊"
 
-#: pages/pray/action-custom-lap.php:156 pages/pray/trait-lap.php:73
+#: pages/pray/action-custom-lap.php:157 pages/pray/trait-lap.php:74
 #: pages/user/register.php:212
 #, fuzzy
 msgid "Create your own free login"
 msgstr "創建您自己的免費登錄"
 
-#: pages/pray/action-custom-lap.php:157 pages/pray/trait-lap.php:74
+#: pages/pray/action-custom-lap.php:158 pages/pray/trait-lap.php:75
 #: pages/user/login.php:218
 #, fuzzy
 msgid "No Thanks"
 msgstr "不，謝謝"
 
-#: pages/pray/action-custom-lap.php:158 pages/pray/trait-lap.php:75
+#: pages/pray/action-custom-lap.php:159 pages/pray/trait-lap.php:76
 #: pages/user/user-dashboard.php:170
 #, fuzzy
 msgid "Daily Prayer Streak"
 msgstr "每日祈禱"
 
-#: pages/pray/action-custom-lap.php:159 pages/pray/trait-lap.php:76
+#: pages/pray/action-custom-lap.php:160 pages/pray/trait-lap.php:77
 #: pages/user/user-dashboard.php:171
 #, fuzzy
 msgid "Best"
 msgstr "最好的"
 
-#: pages/pray/action-custom-lap.php:161 pages/pray/trait-lap.php:78
+#: pages/pray/action-custom-lap.php:162 pages/pray/trait-lap.php:79
 #, fuzzy
 msgid "Fetching your stats..."
 msgstr "正在獲取您的統計數據..."
 
-#: pages/pray/action-custom-lap.php:162 pages/pray/trait-lap.php:79
+#: pages/pray/action-custom-lap.php:163 pages/pray/trait-lap.php:80
 #: pages/user/user-dashboard.php:207
 #, fuzzy
 msgid "Download the Prayer.Global app to get streak notifications and more!"
 msgstr "下載 Prayer.Global 應用程式以獲取連續通知及更多資訊！"
 
-#: pages/pray/action-custom-lap.php:163 pages/pray/trait-lap.php:80
+#: pages/pray/action-custom-lap.php:164 pages/pray/trait-lap.php:81
 #: pages/user/user-dashboard.php:208
 #, fuzzy
 msgid "Update the Prayer.Global app to get streak notifications and more!"
 msgstr "更新 Prayer.Global 應用程式以獲取連續通知及更多資訊！"
 
-#: pages/pray/action-custom-lap.php:164 pages/pray/trait-lap.php:81
+#: pages/pray/action-custom-lap.php:165 pages/pray/trait-lap.php:82
 #: pages/user/user-dashboard.php:209
 #, fuzzy
 msgid "Go to App Store"
 msgstr "前往 App Store"
 
-#: pages/pray/action-custom-lap.php:382 pages/pray/trait-lap.php:294
+#: pages/pray/action-custom-lap.php:383 pages/pray/trait-lap.php:295
 #, fuzzy
 msgid "Correction Needed?"
 msgstr "需要更正嗎？"
 
-#: pages/pray/action-custom-lap.php:391 pages/pray/action-custom-map.php:229
-#: pages/pray/action-global-map.php:197 pages/pray/trait-lap.php:303
+#: pages/pray/action-custom-lap.php:392 pages/pray/action-custom-map.php:229
+#: pages/pray/action-global-map.php:197 pages/pray/trait-lap.php:304
 #, fuzzy
 msgid "Thank you! Leave us a correction below."
 msgstr "謝謝！請在下方留言，我們會修正您的錯誤。"
 
-#: pages/pray/action-custom-lap.php:402 pages/pray/action-custom-map.php:235
-#: pages/pray/action-global-map.php:203 pages/pray/trait-lap.php:314
+#: pages/pray/action-custom-lap.php:403 pages/pray/action-custom-map.php:235
+#: pages/pray/action-global-map.php:203 pages/pray/trait-lap.php:315
 #, fuzzy
 msgid "Section:"
 msgstr "部分："
 
-#: pages/pray/action-custom-lap.php:408 pages/pray/action-custom-map.php:239
-#: pages/pray/action-global-map.php:207 pages/pray/trait-lap.php:320
+#: pages/pray/action-custom-lap.php:409 pages/pray/action-custom-map.php:239
+#: pages/pray/action-global-map.php:207 pages/pray/trait-lap.php:321
 #, fuzzy
 msgid "Correction Requested:"
 msgstr "要求更正："
 
-#: pages/pray/action-custom-lap.php:427 pages/pray/trait-lap.php:339
+#: pages/pray/action-custom-lap.php:428 pages/pray/trait-lap.php:340
 #, fuzzy
 msgid "Set Your Prayer Experience"
 msgstr "設定你的禱告體驗"
 
-#: pages/pray/action-custom-lap.php:436 pages/pray/trait-lap.php:348
+#: pages/pray/action-custom-lap.php:437 pages/pray/trait-lap.php:349
 #, fuzzy
 msgid "Prayer pace per place"
 msgstr "每個地方的祈禱速度"
 
-#: pages/pray/action-custom-lap.php:439 pages/pray/trait-lap.php:351
+#: pages/pray/action-custom-lap.php:440 pages/pray/trait-lap.php:352
 #, fuzzy, php-format
 msgid "%d Minute"
 msgstr "%s分鐘"
 
-#: pages/pray/action-custom-lap.php:440 pages/pray/action-custom-lap.php:441
-#: pages/pray/action-custom-lap.php:442 pages/pray/action-custom-lap.php:443
-#: pages/pray/action-custom-lap.php:444 pages/pray/trait-lap.php:352
-#: pages/pray/trait-lap.php:353 pages/pray/trait-lap.php:354
-#: pages/pray/trait-lap.php:355 pages/pray/trait-lap.php:356
+#: pages/pray/action-custom-lap.php:441 pages/pray/action-custom-lap.php:442
+#: pages/pray/action-custom-lap.php:443 pages/pray/action-custom-lap.php:444
+#: pages/pray/action-custom-lap.php:445 pages/pray/trait-lap.php:353
+#: pages/pray/trait-lap.php:354 pages/pray/trait-lap.php:355
+#: pages/pray/trait-lap.php:356 pages/pray/trait-lap.php:357
 #, fuzzy, php-format
 msgid "%d Minutes"
 msgstr "%s分鐘"
 
-#: pages/pray/action-custom-lap.php:448 pages/pray/action-custom-lap.php:486
-#: pages/pray/trait-lap.php:360 pages/pray/trait-lap.php:398
+#: pages/pray/action-custom-lap.php:449 pages/pray/action-custom-lap.php:487
+#: pages/pray/trait-lap.php:361 pages/pray/trait-lap.php:399
 #, fuzzy
 msgid "Let's Go!"
 msgstr "我們走吧！"
 
-#: pages/pray/action-custom-lap.php:464 pages/pray/trait-lap.php:376
+#: pages/pray/action-custom-lap.php:465 pages/pray/trait-lap.php:377
 #, fuzzy, php-format
 msgid "How %s works"
 msgstr "%s 的工作原理"
 
-#: pages/pray/action-custom-lap.php:465 pages/pray/trait-lap.php:377
+#: pages/pray/action-custom-lap.php:466 pages/pray/trait-lap.php:378
 #, fuzzy
 msgid "Step 1"
 msgstr "步驟 1"
 
-#: pages/pray/action-custom-lap.php:470 pages/pray/trait-lap.php:382
+#: pages/pray/action-custom-lap.php:471 pages/pray/trait-lap.php:383
 #, fuzzy
 msgid "Step 2"
 msgstr "第 2 步"
 
-#: pages/pray/action-custom-lap.php:477 pages/pray/trait-lap.php:389
+#: pages/pray/action-custom-lap.php:478 pages/pray/trait-lap.php:390
 #, fuzzy
 msgid "Step 3"
 msgstr "步驟3"
@@ -2743,8 +2776,9 @@ msgstr "下一小時"
 msgid ""
 "On average, %1$s people will die without a personal relationship with Jesus "
 "in the next hour in %2$s."
-msgstr "平均而言，%2$s 在接下來的一個小時內，將有 %1$s "
-"人因未與耶穌建立個人關係而死亡。"
+msgstr ""
+"平均而言，%2$s 在接下來的一個小時內，將有 %1$s 人因未與耶穌建立個人關係而死"
+"亡。"
 
 #: pages/pray/stacker-positions.php:140 pages/pray/stacker-positions.php:154
 #: pages/pray/stacker-positions.php:168 pages/pray/stacker-positions.php:182
@@ -2765,8 +2799,9 @@ msgstr "接下來的 100 小時"
 msgid ""
 "On average, %1$s people will die without a personal relationship with Jesus "
 "in the next 100 hours in %2$s."
-msgstr "平均而言，在 %2$s 年，在接下來的 100 小時內，將有 %1$s "
-"人死於無法與耶穌建立個人關係的情況。"
+msgstr ""
+"平均而言，在 %2$s 年，在接下來的 100 小時內，將有 %1$s 人死於無法與耶穌建立個"
+"人關係的情況。"
 
 #: pages/pray/stacker-positions.php:162 pages/pray/stacker-positions.php:223
 #: pages/pray/stacker-positions.php:283 pages/pray/stacker-positions.php:344
@@ -2792,7 +2827,8 @@ msgstr "下個月"
 msgid ""
 "On average, %1$s people will die without a personal relationship with Jesus "
 "in the next month in %2$s."
-msgstr "平均而言，在 %2$s 年的下個月，將有 %1$s 人去世，並且無法與耶穌建立個人關係。"
+msgstr ""
+"平均而言，在 %2$s 年的下個月，將有 %1$s 人去世，並且無法與耶穌建立個人關係。"
 
 #: pages/pray/stacker-positions.php:200
 #, fuzzy, php-format
@@ -2800,9 +2836,9 @@ msgid ""
 "On average, %1$s babies will be born in the next hour to families who might "
 "know about God culturally, but likely have no relationship with Jesus in "
 "%2$s."
-msgstr "平均而言，在接下來的一個小時內，會有 %1$s "
-"名嬰兒出生，這些嬰兒的家庭可能在文化上了解上帝，但可能與 %2$s "
-"名耶穌沒有任何關係。"
+msgstr ""
+"平均而言，在接下來的一個小時內，會有 %1$s 名嬰兒出生，這些嬰兒的家庭可能在文"
+"化上了解上帝，但可能與 %2$s 名耶穌沒有任何關係。"
 
 #: pages/pray/stacker-positions.php:201
 #, fuzzy, php-format
@@ -2815,9 +2851,9 @@ msgid ""
 "On average, %1$s babies will be born in the next 100 hours to families who "
 "might know about God culturally, but likely have no relationship with Jesus "
 "in %2$s."
-msgstr "平均而言，未來 100 小時內將有 %1$s "
-"名嬰兒出生，這些嬰兒的家庭可能在文化上了解上帝，但可能與 %2$s "
-"名耶穌沒有任何關係。"
+msgstr ""
+"平均而言，未來 100 小時內將有 %1$s 名嬰兒出生，這些嬰兒的家庭可能在文化上了解"
+"上帝，但可能與 %2$s 名耶穌沒有任何關係。"
 
 #: pages/pray/stacker-positions.php:215 pages/pray/stacker-positions.php:229
 #: pages/pray/stacker-positions.php:243 pages/pray/stacker-positions.php:322
@@ -2832,8 +2868,9 @@ msgid ""
 "On average, %1$s babies will be born in the next week to families who might "
 "know about God culturally, but likely have no relationship with Jesus in "
 "%2$s."
-msgstr "平均而言，下週將有 %1$s 名嬰兒出生，這些嬰兒的家庭可能在文化上了解上帝，"
-"但可能與 %2$s 名耶穌沒有任何關係。"
+msgstr ""
+"平均而言，下週將有 %1$s 名嬰兒出生，這些嬰兒的家庭可能在文化上了解上帝，但可"
+"能與 %2$s 名耶穌沒有任何關係。"
 
 #: pages/pray/stacker-positions.php:242
 #, fuzzy, php-format
@@ -2841,20 +2878,23 @@ msgid ""
 "On average, %1$s babies will be born in the next month to families who might "
 "know about God culturally, but likely have no relationship with Jesus in "
 "%2$s."
-msgstr "平均而言，下個月將有 %1$s 名嬰兒出生，這些嬰兒的家庭可能在文化上了解上帝，"
-"但可能與 %2$s 名耶穌沒有任何關係。"
+msgstr ""
+"平均而言，下個月將有 %1$s 名嬰兒出生，這些嬰兒的家庭可能在文化上了解上帝，但"
+"可能與 %2$s 名耶穌沒有任何關係。"
 
 #: pages/pray/stacker-positions.php:260
 #, fuzzy, php-format
 msgid ""
 "On average, %1$s people will die without Jesus in the next hour in %2$s."
-msgstr "平均而言，在 %2$s，接下來的一個小時內，如果沒有耶穌，將有 %1$s 人死去。"
+msgstr ""
+"平均而言，在 %2$s，接下來的一個小時內，如果沒有耶穌，將有 %1$s 人死去。"
 
 #: pages/pray/stacker-positions.php:274
 #, fuzzy, php-format
 msgid ""
 "On average, %1$s people will die without Jesus in the next 100 hours in %2$s."
-msgstr "平均而言，在 %2$s 年，如果沒有耶穌，接下來的 100 小時內將有 %1$s 人死亡。"
+msgstr ""
+"平均而言，在 %2$s 年，如果沒有耶穌，接下來的 100 小時內將有 %1$s 人死亡。"
 
 #: pages/pray/stacker-positions.php:288
 #, fuzzy, php-format
@@ -2872,7 +2912,8 @@ msgstr "平均而言，%1$s 將在 %2$s 的下個月內在沒有耶穌的情況�
 msgid ""
 "On average, %1$s babies will be born in the next hour to families who are "
 "far from God in %2$s."
-msgstr "平均而言，在 %2$s 個遠離上帝的家庭中，下一個小時內將有 %1$s 名嬰兒出生。"
+msgstr ""
+"平均而言，在 %2$s 個遠離上帝的家庭中，下一個小時內將有 %1$s 名嬰兒出生。"
 
 #: pages/pray/stacker-positions.php:335
 #, fuzzy, php-format
@@ -2950,7 +2991,8 @@ msgstr "祈禱運動"
 msgid ""
 "Father, we cry out for a prayer movement in %1$s of %2$s. Please, stir the "
 "%3$s believers here to pray for awakening."
-msgstr "父啊，我們呼求%2$s的%1$s發起禱告運動。求你感動這裡的%3$s信徒，為覺醒禱告。"
+msgstr ""
+"父啊，我們呼求%2$s的%1$s發起禱告運動。求你感動這裡的%3$s信徒，為覺醒禱告。"
 
 #: pages/pray/stacker-text.php:24
 #, fuzzy, php-format
@@ -2969,7 +3011,8 @@ msgid ""
 "I [Jesus] pray also for those who will believe in me through their message, "
 "that all of them may be one, Father, just as you are in me and I am in you. "
 "May they also be in us so that the world may believe that you have sent me."
-msgstr "我也為那些因他們的話信我的人祈求，使他們都合而為一。父啊，正如祢在我裡面，我"
+msgstr ""
+"我也為那些因他們的話信我的人祈求，使他們都合而為一。父啊，正如祢在我裡面，我"
 "在祢裡面。願他們也在我們裡面，叫世人可以信你差了我來。"
 
 #: pages/pray/stacker-text.php:30
@@ -2998,7 +3041,8 @@ msgid ""
 "Now when Daniel learned that the decree had been published, he went home to "
 "his upstairs room where the windows opened toward Jerusalem. Three times a "
 "day he got down on his knees and prayed, giving thanks to his God..."
-msgstr "但以理得知諭旨已頒布，就回到自己樓上的房間，那裡的窗戶朝向耶路撒冷。他一天三"
+msgstr ""
+"但以理得知諭旨已頒布，就回到自己樓上的房間，那裡的窗戶朝向耶路撒冷。他一天三"
 "次雙膝跪下，禱告感謝他的上帝…"
 
 #: pages/pray/stacker-text.php:42
@@ -3013,14 +3057,16 @@ msgstr "聖靈，教導 %1$s 和 %2$s 中的孩子們滿懷熱情地祈禱並懇
 msgid ""
 "Spirit, awaken a burning desire for your presence and intimacy among the "
 "%1$s people living in %2$s of %3$s."
-msgstr "聖靈，請喚醒 %3$s 個 %2$s 居住的 %1$s 人民對你的存在和親密關係的強烈渴望。"
+msgstr ""
+"聖靈，請喚醒 %3$s 個 %2$s 居住的 %1$s 人民對你的存在和親密關係的強烈渴望。"
 
 #: pages/pray/stacker-text.php:54
 #, fuzzy, php-format
 msgid ""
 "Lord we pray you unite the %1$s believers to pray at all times in the "
 "Spirit, with all prayer and supplication, for spiritual breakthrough in %2$s."
-msgstr "主啊，我們祈求祢團結 %1$s 信徒，讓他們隨時在聖靈裡禱告，透過各種禱告和祈求，"
+msgstr ""
+"主啊，我們祈求祢團結 %1$s 信徒，讓他們隨時在聖靈裡禱告，透過各種禱告和祈求，"
 "祈求 %2$s 獲得屬靈的突破。"
 
 #: pages/pray/stacker-text.php:55
@@ -3049,7 +3095,8 @@ msgid ""
 "Please, teach the %1$s believers in %2$s how to pray to you and how to "
 "listen for your voice. That they might follow you into the good works you "
 "have prepared for them."
-msgstr "求你教導%2$s地%1$s的信徒，如何向你祈禱，如何聆聽你的聲音。願他們跟隨你，行你"
+msgstr ""
+"求你教導%2$s地%1$s的信徒，如何向你祈禱，如何聆聽你的聲音。願他們跟隨你，行你"
 "所預備的善事。"
 
 #: pages/pray/stacker-text.php:67
@@ -3091,8 +3138,9 @@ msgstr "有意乘法策略"
 msgid ""
 "Jesus, you taught Paul to train Timothy to train faithful men who would "
 "train others. Please, teach the church of %1$s to do the same."
-msgstr "耶穌，你教導保羅訓練提摩太，使他訓練忠心的人，這些人也能訓練別人。求你教導%1$"
-"s教會也這樣做。"
+msgstr ""
+"耶穌，你教導保羅訓練提摩太，使他訓練忠心的人，這些人也能訓練別人。求你教"
+"導%1$s教會也這樣做。"
 
 #: pages/pray/stacker-text.php:92 pages/pray/stacker-text.php:98
 #, fuzzy
@@ -3119,8 +3167,9 @@ msgstr "靈性，請裝備每一位門徒，去收錄在 %2$s 的 %1$s 中的門
 msgid ""
 "Father, please, raise up a generation of disciples in %1$s of %2$s who will "
 "make disciples who make disciples."
-msgstr "父啊，請在 %2$s 的 %1$s "
-"興起一代門徒，他們將去培養門徒，而門徒又會去培養門徒。"
+msgstr ""
+"父啊，請在 %2$s 的 %1$s 興起一代門徒，他們將去培養門徒，而門徒又會去培養門"
+"徒。"
 
 #: pages/pray/stacker-text.php:109
 #, fuzzy, php-format
@@ -3133,17 +3182,18 @@ msgstr "聖靈，幫助 %2$s 的 %1$s 教會倍增門徒。"
 msgid ""
 "Father, please make every disciple be a disciple maker, every home a "
 "training center, and every church a church planting movement in %1$s of %2$s."
-msgstr "父啊，請使 %1$s 和 %2$s "
-"中的每個門徒都成為門徒訓練者，每個家庭都成為訓練中心，每個教會都成為植堂運動"
-"。"
+msgstr ""
+"父啊，請使 %1$s 和 %2$s 中的每個門徒都成為門徒訓練者，每個家庭都成為訓練中"
+"心，每個教會都成為植堂運動。"
 
 #: pages/pray/stacker-text.php:121
 #, fuzzy, php-format
 msgid ""
 "Spirit, help the church in %1$s of %2$s do things that will multiply their "
 "numbers, not just add to them."
-msgstr "聖靈，請幫助 %2$s 的 %1$s "
-"教會做一些能夠增加其人數的事情，而不僅僅是增加人數。"
+msgstr ""
+"聖靈，請幫助 %2$s 的 %1$s 教會做一些能夠增加其人數的事情，而不僅僅是增加人"
+"數。"
 
 #: pages/pray/stacker-text.php:122
 #, fuzzy
@@ -3156,7 +3206,8 @@ msgctxt "2 Corinthians 2:14"
 msgid ""
 "But thanks be to God, who always leads us triumphantly as captives in Christ "
 "and through us spreads everywhere the fragrance of the knowledge of Him."
-msgstr "感謝上帝，祂總是帶領我們像基督裡的俘虜一樣勝利前進，並透過我們到處傳播對基督"
+msgstr ""
+"感謝上帝，祂總是帶領我們像基督裡的俘虜一樣勝利前進，並透過我們到處傳播對基督"
 "的認識的芬芳。"
 
 #: pages/pray/stacker-text.php:127
@@ -3164,8 +3215,9 @@ msgstr "感謝上帝，祂總是帶領我們像基督裡的俘虜一樣勝利前
 msgid ""
 "Jesus, help the church in %1$s of %2$s to not rely on buildings or programs, "
 "but on your Spirit and the simple faithfulness of every believer."
-msgstr "耶穌，幫助 %1$s 的 %2$s "
-"教會不要依賴建築物或計劃，而是依賴你的精神和每個信徒的簡單忠誠。"
+msgstr ""
+"耶穌，幫助 %1$s 的 %2$s 教會不要依賴建築物或計劃，而是依賴你的精神和每個信徒"
+"的簡單忠誠。"
 
 #: pages/pray/stacker-text.php:133
 #, fuzzy, php-format
@@ -3219,7 +3271,8 @@ msgstr "你們走的時候，要傳揚這信息：“天國近了。”"
 msgid ""
 "Lord, make the %1$s believers in %2$s to be brave and clear with the gospel "
 "to their %3$s neighbors."
-msgstr "主啊，求祢使 %2$s 地的 %1$s 位信徒勇敢、清楚地向他們的 %3$s 位鄰舍傳揚福音。"
+msgstr ""
+"主啊，求祢使 %2$s 地的 %1$s 位信徒勇敢、清楚地向他們的 %3$s 位鄰舍傳揚福音。"
 
 #: pages/pray/stacker-text.php:177
 #, fuzzy
@@ -3233,7 +3286,8 @@ msgid ""
 "So Paul and Barnabas spent considerable time there, speaking boldly for the "
 "Lord, who confirmed the message of his grace by enabling them to perform "
 "signs and wonders."
-msgstr "因此，保羅和巴拿巴在那裡度過了相當長的時間，大膽地為主說話，主透過讓他們行神"
+msgstr ""
+"因此，保羅和巴拿巴在那裡度過了相當長的時間，大膽地為主說話，主透過讓他們行神"
 "蹟奇事來證實祂的恩典的信息。"
 
 #: pages/pray/stacker-text.php:182
@@ -3249,7 +3303,8 @@ msgid ""
 "Jesus, all authority was given to you, and you commanded all disciples in "
 "%1$s to make more disciples, and you promised to be with them. May your "
 "power and their obedience make more disciples today."
-msgstr "耶穌，一切權柄都賜給你了，你吩咐%1$s所有的門徒去使更多的人成為門徒，並應許要"
+msgstr ""
+"耶穌，一切權柄都賜給你了，你吩咐%1$s所有的門徒去使更多的人成為門徒，並應許要"
 "與他們同在。願你的大能和他們的順服，今天就使更多的人成為門徒。"
 
 #: pages/pray/stacker-text.php:189
@@ -3276,8 +3331,9 @@ msgstr ""
 msgid ""
 "Father, help the %1$s believers in %2$s to be spiritually intentional with "
 "their relationships among their %3$s lost friends and neighbors."
-msgstr "父親，請幫助 %1$s 中的 %2$s 名信徒在精神上致力於建立與 %3$s "
-"名失去的朋友和鄰居之間的關係。"
+msgstr ""
+"父親，請幫助 %1$s 中的 %2$s 名信徒在精神上致力於建立與 %3$s 名失去的朋友和鄰"
+"居之間的關係。"
 
 #: pages/pray/stacker-text.php:233
 #, fuzzy
@@ -3290,7 +3346,8 @@ msgid ""
 "Spirit, help the %1$s believers find a person of peace today among the %2$s "
 "lost neighbors around them. And help them start discovery bible studies in "
 "these unbelieving homes."
-msgstr "聖靈啊，求祢幫助%1$s信徒在他們周圍%2$s迷失的鄰居中找到一位平安的人。並幫助他"
+msgstr ""
+"聖靈啊，求祢幫助%1$s信徒在他們周圍%2$s迷失的鄰居中找到一位平安的人。並幫助他"
 "們在這些不信主的家庭中，開啟探索聖經的學習。"
 
 #: pages/pray/stacker-text.php:238
@@ -3319,8 +3376,9 @@ msgstr ""
 msgid ""
 "Father, help your children in %1$s find someone like the Samaritan Woman "
 "today. Someone who will open an entire town to your message of salvation."
-msgstr "天父，求祢幫助祢的兒女在%1$s找到像那位撒瑪利亞婦人一樣的人。她會打開整個城鎮"
-"，接受你救贖的信息。"
+msgstr ""
+"天父，求祢幫助祢的兒女在%1$s找到像那位撒瑪利亞婦人一樣的人。她會打開整個城"
+"鎮，接受你救贖的信息。"
 
 #: pages/pray/stacker-text.php:244
 #, fuzzy
@@ -3334,7 +3392,8 @@ msgid ""
 "So the woman left her water jar and went away into town and said to the "
 "people, 29 “Come, see a man who told me all that I ever did. Can this be the "
 "Christ?” They went out of the town and were coming to him."
-msgstr "婦人就留下水罐，往城裡去，對眾人說：29「你們來看！有一個人將我素來所行的一切"
+msgstr ""
+"婦人就留下水罐，往城裡去，對眾人說：29「你們來看！有一個人將我素來所行的一切"
 "事都說出來了，莫非這就是基督？」他們就出城，往耶穌那裡去。"
 
 #: pages/pray/stacker-text.php:249
@@ -3342,8 +3401,9 @@ msgstr "婦人就留下水罐，往城裡去，對眾人說：29「你們來看�
 msgid ""
 "Father, like with the Ethiopian Eunuch, set up a meeting today between a "
 "faithful believer in %1$s and a person seeking to understand the truth."
-msgstr "父親就像對待埃塞俄比亞太監一樣，今天安排了 %1$s "
-"的忠實信徒與尋求了解真相的人之間的會面。"
+msgstr ""
+"父親就像對待埃塞俄比亞太監一樣，今天安排了 %1$s 的忠實信徒與尋求了解真相的人"
+"之間的會面。"
 
 #: pages/pray/stacker-text.php:250
 #, fuzzy
@@ -3357,7 +3417,8 @@ msgid ""
 "The eunuch asked Philip, “Tell me, please, who is the prophet talking about, "
 "himself or someone else?” Then Philip began with that very passage of "
 "Scripture and told him the good news about Jesus."
-msgstr "太監問腓力：「請告訴我，先知所說的是誰，是他自己還是別人？」腓力就從這段經文"
+msgstr ""
+"太監問腓力：「請告訴我，先知所說的是誰，是他自己還是別人？」腓力就從這段經文"
 "開始，向他講述了關於耶穌的好消息。"
 
 #: pages/pray/stacker-text.php:255
@@ -3365,8 +3426,9 @@ msgstr "太監問腓力：「請告訴我，先知所說的是誰，是他自己
 msgid ""
 "Father, reveal yourself to a faithful non-believer today, someone like "
 "Cornelius, and then Father please connect him with the church in %1$s."
-msgstr "父啊，今天請向一位忠實的非信徒顯現，例如哥尼流，然後父啊，請將他與 %1$s "
-"的教會聯繫起來。"
+msgstr ""
+"父啊，今天請向一位忠實的非信徒顯現，例如哥尼流，然後父啊，請將他與 %1$s 的教"
+"會聯繫起來。"
 
 #: pages/pray/stacker-text.php:256
 #, fuzzy
@@ -3391,9 +3453,9 @@ msgid ""
 "Spirit, guide someone in the church in %1$s of %2$s to a person ready to "
 "receive the message of the gospel, like Lydia, and who will then open her "
 "home to faith."
-msgstr "聖靈，請引導 %1$s 號 %2$s "
-"教會中的某個人找到一個像莉迪亞一樣準備好接受福音信息的人，然後她會敞開家門接"
-"受信仰。"
+msgstr ""
+"聖靈，請引導 %1$s 號 %2$s 教會中的某個人找到一個像莉迪亞一樣準備好接受福音信"
+"息的人，然後她會敞開家門接受信仰。"
 
 #: pages/pray/stacker-text.php:262
 #, fuzzy
@@ -3407,7 +3469,8 @@ msgid ""
 "One of those listening was a woman from the city of Thyatira named Lydia, a "
 "dealer in purple cloth. She was a worshiper of God. The Lord opened her "
 "heart to respond to Paul’s message."
-msgstr "其中一位聽眾是來自推雅推喇城的婦人，名叫呂底亞，是個賣紫色布匹的商人。她敬拜"
+msgstr ""
+"其中一位聽眾是來自推雅推喇城的婦人，名叫呂底亞，是個賣紫色布匹的商人。她敬拜"
 "上帝。主開啟了她的心，讓她回應了保羅的信息。"
 
 #: pages/pray/stacker-text.php:267
@@ -3416,8 +3479,9 @@ msgid ""
 "Spirit, help the disciples in %1$s of %2$s to find a person of peace today, "
 "like the Philippian jailer, who heard and was immediately baptized with his "
 "whole family."
-msgstr "聖靈，幫助 %2$s 的 %1$s "
-"的門徒今天找到一個平安的人，就像腓立比獄卒一樣，他聽到後立即與全家受洗。"
+msgstr ""
+"聖靈，幫助 %2$s 的 %1$s 的門徒今天找到一個平安的人，就像腓立比獄卒一樣，他聽"
+"到後立即與全家受洗。"
 
 #: pages/pray/stacker-text.php:268
 #, fuzzy
@@ -3431,7 +3495,8 @@ msgid ""
 "And they spoke the word of the Lord to him and to all who were in his house. "
 "And he took them the same hour of the night and washed their wounds; and he "
 "was baptized at once, he and all his family."
-msgstr "他們就把主的道講給他和他全家的人聽。當夜，就在那時，耶穌帶他們去洗他們的傷；"
+msgstr ""
+"他們就把主的道講給他和他全家的人聽。當夜，就在那時，耶穌帶他們去洗他們的傷；"
 "他和他全家立刻都受了洗。"
 
 #: pages/pray/stacker-text.php:273
@@ -3440,8 +3505,9 @@ msgid ""
 "Jesus, like with the centurion who came to you for his sick servant, please "
 "call into your house those who have great faith but are not yet yours in "
 "%1$s of %2$s"
-msgstr "耶穌，就像百夫長來見他生病的僕人一樣，請召那些在 %1$s 或 %2$s "
-"中還不屬於你的人到你家裡來。"
+msgstr ""
+"耶穌，就像百夫長來見他生病的僕人一樣，請召那些在 %1$s 或 %2$s 中還不屬於你的"
+"人到你家裡來。"
 
 #: pages/pray/stacker-text.php:274
 #, fuzzy
@@ -3456,7 +3522,8 @@ msgid ""
 "that followed him, said, “I tell you, not even in Israel have I found such "
 "faith.” And when those who had been sent returned to the house, they found "
 "the servant well."
-msgstr "耶穌聽見這話，就希奇他，轉身對跟隨的眾人說：「我告訴你們，這麼大的信心，就是"
+msgstr ""
+"耶穌聽見這話，就希奇他，轉身對跟隨的眾人說：「我告訴你們，這麼大的信心，就是"
 "在以色列中，我也沒有遇見。」打發的人回到家裡，見僕人已經好了。"
 
 #: pages/pray/stacker-text.php:306
@@ -3469,8 +3536,9 @@ msgstr "信徒的聖職"
 msgid ""
 "Father, guide the church in %1$s to see their community as a holy "
 "priesthood, offering spiritual sacrifices acceptable to God."
-msgstr "父親，請引導 %1$s "
-"的教會將他們的社區視為神聖的祭司，獻上上帝所接受的精神祭品。"
+msgstr ""
+"父親，請引導 %1$s 的教會將他們的社區視為神聖的祭司，獻上上帝所接受的精神祭"
+"品。"
 
 #: pages/pray/stacker-text.php:311 pages/pray/stacker-text.php:323
 #, fuzzy
@@ -3484,15 +3552,17 @@ msgid ""
 "you also, like living stones, are being built into a spiritual house to be a "
 "holy priesthood, offering spiritual sacrifices acceptable to God through "
 "Jesus Christ."
-msgstr "你們也像活石，被建造成為靈宮，作聖潔的祭司，藉著耶穌基督奉獻神所悅納的靈祭。"
+msgstr ""
+"你們也像活石，被建造成為靈宮，作聖潔的祭司，藉著耶穌基督奉獻神所悅納的靈祭。"
 
 #: pages/pray/stacker-text.php:316
 #, fuzzy, php-format
 msgid ""
 "Father, thank you that in your kindness you have made every believer in %1$s "
 "a priest, who can offer spiritual sacrifices to you through Jesus."
-msgstr "父親，感謝您以您的仁慈使每個信徒都成為 %1$s "
-"的牧師，他們可以透過耶穌向您獻上精神祭品。"
+msgstr ""
+"父親，感謝您以您的仁慈使每個信徒都成為 %1$s 的牧師，他們可以透過耶穌向您獻上"
+"精神祭品。"
 
 #: pages/pray/stacker-text.php:317
 #, fuzzy
@@ -3506,7 +3576,8 @@ msgid ""
 "Therefore I tell you that the kingdom of God will be taken away from you and "
 "given to a people who will produce its fruit. He who falls on this stone "
 "will be broken to pieces, but he on whom it falls will be crushed.”"
-msgstr "所以我告訴你們，神的國必從你們奪去，賜給那能結果子的百姓。誰掉在這石頭上，必"
+msgstr ""
+"所以我告訴你們，神的國必從你們奪去，賜給那能結果子的百姓。誰掉在這石頭上，必"
 "要跌碎；這石頭掉在誰的身上，必要壓得透不過氣來。"
 
 #: pages/pray/stacker-text.php:322
@@ -3514,8 +3585,9 @@ msgstr "所以我告訴你們，神的國必從你們奪去，賜給那能結果
 msgid ""
 "Spirit, please convict each believer in %1$s to take up their calling as a "
 "priesthood of believers and pray for the %2$s lost around them."
-msgstr "聖靈，請使 %1$s 中的每個信徒信服，接受他們作為信徒祭司的呼召，"
-"並為他們周圍迷失的 %2$s 人禱告。"
+msgstr ""
+"聖靈，請使 %1$s 中的每個信徒信服，接受他們作為信徒祭司的呼召，並為他們周圍迷"
+"失的 %2$s 人禱告。"
 
 #: pages/pray/stacker-text.php:324
 #, fuzzy
@@ -3531,7 +3603,8 @@ msgid ""
 "Father, please raise up every one you have called in %1$s to become worthy "
 "of their calling, and offer spiritual sacrifices acceptable to you through "
 "Jesus."
-msgstr "父啊，請使每一個你所呼召的人復活%1$s，使他們配得上所呼召的，並且藉著耶穌獻上"
+msgstr ""
+"父啊，請使每一個你所呼召的人復活%1$s，使他們配得上所呼召的，並且藉著耶穌獻上"
 "你所悅納的靈祭。"
 
 #: pages/pray/stacker-text.php:329
@@ -3550,9 +3623,9 @@ msgstr "我敦促你活出一個與你所接受的召喚相稱的生活"
 msgid ""
 "Spirit, please convict the believers in %1$s to not assume the ministry is "
 "for professional clergy, but for all who have been called by you."
-msgstr "聖靈，請使 %1$s "
-"中的信徒確信，不要認為牧師職務是為專業神職人員準備的，而是為所有被您召喚的人"
-"準備的。"
+msgstr ""
+"聖靈，請使 %1$s 中的信徒確信，不要認為牧師職務是為專業神職人員準備的，而是為"
+"所有被您召喚的人準備的。"
 
 #: pages/pray/stacker-text.php:340
 #, fuzzy, php-format
@@ -3560,7 +3633,8 @@ msgid ""
 "Father, encourage the %1$s believers to have boldness before you, since they "
 "have a great high priest who has passed through the heavens, Jesus the Son "
 "of God."
-msgstr "父啊，求你勉勵信徒在你面前坦然無懼，因為他們有一位已經升入高天尊榮的大祭司，"
+msgstr ""
+"父啊，求你勉勵信徒在你面前坦然無懼，因為他們有一位已經升入高天尊榮的大祭司，"
 "就是神的兒子耶穌。"
 
 #: pages/pray/stacker-text.php:341
@@ -3574,15 +3648,17 @@ msgctxt "Hebrews 4:14-16"
 msgid ""
 "Since then we have a great high priest who has passed through the heavens, "
 "Jesus, the Son of God, let us hold fast our confession."
-msgstr "我們既然有一位已經升上高天尊榮的大祭司，就是神的兒子耶穌，便可持定所承認的道"
-"。"
+msgstr ""
+"我們既然有一位已經升上高天尊榮的大祭司，就是神的兒子耶穌，便可持定所承認的"
+"道。"
 
 #: pages/pray/stacker-text.php:346
 #, fuzzy, php-format
 msgid ""
 "Jesus, you are the great high priest, please make the %1$s believers in %2$s "
 "a worthy priesthood under you."
-msgstr "耶穌，你是偉大的大祭司，請讓 %1$s 的信徒在 %2$s 之下成為值得你祭司的職位。"
+msgstr ""
+"耶穌，你是偉大的大祭司，請讓 %1$s 的信徒在 %2$s 之下成為值得你祭司的職位。"
 
 #: pages/pray/stacker-text.php:347
 #, fuzzy
@@ -3595,8 +3671,9 @@ msgctxt "Hebrews 4:14"
 msgid ""
 "Since then we have a great high priest who has passed through the heavens, "
 "Jesus, the Son of God, let us hold fast our confession."
-msgstr "我們既然有一位已經升上高天尊榮的大祭司，就是神的兒子耶穌，便可持定所承認的道"
-"。"
+msgstr ""
+"我們既然有一位已經升上高天尊榮的大祭司，就是神的兒子耶穌，便可持定所承認的"
+"道。"
 
 #: pages/pray/stacker-text.php:379
 #, fuzzy
@@ -3618,8 +3695,9 @@ msgstr "教堂種植園主"
 msgid ""
 "God, guide the %1$s believers in %2$s to multiply spiritual families that "
 "love you, love each other, and make disciples."
-msgstr "上帝，請引導 %2$s 地的 %1$s "
-"位信徒，繁衍出愛你、彼此相愛、培育門徒的屬靈家庭。"
+msgstr ""
+"上帝，請引導 %2$s 地的 %1$s 位信徒，繁衍出愛你、彼此相愛、培育門徒的屬靈家"
+"庭。"
 
 #: pages/pray/stacker-text.php:391
 #, fuzzy, php-format
@@ -3653,7 +3731,8 @@ msgstr "因為認識耶和華的知識要充滿遍地，如同水充滿洋海一
 msgid ""
 "Father, we ask for %1$s new simple churches in %2$s of %3$s. Place a simple "
 "church in every community of the %4$s people living here."
-msgstr "父啊，我們祈求在 %3$s 的 %2$s 處建造 %1$s 座新的簡易教堂。在這裡居住的 %4$s "
+msgstr ""
+"父啊，我們祈求在 %3$s 的 %2$s 處建造 %1$s 座新的簡易教堂。在這裡居住的 %4$s "
 "人的每個社區都建造一座簡易教堂。"
 
 #: pages/pray/stacker-text.php:404
@@ -3674,8 +3753,9 @@ msgstr "願祂榮耀的名永遠受頌讚；願祂的榮耀充滿全地。阿們
 msgid ""
 "Spirit, teach the %1$s believers in %2$s of %3$s the wisdom of how to form "
 "simple, reproducible churches of 12-30 in every neighborhood."
-msgstr "精神，教導 %3$s 的 %2$s 的 %1$s 名信徒如何在每個社區建立 12-30 "
-"人的簡單、可複製的教堂的智慧。"
+msgstr ""
+"精神，教導 %3$s 的 %2$s 的 %1$s 名信徒如何在每個社區建立 12-30 人的簡單、可複"
+"製的教堂的智慧。"
 
 #: pages/pray/stacker-text.php:415
 #, fuzzy, php-format
@@ -3701,9 +3781,9 @@ msgstr "……但事實上，只要我活著，整個地球就會充滿主的榮
 msgid ""
 "God, we pray both the men and women of %1$s will find ways to meet in groups "
 "of two or three to encourage and correct one another from your Word."
-msgstr "上帝，我們祈禱 %1$s "
-"的男人和女人都能找到方式以兩三個人為一組的方式聚在一起，用你的話語互相鼓勵和"
-"糾正。"
+msgstr ""
+"上帝，我們祈禱 %1$s 的男人和女人都能找到方式以兩三個人為一組的方式聚在一起，"
+"用你的話語互相鼓勵和糾正。"
 
 #: pages/pray/stacker-text.php:427
 #, fuzzy, php-format
@@ -3724,7 +3804,8 @@ msgid ""
 "He replied to him, “Who is my mother, and who are my brothers?” Pointing to "
 "his disciples, he said, “Here are my mother and my brothers. For whoever "
 "does the will of my Father in heaven is my brother and sister and mother.”"
-msgstr "耶穌回答說：“誰是我的母親？誰是我的弟兄？”他指著門徒說：“看哪，我的母親，我的"
+msgstr ""
+"耶穌回答說：“誰是我的母親？誰是我的弟兄？”他指著門徒說：“看哪，我的母親，我的"
 "弟兄。凡遵行我天父旨意的人，就是我的弟兄姊妹和母親了。”"
 
 #: pages/pray/stacker-text.php:433
@@ -3732,8 +3813,9 @@ msgstr "耶穌回答說：“誰是我的母親？誰是我的弟兄？”他指
 msgid ""
 "Father, we rejoice that you who began a good work in the church of %1$s will "
 "carry it on to completion until the day of Jesus Christ!"
-msgstr "父啊，我們很高興，您在 %1$s "
-"教會開始了美好的工作，並將完成它，直到耶穌基督的日子！"
+msgstr ""
+"父啊，我們很高興，您在 %1$s 教會開始了美好的工作，並將完成它，直到耶穌基督的"
+"日子！"
 
 #: pages/pray/stacker-text.php:434
 #, fuzzy
@@ -3753,9 +3835,9 @@ msgstr "我深信那在你們心裡動了善工的，必成全這工，直到耶
 msgid ""
 "Father, remind your church in %1$s that you have set your Son over all rule "
 "and authority, power and dominion, and every name that is invoked."
-msgstr "父親，請提醒您在 %1$s "
-"的教會，您已將自己的兒子置於一切統治和權威、權力和統治之上，以及所稱呼的一切"
-"名稱之上。"
+msgstr ""
+"父親，請提醒您在 %1$s 的教會，您已將自己的兒子置於一切統治和權威、權力和統治"
+"之上，以及所稱呼的一切名稱之上。"
 
 #: pages/pray/stacker-text.php:440
 #, fuzzy
@@ -3770,7 +3852,8 @@ msgid ""
 "heavenly realms, far above all rule and authority, power and dominion, and "
 "every name that is invoked, not only in the present age but also in the one "
 "to come."
-msgstr "祂使基督從死裡復活，並讓祂坐在天國的右邊，遠高於一切執政的、掌權的、有能的、"
+msgstr ""
+"祂使基督從死裡復活，並讓祂坐在天國的右邊，遠高於一切執政的、掌權的、有能的、"
 "主治的，以及一切被稱呼的名字，不但是今世的，也包括來世的。"
 
 #: pages/pray/stacker-text.php:445
@@ -3778,8 +3861,9 @@ msgstr "祂使基督從死裡復活，並讓祂坐在天國的右邊，遠高於
 msgid ""
 "Father, help %1$s new simple churches start among the %2$s people in %3$s of "
 "%4$s. One within reach of everyone living here."
-msgstr "父啊，求祢幫助 %1$s 在 %3$s 和 %4$s 的 %2$s "
-"居民中建立新的簡易教會。一個所有居住在這裡的人都能觸及的教會。"
+msgstr ""
+"父啊，求祢幫助 %1$s 在 %3$s 和 %4$s 的 %2$s 居民中建立新的簡易教會。一個所有"
+"居住在這裡的人都能觸及的教會。"
 
 #: pages/pray/stacker-text.php:446 pages/pray/stacker-text.php:452
 #: pages/pray/stacker-text.php:997
@@ -3814,7 +3898,8 @@ msgstr "聖靈，請給予 %2$s 的 %1$s 中的每個教堂熱情，去建立另
 msgid ""
 "Father, show your mercy on the %1$s people in %2$s who are far from you. "
 "Please add %3$s new house churches this year."
-msgstr "父啊，求祢憐憫那些遠離祢的%2$s地%1$s人。求你今年增添%3$s個新的家庭教會。"
+msgstr ""
+"父啊，求祢憐憫那些遠離祢的%2$s地%1$s人。求你今年增添%3$s個新的家庭教會。"
 
 #: pages/pray/stacker-text.php:469
 #, fuzzy, php-format
@@ -3841,16 +3926,18 @@ msgstr "“那些不知道的人將會看見，那些沒有聽過的人將會理
 msgid ""
 "Father, let every disciple be a disciple maker, every home a training "
 "center, and every church a church planting movement in %1$s of %2$s."
-msgstr "父啊，願 %1$s 中的每一位門徒都成為門徒訓練者，每個家庭都成為訓練中心，"
-"每個教會都成為 %2$s 中的植堂運動。"
+msgstr ""
+"父啊，願 %1$s 中的每一位門徒都成為門徒訓練者，每個家庭都成為訓練中心，每個教"
+"會都成為 %2$s 中的植堂運動。"
 
 #: pages/pray/stacker-text.php:481
 #, fuzzy, php-format
 msgid ""
 "Father, we ask for networks of simple churches in every city in %1$s of "
 "%2$s, like Paul planted in Corinth and Ephesus."
-msgstr "父親，我們祈求在 %1$s 和 %2$s "
-"的每個城市建立簡單的教會網絡，就像保羅在哥林多和以弗所建立的那樣。"
+msgstr ""
+"父親，我們祈求在 %1$s 和 %2$s 的每個城市建立簡單的教會網絡，就像保羅在哥林多"
+"和以弗所建立的那樣。"
 
 #: pages/pray/stacker-text.php:482
 #, fuzzy
@@ -3864,7 +3951,8 @@ msgid ""
 "The churches in the province of Asia send you greetings. Aquila and "
 "Priscilla greet you warmly in the Lord, and so does the church that meets at "
 "their house."
-msgstr "亞細亞省的眾教會都問你們安。亞居拉和百基拉，以及在他們家中的教會，都因主熱切"
+msgstr ""
+"亞細亞省的眾教會都問你們安。亞居拉和百基拉，以及在他們家中的教會，都因主熱切"
 "地問你們安。"
 
 #: pages/pray/stacker-text.php:487
@@ -3872,7 +3960,8 @@ msgstr "亞細亞省的眾教會都問你們安。亞居拉和百基拉，以及
 msgid ""
 "Jesus, %1$s people live in %2$s of %3$s. Please, give them %4$s new simple "
 "churches this year."
-msgstr "耶穌，%3$s 的 %2$s 人居住著 %1$s 人。請今年為他們建造 %4$s 座新的簡易教堂。"
+msgstr ""
+"耶穌，%3$s 的 %2$s 人居住著 %1$s 人。請今年為他們建造 %4$s 座新的簡易教堂。"
 
 #: pages/pray/stacker-text.php:502
 #, fuzzy
@@ -3892,7 +3981,8 @@ msgid ""
 "Spirit, how will they hear without a preacher? How will they preach unless "
 "they have a Bible? Please give the people in %1$s of %2$s access to a Bible "
 "in their own language."
-msgstr "聖靈啊，沒有傳道人，他們怎麼聽見？沒有聖經，他們怎麼講道？請賜給%1$s和%2$s的"
+msgstr ""
+"聖靈啊，沒有傳道人，他們怎麼聽見？沒有聖經，他們怎麼講道？請賜給%1$s和%2$s的"
 "居民一本他們自己語言的聖經。"
 
 #: pages/pray/stacker-text.php:516
@@ -3910,8 +4000,9 @@ msgid ""
 "sent? As it is written: “How beautiful are the feet of those who bring good "
 "news!”"
 msgstr ""
-"那麼，人未曾信他，怎能求他呢？未曾聽見他，怎能信他呢？沒有人傳道，怎能聽見呢"
-"？若沒有奉差遣，怎能傳道呢？正如經上所記：“報福音的人，他們的腳蹤何等佳美！”"
+"那麼，人未曾信他，怎能求他呢？未曾聽見他，怎能信他呢？沒有人傳道，怎能聽見"
+"呢？若沒有奉差遣，怎能傳道呢？正如經上所記：“報福音的人，他們的腳蹤何等佳"
+"美！”"
 
 #: pages/pray/stacker-text.php:521
 #, fuzzy, php-format
@@ -3954,7 +4045,8 @@ msgid ""
 "How can a young person stay on the path of purity? By living according to "
 "your Word. I seek you with all my heart; do not let me stray from your "
 "commands."
-msgstr "年輕人如何才能保持聖潔？就是遵行你的聖言。我全心尋求你；求你不要讓我偏離你的"
+msgstr ""
+"年輕人如何才能保持聖潔？就是遵行你的聖言。我全心尋求你；求你不要讓我偏離你的"
 "誡命。"
 
 #: pages/pray/stacker-text.php:533
@@ -3962,8 +4054,9 @@ msgstr "年輕人如何才能保持聖潔？就是遵行你的聖言。我全心
 msgid ""
 "Father, it’s possible most of the %1$s lost people in  %2$s have never held "
 "or opened a Bible. Please change this, Father."
-msgstr "神父，%2$s 的大多數 %1$s "
-"迷失之人可能從未拿過或打開過聖經。神父，請改變這一點。"
+msgstr ""
+"神父，%2$s 的大多數 %1$s 迷失之人可能從未拿過或打開過聖經。神父，請改變這一"
+"點。"
 
 #: pages/pray/stacker-text.php:534
 #, fuzzy
@@ -3983,8 +4076,9 @@ msgid ""
 "Lord, there are %1$s people in %2$s of %3$s who claim Christianity, but may "
 "have never read the Bible. Please challenge them today to read the Bible for "
 "themselves."
-msgstr "主啊，%3$s 的 %2$s 有 %1$s "
-"人自稱是基督徒，但可能從未讀過聖經。請今天就挑戰他們，讓他們自己讀聖經。"
+msgstr ""
+"主啊，%3$s 的 %2$s 有 %1$s 人自稱是基督徒，但可能從未讀過聖經。請今天就挑戰他"
+"們，讓他們自己讀聖經。"
 
 #: pages/pray/stacker-text.php:574
 #, fuzzy
@@ -4004,8 +4098,9 @@ msgstr "聖經都是神所默示的，對於教訓、督責、糾正和教導人
 msgid ""
 "Spirit, of the %1$s people in %2$s of %3$s who claim Christianity, challenge "
 "some of them to pick up your Word and read it for themselves today."
-msgstr "精神，在 %3$s 的 %2$s 的 %1$s "
-"名自稱信奉基督教的人中，挑戰他們中的一些人今天拿起你的話語並親自閱讀。"
+msgstr ""
+"精神，在 %3$s 的 %2$s 的 %1$s 名自稱信奉基督教的人中，挑戰他們中的一些人今天"
+"拿起你的話語並親自閱讀。"
 
 #: pages/pray/stacker-text.php:580
 #, fuzzy
@@ -4024,7 +4119,8 @@ msgid ""
 "Father, your Word is essential for life and growth. Please challenge the "
 "%1$s cultural Christians in %2$s of %3$s to read your Word for themselves "
 "today."
-msgstr "父啊，祢的話語對生命和成長至關重要。請挑戰%3$s地區%2$s的%1$s文化基督徒，讓他"
+msgstr ""
+"父啊，祢的話語對生命和成長至關重要。請挑戰%3$s地區%2$s的%1$s文化基督徒，讓他"
 "們今天親自研讀你的話語。"
 
 #: pages/pray/stacker-text.php:586
@@ -4046,9 +4142,9 @@ msgid ""
 "Lord, the %1$s of %2$s will disappear one day, but your Word will never "
 "disappear. Call all who claim Christianity to anchor their lives on your "
 "Word."
-msgstr "主啊，%1$s 和 %2$s "
-"終有一天會消失，但祢的話語永遠不會消失。呼召所有自稱基督徒的人，將生命錨定在"
-"你的話語上。"
+msgstr ""
+"主啊，%1$s 和 %2$s 終有一天會消失，但祢的話語永遠不會消失。呼召所有自稱基督徒"
+"的人，將生命錨定在你的話語上。"
 
 #: pages/pray/stacker-text.php:592
 #, fuzzy
@@ -4066,8 +4162,9 @@ msgstr "天地會消失，但我的話語永遠不會消失。"
 msgid ""
 "Father, your Word can be a lamp to the feet of the %1$s people in %2$s of "
 "%3$s who claim to know you, if they open it and read it today."
-msgstr "父啊，祢的話語可以成為 %1$s 地 %2$s 和 %3$s "
-"那些自稱認識你的人的腳前的燈，只要他們今天打開並閱讀。"
+msgstr ""
+"父啊，祢的話語可以成為 %1$s 地 %2$s 和 %3$s 那些自稱認識你的人的腳前的燈，只"
+"要他們今天打開並閱讀。"
 
 #: pages/pray/stacker-text.php:598 pages/pray/stacker-text.php:650
 #: pages/pray/stacker-text.php:2166
@@ -4086,8 +4183,9 @@ msgstr "你的言語是我腳前的燈，是我路上的光。"
 msgid ""
 "Jesus, make the %1$s people in %2$s of %3$s who claim to know you, brave "
 "enough to let the Bible weigh their thoughts and intentions today."
-msgstr "耶穌，請讓 %3$s 的 %2$s 的 %1$s "
-"名聲稱認識您的人勇敢地讓聖經衡量他們今天的思想和意圖。"
+msgstr ""
+"耶穌，請讓 %3$s 的 %2$s 的 %1$s 名聲稱認識您的人勇敢地讓聖經衡量他們今天的思"
+"想和意圖。"
 
 #: pages/pray/stacker-text.php:604 pages/pray/stacker-text.php:2202
 #, fuzzy
@@ -4101,7 +4199,8 @@ msgid ""
 "For the word of God is living and powerful, and sharper than any two-edged "
 "sword, piercing even to the division of soul and spirit, and of joints and "
 "marrow, and is a discerner of the thoughts and intents of the heart."
-msgstr "神的道是活潑的，是有功效的，比一切兩刃的劍更快，甚至魂與靈，骨節與骨髓，都能"
+msgstr ""
+"神的道是活潑的，是有功效的，比一切兩刃的劍更快，甚至魂與靈，骨節與骨髓，都能"
 "刺入、剖開，連心中的思念和主意都能辨認。"
 
 #: pages/pray/stacker-text.php:609
@@ -4109,7 +4208,8 @@ msgstr "神的道是活潑的，是有功效的，比一切兩刃的劍更快，
 msgid ""
 "Spirit, help get online Bibles and Bible apps onto the phones of the %1$s "
 "people who claim to know you, so they can read everyday."
-msgstr "聖靈，請幫助將線上聖經和聖經應用程式放到那些聲稱認識您的人的手機上，以便他們"
+msgstr ""
+"聖靈，請幫助將線上聖經和聖經應用程式放到那些聲稱認識您的人的手機上，以便他們"
 "每天閱讀。"
 
 #: pages/pray/stacker-text.php:637
@@ -4124,7 +4224,8 @@ msgstr "父親，請讓每個人，尤其是 %1$s 的信徒，都能接觸到您
 msgid ""
 "Father, if there is even one of the %1$s believers in %2$s who does not have "
 "a Bible, please provide them one today."
-msgstr "父啊，如果 %2$s 的 %1$s 信徒中，有一位還沒有聖經，請您今天就為他們提供一本。"
+msgstr ""
+"父啊，如果 %2$s 的 %1$s 信徒中，有一位還沒有聖經，請您今天就為他們提供一本。"
 
 #: pages/pray/stacker-text.php:649
 #, fuzzy, php-format
@@ -4180,10 +4281,9 @@ msgid ""
 "and if you do what it says and don’t forget what you heard, then God will "
 "bless you for doing it."
 msgstr ""
-"因為如果你聽了道卻不去遵守，這就好比對著鏡子看自己的臉。 24 "
-"你看到了自己，走開了，就忘記了自己長什麼樣子。 25 "
-"但如果你仔細查看那讓你自由的完美律法，如果你照著律法去行，不要忘記你所聽到的"
-"，那麼你這樣做，上帝就會祝福你。"
+"因為如果你聽了道卻不去遵守，這就好比對著鏡子看自己的臉。 24 你看到了自己，走"
+"開了，就忘記了自己長什麼樣子。 25 但如果你仔細查看那讓你自由的完美律法，如果"
+"你照著律法去行，不要忘記你所聽到的，那麼你這樣做，上帝就會祝福你。"
 
 #: pages/pray/stacker-text.php:673
 #, fuzzy, php-format
@@ -4291,8 +4391,9 @@ msgstr "主啊，今天就使用Google搜尋來帶領%1$s的人接觸福音。"
 msgid ""
 "Spirit, supernaturally prepare encounters with the gospel on sites like "
 "Facebook and Instagram for the %1$s people living in %2$s."
-msgstr "聖靈，以超自然的方式為居住在 %2$s 的 %1$s 人們準備在 Facebook 和 Instagram "
-"等網站上接觸福音。"
+msgstr ""
+"聖靈，以超自然的方式為居住在 %2$s 的 %1$s 人們準備在 Facebook 和 Instagram 等"
+"網站上接觸福音。"
 
 #: pages/pray/stacker-text.php:759
 #, fuzzy, php-format
@@ -4331,7 +4432,8 @@ msgid ""
 "They have no speech, they use no words; no sound is heard from them. Yet "
 "their voice goes out into all the earth, their words to the ends of the "
 "world. In the heavens God has pitched a tent for the sun."
-msgstr "它們不會說話，不會說話，也不會發出聲音。然而，它們的聲音傳遍全地，它們的言語"
+msgstr ""
+"它們不會說話，不會說話，也不會發出聲音。然而，它們的聲音傳遍全地，它們的言語"
 "傳到地極。神在天上為太陽支搭帳幕。"
 
 #: pages/pray/stacker-text.php:792
@@ -4357,15 +4459,17 @@ msgctxt "Psalm 91:15"
 msgid ""
 "He will call on me, and I will answer him; I will be with him in trouble, I "
 "will deliver him and honor him."
-msgstr "他若求告我，我就應允他；他在急難中，我要與他同在；我要搭救他，使他尊貴。"
+msgstr ""
+"他若求告我，我就應允他；他在急難中，我要與他同在；我要搭救他，使他尊貴。"
 
 #: pages/pray/stacker-text.php:802
 #, fuzzy, php-format
 msgid ""
 "Father, for those with enemies and who are afraid in %1$s, call them into "
 "your shelter and safety today."
-msgstr "父親，對於那些在 %1$s "
-"中懷有敵人並感到恐懼的人，今天請將他們召喚到您的庇護和安全之中。"
+msgstr ""
+"父親，對於那些在 %1$s 中懷有敵人並感到恐懼的人，今天請將他們召喚到您的庇護和"
+"安全之中。"
 
 #: pages/pray/stacker-text.php:803
 #, fuzzy
@@ -4432,7 +4536,8 @@ msgctxt "Psalm 91:4"
 msgid ""
 "He will cover you with his feathers, and under his wings you will find "
 "refuge; his faithfulness will be your shield and rampart."
-msgstr "他會用自己的羽毛遮蔽你，在他的翅膀下你會找到避難所；他的忠誠將成為你的盾牌和"
+msgstr ""
+"他會用自己的羽毛遮蔽你，在他的翅膀下你會找到避難所；他的忠誠將成為你的盾牌和"
 "壁壘。"
 
 #: pages/pray/stacker-text.php:826
@@ -4537,16 +4642,18 @@ msgstr "%3$s 中的 %2$s 有 %1$s 人居住。只有大約 %4$s 人可能是信�
 msgid ""
 "%1$s of %2$s has (about) %3$s people who know Jesus, %4$s people who know "
 "about him culturally, and %5$s people who are far from Jesus."
-msgstr "%2$s 中的 %1$s 人有（約）%3$s 人認識耶穌，%4$s 人從文化角度了解耶穌，%5$s "
-"人遠離耶穌。"
+msgstr ""
+"%2$s 中的 %1$s 人有（約）%3$s 人認識耶穌，%4$s 人從文化角度了解耶穌，%5$s 人"
+"遠離耶穌。"
 
 #: pages/pray/stacker-text.php:972
 #, fuzzy, php-format
 msgid ""
 "Pour your Spirit out on the %1$s citizens of %2$s, so that they might know "
 "your name and the name of your Son."
-msgstr "將你的精神傾注於 %1$s 的 %2$s "
-"公民身上，以便他們能夠知道你的名字和你兒子的名字。"
+msgstr ""
+"將你的精神傾注於 %1$s 的 %2$s 公民身上，以便他們能夠知道你的名字和你兒子的名"
+"字。"
 
 #: pages/pray/stacker-text.php:973
 #, fuzzy
@@ -4560,7 +4667,8 @@ msgid ""
 "And afterward, I will pour out my Spirit on all people. your sons and "
 "daughters will prophesy, your old men will dream dreams, your young men will "
 "see visions."
-msgstr "以後，我要將我的靈澆灌凡有血氣的。你們的兒女要說預言，你們的老年人要做異夢，"
+msgstr ""
+"以後，我要將我的靈澆灌凡有血氣的。你們的兒女要說預言，你們的老年人要做異夢，"
 "你們的少年人要見異象。"
 
 #: pages/pray/stacker-text.php:978
@@ -4569,7 +4677,8 @@ msgid ""
 "Father, we suspect there is 1 believer for every %1$s neighbors who are far "
 "from you in %2$s. Please, give courage and opportunity to your children to "
 "speak boldly."
-msgstr "父啊，我們猜想在%2$s，每%1$s個遠離您的鄰居中，就有一個信徒。請賜給您的孩子勇"
+msgstr ""
+"父啊，我們猜想在%2$s，每%1$s個遠離您的鄰居中，就有一個信徒。請賜給您的孩子勇"
 "氣和機會，讓他們勇敢地說話。"
 
 #: pages/pray/stacker-text.php:979
@@ -4590,8 +4699,9 @@ msgstr "也請為我禱告，使我得著話語，能以無畏地講明福音的
 msgid ""
 "Lord, help the people of %1$s to discover the essence of being a disciple, "
 "making disciples, and how to plant churches that multiply."
-msgstr "主啊，請幫助 %1$s "
-"的人們發現成為門徒、培育門徒的本質，以及如何建立繁衍的教會。"
+msgstr ""
+"主啊，請幫助 %1$s 的人們發現成為門徒、培育門徒的本質，以及如何建立繁衍的教"
+"會。"
 
 #: pages/pray/stacker-text.php:990
 #, fuzzy, php-format
@@ -4599,8 +4709,9 @@ msgid ""
 "Father, you know every soul, and you know who are yours and who are yet to "
 "be yours out of the %1$s people living in %2$s. Please, call your lost sheep "
 "to yourself."
-msgstr "父啊，祢認識每一個靈魂，祢知道住在%2$s的%1$s人中，誰是祢的，誰是尚未屬於祢的"
-"。呼召你迷失的羔羊到你身邊。"
+msgstr ""
+"父啊，祢認識每一個靈魂，祢知道住在%2$s的%1$s人中，誰是祢的，誰是尚未屬於祢"
+"的。呼召你迷失的羔羊到你身邊。"
 
 #: pages/pray/stacker-text.php:991
 #, fuzzy
@@ -4620,7 +4731,8 @@ msgstr "我必從列國收取你們，從列邦聚集你們，引導你們歸回
 msgid ""
 "Father, bring yourself glory in %1$s. Through your servants plant %2$s new "
 "churches that love you, love one another, and make disciples this year."
-msgstr "父啊，願祢在%1$s中榮耀祢自己。求你藉著祢的僕人，在今年建立%2$s個新教會，使這"
+msgstr ""
+"父啊，願祢在%1$s中榮耀祢自己。求你藉著祢的僕人，在今年建立%2$s個新教會，使這"
 "些教會愛祢、彼此相愛，並培育門徒。"
 
 #: pages/pray/stacker-text.php:998
@@ -4636,7 +4748,8 @@ msgstr "因為認識耶和華榮耀的知識要充滿遍地，好像水充滿洋
 msgid ""
 "Over %1$s percent of the people of %2$s are far from Jesus. Lord, please "
 "send your gospel to them through the internet or radio or television today!"
-msgstr "超過%1$s%的%2$s人遠離耶穌。主啊，求你今天就透過網路、廣播或電視，將你的福音傳"
+msgstr ""
+"超過%1$s%的%2$s人遠離耶穌。主啊，求你今天就透過網路、廣播或電視，將你的福音傳"
 "給他們！"
 
 #: pages/pray/stacker-text.php:1033
@@ -4662,14 +4775,16 @@ msgctxt "Acts 2:39"
 msgid ""
 "For the promise is to you, and to your children, and to all who are far off, "
 "even as many as the Lord our God will call to himself."
-msgstr "因為這應許是給你們和你們的兒女，並且一切在遠方的人，就是主我們神所召來的。"
+msgstr ""
+"因為這應許是給你們和你們的兒女，並且一切在遠方的人，就是主我們神所召來的。"
 
 #: pages/pray/stacker-text.php:1045
 #, fuzzy, php-format
 msgid ""
 "Father, you said, \"The earth belongs to Me and all that is in it\". Please, "
 "call %1$s into obedience and eternal life."
-msgstr "父啊，你曾說：「地和其上所充滿的，都屬我。」求你呼召%1$s順服你，得著永生。"
+msgstr ""
+"父啊，你曾說：「地和其上所充滿的，都屬我。」求你呼召%1$s順服你，得著永生。"
 
 #: pages/pray/stacker-text.php:1046
 #, fuzzy
@@ -4689,8 +4804,9 @@ msgstr "地和其中所充滿的，世界和住在其間的，都屬耶和華。
 msgid ""
 "Lord, let it be said of the %1$s lost in %2$s that you have called them out "
 "of darkness into your glorious light."
-msgstr "主啊，願人們說，你已將迷失在 %2$s 中的 %1$s "
-"人從黑暗中召喚出來，帶他們進入你榮耀的光明中。"
+msgstr ""
+"主啊，願人們說，你已將迷失在 %2$s 中的 %1$s 人從黑暗中召喚出來，帶他們進入你"
+"榮耀的光明中。"
 
 #: pages/pray/stacker-text.php:1052
 #, fuzzy
@@ -4704,7 +4820,8 @@ msgid ""
 "But you are a chosen race, a royal priesthood, a holy nation, a people for "
 "God’s own possession, that you may proclaim the excellence of him who called "
 "you out of darkness into his marvelous light"
-msgstr "惟有你們是被揀選的族類，是有君尊的祭司，是聖潔的國度，是屬神的子民，要叫你們"
+msgstr ""
+"惟有你們是被揀選的族類，是有君尊的祭司，是聖潔的國度，是屬神的子民，要叫你們"
 "宣揚那召你們出黑暗入奇妙光明者的美德。"
 
 #: pages/pray/stacker-text.php:1057
@@ -4712,8 +4829,9 @@ msgstr "惟有你們是被揀選的族類，是有君尊的祭司，是聖潔的
 msgid ""
 "Lord, please make the same Spirit that raised Jesus from the dead give life "
 "to those who are called by his name in %1$s of %2$s."
-msgstr "主啊，請使使耶穌從死裡復活的聖靈也使那些在 %1$s 和 %2$s "
-"中被稱為他名的人獲得生命。"
+msgstr ""
+"主啊，請使使耶穌從死裡復活的聖靈也使那些在 %1$s 和 %2$s 中被稱為他名的人獲得"
+"生命。"
 
 #: pages/pray/stacker-text.php:1058
 #, fuzzy
@@ -4727,7 +4845,8 @@ msgid ""
 "But if the Spirit of him who raised up Jesus from the dead dwells in you, he "
 "who raised up Christ Jesus from the dead will also give life to your mortal "
 "bodies through his Spirit who dwells in you."
-msgstr "然而，叫耶穌從死裡復活者的靈若住在你們心裡，那叫基督耶穌從死裡復活的，也必藉"
+msgstr ""
+"然而，叫耶穌從死裡復活者的靈若住在你們心裡，那叫基督耶穌從死裡復活的，也必藉"
 "著住在你們心裡的聖靈，使你們必死的身體又活過來。"
 
 #: pages/pray/stacker-text.php:1063
@@ -4735,7 +4854,8 @@ msgstr "然而，叫耶穌從死裡復活者的靈若住在你們心裡，那叫
 msgid ""
 "Father, you desire to blot out the sins of the people of %1$s. You said, if "
 "they turn to you, you will dissolve their sins like mist."
-msgstr "父啊，你渴望抹去%1$s人民的罪。你說過，如果他們轉向你，你就會像霧一樣消散他們"
+msgstr ""
+"父啊，你渴望抹去%1$s人民的罪。你說過，如果他們轉向你，你就會像霧一樣消散他們"
 "的罪。"
 
 #: pages/pray/stacker-text.php:1064
@@ -4749,7 +4869,8 @@ msgctxt "Isaiah 44:22"
 msgid ""
 "I have blotted out, as a thick cloud, your transgressions, and, as a cloud, "
 "your sins. Return to me, for I have redeemed you."
-msgstr "我塗抹了你的過犯，如同厚雲消散；我塗抹了你的罪惡，也如薄雲滅沒。你歸向我吧，"
+msgstr ""
+"我塗抹了你的過犯，如同厚雲消散；我塗抹了你的罪惡，也如薄雲滅沒。你歸向我吧，"
 "因為我救贖了你。"
 
 #: pages/pray/stacker-text.php:1069
@@ -4775,16 +4896,17 @@ msgstr "如今主就是那靈；主的靈在哪裡，就得以自由。"
 msgid ""
 "Spirit, %1$s cultural Christians in %2$s likely have a Bible in their home. "
 "Please, send conviction for them to open it and read it for themselves."
-msgstr "聖靈啊，%1$s 的 %2$s "
-"文化基督徒很可能在家中擁有一本聖經。請賜給他們信心，讓他們打開聖經，親自閱讀"
-"。"
+msgstr ""
+"聖靈啊，%1$s 的 %2$s 文化基督徒很可能在家中擁有一本聖經。請賜給他們信心，讓他"
+"們打開聖經，親自閱讀。"
 
 #: pages/pray/stacker-text.php:1106
 #, fuzzy, php-format
 msgid ""
 "Spirit, teach the %1$s cultural Christians in %2$s to pray from the heart "
 "and not with scripts or formulas only."
-msgstr "聖靈，教導 %2$s 中的 %1$s 文化基督徒從心底祈禱，而不是僅僅用腳本或公式。"
+msgstr ""
+"聖靈，教導 %2$s 中的 %1$s 文化基督徒從心底祈禱，而不是僅僅用腳本或公式。"
 
 #: pages/pray/stacker-text.php:1112
 #, fuzzy, php-format
@@ -4792,9 +4914,9 @@ msgid ""
 "Spirit, bless the %1$s cultural Christians in %2$s with more knowledge and "
 "curiosity about your beautiful gospel, that they might claim it for "
 "themselves personally and intimately."
-msgstr "聖靈，請祝福 %2$s 中的 %1$s "
-"文化基督徒，讓他們對你美麗的福音有更多的了解和好奇，以便他們可以親自和親密地"
-"宣稱它。"
+msgstr ""
+"聖靈，請祝福 %2$s 中的 %1$s 文化基督徒，讓他們對你美麗的福音有更多的了解和好"
+"奇，以便他們可以親自和親密地宣稱它。"
 
 #: pages/pray/stacker-text.php:1169
 #, fuzzy
@@ -4846,8 +4968,9 @@ msgstr "神愛世人，甚至將他的獨生子賜給他們，叫一切信他的
 msgid ""
 "Jesus, you made each of the %1$s believers in %2$s your ambassadors and your "
 "primary strategy for reconciling this %3$s ."
-msgstr "耶穌，你使 %1$s 每一個信徒 %2$s 成為你的大使，並讓你成為調和這場 %3$s "
-"戰爭的主要策略。"
+msgstr ""
+"耶穌，你使 %1$s 每一個信徒 %2$s 成為你的大使，並讓你成為調和這場 %3$s 戰爭的"
+"主要策略。"
 
 #: pages/pray/stacker-text.php:1186 pages/pray/stacker-text.php:1890
 #, fuzzy
@@ -4860,7 +4983,8 @@ msgctxt "2 Corinthians 5:20"
 msgid ""
 "We are therefore Christ’s ambassadors, as though God were making his appeal "
 "through us. We implore you on Christ’s behalf: Be reconciled to God."
-msgstr "所以，我們是基督的使者，就好像神藉著我們勸你們。我們替基督求你們：與神和好。"
+msgstr ""
+"所以，我們是基督的使者，就好像神藉著我們勸你們。我們替基督求你們：與神和好。"
 
 #: pages/pray/stacker-text.php:1252
 #, fuzzy
@@ -4883,16 +5007,18 @@ msgid ""
 "Spirit, build the strength and maturity of the local leaders in %1$s. Show "
 "them that faithfulness is better than knowledge. Show them that the Spirit, "
 "the Word, and prayer is enough in order to grow and lead."
-msgstr "聖靈，在%1$s建立地方領袖的力量和成熟度。向他們表明，忠誠勝過知識。向他們表明"
-"，聖靈、神的話語和禱告足以幫助他們成長和領導。"
+msgstr ""
+"聖靈，在%1$s建立地方領袖的力量和成熟度。向他們表明，忠誠勝過知識。向他們表"
+"明，聖靈、神的話語和禱告足以幫助他們成長和領導。"
 
 #: pages/pray/stacker-text.php:1707
 #, fuzzy, php-format
 msgid ""
 "God, we ask you to raise up elders and deacons from the %1$s believers in "
 "%2$s, who will serve the church and equip it to do your work."
-msgstr "上帝，我們請求您從 %2$s 的 %1$s "
-"名信徒中興起長老和執事，他們將服務於教會並裝備教會來完成您的工作。"
+msgstr ""
+"上帝，我們請求您從 %2$s 的 %1$s 名信徒中興起長老和執事，他們將服務於教會並裝"
+"備教會來完成您的工作。"
 
 #: pages/pray/stacker-text.php:1708
 #, fuzzy
@@ -4910,8 +5036,8 @@ msgid ""
 "measure of the fullness of Christ."
 msgstr ""
 "因此，基督親自賜下使徒、先知、傳福音者、牧師和教師，為要裝備祂的子民去完成服"
-"務的工作，以便建立基督的身體，直到我們大家在信仰和對上帝之子的認識上達到統一"
-"，並變得成熟，達到基督豐滿的全部程度。"
+"務的工作，以便建立基督的身體，直到我們大家在信仰和對上帝之子的認識上達到統"
+"一，並變得成熟，達到基督豐滿的全部程度。"
 
 #: pages/pray/stacker-text.php:1712
 #, fuzzy
@@ -4923,8 +5049,9 @@ msgstr "運動領導力"
 msgid ""
 "Father, we pray for every movement leader and disciple in %1$s of %2$s that "
 "they would have deepening intimacy with you."
-msgstr "父親，我們為 %1$s 和 %2$s "
-"中的每一位運動領袖和門徒祈禱，願他們與您建立更深厚的親密關係。"
+msgstr ""
+"父親，我們為 %1$s 和 %2$s 中的每一位運動領袖和門徒祈禱，願他們與您建立更深厚"
+"的親密關係。"
 
 #: pages/pray/stacker-text.php:1714
 #, fuzzy
@@ -5006,8 +5133,9 @@ msgstr "多給誰，就向誰多取；多託誰，就向誰多要。"
 msgid ""
 "Jesus, help the local leaders in %1$s not be proud but humble, and willing "
 "to wash the feet of all they serve."
-msgstr "耶穌，幫助 %1$s "
-"當地的領導人不要驕傲，而要謙卑，並願意為所有他們服務的人洗腳。"
+msgstr ""
+"耶穌，幫助 %1$s 當地的領導人不要驕傲，而要謙卑，並願意為所有他們服務的人洗"
+"腳。"
 
 #: pages/pray/stacker-text.php:1738
 #, fuzzy
@@ -5023,9 +5151,9 @@ msgid ""
 "wash one another’s feet. I have set you an example that you should do as I "
 "have done for you."
 msgstr ""
-"你們稱呼我為‘夫子’、‘主’，這話不錯，因為我本來就是。我是你們的主，你們的夫子"
-"，尚且洗你們的腳，你們也應該彼此洗腳。我為你們立了榜樣，叫你們照著我為你們所"
-"做的去行。"
+"你們稱呼我為‘夫子’、‘主’，這話不錯，因為我本來就是。我是你們的主，你們的夫"
+"子，尚且洗你們的腳，你們也應該彼此洗腳。我為你們立了榜樣，叫你們照著我為你們"
+"所做的去行。"
 
 #: pages/pray/stacker-text.php:1743
 #, fuzzy, php-format
@@ -5046,7 +5174,8 @@ msgid ""
 "Pay careful attention to yourselves and to all the flock, in which the Holy "
 "Spirit has made you overseers, to care for the church of God, which he "
 "obtained with his own blood."
-msgstr "聖靈立你們作全群的監督，你們就當為自己謹慎，也為全群謹慎，牧養神的教會，就是"
+msgstr ""
+"聖靈立你們作全群的監督，你們就當為自己謹慎，也為全群謹慎，牧養神的教會，就是"
 "他用自己血所買來的。"
 
 #: pages/pray/stacker-text.php:1749
@@ -5067,8 +5196,9 @@ msgctxt "James 3:1"
 msgid ""
 "Not many of you should become teachers, my brothers, for you know that we "
 "who teach will be judged with greater strictness."
-msgstr "我的弟兄們，你們中間不要多人作師傅，因為你們曉得，我們作師傅的要受更重的判斷"
-"。"
+msgstr ""
+"我的弟兄們，你們中間不要多人作師傅，因為你們曉得，我們作師傅的要受更重的判"
+"斷。"
 
 #: pages/pray/stacker-text.php:1770
 #, fuzzy
@@ -5100,7 +5230,8 @@ msgid ""
 "So Christ himself gave the apostles, the prophets, the evangelists, the "
 "pastors and teachers, to equip his people for works of service, so that the "
 "body of Christ may be built up"
-msgstr "因此，基督親自賜下使徒、先知、傳福音的、牧師和教師，為要裝備祂的子民，使他們"
+msgstr ""
+"因此，基督親自賜下使徒、先知、傳福音的、牧師和教師，為要裝備祂的子民，使他們"
 "各盡其職，建立基督的身體。"
 
 #: pages/pray/stacker-text.php:1780
@@ -5121,7 +5252,8 @@ msgctxt "Titus 1:5"
 msgid ""
 "The reason I left you in Crete was that you might put in order what was left "
 "unfinished and appoint elders in every town, as I directed you."
-msgstr "我留你在克里特島，是要你將那沒有辦完的事辦完，又照我所吩咐你的，在各城設立長"
+msgstr ""
+"我留你在克里特島，是要你將那沒有辦完的事辦完，又照我所吩咐你的，在各城設立長"
 "老。"
 
 #: pages/pray/stacker-text.php:1786
@@ -5129,7 +5261,8 @@ msgstr "我留你在克里特島，是要你將那沒有辦完的事辦完，又
 msgid ""
 "Father, please send new apostles into the harvest, who can open up new "
 "communities for the gospel in %1$s of %2$s."
-msgstr "父啊，請差遣新的使徒去收割，他們可以在 %1$s 和 %2$s 中為福音開闢新的社區。"
+msgstr ""
+"父啊，請差遣新的使徒去收割，他們可以在 %1$s 和 %2$s 中為福音開闢新的社區。"
 
 #: pages/pray/stacker-text.php:1787 pages/pray/stacker-text.php:1854
 #: pages/pray/stacker-text.php:2080
@@ -5151,8 +5284,9 @@ msgstr "所以，你們當求莊稼的主，打發工人出去收割他的莊稼
 msgid ""
 "Jesus, please give the apostles in %1$s a vision for the harvest, and a "
 "passion to see the gospel spread to every corner of the %2$s."
-msgstr "耶穌，請賜予 %1$s 中的使徒們一個收穫的願景，以及看到福音傳播到 %2$s "
-"每個角落的熱情。"
+msgstr ""
+"耶穌，請賜予 %1$s 中的使徒們一個收穫的願景，以及看到福音傳播到 %2$s 每個角落"
+"的熱情。"
 
 #: pages/pray/stacker-text.php:1798
 #, fuzzy, php-format
@@ -5171,7 +5305,8 @@ msgid ""
 "Then he said to his disciples, “The harvest is plentiful but the workers are "
 "few. Ask the Lord of the harvest, therefore, to send out workers into his "
 "harvest field."
-msgstr "於是對門徒說：“要收的莊稼多，工人少。所以，你們應當求莊稼的主，打發工人出去收"
+msgstr ""
+"於是對門徒說：“要收的莊稼多，工人少。所以，你們應當求莊稼的主，打發工人出去收"
 "他的莊稼。”"
 
 #: pages/pray/stacker-text.php:1804
@@ -5193,7 +5328,8 @@ msgid ""
 "Therefore go and make disciples of all nations, baptizing them in the name "
 "of the Father and of the Son and of the Holy Spirit, and teaching them to "
 "obey everything I have commanded you."
-msgstr "所以，你們要去，使萬民作我的門徒，奉父、子、聖靈的名給他們施洗。凡我所吩咐你"
+msgstr ""
+"所以，你們要去，使萬民作我的門徒，奉父、子、聖靈的名給他們施洗。凡我所吩咐你"
 "們的，都教訓他們遵守。"
 
 #: pages/pray/stacker-text.php:1843
@@ -5218,7 +5354,8 @@ msgstr "父親，請派遣新的福音傳道者進入 %1$s 和 %2$s 的收穫。
 msgid ""
 "Jesus, you said you were the giver of evangelists to the church. Please, "
 "send more evangelists to %1$s of %2$s."
-msgstr "耶穌，你曾說你是教會傳福音者的賜予者。請你差遣更多傳福音者到%1$s和%2$s去。"
+msgstr ""
+"耶穌，你曾說你是教會傳福音者的賜予者。請你差遣更多傳福音者到%1$s和%2$s去。"
 
 #: pages/pray/stacker-text.php:1864
 #, fuzzy
@@ -5230,7 +5367,8 @@ msgstr "福音傳道者"
 msgid ""
 "God in Heaven, only you can and should appoint evangelists. Please, appoint "
 "and send more to %1$s."
-msgstr "天上的神啊，只有您才能也應該任命傳教士。請您任命並派遣更多傳教士到%1$s。"
+msgstr ""
+"天上的神啊，只有您才能也應該任命傳教士。請您任命並派遣更多傳教士到%1$s。"
 
 #: pages/pray/stacker-text.php:1866
 #, fuzzy
@@ -5244,7 +5382,8 @@ msgid ""
 "And in the church God has appointed first of all apostles, second prophets, "
 "third teachers, then workers of miracles, and those with gifts of healing, "
 "helping, administration, and various tongues."
-msgstr "神在教會所設立的：第一是使徒，第二是先知，第三是教師，其次是行異能的，以及有"
+msgstr ""
+"神在教會所設立的：第一是使徒，第二是先知，第三是教師，其次是行異能的，以及有"
 "恩賜醫病的、幫助人的、治理事的、說方言的。"
 
 #: pages/pray/stacker-text.php:1871
@@ -5281,7 +5420,8 @@ msgid ""
 "But in your hearts revere Christ as Lord. Always be prepared to give an "
 "answer to everyone who asks you to give the reason for the hope that you "
 "have. But do this with gentleness and respect."
-msgstr "只要心裡尊主基督為聖。有人問你們心中盼望的緣由，就要常作準備，以溫柔、敬畏的"
+msgstr ""
+"只要心裡尊主基督為聖。有人問你們心中盼望的緣由，就要常作準備，以溫柔、敬畏的"
 "心回答各人。"
 
 #: pages/pray/stacker-text.php:1883
@@ -5289,8 +5429,9 @@ msgstr "只要心裡尊主基督為聖。有人問你們心中盼望的緣由，
 msgid ""
 "Father, send out evangelists who will challenge people like Peter who said, "
 "\"Repent and be baptized, every one of you\" in %1$s of %2$s."
-msgstr "父啊，請差遣傳福音者來挑戰像彼得這樣的人，彼得在 %1$s 和 %2$s "
-"中說：「你們各人要悔改，受洗」。"
+msgstr ""
+"父啊，請差遣傳福音者來挑戰像彼得這樣的人，彼得在 %1$s 和 %2$s 中說：「你們各"
+"人要悔改，受洗」。"
 
 #: pages/pray/stacker-text.php:1884
 #, fuzzy
@@ -5304,7 +5445,8 @@ msgid ""
 "Peter replied, “Repent and be baptized, every one of you, in the name of "
 "Jesus Christ for the forgiveness of your sins. And you will receive the gift "
 "of the Holy Spirit."
-msgstr "彼得回答說：「你們各人要悔改，奉耶穌基督的名受洗，叫你們的罪得赦，就必領受所"
+msgstr ""
+"彼得回答說：「你們各人要悔改，奉耶穌基督的名受洗，叫你們的罪得赦，就必領受所"
 "賜的聖靈。"
 
 #: pages/pray/stacker-text.php:1889
@@ -5322,8 +5464,9 @@ msgstr "先知與真理宣講者"
 msgid ""
 "Father, please raise up prophets in %1$s who can call the church to holiness "
 "and purity, preparing your church as a bride for your Son."
-msgstr "父啊，請在 %1$s "
-"興起先知，他們可以呼喚教會走向聖潔和純潔，將您的教會準備好成為您兒子的新娘。"
+msgstr ""
+"父啊，請在 %1$s 興起先知，他們可以呼喚教會走向聖潔和純潔，將您的教會準備好成"
+"為您兒子的新娘。"
 
 #: pages/pray/stacker-text.php:1920
 #, fuzzy, php-format
@@ -5338,7 +5481,8 @@ msgid ""
 "Lord, you already know the names of the prophets you want to raise up in "
 "%1$s. Please, raise them up and give them the courage to speak your truth to "
 "your church."
-msgstr "主啊，你早已知道你想在%1$s興起的先知的名字。求你興起他們，賜給他們勇氣，向你"
+msgstr ""
+"主啊，你早已知道你想在%1$s興起的先知的名字。求你興起他們，賜給他們勇氣，向你"
 "的教會傳揚你的真理。"
 
 #: pages/pray/stacker-text.php:1927
@@ -5352,7 +5496,8 @@ msgctxt "Jeremiah 1:5"
 msgid ""
 "Before I formed you in the womb I knew you, and before you were born I "
 "consecrated you; I appointed you a prophet to the nations."
-msgstr "我未將你造在腹中，我已曉得你；你未出母胎，我已分別你為聖；我已派你作列國的先"
+msgstr ""
+"我未將你造在腹中，我已曉得你；你未出母胎，我已分別你為聖；我已派你作列國的先"
 "知。"
 
 #: pages/pray/stacker-text.php:1932
@@ -5360,8 +5505,9 @@ msgstr "我未將你造在腹中，我已曉得你；你未出母胎，我已分
 msgid ""
 "Lord, like in the church of Antioch, where you gathered many prophets and "
 "teachers, please gather many prophets and teachers in %1$s of %2$s."
-msgstr "主啊，就像您在安提阿教會中聚集了許多先知和教師一樣，請您在 %1$s 和 %2$s "
-"中聚集許多先知和教師。"
+msgstr ""
+"主啊，就像您在安提阿教會中聚集了許多先知和教師一樣，請您在 %1$s 和 %2$s 中聚"
+"集許多先知和教師。"
 
 #: pages/pray/stacker-text.php:1933
 #, fuzzy
@@ -5375,16 +5521,18 @@ msgid ""
 "Now in the church at Antioch there were prophets and teachers: Barnabas, "
 "Simeon called Niger, Lucius of Cyrene, Manaen (who had been brought up with "
 "Herod the tetrarch), and Saul."
-msgstr "在安提阿的教會中，有幾位先知和教師，就是巴拿巴和稱呼尼結的西面、古利奈人路求"
-"、與分封之王希律同養的馬念，並掃羅。"
+msgstr ""
+"在安提阿的教會中，有幾位先知和教師，就是巴拿巴和稱呼尼結的西面、古利奈人路"
+"求、與分封之王希律同養的馬念，並掃羅。"
 
 #: pages/pray/stacker-text.php:1938
 #, fuzzy, php-format
 msgid ""
 "Father, make bold the prophets in %1$s so that the church can be equipped "
 "with truth and insight and a vision of your heart."
-msgstr "父親，請使 %1$s "
-"中的先知大膽起來，以便教會能夠具備真理、洞察力和你內心的願景。"
+msgstr ""
+"父親，請使 %1$s 中的先知大膽起來，以便教會能夠具備真理、洞察力和你內心的願"
+"景。"
 
 #: pages/pray/stacker-text.php:1939
 #, fuzzy
@@ -5397,16 +5545,17 @@ msgctxt "Zechariah 8:16"
 msgid ""
 "These are the things which you should do: speak the truth to one another; "
 "judge with truth and judgment for peace in your gates."
-msgstr "你們該做的事是：彼此說實話；用真理和判斷力來判斷，以確保你們的城門內有和平。"
+msgstr ""
+"你們該做的事是：彼此說實話；用真理和判斷力來判斷，以確保你們的城門內有和平。"
 
 #: pages/pray/stacker-text.php:1944
 #, fuzzy, php-format
 msgid ""
 "Jesus, raise up prophets and truth speakers in your church in %1$s so that "
 "the church can grow in every way into the mature body of you its head."
-msgstr "耶穌，請在 %1$s "
-"的教會中興起先知和真理的宣講者，以便教會能夠在各方面成長為成熟的身體，成為你"
-"的頭。"
+msgstr ""
+"耶穌，請在 %1$s 的教會中興起先知和真理的宣講者，以便教會能夠在各方面成長為成"
+"熟的身體，成為你的頭。"
 
 #: pages/pray/stacker-text.php:1945
 #, fuzzy
@@ -5426,8 +5575,9 @@ msgstr "相反，我們要用愛心說誠實話，凡事長進，連於元首基
 msgid ""
 "Spirit, make the church in %1$s humble and willing to hear the sometimes "
 "hard voices of prophets bringing the light of truth on them."
-msgstr "精神，使 %1$s "
-"中的教會變得謙卑，並願意聆聽先知有時嚴厲的聲音，為他們帶來真理的光芒。"
+msgstr ""
+"精神，使 %1$s 中的教會變得謙卑，並願意聆聽先知有時嚴厲的聲音，為他們帶來真理"
+"的光芒。"
 
 #: pages/pray/stacker-text.php:1951
 #, fuzzy
@@ -5446,7 +5596,8 @@ msgid ""
 "Jesus, strengthen the church in %1$s by giving a prophet, as you said you "
 "would, who is bold and willing to correct. Lord, may the believers care "
 "about holiness as you do."
-msgstr "耶穌，求你賜下一位先知，堅固%1$s的教會，正如你所應許的，他勇敢且樂意指正。主"
+msgstr ""
+"耶穌，求你賜下一位先知，堅固%1$s的教會，正如你所應許的，他勇敢且樂意指正。主"
 "啊，願信徒也像祢一樣，注重聖潔。"
 
 #: pages/pray/stacker-text.php:1984
@@ -5504,7 +5655,8 @@ msgstr "他以正直的心牧養他們，用巧妙的手引導他們。"
 msgid ""
 "Spirit, encourage every one of the %1$s ordinary believers here to care for "
 "others, like a shepherd cares for his sheep."
-msgstr "聖靈，鼓勵在場的每一位%1$s平信徒都去關心他人，就像牧羊人關心他的羊一樣。"
+msgstr ""
+"聖靈，鼓勵在場的每一位%1$s平信徒都去關心他人，就像牧羊人關心他的羊一樣。"
 
 #: pages/pray/stacker-text.php:2012
 #, fuzzy, php-format
@@ -5524,7 +5676,8 @@ msgctxt "Ezekiel 34:23"
 msgid ""
 "I will place over them one shepherd, my servant David, and he will tend "
 "them; he will tend them and be their shepherd."
-msgstr "我必立一牧人照顧他們，就是我的僕人大衛，他必牧養他們；他必牧養他們，作他們的"
+msgstr ""
+"我必立一牧人照顧他們，就是我的僕人大衛，他必牧養他們；他必牧養他們，作他們的"
 "牧人。"
 
 #: pages/pray/stacker-text.php:2018
@@ -5532,8 +5685,9 @@ msgstr "我必立一牧人照顧他們，就是我的僕人大衛，他必牧養
 msgid ""
 "Father, for all those you call to look after your flock from the %1$s "
 "believers in %2$s, please, make them passionate about hearing your Word."
-msgstr "父親，對於您從 %1$s 的 %2$s "
-"信徒中召喚來照顧您的羊群的所有人，請讓他們熱情地聆聽您的聖言。"
+msgstr ""
+"父親，對於您從 %1$s 的 %2$s 信徒中召喚來照顧您的羊群的所有人，請讓他們熱情地"
+"聆聽您的聖言。"
 
 #: pages/pray/stacker-text.php:2019
 #, fuzzy
@@ -5582,7 +5736,8 @@ msgid ""
 "Spirit, build the strength and maturity of the local leaders in %1$s. Show "
 "them that faithfulness is more important than knowledge. Show them that the "
 "Spirit, the Word, and prayer is enough in order to grow and lead. "
-msgstr "聖靈，在%1$s建立地方領袖的力量和成熟度。向他們表明，忠誠比知識更重要。向他們"
+msgstr ""
+"聖靈，在%1$s建立地方領袖的力量和成熟度。向他們表明，忠誠比知識更重要。向他們"
 "表明，聖靈、神的話語和禱告足以幫助他們成長和領導。 "
 
 #: pages/pray/stacker-text.php:2073
@@ -5590,8 +5745,9 @@ msgstr "聖靈，在%1$s建立地方領袖的力量和成熟度。向他們表�
 msgid ""
 "Lord, for the leaders in %1$s of %2$s, let the eyes of their hearts be "
 "enlightened in order that they may know the hope to which they are called."
-msgstr "主啊，對於 %1$s 和 %2$s "
-"中的領導者，請啟迪他們內心的眼睛，以便他們知道他們被召喚的希望。"
+msgstr ""
+"主啊，對於 %1$s 和 %2$s 中的領導者，請啟迪他們內心的眼睛，以便他們知道他們被"
+"召喚的希望。"
 
 #: pages/pray/stacker-text.php:2074
 #, fuzzy
@@ -5615,14 +5771,16 @@ msgstr ""
 msgid ""
 "Father, please send new teachers into the harvest, who can correct the lies "
 "of our enemy in %1$s of %2$s."
-msgstr "父親，請派遣新的教師來收割，他們可以糾正我們敵人在 %1$s 和 %2$s 中的謊言。"
+msgstr ""
+"父親，請派遣新的教師來收割，他們可以糾正我們敵人在 %1$s 和 %2$s 中的謊言。"
 
 #: pages/pray/stacker-text.php:2085
 #, fuzzy, php-format
 msgid ""
 "Lord, the believers in %1$s of %2$s need teachers who can feed them with "
 "knowledge and understanding. Please raise them up."
-msgstr "主啊，%1$s 和 %2$s 的信徒需要能用知識和悟性餵養他們的老師。求你興起他們。"
+msgstr ""
+"主啊，%1$s 和 %2$s 的信徒需要能用知識和悟性餵養他們的老師。求你興起他們。"
 
 #: pages/pray/stacker-text.php:2086
 #, fuzzy
@@ -5701,7 +5859,8 @@ msgstr "我的靈魂時刻渴望著你的律法。"
 msgid ""
 "Lord, teach your Word to the people of the %1$s of %2$s, so that they can "
 "follow your ways all their life."
-msgstr "主啊，求你將你的道傳授給 %1$s 和 %2$s 的人民，以便他們一生遵循你的道路。"
+msgstr ""
+"主啊，求你將你的道傳授給 %1$s 和 %2$s 的人民，以便他們一生遵循你的道路。"
 
 #: pages/pray/stacker-text.php:2160
 #, fuzzy
@@ -5720,8 +5879,9 @@ msgstr "主啊，請將祢的法令指教我，好讓我能遵行到底。"
 msgid ""
 "Lord, teach the disciples in %1$s of %2$s to trust your Word, like a lamp, "
 "in the darkness around them."
-msgstr "主啊，教導 %1$s 和 %2$s "
-"的門徒信靠你的話語，就像信靠一盞燈，照亮他們周圍的黑暗。"
+msgstr ""
+"主啊，教導 %1$s 和 %2$s 的門徒信靠你的話語，就像信靠一盞燈，照亮他們周圍的黑"
+"暗。"
 
 #: pages/pray/stacker-text.php:2167
 #, fuzzy
@@ -5754,8 +5914,9 @@ msgstr "年輕人怎樣才能保持純潔呢？就是信守諾言。"
 msgid ""
 "Spirit, we know that cultures come and go, even in %1$s of %2$s, but the "
 "truth of your Word endures generations."
-msgstr "聖靈，我們知道文化來來去去，即使在 %1$s 或 "
-"%2$s，但你的話語的真理卻世世代代流傳。"
+msgstr ""
+"聖靈，我們知道文化來來去去，即使在 %1$s 或 %2$s，但你的話語的真理卻世世代代流"
+"傳。"
 
 #: pages/pray/stacker-text.php:2178
 #, fuzzy
@@ -5773,7 +5934,8 @@ msgstr "主啊，祢的聖言是永恆的，在天上堅定不移。"
 msgid ""
 "Father, defend those who are loyal to your Word in %1$s of %2$s, even "
 "against fierce enemies."
-msgstr "父親，請保佑那些在 %1$s 和 %2$s 中忠於你的聖言的人，即使他們面臨兇猛的敵人。"
+msgstr ""
+"父親，請保佑那些在 %1$s 和 %2$s 中忠於你的聖言的人，即使他們面臨兇猛的敵人。"
 
 #: pages/pray/stacker-text.php:2184
 #, fuzzy
@@ -5791,8 +5953,9 @@ msgstr "雖然惡人用繩子綁我，但我不會忘記你的律法。"
 msgid ""
 "Spirit, fill the %1$s souls living in %2$s of %3$s with a taste for your "
 "Word. Make it sweet as honey in their mouth."
-msgstr "聖靈，求你使住在 %3$s 的 %2$s 的 %1$s "
-"靈魂，滿懷你聖言的滋味，使他們口中如蜜般甘甜。"
+msgstr ""
+"聖靈，求你使住在 %3$s 的 %2$s 的 %1$s 靈魂，滿懷你聖言的滋味，使他們口中如蜜"
+"般甘甜。"
 
 #: pages/pray/stacker-text.php:2190
 #, fuzzy
@@ -5810,8 +5973,9 @@ msgstr "你的言語在我上膛何其甘甜，在我口中比蜜更甜！"
 msgid ""
 "Spirit, fill the %1$s believers in %2$s of %3$s with tears, because God is "
 "not obeyed by those around them."
-msgstr "聖靈，請使 %3$s 的 %2$s 處的 %1$s "
-"名信徒淚流滿面，因為他們周圍的人並不服從上帝。"
+msgstr ""
+"聖靈，請使 %3$s 的 %2$s 處的 %1$s 名信徒淚流滿面，因為他們周圍的人並不服從上"
+"帝。"
 
 #: pages/pray/stacker-text.php:2196
 #, fuzzy
@@ -5837,7 +6001,8 @@ msgctxt "Hebrews 4:12"
 msgid ""
 "For the word of God is alive and active. Sharper than any double-edged "
 "sword, it penetrates even to dividing soul and spirit, joints and marrow;"
-msgstr "神的道是活的，是有功效的，比一切兩刃的劍更快，甚至魂與靈、骨節與骨髓，都能刺"
+msgstr ""
+"神的道是活的，是有功效的，比一切兩刃的劍更快，甚至魂與靈、骨節與骨髓，都能刺"
 "入、剖開。"
 
 #: pages/pray/stacker-text.php:2207
@@ -5845,7 +6010,8 @@ msgstr "神的道是活的，是有功效的，比一切兩刃的劍更快，甚
 msgid ""
 "Father, we pray that the people of %1$s will learn to study the Bible, "
 "understand it, obey it, and share it."
-msgstr "父親，我們祈禱 %1$s 的人們能夠學會學習聖經、理解聖經、遵守聖經並分享聖經。"
+msgstr ""
+"父親，我們祈禱 %1$s 的人們能夠學會學習聖經、理解聖經、遵守聖經並分享聖經。"
 
 #: pages/pray/stacker-text.php:2213
 #, fuzzy, php-format
@@ -5877,7 +6043,8 @@ msgstr "服從"
 msgid ""
 "Spirit, cause the %1$s believers in %2$s to obey with immediate, radical, "
 "costly obedience, like Abraham."
-msgstr "精神，使 %1$s 的信徒在 %2$s 中立即、徹底、代價高昂地服從，就像亞伯拉罕一樣。"
+msgstr ""
+"精神，使 %1$s 的信徒在 %2$s 中立即、徹底、代價高昂地服從，就像亞伯拉罕一樣。"
 
 #: pages/pray/stacker-text.php:2233
 #, fuzzy
@@ -5922,8 +6089,9 @@ msgstr "如果你愛我，就遵守我的命令。"
 msgid ""
 "Jesus, remind the disciples in %1$s of %2$s to train each other to obey all "
 "that you commanded, and that you will be with them as they do it."
-msgstr "耶穌，請你提醒 %1$s 和 %2$s "
-"的門徒，要彼此教導，遵守你所吩咐的一切，當他們遵守時，你也會與他們同在。"
+msgstr ""
+"耶穌，請你提醒 %1$s 和 %2$s 的門徒，要彼此教導，遵守你所吩咐的一切，當他們遵"
+"守時，你也會與他們同在。"
 
 #: pages/pray/stacker-text.php:2245
 #, fuzzy
@@ -5943,16 +6111,18 @@ msgstr "並教訓他們遵守我所吩咐你們的一切。我就常與你們同
 msgid ""
 "Jesus, please help the %1$s believers in %2$s of %3$s to be filled with "
 "joyful obedience at all times, as you modeled for us all."
-msgstr "耶穌，請幫助 %3$s 的 %2$s 的 %1$s "
-"信徒時刻充滿快樂的服從，正如您為我們所有人樹立的榜樣一樣。"
+msgstr ""
+"耶穌，請幫助 %3$s 的 %2$s 的 %1$s 信徒時刻充滿快樂的服從，正如您為我們所有人"
+"樹立的榜樣一樣。"
 
 #: pages/pray/stacker-text.php:2256
 #, fuzzy, php-format
 msgid ""
 "Father, help the %1$s believers in %2$s to know that you can make a big "
 "impact through their simple obedience today."
-msgstr "父親，請幫助 %2$s 中的 %1$s "
-"名信徒知道，您可以透過他們今天的簡單服從產生巨大的影響。"
+msgstr ""
+"父親，請幫助 %2$s 中的 %1$s 名信徒知道，您可以透過他們今天的簡單服從產生巨大"
+"的影響。"
 
 #: pages/pray/stacker-text.php:2257
 #, fuzzy
@@ -5999,8 +6169,9 @@ msgstr "相信"
 msgid ""
 "Father, move the %1$s believers in %2$s of %3$s to say \"Not our will, but "
 "yours be done\", like Jesus."
-msgstr "父啊，請感動 %3$s 的 %2$s 的 %1$s "
-"名信徒像耶穌一樣說「不要成就我們的旨意，只要成就祢的旨意」。"
+msgstr ""
+"父啊，請感動 %3$s 的 %2$s 的 %1$s 名信徒像耶穌一樣說「不要成就我們的旨意，只"
+"要成就祢的旨意」。"
 
 #: pages/pray/stacker-text.php:2306
 #, fuzzy
@@ -6014,7 +6185,8 @@ msgid ""
 "He withdrew about a stone’s throw beyond them, knelt down and prayed, "
 "\"Father, if you are willing, take this cup from me; yet not my will, but "
 "yours be done.\""
-msgstr "他退到他們後面約有扔一塊石頭那麼遠的地方，跪下禱告說：“父親，如果你願意，就把"
+msgstr ""
+"他退到他們後面約有扔一塊石頭那麼遠的地方，跪下禱告說：“父親，如果你願意，就把"
 "這杯從我拿走；然而不要成就我的意思，只要成就你的意思。”"
 
 #: pages/pray/stacker-text.php:2310 pages/pray/stacker-text.php:2448
@@ -6027,7 +6199,8 @@ msgstr "痛苦"
 msgid ""
 "Spirit, please defend the %1$s believers in %2$s against an unwillingness to "
 "suffer. Give them courage to face social rejection."
-msgstr "神靈，請保佑%1$s信仰%2$s的人們，使他們免於不願承受苦難。賜給他們勇氣，讓他們"
+msgstr ""
+"神靈，請保佑%1$s信仰%2$s的人們，使他們免於不願承受苦難。賜給他們勇氣，讓他們"
 "勇敢面對社會的排斥。"
 
 #: pages/pray/stacker-text.php:2317
@@ -6048,7 +6221,8 @@ msgctxt "John 15:5"
 msgid ""
 "\"I am the vine; you are the branches. If you remain in me and I in you, you "
 "will bear much fruit; apart from me you can do nothing."
-msgstr "我是葡萄樹，你們是枝子。常在我裡面的，我也常在你們裡面，這人就多結果子；因為"
+msgstr ""
+"我是葡萄樹，你們是枝子。常在我裡面的，我也常在你們裡面，這人就多結果子；因為"
 "離了我，你們就不能做什麼。"
 
 #: pages/pray/stacker-text.php:2323
@@ -6090,7 +6264,8 @@ msgid ""
 "Trust in Yahweh with all your heart, and don’t lean on your own "
 "understanding. In all your ways acknowledge him, and he will make your paths "
 "straight."
-msgstr "你要專心仰賴耶和華，不可倚靠自己的聰明。在你一切所行的事上都要認定他，他必指"
+msgstr ""
+"你要專心仰賴耶和華，不可倚靠自己的聰明。在你一切所行的事上都要認定他，他必指"
 "引你的路。"
 
 #: pages/pray/stacker-text.php:2335
@@ -6111,7 +6286,8 @@ msgctxt "1 John 4:16"
 msgid ""
 "We know and have believed the love which God has for us. God is love, and he "
 "who remains in love remains in God, and God remains in him."
-msgstr "我們知道並且相信神愛我們的。神是愛；住在愛裡面的，就住在神裡面，神也住在他裡"
+msgstr ""
+"我們知道並且相信神愛我們的。神是愛；住在愛裡面的，就住在神裡面，神也住在他裡"
 "面。"
 
 #: pages/pray/stacker-text.php:2341
@@ -6151,7 +6327,8 @@ msgid ""
 "earth, that you hid these things from the wise and understanding, and "
 "revealed them to infants. Yes, Father, for so it was well-pleasing in your "
 "sight."
-msgstr "那時，耶穌說：“父啊，天地的主，我感謝你！因為你將這些事向聰明通達人就藏起來，"
+msgstr ""
+"那時，耶穌說：“父啊，天地的主，我感謝你！因為你將這些事向聰明通達人就藏起來，"
 "向嬰孩就顯出來。父啊，是的，因為你的美意本是如此。”"
 
 #: pages/pray/stacker-text.php:2353
@@ -6190,7 +6367,8 @@ msgctxt "Isaiah 64:4"
 msgid ""
 "For from of old men have not heard, nor perceived by the ear, neither has "
 "the eye seen a God besides you, who works for him who waits for him."
-msgstr "因為自古以來，人未曾聽見，未曾耳聞，未曾眼見，在你們以外，有哪一位神為等候他"
+msgstr ""
+"因為自古以來，人未曾聽見，未曾耳聞，未曾眼見，在你們以外，有哪一位神為等候他"
 "的人行事。"
 
 #: pages/pray/stacker-text.php:2377 pages/pray/stacker-text.php:2383
@@ -6204,8 +6382,9 @@ msgstr "信仰"
 msgid ""
 "Spirit, teach the %1$s believers in %2$s that when they seek first your "
 "Kingdom and your righteousness, you will abundantly provide all they need."
-msgstr "聖靈，教導 %2$s 中的 %1$s "
-"名信徒，當他們首先尋求你的王國和你的正義時，你將充分滿足他們的一切需要。"
+msgstr ""
+"聖靈，教導 %2$s 中的 %1$s 名信徒，當他們首先尋求你的王國和你的正義時，你將充"
+"分滿足他們的一切需要。"
 
 #: pages/pray/stacker-text.php:2379
 #, fuzzy
@@ -6225,8 +6404,9 @@ msgstr "神能將各樣的福分加給你們，使你們凡事常常充足，能
 msgid ""
 "Lord, please give the %1$s believers in %2$s of %3$s the Spirit of wisdom "
 "and revelation, so that they might know you better."
-msgstr "主啊，求你將那賜人智慧和啟示的靈賜給 %3$s 地 %2$s 的 %1$s "
-"信徒，使他們更認識你。"
+msgstr ""
+"主啊，求你將那賜人智慧和啟示的靈賜給 %3$s 地 %2$s 的 %1$s 信徒，使他們更認識"
+"你。"
 
 #: pages/pray/stacker-text.php:2385
 #, fuzzy
@@ -6240,7 +6420,8 @@ msgid ""
 "I keep asking that the God of our Lord Jesus Christ, the glorious Father, "
 "may give you the Spirit of wisdom and revelation, so that you may know him "
 "better."
-msgstr "我不斷祈求我們主耶穌基督的上帝，榮耀的父，將智慧和啟示的靈賞給你們，使你們更"
+msgstr ""
+"我不斷祈求我們主耶穌基督的上帝，榮耀的父，將智慧和啟示的靈賞給你們，使你們更"
 "認識祂。"
 
 #: pages/pray/stacker-text.php:2391
@@ -6248,7 +6429,8 @@ msgstr "我不斷祈求我們主耶穌基督的上帝，榮耀的父，將智慧
 msgid ""
 "Spirit, please defend the %1$s believers in %2$s against self-centered "
 "spirituality. Open their eyes to the fields ripe for harvest around them."
-msgstr "聖靈啊，請保佑%2$s的%1$s信徒，抵禦自我中心的靈性。請開啟他們的眼睛，讓他們看"
+msgstr ""
+"聖靈啊，請保佑%2$s的%1$s信徒，抵禦自我中心的靈性。請開啟他們的眼睛，讓他們看"
 "到周圍豐收的田野。"
 
 #: pages/pray/stacker-text.php:2396 pages/pray/stacker-text.php:2402
@@ -6261,7 +6443,8 @@ msgstr "要忠誠"
 msgid ""
 "Father, convict the %1$s believers in %2$s to be holy and righteous. Inspire "
 "them to gather in small groups for accountability and spiritual growth."
-msgstr "父啊，求你使%2$s的%1$s信徒確信聖潔公義。求你激勵他們聚集在小組裡，互相督責，"
+msgstr ""
+"父啊，求你使%2$s的%1$s信徒確信聖潔公義。求你激勵他們聚集在小組裡，互相督責，"
 "促進靈性成長。"
 
 #: pages/pray/stacker-text.php:2403
@@ -6270,7 +6453,8 @@ msgid ""
 "Lord, we know that you invest more in those who have been faithful with what "
 "they have been given. Please, richly bless each faithful believer in %1$s "
 "with more spiritual insight, wisdom, courage and vision."
-msgstr "主啊，我們知道祢會加倍地賜給那些忠於所領受之人。求祢豐豐富富地祝福%1$s中每一"
+msgstr ""
+"主啊，我們知道祢會加倍地賜給那些忠於所領受之人。求祢豐豐富富地祝福%1$s中每一"
 "位忠心的信徒，賜給他們更多的屬靈洞見、智慧、勇氣和遠見。"
 
 #: pages/pray/stacker-text.php:2404
@@ -6285,8 +6469,9 @@ msgid ""
 "So take the bag of gold from him and give it to the one who has ten bags. "
 "For whoever has will be given more, and they will have an abundance. Whoever "
 "does not have, even what they have will be taken from them."
-msgstr "把那袋金子從他手中拿過來，交給那有十袋金子的人。凡有的，還要加給他，叫他有餘"
-"；凡沒有的，連他所有的也要奪過來。"
+msgstr ""
+"把那袋金子從他手中拿過來，交給那有十袋金子的人。凡有的，還要加給他，叫他有"
+"餘；凡沒有的，連他所有的也要奪過來。"
 
 #: pages/pray/stacker-text.php:2409
 #, fuzzy, php-format
@@ -6307,7 +6492,8 @@ msgid ""
 "Without faith it is impossible to be well pleasing to him, for he who comes "
 "to God must believe that he exists, and that he is a rewarder of those who "
 "seek him."
-msgstr "非有信，就不可能得到上帝的喜悅；因為到上帝面前來的人必須相信上帝存在，並且相"
+msgstr ""
+"非有信，就不可能得到上帝的喜悅；因為到上帝面前來的人必須相信上帝存在，並且相"
 "信他會獎勵那些尋求他的人。"
 
 #: pages/pray/stacker-text.php:2415
@@ -6329,7 +6515,8 @@ msgid ""
 "May the God of peace himself sanctify you completely. May your whole spirit, "
 "soul, and body be preserved blameless at the coming of our Lord Jesus "
 "Christ. He who calls you is faithful, who will also do it."
-msgstr "願賜平安的神親自使你們全然成聖。願你們的靈、魂、身子得蒙保守，在我們主耶穌基"
+msgstr ""
+"願賜平安的神親自使你們全然成聖。願你們的靈、魂、身子得蒙保守，在我們主耶穌基"
 "督降臨的時候，完全無可指摘。召你們的本是信實的，他必成就這事。"
 
 #: pages/pray/stacker-text.php:2452
@@ -6337,7 +6524,8 @@ msgstr "願賜平安的神親自使你們全然成聖。願你們的靈、魂、
 msgid ""
 "Father, let those from the %1$s believers who are shaken and weak remember "
 "that your love will never fail them."
-msgstr "父親，讓那些來自%1$s信徒中那些受到動搖和軟弱的人記住，你的愛永遠不會讓他們失"
+msgstr ""
+"父親，讓那些來自%1$s信徒中那些受到動搖和軟弱的人記住，你的愛永遠不會讓他們失"
 "望。"
 
 #: pages/pray/stacker-text.php:2453
@@ -6352,7 +6540,8 @@ msgid ""
 "Love never fails. But where there are prophecies, they will be done away "
 "with. Where there are various languages, they will cease. Where there is "
 "knowledge, it will be done away with."
-msgstr "愛是永不止息的。但凡有預言的地方，預言終將被廢去。凡有各種語言的地方，預言終"
+msgstr ""
+"愛是永不止息的。但凡有預言的地方，預言終將被廢去。凡有各種語言的地方，預言終"
 "將被終止。凡有知識的地方，知識終將被消滅。"
 
 #: pages/pray/stacker-text.php:2458
@@ -6378,7 +6567,8 @@ msgstr "神使孤獨的人有家，使被囚的人歌唱出來，但悖逆的人
 msgid ""
 "Spirit, protect the overcomers in %1$s, so that they will one day sit with "
 "Jesus on His throne."
-msgstr "聖靈，求祢保守%1$s裡的得勝者，使他們有朝一日能與耶穌一同坐在祂的寶座上。"
+msgstr ""
+"聖靈，求祢保守%1$s裡的得勝者，使他們有朝一日能與耶穌一同坐在祂的寶座上。"
 
 #: pages/pray/stacker-text.php:2465
 #, fuzzy
@@ -6391,8 +6581,9 @@ msgctxt "Revelation 3:21"
 msgid ""
 "He who overcomes, I will give to him to sit down with me on my throne, as I "
 "also overcame, and sat down with my Father on his throne."
-msgstr "得勝的，我要賜他在我寶座上與我同坐，就如我得了勝，在我父的寶座上與他同坐一般"
-"。"
+msgstr ""
+"得勝的，我要賜他在我寶座上與我同坐，就如我得了勝，在我父的寶座上與他同坐一"
+"般。"
 
 #: pages/pray/stacker-text.php:2470
 #, fuzzy, php-format
@@ -6400,8 +6591,9 @@ msgid ""
 "Father, you have chosen the weak things of this world to confound the "
 "strong. Make the poor and outcast in %1$s of %2$s a testimony of your "
 "strength."
-msgstr "父啊，祢揀選了世上軟弱的，叫那剛強的羞愧。求你使%1$s和%2$s的窮人和被遺棄的人"
-"，成為你大能的見證。"
+msgstr ""
+"父啊，祢揀選了世上軟弱的，叫那剛強的羞愧。求你使%1$s和%2$s的窮人和被遺棄的"
+"人，成為你大能的見證。"
 
 #: pages/pray/stacker-text.php:2471
 #, fuzzy
@@ -6415,8 +6607,9 @@ msgid ""
 "God chose the foolish things of the world that he might put to shame those "
 "who are wise. God chose the weak things of the world, that he might put to "
 "shame the things that are strong;"
-msgstr "神揀選了世上愚拙的，好叫那有智慧的羞愧；神揀選了世上軟弱的，好叫那強壯的羞愧"
-"；"
+msgstr ""
+"神揀選了世上愚拙的，好叫那有智慧的羞愧；神揀選了世上軟弱的，好叫那強壯的羞"
+"愧；"
 
 #: pages/pray/stacker-text.php:2476
 #, fuzzy, php-format
@@ -6436,7 +6629,8 @@ msgctxt "Ephesians 1:3"
 msgid ""
 "Blessed be the God and Father of our Lord Jesus Christ, who has blessed us "
 "with every spiritual blessing in the heavenly places in Christ"
-msgstr "願頌讚歸於我們主耶穌基督的父神，祂在基督裡曾賜給我們天上各樣屬靈的福氣。"
+msgstr ""
+"願頌讚歸於我們主耶穌基督的父神，祂在基督裡曾賜給我們天上各樣屬靈的福氣。"
 
 #: pages/pray/stacker-text.php:2482
 #, fuzzy, php-format
@@ -6454,15 +6648,17 @@ msgctxt "Hebrews 13:5 "
 msgid ""
 "Be free from the love of money, content with such things as you have, for he "
 "has said, “I will in no way leave you, neither will I in any way forsake you."
-msgstr "不要貪愛金錢，要以自己所有的為足。因為主曾說：「我總不撇下你，總不丟棄你。"
+msgstr ""
+"不要貪愛金錢，要以自己所有的為足。因為主曾說：「我總不撇下你，總不丟棄你。"
 
 #: pages/pray/stacker-text.php:2488
 #, fuzzy, php-format
 msgid ""
 "Jesus, for those distressed and afraid in %1$s, show them today that you "
 "give peace at all times and in every situation."
-msgstr "耶穌，對於那些在 %1$s "
-"中感到苦惱和恐懼的人，請今天向他們表明，無論何時何地，你都會給予他們平安。"
+msgstr ""
+"耶穌，對於那些在 %1$s 中感到苦惱和恐懼的人，請今天向他們表明，無論何時何地，"
+"你都會給予他們平安。"
 
 #: pages/pray/stacker-text.php:2489
 #, fuzzy
@@ -6516,7 +6712,8 @@ msgstr "哀慟的人有福了，因為他們必得安慰。"
 msgid ""
 "Father, see the suffering of your people in %1$s of %2$s. Deliver all those "
 "who have not forgotten your Word."
-msgstr "父啊，求祢垂顧祢子民在%1$s和%2$s所受的苦難。求祢拯救所有沒有忘記祢聖言的人。"
+msgstr ""
+"父啊，求祢垂顧祢子民在%1$s和%2$s所受的苦難。求祢拯救所有沒有忘記祢聖言的人。"
 
 #: pages/pray/stacker-text.php:2507
 #, fuzzy
@@ -6539,8 +6736,9 @@ msgstr "愛"
 msgid ""
 "Spirit, give the believers of the %1$s of %2$s unity and humility as they "
 "work to bring the kingdom to new people and places."
-msgstr "精神，給予 %1$s 和 %2$s "
-"的信徒團結與謙卑，讓他們努力將王國帶給新的人民和地方。"
+msgstr ""
+"精神，給予 %1$s 和 %2$s 的信徒團結與謙卑，讓他們努力將王國帶給新的人民和地"
+"方。"
 
 #: pages/pray/stacker-text.php:2531
 #, fuzzy, php-format
@@ -6554,8 +6752,9 @@ msgstr "主啊，請激發 %1$s 人民的心，使他們同意你的觀點並彼
 msgid ""
 "Lord, stir the hearts of your people in %1$s of %2$s to agree with you and "
 "with one another in love."
-msgstr "主啊，求你感動 %1$s 和 %2$s "
-"地人民的心，使他們與你意見一致，並在愛中彼此相愛。"
+msgstr ""
+"主啊，求你感動 %1$s 和 %2$s 地人民的心，使他們與你意見一致，並在愛中彼此相"
+"愛。"
 
 #: pages/pray/stacker-text.php:2538
 #, fuzzy
@@ -6568,7 +6767,8 @@ msgctxt "John 17:21"
 msgid ""
 "that all of them may be one, Father, just as you are in me and I am in you. "
 "May they also be in us so that the world may believe that you have sent me."
-msgstr "父啊，使他們都合而為一，正如你在我裡面，我在你裡面。願他們也在我們裡面，叫世"
+msgstr ""
+"父啊，使他們都合而為一，正如你在我裡面，我在你裡面。願他們也在我們裡面，叫世"
 "人可以信你差了我來。"
 
 #: pages/pray/stacker-text.php:2543
@@ -6619,8 +6819,9 @@ msgstr "上帝，我們祈禱%1$s的信徒能慷慨解囊，以配得上您更�
 msgid ""
 "Father, encourage the %1$s believers in %2$s to not just be consumers of "
 "knowledge but be producers of love, mercy, kindness, and justice."
-msgstr "父親，鼓勵 %1$s 的 %2$s "
-"信徒不僅成為知識的消費者，而且成為愛、憐憫、善良和正義的生產者。"
+msgstr ""
+"父親，鼓勵 %1$s 的 %2$s 信徒不僅成為知識的消費者，而且成為愛、憐憫、善良和正"
+"義的生產者。"
 
 #: pages/pray/stacker-text.php:2562
 #, fuzzy
@@ -6663,8 +6864,9 @@ msgstr "緊迫性"
 msgid ""
 "Father, give the disciples of the %1$s of %2$s an urgency of seeing every "
 "people and place reached for the gospel."
-msgstr "父啊，請賜給 %1$s 和 %2$s "
-"的門徒們一種緊迫感，讓他們看到每個民族、每個地方都能聽到福音。"
+msgstr ""
+"父啊，請賜給 %1$s 和 %2$s 的門徒們一種緊迫感，讓他們看到每個民族、每個地方都"
+"能聽到福音。"
 
 #: pages/pray/stacker-text.php:2599
 #, fuzzy
@@ -6697,7 +6899,8 @@ msgctxt "James 4:14"
 msgid ""
 "Yet you do not know what your life will be like tomorrow. you are just a "
 "vapor that appears for a little while and then vanishes away."
-msgstr "然而你不知道明天的生活會是什麼樣子。你只不過是一縷蒸汽，出現片刻就消失了。"
+msgstr ""
+"然而你不知道明天的生活會是什麼樣子。你只不過是一縷蒸汽，出現片刻就消失了。"
 
 #: pages/pray/stacker-text.php:2610
 #, fuzzy, php-format
@@ -6717,7 +6920,8 @@ msgid ""
 "to proclaim good news to the poor. He has sent me to bind up the "
 "brokenhearted, to proclaim freedom for the captives and release from "
 "darkness for the prisoners."
-msgstr "主耶和華的靈在我身上，因為耶和華用膏膏我，叫我傳好信息給貧窮的人，差遣我醫好"
+msgstr ""
+"主耶和華的靈在我身上，因為耶和華用膏膏我，叫我傳好信息給貧窮的人，差遣我醫好"
 "傷心的人，報告被擄的得釋放，被囚的出黑暗。"
 
 #: pages/pray/stacker-text.php:2616
@@ -6737,7 +6941,8 @@ msgctxt "Ephesians 5:15-16"
 msgid ""
 "Be very careful, then, how you live—not as unwise but as wise, making the "
 "most of every opportunity, because the days are evil."
-msgstr "所以，要非常小心你的生活方式－不要像愚昧人那樣，而要像智慧人那樣，充分利用每"
+msgstr ""
+"所以，要非常小心你的生活方式－不要像愚昧人那樣，而要像智慧人那樣，充分利用每"
 "一個機會，因為日子是邪惡的。"
 
 #: pages/pray/stacker-text.php:2622
@@ -6745,7 +6950,8 @@ msgstr "所以，要非常小心你的生活方式－不要像愚昧人那樣，
 msgid ""
 "Jesus, your return is closer than when we first believed. Please, set "
 "urgency in the hearts of the people living in %1$s of %2$s."
-msgstr "耶穌，祢的再來比我們初信的時候更近了。求祢在%1$s和%2$s的居民心中燃起迫切的盼"
+msgstr ""
+"耶穌，祢的再來比我們初信的時候更近了。求祢在%1$s和%2$s的居民心中燃起迫切的盼"
 "望。"
 
 #: pages/pray/stacker-text.php:2623
@@ -6759,7 +6965,8 @@ msgctxt "Romans 13:11"
 msgid ""
 "Besides this you know the time, that the hour has come for you to wake from "
 "sleep. For salvation is nearer to us now than when we first believed."
-msgstr "再者，你們也知道，現在是你們該從睡夢中醒來的時候了。因為我們得救，現今比初信"
+msgstr ""
+"再者，你們也知道，現在是你們該從睡夢中醒來的時候了。因為我們得救，現今比初信"
 "的時候更近了。"
 
 #: pages/pray/stacker-text.php:2628
@@ -6804,7 +7011,8 @@ msgstr "趁耶和華可尋找的時候尋找他，相近的時候求告他。"
 msgid ""
 "Spirit, renew the call of John the Baptist in %1$s of %2$s. Send out bold "
 "servants who will call all to repent."
-msgstr "聖靈啊，請再次呼召施洗約翰在%1$s和%2$s中。差遣勇敢的僕人，呼召所有人悔改。"
+msgstr ""
+"聖靈啊，請再次呼召施洗約翰在%1$s和%2$s中。差遣勇敢的僕人，呼召所有人悔改。"
 
 #: pages/pray/stacker-text.php:2641
 #, fuzzy
@@ -6839,7 +7047,8 @@ msgstr "殷勤不可懶惰，要心裡火熱，常常服事主。"
 msgid ""
 "Spirit, awaken the sleepers and call them to repent and be baptized in %1$s "
 "of %2$s. Set an urgency in their hearts."
-msgstr "聖靈，喚醒沉睡者，呼喚他們在%1$s或%2$s悔改並受洗。在他們心中燃起緊迫感。"
+msgstr ""
+"聖靈，喚醒沉睡者，呼喚他們在%1$s或%2$s悔改並受洗。在他們心中燃起緊迫感。"
 
 #: pages/pray/stacker-text.php:2653
 #, fuzzy
@@ -6877,18 +7086,19 @@ msgid ""
 "good, 4 treacherous, rash, conceited, lovers of pleasure rather than lovers "
 "of God— 5 having a form of godliness but denying its power."
 msgstr ""
-"但你要記住：末世必有可怕的日子。 2 "
-"那時，人要專顧自己、貪愛錢財、自誇、狂傲、謗訔、違背父母、忘恩負義、心不聖潔"
-"、3 無親情、不解怨、好說諫言、不能自約、性情兇暴、不愛良善、4 "
-"賣主賣了神、魯莽行事、真實行事、風氣不實、心實相愛的一切。"
+"但你要記住：末世必有可怕的日子。 2 那時，人要專顧自己、貪愛錢財、自誇、狂傲、"
+"謗訔、違背父母、忘恩負義、心不聖潔、3 無親情、不解怨、好說諫言、不能自約、性"
+"情兇暴、不愛良善、4 賣主賣了神、魯莽行事、真實行事、風氣不實、心實相愛的一"
+"切。"
 
 #: pages/pray/stacker-text.php:2664
 #, fuzzy, php-format
 msgid ""
 "Jesus, purify the %1$s believers in %2$s of %3$s to not just be hearers, but "
 "doers of your Word."
-msgstr "耶穌，求你潔淨 %3$s 地 %2$s 的 %1$s "
-"名信徒，使他們不只是聽你的道，更要行你的道。"
+msgstr ""
+"耶穌，求你潔淨 %3$s 地 %2$s 的 %1$s 名信徒，使他們不只是聽你的道，更要行你的"
+"道。"
 
 #: pages/pray/stacker-text.php:2665
 #, fuzzy
@@ -6909,7 +7119,8 @@ msgstr "念這預言的人有福了，那些聽見又遵守其中所記載的人
 msgid ""
 "Holy Spirit, have mercy on the simple who turned from you in %1$s of %2$s. "
 "Warn them again against their complacency."
-msgstr "聖靈啊，求祢憐憫那些在%1$s和%2$s中背棄祢的愚昧人。求你再警告他們，切勿自滿。"
+msgstr ""
+"聖靈啊，求祢憐憫那些在%1$s和%2$s中背棄祢的愚昧人。求你再警告他們，切勿自滿。"
 
 #: pages/pray/stacker-text.php:2671
 #, fuzzy
@@ -6940,17 +7151,18 @@ msgid ""
 "Lord we ask you on behalf of the %1$s people. %2$s%% are known to be "
 "believers. Oh God, please share with them the great gift of your son Jesus "
 "and your kingdom."
-msgstr "主啊，我們代表%1$s人民向您祈求。 "
-"%2$s%%是眾所周知的信徒。上帝啊，請與他們分享您兒子耶穌和您王國的偉大恩賜。"
+msgstr ""
+"主啊，我們代表%1$s人民向您祈求。 %2$s%%是眾所周知的信徒。上帝啊，請與他們分享"
+"您兒子耶穌和您王國的偉大恩賜。"
 
 #: pages/pray/stacker-text.php:2776
 #, fuzzy, php-format
 msgid ""
 "Lord, please remember the %1$s people. you said you wanted worshippers of "
 "every tongue and tribe and nation, yet we know of no worshippers among them."
-msgstr "主啊，請記得 %1$s "
-"人民。您說您想要來自各個語言、各個部落和各個國家的崇拜者，但我們卻不知道他們"
-"中間有任何崇拜者。"
+msgstr ""
+"主啊，請記得 %1$s 人民。您說您想要來自各個語言、各個部落和各個國家的崇拜者，"
+"但我們卻不知道他們中間有任何崇拜者。"
 
 #: pages/pray/stacker-text.php:2780
 #, fuzzy, php-format
@@ -6965,7 +7177,8 @@ msgid ""
 "Lord, bring the blind by a way that they don’t know. Lead the %1$s people in "
 "paths that they don’t know. Make darkness light before them and crooked "
 "places straight. Do not forsake the %2$s people."
-msgstr "主啊，求祢領瞎子走他們不認識的路。領%1$s百姓走他們不認識的路。求你使黑暗變為"
+msgstr ""
+"主啊，求祢領瞎子走他們不認識的路。領%1$s百姓走他們不認識的路。求你使黑暗變為"
 "光明，使彎曲之處變為筆直。求你不要離棄%2$s百姓。"
 
 #: pages/pray/stacker-text.php:2788
@@ -6973,8 +7186,9 @@ msgstr "主啊，求祢領瞎子走他們不認識的路。領%1$s百姓走他�
 msgid ""
 "Lord, I thank you that you will bring health and a cure to the %1$s people. "
 "Reveal to them abundance of peace and truth."
-msgstr "主啊，我感謝你，祢必將健康和醫治賜給%1$s百姓。求祢向他們顯明豐盛的平安與真理"
-"。"
+msgstr ""
+"主啊，我感謝你，祢必將健康和醫治賜給%1$s百姓。求祢向他們顯明豐盛的平安與真"
+"理。"
 
 #: pages/pray/stacker-text.php:2792
 #, fuzzy, php-format
@@ -6990,8 +7204,9 @@ msgid ""
 "world’s rulers of darkness of this age, and against the spiritual forces of "
 "the wickedness in the heavenly places that are warring against the %1$s "
 "people."
-msgstr "父啊，我禱告要攻擊那些執政的、掌權的、管轄這幽暗世界的，以及天空屬靈氣的惡魔"
-"，他們在世人面前爭戰。"
+msgstr ""
+"父啊，我禱告要攻擊那些執政的、掌權的、管轄這幽暗世界的，以及天空屬靈氣的惡"
+"魔，他們在世人面前爭戰。"
 
 #: pages/pray/stacker-text.php:2800
 #, fuzzy, php-format
@@ -6999,7 +7214,8 @@ msgid ""
 "Jesus, I pray that all the %1$s people will remember and turn to you, Lord "
 "God. May all the %2$s people worship before you. For the kingdom of the %3$s "
 "people is yours."
-msgstr "耶穌，我祈求所有%1$s人民都能記念你，歸向你，主神。願所有%2$s人民都敬拜祢。因"
+msgstr ""
+"耶穌，我祈求所有%1$s人民都能記念你，歸向你，主神。願所有%2$s人民都敬拜祢。因"
 "為%3$s人民的國度是祢的。"
 
 #: pages/pray/stacker-text.php:2804
@@ -7008,7 +7224,8 @@ msgid ""
 "Lord God, I thank you that the blood of Christ, who through the eternal "
 "Spirit offered himself without defect to God, can cleanse the %1$s people "
 "conscience from dead works to serve the living God."
-msgstr "主神，我感謝你，基督的寶血藉著永恆的靈將自己無瑕疵地獻給神，能洗淨人的良心，"
+msgstr ""
+"主神，我感謝你，基督的寶血藉著永恆的靈將自己無瑕疵地獻給神，能洗淨人的良心，"
 "除去人的死行，使人能侍奉那永生神。"
 
 #: pages/pray/stacker-text.php:2808
@@ -7030,8 +7247,9 @@ msgstr "主啊，願祢的國降臨在世人中間。願祢的旨意行在地上
 msgid ""
 "Lord, remember the %1$s people. Make the %2$s people a chosen race, a royal "
 "priesthood, a holy nation, a people for your own possession."
-msgstr "主啊，求祢記念這%1$s族人，將他們立為蒙揀選的族類，作君尊的祭司，作聖潔的國度"
-"，作你屬靈的子民。"
+msgstr ""
+"主啊，求祢記念這%1$s族人，將他們立為蒙揀選的族類，作君尊的祭司，作聖潔的國"
+"度，作你屬靈的子民。"
 
 #: pages/pray/stacker-text.php:2820
 #, fuzzy, php-format
@@ -7039,7 +7257,8 @@ msgid ""
 "Father, I pray that the %1$s people will not be afraid or ashamed. Prevent "
 "them from being confounded or disappointed in their search for you. May the "
 "%2$s people know you."
-msgstr "父啊，我祈求%1$s人民不懼怕，不羞愧。求祢使他們在尋覓祢的過程中，不至於困惑或"
+msgstr ""
+"父啊，我祈求%1$s人民不懼怕，不羞愧。求祢使他們在尋覓祢的過程中，不至於困惑或"
 "失望。願%2$s人民認識你。"
 
 #: pages/pray/stacker-text.php:2824
@@ -8195,7 +8414,8 @@ msgstr "這就是再見嗎？"
 msgid ""
 "We understand life gets busy, but your prayers make an impact. We'd love to "
 "have you back whenever you're ready."
-msgstr "我們理解生活忙碌，但您的祈禱會帶來影響。無論您何時準備好，我們都歡迎您再次光"
+msgstr ""
+"我們理解生活忙碌，但您的祈禱會帶來影響。無論您何時準備好，我們都歡迎您再次光"
 "臨。"
 
 #, fuzzy
