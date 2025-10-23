@@ -825,6 +825,24 @@ class PG_Badges {
                     'priority' => $this->priorities[self::ID_STREAK],
                     'progression_badges' => [
                         [
+                            'id' => 'streak_14',
+                            'title' => sprintf( __( '%d Perfect Weeks', 'prayer-global-porch' ), 2 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d weeks straight', 'prayer-global-porch' ), 2 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d weeks straight', 'prayer-global-porch' ), 2 ),
+                            'value' => 14,
+                            'image' => 'streak_14.png',
+                            'bw_image' => 'streak_14_bw.png',
+                        ],
+                        [
+                            'id' => 'streak_35',
+                            'title' => sprintf( __( '%d Perfect Weeks', 'prayer-global-porch' ), 5 ),
+                            'description_unearned' => sprintf( __( 'Earn this badge by praying for %d weeks straight', 'prayer-global-porch' ), 5 ),
+                            'description_earned' => sprintf( __( 'You earned this badge by praying for %d weeks straight', 'prayer-global-porch' ), 5 ),
+                            'value' => 35,
+                            'image' => 'streak_35.png',
+                            'bw_image' => 'streak_35_bw.png',
+                        ],
+                        [
                             'id' => 'streak_70',
                             'title' => sprintf( __( '%d Perfect Weeks', 'prayer-global-porch' ), 10 ),
                             'description_unearned' => sprintf( __( 'Earn this badge by praying for %d weeks straight', 'prayer-global-porch' ), 10 ),

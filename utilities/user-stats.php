@@ -194,7 +194,7 @@ class User_Stats {
     public function total_finished_relays_part_of(): int {
         global $wpdb;
 
-        return (int) $wpdb->get_var( $wpdb->prepare(
+        $total_relays = $wpdb->get_var( $wpdb->prepare(
             "SELECT COUNT( DISTINCT( CONCAT( r.post_id, '-', r.value ) ) )
                 FROM $wpdb->dt_reports r
                 JOIN $wpdb->postmeta pm ON pm.post_id = r.post_id
@@ -210,7 +210,9 @@ class User_Stats {
                     AND r2.lap_number = r.value
                     AND r2.post_type = 'pg_relays'
                 )
-        ", 'user-' . $this->user_id ) );
+            ", 'user-' . $this->user_id, $this->user_id ) );
+
+        return (int) $total_relays;
     }
 
     /* Count number of finished relays started */
@@ -282,7 +284,7 @@ class User_Stats {
         return $max_streak;
     }
 
-    private function all_islands( int $in_days = 1 ): array {
+    public function all_islands( int $in_days = 1 ): array {
         global $wpdb;
 
         return $wpdb->get_results( $wpdb->prepare(
