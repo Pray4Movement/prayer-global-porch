@@ -179,6 +179,8 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'best' => esc_html__( 'Best', 'prayer-global-porch' ),
                 'weeks_in_a_row' => esc_html__( 'Weeks in a row', 'prayer-global-porch' ),
                 'days_this_year' => esc_html__( 'Days this year', 'prayer-global-porch' ),
+                'weeks' => esc_html__( 'Weeks', 'prayer-global-porch' ),
+                'months' => esc_html__( 'Months', 'prayer-global-porch' ),
                 'days' => esc_html__( 'Days', 'prayer-global-porch' ),
                 'minutes_prayed' => esc_html__( 'Minutes prayed', 'prayer-global-porch' ),
                 'places_prayed_for' => esc_html__( 'Places prayed for', 'prayer-global-porch' ),

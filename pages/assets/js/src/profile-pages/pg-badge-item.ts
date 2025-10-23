@@ -221,10 +221,21 @@ export class PgBadgeItem extends OpenElement {
                           <div class="progress-bar" data-small>
                               <div class="progress-bar__slider blue-highlight-bg" style="width: ${this.badge.progression_value / this.currentBadge.value * 100}%"></div>
                           </div>
-                          <span class="progress-bar__text">${this.badge.progression_value}/${this.currentBadge.value}</span>
                           ${
-                            this.badge.id.startsWith('streak') ? html`
-                              <span class="progress-bar__text">${window.jsObject.translations.days}</span>
+                            !this.badge.id.startsWith('streak') ? html`
+                              <span class="progress-bar__text">${this.badge.progression_value}/${this.currentBadge.value}</span>
+                            ` : ''
+                          }
+                          ${
+                            this.badge.id.startsWith('streak') && this.currentBadge.value % 30 === 0 ? html`
+                              <span class="progress-bar__text">${Math.round(this.badge.progression_value / 30)}/${this.currentBadge.value / 30}</span>
+                              <span class="progress-bar__text">${window.jsObject.translations.months}</span>
+                            ` : ''
+                          }
+                          ${
+                            this.badge.id.startsWith('streak') && this.currentBadge.value % 30 !== 0 ? html`
+                              <span class="progress-bar__text">${Math.round(this.badge.progression_value / 7)}/${Math.round(this.currentBadge.value / 7)}</span>
+                              <span class="progress-bar__text">${window.jsObject.translations.weeks}</span>
                             ` : ''
                           }
                         </div>
