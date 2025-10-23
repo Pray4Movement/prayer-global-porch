@@ -66,4 +66,4 @@ echo 'Pushing new tag to master'
 git add .
 git commit -m "Release ${version}"
 git tag ${version}
-git push --tags origin master
+git push --tags origin dev
