@@ -155,7 +155,7 @@ class PG_Badge_Manager {
         foreach ( $all_badges as &$badge ) {
             if ( $badge->get_type() === PG_Badges::TYPE_PROGRESSION ) {
                 if ( str_starts_with( $badge->get_id(), PG_Badges::ID_STREAK ) ) {
-                    $streak_value = $this->user_stats->best_streak_in_days();
+                    $streak_value = $this->user_stats->current_streak_in_days();
                     $badge->set_progression_value( $streak_value );
                 }
                 if ( str_starts_with( $badge->get_id(), PG_Badges::ID_LOCATION ) ) {
