@@ -119,10 +119,10 @@ class PG_Give_Badges extends PG_Public_Page {
 
     public function give_team_location_badges( WP_REST_Request $request ) {
         $count = $request->get_param( 'count' );
+        $batch_size = $request->get_param( 'batch_size' ) ?? 50;
         $users = get_users();
         $total = count( $users );
 
-        $batch_size = 100;
         $users = array_slice( $users, $count, $batch_size );
 
         foreach ( $users as $user ) {
@@ -252,6 +252,10 @@ class PG_Give_Badges extends PG_Public_Page {
                 </div>
 
                 <div class="flow-small">
+                    <div>
+                        <label for="batch-size">Batch Size</label>
+                        <input type="number" id="batch-size" value="50">
+                    </div>
                     <button class="btn btn-primary" id="give-badges">Give Badges</button>
                     <button class="btn btn-primary" id="give-perfect-badges">Give Multiple Perfect X Badges</button>
                     <button class="btn btn-primary" id="give-streak-badges">Give 2 & 5 Week streak Badges</button>
@@ -320,8 +324,9 @@ class PG_Give_Badges extends PG_Public_Page {
             })
 
             document.querySelector('#give-team-location-badges').addEventListener('click', () => {
+                const batchSize = document.querySelector('#batch-size').value;
                 const giveBadges = (count = 0) => {
-                    return fetch(jsObject.rest_url + '/give-team-location-badges?count=' + count, {
+                    return fetch(jsObject.rest_url + '/give-team-location-badges?count=' + count + '&batch_size=' + batchSize, {
                         headers: {
                             'Content-Type': 'application/json',
                             'X-WP-Nonce': jsObject.nonce,
