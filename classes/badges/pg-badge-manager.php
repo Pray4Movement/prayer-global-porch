@@ -166,7 +166,7 @@ class PG_Badge_Manager {
                     $prayer_mobilizer_value = $this->user_stats->num_people_joined_own_relay();
                     $badge->set_progression_value( $prayer_mobilizer_value );
                 }
-                if ( str_starts_with( $badge->get_id(), PG_Badges::ID_RELAY_LOCATION ) ) {
+                if ( str_starts_with( $badge->get_id(), PG_Badges::ID_TEAM_LOCATION ) ) {
                     $relay_location_value = $this->user_stats->total_locations_prayed_in_own_relay();
                     $badge->set_progression_value( $relay_location_value );
                 }

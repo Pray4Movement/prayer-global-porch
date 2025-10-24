@@ -41,6 +41,11 @@ class PG_Give_Badges extends PG_Public_Page {
             'callback' => [ $this, 'give_streak_badges' ],
             'permission_callback' => [ $this, 'permission_callback' ],
         ] );
+        register_rest_route( $this->rest_route, '/give-team-location-badges', [
+            'methods' => 'GET',
+            'callback' => [ $this, 'give_team_location_badges' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
         register_rest_route( $this->rest_route, '/clear-retroactive-badges', [
             'methods' => 'GET',
             'callback' => [ $this, 'clear_retroactive_badges' ],
@@ -112,6 +117,26 @@ class PG_Give_Badges extends PG_Public_Page {
         }
     }
 
+    public function give_team_location_badges() {
+        $users = get_users();
+        foreach ( $users as $user ) {
+            $has_given_team_location_badges = get_user_meta( $user->ID, 'give-team-location-badges-progress', true );
+            if ( $has_given_team_location_badges ) {
+                continue;
+            }
+            if ( pg_is_user_in_ab_test( $user->ID ) ) {
+                continue;
+            }
+            $badge_manager = new PG_Badge_Manager( $user->ID );
+            $newly_earned_badges = $badge_manager->get_newly_earned_badges_array();
+            foreach ( $newly_earned_badges as $badge ) {
+                if ( str_starts_with( $badge['id'], PG_Badges::ID_TEAM_LOCATION ) ) {
+                    $badge_manager->earn_badge( $badge['id'], retroactive: true );
+                }
+            }
+            add_user_meta( $user->ID, 'give-team-location-badges-progress', 1, true );
+        }
+    }
     public function give_streak_badges() {
         $users = get_users();
         foreach ( $users as $user ) {
@@ -217,6 +242,7 @@ class PG_Give_Badges extends PG_Public_Page {
                     <button class="btn btn-primary" id="give-badges">Give Badges</button>
                     <button class="btn btn-primary" id="give-perfect-badges">Give Multiple Perfect X Badges</button>
                     <button class="btn btn-primary" id="give-streak-badges">Give 2 & 5 Week streak Badges</button>
+                    <button class="btn btn-primary" id="give-team-location-badges">Give team location badges</button>
 
                     <button class="btn btn-primary" id="clear-retroactive-badges">Clear Retroactive Badges</button>
                 </div>
@@ -265,6 +291,21 @@ class PG_Give_Badges extends PG_Public_Page {
 
             document.querySelector('#give-streak-badges').addEventListener('click', () => {
                 fetch(jsObject.rest_url + '/give-streak-badges', {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-WP-Nonce': jsObject.nonce,
+                    },
+                })
+                    .then((response) => response.json())
+                    .then((response) => {
+                        const progressDiv = document.createElement('div')
+                        progressDiv.innerHTML = 'Processed ' + response.count + ' users'
+                        progressList.appendChild(progressDiv)
+                    })
+            })
+
+            document.querySelector('#give-team-location-badges').addEventListener('click', () => {
+                fetch(jsObject.rest_url + '/give-team-location-badges', {
                     headers: {
                         'Content-Type': 'application/json',
                         'X-WP-Nonce': jsObject.nonce,

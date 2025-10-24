@@ -6,7 +6,7 @@ class PG_Badges {
     const ID_MONTHLY_CHALLENGE = 'monthly_challenge';
     const ID_LOCATION = 'location';
     const ID_PRAYER_MOBILIZER = 'prayer_mobilizer';
-    const ID_RELAY_LOCATION = 'relay_location';
+    const ID_TEAM_LOCATION = 'team_location';
     const ID_WHOLE_WORLD = 'whole_world';
     const ID_COMEBACK_CHAMPION = 'comeback_champion';
     const ID_TEAM_PLAYER = 'team_player';
@@ -38,7 +38,7 @@ class PG_Badges {
             self::ID_PERFECT_WEEK => 2,
             self::ID_PRAYER_MOBILIZER => 3,
             self::ID_STREAK => 4,
-            self::ID_RELAY_LOCATION => 6,
+            self::ID_TEAM_LOCATION => 6,
             self::ID_RELAY_COMPLETED_PARTICIPANT => 10,
             self::ID_RELAY_COMPLETED_ORGANIZER => 10,
         ];
@@ -574,9 +574,9 @@ class PG_Badges {
                     ],
                 ],
                 [
-                    'id' => self::ID_RELAY_LOCATION,
+                    'id' => self::ID_TEAM_LOCATION,
                     'type' => self::TYPE_PROGRESSION,
-                    'priority' => $this->priorities[self::ID_RELAY_LOCATION],
+                    'priority' => $this->priorities[self::ID_TEAM_LOCATION],
                     'progression_badges' => [
                         [
                             'id' => 'team_location_100',
