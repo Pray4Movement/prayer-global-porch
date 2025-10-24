@@ -117,9 +117,16 @@ class PG_Give_Badges extends PG_Public_Page {
         }
     }
 
-    public function give_team_location_badges() {
+    public function give_team_location_badges( WP_REST_Request $request ) {
+        $count = $request->get_param( 'count' );
         $users = get_users();
+        $total = count( $users );
+
+        $batch_size = 100;
+        $users = array_slice( $users, $count, $batch_size );
+
         foreach ( $users as $user ) {
+            $count++;
             $has_given_team_location_badges = get_user_meta( $user->ID, 'give-team-location-badges-progress', true );
             if ( $has_given_team_location_badges ) {
                 continue;
@@ -136,6 +143,10 @@ class PG_Give_Badges extends PG_Public_Page {
             }
             add_user_meta( $user->ID, 'give-team-location-badges-progress', 1, true );
         }
+        return new WP_REST_Response([
+            'count' => $count,
+            'total' => $total,
+        ]);
     }
     public function give_streak_badges() {
         $users = get_users();
@@ -178,6 +189,8 @@ class PG_Give_Badges extends PG_Public_Page {
         wp_localize_script( 'global-functions', 'jsObject', [
             'rest_url' => esc_url( rest_url( 'pg/give-badges' ) ),
             'nonce' => wp_create_nonce( 'wp_rest' ),
+            // does the url start with prayer.global?
+            'is_live' => str_starts_with( $_SERVER['REQUEST_URI'], 'https://prayer.global' ),
             'translations' => [
                 'invalid_credentials' => esc_html__( 'Invalid email or password. Please try again.', 'prayer-global-porch' ),
                 'email_not_found' => esc_html__( 'Email not found. Please register.', 'prayer-global-porch' ),
@@ -244,7 +257,9 @@ class PG_Give_Badges extends PG_Public_Page {
                     <button class="btn btn-primary" id="give-streak-badges">Give 2 & 5 Week streak Badges</button>
                     <button class="btn btn-primary" id="give-team-location-badges">Give team location badges</button>
 
-                    <button class="btn btn-primary" id="clear-retroactive-badges">Clear Retroactive Badges</button>
+                    <?php if ( !str_starts_with( $_SERVER['REQUEST_URI'], 'https://prayer.global' ) ): ?>
+                        <button class="btn btn-primary" id="clear-retroactive-badges">Clear Retroactive Badges</button>
+                    <?php endif; ?>
                 </div>
                 <div class="progress-list"></div>
 
@@ -305,18 +320,26 @@ class PG_Give_Badges extends PG_Public_Page {
             })
 
             document.querySelector('#give-team-location-badges').addEventListener('click', () => {
-                fetch(jsObject.rest_url + '/give-team-location-badges', {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-WP-Nonce': jsObject.nonce,
-                    },
-                })
-                    .then((response) => response.json())
-                    .then((response) => {
-                        const progressDiv = document.createElement('div')
-                        progressDiv.innerHTML = 'Processed ' + response.count + ' users'
-                        progressList.appendChild(progressDiv)
+                const giveBadges = (count = 0) => {
+                    return fetch(jsObject.rest_url + '/give-team-location-badges?count=' + count, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-WP-Nonce': jsObject.nonce,
+                        },
                     })
+                        .then((response) => response.json())
+                        .then((response) => {
+                            const progressDiv = document.createElement('div')
+                            progressDiv.innerHTML = 'Processed ' + response.count + ' users'
+                            progressList.appendChild(progressDiv)
+
+                            if ( response.count < response.total ) {
+                                giveBadges(response.count);
+                            }
+                        })
+                }
+                giveBadges();
+
             })
 
             document.querySelector('#clear-retroactive-badges').addEventListener('click', () => {
