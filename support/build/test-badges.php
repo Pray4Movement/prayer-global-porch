@@ -115,7 +115,21 @@ class PG_Test_Badges extends PG_Public_Page {
             unset( $prayer['time_begin'] );
             unset( $prayer['time_end'] );
             $prayer['user_id'] = $user_id;
-            $prayer['timestamp'] = $timestamp;
+            $prayer['post_id'] = (int) $prayer['post_id'];
+            $prayer['post_type'] = (string) $prayer['post_type'];
+            $prayer['lap_number'] = (int) $prayer['lap_number'];
+            $prayer['global_lap_number'] = (int) $prayer['global_lap_number'];
+            $prayer['type'] = (string) $prayer['type'];
+            $prayer['subtype'] = (string) $prayer['subtype'];
+            $prayer['payload'] = (string) $prayer['payload'];
+            $prayer['value'] = (int) $prayer['value'];
+            $prayer['lng'] = (float) $prayer['lng'];
+            $prayer['lat'] = (float) $prayer['lat'];
+            $prayer['level'] = (string) $prayer['level'];
+            $prayer['label'] = (string) $prayer['label'];
+            $prayer['grid_id'] = (int) $prayer['grid_id'];
+            $prayer['timestamp'] = (int) $timestamp;
+            $prayer['hash'] = (string) $prayer['hash'];
             $prayer['timezone_timestamp'] = gmdate( 'Y-m-d H:i:s', $timestamp );
             $values = array_merge( $values, array_values( $prayer ) );
         }

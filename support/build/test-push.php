@@ -164,14 +164,28 @@ class PG_Test_Push extends PG_Public_Page {
         $place_holders = [];
         for ( $i = 0; $i < $days; $i++ ) {
             $timestamp = strtotime( "-{$i} days" );
-            $place_holders[] = '( %d, %d, %s, %d, %d, %s, %s, %s, %d, %f, %f, %s, %s, %s, %d, %s, %s )';
+            $place_holders[] = '( %d, %d, %s, %d, %d, %s, %s, %s, %d, %f, %f, %s, %s, %d, %d, %s, %s )';
             $prayer = $prayers[ $i ];
             unset( $prayer['id'] );
             unset( $prayer['parent_id'] );
             unset( $prayer['time_begin'] );
             unset( $prayer['time_end'] );
             $prayer['user_id'] = $user_id;
-            $prayer['timestamp'] = $timestamp;
+            $prayer['post_id'] = (int) $prayer['post_id'];
+            $prayer['post_type'] = (string) $prayer['post_type'];
+            $prayer['lap_number'] = (int) $prayer['lap_number'];
+            $prayer['global_lap_number'] = (int) $prayer['global_lap_number'];
+            $prayer['type'] = (string) $prayer['type'];
+            $prayer['subtype'] = (string) $prayer['subtype'];
+            $prayer['payload'] = (string) $prayer['payload'];
+            $prayer['value'] = (int) $prayer['value'];
+            $prayer['lng'] = (float) $prayer['lng'];
+            $prayer['lat'] = (float) $prayer['lat'];
+            $prayer['level'] = (string) $prayer['level'];
+            $prayer['label'] = (string) $prayer['label'];
+            $prayer['grid_id'] = (int) $prayer['grid_id'];
+            $prayer['timestamp'] = (int) $timestamp;
+            $prayer['hash'] = (string) $prayer['hash'];
             $prayer['timezone_timestamp'] = gmdate( 'Y-m-d H:i:s', $timestamp );
             $values = array_merge( $values, array_values( $prayer ) );
         }
