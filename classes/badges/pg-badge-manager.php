@@ -259,24 +259,28 @@ class PG_Badge_Manager {
                     $now_date = new DateTime();
                     $now_date->setTimezone( new DateTimeZone( $this->user_stats->location['time_zone'] ?? 'UTC' ) );
                     $diff_in_days = (int) $now_date->diff( $badge_date )->format( '%a' );
+
+                    if ( $badge->is_retroactive() ) {
+                        $diff_in_days = 1000000;
+                    }
                 }
                 if (
                     $badge->get_id() === PG_Badges::ID_PERFECT_WEEK &&
-                    $this->user_stats->current_streak_in_days() === 7 &&
+                    $this->user_stats->current_streak_in_days() % 7 === 0 &&
                     $diff_in_days >= 7 - 1
                 ) {
                     $newly_earned_badges[] = $badge;
                 }
                 if (
                     $badge->get_id() === PG_Badges::ID_PERFECT_MONTH &&
-                    $this->user_stats->current_streak_in_days() === 30 &&
+                    $this->user_stats->current_streak_in_days() % 30 === 0 &&
                     $diff_in_days >= 30 - 1
                 ) {
                     $newly_earned_badges[] = $badge;
                 }
                 if (
                     $badge->get_id() === PG_Badges::ID_PERFECT_YEAR &&
-                    $this->user_stats->current_streak_in_days() === 365 &&
+                    $this->user_stats->current_streak_in_days() % 365 === 0 &&
                     $diff_in_days >= 365 - 1
                 ) {
                     $newly_earned_badges[] = $badge;
