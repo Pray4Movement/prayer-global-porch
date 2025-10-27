@@ -266,6 +266,7 @@ class PG_Badge_Manager {
                 }
                 if (
                     $badge->get_id() === PG_Badges::ID_PERFECT_WEEK &&
+                    $this->user_stats->current_streak_in_days() > 0 &&
                     $this->user_stats->current_streak_in_days() % 7 === 0 &&
                     $diff_in_days >= 7 - 1
                 ) {
@@ -273,6 +274,7 @@ class PG_Badge_Manager {
                 }
                 if (
                     $badge->get_id() === PG_Badges::ID_PERFECT_MONTH &&
+                    $this->user_stats->current_streak_in_days() > 0 &&
                     $this->user_stats->current_streak_in_days() % 30 === 0 &&
                     $diff_in_days >= 30 - 1
                 ) {
@@ -280,6 +282,7 @@ class PG_Badge_Manager {
                 }
                 if (
                     $badge->get_id() === PG_Badges::ID_PERFECT_YEAR &&
+                    $this->user_stats->current_streak_in_days() > 0 &&
                     $this->user_stats->current_streak_in_days() % 365 === 0 &&
                     $diff_in_days >= 365 - 1
                 ) {

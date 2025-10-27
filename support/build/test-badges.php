@@ -108,7 +108,7 @@ class PG_Test_Badges extends PG_Public_Page {
         $place_holders = [];
         for ( $i = 0; $i < $days; $i++ ) {
             $timestamp = strtotime( "-{$i} days" );
-            $place_holders[] = '( %d, %d, %s, %d, %d, %s, %s, %s, %d, %f, %f, %s, %s, %s, %d, %s, %s )';
+            $place_holders[] = '( %d, %d, %s, %d, %d, %s, %s, %s, %d, %f, %f, %s, %s, %d, %d, %s, %s )';
             $prayer = $prayers[ $i ];
             unset( $prayer['id'] );
             unset( $prayer['parent_id'] );
