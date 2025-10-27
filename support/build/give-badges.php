@@ -123,23 +123,21 @@ class PG_Give_Badges extends PG_Public_Page {
     }
 
     public function correct_perfect_badges( WP_REST_Request $request ) {
-        $dry_run = $request->get_param( 'dry_run' ) ?? false;
+        $dry_run = false;
+        if ( $request->get_param( 'dry_run' ) ) {
+            $dry_run = true;
+        }
         $batch_size = $request->get_param( 'batch_size' ) ?? 50;
         $count = $request->get_param( 'count' ) ?? 0;
         $users = get_users();
         $total = count( $users );
 
-        $users_that_need_correction = [
-            17250,
-            17998,
-        ];
+        $users = array_slice( $users, $count, $batch_size );
+
         foreach ( $users as $user ) {
             $count++;
-            if ( !in_array( $user->ID, $users_that_need_correction ) ) {
-                continue;
-            }
             $has_correct_perfect_badges = get_user_meta( $user->ID, 'correct-perfect-badges-progress', true );
-            if ( !$dry_run ) {
+            if ( $dry_run ) {
                 $has_correct_perfect_badges = false;
             }
             if ( $has_correct_perfect_badges ) {
@@ -481,7 +479,11 @@ class PG_Give_Badges extends PG_Public_Page {
                 const dryRun = document.querySelector('#dry-run').checked;
                 const batchSize = document.querySelector('#batch-size').value;
                 const correctPerfectBadges = (count = 0) => {
-                    return fetch(jsObject.rest_url + '/correct-perfect-badges?dry_run=' + dryRun + '&batch_size=' + batchSize + '&count=' + count, {
+                    let url = jsObject.rest_url + '/correct-perfect-badges?batch_size=' + batchSize + '&count=' + count
+                    if ( dryRun ) {
+                        url += '&dry_run=1';
+                    }
+                    return fetch(url, {
                         headers: {
                             'Content-Type': 'application/json',
                             'X-WP-Nonce': jsObject.nonce,
