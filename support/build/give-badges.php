@@ -129,9 +129,15 @@ class PG_Give_Badges extends PG_Public_Page {
         $users = get_users();
         $total = count( $users );
 
-        $users = array_slice( $users, $count, $batch_size );
+        $users_that_need_correction = [
+            17250,
+            17998,
+        ];
         foreach ( $users as $user ) {
             $count++;
+            if ( !in_array( $user->ID, $users_that_need_correction ) ) {
+                continue;
+            }
             $has_correct_perfect_badges = get_user_meta( $user->ID, 'correct-perfect-badges-progress', true );
             if ( !$dry_run ) {
                 $has_correct_perfect_badges = false;
