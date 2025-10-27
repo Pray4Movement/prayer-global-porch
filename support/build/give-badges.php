@@ -46,6 +46,11 @@ class PG_Give_Badges extends PG_Public_Page {
             'callback' => [ $this, 'give_team_location_badges' ],
             'permission_callback' => [ $this, 'permission_callback' ],
         ] );
+        register_rest_route( $this->rest_route, '/correct-perfect-badges', [
+            'methods' => 'GET',
+            'callback' => [ $this, 'correct_perfect_badges' ],
+            'permission_callback' => [ $this, 'permission_callback' ],
+        ] );
         register_rest_route( $this->rest_route, '/clear-retroactive-badges', [
             'methods' => 'GET',
             'callback' => [ $this, 'clear_retroactive_badges' ],
@@ -115,6 +120,120 @@ class PG_Give_Badges extends PG_Public_Page {
             }
             add_user_meta( $user->ID, 'give-perfect-badges-progress', 1, true );
         }
+    }
+
+    public function correct_perfect_badges( WP_REST_Request $request ) {
+        $dry_run = $request->get_param( 'dry_run' ) ?? false;
+        $batch_size = $request->get_param( 'batch_size' ) ?? 50;
+        $count = $request->get_param( 'count' ) ?? 0;
+        $users = get_users();
+        $total = count( $users );
+
+        $users = array_slice( $users, $count, $batch_size );
+        foreach ( $users as $user ) {
+            $count++;
+            $has_correct_perfect_badges = get_user_meta( $user->ID, 'correct-perfect-badges-progress', true );
+            if ( !$dry_run ) {
+                $has_correct_perfect_badges = false;
+            }
+            if ( $has_correct_perfect_badges ) {
+                continue;
+            }
+            if ( pg_is_user_in_ab_test( $user->ID ) ) {
+                continue;
+            }
+
+            $badge_manager = new PG_Badge_Manager( $user->ID );
+            $all_earned_badges = $badge_manager->get_all_badges();
+            $total_perfect_weeks = 0;
+            $total_perfect_months = 0;
+            $total_perfect_years = 0;
+            foreach ( $all_earned_badges as $badge ) {
+                if ( $badge->get_type() === PG_Badges::ID_PERFECT_WEEK ) {
+                    $total_perfect_weeks = $badge->get_num_times_earned();
+                }
+                if ( $badge->get_type() === PG_Badges::ID_PERFECT_MONTH ) {
+                    $total_perfect_months = $badge->get_num_times_earned();
+                }
+                if ( $badge->get_type() === PG_Badges::ID_PERFECT_YEAR ) {
+                    $total_perfect_years = $badge->get_num_times_earned();
+                }
+            }
+            $user_stats = new User_Stats( $user->ID );
+            $all_islands = $user_stats->all_islands();
+            $total_perfect_weeks_correct = 0;
+            $total_perfect_months_correct = 0;
+            $total_perfect_years_correct = 0;
+            foreach ( $all_islands as $island ) {
+                if ( $island['island_days'] >= 7 ) {
+                    for ( $i = 0; $i < $island['island_days'] / 7; $i++ ) {
+                        $total_perfect_weeks_correct++;
+                    }
+                }
+                if ( $island['island_days'] >= 30 ) {
+                    for ( $i = 0; $i < $island['island_days'] / 30; $i++ ) {
+                        $total_perfect_months_correct++;
+                    }
+                }
+                if ( $island['island_days'] >= 365 ) {
+                    for ( $i = 0; $i < $island['island_days'] / 365; $i++ ) {
+                        $total_perfect_years_correct++;
+                    }
+                }
+            }
+            $result = [
+                'perfect_weeks' => [],
+                'perfect_months' => [],
+                'perfect_years' => [],
+            ];
+            if ( $total_perfect_weeks < $total_perfect_weeks_correct ) {
+                if ( $dry_run ) {
+                    $result['perfect_weeks'][$user->ID] = [
+                        'user_id' => $user->ID,
+                        'total_perfect_weeks' => $total_perfect_weeks,
+                        'total_perfect_weeks_correct' => $total_perfect_weeks_correct,
+                    ];
+                } else {
+                    for ( $i = 0; $i < abs( $total_perfect_weeks - $total_perfect_weeks_correct ); $i++ ) {
+                        $badge_manager->earn_badge( 'perfect_week', retroactive: true );
+                    }
+                }
+            }
+            if ( $total_perfect_months < $total_perfect_months_correct ) {
+                if ( $dry_run ) {
+                    $result['perfect_months'][$user->ID] = [
+                        'user_id' => $user->ID,
+                        'total_perfect_months' => $total_perfect_months,
+                        'total_perfect_months_correct' => $total_perfect_months_correct,
+                    ];
+                } else {
+                    for ( $i = 0; $i < abs( $total_perfect_months - $total_perfect_months_correct ); $i++ ) {
+                        $badge_manager->earn_badge( 'perfect_month', retroactive: true );
+                    }
+                }
+            }
+            if ( $total_perfect_years < $total_perfect_years_correct ) {
+                if ( $dry_run ) {
+                    $result['perfect_years'][$user->ID] = [
+                        'user_id' => $user->ID,
+                        'total_perfect_years' => $total_perfect_years,
+                        'total_perfect_years_correct' => $total_perfect_years_correct,
+                    ];
+                } else {
+                    for ( $i = 0; $i < abs( $total_perfect_years - $total_perfect_years_correct ); $i++ ) {
+                            $badge_manager->earn_badge( 'perfect_year', retroactive: true );
+                    }
+                }
+            }
+            if ( !$dry_run ) {
+                add_user_meta( $user->ID, 'correct-perfect-badges-progress', 1, true );
+            }
+        }
+        return new WP_REST_Response([
+            'result' => $result,
+            'count' => $count,
+            'total' => $total,
+        ]);
     }
 
     public function give_team_location_badges( WP_REST_Request $request ) {
@@ -256,10 +375,15 @@ class PG_Give_Badges extends PG_Public_Page {
                         <label for="batch-size">Batch Size</label>
                         <input type="number" id="batch-size" value="50">
                     </div>
+                    <div>
+                        <label for="dry-run">Dry Run</label>
+                        <input type="checkbox" id="dry-run" checked>
+                    </div>
                     <button class="btn btn-primary" id="give-badges">Give Badges</button>
                     <button class="btn btn-primary" id="give-perfect-badges">Give Multiple Perfect X Badges</button>
                     <button class="btn btn-primary" id="give-streak-badges">Give 2 & 5 Week streak Badges</button>
                     <button class="btn btn-primary" id="give-team-location-badges">Give team location badges</button>
+                    <button class="btn btn-primary" id="correct-perfect-badges">Correct Perfect X Badges</button>
 
                     <?php if ( !str_starts_with( $_SERVER['REQUEST_URI'], 'https://prayer.global' ) ): ?>
                         <button class="btn btn-primary" id="clear-retroactive-badges">Clear Retroactive Badges</button>
@@ -347,6 +471,33 @@ class PG_Give_Badges extends PG_Public_Page {
 
             })
 
+            document.querySelector('#correct-perfect-badges').addEventListener('click', () => {
+                const dryRun = document.querySelector('#dry-run').checked;
+                const batchSize = document.querySelector('#batch-size').value;
+                const correctPerfectBadges = (count = 0) => {
+                    return fetch(jsObject.rest_url + '/correct-perfect-badges?dry_run=' + dryRun + '&batch_size=' + batchSize + '&count=' + count, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-WP-Nonce': jsObject.nonce,
+                        },
+                    })
+                        .then((response) => response.json())
+                        .then((response) => {
+                            const progressDiv = document.createElement('div')
+                            progressDiv.innerHTML = 'Processed ' + response.count + ' users'
+
+                            if ( response.result.perfect_weeks.length > 0 || response.result.perfect_months.length > 0 || response.result.perfect_years.length > 0 ) {
+                                progressDiv.innerHTML += '<pre>' + JSON.stringify(response.result, null, 2) + '</pre>';
+                            }
+
+                            progressList.appendChild(progressDiv);
+                            if ( response.count < response.total ) {
+                                correctPerfectBadges(response.count);
+                            }
+                        });
+                };
+                correctPerfectBadges();
+            });
             document.querySelector('#clear-retroactive-badges').addEventListener('click', () => {
                 fetch(jsObject.rest_url + '/clear-retroactive-badges', {
                     headers: {
