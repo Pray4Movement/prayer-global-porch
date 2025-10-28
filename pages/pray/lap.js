@@ -389,53 +389,6 @@ function celebrateAndDone() {
                 </a>
               `;
           milestonesContainer.insertAdjacentElement("afterend", divContainer);
-        } else if ( !window.pg_global.is_logged_in ) {
-          // Or if they aren't logged in, we will encourage them to sign up
-          celebrateContentContainer.innerHTML = `
-            <hr class="seperator-thick">
-            <div class="flow">
-              <h3 class="text-center">
-                ${jsObject.translations.create_your_own_free_login}
-              </h3>
-              <ul class="flow center-block" role="list">
-                <li class="space-out">
-                    <svg class="icon-sm">
-                      <use href="${jsObject.spritesheet_url}#pg-relay"></use>
-                    </svg>
-                    ${jsObject.translations.join_and_create_custom_prayer_relays}
-                </li>
-                <li class="space-out">
-                    <svg class="icon-sm">
-                      <use href="${jsObject.spritesheet_url}#pg-prayer"></use>
-                    </svg>
-                    ${jsObject.translations.view_your_interactive_prayer_history}
-                </li>
-                <li class="space-out">
-                    <svg class="icon-sm">
-                      <use href="${jsObject.spritesheet_url}#pg-streak"></use>
-                    </svg>
-                    ${jsObject.translations.prayer_streaks_badges_and_more}
-                </li>
-              </ul>
-              <a
-                href="/register"
-                class="center btn bg-orange"
-                id="celebrate-panel__done"
-                data-umami-event="Pray - Register now"
-              >
-                ${jsObject.translations.register_now}
-              </a>
-            </div>
-            <hr class="seperator-thick">
-            <a
-              href="${getHomeUrl()}"
-              class="center btn outline space-lg"
-              id="celebrate-panel__done"
-              data-umami-event="Pray - No thanks"
-            >
-              ${jsObject.translations.no_thanks}
-            </a>
-          `;
         }
       })
       .then(() => {
@@ -445,6 +398,52 @@ function celebrateAndDone() {
           </a>
         `;
       });
+  } else {
+    celebrateContentContainer.innerHTML = `
+    <hr class="seperator-thick">
+    <div class="flow">
+      <h3 class="text-center">
+        ${jsObject.translations.create_your_own_free_login}
+      </h3>
+      <ul class="flow center-block" role="list">
+        <li class="space-out">
+            <svg class="icon-sm">
+              <use href="${jsObject.spritesheet_url}#pg-relay"></use>
+            </svg>
+            ${jsObject.translations.join_and_create_custom_prayer_relays}
+        </li>
+        <li class="space-out">
+            <svg class="icon-sm">
+              <use href="${jsObject.spritesheet_url}#pg-prayer"></use>
+            </svg>
+            ${jsObject.translations.view_your_interactive_prayer_history}
+        </li>
+        <li class="space-out">
+            <svg class="icon-sm">
+              <use href="${jsObject.spritesheet_url}#pg-streak"></use>
+            </svg>
+            ${jsObject.translations.prayer_streaks_badges_and_more}
+        </li>
+      </ul>
+      <a
+        href="/register"
+        class="center btn bg-orange"
+        id="celebrate-panel__done"
+        data-umami-event="Pray - Register now"
+      >
+        ${jsObject.translations.register_now}
+      </a>
+    </div>
+    <hr class="seperator-thick">
+    <a
+      href="${getHomeUrl()}"
+      class="center btn outline space-lg"
+      id="celebrate-panel__done"
+      data-umami-event="Pray - No thanks"
+    >
+      ${jsObject.translations.no_thanks}
+    </a>
+  `;
   }
 }
 
