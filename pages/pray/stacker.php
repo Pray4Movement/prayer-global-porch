@@ -16,6 +16,9 @@ class PG_Stacker {
 
         // BUILD FACTS
         $stack = self::_stack_query( $grid_id );
+        if ( empty( $stack ) ) {
+            return [];
+        }
 
         /**************************/
         // PRAYER CONCEPTS
@@ -297,9 +300,9 @@ class PG_Stacker {
             WHERE g.grid_id = %s
         ", $grid_id ), ARRAY_A );
 
-
-        dt_write_log( '--- recently promised locations query ---' );
-        dt_write_log( $wpdb->last_query );
+        if ( empty( $grid_record ) ) {
+            return [];
+        }
 
         // build the description
         if ( 'admin1' === $grid_record['level_name'] ) {

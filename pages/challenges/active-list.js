@@ -31,7 +31,7 @@ window.addEventListener("load", function () {
     jQuery.each(data, function (i, v) {
       const lapNumber = v.lap_number || "1";
 
-      let prayHref = `/prayer_app/custom/${v.lap_key}`;
+      let prayHref = `/${v.lap_key}/pray`;
       if (v.event_lap && v.event_lap === "1") {
         const url = new URL(pg_active_list.api_url);
         const siteOrigin = new URL(location.href).host;
@@ -54,13 +54,13 @@ window.addEventListener("load", function () {
                                   <a href="${prayHref}">${
           translations.pray
         }</a> |
-                                  <a href="/prayer_app/custom/${
+                                  <a href="/${
                                     v.lap_key
                                   }/map">${translations.map}</a> |
-                                  <a href="/prayer_app/custom/${
+                                  <a href="/${
                                     v.lap_key
                                   }/tools">${translations.sharing}</a> |
-                                  <a href="/prayer_app/custom/${
+                                  <a href="/${
                                     v.lap_key
                                   }/display">${translations.display}</a>
                                 </td>
@@ -77,7 +77,7 @@ window.addEventListener("load", function () {
                                 <td>${v.stats.participants}</td>
                                 <td>${v.stats.time_elapsed_small}</td>
                                 <td style="text-align:right;">
-                                  <a href="/prayer_app/custom/${
+                                  <a href="/${
                                     v.lap_key
                                   }/map">${translations.map}</a>
                                 </td>

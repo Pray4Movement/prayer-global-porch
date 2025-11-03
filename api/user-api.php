@@ -314,13 +314,13 @@ class PG_User_API {
     public static function get_user_locations_prayed_for_endpoint( WP_REST_Request $request ){
         $params = $request->get_params();
         $params = dt_recursive_sanitize_array( $params );
-        if ( !isset( $params['parts']['public_key'] ) ){
+        if ( !isset( $params['relay_key'] ) ){
             return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
         }
 
-        $key = $params['parts']['public_key'];
+        $key = $params['relay_key'];
 
-        $hash = $params['data']['hash'] ?? false;
+        $hash = $params['hash'] ?? false;
         if ( empty( $hash ) ) {
             return [];
         }

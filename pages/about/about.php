@@ -1,16 +1,11 @@
 <?php
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
-class Prayer_Global_About extends DT_Magic_Url_Base
+class Prayer_Global_About extends PG_Public_Page
 {
-    public $magic = false;
-    public $parts = false;
+    public $url_path = 'about';
     public $page_title = 'Global Prayer - About';
-    public $root = 'content_app';
-    public $type = 'about_page';
-    public $type_name = 'Global Prayer - About';
-    public static $token = 'content_app_about';
-    public $post_type = 'laps';
+    public $url_parts;
 
     private static $_instance = null;
     public static function instance() {
@@ -21,42 +16,18 @@ class Prayer_Global_About extends DT_Magic_Url_Base
     } // End instance()
 
     public function __construct() {
-        parent::__construct();
+        $this->url_path = dt_get_url_path( true );
+        $this->url_parts = explode( '/', $this->url_path );
 
-        $url = dt_get_url_path();
-        if ( ( $this->root . '/' . $this->type ) === $url ) {
-
-            $this->magic = new DT_Magic_URL( $this->root );
-            $this->parts = $this->magic->parse_url_parts();
-
-
-            // register url and access
-            add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
-            add_filter( 'dt_blank_access', function (){ return true;
-            }, 100, 1 );
-            add_filter( 'dt_allow_non_login_access', function (){ return true;
-            }, 100, 1 );
-            add_filter( 'dt_override_header_meta', function (){ return true;
-            }, 100, 1 );
-
-            // header content
-            add_filter( 'dt_blank_title', [ $this, 'page_tab_title' ] ); // adds basic title to browser tab
-            add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 1500 ); // authorizes scripts
-            add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
-
-
-            // page content
-            add_action( 'dt_blank_head', [ $this, '_header' ] );
-            add_action( 'dt_blank_footer', [ $this, '_footer' ] );
-            add_action( 'dt_blank_body', [ $this, 'body' ] ); // body for no post key
-
-            add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
-            add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
+        if ( $this->url_path !== 'about' ) {
+            return;
         }
+
+        parent::__construct();
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        return [];
+        return $allowed_js;
     }
 
     public function dt_magic_url_base_allowed_css( $allowed_css ) {
@@ -174,7 +145,7 @@ class Prayer_Global_About extends DT_Magic_Url_Base
                             </p>
                         </div>
                         <div class="border-bottom border-brand-light flow-small">
-                            <h4 class="uppercase font-weight-bold d-flex justify-content-center align-items-center gap-3"><i class="icon pg-world-dark icon-small"></i><a href="/race_app/race_map/"><?php echo esc_html( __( 'Race Map', 'prayer-global-porch' ) ) ?></a></h4>
+                            <h4 class="uppercase font-weight-bold d-flex justify-content-center align-items-center gap-3"><i class="icon pg-world-dark icon-small"></i><a href="/race-map/"><?php echo esc_html( __( 'Race Map', 'prayer-global-porch' ) ) ?></a></h4>
                             <p>
                                 <?php echo esc_html( __( 'The Race map shows the number of laps, number of minutes, and number of prayer intercessors for the entire challenge.', 'prayer-global-porch' ) ) ?>
                             </p>
@@ -254,5 +225,8 @@ class Prayer_Global_About extends DT_Magic_Url_Base
         <?php require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/working-footer.php' ) ?>
         <?php
     }
+
+
+    public function wp_enqueue_scripts(){}
 }
 Prayer_Global_About::instance();

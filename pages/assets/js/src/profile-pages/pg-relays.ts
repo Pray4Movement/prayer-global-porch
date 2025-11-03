@@ -127,7 +127,7 @@ export class PgRelays extends OpenElement {
                             unhide: this.translations.unhide,
                           }}"
                           spritesheetUrl="${window.jsObject.spritesheet_url}"
-                          urlRoot="/prayer_app/${relay.relay_type}/${relay.lap_key}"
+                          urlRoot="/${relay.lap_key}"
                           @hide=${() => this.handleHide(relay)}
                           @unhide=${() => this.handleUnhide(relay)}
                           @edit=${() => this.openEditRelayModal(relay.post_id)}

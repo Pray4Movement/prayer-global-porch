@@ -239,7 +239,7 @@ require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . '/assets/nav.php' 
 
                 </div>
                 <div class="d-flex my-4 gap-2">
-                <a href="/race_app/race_map/" role="button" class="btn smoothscroll btn-primary uppercase flex-grow-1"><?php echo esc_html( __( 'Race Map', 'prayer-global-porch' ) ) ?></a>
+                <a href="/race-map/" role="button" class="btn smoothscroll btn-primary uppercase flex-grow-1"><?php echo esc_html( __( 'Race Map', 'prayer-global-porch' ) ) ?></a>
                 <a href="/race_app/race_list/" role="button" class="btn smoothscroll btn-primary uppercase flex-grow-1"><?php echo esc_html( __( 'Race List', 'prayer-global-porch' ) ) ?></a>
                 </div>
 

@@ -614,7 +614,7 @@
                                 class="p-0 icon-button share-button two-rem d-flex"
                                 data-toggle="modal"
                                 data-target="#exampleModal"
-                                data-url=${`${window.location.origin}/prayer_app/${e.relay_type}/${e.lap_key}`}
+                                data-url=${`${window.location.origin}/${e.lap_key}/pray`}
                               >
                                 <svg class="icon-sm white">
                                   <use
@@ -623,7 +623,7 @@
                                 </svg>
                               </button>
                               <a
-                                href=${`/prayer_app/${e.relay_type}/${e.lap_key}`}
+                                href=${`/${e.lap_key}/pray`}
                                 class="btn btn-cta"
                               >
                                 ${this.translations.pray}
@@ -917,7 +917,7 @@
                           ?isOwner=${t.is_owner==="1"}
                           .translations="${{lap:this.translations.lap,pray:this.translations.pray,map:this.translations.map,share:this.translations.share,display:this.translations.display,edit:this.translations.edit,hide:this.translations.hide,unhide:this.translations.unhide}}"
                           spritesheetUrl="${window.jsObject.spritesheet_url}"
-                          urlRoot="/prayer_app/${t.relay_type}/${t.lap_key}"
+                          urlRoot="/${t.lap_key}"
                           @hide=${()=>this.handleHide(t)}
                           @unhide=${()=>this.handleUnhide(t)}
                           @edit=${()=>this.openEditRelayModal(t.post_id)}

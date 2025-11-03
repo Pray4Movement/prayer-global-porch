@@ -131,7 +131,7 @@ class Prayer_Global_Porch_Stats_Race_List extends DT_Magic_Url_Base
             <div class="container text-center">
                 <div class="row">
                     <div class="col text-center">
-                        <a href="/race_app/race_map/" role="button" class="btn smoothscroll btn-xl btn-primary rounded"><?php echo esc_html__( 'Race Map', 'prayer-global-porch' ) ?></a>
+                        <a href="/race-map/" role="button" class="btn smoothscroll btn-xl btn-primary rounded"><?php echo esc_html__( 'Race Map', 'prayer-global-porch' ) ?></a>
                     </div>
                 </div>
             </div>

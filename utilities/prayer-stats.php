@@ -67,7 +67,7 @@ class Prayer_Stats {
     }
 
 
-    public static function get_lap_stats( int $relay_id, $relay_key = null, int $lap_number = null ){
+    public static function get_lap_stats( int $relay_id, $relay_key = null, $lap_number = null ){
         global $wpdb;
         $post_title = get_the_title( $relay_id );
 
@@ -177,30 +177,58 @@ class Prayer_Stats {
         return self::get_lap_stats( $relay_id, $relay_key, $lap_number );
     }
 
-    public static function get_relay_current_lap_map_stats( $relay_key ){
+    public static function get_relay_current_lap_map_stats( $relay_key, $lap_number = null ){
         global $wpdb;
 
-        /* If the lap is a single lap, then only get the stats for lap 1 */
-        $relay_id = pg_get_relay_id( $relay_key );
-        $is_single_lap = get_post_meta( $relay_id, 'single_lap', true );
-        if ( $is_single_lap ){
-            $lap_number = 1;
+        if ( $relay_key === self::$global_key ) {
+            $current_lap_number = self::get_relay_lap_number();
+            if ( $lap_number === null || (int) $lap_number === $current_lap_number ) {
+                $locations = $wpdb->get_col( $wpdb->prepare(
+                    "SELECT grid_id
+                    FROM $wpdb->dt_reports
+                    WHERE global_lap_number = %d
+                    AND post_type = 'pg_relays'
+                ", $current_lap_number ) );
+            }
+
+            if ( $lap_number < $current_lap_number ) {
+                $locations = pg_query_4770_locations();
+            } else if ( $lap_number > $current_lap_number ) {
+                $locations = [];
+            }
+
+            $data = pg_query_4770_locations();
+
+            foreach ( $data as $key ) {
+                if ( in_array( $key, $locations ) ) {
+                    $data[$key] = 1;
+                } else {
+                    $data[$key] = 0;
+                }
+            }
+            return $data;
         } else {
-            $lap_number = self::get_relay_lap_number( $relay_key );
-        }
+            /* If the lap is a single lap, then only get the stats for lap 1 */
+            $relay_id = pg_get_relay_id( $relay_key );
+            $is_single_lap = get_post_meta( $relay_id, 'single_lap', true );
+            if ( $is_single_lap ){
+                $lap_number = 1;
+            } else {
+                $lap_number = self::get_relay_lap_number( $relay_key );
+            }
+            $locations = $wpdb->get_results( $wpdb->prepare(
+                "SELECT grid_id,
+                IF ( total > %d, 1, 0 ) as completed
+                FROM $wpdb->dt_relays
+                WHERE relay_key = %s
+            ", $lap_number - 1, $relay_key ), ARRAY_A );
 
-        $locations = $wpdb->get_results( $wpdb->prepare(
-            "SELECT grid_id,
-            IF ( total > %d, 1, 0 ) as completed
-            FROM $wpdb->dt_relays
-            WHERE relay_key = %s
-        ", $lap_number - 1, $relay_key ), ARRAY_A );
-
-        $data = [];
-        foreach ( $locations as $location ){
-            $data[$location['grid_id']] = (int) $location['completed'];
+            $data = [];
+            foreach ( $locations as $location ){
+                $data[$location['grid_id']] = (int) $location['completed'];
+            }
+            return $data;
         }
-        return $data;
     }
 
     public static function get_relay_lap_map_participants( $relay_id, $relay_key, $lap_number = null ){

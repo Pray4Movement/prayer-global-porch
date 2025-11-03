@@ -2,18 +2,16 @@
 if ( !defined( 'ABSPATH' ) ) { exit; } // Exit if accessed directly.
 
 
-class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
+class Prayer_Global_Porch_Stats_Race_Map extends PG_Public_Page
 {
-    public $magic = false;
-    public $parts = false;
+    public $url_path = 'race-map';
     public $page_title = 'Global Prayer Map';
-    public $root = 'race_app';
-    public $type = 'race_map';
-    public $type_name = 'Global Prayer Stats';
-    public static $token = 'race_app_race_map';
-    public $post_type = 'laps';
     public $map_type = 'heatmap';
     public $details_type = 'community_stats';
+    public $relay_key = '49ba4c';
+    public $relay_id = 2128;
+    public $url_parts;
+    public $custom_relay = false;
 
     private static $_instance = null;
     public static function instance() {
@@ -24,48 +22,19 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
     } // End instance()
 
     public function __construct() {
+        $url_path = dt_get_url_path( true );
+        $this->url_parts = explode( '/', $url_path );
+        $this->custom_relay = isset( $this->url_parts[0] ) && $this->url_parts[0] !== $this->relay_key && $this->url_parts[0] !== 'race-map';
+
+        if ( $url_path !== 'race-map' && ( !isset( $this->url_parts[1] ) || $this->url_parts[1] !== 'race-map' ) ) {
+            return;
+        }
+        $this->url_path = $url_path;
+
         parent::__construct();
-
-        $url = dt_get_url_path();
-        if ( ( $this->root . '/' . $this->type ) === $url ) {
-
-            $this->magic = new DT_Magic_URL( $this->root );
-            $this->parts = $this->magic->parse_url_parts();
-
-            // register url and access
-            add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
-            add_filter( 'dt_blank_access', function (){ return true;
-            }, 100, 1 );
-            add_filter( 'dt_allow_non_login_access', function (){ return true;
-            }, 100, 1 );
-            add_filter( 'dt_override_header_meta', function (){ return true;
-            }, 100, 1 );
-
-            // header content
-            add_filter( 'dt_blank_title', [ $this, 'page_tab_title' ] ); // adds basic title to browser tab
-            add_action( 'wp_print_scripts', [ $this, 'print_scripts' ], 1500 ); // authorizes scripts
-            add_action( 'wp_print_styles', [ $this, 'print_styles' ], 1500 ); // authorizes styles
-
-            // page content
-            add_action( 'dt_blank_body', [ $this, 'body' ] ); // body for no post key
-
-            add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
-            add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
-
-            add_action( 'wp_enqueue_scripts', [ $this, '_wp_enqueue_scripts' ], 100 );
-
-            add_filter( 'dt_override_header_meta', function (){ return true;
-            }, 100, 1 );
-        }
-
-        if ( dt_is_rest() ) {
-            add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
-            add_filter( 'dt_allow_rest_access', [ $this, 'authorize_url' ], 10, 1 );
-        }
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
-        $allowed_js = [];
         $allowed_js[] = 'jquery-touch-punch';
         $allowed_js[] = 'mapbox-gl';
         $allowed_js[] = 'jquery-cookie';
@@ -96,10 +65,12 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
         ?>
         <script>
             let jsObject = [<?php echo json_encode([
-                'parts' => $this->parts,
+                // 'parts' => [],
+                'relay_key' => $this->relay_key,
+                'relay_id' => $this->relay_id,
                 'grid_data' => [],
                 'participants' => [],
-                'stats' => $this->get_stats(),
+                'stats' => Prayer_Stats::get_relay_current_lap_stats( $this->relay_key, $this->relay_id ),
                 'image_folder' => plugin_dir_url( __DIR__ ) . 'assets/images/',
                 'translations' => [],
                 'map_type' => $this->map_type,
@@ -115,7 +86,7 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
     }
 
     public function body(){
-        $lap_stats = $this->get_stats();
+        $lap_stats = Prayer_Stats::get_relay_current_lap_stats( $this->relay_key, $this->relay_id );
         $finished_laps = number_format( (int) $lap_stats['lap_number'] - 1 );
         DT_Mapbox_API::geocoder_scripts();
         ?>
@@ -209,158 +180,8 @@ class Prayer_Global_Porch_Stats_Race_Map extends DT_Magic_Url_Base
         <?php
     }
 
-    public function _wp_enqueue_scripts(){
+    public function wp_enqueue_scripts(){
         pg_heatmap_scripts( null );
-    }
-
-    /**
-     * Register REST Endpoints
-     * @link https://github.com/DiscipleTools/disciple-tools-theme/wiki/Site-to-Site-Link for outside of wordpress authentication
-     */
-    public function add_endpoints() {
-        $namespace = $this->root . '/v1';
-        register_rest_route(
-            $namespace,
-            '/'.$this->type,
-            [
-                [
-                    'methods'  => WP_REST_Server::CREATABLE,
-                    'callback' => [ $this, 'endpoint' ],
-                ],
-            ]
-        );
-    }
-
-    public function endpoint( WP_REST_Request $request ) {
-        $params = $request->get_params();
-
-        if ( ! isset( $params['parts'], $params['action'] ) ) {
-            return new WP_Error( __METHOD__, 'Missing parameters', [ 'status' => 400 ] );
-        }
-
-        switch ( $params['action'] ) {
-            case 'get_stats':
-                return $this->get_stats();
-            case 'get_grid':
-                return [
-                    'grid_data' => $this->get_grid( $params['parts'] ),
-                    'participants' => $this->get_participants( $params['parts'] ),
-                ];
-            case 'get_grid_stats':
-                if ( isset( $params['data']['grid_id'] ) ) {
-                    return PG_Stacker::build_location_stats( $params['data']['grid_id'] );
-                }
-                return false;
-
-            case 'get_grid_details':
-                if ( isset( $params['data']['grid_id'] ) ) {
-                    return PG_Stacker::build_location_stack( $params['data']['grid_id'] );
-                }
-                return false;
-
-            case 'get_participants':
-                return $this->get_participants( $params['parts'] );
-            case 'get_user_locations':
-                return $this->get_user_locations( $params['parts'], $params['data'] );
-            default:
-                return new WP_Error( __METHOD__, 'missing action parameter' );
-        }
-    }
-
-    public function get_stats(){
-
-        global $wpdb;
-        $result = $wpdb->get_row( "
-            SELECT
-            MIN( r.timestamp ) as start_time,
-            MAX( r.timestamp ) as end_time,
-            COUNT( DISTINCT( r.grid_id ) ) as locations_completed,
-            SUM( r.value ) as minutes_prayed,
-            COUNT( DISTINCT( r.hash ) ) as participants,
-            COUNT( DISTINCT( r.label ) ) as participant_country_count
-            FROM $wpdb->dt_reports r
-            WHERE r.post_type = 'pg_relays'
-        ", ARRAY_A);
-
-
-        $global_lap = Prayer_Stats::get_relay_current_lap();
-        $data = [
-            'tile' => '',
-            'lap_number' => (int) $global_lap['lap_number'],
-            'start_time' => (int) $result['start_time'],
-            'end_time' => (int) $result['end_time'],
-            'on_going' => true,
-            'locations_completed' => (int) $result['locations_completed'],
-            'minutes_prayed' => (int) $result['minutes_prayed'],
-            'participants' => (int) $result['participants'],
-            'participant_country_count' => (int) $result['participant_country_count'],
-
-        ];
-        return _pg_stats_builder( $data );
-    }
-
-    public function get_grid( $parts ) {
-        global $wpdb;
-
-        $locations = $wpdb->get_results(
-            "SELECT grid_id, count(*) as completed
-            FROM $wpdb->dt_reports
-            WHERE post_type = 'pg_relays'
-            AND type = 'prayer_app'
-            GROUP BY grid_id
-        ", ARRAY_A );
-
-        $data = [];
-        foreach ( $locations as $location ){
-            $data[$location['grid_id']] = (int) $location['completed'];
-        }
-
-        return [
-            'data' => $data,
-        ];
-    }
-
-    public function get_participants( $parts ){
-        global $wpdb;
-
-
-        $locations = $wpdb->get_results(
-            "SELECT r.lng as longitude, r.lat as latitude, r.hash
-            FROM $wpdb->dt_reports r
-            WHERE r.type = 'prayer_app'
-            AND r.lng IS NOT NULL
-            GROUP BY r.hash
-        ", ARRAY_A );
-
-        $data = [];
-        foreach ( $locations as $location ){
-            $data[] = [ 'longitude' => (float) $location['longitude'], 'latitude' => (float) $location['latitude'] ];
-        }
-        return $data;
-    }
-
-    public function get_user_locations( $parts, $data ){
-        global $wpdb;
-        // Query based on hash
-        $hash = $data['hash'];
-        if ( empty( $hash ) ) {
-            return [];
-        }
-        $post_id = pg_get_relay_id( '49ba4c' );
-
-        $user_locations_raw  = $wpdb->get_results( $wpdb->prepare( "
-           SELECT lg.longitude, lg.latitude
-           FROM $wpdb->dt_reports r
-           INNER JOIN $wpdb->dt_location_grid lg ON lg.grid_id = r.grid_id
-           WHERE r.post_type = 'pg_relays'
-                AND r.type = 'prayer_app'
-                AND r.hash = %s
-                AND r.label IS NOT NULL
-                AND lg.longitude IS NOT NULL
-                AND lg.latitude IS NOT NULL
-        ", $hash, $post_id  ), ARRAY_A );
-
-        return $user_locations_raw;
     }
 }
 Prayer_Global_Porch_Stats_Race_Map::instance();

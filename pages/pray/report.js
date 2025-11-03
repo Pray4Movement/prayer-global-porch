@@ -51,19 +51,15 @@ window.load_report_modal = () => {
     correction_submit.setAttribute("disabled", true);
 
     fetch(
-      window.pg_global.root +
-        jsObject.parts.root +
-        "/v1/" +
-        jsObject.parts.type,
+      `${jsObject.rest_route}prayer-global/prayer/correction`,
       {
         method: "POST",
         body: JSON.stringify({
-          action: "correction",
-          parts: jsObject.parts,
           data: data,
         }),
         headers: {
-          ContentType: "application/json; charset=utf-8",
+          "Content-Type": "application/json",
+          "X-WP-Nonce": pg_global.nonce,
         },
       }
     ).then((response) => {

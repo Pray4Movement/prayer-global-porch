@@ -5,6 +5,7 @@ DEBUG = false
 
 window.seconds = ONE_MINUTE;
 window.items = 7;
+window.hasGridId = false;
 
 const contentElement = document.querySelector("#content");
 const mapElement = document.querySelector("#location-map");
@@ -66,10 +67,22 @@ async function init() {
   window.time = 0;
   window.randomLogSeconds = 30 + 30 * Math.random();
   window.secondsTilLog = 60;
+  // Check if grid_id is in the URL and store it
+  const url = new URL(window.location.href);
+  window.hasGridId = url.searchParams.has("grid_id");
 
   displayLocationCount();
 
   const location = await waitForLocation();
+  if (location.length === 0) {
+
+    document.querySelector(".prayer-content").innerHTML = `
+      <div class="flow center">
+        <h1>${jsObject.translations.location_not_found}</h1>
+      </div>
+    `;
+    return;
+  }
   jsObject.location = location;
   const currentPace = localStorage.getItem("pg_pace") || 1;
 
@@ -441,7 +454,7 @@ function celebrateAndDone() {
       id="celebrate-panel__done"
       data-umami-event="Pray - No thanks"
     >
-      ${jsObject.translations.no_thanks}
+      ${jsObject.translations.map}
     </a>
   `;
   }
@@ -541,12 +554,15 @@ function startTimer(time) {
           nonce: jsObject.nonce,
           user_id: jsObject.user_id || null,
           grid_id: jsObject.location.location.grid_id,
-          relay_key: jsObject.parts.public_key,
-          relay_id: jsObject.parts.post_id,
+          relay_key: jsObject.relay_key,
+          relay_id: jsObject.relay_id,
           pace: window.pace,
-          parts: jsObject.parts,
           user_location: window.user_location,
           language: user_language || "en_US",
+          parts: {
+            root: "prayer_app",
+            type: jsObject.is_custom ? 'custom' : 'global',
+          },
         }),
       })
         .then((res) => {
@@ -580,6 +596,11 @@ function startTimer(time) {
       show(questionPanel);
       hide(prayingPanel);
 
+      // Hide the Next button if grid_id is in the URL
+      if (window.hasGridId && nextButton) {
+        hide(nextButton);
+      }
+
       prayingProgress.style.width = 0;
     }
 
@@ -588,15 +609,10 @@ function startTimer(time) {
     }
     if (window.tick > 60) {
       window.api_fetch(
-        window.pg_global.root +
-          jsObject.parts.root +
-          "/v1/" +
-          jsObject.parts.type,
+        `${jsObject.rest_route}prayer-global/prayer/increment-prayer-time`,
         {
           method: "POST",
           body: JSON.stringify({
-            action: "increment_prayer_time",
-            parts: jsObject.parts,
             data: {
               report_id: window.pg_report_id,
             },
@@ -732,7 +748,7 @@ function waitForLocation() {
         return gridId;
       }
 
-      const relayKey = jsObject.parts.public_key;
+      const relayKey = jsObject.relay_key;
       return fetch(
         `${jsObject.direct_api_url}/next-location.php?relay_key=${relayKey}&nonce=${jsObject.nonce}`
       )
@@ -822,6 +838,11 @@ function renderContent(content) {
 }
 function renderMap(content) {
   const { location } = content;
+  if (!location.grid_id) {
+    //hide map
+    mapElement.remove();
+    return;
+  }
 
   const imageSrc = jsObject.cache_url + "maps/" + location.grid_id + ".jpg";
   const bgImg = new Image();
