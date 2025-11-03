@@ -152,7 +152,7 @@ ul li {
     position: relative;
 }
 
-ul li:before {
+ul:not(.dtr-details) li:before {
     content: "●";
     font-size: 1.5em;
     position: absolute;
