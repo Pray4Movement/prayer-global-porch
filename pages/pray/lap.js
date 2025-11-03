@@ -689,7 +689,7 @@ function ip_location() {
       })
       .then(() => {
         // If the user is logged in, then save the location to the user
-        if (window.pg_global.user) {
+        if (window.pg_global.is_logged_in) {
           return window.api_fetch(
             `${window.pg_global.root}pg-api/v1/user/save_details`,
             {
