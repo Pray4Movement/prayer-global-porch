@@ -109,6 +109,14 @@ class Prayer_Stats {
         //phpcs:ignore
         $result = $wpdb->get_row( $wpdb->prepare( $sql, $args ), ARRAY_A);
 
+
+        if ( $result['start_time'] === null ){
+            $start_time = get_post_meta( $relay_id, 'start_time', true );
+            if ( !empty( $start_time ) ){
+                $result['start_time'] = $start_time;
+            }
+        }
+
         $ongoing = $lap_number === $current_lap_number;
         $end_time = $ongoing ? null : (int) $result['end_time'];
 
