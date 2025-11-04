@@ -184,8 +184,13 @@ class User_Stats {
         return (int) $wpdb->get_var( $wpdb->prepare(
             "SELECT COUNT( DISTINCT( r.post_id ) ) as total_relays_part_of
                 FROM $wpdb->dt_reports r
-                JOIN $wpdb->postmeta pm ON pm.post_id = r.post_id AND pm.meta_key = 'assigned_to' AND pm.meta_value != %s
+                LEFT JOIN $wpdb->postmeta pm ON pm.post_id = r.post_id AND pm.meta_key = 'assigned_to'
                 WHERE r.post_type = 'pg_relays'
+                AND r.subtype = 'custom'
+                AND (
+                    pm.meta_value != %s
+                    OR pm.meta_value IS NULL
+                )
                 AND r.user_id = %s
             ", 'user-' . $this->user_id, $this->user_id ) );
     }
