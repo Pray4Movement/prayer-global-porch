@@ -513,6 +513,16 @@ function toggleTimer(pause) {
   }
 }
 
+function getLanguageFromCookie() {
+  const language = document.cookie
+    .split("; dt-magic-link-lang=")[1]
+    ?.split(";")[0];
+  if (!language) {
+    return "en_US";
+  }
+  return language;
+}
+
 function startTimer(time) {
   if (!time) {
     window.time = 0;
@@ -529,9 +539,7 @@ function startTimer(time) {
       }
       /* send log */
       const url = `${jsObject.direct_api_url}update-location.php`;
-      const user_language = `; ${document.cookie}`
-        .split("; dt-magic-link-lang=")[1]
-        ?.split(";")[0];
+      const user_language = getLanguageFromCookie();
       fetch(url, {
         method: "POST",
         headers: {
@@ -755,7 +763,7 @@ function waitForLocation() {
         //const jsonUrl = jsObject.json_folder + '100000002' + '.json'
         //const jsonUrl = jsObject.json_folder + '100000003' + '.json'
         //const jsonUrl = `/wp-json/prayer-global/fuel/${gridId}`;
-        const jsonUrl = jsObject.cache_url + "json/" + jsObject.language + "/" + gridId + ".json";
+        const jsonUrl = jsObject.cache_url + "json/" + getLanguageFromCookie() + "/" + gridId + ".json";
 
         return fetch(jsonUrl)
           .then((response) => {
