@@ -514,13 +514,10 @@ function toggleTimer(pause) {
 }
 
 function getLanguageFromCookie() {
-  const language = document.cookie
-    .split("; dt-magic-link-lang=")[1]
-    ?.split(";")[0];
-  if (!language) {
+  if (!document.cookie.includes("dt-magic-link-lang=")) {
     return "en_US";
   }
-  return language;
+  return document.cookie.split("dt-magic-link-lang=")[1].split(";")[0];
 }
 
 function startTimer(time) {
