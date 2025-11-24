@@ -19,6 +19,10 @@ class Prayer_Global_Porch_Home2 extends DT_Magic_Url_Base
     } // End instance()
 
     public function __construct() {
+        if ( wp_doing_cron() ){
+            return;
+        }
+
         add_action( 'wp_enqueue_scripts', [ $this, 'wp_enqueue_scripts' ], 100 );
         parent::__construct();
 
