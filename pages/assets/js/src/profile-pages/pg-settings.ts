@@ -107,7 +107,6 @@ export class PgSettings extends OpenElement {
     this.showEditAccount = false;
   }
   private editAccount() {
-    // TO DO: implement account saving logic here
     this.user.display_name = this.name;
     this.saving = true;
 
@@ -128,7 +127,6 @@ export class PgSettings extends OpenElement {
       this.user = { ...this.user, location: data["location"] };
     }
 
-    // For example, you could make an API call to save the account data
     window
       .api_fetch(`${window.pg_global.root}pg-api/v1/user/save_details`, {
         method: "POST",
@@ -173,6 +171,24 @@ export class PgSettings extends OpenElement {
     const selectedLocation = (event.target as HTMLInputElement).value;
     if (selectedLocation[0]) {
       this.user.location = selectedLocation[0] as unknown as Location;
+
+      if (!this.user.location.timezone) {
+
+        fetch(`https://maps.googleapis.com/maps/api/timezone/json?location=${this.user.location.lat}%2C${this.user.location.lng}&timestamp=${Date.now() / 1000}&key=AIzaSyApELjt2wi4E4uvzeal3jz-QPa6KaP3_NQ`, {
+          method: "GET",
+        })
+        .then((response) => response.json())
+        .then((response: any) => {
+          if (response) {
+            if (response.status !== "OK") {
+              this.user.location.timezone = response.timeZoneId;
+            }
+            this.editAccount();
+          }
+        });
+      } else {
+        this.editAccount();
+      }
     }
   }
 

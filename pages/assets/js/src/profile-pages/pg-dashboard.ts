@@ -1,7 +1,7 @@
 import { html, PropertyValues, render } from "lit";
 import { customElement, state } from "lit/decorators.js";
 import { OpenElement } from "./open-element";
-import { User, Relay } from "../interfaces";
+import { User, Relay, Location } from "../interfaces";
 
 @customElement("pg-dashboard")
 export class PgDashboard extends OpenElement {
@@ -221,18 +221,30 @@ export class PgDashboard extends OpenElement {
     `;
   }
 
+  private saveLocationToLocalStorage(location: Location) {
+    localStorage.setItem(
+      "user_location",
+      JSON.stringify(location)
+    );
+  }
+
   private async getLocationFromIP() {
-    const saved_location = localStorage.getItem("user_location");
-    this.user.location = saved_location ? JSON.parse(saved_location) : null;
-    if (this.user.location?.hash) {
-      this.user.location_hash = this.user.location.hash;
+
+    if (!this.user || !this.user.location) {
+      const saved_location = localStorage.getItem("user_location");
+      this.user.location = saved_location ? JSON.parse(saved_location) : null;
+      if (this.user.location?.hash) {
+        this.user.location_hash = this.user.location.hash;
+      }
+    } else {
+      this.saveLocationToLocalStorage(this.user.location);
     }
 
     if (
       !this.user.location ||
       (this.user.location.date_set &&
         this.user.location.date_set <
-          Date.now() - 604800000) /*7 days in milliseconds*/ ||
+          Date.now() - 7 * 24 * 60 * 60 * 1000) ||
       !this.user.location.timezone
     ) {
       await window
@@ -261,24 +273,22 @@ export class PgDashboard extends OpenElement {
             }
             this.user.location.hash = pg_user_hash;
 
-            localStorage.setItem(
-              "user_location",
-              JSON.stringify(this.user.location)
-            );
+            this.saveLocationToLocalStorage(this.user.location);
           }
         });
+
+        await window.api_fetch(
+          `${window.pg_global.root}pg-api/v1/dashboard/save_location`,
+          {
+            method: "POST",
+            body: JSON.stringify({
+              location_hash: this.user.location_hash,
+              location: this.user.location,
+            }),
+          }
+        );
     }
 
-    await window.api_fetch(
-      `${window.pg_global.root}pg-api/v1/dashboard/save_location`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          location_hash: this.user.location_hash,
-          location: this.user.location,
-        }),
-      }
-    );
     this.requestUpdate();
   }
 

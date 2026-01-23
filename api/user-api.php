@@ -139,11 +139,18 @@ class PG_User_API {
             $lng = (float) $location['lng'];
             $label = sanitize_text_field( wp_unslash( $location['label'] ) );
 
-            $grid_row = $geocoder->get_grid_id_by_lnglat( $lng, $lat );
-
             $old_location = get_user_meta( get_current_user_id(), PG_NAMESPACE . 'location', true );
 
-            $timezone = self::_get_timezone_from_grid_id( 2, $grid_row['admin2_grid_id'] );
+            if ( !isset( $location['timezone'] ) || empty( $location['timezone'] ) ) {
+                $grid_row = $geocoder->get_grid_id_by_lnglat( $lng, $lat );
+                $timezone = self::_get_timezone_from_grid_id( grid_id: $grid_row['admin1_grid_id'], name: $grid_row['name'] );
+
+                if ( empty( $timezone ) ) {
+                    $timezone = self::_get_timezone_from_grid_id( grid_id: $grid_row['admin1_grid_id'], level: 1  );
+                }
+            } else {
+                $timezone = $location['timezone'];
+            }
 
             $location['grid_id'] = $grid_row ? $grid_row['grid_id'] : false;
             $location['lat'] = strval( $lat );
@@ -169,7 +176,7 @@ class PG_User_API {
     /**
      * Private utility function to get the timezone from the admin0 level of the grid_id
      */
-    private static function _get_timezone_from_grid_id( $level, $grid_id ) {
+    private static function _get_timezone_from_grid_id( $grid_id ,$level = -1, $name = '' ) {
         global $wpdb;
 
         if ( $level === 0 ) {
@@ -178,6 +185,10 @@ class PG_User_API {
             $where = 'admin1_grid_id = %s';
         } else if ( $level === 2 ) {
             $where = 'admin2_grid_id = %s';
+        } else if ( !empty( $name ) ) {
+            $where = 'name = %s';
+        } else {
+            return '';
         }
 
         //phpcs:ignore
