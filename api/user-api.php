@@ -141,6 +141,17 @@ class PG_User_API {
 
             $old_location = get_user_meta( get_current_user_id(), PG_NAMESPACE . 'location', true );
 
+            $hash = '';
+            if ( empty( $old_location ) || !isset( $old_location['hash'] ) ) {
+                if ( isset( $location['hash'] ) ) {
+                    $hash = $location['hash'];
+                } else {
+                    $hash = hash( 'sha256', serialize( $old_location ) . mt_rand( 1000000, 10000000000000000 ) );
+                }
+            } else {
+                $hash = $old_location['hash'];
+            }
+
             if ( !isset( $location['timezone'] ) || empty( $location['timezone'] ) ) {
                 $grid_row = $geocoder->get_grid_id_by_lnglat( $lng, $lat );
                 $timezone = self::_get_timezone_from_grid_id( grid_id: $grid_row['admin1_grid_id'], name: $grid_row['name'] );
@@ -156,7 +167,7 @@ class PG_User_API {
             $location['lat'] = strval( $lat );
             $location['lng'] = strval( $lng );
             $location['country'] = self::_extract_country_from_label( $label );
-            $location['hash'] = $old_location ? $old_location['hash'] : '';
+            $location['hash'] = $hash;
             $location['timezone'] = $timezone ?? '';
 
             $result['location'] = $location;
