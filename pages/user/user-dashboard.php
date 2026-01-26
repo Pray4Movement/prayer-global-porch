@@ -251,6 +251,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 'days_this_year' => $user_stats->days_this_year(),
             ],
             'available_badges' => $available_badges,
+            'google_api_key' => get_option( 'pg_google_api_key' ),
         ] );
     }
 

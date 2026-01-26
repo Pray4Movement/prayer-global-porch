@@ -174,7 +174,7 @@ export class PgSettings extends OpenElement {
 
       if (!this.user.location.timezone) {
 
-        fetch(`https://maps.googleapis.com/maps/api/timezone/json?location=${this.user.location.lat}%2C${this.user.location.lng}&timestamp=${Date.now() / 1000}&key=AIzaSyApELjt2wi4E4uvzeal3jz-QPa6KaP3_NQ`, {
+        fetch(`https://maps.googleapis.com/maps/api/timezone/json?location=${this.user.location.lat}%2C${this.user.location.lng}&timestamp=${Date.now() / 1000}&key=${window.jsObject.google_api_key}`, {
           method: "GET",
         })
         .then((response) => response.json())
