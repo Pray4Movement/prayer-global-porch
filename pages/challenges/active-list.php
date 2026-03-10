@@ -26,8 +26,8 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
         $url = dt_get_url_path( true );
         if ( ( $this->root . '/' . $this->type ) === $url ) {
 
-            $this->magic = new DT_Magic_URL( $this->root );
-            $this->parts = $this->magic->parse_url_parts();
+            //$this->magic = new DT_Magic_URL( $this->root );
+            //$this->parts = $this->magic->parse_url_parts();
 
             // register url and access
             add_action( 'template_redirect', [ $this, 'theme_redirect' ] );
@@ -52,12 +52,22 @@ class Prayer_Global_Porch_Challenge_List extends DT_Magic_Url_Base
 
             add_filter( 'dt_override_header_meta', function (){ return true;
             }, 100, 1 );
+            add_filter( 'dt_magic_url_register_types', [ $this, 'dt_magic_url_register_types' ], 10, 1 );
         }
 
         if ( dt_is_rest() ) {
             add_action( 'rest_api_init', [ $this, 'add_endpoints' ] );
             add_filter( 'dt_allow_rest_access', [ $this, 'authorize_url' ], 10, 1 );
         }
+    }
+
+    public function dt_magic_url_register_types( array $types ): array {
+        $types = parent::dt_magic_url_register_types( $types );
+        // This is a keyless public listing page — no per-post magic key is used.
+        // Removing meta_key prevents parse_url_parts() from calling
+        // redirect_to_expired_landing_page() when extra URL segments are present.
+        unset( $types[ $this->root ][ $this->type ]['meta_key'] );
+        return $types;
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
