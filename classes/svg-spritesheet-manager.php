@@ -52,7 +52,7 @@ class SVG_Spritesheet_Manager {
             $cache_timestamp = filemtime( $cached_file );
 
             foreach ( $icons as $icon ) {
-                $icon_filename = trailingslashit( $this->icon_dir ) . $icon;
+                $icon_filename = trailingslashit( $this->icon_dir ) . $icon . '.svg';
                 if ( filemtime( $icon_filename ) > $cache_timestamp ) {
                     $regenerate = true;
                     break;
