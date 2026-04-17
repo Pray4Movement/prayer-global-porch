@@ -5385,15 +5385,19 @@ function pg_soft_time_format( $object, $timestamp_key, $when_key, $timestamp_for
  * @return mixed
  */
 function pg_get_user( int $user_id, array $allowed_meta ) {
-    $userdata = get_userdata( $user_id );
+    $wp_user = get_userdata( $user_id );
 
-    if ( $userdata instanceof stdClass ) {
-        $userdata = get_object_vars( $userdata );
-    } elseif ( $userdata instanceof WP_User ) {
-        $userdata = $userdata->to_array();
-    } else {
-        $userdata = [];
+    if ( !$wp_user ) {
+        return [];
     }
+
+    $allowed_fields = [ 'ID', 'display_name', 'user_email' ];
+
+    $userdata = [];
+    foreach ( $allowed_fields as $field ) {
+        $userdata[$field] = $wp_user->$field ?? '';
+    }
+    $userdata['id'] = $userdata['ID'];
 
     foreach ( $allowed_meta as $meta_key ) {
         $namespaced_meta_key = PG_NAMESPACE . $meta_key;
