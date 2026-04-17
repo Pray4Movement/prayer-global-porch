@@ -27,6 +27,7 @@ trait PG_Lap_Trait {
             'global-functions',
             'canvas-confetti',
             'umami',
+            'go-analytics'
         ];
     }
 

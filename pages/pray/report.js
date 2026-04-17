@@ -47,6 +47,7 @@ window.load_report_modal = () => {
       return;
     }
 
+    if (window.goStats) { window.goStats.track('correction_submitted'); }
     correction_spinner.classList.add("active");
     correction_submit.setAttribute("disabled", true);
 

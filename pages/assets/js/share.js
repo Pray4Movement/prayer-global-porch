@@ -51,6 +51,7 @@ window.addEventListener("load", function ($) {
         shareFacebook.addEventListener("click", shareFacebookAction); */
 
         const shareTwitterAction = () => {
+          if (window.goStats) { window.goStats.track('share', { metadata: { method: 'twitter' } }); }
           const twitterUrl = `https://twitter.com/intent/tweet?url=${encodedPageToShare}&text=${encodedTextToShare}&hashtags=prayerGlobal`;
           openURL(twitterUrl);
         };
@@ -58,6 +59,7 @@ window.addEventListener("load", function ($) {
         shareTwitter.addEventListener("click", shareTwitterAction);
 
         const shareEmailAction = () => {
+          if (window.goStats) { window.goStats.track('share', { metadata: { method: 'email' } }); }
           const subject = "Prayer Global";
           const body = `
                 ${content}
@@ -70,6 +72,7 @@ window.addEventListener("load", function ($) {
         shareEmail.addEventListener("click", shareEmailAction);
 
         const shareLinkAction = () => {
+          if (window.goStats) { window.goStats.track('share', { metadata: { method: 'link_copy' } }); }
           navigator.clipboard.writeText(url);
           shareLink.classList.add("list-group-item-success");
         };
@@ -95,9 +98,11 @@ window.addEventListener("load", function ($) {
         "share"
       );
       if (window.isMobileAppUser()) {
+        if (window.goStats) { window.goStats.track('share', { metadata: { method: 'native_share' } }); }
         window.location.href =
           "gonative://share/sharePage?url=" + (url ?? encodedPageToShare);
       } else if (isWebAPIShareAvailable) {
+        if (window.goStats) { window.goStats.track('share', { metadata: { method: 'native_share' } }); }
         const data = {
           url: url ?? encodedPageToShare,
         };

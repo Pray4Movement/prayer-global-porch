@@ -64,8 +64,10 @@ class PG_Login extends PG_Public_Page {
             return new WP_Error( 'invalid_credentials', 'Invalid email or password', [ 'status' => 401 ] );
         }
 
-        // Set the auth cookie for the user
+        // Set the auth cookie and current user so analytics hooks can access user data
+        wp_set_current_user( $user->ID );
         wp_set_auth_cookie( $user->ID, true );
+        do_action( 'wp_login', $user->user_login, $user );
 
         return new WP_REST_Response( [
             'status' => 200,

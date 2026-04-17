@@ -85,6 +85,15 @@ add_filter( 'auth_cookie_expiration', function (){
     return 365 * DAY_IN_SECONDS;
 }, 20 );
 
+/* Provide the visitor hash for server-side analytics events */
+add_filter( 'go_analytics_anonymous_hash', function () {
+    $user_id = get_current_user_id();
+    if ( ! $user_id ) {
+        return null;
+    }
+    return get_user_meta( $user_id, 'pg_location_hash', true ) ?: null;
+} );
+
 /**
  * Singleton class for setting up the plugin.
  *

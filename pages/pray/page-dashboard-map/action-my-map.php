@@ -304,6 +304,7 @@ class PG_My_Map extends PG_Public_Page {
         $allowed_js[] = 'heatmap-js';
         $allowed_js[] = 'my-map-heatmap';
         $allowed_js[] = 'umami';
+        $allowed_js[] = 'go-analytics';
 
         return $allowed_js;
     }

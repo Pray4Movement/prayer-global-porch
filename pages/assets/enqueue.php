@@ -22,6 +22,7 @@ add_filter( 'dt_magic_url_base_allowed_js', function ( $allowed_js ){
         'umami',
         'lit-bundle',
         'glitchtip',
+        'go-analytics'
     ] );
 
     return $allowed_js;

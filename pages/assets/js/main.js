@@ -232,6 +232,10 @@ window.addEventListener("DOMContentLoaded", function () {
 
   $(".dt-magic-link-language-selector a").click((e) => {
     const val = $(e.currentTarget).data("value");
+    if (window.goStats) {
+      const currentLang = new URLSearchParams(window.location.search).get("lang") || document.documentElement.lang || "en";
+      window.goStats.track('language_switched', { metadata: { from_lang: currentLang, to_lang: val } });
+    }
     const urlParams = new URLSearchParams(window.location.search);
     urlParams.set("lang", val);
     window.location.search = urlParams;

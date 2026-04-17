@@ -366,6 +366,9 @@ function celebrateAndDone() {
           !window.pg_global.has_used_app &&
           (!window.isMobileAppUser() || window.isLegacyAppUser)
         ) {
+          if (typeof window.goStats !== 'undefined') {
+            window.goStats.track('cta_displayed', { metadata: { cta_id: 'download_app' } });
+          }
           const divContainer = document.createElement("div");
           divContainer.classList.add("flow");
           divContainer.classList.add("bg-light");
@@ -384,6 +387,7 @@ function celebrateAndDone() {
                   target="_blank"
                   class="center btn cta bold"
                   data-umami-event="Pray - Download app"
+                  onclick="if(window.goStats){window.goStats.track('app_download_clicked')}"
                 >
                   ${jsObject.translations.go_to_app_store}
                 </a>
@@ -399,6 +403,9 @@ function celebrateAndDone() {
         `;
       });
   } else {
+    if (typeof window.goStats !== 'undefined') {
+      window.goStats.track('cta_displayed', { metadata: { cta_id: 'register_now' } });
+    }
     celebrateContentContainer.innerHTML = `
     <hr class="seperator-thick">
     <div class="flow">
@@ -430,6 +437,7 @@ function celebrateAndDone() {
         class="center btn bg-orange"
         id="celebrate-panel__done"
         data-umami-event="Pray - Register now"
+        onclick="if(window.goStats){window.goStats.track('cta_clicked',{metadata:{cta_id:'register_now'}})}"
       >
         ${jsObject.translations.register_now}
       </a>
@@ -440,6 +448,7 @@ function celebrateAndDone() {
       class="center btn outline space-lg"
       id="celebrate-panel__done"
       data-umami-event="Pray - No thanks"
+      onclick="if(window.goStats){window.goStats.track('cta_clicked',{metadata:{cta_id:'no_thanks'}})}"
     >
       ${jsObject.translations.no_thanks}
     </a>
@@ -471,6 +480,9 @@ function getMapUrl() {
 }
 
 function showMorePrayerFuel() {
+  if (typeof window.goStats !== 'undefined') {
+    window.goStats.track('prayer_content_expanded');
+  }
   const hiddenBlocks = contentElement.querySelectorAll(".block.hidden");
   hiddenBlocks.forEach((block) => {
     block.classList.remove("hidden");
@@ -569,6 +581,17 @@ function startTimer(time) {
         });
 
       window.alreadyLogged = true;
+
+      if (window.goStats) {
+        window.goStats.track('prayer_completed', {
+          value: Math.round(window.time),
+          metadata: {
+            lap_type: jsObject.is_custom ? 'custom' : 'global',
+            lap_id: jsObject.parts.post_id,
+            location_grid_id: jsObject.location.location.grid_id,
+          },
+        });
+      }
     }
 
     if (window.time < window.seconds) {

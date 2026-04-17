@@ -368,5 +368,41 @@ class PG_Relays_Table {
             ( ?, ?, ?, ?, ?, ? )
             ", [ $relay_id, 'pg_relays', 'lap_completed', '', $completed_lap_number, time() ]
         );
+
+        $this->track_lap_completed( $relay_id, $completed_lap_number, $relay_type );
+    }
+
+    private function track_lap_completed( $relay_id, $completed_lap_number, $relay_type ) {
+        if ( !defined( 'GO_ANALYTICS_API_KEY' ) || !defined( 'GO_ANALYTICS_ENDPOINT' ) || !defined( 'GO_ANALYTICS_PROJECT_ID' ) ) {
+            return;
+        }
+
+        $is_global = ( (int) $relay_id === 2128 );
+        $event_type = $is_global ? 'global_lap_completed' : 'custom_lap_completed';
+
+        $payload = json_encode( [
+            'project_id' => GO_ANALYTICS_PROJECT_ID,
+            'event_type' => $event_type,
+            'hostname'   => 'prayer.global',
+            'metadata'   => [
+                'lap_id' => $relay_id,
+                'lap_number' => $completed_lap_number,
+            ],
+            'value'      => $completed_lap_number,
+        ] );
+
+        $ch = curl_init( rtrim( GO_ANALYTICS_ENDPOINT, '/' ) . '/api/events' );
+        curl_setopt_array( $ch, [
+            CURLOPT_POST           => true,
+            CURLOPT_POSTFIELDS     => $payload,
+            CURLOPT_HTTPHEADER     => [
+                'Content-Type: application/json',
+                'x-api-key: ' . GO_ANALYTICS_API_KEY,
+            ],
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_TIMEOUT        => 5,
+        ] );
+        curl_exec( $ch );
+        curl_close( $ch );
     }
 }

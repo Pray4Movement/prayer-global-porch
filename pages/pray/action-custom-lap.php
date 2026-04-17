@@ -106,6 +106,7 @@ class PG_Custom_Prayer_App_Lap extends PG_Custom_Prayer_App {
             'global-functions',
             'canvas-confetti',
             'umami',
+            'go-analytics'
         ];
     }
 
