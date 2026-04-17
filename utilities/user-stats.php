@@ -114,13 +114,13 @@ class User_Stats {
         $user_relay_ids = $this->user_relay_ids();
 
         // phpcs:disable
-        return (int) $wpdb->get_var( $wpdb->prepare(
+        return (int) $wpdb->get_var(
             "SELECT COUNT( DISTINCT( r.user_id ) ) as people_joined_own_relay
                 FROM $wpdb->dt_reports r
                 WHERE r.post_type = 'pg_relays'
                 AND r.subtype = 'custom'
                 AND r.post_id IN ( " . implode( ',', $user_relay_ids ) . " )
-            " ) );
+            " );
         // phpcs:enable
     }
 
@@ -131,13 +131,13 @@ class User_Stats {
         $user_relay_ids = $this->user_relay_ids();
 
         // phpcs:disable
-        return (int) $wpdb->get_var( $wpdb->prepare(
+        return (int) $wpdb->get_var(
             "SELECT COUNT( r.grid_id ) as total_locations_prayed_in_own_relay
                 FROM $wpdb->dt_reports r
                 WHERE r.post_type = 'pg_relays'
                 AND r.subtype = 'custom'
                 AND r.post_id IN ( " . implode( ',', $user_relay_ids ) . " )
-            " ) );
+            " );
         // phpcs:enable
     }
 
