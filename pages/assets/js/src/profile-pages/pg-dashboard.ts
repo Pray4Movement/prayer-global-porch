@@ -293,12 +293,28 @@ export class PgDashboard extends OpenElement {
   }
 
   private async link_anonymous_prayers() {
-    const url = `${window.pg_global.root}pg-api/v1/dashboard/link_anonymous_prayers`;
-    window.api_fetch(url, {
-      method: "POST",
-      body: JSON.stringify({
-        location_hash: this.user.location_hash,
-      }),
-    });
+    const local_hash = localStorage.getItem("pg_user_hash");
+    const server_hash = this.user?.location_hash;
+
+    if (local_hash && local_hash !== "undefined" && local_hash !== server_hash) {
+      const url = `${window.pg_global.root}pg-api/v1/dashboard/link_anonymous_prayers`;
+      await window.api_fetch(url, {
+        method: "POST",
+        body: JSON.stringify({
+          hash: local_hash,
+        }),
+      });
+    }
+
+    if (server_hash) {
+      localStorage.setItem("pg_user_hash", server_hash);
+
+      const saved = localStorage.getItem("user_location");
+      if (saved) {
+        const location = JSON.parse(saved);
+        location.hash = server_hash;
+        this.saveLocationToLocalStorage(location);
+      }
+    }
   }
 }

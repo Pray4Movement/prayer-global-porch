@@ -465,9 +465,11 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
 
         $data = $request->get_params();
 
-        if ( $data['hash'] ) {
-            return new WP_Error( __METHOD__, 'user_id or hash missing', [ 'status' => 400, ] );
+        if ( empty( $data['hash'] ) ) {
+            return new WP_Error( __METHOD__, 'hash missing', [ 'status' => 400, ] );
         }
+
+        $hash = sanitize_text_field( wp_unslash( $data['hash'] ) );
 
         global $wpdb;
 
@@ -476,7 +478,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
             WHERE hash = %s
             AND type = 'prayer_app'
             AND user_id IS NULL
-        ", $data['hash'] ) );
+        ", $hash ) );
 
         $has_updates = $updates > 0;
         if ( $has_updates ) {
@@ -486,7 +488,7 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
                 WHERE hash = %s
                 AND type = 'prayer_app'
                 AND user_id IS NULL
-            ", $data['user_id'], $data['hash'] ) );
+            ", $user_id, $hash ) );
         }
 
         return [
@@ -574,6 +576,10 @@ class PG_User_App_Profile extends DT_Magic_Url_Base {
         $fields['single_lap'] = (bool) $data['single_lap'] ?? false;
 
         $post = DT_Posts::create_post( 'pg_relays', $fields );
+
+        if ( !is_wp_error( $post ) && function_exists( 'go_analytics_track' ) ) {
+            go_analytics_track( 'custom_lap_created', [ 'lap_id' => $post['ID'] ] );
+        }
 
         return $post;
     }
