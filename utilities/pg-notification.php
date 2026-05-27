@@ -37,7 +37,10 @@ class PG_Notification {
             $message,
             $title,
             $url,
-            [],
+            [
+                'badge_title' => $badge->get_title(),
+                'badge_image' => $badge->get_image(),
+            ],
             $badge->get_id(),
             $badge->get_value()
         );
