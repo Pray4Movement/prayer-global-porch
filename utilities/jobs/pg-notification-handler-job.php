@@ -44,12 +44,28 @@ class PG_Notification_Handler_Job extends Job {
 
             $user_notifications_permission = get_user_meta( $user->ID, PG_NAMESPACE . 'notifications_permission', true );
             $can_send_push = $user_notifications_permission === '1';
-            if ( !$can_send_push ) {
-                continue;
-            }
 
             $push_undeliverable_at = get_user_meta( $user->ID, PG_NAMESPACE . 'push_undeliverable_at', true );
-            if ( !empty( $push_undeliverable_at ) ) {
+            $push_deliverable = empty( $push_undeliverable_at );
+
+            if ( !$can_send_push || !$push_deliverable ) {
+                // Push is not available for this user — try email fallback for badge notifications.
+                if ( !empty( $new_badges ) ) {
+                    $user_emails_permission = get_user_meta( $user->ID, PG_NAMESPACE . 'emails_permission', true );
+                    if ( $user_emails_permission === '1' ) {
+                        $user_language = get_user_meta( $user->ID, PG_NAMESPACE . 'language', true );
+                        $user_language = !empty( $user_language ) ? $user_language : 'en_US';
+                        pg_switch_notifications_locale( $user_language );
+
+                        $notification = count( $new_badges ) === 1
+                            ? PG_Notification::from_badge( $new_badges[0] )
+                            : PG_Notification::from_badges( $new_badges );
+
+                        if ( !PG_Notifications_Sent::is_recent( $user->ID, $notification ) ) {
+                            wp_queue()->push( new PG_User_Email_Notification_Job( $user, $notification, $user_language ), 15 * MINUTE_IN_SECONDS );
+                        }
+                    }
+                }
                 continue;
             }
 
