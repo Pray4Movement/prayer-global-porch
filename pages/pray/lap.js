@@ -585,6 +585,8 @@ function startTimer(time) {
       if (window.goStats) {
         window.goStats.track('prayer_completed', {
           value: Math.round(window.time),
+          target_latitude: jsObject.location.location.latitude,
+          target_longitude: jsObject.location.location.longitude,
           metadata: {
             lap_type: jsObject.is_custom ? 'custom' : 'global',
             lap_id: jsObject.parts.post_id,
