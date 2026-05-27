@@ -85,7 +85,33 @@ class PG_Onesignal {
             }, '' ) );
         }
 
+        $decoded_error = self::extract_response_error_message( $response );
+        if ( $decoded_error !== null ) {
+            throw new Exception( 'pg_push_notification_error: ' . $decoded_error );
+        }
+
         return $response;
+    }
+
+    private static function extract_response_error_message( $response ) {
+        $data = is_string( $response ) ? json_decode( $response, true ) : null;
+        if ( !is_array( $data ) || empty( $data['errors'] ) ) {
+            return null;
+        }
+        $errors = $data['errors'];
+        $parts = [];
+        if ( is_array( $errors ) ) {
+            foreach ( $errors as $key => $value ) {
+                if ( is_string( $value ) ) {
+                    $parts[] = $value;
+                } elseif ( is_array( $value ) ) {
+                    $parts[] = ( is_string( $key ) ? $key . ': ' : '' ) . implode( ', ', array_map( 'strval', $value ) );
+                }
+            }
+        } elseif ( is_string( $errors ) ) {
+            $parts[] = $errors;
+        }
+        return empty( $parts ) ? null : implode( ' **&&** ', $parts );
     }
 
     private static function response_indicates_undeliverable( $response ) {
