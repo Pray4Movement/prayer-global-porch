@@ -506,7 +506,7 @@ class PG_User_API {
 
         update_user_meta( $user_id, PG_NAMESPACE . 'notifications_permission', $notifications_permission );
 
-        if ( $notifications_permission === '1' ) {
+        if ( filter_var( $notifications_permission, FILTER_VALIDATE_BOOLEAN ) ) {
             delete_user_meta( $user_id, PG_NAMESPACE . 'push_undeliverable_at' );
         }
 

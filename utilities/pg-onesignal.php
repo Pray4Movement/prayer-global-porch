@@ -75,7 +75,9 @@ class PG_Onesignal {
             throw new Exception( 'pg_push_notification_error: ' . $err );
         }
 
-        if ( self::response_indicates_undeliverable( $response ) ) {
+        $decoded = is_string( $response ) ? json_decode( $response, true ) : null;
+
+        if ( self::response_indicates_undeliverable( $decoded ) ) {
             return 'undeliverable';
         }
 
@@ -85,7 +87,7 @@ class PG_Onesignal {
             }, '' ) );
         }
 
-        $decoded_error = self::extract_response_error_message( $response );
+        $decoded_error = self::extract_response_error_message( $decoded );
         if ( $decoded_error !== null ) {
             throw new Exception( 'pg_push_notification_error: ' . $decoded_error );
         }
@@ -93,8 +95,7 @@ class PG_Onesignal {
         return $response;
     }
 
-    private static function extract_response_error_message( $response ) {
-        $data = is_string( $response ) ? json_decode( $response, true ) : null;
+    private static function extract_response_error_message( $data ) {
         if ( !is_array( $data ) || empty( $data['errors'] ) ) {
             return null;
         }
@@ -114,8 +115,7 @@ class PG_Onesignal {
         return empty( $parts ) ? null : implode( ' **&&** ', $parts );
     }
 
-    private static function response_indicates_undeliverable( $response ) {
-        $data = is_string( $response ) ? json_decode( $response, true ) : null;
+    private static function response_indicates_undeliverable( $data ) {
         if ( !is_array( $data ) || !isset( $data['errors'] ) ) {
             return false;
         }
@@ -125,6 +125,10 @@ class PG_Onesignal {
         }
         if ( is_array( $errors ) ) {
             foreach ( $errors as $msg ) {
+                // OneSignal returns the literal English string "All included players are not subscribed"
+                // (inside an indexed errors array) when the target external_id exists but has no
+                // active push subscriptions — e.g. user uninstalled or revoked permission. No
+                // structured error key is provided for this case in the v1 notifications API.
                 if ( is_string( $msg ) && stripos( $msg, 'not subscribed' ) !== false ) {
                     return true;
                 }
