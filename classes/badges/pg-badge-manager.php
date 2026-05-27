@@ -5,6 +5,7 @@ class PG_Badge_Manager {
     private User_Stats $user_stats;
     private PG_Badges $pg_badges;
     private array $month_translations;
+    private array $all_earned_badge_rows = [];
     public function __construct( int $user_id ) {
         $this->user_id = $user_id;
         $this->user_stats = new User_Stats( $user_id );
@@ -27,6 +28,7 @@ class PG_Badge_Manager {
 
     public function get_all_badges(): array {
         $all_earned_badges = PG_Badge_Model::get_all_badges( $this->user_id );
+        $this->all_earned_badge_rows = $all_earned_badges;
         $all_earned_badge_ids = array_column( $all_earned_badges, 'id' );
         $all_badges = $this->pg_badges->get_all_badges();
         $has_processed_monthly_challenge_badges = false;
@@ -251,41 +253,43 @@ class PG_Badge_Manager {
                 }
             }
             if ( $badge->get_type() === PG_Badges::TYPE_MULTIPLE ) {
-                $timestamp = $badge->get_timestamp();
-                $diff_in_days = 1000000;
-                if ( !empty( $timestamp ) ) {
-                    $badge_date = new DateTime( "@$timestamp" );
-                    $badge_date->setTimezone( new DateTimeZone( $this->user_stats->location['time_zone'] ?? 'UTC' ) );
-                    $now_date = new DateTime();
-                    $now_date->setTimezone( new DateTimeZone( $this->user_stats->location['time_zone'] ?? 'UTC' ) );
-                    $diff_in_days = (int) $now_date->diff( $badge_date )->format( '%a' );
+                $period_days_by_id = [
+                    PG_Badges::ID_PERFECT_WEEK  => 7,
+                    PG_Badges::ID_PERFECT_MONTH => 30,
+                    PG_Badges::ID_PERFECT_YEAR  => 365,
+                ];
+                if ( !isset( $period_days_by_id[ $badge->get_id() ] ) ) {
+                    continue;
+                }
+                $period_days = $period_days_by_id[ $badge->get_id() ];
+                $streak_days = $this->user_stats->current_streak_in_days();
+                if ( $streak_days < $period_days ) {
+                    continue;
+                }
 
-                    if ( $badge->is_retroactive() ) {
-                        $diff_in_days = 1000000;
+                // Streak start = midnight of the earliest day in the current streak, in the user's timezone.
+                $tz = new DateTimeZone( $this->user_stats->location['time_zone'] ?? 'UTC' );
+                $streak_start_timestamp = ( new DateTime( 'now', $tz ) )
+                    ->setTime( 0, 0, 0 )
+                    ->modify( '-' . ( $streak_days - 1 ) . ' days' )
+                    ->getTimestamp();
+
+                $periods_completed_in_streak = intdiv( $streak_days, $period_days );
+
+                $periods_credited_in_streak = 0;
+                foreach ( $this->all_earned_badge_rows as $row ) {
+                    if ( $row['id'] !== $badge->get_id() ) {
+                        continue;
+                    }
+                    if ( !empty( $row['retroactive'] ) ) {
+                        continue;
+                    }
+                    if ( (int) $row['timestamp'] >= $streak_start_timestamp ) {
+                        $periods_credited_in_streak++;
                     }
                 }
-                if (
-                    $badge->get_id() === PG_Badges::ID_PERFECT_WEEK &&
-                    $this->user_stats->current_streak_in_days() > 0 &&
-                    $this->user_stats->current_streak_in_days() % 7 === 0 &&
-                    $diff_in_days >= 7 - 1
-                ) {
-                    $newly_earned_badges[] = $badge;
-                }
-                if (
-                    $badge->get_id() === PG_Badges::ID_PERFECT_MONTH &&
-                    $this->user_stats->current_streak_in_days() > 0 &&
-                    $this->user_stats->current_streak_in_days() % 30 === 0 &&
-                    $diff_in_days >= 30 - 1
-                ) {
-                    $newly_earned_badges[] = $badge;
-                }
-                if (
-                    $badge->get_id() === PG_Badges::ID_PERFECT_YEAR &&
-                    $this->user_stats->current_streak_in_days() > 0 &&
-                    $this->user_stats->current_streak_in_days() % 365 === 0 &&
-                    $diff_in_days >= 365 - 1
-                ) {
+
+                if ( $periods_completed_in_streak > $periods_credited_in_streak ) {
                     $newly_earned_badges[] = $badge;
                 }
             }
