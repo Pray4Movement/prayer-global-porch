@@ -506,6 +506,10 @@ class PG_User_API {
 
         update_user_meta( $user_id, PG_NAMESPACE . 'notifications_permission', $notifications_permission );
 
+        if ( $notifications_permission === '1' ) {
+            delete_user_meta( $user_id, PG_NAMESPACE . 'push_undeliverable_at' );
+        }
+
         return new WP_REST_Response([
             'status' => 200,
             'message' => 'Notifications permission updated successfully'

@@ -73,12 +73,37 @@ class PG_Onesignal {
 
         if ( $err ) {
             throw new Exception( 'pg_push_notification_error: ' . $err );
-        } else if ( isset( $response['errors'] ) && is_array( $response['errors'] ) && count( $response['errors'] ) > 0 ) {
+        }
+
+        if ( self::response_indicates_undeliverable( $response ) ) {
+            return 'undeliverable';
+        }
+
+        if ( isset( $response['errors'] ) && is_array( $response['errors'] ) && count( $response['errors'] ) > 0 ) {
             throw new Exception( 'pg_push_notification_error: ' . array_reduce( $response['errors'], function( $carry, $item ) {
                 return $carry . $item['message'] . ' **&&** ';
             }, '' ) );
-        } else {
-            return $response;
         }
+
+        return $response;
+    }
+
+    private static function response_indicates_undeliverable( $response ) {
+        $data = is_string( $response ) ? json_decode( $response, true ) : null;
+        if ( !is_array( $data ) || !isset( $data['errors'] ) ) {
+            return false;
+        }
+        $errors = $data['errors'];
+        if ( isset( $errors['invalid_external_user_ids'] ) || isset( $errors['invalid_aliases'] ) ) {
+            return true;
+        }
+        if ( is_array( $errors ) ) {
+            foreach ( $errors as $msg ) {
+                if ( is_string( $msg ) && stripos( $msg, 'not subscribed' ) !== false ) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }
