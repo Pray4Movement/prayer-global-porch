@@ -51,7 +51,7 @@ class PG_User_Email_Notification_Job extends Job {
         $headline   = esc_html( $this->notification->title );
         $cta_label  = esc_html__( 'View your badges', 'prayer-global-porch' );
         $brand_name = 'Prayer.Global';
-        $footer_tag = esc_html__( 'Pray for every place on earth.', 'prayer-global-porch' );
+        $footer_tag = esc_html__( 'Cover the World in Prayer', 'prayer-global-porch' );
         $logo_alt   = esc_attr( $brand_name );
 
         $badge_cards = '';
