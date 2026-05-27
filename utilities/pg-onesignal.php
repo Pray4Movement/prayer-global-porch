@@ -72,9 +72,9 @@ class PG_Onesignal {
         curl_close( $curl );
 
         if ( $err ) {
-            throw new Exception( 'pg_push_notification_error', $err );
+            throw new Exception( 'pg_push_notification_error: ' . $err );
         } else if ( isset( $response['errors'] ) && is_array( $response['errors'] ) && count( $response['errors'] ) > 0 ) {
-            throw new Exception( 'pg_push_notification_error', array_reduce( $response['errors'], function( $carry, $item ) {
+            throw new Exception( 'pg_push_notification_error: ' . array_reduce( $response['errors'], function( $carry, $item ) {
                 return $carry . $item['message'] . ' **&&** ';
             }, '' ) );
         } else {
