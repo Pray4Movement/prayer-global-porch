@@ -29,6 +29,10 @@ class PG_User_Push_Notification_Job extends Job {
         if ( $return === false ) {
             return;
         }
+        if ( $return === 'undeliverable' ) {
+            update_user_meta( $this->user_id, PG_NAMESPACE . 'push_undeliverable_at', time() );
+            return;
+        }
         if ( $this->notification->category === 'badges' ) {
             foreach ( $this->notification->data as $badge ) {
                 PG_Notifications_Sent::record( $this->user_id, PG_Notification::from_badge( PG_Badge::from_array( $badge ) ), PG_CHANNEL_PUSH );

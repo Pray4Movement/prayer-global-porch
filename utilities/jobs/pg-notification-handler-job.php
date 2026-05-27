@@ -36,6 +36,11 @@ class PG_Notification_Handler_Job extends Job {
                 continue;
             }
 
+            $push_undeliverable_at = get_user_meta( $user->ID, PG_NAMESPACE . 'push_undeliverable_at', true );
+            if ( !empty( $push_undeliverable_at ) ) {
+                continue;
+            }
+
             /* Change locale to user locale for notification translation */
             $user_language = get_user_meta( $user->ID, PG_NAMESPACE . 'language', true );
             $user_language = !empty( $user_language ) ? $user_language : 'en_US';
