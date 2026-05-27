@@ -112,6 +112,10 @@ class User_Stats {
         global $wpdb;
 
         $user_relay_ids = $this->user_relay_ids();
+        if ( empty( $user_relay_ids ) ) {
+            return 0;
+        }
+        $user_relay_ids = array_map( 'intval', $user_relay_ids );
 
         // phpcs:disable
         return (int) $wpdb->get_var(
@@ -129,6 +133,10 @@ class User_Stats {
         global $wpdb;
 
         $user_relay_ids = $this->user_relay_ids();
+        if ( empty( $user_relay_ids ) ) {
+            return 0;
+        }
+        $user_relay_ids = array_map( 'intval', $user_relay_ids );
 
         // phpcs:disable
         return (int) $wpdb->get_var(
