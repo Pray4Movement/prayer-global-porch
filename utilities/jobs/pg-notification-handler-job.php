@@ -30,6 +30,18 @@ class PG_Notification_Handler_Job extends Job {
 
             $processed_users[] = $user->ID;
 
+            // Persist newly-earned badges before the push-eligibility gates below;
+            // a badge records activity the user did and must not depend on delivery channel.
+            $new_badges = [];
+            if ( !pg_is_user_in_ab_test( $user->ID ) ) {
+                $badges_manager = new PG_Badge_Manager( $user->ID );
+                $new_badges = $badges_manager->get_newly_earned_badges();
+
+                foreach ( $new_badges as $badge ) {
+                    $badges_manager->earn_badge( $badge->get_id() );
+                }
+            }
+
             $user_notifications_permission = get_user_meta( $user->ID, PG_NAMESPACE . 'notifications_permission', true );
             $can_send_push = $user_notifications_permission === '1';
             if ( !$can_send_push ) {
@@ -48,14 +60,6 @@ class PG_Notification_Handler_Job extends Job {
             pg_switch_notifications_locale( $user_language );
 
             if ( !pg_is_user_in_ab_test( $user->ID ) ) {
-                // get the users new badges that haven't been awarded yet
-                $badges_manager = new PG_Badge_Manager( $user->ID );
-                $new_badges = $badges_manager->get_newly_earned_badges();
-
-                foreach ( $new_badges as $badge ) {
-                    $badges_manager->earn_badge( $badge->get_id() );
-                }
-
                 if ( $can_send_push && count( $new_badges ) === 1 &&
                     !PG_Notifications_Sent::is_recent( $user->ID, PG_Notification::from_badge( $new_badges[0] ) )
                 ) {
