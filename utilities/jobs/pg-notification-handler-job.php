@@ -3,6 +3,11 @@
 use WP_Queue\Job;
 
 class PG_Notification_Handler_Job extends Job {
+    // Local-time window (24h clock) during which inactivity milestones are sent, so the
+    // reminder lands in the evening rather than at local midnight when days_inactive flips.
+    const INACTIVITY_SEND_START_HOUR = 18;
+    const INACTIVITY_SEND_END_HOUR = 21;
+
     public function __construct() {}
 
     public function handle() {
@@ -117,18 +122,22 @@ class PG_Notification_Handler_Job extends Job {
                     }
                 }
 
-                // Inactivity milestones, matched from the precomputed days of inactivity.
-                // Using the static matcher avoids constructing PG_Milestones / User_Stats,
-                // which would each trigger a per-user meta query.
-                $milestones = PG_Milestones::match_inactivity_milestones( $days_inactive );
+                // Inactivity milestones — only send during the user's local evening window so
+                // the reminder lands at a useful hour instead of at local midnight (when
+                // days_inactive flips). Matched from the precomputed days of inactivity; the
+                // static matcher avoids constructing PG_Milestones / User_Stats per user.
+                $local_hour = $this->local_hour( $timezone );
+                if ( $local_hour >= self::INACTIVITY_SEND_START_HOUR && $local_hour < self::INACTIVITY_SEND_END_HOUR ) {
+                    $milestones = PG_Milestones::match_inactivity_milestones( $days_inactive );
 
-                foreach ( $milestones as $milestone ) {
-                    if (
-                        $milestone->get_category() === 'inactivity' &&
-                        !PG_Notifications_Sent::is_recent( $user_id, PG_Notification::from_milestone( $milestone ) )
-                    ) {
-                        if ( $milestone->push() ) {
-                            wp_queue()->push( new PG_User_Push_Notification_Job( $user_id, $user->user_email, PG_Notification::from_milestone( $milestone ) ) );
+                    foreach ( $milestones as $milestone ) {
+                        if (
+                            $milestone->get_category() === 'inactivity' &&
+                            !PG_Notifications_Sent::is_recent( $user_id, PG_Notification::from_milestone( $milestone ) )
+                        ) {
+                            if ( $milestone->push() ) {
+                                wp_queue()->push( new PG_User_Push_Notification_Job( $user_id, $user->user_email, PG_Notification::from_milestone( $milestone ) ) );
+                            }
                         }
                     }
                 }
@@ -153,13 +162,28 @@ class PG_Notification_Handler_Job extends Job {
         if ( empty( $last_tz ) ) {
             return 0;
         }
-        try {
-            $tz = new DateTimeZone( $timezone );
-        } catch ( \Exception $e ) {
-            $tz = new DateTimeZone( 'UTC' );
-        }
+        $tz = $this->resolve_timezone( $timezone );
         $today_midnight = new DateTime( 'today', $tz );
         $last_midnight = new DateTime( ( new DateTime( $last_tz, $tz ) )->format( 'Y-m-d' ), $tz );
         return (int) $last_midnight->diff( $today_midnight )->format( '%r%a' );
+    }
+
+    /**
+     * Current hour (0-23) in the user's timezone.
+     */
+    private function local_hour( string $timezone ): int {
+        return (int) ( new DateTime( 'now', $this->resolve_timezone( $timezone ) ) )->format( 'G' );
+    }
+
+    /**
+     * Build a DateTimeZone, falling back to UTC when the stored timezone is missing
+     * or invalid.
+     */
+    private function resolve_timezone( string $timezone ): DateTimeZone {
+        try {
+            return new DateTimeZone( $timezone );
+        } catch ( \Exception $e ) {
+            return new DateTimeZone( 'UTC' );
+        }
     }
 }
