@@ -172,7 +172,7 @@ export class PgSettings extends OpenElement {
     if (selectedLocation[0]) {
       this.user.location = selectedLocation[0] as unknown as Location;
 
-      if (!this.user.location.timezone) {
+      if (!this.user.location.time_zone) {
 
         fetch(`https://maps.googleapis.com/maps/api/timezone/json?location=${this.user.location.lat}%2C${this.user.location.lng}&timestamp=${Date.now() / 1000}&key=${window.jsObject.google_api_key}`, {
           method: "GET",
@@ -180,8 +180,8 @@ export class PgSettings extends OpenElement {
         .then((response) => response.json())
         .then((response: any) => {
           if (response) {
-            if (response.status !== "OK") {
-              this.user.location.timezone = response.timeZoneId;
+            if (response.status === "OK") {
+              this.user.location.time_zone = response.timeZoneId;
             }
             this.editAccount();
           }

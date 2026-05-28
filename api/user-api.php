@@ -152,7 +152,8 @@ class PG_User_API {
                 $hash = $old_location['hash'];
             }
 
-            if ( !isset( $location['timezone'] ) || empty( $location['timezone'] ) ) {
+            $incoming_timezone = $location['time_zone'] ?? $location['timezone'] ?? '';
+            if ( empty( $incoming_timezone ) ) {
                 $grid_row = $geocoder->get_grid_id_by_lnglat( $lng, $lat );
                 $timezone = self::_get_timezone_from_grid_id( grid_id: $grid_row['admin1_grid_id'], name: $grid_row['name'] );
 
@@ -160,7 +161,7 @@ class PG_User_API {
                     $timezone = self::_get_timezone_from_grid_id( grid_id: $grid_row['admin1_grid_id'], level: 1  );
                 }
             } else {
-                $timezone = $location['timezone'];
+                $timezone = $incoming_timezone;
             }
 
             $location['grid_id'] = $grid_row ? $grid_row['grid_id'] : false;
@@ -168,7 +169,9 @@ class PG_User_API {
             $location['lng'] = strval( $lng );
             $location['country'] = self::_extract_country_from_label( $label );
             $location['hash'] = $hash;
-            $location['timezone'] = $timezone ?? '';
+            // Canonical key is 'time_zone'; drop the legacy 'timezone' so the two don't diverge.
+            unset( $location['timezone'] );
+            $location['time_zone'] = $timezone ?? '';
 
             $result['location'] = $location;
             $user_updates['location'] = $location;
@@ -237,15 +240,23 @@ class PG_User_API {
                 continue;
             }
 
-            $meta_key = PG_NAMESPACE . $meta_key;
-
-            $meta_key = sanitize_text_field( wp_unslash( $meta_key ) );
-
             if ( is_array( $meta_value ) ) {
                 $meta_value = dt_sanitize_array( $meta_value );
             }
 
-            $response = update_user_meta( $user_id, $meta_key, $meta_value );
+            // Canonicalize the location timezone key. Different callers (settings
+            // save_details, dashboard save_location) supply 'timezone'; the rest of
+            // the code reads 'time_zone'. Normalize here so they can't diverge.
+            if ( $meta_key === 'location' && is_array( $meta_value ) && array_key_exists( 'timezone', $meta_value ) ) {
+                if ( empty( $meta_value['time_zone'] ) && !empty( $meta_value['timezone'] ) ) {
+                    $meta_value['time_zone'] = $meta_value['timezone'];
+                }
+                unset( $meta_value['timezone'] );
+            }
+
+            $prefixed_key = sanitize_text_field( wp_unslash( PG_NAMESPACE . $meta_key ) );
+
+            $response = update_user_meta( $user_id, $prefixed_key, $meta_value );
 
             if ( is_wp_error( $response ) ) {
                 return $response;
