@@ -61,7 +61,7 @@ class PG_Test_Push extends PG_Public_Page {
             [ PG_CHANNEL_PUSH ],
             $milestone_url,
         );
-        wp_queue()->push( new PG_User_Push_Notification_Job( $user, $milestone ) );
+        wp_queue()->push( new PG_User_Push_Notification_Job( $user->ID, $user->user_email, $milestone ) );
         return new WP_REST_Response( [ 'message' => 'Push job test sent' ] );
     }
 

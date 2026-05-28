@@ -10,7 +10,21 @@ class PG_Milestones
     {
         $this->user_stats = new User_Stats( $user_id );
 
-        $this->inactivity_milestones = [
+        $this->inactivity_milestones = self::inactivity_milestone_config();
+    }
+
+    /**
+     * The inactivity milestone thresholds (days => notification config).
+     *
+     * Static so callers that already know a user's days-of-inactivity can match
+     * a milestone without constructing PG_Milestones / User_Stats (which would
+     * trigger a per-user meta query).
+     *
+     * @return array
+     */
+    public static function inactivity_milestone_config(): array
+    {
+        return [
             1 => [
                 'title' => __( 'Keep your streak alive', 'prayer-global-porch' ),
                 'message' => __( 'Keep praying to maintain your streak!', 'prayer-global-porch' ),
@@ -97,6 +111,23 @@ class PG_Milestones
         $inactivity_milestones = $this->get_inactivity_milestone();
 
         return array_merge( $streak_milestones, $inactivity_milestones );
+    }
+
+    /**
+     * Get only the inactivity milestones.
+     *
+     * Skips the streak/celebratory computation, which runs an expensive
+     * window-function query (User_Stats::all_islands) that is not used when
+     * sending notifications.
+     *
+     * @param int|null $days_inactive Precomputed days of inactivity. When provided
+     *                                the value is used directly instead of querying
+     *                                User_Stats::days_of_inactivity().
+     * @return PG_Milestone[]
+     */
+    public function get_inactivity_milestones( ?int $days_inactive = null ): array
+    {
+        return $this->get_inactivity_milestone( false, $days_inactive );
     }
 
     /**
@@ -198,7 +229,7 @@ class PG_Milestones
      * @param bool $next_milestone Whether to find next milestone
      * @return array Array of PG_Milestone objects
      */
-    private function find_matching_milestone( array $milestone_config, int $current_value, bool $next_milestone = false ): array
+    private static function find_matching_milestone( array $milestone_config, int $current_value, bool $next_milestone = false ): array
     {
         if ( $current_value === 0 ) {
             return [];
@@ -249,12 +280,31 @@ class PG_Milestones
      *
      * @return PG_Milestone[]
      */
-    private function get_inactivity_milestone( bool $next_milestone = false ): array
+    private function get_inactivity_milestone( bool $next_milestone = false, ?int $days_inactive = null ): array
     {
-        $days_inactive = $this->user_stats->days_of_inactivity();
+        if ( $days_inactive === null ) {
+            $days_inactive = $this->user_stats->days_of_inactivity();
+        }
 
-        return $this->find_matching_milestone(
+        return self::find_matching_milestone(
             $this->inactivity_milestones,
+            $days_inactive,
+            $next_milestone
+        );
+    }
+
+    /**
+     * Match inactivity milestones for an already-known days-of-inactivity value,
+     * without constructing PG_Milestones / User_Stats.
+     *
+     * @param int  $days_inactive  The user's days of inactivity.
+     * @param bool $next_milestone Whether to find the next (upcoming) milestone.
+     * @return PG_Milestone[]
+     */
+    public static function match_inactivity_milestones( int $days_inactive, bool $next_milestone = false ): array
+    {
+        return self::find_matching_milestone(
+            self::inactivity_milestone_config(),
             $days_inactive,
             $next_milestone
         );
