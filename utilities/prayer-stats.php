@@ -117,6 +117,26 @@ class Prayer_Stats {
             }
         }
 
+        /* Anchor the global lap's clock to when the previous lap finished, not to the
+        earliest report tagged with this lap number. Prayers on custom relays contribute to
+        the global lap, so a prayer can land on the next global lap before the current one is
+        fully covered. That makes MIN( timestamp ) for the current global lap reach back into
+        the previous lap's window and inflate the elapsed time. Use the last report of the
+        previous global lap as the start instead; fall back to MIN( timestamp ) for lap 1.
+        Custom relays are prayed linearly, so their reports stay grouped and keep MIN. */
+        if ( $relay_key === self::$global_key && $lap_number > 1 ) {
+            $previous_lap_end = $wpdb->get_var( $wpdb->prepare(
+                "SELECT MAX( r.timestamp )
+                FROM $wpdb->dt_reports r
+                WHERE r.post_type = 'pg_relays'
+                AND r.global_lap_number = %d",
+                $lap_number - 1
+            ) );
+            if ( !empty( $previous_lap_end ) ) {
+                $result['start_time'] = $previous_lap_end;
+            }
+        }
+
         $ongoing = $lap_number === $current_lap_number;
         $end_time = $ongoing ? null : (int) $result['end_time'];
 
