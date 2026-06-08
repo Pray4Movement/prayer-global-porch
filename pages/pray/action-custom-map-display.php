@@ -37,8 +37,20 @@ class PG_Custom_Prayer_App_Map_Display extends PG_Custom_Prayer_App {
 
         add_filter( 'dt_magic_url_base_allowed_css', [ $this, 'dt_magic_url_base_allowed_css' ], 10, 1 );
         add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'dt_magic_url_base_allowed_js' ], 10, 1 );
+        // Runs after the global porch allowed_js filter (priority 100) so it can strip go-analytics back out.
+        add_filter( 'dt_magic_url_base_allowed_js', [ $this, 'remove_analytics_from_allowed_js' ], 200, 1 );
 
         add_action( 'wp_enqueue_scripts', [ $this, '_wp_enqueue_scripts' ], 100 );
+    }
+
+    /**
+     * Keep the analytics tracking script off the display page.
+     *
+     * The display map is a kiosk screen that hard-reloads itself on a loop, so each
+     * reload would be logged as a brand-new visitor and inflate the stats.
+     */
+    public function remove_analytics_from_allowed_js( $allowed_js ) {
+        return array_values( array_diff( $allowed_js, [ 'go-analytics' ] ) );
     }
 
     public function dt_magic_url_base_allowed_js( $allowed_js ) {
