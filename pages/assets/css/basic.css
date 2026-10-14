@@ -1750,7 +1750,7 @@ button:not[role="listitem"] {
 .btn-top {
     position: fixed;
     bottom: 0;
-    right: 0;
+    left: 0;
     margin: 1rem;
     font-size: 2rem;
     background-color: var(--pg-brand-color-lightest);

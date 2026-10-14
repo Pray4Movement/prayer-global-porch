@@ -102,6 +102,7 @@ class PG_Custom_Prayer_App_Map extends PG_Custom_Prayer_App {
     public function footer_javascript() {
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/share-modal.php' );
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/cta-modal.php' );
+        pg_helpinator_widget();
     }
 
     public function body(){

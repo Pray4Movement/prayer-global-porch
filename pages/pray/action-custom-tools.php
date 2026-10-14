@@ -65,6 +65,7 @@ class PG_Custom_Prayer_App_Tools extends PG_Custom_Prayer_App {
 
     public function footer_javascript(){
         require_once( trailingslashit( plugin_dir_path( __DIR__ ) ) . 'assets/footer.php' );
+        pg_helpinator_widget();
         ?>
         <script type="application/javascript">
           window.addEventListener('load', function() {

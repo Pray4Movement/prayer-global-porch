@@ -159,6 +159,63 @@ add_filter( 'script_loader_tag', function ( $tag, $handle ){
 
 
 
+/**
+ * Helpinator help chat widget.
+ *
+ * Printed on every blank template page that calls wp_footer(). Map and tools pages that skip
+ * wp_footer() call this function directly. Hidden on the prayer pages themselves (laps, event lap,
+ * single location) and on the map display page.
+ */
+function pg_helpinator_widget() {
+    static $printed = false;
+    if ( $printed ) {
+        return;
+    }
+    // prayer_app/{global|custom}/{public_key}/{action}
+    $parts = explode( '/', trim( dt_get_url_path( true ), '/' ) );
+    if ( ( $parts[0] ?? '' ) === 'prayer_app' && isset( $parts[2] ) && in_array( $parts[3] ?? '', [ '', 'event', 'location', 'display' ], true ) ) {
+        return;
+    }
+    $printed = true;
+    ?>
+    <style>
+        helpinator-widget {
+            --helpinator-primary: #f2944a;
+            --helpinator-on-primary: #fff;
+            --helpinator-font: var(--pg-font-family-base, "Europa", Arial, sans-serif);
+            --helpinator-radius: 14px;
+            --helpinator-offset-x: 20px;
+            --helpinator-offset-y: 20px;
+        }
+    </style>
+    <script src="https://apps.gospelambition.org/js/helpinator-widget.iife.js" defer></script> <?php //phpcs:ignore ?>
+    <helpinator-widget host="https://apps.gospelambition.org" widget-id="5abe69c8-ae7c-452f-8fbb-be5031f826d9"></helpinator-widget>
+    <script>
+        /* On map pages, raise the launcher above the bottom stats bar */
+        ( function () {
+            const footBlock = document.getElementById( 'foot_block' )
+            const widget = document.querySelector( 'helpinator-widget' )
+            if ( !footBlock || !widget || typeof ResizeObserver === 'undefined' ) {
+                return
+            }
+            new ResizeObserver( function () {
+                widget.style.setProperty( '--helpinator-offset-y', ( footBlock.offsetHeight + 20 ) + 'px' )
+            } ).observe( footBlock )
+        } )()
+    </script>
+    <?php
+}
+
+add_action( 'wp_footer', function (){
+    //only include on blank template pages, same as the scripts above
+    $url_path = dt_get_url_path( true );
+    $template = apply_filters( 'dt_templates_for_urls', [] );
+    if ( !empty( $url_path ) && ( !isset( $template[$url_path] ) || $template[$url_path] !== 'template-blank.php' ) ) {
+        return;
+    }
+    pg_helpinator_widget();
+}, 100 );
+
 add_action( 'dt_magic_url_base_allowed_css', function ( $allowed_css ){
     $allowed_css = [];
     $allowed_css[] = 'basic-css';

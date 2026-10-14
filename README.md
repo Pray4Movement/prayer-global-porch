@@ -2,7 +2,13 @@
 
 Prayer Global Porch is the core prayer app for the prayer.global website.
 
-## Creating a release
+## Deployment
+
+Production (prayer.global) deploys from the `master` branch using [WP Pusher](https://wppusher.com/). Anything pushed or merged to `master` goes to production, so only merge there when the change is ready to go live.
+
+`dev` is merged into `master` from time to time. Weblate translation PRs and the translations workflow target `dev`, so translation updates reach production when `dev` is next merged into `master`.
+
+## Creating a release (legacy)
 
 Run
 
